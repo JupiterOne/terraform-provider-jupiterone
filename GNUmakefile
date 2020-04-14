@@ -16,6 +16,7 @@ uninstall:
 	@rm -vf $(DIR)/terraform-provider-$(PKG_NAME)
 
 test: fmtcheck
+	errcheck
 	go test -i $(TEST) || exit 1
 	echo $(TEST) | \
 		xargs -t -n4 go test $(TESTARGS) -timeout=30s -parallel=4
