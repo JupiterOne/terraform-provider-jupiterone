@@ -21,6 +21,7 @@ require (
 	github.com/hashicorp/terraform-svchost v0.0.0-20191119180714-d2e4933b9136 // indirect
 	github.com/hashicorp/yamux v0.0.0-20190923154419-df201c70410d // indirect
 	github.com/jonboulle/clockwork v0.1.0
+	github.com/kisielk/errcheck v1.2.0 // indirect
 	github.com/machinebox/graphql v0.2.2
 	github.com/matryer/is v1.2.0 // indirect
 	github.com/mattn/go-colorable v0.1.6 // indirect
@@ -35,7 +36,7 @@ require (
 	github.com/zclconf/go-cty v1.4.0 // indirect
 	golang.org/x/crypto v0.0.0-20200406173513-056763e48d71 // indirect
 	golang.org/x/sys v0.0.0-20200409092240-59c9f1ba88fa // indirect
-	golang.org/x/tools v0.0.0-20200413015812-1f08ef6002a8 // indirect
+	golang.org/x/tools v0.0.0-20200414184246-912958979a1a // indirect
 	google.golang.org/api v0.21.0 // indirect
 	google.golang.org/genproto v0.0.0-20200413115906-b5235f65be36 // indirect
 	google.golang.org/grpc v1.28.1 // indirect
