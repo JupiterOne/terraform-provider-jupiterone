@@ -197,9 +197,11 @@ func resourceQuestionRuleInstanceCreate(d *schema.ResourceData, m interface{}) e
 		return fmt.Errorf("Failed to create question rule instance: %s", err.Error())
 	}
 
-	d.Set("version", createdQuestion.Version)
-	d.SetId(createdQuestion.Id)
+	if err := d.Set("version", createdQuestion.Version); err != nil {
+		return err
+	}
 
+	d.SetId(createdQuestion.Id)
 	return nil
 }
 
@@ -230,7 +232,10 @@ func resourceQuestionRuleInstanceUpdate(d *schema.ResourceData, m interface{}) e
 		return fmt.Errorf("Failed to update question rule instance: %s", err.Error())
 	}
 
-	d.Set("version", updatedQuestionRuleInstance.Version)
+	if err := d.Set("version", updatedQuestionRuleInstance.Version); err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -249,6 +254,9 @@ func resourceQuestionRuleInstanceRead(d *schema.ResourceData, m interface{}) err
 		return fmt.Errorf("Failed to read existing question rule instance: %s", err.Error())
 	}
 
-	d.Set("version", questionRuleInstance.Version)
+	if err := d.Set("version", questionRuleInstance.Version); err != nil {
+		return err
+	}
+
 	return nil
 }
