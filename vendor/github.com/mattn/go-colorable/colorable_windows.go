@@ -27,8 +27,6 @@ const (
 	backgroundRed       = 0x40
 	backgroundIntensity = 0x80
 	backgroundMask      = (backgroundRed | backgroundBlue | backgroundGreen | backgroundIntensity)
-
-	cENABLE_VIRTUAL_TERMINAL_PROCESSING = 0x4
 )
 
 const (
@@ -80,12 +78,10 @@ var (
 	procGetConsoleCursorInfo       = kernel32.NewProc("GetConsoleCursorInfo")
 	procSetConsoleCursorInfo       = kernel32.NewProc("SetConsoleCursorInfo")
 	procSetConsoleTitle            = kernel32.NewProc("SetConsoleTitleW")
-	procGetConsoleMode             = kernel32.NewProc("GetConsoleMode")
-	procSetConsoleMode             = kernel32.NewProc("SetConsoleMode")
 	procCreateConsoleScreenBuffer  = kernel32.NewProc("CreateConsoleScreenBuffer")
 )
 
-// Writer provides colorable Writer to the console
+// Writer provide colorable Writer to the console
 type Writer struct {
 	out       io.Writer
 	handle    syscall.Handle
@@ -95,17 +91,13 @@ type Writer struct {
 	rest      bytes.Buffer
 }
 
-// NewColorable returns new instance of Writer which handles escape sequence from File.
+// NewColorable return new instance of Writer which handle escape sequence from File.
 func NewColorable(file *os.File) io.Writer {
 	if file == nil {
 		panic("nil passed instead of *os.File to NewColorable()")
 	}
 
 	if isatty.IsTerminal(file.Fd()) {
-		var mode uint32
-		if r, _, _ := procGetConsoleMode.Call(file.Fd(), uintptr(unsafe.Pointer(&mode))); r != 0 && mode&cENABLE_VIRTUAL_TERMINAL_PROCESSING != 0 {
-			return file
-		}
 		var csbi consoleScreenBufferInfo
 		handle := syscall.Handle(file.Fd())
 		procGetConsoleScreenBufferInfo.Call(uintptr(handle), uintptr(unsafe.Pointer(&csbi)))
@@ -114,12 +106,12 @@ func NewColorable(file *os.File) io.Writer {
 	return file
 }
 
-// NewColorableStdout returns new instance of Writer which handles escape sequence for stdout.
+// NewColorableStdout return new instance of Writer which handle escape sequence for stdout.
 func NewColorableStdout() io.Writer {
 	return NewColorable(os.Stdout)
 }
 
-// NewColorableStderr returns new instance of Writer which handles escape sequence for stderr.
+// NewColorableStderr return new instance of Writer which handle escape sequence for stderr.
 func NewColorableStderr() io.Writer {
 	return NewColorable(os.Stderr)
 }
@@ -422,15 +414,7 @@ func doTitleSequence(er *bytes.Reader) error {
 	return nil
 }
 
-// returns Atoi(s) unless s == "" in which case it returns def
-func atoiWithDefault(s string, def int) (int, error) {
-	if s == "" {
-		return def, nil
-	}
-	return strconv.Atoi(s)
-}
-
-// Write writes data on console
+// Write write data on console
 func (w *Writer) Write(data []byte) (n int, err error) {
 	var csbi consoleScreenBufferInfo
 	procGetConsoleScreenBufferInfo.Call(uintptr(w.handle), uintptr(unsafe.Pointer(&csbi)))
@@ -516,7 +500,7 @@ loop:
 
 		switch m {
 		case 'A':
-			n, err = atoiWithDefault(buf.String(), 1)
+			n, err = strconv.Atoi(buf.String())
 			if err != nil {
 				continue
 			}
@@ -524,7 +508,7 @@ loop:
 			csbi.cursorPosition.y -= short(n)
 			procSetConsoleCursorPosition.Call(uintptr(handle), *(*uintptr)(unsafe.Pointer(&csbi.cursorPosition)))
 		case 'B':
-			n, err = atoiWithDefault(buf.String(), 1)
+			n, err = strconv.Atoi(buf.String())
 			if err != nil {
 				continue
 			}
@@ -532,7 +516,7 @@ loop:
 			csbi.cursorPosition.y += short(n)
 			procSetConsoleCursorPosition.Call(uintptr(handle), *(*uintptr)(unsafe.Pointer(&csbi.cursorPosition)))
 		case 'C':
-			n, err = atoiWithDefault(buf.String(), 1)
+			n, err = strconv.Atoi(buf.String())
 			if err != nil {
 				continue
 			}
@@ -540,7 +524,7 @@ loop:
 			csbi.cursorPosition.x += short(n)
 			procSetConsoleCursorPosition.Call(uintptr(handle), *(*uintptr)(unsafe.Pointer(&csbi.cursorPosition)))
 		case 'D':
-			n, err = atoiWithDefault(buf.String(), 1)
+			n, err = strconv.Atoi(buf.String())
 			if err != nil {
 				continue
 			}
@@ -572,9 +556,6 @@ loop:
 			n, err = strconv.Atoi(buf.String())
 			if err != nil {
 				continue
-			}
-			if n < 1 {
-				n = 1
 			}
 			procGetConsoleScreenBufferInfo.Call(uintptr(handle), uintptr(unsafe.Pointer(&csbi)))
 			csbi.cursorPosition.x = short(n - 1)
@@ -654,20 +635,6 @@ loop:
 			}
 			procFillConsoleOutputCharacter.Call(uintptr(handle), uintptr(' '), uintptr(count), *(*uintptr)(unsafe.Pointer(&cursor)), uintptr(unsafe.Pointer(&written)))
 			procFillConsoleOutputAttribute.Call(uintptr(handle), uintptr(csbi.attributes), uintptr(count), *(*uintptr)(unsafe.Pointer(&cursor)), uintptr(unsafe.Pointer(&written)))
-		case 'X':
-			n := 0
-			if buf.Len() > 0 {
-				n, err = strconv.Atoi(buf.String())
-				if err != nil {
-					continue
-				}
-			}
-			procGetConsoleScreenBufferInfo.Call(uintptr(handle), uintptr(unsafe.Pointer(&csbi)))
-			var cursor coord
-			var written dword
-			cursor = coord{x: csbi.cursorPosition.x, y: csbi.cursorPosition.y}
-			procFillConsoleOutputCharacter.Call(uintptr(handle), uintptr(' '), uintptr(n), *(*uintptr)(unsafe.Pointer(&cursor)), uintptr(unsafe.Pointer(&written)))
-			procFillConsoleOutputAttribute.Call(uintptr(handle), uintptr(csbi.attributes), uintptr(n), *(*uintptr)(unsafe.Pointer(&cursor)), uintptr(unsafe.Pointer(&written)))
 		case 'm':
 			procGetConsoleScreenBufferInfo.Call(uintptr(handle), uintptr(unsafe.Pointer(&csbi)))
 			attr := csbi.attributes
@@ -1010,24 +977,4 @@ func n256setup() {
 		n256foreAttr[i] = c.foregroundAttr()
 		n256backAttr[i] = c.backgroundAttr()
 	}
-}
-
-// EnableColorsStdout enable colors if possible.
-func EnableColorsStdout(enabled *bool) func() {
-	var mode uint32
-	h := os.Stdout.Fd()
-	if r, _, _ := procGetConsoleMode.Call(h, uintptr(unsafe.Pointer(&mode))); r != 0 {
-		if r, _, _ = procSetConsoleMode.Call(h, uintptr(mode|cENABLE_VIRTUAL_TERMINAL_PROCESSING)); r != 0 {
-			if enabled != nil {
-				*enabled = true
-			}
-			return func() {
-				procSetConsoleMode.Call(h, uintptr(mode))
-			}
-		}
-	}
-	if enabled != nil {
-		*enabled = true
-	}
-	return func() {}
 }
