@@ -64,13 +64,6 @@ func NewWebIdentityRoleProvider(svc stsiface.STSAPI, roleARN, roleSessionName, p
 // 'WebIdentityTokenFilePath' specified destination and if that is empty an
 // error will be returned.
 func (p *WebIdentityRoleProvider) Retrieve() (credentials.Value, error) {
-	return p.RetrieveWithContext(aws.BackgroundContext())
-}
-
-// RetrieveWithContext will attempt to assume a role from a token which is located at
-// 'WebIdentityTokenFilePath' specified destination and if that is empty an
-// error will be returned.
-func (p *WebIdentityRoleProvider) RetrieveWithContext(ctx credentials.Context) (credentials.Value, error) {
 	b, err := ioutil.ReadFile(p.tokenFilePath)
 	if err != nil {
 		errMsg := fmt.Sprintf("unable to read file at %s", p.tokenFilePath)
@@ -88,9 +81,6 @@ func (p *WebIdentityRoleProvider) RetrieveWithContext(ctx credentials.Context) (
 		RoleSessionName:  &sessionName,
 		WebIdentityToken: aws.String(string(b)),
 	})
-
-	req.SetContext(ctx)
-
 	// InvalidIdentityToken error is a temporary error that can occur
 	// when assuming an Role with a JWT web identity token.
 	req.RetryErrorCodes = append(req.RetryErrorCodes, sts.ErrCodeInvalidIdentityTokenException)
