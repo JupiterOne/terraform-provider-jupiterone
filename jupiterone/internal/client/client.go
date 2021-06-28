@@ -1,4 +1,4 @@
-package jupiterone_client
+package client
 
 import (
 	"log"
@@ -53,7 +53,7 @@ func (c *JupiterOneClientConfig) Client() (*JupiterOneClient, error) {
 		apiKey:        c.APIKey,
 		accountID:     c.AccountID,
 		graphqlClient: client,
-		RetryTimeout:  time.Duration(60 * time.Second),
+		RetryTimeout:  time.Minute,
 	}
 
 	return jupiterOneClient, nil

@@ -3,13 +3,14 @@ package jupiterone
 import (
 	"fmt"
 
-	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
-	"github.com/hashicorp/terraform-plugin-sdk/helper/validation"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
+	"github.com/jupiterone/terraform-provider-jupiterone/jupiterone/internal/client"
 	"github.com/mitchellh/mapstructure"
-
-	client "github.com/jupiterone/terraform-provider-jupiterone/jupiterone_client"
-	jupiterone "github.com/jupiterone/terraform-provider-jupiterone/jupiterone_client"
 )
+
+const MIN_RULE_NAME_LENGTH = 1
+const MAX_RULE_NAME_LENGTH = 255
 
 func resourceQuestionRuleInstance() *schema.Resource {
 	var RulePollingIntervals = []string{"DISABLED", "THIRTY_MINUTES", "ONE_HOUR", "ONE_DAY"}
@@ -25,7 +26,7 @@ func resourceQuestionRuleInstance() *schema.Resource {
 				Required:     true,
 				ForceNew:     true,
 				Description:  "Name of the rule, which is unique to each account.",
-				ValidateFunc: validation.StringLenBetween(1, 255),
+				ValidateFunc: validation.StringLenBetween(MIN_RULE_NAME_LENGTH, MAX_RULE_NAME_LENGTH),
 			},
 			"description": {
 				Type:        schema.TypeString,
@@ -70,7 +71,7 @@ func resourceQuestionRuleInstance() *schema.Resource {
 			"operations": {
 				Type:         schema.TypeString,
 				Description:  "Actions that are executed when a corresponding condition is met.",
-				ValidateFunc: validation.ValidateJsonString,
+				ValidateFunc: validation.StringIsJSON,
 				Required:     true,
 			},
 			"outputs": {
@@ -170,11 +171,11 @@ func buildQuestionRuleInstanceOutputs(terraformOutputsList []interface{}) []stri
 	return outputList
 }
 
-func buildQuestionRuleInstanceQuestion(terraformRuleQuestionList []interface{}) (*[]jupiterone.RuleQuestion, error) {
-	ruleQuestionList := make([]jupiterone.RuleQuestion, len(terraformRuleQuestionList))
+func buildQuestionRuleInstanceQuestion(terraformRuleQuestionList []interface{}) (*[]client.RuleQuestion, error) {
+	ruleQuestionList := make([]client.RuleQuestion, len(terraformRuleQuestionList))
 
 	for i, terraformRuleQuestion := range terraformRuleQuestionList {
-		var ruleQuestion jupiterone.RuleQuestion
+		var ruleQuestion client.RuleQuestion
 
 		if err := mapstructure.Decode(terraformRuleQuestion, &ruleQuestion); err != nil {
 			return nil, err
@@ -189,12 +190,12 @@ func buildQuestionRuleInstanceQuestion(terraformRuleQuestionList []interface{}) 
 func resourceQuestionRuleInstanceCreate(d *schema.ResourceData, m interface{}) error {
 	questionRuleInstanceProperties, err := buildQuestionRuleInstanceProperties(d)
 	if err != nil {
-		return fmt.Errorf("Failed to build question rule instance: %s", err.Error())
+		return fmt.Errorf("failed to build question rule instance: %s", err.Error())
 	}
 
 	createdQuestion, err := m.(*ProviderConfiguration).Client.CreateQuestionRuleInstance(*questionRuleInstanceProperties)
 	if err != nil {
-		return fmt.Errorf("Failed to create question rule instance: %s", err.Error())
+		return fmt.Errorf("failed to create question rule instance: %s", err.Error())
 	}
 
 	if err := d.Set("version", createdQuestion.Version); err != nil {
@@ -208,10 +209,10 @@ func resourceQuestionRuleInstanceCreate(d *schema.ResourceData, m interface{}) e
 func resourceQuestionRuleInstanceUpdate(d *schema.ResourceData, m interface{}) error {
 	questionRuleInstanceProperties, err := buildQuestionRuleInstanceProperties(d)
 	if err != nil {
-		return fmt.Errorf("Failed to build question rule instance: %s", err.Error())
+		return fmt.Errorf("failed to build question rule instance: %s", err.Error())
 	}
 
-	var updateQuestionRuleInstanceProperties jupiterone.UpdateQuestionRuleInstanceProperties
+	var updateQuestionRuleInstanceProperties client.UpdateQuestionRuleInstanceProperties
 	updateQuestionRuleInstanceProperties.Id = d.Id()
 	updateQuestionRuleInstanceProperties.Name = questionRuleInstanceProperties.Name
 	updateQuestionRuleInstanceProperties.Description = questionRuleInstanceProperties.Description
@@ -229,7 +230,7 @@ func resourceQuestionRuleInstanceUpdate(d *schema.ResourceData, m interface{}) e
 	updatedQuestionRuleInstance, err := m.(*ProviderConfiguration).Client.UpdateQuestionRuleInstance(updateQuestionRuleInstanceProperties)
 
 	if err != nil {
-		return fmt.Errorf("Failed to update question rule instance: %s", err.Error())
+		return fmt.Errorf("failed to update question rule instance: %s", err.Error())
 	}
 
 	if err := d.Set("version", updatedQuestionRuleInstance.Version); err != nil {
@@ -241,7 +242,7 @@ func resourceQuestionRuleInstanceUpdate(d *schema.ResourceData, m interface{}) e
 
 func resourceQuestionRuleInstanceDelete(d *schema.ResourceData, m interface{}) error {
 	if err := m.(*ProviderConfiguration).Client.DeleteQuestionRuleInstance(d.Id()); err != nil {
-		return fmt.Errorf("Failed to delete question rule instance: %s", err.Error())
+		return fmt.Errorf("failed to delete question rule instance: %s", err.Error())
 	}
 
 	return nil
@@ -251,7 +252,7 @@ func resourceQuestionRuleInstanceRead(d *schema.ResourceData, m interface{}) err
 	questionRuleInstance, err := m.(*ProviderConfiguration).Client.GetQuestionRuleInstanceByID(d.Id())
 
 	if err != nil {
-		return fmt.Errorf("Failed to read existing question rule instance: %s", err.Error())
+		return fmt.Errorf("failed to read existing question rule instance: %s", err.Error())
 	}
 
 	if err := d.Set("version", questionRuleInstance.Version); err != nil {

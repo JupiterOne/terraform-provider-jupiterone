@@ -1,17 +1,17 @@
 module github.com/jupiterone/terraform-provider-jupiterone
 
-go 1.14
+go 1.16
 
 require (
+	github.com/client9/misspell v0.3.4
 	github.com/dnaeon/go-vcr v1.0.1
-	github.com/hashicorp/go-cleanhttp v0.5.1
-	github.com/hashicorp/terraform-plugin-sdk v1.9.1
-	github.com/jonboulle/clockwork v0.1.0
-	github.com/kisielk/errcheck v1.2.0 // indirect
+	github.com/golangci/golangci-lint v1.41.1
+	github.com/hashicorp/go-cleanhttp v0.5.2
+	github.com/hashicorp/terraform-plugin-sdk/v2 v2.6.1
 	github.com/machinebox/graphql v0.2.2
+	github.com/matryer/is v1.4.0 // indirect
 	github.com/mitchellh/mapstructure v1.2.2
-	github.com/pkg/errors v0.9.1 // indirect
-	github.com/stretchr/testify v1.3.0
-	golang.org/x/tools v0.0.0-20200415034506-5d8e1897c761 // indirect
-	gopkg.in/yaml.v2 v2.2.8 // indirect
+	github.com/stretchr/testify v1.7.0
+	golang.org/x/sys v0.0.0-20210616094352-59db8d763f22 // indirect
+	golang.org/x/tools v0.1.4 // indirect
 )

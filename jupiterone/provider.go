@@ -2,18 +2,17 @@ package jupiterone
 
 import (
 	// "errors"
-	"fmt"
+	"context"
 	"log"
 
-	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
-	"github.com/hashicorp/terraform-plugin-sdk/terraform"
-
-	jupiterone "github.com/jupiterone/terraform-provider-jupiterone/jupiterone_client"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+	"github.com/jupiterone/terraform-provider-jupiterone/jupiterone/internal/client"
 )
 
 // Provider - Exported function that creates the JupiterOne Terraform
 // resource provider
-func Provider() terraform.ResourceProvider {
+func Provider() *schema.Provider {
 	return &schema.Provider{
 		Schema: map[string]*schema.Schema{
 			"api_key": {
@@ -38,19 +37,19 @@ func Provider() terraform.ResourceProvider {
 			"jupiterone_rule":     resourceQuestionRuleInstance(),
 			"jupiterone_question": resourceQuestion(),
 		},
-		ConfigureFunc: providerConfigure,
+		ConfigureContextFunc: providerConfigure,
 	}
 }
 
 // ProviderConfiguration contains the initialized API client to communicate with the JupiterOne API
 type ProviderConfiguration struct {
-	Client *jupiterone.JupiterOneClient
+	Client *client.JupiterOneClient
 }
 
-func providerConfigure(d *schema.ResourceData) (interface{}, error) {
+func providerConfigure(_ context.Context, d *schema.ResourceData) (interface{}, diag.Diagnostics) {
 	log.Println("[INFO] JupiterOne client successfully initialized")
 
-	config := jupiterone.JupiterOneClientConfig{
+	config := client.JupiterOneClientConfig{
 		APIKey:    d.Get("api_key").(string),
 		AccountID: d.Get("account_id").(string),
 		Region:    d.Get("region").(string),
@@ -59,7 +58,7 @@ func providerConfigure(d *schema.ResourceData) (interface{}, error) {
 	client, err := config.Client()
 
 	if err != nil {
-		return nil, fmt.Errorf("Failed to create JupiterOne client in provider configuration: %s", err.Error())
+		return nil, diag.Errorf("failed to create JupiterOne client in provider configuration: %s", err.Error())
 	}
 
 	return &ProviderConfiguration{
