@@ -91,16 +91,16 @@ func TestRuleInstance_Config_Errors(t *testing.T) {
 		CheckDestroy: testAccCheckRuleInstanceDestroy(ctx, accProvider),
 		Steps: []resource.TestStep{
 			{
-				Config:      testRuleInstanceBasicConfigWithOperations(rName, `not json`),
+				Config:      testRuleInstanceBasicConfigWithOperations(rName, "not json"),
 				ExpectError: regexp.MustCompile(`"operations" contains an invalid JSON`),
 			},
 			{
-				Config:      testRuleInstanceBasicConfigWithOperations(``, getValidOperations()),
+				Config:      testRuleInstanceBasicConfigWithOperations("", getValidOperations()),
 				ExpectError: regexp.MustCompile(`expected length of name to be in the range \(1 - 255\)`),
 			},
 			{
 				Config:      testRuleInstanceBasicConfigWithPollingInterval(rName, "INVALID_POLLING_INTERVAL"),
-				ExpectError: regexp.MustCompile(`config is invalid: expected polling_interval to be one of \[DISABLED THIRTY_MINUTES ONE_HOUR ONE_DAY\], got INVALID_POLLING_INTERVAL`),
+				ExpectError: regexp.MustCompile(`expected polling_interval to be one of \[DISABLED THIRTY_MINUTES ONE_HOUR ONE_DAY\], got INVALID_POLLING_INTERVAL`),
 			},
 		},
 	})
@@ -190,52 +190,52 @@ func ruleInstanceDestroyHelper(ctx context.Context, s *terraform.State, client *
 
 func testRuleInstanceBasicConfigWithOperations(rName string, operations string) string {
 	return fmt.Sprintf(`
-resource "jupiterone_rule" "test" {
-	name = %q
-	description = "Test"
-	spec_version = 1
-	polling_interval = "ONE_DAY"
+		resource "jupiterone_rule" "test" {
+			name = %q
+			description = "Test"
+			spec_version = 1
+			polling_interval = "ONE_DAY"
 
-	question {
-		queries {
-			name = "query0"
-			query = "Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true"
-			version = "v1"
+			question {
+				queries {
+					name = "query0"
+					query = "Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true"
+					version = "v1"
+				}
+			}
+
+			outputs = [
+				"queries.query0.total",
+				"alertLevel"
+			]
+
+			operations = %q
 		}
-	}
-
-	outputs = [
-		"queries.query0.total",
-		"alertLevel"
-	]
-
-	operations = %q
-}
-`, rName, operations)
+	`, rName, operations)
 }
 
 func testRuleInstanceBasicConfigWithPollingInterval(rName string, pollingInterval string) string {
 	return fmt.Sprintf(`
-resource "jupiterone_rule" "test" {
-	name = %q
-	description = "Test"
-	spec_version = 1
-	polling_interval = %q
+		resource "jupiterone_rule" "test" {
+			name = %q
+			description = "Test"
+			spec_version = 1
+			polling_interval = %q
 
-	question {
-		queries {
-			name = "query0"
-			query = "Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true"
-			version = "v1"
+			question {
+				queries {
+					name = "query0"
+					query = "Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true"
+					version = "v1"
+				}
+			}
+
+			outputs = [
+				"queries.query0.total",
+				"alertLevel"
+			]
+
+			operations = %q
 		}
-	}
-
-	outputs = [
-		"queries.query0.total",
-		"alertLevel"
-	]
-
-	operations = %q
-}
-`, rName, pollingInterval, getValidOperations())
+	`, rName, pollingInterval, getValidOperations())
 }

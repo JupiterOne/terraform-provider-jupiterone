@@ -1,4 +1,5 @@
 TEST?=$$(go list ./...)
+WEBSITE_REPO=github.com/hashicorp/terraform-website
 PKG_NAME=jupiterone
 DIR=~/.terraform.d/plugins
 
@@ -8,17 +9,20 @@ build: fmtcheck
 	go install
 
 test: fmtcheck
-	go test $(TEST) $(TESTARGS) -timeout=5m -parallel=4
+	JUPITERONE_API_KEY=fake JUPITERONE_ACCOUNT_ID=fake RECORD=false TF_ACC=1 go test $(TEST) -v $(TESTARGS) -timeout=5m -parallel=4
 
 testacc: fmtcheck
 	TF_ACC=1 go test $(TEST) -v $(TESTARGS) -timeout 120m
+
+cassettes: fmtcheck
+	RECORD=true TF_ACC=1 go test $(TEST) -v $(TESTARGS) -timeout 120m
 
 fmt:
 	@echo "==> Fixing source code with gofmt..."
 	gofmt -w -s ./$(PKG_NAME)
 
 fmtcheck:
-	@./scripts/gofmtcheck.sh
+	@./scripts/fmtcheck.sh
 
 lint:
 	@echo "==> Checking source code against linters..."
@@ -37,4 +41,7 @@ test-compile:
 	fi
 	go test -c $(TEST) $(TESTARGS)
 
-.PHONY: build test testacc cassettes vet fmt fmtcheck errcheck test-compile
+docs:
+	go run github.com/hashicorp/terraform-plugin-docs/cmd/tfplugindocs
+
+.PHONY: build test testacc cassettes fmtcheck lint tools test-compile docs

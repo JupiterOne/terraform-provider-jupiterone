@@ -1,8 +1,9 @@
 // +build tools
 
-package main
+package tools
 
 import (
 	_ "github.com/client9/misspell/cmd/misspell"
 	_ "github.com/golangci/golangci-lint/cmd/golangci-lint"
+	_ "github.com/hashicorp/terraform-plugin-docs/cmd/tfplugindocs"
 )

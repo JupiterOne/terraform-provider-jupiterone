@@ -131,22 +131,21 @@ func questionDestroyHelper(ctx context.Context, s *terraform.State, client *clie
 			return err
 		}
 	}
-
 	return nil
 }
 
 func testQuestionBasicConfigWithTags(rName string, tag string) string {
 	return fmt.Sprintf(`
-resource "jupiterone_question" "test" {
-	title = %q
-	description = "Test"
-	tags = [%q]
+		resource "jupiterone_question" "test" {
+			title = %q
+			description = "Test"
+			tags = [%q]
 
-	query {
-		name = "query0"
-		query = "Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true"
-		version = "v1"
-	}
-}
-`, rName, tag)
+			query {
+				name = "query0"
+				query = "Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true"
+				version = "v1"
+			}
+		}
+	`, rName, tag)
 }
