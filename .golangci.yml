@@ -1,0 +1,31 @@
+run:
+  deadline: 2m30s
+
+issues:
+  max-per-linter: 0
+  max-same-issues: 0
+
+linters:
+  disable-all: true
+  enable:
+    - deadcode
+    - errcheck
+    - gofmt
+    - gomnd
+    - gosimple
+    - ineffassign
+    - makezero
+    - misspell
+    - nakedret
+    - nilerr
+    - staticcheck
+    - structcheck
+    - unconvert
+    - unused
+    - unparam
+    - varcheck
+    - vet
+
+linters-settings:
+  errcheck:
+    ignore: github.com/hashicorp/terraform-plugin-sdk/helper/schema:ForceNew|Set,fmt:.*

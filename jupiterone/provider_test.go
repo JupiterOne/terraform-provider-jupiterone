@@ -1,23 +1,21 @@
 package jupiterone
 
 import (
+	"context"
 	"fmt"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"net/url"
 	"os"
 	"testing"
-	"time"
 
 	"github.com/dnaeon/go-vcr/cassette"
 	"github.com/dnaeon/go-vcr/recorder"
 	"github.com/hashicorp/go-cleanhttp"
-	"github.com/hashicorp/terraform-plugin-sdk/helper/logging"
-	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
-	"github.com/hashicorp/terraform-plugin-sdk/terraform"
-	"github.com/jonboulle/clockwork"
-	jupiterone "github.com/jupiterone/terraform-provider-jupiterone/jupiterone_client"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/logging"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+	"github.com/jupiterone/terraform-provider-jupiterone/jupiterone/internal/client"
 )
 
 func isRecording() bool {
@@ -26,41 +24,6 @@ func isRecording() bool {
 
 func isReplaying() bool {
 	return os.Getenv("RECORD") == "false"
-}
-
-func setClock(t *testing.T) clockwork.FakeClock {
-	os.MkdirAll("cassettes", 0755)
-	f, err := os.Create(fmt.Sprintf("cassettes/%s.freeze", t.Name()))
-	if err != nil {
-		t.Fatalf("Could not set clock: %v", err)
-	}
-	defer f.Close()
-	now := clockwork.NewRealClock().Now()
-	f.WriteString(now.Format(time.RFC3339Nano))
-	return clockwork.NewFakeClockAt(now)
-}
-
-func restoreClock(t *testing.T) clockwork.FakeClock {
-	data, err := ioutil.ReadFile(fmt.Sprintf("cassettes/%s.freeze", t.Name()))
-	if err != nil {
-		t.Logf("Could not load clock: %v", err)
-		return setClock(t)
-	}
-	now, err := time.Parse(time.RFC3339Nano, string(data))
-	if err != nil {
-		t.Fatalf("Could not parse clock date: %v", err)
-	}
-	return clockwork.NewFakeClockAt(now)
-}
-
-func testClock(t *testing.T) clockwork.FakeClock {
-	if isRecording() {
-		return setClock(t)
-	} else if isReplaying() {
-		return restoreClock(t)
-	}
-	// do not set or restore frozen time
-	return clockwork.NewFakeClockAt(clockwork.NewRealClock().Now())
 }
 
 // Ensure that the URL that we store in cassettes is always consistent regardless
@@ -111,21 +74,22 @@ func initAccProvider(t *testing.T) (*schema.Provider, func(t *testing.T)) {
 		return nil
 	})
 
-	p := Provider().(*schema.Provider)
-	p.ConfigureFunc = testProviderConfigure(rec)
+	p := Provider()
+	ctx := context.Background()
+	p.ConfigureContextFunc = testProviderConfigure(ctx, rec)
 
 	cleanup := func(t *testing.T) {
-		rec.Stop()
+		_ = rec.Stop()
 	}
 	return p, cleanup
 }
 
-func testProviderConfigure(recorder *recorder.Recorder) schema.ConfigureFunc {
-	return func(d *schema.ResourceData) (interface{}, error) {
+func testProviderConfigure(_ context.Context, recorder *recorder.Recorder) schema.ConfigureContextFunc {
+	return func(_ context.Context, d *schema.ResourceData) (interface{}, diag.Diagnostics) {
 		testHTTPClient := cleanhttp.DefaultClient()
 		testHTTPClient.Transport = logging.NewTransport("JupiterOne", recorder)
 
-		config := jupiterone.JupiterOneClientConfig{
+		config := client.JupiterOneClientConfig{
 			APIKey:     d.Get("api_key").(string),
 			AccountID:  d.Get("account_id").(string),
 			Region:     d.Get("region").(string),
@@ -135,7 +99,7 @@ func testProviderConfigure(recorder *recorder.Recorder) schema.ConfigureFunc {
 		client, err := config.Client()
 
 		if err != nil {
-			return nil, fmt.Errorf("Failed to create JupiterOne client in provider configuration: %s", err.Error())
+			return nil, diag.Errorf("Failed to create JupiterOne client in provider configuration: %s", err.Error())
 		}
 
 		return &ProviderConfiguration{
@@ -144,19 +108,19 @@ func testProviderConfigure(recorder *recorder.Recorder) schema.ConfigureFunc {
 	}
 }
 
-func testAccProviders(t *testing.T) (map[string]terraform.ResourceProvider, func(t *testing.T)) {
+func testAccProviders(t *testing.T) (map[string]*schema.Provider, func(t *testing.T)) {
 	provider, cleanup := initAccProvider(t)
-	return map[string]terraform.ResourceProvider{
+	return map[string]*schema.Provider{
 		"jupiterone": provider,
 	}, cleanup
 }
 
-func testAccProvider(t *testing.T, accProviders map[string]terraform.ResourceProvider) *schema.Provider {
+func testAccProvider(t *testing.T, accProviders map[string]*schema.Provider) *schema.Provider {
 	accProvider, ok := accProviders["jupiterone"]
 	if !ok {
 		t.Fatal("Could not find jupiterone provider")
 	}
-	return accProvider.(*schema.Provider)
+	return accProvider
 }
 
 func TestProvider(t *testing.T) {
@@ -169,7 +133,7 @@ func TestProvider(t *testing.T) {
 }
 
 func TestProvider_impl(t *testing.T) {
-	var _ terraform.ResourceProvider = Provider()
+	var _ = Provider()
 }
 
 func testAccPreCheck(t *testing.T) {

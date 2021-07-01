@@ -1,18 +1,18 @@
 package jupiterone
 
 import (
+	"context"
 	"fmt"
 	"regexp"
 	"strings"
 	"testing"
 	"time"
 
-	"github.com/hashicorp/terraform-plugin-sdk/helper/acctest"
-	"github.com/hashicorp/terraform-plugin-sdk/helper/resource"
-	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
-	"github.com/hashicorp/terraform-plugin-sdk/terraform"
-
-	jupiterone "github.com/jupiterone/terraform-provider-jupiterone/jupiterone_client"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/acctest"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
+	"github.com/jupiterone/terraform-provider-jupiterone/jupiterone/internal/client"
 )
 
 func TestRuleInstance_Basic(t *testing.T) {
@@ -25,15 +25,17 @@ func TestRuleInstance_Basic(t *testing.T) {
 	operations := getValidOperations()
 	operationsUpdate := getValidOperationsWithoutConditions()
 
+	ctx := context.Background()
+
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
 		Providers:    accProviders,
-		CheckDestroy: testAccCheckRuleInstanceDestroy(accProvider),
+		CheckDestroy: testAccCheckRuleInstanceDestroy(ctx, accProvider),
 		Steps: []resource.TestStep{
 			{
 				Config: testRuleInstanceBasicConfigWithOperations(rName, operations),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckRuleExists(accProvider),
+					testAccCheckRuleExists(ctx, accProvider),
 					resource.TestCheckResourceAttrSet(resourceName, "id"),
 					resource.TestCheckResourceAttr(resourceName, "version", "1"),
 					resource.TestCheckResourceAttr(resourceName, "name", rName),
@@ -54,7 +56,7 @@ func TestRuleInstance_Basic(t *testing.T) {
 			{
 				Config: testRuleInstanceBasicConfigWithOperations(rName, operationsUpdate),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckRuleExists(accProvider),
+					testAccCheckRuleExists(ctx, accProvider),
 					resource.TestCheckResourceAttrSet(resourceName, "id"),
 					resource.TestCheckResourceAttr(resourceName, "version", "2"),
 					resource.TestCheckResourceAttr(resourceName, "name", rName),
@@ -81,23 +83,24 @@ func TestRuleInstance_Config_Errors(t *testing.T) {
 	defer cleanup(t)
 	accProvider := testAccProvider(t, accProviders)
 	rName := acctest.RandomWithPrefix("tf-acc-test")
+	ctx := context.Background()
 
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
 		Providers:    accProviders,
-		CheckDestroy: testAccCheckRuleInstanceDestroy(accProvider),
+		CheckDestroy: testAccCheckRuleInstanceDestroy(ctx, accProvider),
 		Steps: []resource.TestStep{
 			{
-				Config:      testRuleInstanceBasicConfigWithOperations(rName, `not json`),
+				Config:      testRuleInstanceBasicConfigWithOperations(rName, "not json"),
 				ExpectError: regexp.MustCompile(`"operations" contains an invalid JSON`),
 			},
 			{
-				Config:      testRuleInstanceBasicConfigWithOperations(``, getValidOperations()),
+				Config:      testRuleInstanceBasicConfigWithOperations("", getValidOperations()),
 				ExpectError: regexp.MustCompile(`expected length of name to be in the range \(1 - 255\)`),
 			},
 			{
 				Config:      testRuleInstanceBasicConfigWithPollingInterval(rName, "INVALID_POLLING_INTERVAL"),
-				ExpectError: regexp.MustCompile(`config is invalid: expected polling_interval to be one of \[DISABLED THIRTY_MINUTES ONE_HOUR ONE_DAY\], got INVALID_POLLING_INTERVAL`),
+				ExpectError: regexp.MustCompile(`expected polling_interval to be one of \[DISABLED THIRTY_MINUTES ONE_HOUR ONE_DAY\], got INVALID_POLLING_INTERVAL`),
 			},
 		},
 	})
@@ -111,21 +114,21 @@ func getValidOperationsWithoutConditions() string {
 	return `[{"actions":[{"targetValue":"HIGH","type":"SET_PROPERTY","targetProperty":"alertLevel"},{"type":"CREATE_ALERT"}]}]`
 }
 
-func testAccCheckRuleExists(accProvider *schema.Provider) resource.TestCheckFunc {
+func testAccCheckRuleExists(ctx context.Context, accProvider *schema.Provider) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		providerConf := accProvider.Meta().(*ProviderConfiguration)
 		client := providerConf.Client
 
-		if err := ruleExistsHelper(s, client); err != nil {
+		if err := ruleExistsHelper(ctx, s, client); err != nil {
 			return err
 		}
 		return nil
 	}
 }
 
-func ruleExistsHelper(s *terraform.State, client *jupiterone.JupiterOneClient) error {
+func ruleExistsHelper(ctx context.Context, s *terraform.State, client *client.JupiterOneClient) error {
 	for _, r := range s.RootModule().Resources {
-		err := resource.Retry(10*time.Second, func() *resource.RetryError {
+		err := resource.RetryContext(ctx, 10*time.Second, func() *resource.RetryError {
 			id := r.Primary.ID
 			ruleInstance, err := client.GetQuestionRuleInstanceByID(id)
 
@@ -148,21 +151,21 @@ func ruleExistsHelper(s *terraform.State, client *jupiterone.JupiterOneClient) e
 	return nil
 }
 
-func testAccCheckRuleInstanceDestroy(accProvider *schema.Provider) func(*terraform.State) error {
+func testAccCheckRuleInstanceDestroy(ctx context.Context, accProvider *schema.Provider) func(*terraform.State) error {
 	return func(s *terraform.State) error {
 		providerConf := accProvider.Meta().(*ProviderConfiguration)
 		client := providerConf.Client
 
-		if err := ruleInstanceDestroyHelper(s, client); err != nil {
+		if err := ruleInstanceDestroyHelper(ctx, s, client); err != nil {
 			return err
 		}
 		return nil
 	}
 }
 
-func ruleInstanceDestroyHelper(s *terraform.State, client *jupiterone.JupiterOneClient) error {
+func ruleInstanceDestroyHelper(ctx context.Context, s *terraform.State, client *client.JupiterOneClient) error {
 	for _, r := range s.RootModule().Resources {
-		err := resource.Retry(30*time.Second, func() *resource.RetryError {
+		err := resource.RetryContext(ctx, 30*time.Second, func() *resource.RetryError {
 			id := r.Primary.ID
 			ruleInstance, err := client.GetQuestionRuleInstanceByID(id)
 
@@ -187,52 +190,52 @@ func ruleInstanceDestroyHelper(s *terraform.State, client *jupiterone.JupiterOne
 
 func testRuleInstanceBasicConfigWithOperations(rName string, operations string) string {
 	return fmt.Sprintf(`
-resource "jupiterone_rule" "test" {
-	name = %q
-	description = "Test"
-	spec_version = 1
-	polling_interval = "ONE_DAY"
+		resource "jupiterone_rule" "test" {
+			name = %q
+			description = "Test"
+			spec_version = 1
+			polling_interval = "ONE_DAY"
 
-	question {
-		queries {
-			name = "query0"
-			query = "Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true"
-			version = "v1"
+			question {
+				queries {
+					name = "query0"
+					query = "Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true"
+					version = "v1"
+				}
+			}
+
+			outputs = [
+				"queries.query0.total",
+				"alertLevel"
+			]
+
+			operations = %q
 		}
-	}
-
-	outputs = [
-		"queries.query0.total",
-		"alertLevel"
-	]
-
-	operations = %q
-}
-`, rName, operations)
+	`, rName, operations)
 }
 
 func testRuleInstanceBasicConfigWithPollingInterval(rName string, pollingInterval string) string {
 	return fmt.Sprintf(`
-resource "jupiterone_rule" "test" {
-	name = %q
-	description = "Test"
-	spec_version = 1
-	polling_interval = %q
+		resource "jupiterone_rule" "test" {
+			name = %q
+			description = "Test"
+			spec_version = 1
+			polling_interval = %q
 
-	question {
-		queries {
-			name = "query0"
-			query = "Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true"
-			version = "v1"
+			question {
+				queries {
+					name = "query0"
+					query = "Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true"
+					version = "v1"
+				}
+			}
+
+			outputs = [
+				"queries.query0.total",
+				"alertLevel"
+			]
+
+			operations = %q
 		}
-	}
-
-	outputs = [
-		"queries.query0.total",
-		"alertLevel"
-	]
-
-	operations = %q
-}
-`, rName, pollingInterval, getValidOperations())
+	`, rName, pollingInterval, getValidOperations())
 }

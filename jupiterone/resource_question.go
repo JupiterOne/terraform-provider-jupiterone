@@ -3,10 +3,9 @@ package jupiterone
 import (
 	"fmt"
 
-	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+	"github.com/jupiterone/terraform-provider-jupiterone/jupiterone/internal/client"
 	"github.com/mitchellh/mapstructure"
-
-	jupiterone "github.com/jupiterone/terraform-provider-jupiterone/jupiterone_client"
 )
 
 func resourceQuestion() *schema.Resource {
@@ -62,11 +61,11 @@ func buildQuestionTagList(terraformTagList []interface{}) []string {
 	return tagList
 }
 
-func buildQuestionQueryList(terraformQuestionQueryList []interface{}) (*[]jupiterone.QuestionQuery, error) {
-	questionQueryList := make([]jupiterone.QuestionQuery, len(terraformQuestionQueryList))
+func buildQuestionQueryList(terraformQuestionQueryList []interface{}) (*[]client.QuestionQuery, error) {
+	questionQueryList := make([]client.QuestionQuery, len(terraformQuestionQueryList))
 
 	for i, terraformQuestionQuery := range terraformQuestionQueryList {
-		var query jupiterone.QuestionQuery
+		var query client.QuestionQuery
 
 		if err := mapstructure.Decode(terraformQuestionQuery, &query); err != nil {
 			return nil, err
@@ -78,11 +77,11 @@ func buildQuestionQueryList(terraformQuestionQueryList []interface{}) (*[]jupite
 	return &questionQueryList, nil
 }
 
-func buildQuestionComplianceMetaDataList(terraformComplianceList []interface{}) (*[]jupiterone.QuestionComplianceMetaData, error) {
-	complianceMetaDataList := make([]jupiterone.QuestionComplianceMetaData, len(terraformComplianceList))
+func buildQuestionComplianceMetaDataList(terraformComplianceList []interface{}) (*[]client.QuestionComplianceMetaData, error) {
+	complianceMetaDataList := make([]client.QuestionComplianceMetaData, len(terraformComplianceList))
 
 	for i, terraformComplianceMetaData := range terraformComplianceList {
-		var complianceMetaData jupiterone.QuestionComplianceMetaData
+		var complianceMetaData client.QuestionComplianceMetaData
 
 		if err := mapstructure.Decode(terraformComplianceMetaData, &complianceMetaData); err != nil {
 			return nil, err
@@ -94,8 +93,8 @@ func buildQuestionComplianceMetaDataList(terraformComplianceList []interface{}) 
 	return &complianceMetaDataList, nil
 }
 
-func buildQuestionProperties(d *schema.ResourceData) (*jupiterone.QuestionProperties, error) {
-	var question jupiterone.QuestionProperties
+func buildQuestionProperties(d *schema.ResourceData) (*client.QuestionProperties, error) {
+	var question client.QuestionProperties
 
 	if v, ok := d.GetOk("title"); ok {
 		question.Title = v.(string)
@@ -135,12 +134,12 @@ func buildQuestionProperties(d *schema.ResourceData) (*jupiterone.QuestionProper
 func resourceQuestionCreate(d *schema.ResourceData, m interface{}) error {
 	questionProperties, err := buildQuestionProperties(d)
 	if err != nil {
-		return fmt.Errorf("Failed to build question: %s", err.Error())
+		return fmt.Errorf("failed to build question: %s", err.Error())
 	}
 
 	createdQuestion, err := m.(*ProviderConfiguration).Client.CreateQuestion(*questionProperties)
 	if err != nil {
-		return fmt.Errorf("Failed to create question: %s", err.Error())
+		return fmt.Errorf("failed to create question: %s", err.Error())
 	}
 
 	d.SetId(createdQuestion.Id)
@@ -150,7 +149,7 @@ func resourceQuestionCreate(d *schema.ResourceData, m interface{}) error {
 
 func resourceQuestionRead(d *schema.ResourceData, m interface{}) error {
 	if _, err := m.(*ProviderConfiguration).Client.GetQuestion(d.Id()); err != nil {
-		return fmt.Errorf("Failed to read existing question: %s", err.Error())
+		return fmt.Errorf("failed to read existing question: %s", err.Error())
 	}
 
 	return nil
@@ -159,11 +158,11 @@ func resourceQuestionRead(d *schema.ResourceData, m interface{}) error {
 func resourceQuestionUpdate(d *schema.ResourceData, m interface{}) error {
 	questionProperties, err := buildQuestionProperties(d)
 	if err != nil {
-		return fmt.Errorf("Failed to build question: %s", err.Error())
+		return fmt.Errorf("failed to build question: %s", err.Error())
 	}
 
 	if _, err := m.(*ProviderConfiguration).Client.UpdateQuestion(d.Id(), *questionProperties); err != nil {
-		return fmt.Errorf("Failed to update question: %s", err.Error())
+		return fmt.Errorf("failed to update question: %s", err.Error())
 	}
 
 	return nil
@@ -171,7 +170,7 @@ func resourceQuestionUpdate(d *schema.ResourceData, m interface{}) error {
 
 func resourceQuestionDelete(d *schema.ResourceData, m interface{}) error {
 	if err := m.(*ProviderConfiguration).Client.DeleteQuestion(d.Id()); err != nil {
-		return fmt.Errorf("Failed to delete question: %s", err.Error())
+		return fmt.Errorf("failed to delete question: %s", err.Error())
 	}
 
 	return nil

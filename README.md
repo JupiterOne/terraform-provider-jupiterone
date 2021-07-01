@@ -1,74 +1,51 @@
-# terraform-provider-jupiterone
+# Terraform Provider JupiterOne
 
 **NOTE: This project is currently in beta and is _not_ ready for production use.**
 
-Requirements
-------------
+## Requirements
 
--	[Terraform](https://www.terraform.io/downloads.html) 0.12.x
--	[Go](https://golang.org/doc/install) 1.14 (to build the provider plugin)
+- [Terraform](https://www.terraform.io/downloads.html) 1.0.1
+- [Go](https://golang.org/doc/install) 1.16 (to build the provider plugin)
 
 ## Example Usage
 
-```terraform
-# Configure the JupiterOne provider
-provider "jupiterone" {
-  api_key = "${var.jupiterone_api_key}"
-  account_id = "${var.jupiterone_account}"
-}
+See the `examples` directory
 
-# Create a new JupiterOne rule
-resource "jupiterone_rule" "unencrypted_critical_data_stores" {
-  # ...
-}
+## Building The Provider
+
+1. Clone the repository
+2. Enter the repository directory
+3. Build the provider with `make build` or invoke `go install` directly.
+
+## Adding Dependencies
+
+This provider uses [Go modules](https://github.com/golang/go/wiki/Modules).
+Please see the Go documentation for the most up to date information about using Go modules.
+
+To add a new dependency `github.com/author/dependency` to your Terraform provider:
+
+```
+go get github.com/author/dependency
+go mod tidy
 ```
 
-Building The Provider
----------------------
+## Using the provider
 
-Clone repository to: `$GOPATH/src/github.com/jupiterone/terraform-provider-jupiterone`
+If you're building the provider, follow the instructions to [install it as a plugin.](https://www.terraform.io/docs/plugins/basics.html#installing-a-plugin) After placing it into your plugins directory, run `terraform init` to initialize it.
 
-```sh
-$ mkdir -p $GOPATH/src/github.com/jupiterone; cd $GOPATH/src/github.com/jupiterone
-$ git clone git@github.com:jupiterone/terraform-provider-jupiterone
-```
+## Developing the Provider
 
-Enter the provider directory and build the provider
+### Building
 
-```sh
-$ cd $GOPATH/src/github.com/jupiterone/terraform-provider-jupiterone
-$ make build
-```
+If you wish to work on the provider, you'll first need [Go](http://www.golang.org) installed on your machine (please check the [requirements](https://github.com/jupiterone/terraform-provider-jupiterone#requirements) before proceeding). To compile the provider, run `make build`.
 
-Using the provider
-----------------------
-If you're building the provider, follow the instructions to [install it as a plugin.](https://www.terraform.io/docs/plugins/basics.html#installing-a-plugin) After placing it into your plugins directory,  run `terraform init` to initialize it.
-
-Developing the Provider
----------------------
-
-If you wish to work on the provider, you'll first need [Go](http://www.golang.org) installed on your machine (please check the [requirements](https://github.com/jupiterone/terraform-provider-jupiterone#requirements) before proceeding). You'll also need to correctly setup a [GOPATH](http://golang.org/doc/code.html#GOPATH), as well as adding `$GOPATH/bin` to your `$PATH`.
-
-*Note:* This project uses [Go Modules](https://blog.golang.org/using-go-modules) making it safe to work with it outside of your existing [GOPATH](http://golang.org/doc/code.html#GOPATH).
-
-To compile the provider, run `make build`. This will build the provider and put the provider binary in the `$GOPATH/bin` directory.
-
-```sh
-$ make build
-...
-$ $GOPATH/bin/terraform-provider-jupiterone
-...
-```
+### Testing
 
 In order to test the provider, you can simply run `make test`. Pre-recorded API responses
 (cassettes) are run. The cassettes are stored in `jupiterone/cassettes/`.
 When tests are modified, the cassettes need to be re-recorded.
 
-```sh
-$ make test
-```
-
-*Note:* Recording cassettes creates/updates/destroys real resources. Never run this on
+_Note:_ Recording cassettes creates/updates/destroys real resources. Never run this on
 a production JupiterOne organization.
 
 In order to re-record all cassettes you need to have `JUPITERONE_API_KEY` and `JUPITERONE_ACCOUNT_ID`
@@ -77,72 +54,13 @@ If you only need to re-record a subset of your tests, you can run `make cassette
 
 To run the full suite of Acceptance tests, run `make testacc`.
 
-*Note:* Acceptance tests create/update/destroy real resources. Never run this on
+_Note:_ Acceptance tests create/update/destroy real resources. Never run this on
 a production JupiterOne organization.
 
 ```sh
 $ make testacc
 ```
 
-## Resources
+### Documentation
 
-### `jupiterone_rule`
-
-```terraform
-resource "jupiterone_rule" "unencrypted_critical_data_stores" {
-  name = "unencrypted-critical-data-stores"
-  description = "Unencrypted data store with classification label of 'critical' or 'sensitive' or 'confidential' or 'restricted'"
-  polling_interval = "ONE_DAY"
-
-  question {
-    queries {
-      name = "query0"
-      query = "Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true"
-      version = "v1"
-    }
-  }
-
-  outputs = [
-    "queries.query0.total",
-    "alertLevel"
-  ]
-
-  operations = <<EOF
-[
-  {
-    "when": {
-      "type": "FILTER",
-      "specVersion": 1,
-      "condition": "{{queries.query0.total != 0}}"
-    },
-    "actions": [
-      {
-        "targetValue": "HIGH",
-        "type": "SET_PROPERTY",
-        "targetProperty": "alertLevel"
-      },
-      {
-        "type": "CREATE_ALERT"
-      }
-    ]
-  }
-]
-EOF
-}
-```
-
-### `jupiterone_question`
-
-```terraform
-resource "jupiterone_question" "unencrypted_critical_data_stores" {
-  title = "Unencrypted critical data stores"
-  description = "Unencrypted data store with classification label of 'critical' or 'sensitive' or 'confidential' or 'restricted'"
-  tags = ["hello"]
-
-  query {
-    name = "query0"
-    query = "Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true"
-    version = "v1"
-  }
-}
-```
+To generate new provider documentation run `make docs`
