@@ -61,6 +61,46 @@ a production JupiterOne organization.
 $ make testacc
 ```
 
+### Using development environment provider locally
+
+In order to check changes you made locally to the provider, you can use the binary you just compiled by adding the following
+to your `~/.terraformrc` file. This is valid for Terraform 0.14+. Please see
+[Terraform's documentation](https://www.terraform.io/docs/cli/config/config-file.html#development-overrides-for-provider-developers)
+for more details.
+
+```
+provider_installation {
+
+  # Use /home/developer/go/bin as an overridden package directory
+  # for the jupiterone/jupiterone provider. This disables the version and checksum
+  # verifications for this provider and forces Terraform to look for the
+  # jupiterone provider plugin in the given directory.
+  dev_overrides {
+    "jupiterone/jupiterone" = "/home/developer/go/bin"
+  }
+
+  # For all other providers, install them directly from their origin provider
+  # registries as normal. If you omit this, Terraform will _only_ use
+  # the dev_overrides block, and so no other providers will be available.
+  direct {}
+}
+```
+
+For information about writing acceptance tests, see the main Terraform [contributing guide](https://github.com/hashicorp/terraform/blob/master/.github/CONTRIBUTING.md#writing-acceptance-tests).
+
+### Releasing the Provider
+
+This repository contains a GitHub Action configured to automatically build and
+publish assets for release when a tag is pushed that matches the pattern `v*`
+(ie. `v0.1.0`).
+
+A [Gorelaser](https://goreleaser.com/) configuration is provided that produces
+build artifacts matching the [layout required](https://www.terraform.io/docs/registry/providers/publishing.html#manually-preparing-a-release)
+to publish the provider in the Terraform Registry.
+
+Releases will appear as drafts. Once marked as published on the GitHub Releases page,
+they will become available via the Terraform Registry.
+
 ### Documentation
 
 To generate new provider documentation run `make docs`

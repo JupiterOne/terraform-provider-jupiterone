@@ -1,8 +1,9 @@
 package jupiterone
 
 import (
-	"fmt"
+	"context"
 
+	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
 	"github.com/jupiterone/terraform-provider-jupiterone/jupiterone/internal/client"
@@ -16,10 +17,10 @@ func resourceQuestionRuleInstance() *schema.Resource {
 	var RulePollingIntervals = []string{"DISABLED", "THIRTY_MINUTES", "ONE_HOUR", "ONE_DAY"}
 
 	return &schema.Resource{
-		Create: resourceQuestionRuleInstanceCreate,
-		Read:   resourceQuestionRuleInstanceRead,
-		Update: resourceQuestionRuleInstanceUpdate,
-		Delete: resourceQuestionRuleInstanceDelete,
+		CreateContext: resourceQuestionRuleInstanceCreate,
+		ReadContext:   resourceQuestionRuleInstanceRead,
+		UpdateContext: resourceQuestionRuleInstanceUpdate,
+		DeleteContext: resourceQuestionRuleInstanceDelete,
 		Schema: map[string]*schema.Schema{
 			"name": {
 				Type:         schema.TypeString,
@@ -187,29 +188,29 @@ func buildQuestionRuleInstanceQuestion(terraformRuleQuestionList []interface{}) 
 	return &ruleQuestionList, nil
 }
 
-func resourceQuestionRuleInstanceCreate(d *schema.ResourceData, m interface{}) error {
+func resourceQuestionRuleInstanceCreate(_ context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
 	questionRuleInstanceProperties, err := buildQuestionRuleInstanceProperties(d)
 	if err != nil {
-		return fmt.Errorf("failed to build question rule instance: %s", err.Error())
+		return diag.Errorf("failed to build question rule instance: %s", err.Error())
 	}
 
 	createdQuestion, err := m.(*ProviderConfiguration).Client.CreateQuestionRuleInstance(*questionRuleInstanceProperties)
 	if err != nil {
-		return fmt.Errorf("failed to create question rule instance: %s", err.Error())
+		return diag.Errorf("failed to create question rule instance: %s", err.Error())
 	}
 
 	if err := d.Set("version", createdQuestion.Version); err != nil {
-		return err
+		return diag.FromErr(err)
 	}
 
 	d.SetId(createdQuestion.Id)
 	return nil
 }
 
-func resourceQuestionRuleInstanceUpdate(d *schema.ResourceData, m interface{}) error {
+func resourceQuestionRuleInstanceUpdate(_ context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
 	questionRuleInstanceProperties, err := buildQuestionRuleInstanceProperties(d)
 	if err != nil {
-		return fmt.Errorf("failed to build question rule instance: %s", err.Error())
+		return diag.Errorf("failed to build question rule instance: %s", err.Error())
 	}
 
 	var updateQuestionRuleInstanceProperties client.UpdateQuestionRuleInstanceProperties
@@ -230,34 +231,36 @@ func resourceQuestionRuleInstanceUpdate(d *schema.ResourceData, m interface{}) e
 	updatedQuestionRuleInstance, err := m.(*ProviderConfiguration).Client.UpdateQuestionRuleInstance(updateQuestionRuleInstanceProperties)
 
 	if err != nil {
-		return fmt.Errorf("failed to update question rule instance: %s", err.Error())
+		return diag.Errorf("failed to update question rule instance: %s", err.Error())
 	}
 
 	if err := d.Set("version", updatedQuestionRuleInstance.Version); err != nil {
-		return err
+		return diag.FromErr(err)
 	}
 
 	return nil
 }
 
-func resourceQuestionRuleInstanceDelete(d *schema.ResourceData, m interface{}) error {
+func resourceQuestionRuleInstanceDelete(_ context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
 	if err := m.(*ProviderConfiguration).Client.DeleteQuestionRuleInstance(d.Id()); err != nil {
-		return fmt.Errorf("failed to delete question rule instance: %s", err.Error())
+		return diag.Errorf("failed to delete question rule instance: %s", err.Error())
 	}
 
+	d.SetId("")
 	return nil
 }
 
-func resourceQuestionRuleInstanceRead(d *schema.ResourceData, m interface{}) error {
+func resourceQuestionRuleInstanceRead(_ context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
 	questionRuleInstance, err := m.(*ProviderConfiguration).Client.GetQuestionRuleInstanceByID(d.Id())
 
 	if err != nil {
-		return fmt.Errorf("failed to read existing question rule instance: %s", err.Error())
+		return diag.Errorf("failed to read existing question rule instance: %s", err.Error())
 	}
 
 	if err := d.Set("version", questionRuleInstance.Version); err != nil {
-		return err
+		return diag.FromErr(err)
 	}
 
+	d.SetId(questionRuleInstance.Id)
 	return nil
 }

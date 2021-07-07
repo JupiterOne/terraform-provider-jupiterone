@@ -1,5 +1,4 @@
 TEST?=$$(go list ./...)
-WEBSITE_REPO=github.com/hashicorp/terraform-website
 PKG_NAME=jupiterone
 DIR=~/.terraform.d/plugins
 
