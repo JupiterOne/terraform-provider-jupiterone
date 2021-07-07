@@ -1,8 +1,9 @@
 package jupiterone
 
 import (
-	"fmt"
+	"context"
 
+	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/jupiterone/terraform-provider-jupiterone/jupiterone/internal/client"
 	"github.com/mitchellh/mapstructure"
@@ -10,11 +11,10 @@ import (
 
 func resourceQuestion() *schema.Resource {
 	return &schema.Resource{
-		Create: resourceQuestionCreate,
-		Read:   resourceQuestionRead,
-		Update: resourceQuestionUpdate,
-		Delete: resourceQuestionDelete,
-
+		CreateContext: resourceQuestionCreate,
+		ReadContext:   resourceQuestionRead,
+		UpdateContext: resourceQuestionUpdate,
+		DeleteContext: resourceQuestionDelete,
 		Schema: map[string]*schema.Schema{
 			"title": {
 				Type:        schema.TypeString,
@@ -131,15 +131,15 @@ func buildQuestionProperties(d *schema.ResourceData) (*client.QuestionProperties
 	return &question, nil
 }
 
-func resourceQuestionCreate(d *schema.ResourceData, m interface{}) error {
+func resourceQuestionCreate(_ context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
 	questionProperties, err := buildQuestionProperties(d)
 	if err != nil {
-		return fmt.Errorf("failed to build question: %s", err.Error())
+		return diag.Errorf("failed to build question: %s", err.Error())
 	}
 
 	createdQuestion, err := m.(*ProviderConfiguration).Client.CreateQuestion(*questionProperties)
 	if err != nil {
-		return fmt.Errorf("failed to create question: %s", err.Error())
+		return diag.Errorf("failed to create question: %s", err.Error())
 	}
 
 	d.SetId(createdQuestion.Id)
@@ -147,32 +147,35 @@ func resourceQuestionCreate(d *schema.ResourceData, m interface{}) error {
 	return nil
 }
 
-func resourceQuestionRead(d *schema.ResourceData, m interface{}) error {
-	if _, err := m.(*ProviderConfiguration).Client.GetQuestion(d.Id()); err != nil {
-		return fmt.Errorf("failed to read existing question: %s", err.Error())
+func resourceQuestionRead(_ context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
+	question, err := m.(*ProviderConfiguration).Client.GetQuestion(d.Id())
+	if err != nil {
+		return diag.Errorf("failed to read existing question: %s", err.Error())
 	}
 
+	d.SetId(question.Id)
 	return nil
 }
 
-func resourceQuestionUpdate(d *schema.ResourceData, m interface{}) error {
+func resourceQuestionUpdate(_ context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
 	questionProperties, err := buildQuestionProperties(d)
 	if err != nil {
-		return fmt.Errorf("failed to build question: %s", err.Error())
+		return diag.Errorf("failed to build question: %s", err.Error())
 	}
 
 	if _, err := m.(*ProviderConfiguration).Client.UpdateQuestion(d.Id(), *questionProperties); err != nil {
-		return fmt.Errorf("failed to update question: %s", err.Error())
+		return diag.Errorf("failed to update question: %s", err.Error())
 	}
 
 	return nil
 }
 
-func resourceQuestionDelete(d *schema.ResourceData, m interface{}) error {
+func resourceQuestionDelete(_ context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
 	if err := m.(*ProviderConfiguration).Client.DeleteQuestion(d.Id()); err != nil {
-		return fmt.Errorf("failed to delete question: %s", err.Error())
+		return diag.Errorf("failed to delete question: %s", err.Error())
 	}
 
+	d.SetId("")
 	return nil
 }
 
