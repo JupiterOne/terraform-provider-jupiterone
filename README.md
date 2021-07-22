@@ -1,7 +1,5 @@
 # Terraform Provider JupiterOne
 
-**NOTE: This project is currently in beta and is _not_ ready for production use.**
-
 ## Requirements
 
 - [Terraform](https://www.terraform.io/downloads.html) 1.0.1
