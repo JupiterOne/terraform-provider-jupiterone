@@ -18,7 +18,7 @@ cassettes: fmtcheck
 
 fmt:
 	@echo "==> Fixing source code with gofmt..."
-	gofmt -w -s ./$(PKG_NAME)
+	gofmt -w -s .
 
 fmtcheck:
 	@./scripts/fmtcheck.sh
