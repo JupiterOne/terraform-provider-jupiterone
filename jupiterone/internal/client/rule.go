@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"log"
 
+	"github.com/machinebox/graphql"
 	"github.com/mitchellh/mapstructure"
 )
 
@@ -18,7 +19,7 @@ type RuleOperation struct {
 }
 
 type QuestionRuleInstance struct {
-	BaseQuestionRuleInstanceProperties
+	CommonQuestionRuleInstanceProperties
 	Id        string `json:"id"`
 	AccountId string `json:"accountId"`
 	Version   int    `json:"version"`
@@ -28,7 +29,7 @@ type QuestionRuleInstance struct {
 }
 
 type UpdateQuestionRuleInstanceProperties struct {
-	BaseQuestionRuleInstanceProperties
+	CommonQuestionRuleInstanceProperties
 	Id      string `json:"id"`
 	Version int    `json:"version"`
 }
@@ -40,17 +41,48 @@ type BaseQuestionRuleInstanceProperties struct {
 	PollingInterval string                 `json:"pollingInterval"`
 	Outputs         []string               `json:"outputs"`
 	Operations      string                 `json:"operations"`
-	Question        RuleQuestion           `json:"question"`
 	Templates       map[string]interface{} `json:"templates"`
 }
 
-type CreateQuestionRuleInstanceInput struct {
+type InlineQuestionRuleInstanceProperties struct {
+	Question *RuleQuestion `json:"question"`
+}
+
+type ReferencedQuestionRuleInstanceProperties struct {
+	QuestionId   *string `json:"questionId"`
+	QuestionName *string `json:"questionName"`
+}
+
+type CommonQuestionRuleInstanceProperties struct {
 	BaseQuestionRuleInstanceProperties
+	InlineQuestionRuleInstanceProperties
+	ReferencedQuestionRuleInstanceProperties
+}
+
+type CreateInlineQuestionRuleInstanceInput struct {
+	BaseQuestionRuleInstanceProperties
+	InlineQuestionRuleInstanceProperties
+	Operations []map[string]interface{} `json:"operations"`
+}
+type CreateReferencedQuestionRuleInstanceInput struct {
+	BaseQuestionRuleInstanceProperties
+	ReferencedQuestionRuleInstanceProperties
 	Operations []map[string]interface{} `json:"operations"`
 }
 
-type UpdateQuestionRuleInstanceInput struct {
-	UpdateQuestionRuleInstanceProperties
+type UpdateInlineQuestionRuleInstanceInput struct {
+	BaseQuestionRuleInstanceProperties
+	InlineQuestionRuleInstanceProperties
+	Id         string                   `json:"id"`
+	Version    int                      `json:"version"`
+	Operations []map[string]interface{} `json:"operations"`
+}
+
+type UpdateReferencedQuestionRuleInstanceInput struct {
+	BaseQuestionRuleInstanceProperties
+	ReferencedQuestionRuleInstanceProperties
+	Id         string                   `json:"id"`
+	Version    int                      `json:"version"`
 	Operations []map[string]interface{} `json:"operations"`
 }
 
@@ -103,70 +135,108 @@ func (c *JupiterOneClient) GetQuestionRuleInstanceByID(id string) (*QuestionRule
 }
 
 // CreateQuestionRuleInstance - Creates a question rule instance
-func (c *JupiterOneClient) CreateQuestionRuleInstance(createQuestionRuleInstanceInput BaseQuestionRuleInstanceProperties) (*QuestionRuleInstance, error) {
+func (c *JupiterOneClient) CreateQuestionRuleInstance(createQuestionRuleInstanceInput CommonQuestionRuleInstanceProperties) (*QuestionRuleInstance, error) {
 	log.Println("Create question rule instance: " + createQuestionRuleInstanceInput.Name)
 
-	req := c.prepareRequest(`
-		mutation CreateQuestionRuleInstance ($instance: CreateQuestionRuleInstanceInput!) {
-			createQuestionRuleInstance (
-				instance: $instance
-			) {
-				id
-				name
-				description
-				version
-				specVersion
-				latest
-				deleted
-				accountId
-				type
-				pollingInterval
-				templates
-				question {
-					queries {
-						name
-						query
-						version
-					}
-				}
-				operations {
-					when
-					actions
-				}
-				outputs
-			}
-		}
-	`)
-
-	var input CreateQuestionRuleInstanceInput
-	input.Name = createQuestionRuleInstanceInput.Name
-	input.Description = createQuestionRuleInstanceInput.Description
-	input.SpecVersion = createQuestionRuleInstanceInput.SpecVersion
-	input.PollingInterval = createQuestionRuleInstanceInput.PollingInterval
-	input.Outputs = createQuestionRuleInstanceInput.Outputs
-	input.Question = createQuestionRuleInstanceInput.Question
-	input.Templates = createQuestionRuleInstanceInput.Templates
-
 	var deserializedOperationsMap []map[string]interface{}
-
 	err := json.Unmarshal([]byte(createQuestionRuleInstanceInput.Operations), &deserializedOperationsMap)
-
 	if err != nil {
 		return nil, err
 	}
 
-	input.Operations = deserializedOperationsMap
+	var req *graphql.Request
+	if createQuestionRuleInstanceInput.QuestionId != nil || createQuestionRuleInstanceInput.QuestionName != nil {
+		req = c.prepareRequest(`
+			mutation CreateQuestionRuleInstance ($instance: CreateReferencedQuestionRuleInstanceInput!) {
+				createQuestionRuleInstance: createReferencedQuestionRuleInstance (
+					instance: $instance
+				) {
+					id
+					name
+					description
+					version
+					specVersion
+					latest
+					deleted
+					accountId
+					type
+					pollingInterval
+					templates
+					questionId
+					questionName
+					operations {
+						when
+						actions
+					}
+					outputs
+				}
+			}
+		`)
 
-	req.Var("instance", input)
+		var input CreateReferencedQuestionRuleInstanceInput
+		input.Name = createQuestionRuleInstanceInput.Name
+		input.Description = createQuestionRuleInstanceInput.Description
+		input.SpecVersion = createQuestionRuleInstanceInput.SpecVersion
+		input.PollingInterval = createQuestionRuleInstanceInput.PollingInterval
+		input.Outputs = createQuestionRuleInstanceInput.Outputs
+		input.QuestionId = createQuestionRuleInstanceInput.QuestionId
+		input.QuestionName = createQuestionRuleInstanceInput.QuestionName
+		input.Templates = createQuestionRuleInstanceInput.Templates
+		input.Operations = deserializedOperationsMap
+
+		req.Var("instance", input)
+	} else {
+		req = c.prepareRequest(`
+			mutation CreateQuestionRuleInstance ($instance: CreateInlineQuestionRuleInstanceInput!) {
+				createQuestionRuleInstance: createInlineQuestionRuleInstance (
+					instance: $instance
+				) {
+					id
+					name
+					description
+					version
+					specVersion
+					latest
+					deleted
+					accountId
+					type
+					pollingInterval
+					templates
+					question {
+						queries {
+							name
+							query
+							version
+						}
+					}
+					operations {
+						when
+						actions
+					}
+					outputs
+				}
+			}
+		`)
+
+		var input CreateInlineQuestionRuleInstanceInput
+		input.Name = createQuestionRuleInstanceInput.Name
+		input.Description = createQuestionRuleInstanceInput.Description
+		input.SpecVersion = createQuestionRuleInstanceInput.SpecVersion
+		input.PollingInterval = createQuestionRuleInstanceInput.PollingInterval
+		input.Outputs = createQuestionRuleInstanceInput.Outputs
+		input.Question = createQuestionRuleInstanceInput.Question
+		input.Templates = createQuestionRuleInstanceInput.Templates
+		input.Operations = deserializedOperationsMap
+
+		req.Var("instance", input)
+	}
 
 	var respData map[string]interface{}
-
 	if err := c.graphqlClient.Run(context.Background(), req, &respData); err != nil {
 		return nil, err
 	}
 
 	var questionRuleInstance QuestionRuleInstance
-
 	if err := mapstructure.Decode(respData["createQuestionRuleInstance"], &questionRuleInstance); err != nil {
 		return nil, err
 	}
@@ -177,68 +247,109 @@ func (c *JupiterOneClient) CreateQuestionRuleInstance(createQuestionRuleInstance
 func (c *JupiterOneClient) UpdateQuestionRuleInstance(properties UpdateQuestionRuleInstanceProperties) (*QuestionRuleInstance, error) {
 	log.Println("Updating question rule instance: " + properties.Name)
 
-	req := c.prepareRequest(`
-		mutation UpdateQuestionRuleInstance ($instance: UpdateQuestionRuleInstanceInput!) {
-			updateQuestionRuleInstance (
-				instance: $instance
-			) {
-				id
-				name
-				description
-				version
-				specVersion
-				latest
-				deleted
-				accountId
-				type
-				pollingInterval
-				templates
-				question {
-					queries {
-						name
-						query
-						version
-					}
-				}
-				operations {
-					when
-					actions
-				}
-				outputs
-			}
-		}
-	`)
-
-	var input UpdateQuestionRuleInstanceInput
-	input.Id = properties.Id
-	input.Version = properties.Version
-	input.Name = properties.Name
-	input.Description = properties.Description
-	input.SpecVersion = properties.SpecVersion
-	input.PollingInterval = properties.PollingInterval
-	input.Outputs = properties.Outputs
-	input.Question = properties.Question
-	input.Templates = properties.Templates
-
 	var deserializedOperationsMap []map[string]interface{}
-
 	err := json.Unmarshal([]byte(properties.Operations), &deserializedOperationsMap)
-
 	if err != nil {
 		return nil, err
 	}
 
-	input.Operations = deserializedOperationsMap
+	var req *graphql.Request
+	if properties.QuestionId != nil || properties.QuestionName != nil {
+		req = c.prepareRequest(`
+			mutation UpdateQuestionRuleInstance ($instance: UpdateReferencedQuestionRuleInstanceInput!) {
+				updateQuestionRuleInstance: updateReferencedQuestionRuleInstance (
+					instance: $instance
+				) {
+					id
+					name
+					description
+					version
+					specVersion
+					latest
+					deleted
+					accountId
+					type
+					pollingInterval
+					templates
+					questionId
+					questionName
+					operations {
+						when
+						actions
+					}
+					outputs
+				}
+			}
+		`)
 
-	req.Var("instance", input)
+		var input UpdateReferencedQuestionRuleInstanceInput
+		input.Id = properties.Id
+		input.Version = properties.Version
+		input.Name = properties.Name
+		input.Description = properties.Description
+		input.SpecVersion = properties.SpecVersion
+		input.PollingInterval = properties.PollingInterval
+		input.Outputs = properties.Outputs
+		input.QuestionId = properties.QuestionId
+		input.QuestionName = properties.QuestionName
+		input.Templates = properties.Templates
+		input.Operations = deserializedOperationsMap
+
+		req.Var("instance", input)
+	} else {
+		req = c.prepareRequest(`
+			mutation UpdateQuestionRuleInstance ($instance: UpdateInlineQuestionRuleInstanceInput!) {
+				updateQuestionRuleInstance: updateInlineQuestionRuleInstance (
+					instance: $instance
+				) {
+					id
+					name
+					description
+					version
+					specVersion
+					latest
+					deleted
+					accountId
+					type
+					pollingInterval
+					templates
+					question {
+						queries {
+							name
+							query
+							version
+						}
+					}
+					operations {
+						when
+						actions
+					}
+					outputs
+				}
+			}
+		`)
+
+		var input UpdateInlineQuestionRuleInstanceInput
+		input.Id = properties.Id
+		input.Version = properties.Version
+		input.Name = properties.Name
+		input.Description = properties.Description
+		input.SpecVersion = properties.SpecVersion
+		input.PollingInterval = properties.PollingInterval
+		input.Outputs = properties.Outputs
+		input.Question = properties.Question
+		input.Templates = properties.Templates
+		input.Operations = deserializedOperationsMap
+
+		req.Var("instance", input)
+	}
+
 	var respData map[string]interface{}
-
 	if err := c.graphqlClient.Run(context.Background(), req, &respData); err != nil {
 		return nil, err
 	}
 
 	var questionRuleInstance QuestionRuleInstance
-
 	if err := mapstructure.Decode(respData["updateQuestionRuleInstance"], &questionRuleInstance); err != nil {
 		return nil, err
 	}
