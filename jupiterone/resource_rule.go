@@ -64,10 +64,22 @@ func resourceQuestionRuleInstance() *schema.Resource {
 				Type:        schema.TypeList,
 				Description: "Contains properties related to queries used in the rule evaluation.",
 				MaxItems:    1,
-				Required:    true,
 				Elem: &schema.Resource{
 					Schema: getRuleQuestionSchema(),
 				},
+				AtLeastOneOf:  []string{"question", "question_id", "question_name"},
+				ConflictsWith: []string{"question_id", "question_name"},
+				Optional:      true,
+			},
+			"question_id": {
+				Type:        schema.TypeString,
+				Description: "Specifies the ID of a question to be used in rule evaluation.",
+				Optional:    true,
+			},
+			"question_name": {
+				Type:        schema.TypeString,
+				Description: "Specifies the name of a question to be used in rule evaluation.",
+				Optional:    true,
 			},
 			"operations": {
 				Type:         schema.TypeString,
@@ -116,8 +128,8 @@ func getQuestionQuerySchema() map[string]*schema.Schema {
 	}
 }
 
-func buildQuestionRuleInstanceProperties(d *schema.ResourceData) (*client.BaseQuestionRuleInstanceProperties, error) {
-	var questionRuleInstance client.BaseQuestionRuleInstanceProperties
+func buildQuestionRuleInstanceProperties(d *schema.ResourceData) (*client.CommonQuestionRuleInstanceProperties, error) {
+	var questionRuleInstance client.CommonQuestionRuleInstanceProperties
 
 	if v, ok := d.GetOk("name"); ok {
 		questionRuleInstance.Name = v.(string)
@@ -147,12 +159,21 @@ func buildQuestionRuleInstanceProperties(d *schema.ResourceData) (*client.BaseQu
 
 	if v, ok := d.GetOk("question"); ok {
 		ruleQuestion, err := buildQuestionRuleInstanceQuestion(v.([]interface{}))
-
 		if err != nil {
 			return nil, err
 		}
 
-		questionRuleInstance.Question = (*ruleQuestion)[0]
+		questionRuleInstance.Question = &(*ruleQuestion)[0]
+	}
+
+	if v, ok := d.GetOk("question_id"); ok {
+		value := v.(string)
+		questionRuleInstance.QuestionId = &value
+	}
+
+	if v, ok := d.GetOk("question_name"); ok {
+		value := v.(string)
+		questionRuleInstance.QuestionName = &value
 	}
 
 	if v, ok := d.GetOk("templates"); ok {
