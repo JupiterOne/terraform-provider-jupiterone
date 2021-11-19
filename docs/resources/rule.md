@@ -67,7 +67,6 @@ resource "jupiterone_rule" "unencrypted_critical_data_stores" {
 
 ### Optional
 
-- **id** (String) The ID of this resource.
 - **outputs** (List of String) Names of properties that can be used throughout the rule evaluation process and will be included in each record of a rule evaluation. (e.g. queries.query0.total)
 - **polling_interval** (String) Frequency of automated rule evaluation. Defaults to ONE_DAY.
 - **spec_version** (Number) Rule evaluation specification version in the case of breaking changes.
