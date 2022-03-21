@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v2.4.0
 
       - name: Setup dependency cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: |
             ~/.cache/go-build
