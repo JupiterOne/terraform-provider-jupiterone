@@ -8,7 +8,7 @@ require (
 	github.com/golangci/golangci-lint v1.43.0
 	github.com/hashicorp/go-cleanhttp v0.5.2
 	github.com/hashicorp/terraform-plugin-docs v0.4.0
-	github.com/hashicorp/terraform-plugin-sdk/v2 v2.12.0
+	github.com/hashicorp/terraform-plugin-sdk/v2 v2.14.0
 	github.com/machinebox/graphql v0.2.2
 	github.com/mitchellh/mapstructure v1.4.3
 	github.com/stretchr/testify v1.7.0
