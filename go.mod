@@ -11,5 +11,5 @@ require (
 	github.com/hashicorp/terraform-plugin-sdk/v2 v2.12.0
 	github.com/machinebox/graphql v0.2.2
 	github.com/mitchellh/mapstructure v1.5.0
-	github.com/stretchr/testify v1.7.1
+	github.com/stretchr/testify v1.7.4
 )
