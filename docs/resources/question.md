@@ -22,6 +22,7 @@ resource "jupiterone_question" "unencrypted_critical_data_stores" {
     name = "query0"
     query = "Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true"
     version = "v1"
+    results_are = "BAD"
   }
 }
 ```
@@ -31,27 +32,31 @@ resource "jupiterone_question" "unencrypted_critical_data_stores" {
 
 ### Required
 
-- **description** (String)
-- **query** (Block List, Min: 1) (see [below for nested schema](#nestedblock--query))
-- **title** (String) The title of the question
+- `description` (String)
+- `query` (Block List, Min: 1) (see [below for nested schema](#nestedblock--query))
+- `title` (String) The title of the question
 
 ### Optional
 
-- **compliance** (Block List) (see [below for nested schema](#nestedblock--compliance))
-- **id** (String) The ID of this resource.
-- **tags** (List of String)
+- `compliance` (Block List) (see [below for nested schema](#nestedblock--compliance))
+- `tags` (List of String)
+
+### Read-Only
+
+- `id` (String) The ID of this resource.
 
 <a id="nestedblock--query"></a>
 ### Nested Schema for `query`
 
 Required:
 
-- **query** (String)
-- **version** (String)
+- `query` (String)
+- `version` (String)
 
 Optional:
 
-- **name** (String)
+- `name` (String)
+- `results_are` (String)
 
 
 <a id="nestedblock--compliance"></a>
@@ -59,11 +64,11 @@ Optional:
 
 Required:
 
-- **standard** (String)
+- `standard` (String)
 
 Optional:
 
-- **controls** (List of String)
-- **requirements** (List of String)
+- `controls` (List of String)
+- `requirements` (List of String)
 
 

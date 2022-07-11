@@ -112,6 +112,8 @@ func getRuleQuestionSchema() map[string]*schema.Schema {
 }
 
 func getQuestionQuerySchema() map[string]*schema.Schema {
+	queryResultsEnum := []string{"BAD", "GOOD", "UNKNOWN", "INFORMATIVE"}
+
 	return map[string]*schema.Schema{
 		"name": {
 			Type:     schema.TypeString,
@@ -124,6 +126,11 @@ func getQuestionQuerySchema() map[string]*schema.Schema {
 		"version": {
 			Type:     schema.TypeString,
 			Required: true,
+		},
+		"results_are": {
+			Type:         schema.TypeString,
+			Optional:     true,
+			ValidateFunc: validation.StringInSlice(queryResultsEnum, false),
 		},
 	}
 }

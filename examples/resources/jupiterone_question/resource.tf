@@ -7,5 +7,6 @@ resource "jupiterone_question" "unencrypted_critical_data_stores" {
     name = "query0"
     query = "Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true"
     version = "v1"
+    results_are = "BAD"
   }
 }

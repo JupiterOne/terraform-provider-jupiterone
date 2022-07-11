@@ -40,6 +40,7 @@ func TestQuestion_Basic(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "query.0.name", "query0"),
 					resource.TestCheckResourceAttr(resourceName, "query.0.version", "v1"),
 					resource.TestCheckResourceAttr(resourceName, "query.0.query", "Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true"),
+					resource.TestCheckResourceAttr(resourceName, "query.0.results_are", "BAD"),
 				),
 			},
 			{
@@ -55,6 +56,7 @@ func TestQuestion_Basic(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "query.0.name", "query0"),
 					resource.TestCheckResourceAttr(resourceName, "query.0.version", "v1"),
 					resource.TestCheckResourceAttr(resourceName, "query.0.query", "Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true"),
+					resource.TestCheckResourceAttr(resourceName, "query.0.results_are", "BAD"),
 				),
 			},
 		},
@@ -145,6 +147,7 @@ func testQuestionBasicConfigWithTags(rName string, tag string) string {
 				name = "query0"
 				query = "Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true"
 				version = "v1"
+				results_are = "BAD"
 			}
 		}
 	`, rName, tag)
