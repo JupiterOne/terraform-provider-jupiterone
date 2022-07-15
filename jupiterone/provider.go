@@ -20,6 +20,7 @@ func Provider() *schema.Provider {
 				Required:    true,
 				DefaultFunc: schema.EnvDefaultFunc("JUPITERONE_API_KEY", nil),
 				Description: "API Key used to make requests to the JupiterOne APIs",
+				Sensitive:   true,
 			},
 			"account_id": {
 				Type:        schema.TypeString,

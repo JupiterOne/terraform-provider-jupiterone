@@ -60,39 +60,42 @@ resource "jupiterone_rule" "unencrypted_critical_data_stores" {
 
 ### Required
 
-- **description** (String) Description of the rule
-- **name** (String) Name of the rule, which is unique to each account.
-- **operations** (String) Actions that are executed when a corresponding condition is met.
-- **question** (Block List, Min: 1, Max: 1) Contains properties related to queries used in the rule evaluation. (see [below for nested schema](#nestedblock--question))
+- `description` (String) Description of the rule
+- `name` (String) Name of the rule, which is unique to each account.
+- `operations` (String) Actions that are executed when a corresponding condition is met.
 
 ### Optional
 
-- **outputs** (List of String) Names of properties that can be used throughout the rule evaluation process and will be included in each record of a rule evaluation. (e.g. queries.query0.total)
-- **polling_interval** (String) Frequency of automated rule evaluation. Defaults to ONE_DAY.
-- **spec_version** (Number) Rule evaluation specification version in the case of breaking changes.
-- **templates** (Map of String) Optional key/value pairs of template name to template
+- `outputs` (List of String) Names of properties that can be used throughout the rule evaluation process and will be included in each record of a rule evaluation. (e.g. queries.query0.total)
+- `polling_interval` (String) Frequency of automated rule evaluation. Defaults to ONE_DAY.
+- `question` (Block List, Max: 1) Contains properties related to queries used in the rule evaluation. (see [below for nested schema](#nestedblock--question))
+- `question_id` (String) Specifies the ID of a question to be used in rule evaluation.
+- `question_name` (String) Specifies the name of a question to be used in rule evaluation.
+- `spec_version` (Number) Rule evaluation specification version in the case of breaking changes.
+- `templates` (Map of String) Optional key/value pairs of template name to template
 
 ### Read-Only
 
-- **version** (Number) Computed current version of the rule. Incremented each time the rule is updated.
+- `id` (String) The ID of this resource.
+- `version` (Number) Computed current version of the rule. Incremented each time the rule is updated.
 
 <a id="nestedblock--question"></a>
 ### Nested Schema for `question`
 
 Required:
 
-- **queries** (Block List, Min: 1) (see [below for nested schema](#nestedblock--question--queries))
+- `queries` (Block List, Min: 1) (see [below for nested schema](#nestedblock--question--queries))
 
 <a id="nestedblock--question--queries"></a>
 ### Nested Schema for `question.queries`
 
 Required:
 
-- **query** (String)
-- **version** (String)
+- `query` (String)
+- `version` (String)
 
 Optional:
 
-- **name** (String)
+- `name` (String)
 
 

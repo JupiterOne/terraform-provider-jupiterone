@@ -71,6 +71,8 @@ func buildQuestionQueryList(terraformQuestionQueryList []interface{}) (*[]client
 			return nil, err
 		}
 
+		query.Query = removeCRFromString(query.Query)
+
 		questionQueryList[i] = query
 	}
 
