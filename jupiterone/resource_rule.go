@@ -203,6 +203,10 @@ func buildQuestionRuleInstanceQuestion(terraformRuleQuestionList []interface{}) 
 			return nil, err
 		}
 
+		for i, query := range ruleQuestion.Queries {
+			ruleQuestion.Queries[i].Query = removeCRFromString(query.Query)
+		}
+
 		ruleQuestionList[i] = ruleQuestion
 	}
 
