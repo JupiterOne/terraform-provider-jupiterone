@@ -25,6 +25,8 @@ resource "jupiterone_rule" "unencrypted_critical_data_stores" {
       version = "v1"
     }
   }
+  
+  tags = ["exampletag"]
 
   outputs = [
     "queries.query0.total",
@@ -72,6 +74,7 @@ resource "jupiterone_rule" "unencrypted_critical_data_stores" {
 - `question_id` (String) Specifies the ID of a question to be used in rule evaluation.
 - `question_name` (String) Specifies the name of a question to be used in rule evaluation.
 - `spec_version` (Number) Rule evaluation specification version in the case of breaking changes.
+- `tags` (List of String) Tags to apply to the rule.
 - `templates` (Map of String) Optional key/value pairs of template name to template
 
 ### Read-Only

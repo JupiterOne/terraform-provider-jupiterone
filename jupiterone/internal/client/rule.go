@@ -42,6 +42,7 @@ type BaseQuestionRuleInstanceProperties struct {
 	Outputs         []string               `json:"outputs"`
 	Operations      string                 `json:"operations"`
 	Templates       map[string]interface{} `json:"templates"`
+	Tags            []string               `json:"tags"`
 }
 
 type InlineQuestionRuleInstanceProperties struct {
@@ -114,6 +115,7 @@ func (c *JupiterOneClient) GetQuestionRuleInstanceByID(id string) (*QuestionRule
 					actions
 				}
 				outputs
+				tags
 			}
 		}
 	`)
@@ -169,6 +171,7 @@ func (c *JupiterOneClient) CreateQuestionRuleInstance(createQuestionRuleInstance
 						actions
 					}
 					outputs
+					tags
 				}
 			}
 		`)
@@ -183,6 +186,7 @@ func (c *JupiterOneClient) CreateQuestionRuleInstance(createQuestionRuleInstance
 		input.QuestionName = createQuestionRuleInstanceInput.QuestionName
 		input.Templates = createQuestionRuleInstanceInput.Templates
 		input.Operations = deserializedOperationsMap
+		input.Tags = createQuestionRuleInstanceInput.Tags
 
 		req.Var("instance", input)
 	} else {
@@ -214,6 +218,7 @@ func (c *JupiterOneClient) CreateQuestionRuleInstance(createQuestionRuleInstance
 						actions
 					}
 					outputs
+					tags
 				}
 			}
 		`)
@@ -227,6 +232,7 @@ func (c *JupiterOneClient) CreateQuestionRuleInstance(createQuestionRuleInstance
 		input.Question = createQuestionRuleInstanceInput.Question
 		input.Templates = createQuestionRuleInstanceInput.Templates
 		input.Operations = deserializedOperationsMap
+		input.Tags = createQuestionRuleInstanceInput.Tags
 
 		req.Var("instance", input)
 	}
@@ -278,6 +284,7 @@ func (c *JupiterOneClient) UpdateQuestionRuleInstance(properties UpdateQuestionR
 						actions
 					}
 					outputs
+					tags
 				}
 			}
 		`)
@@ -294,6 +301,7 @@ func (c *JupiterOneClient) UpdateQuestionRuleInstance(properties UpdateQuestionR
 		input.QuestionName = properties.QuestionName
 		input.Templates = properties.Templates
 		input.Operations = deserializedOperationsMap
+		input.Tags = properties.Tags
 
 		req.Var("instance", input)
 	} else {
@@ -325,6 +333,7 @@ func (c *JupiterOneClient) UpdateQuestionRuleInstance(properties UpdateQuestionR
 						actions
 					}
 					outputs
+					tags
 				}
 			}
 		`)
@@ -340,6 +349,7 @@ func (c *JupiterOneClient) UpdateQuestionRuleInstance(properties UpdateQuestionR
 		input.Question = properties.Question
 		input.Templates = properties.Templates
 		input.Operations = deserializedOperationsMap
+		input.Tags = properties.Tags
 
 		req.Var("instance", input)
 	}

@@ -14,7 +14,7 @@ const MIN_RULE_NAME_LENGTH = 1
 const MAX_RULE_NAME_LENGTH = 255
 
 func resourceQuestionRuleInstance() *schema.Resource {
-	var RulePollingIntervals = []string{"DISABLED", "THIRTY_MINUTES", "ONE_HOUR", "ONE_DAY"}
+	var RulePollingIntervals = []string{"DISABLED", "THIRTY_MINUTES", "ONE_HOUR", "ONE_DAY", "ONE_WEEK"}
 
 	return &schema.Resource{
 		CreateContext: resourceQuestionRuleInstanceCreate,
@@ -95,6 +95,14 @@ func resourceQuestionRuleInstance() *schema.Resource {
 					Type: schema.TypeString,
 				},
 			},
+			"tags": {
+				Type:        schema.TypeList,
+				Description: "Tags to apply to the rule.",
+				Optional:    true,
+				Elem: &schema.Schema{
+					Type: schema.TypeString,
+				},
+			},
 		},
 	}
 }
@@ -148,7 +156,7 @@ func buildQuestionRuleInstanceProperties(d *schema.ResourceData) (*client.Common
 	}
 
 	if v, ok := d.GetOk("outputs"); ok {
-		questionRuleInstance.Outputs = buildQuestionRuleInstanceOutputs(v.([]interface{}))
+		questionRuleInstance.Outputs = interfaceSliceToStringSlice(v.([]interface{}))
 	}
 
 	if v, ok := d.GetOk("operations"); ok {
@@ -180,17 +188,11 @@ func buildQuestionRuleInstanceProperties(d *schema.ResourceData) (*client.Common
 		questionRuleInstance.Templates = v.(map[string]interface{})
 	}
 
-	return &questionRuleInstance, nil
-}
-
-func buildQuestionRuleInstanceOutputs(terraformOutputsList []interface{}) []string {
-	outputList := make([]string, len(terraformOutputsList))
-
-	for i, output := range terraformOutputsList {
-		outputList[i] = output.(string)
+	if v, ok := d.GetOk("tags"); ok {
+		questionRuleInstance.Tags = interfaceSliceToStringSlice(v.([]interface{}))
 	}
 
-	return outputList
+	return &questionRuleInstance, nil
 }
 
 func buildQuestionRuleInstanceQuestion(terraformRuleQuestionList []interface{}) (*[]client.RuleQuestion, error) {
