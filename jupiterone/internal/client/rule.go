@@ -301,7 +301,14 @@ func (c *JupiterOneClient) UpdateQuestionRuleInstance(properties UpdateQuestionR
 		input.QuestionName = properties.QuestionName
 		input.Templates = properties.Templates
 		input.Operations = deserializedOperationsMap
-		input.Tags = properties.Tags
+
+		// Properties needs to be set to an empty slice
+		// not null value to have it updated.
+		if properties.Tags == nil {
+			input.Tags = make([]string, 0)
+		} else {
+			input.Tags = properties.Tags
+		}
 
 		req.Var("instance", input)
 	} else {
@@ -349,7 +356,14 @@ func (c *JupiterOneClient) UpdateQuestionRuleInstance(properties UpdateQuestionR
 		input.Question = properties.Question
 		input.Templates = properties.Templates
 		input.Operations = deserializedOperationsMap
-		input.Tags = properties.Tags
+
+		// Properties needs to be set to an empty slice
+		// not null value to have it updated.
+		if properties.Tags == nil {
+			input.Tags = make([]string, 0)
+		} else {
+			input.Tags = properties.Tags
+		}
 
 		req.Var("instance", input)
 	}

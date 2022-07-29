@@ -250,6 +250,7 @@ func resourceQuestionRuleInstanceUpdate(_ context.Context, d *schema.ResourceDat
 	updateQuestionRuleInstanceProperties.Outputs = questionRuleInstanceProperties.Outputs
 	updateQuestionRuleInstanceProperties.Question = questionRuleInstanceProperties.Question
 	updateQuestionRuleInstanceProperties.Templates = questionRuleInstanceProperties.Templates
+	updateQuestionRuleInstanceProperties.Tags = questionRuleInstanceProperties.Tags
 
 	if v, ok := d.GetOk("version"); ok {
 		updateQuestionRuleInstanceProperties.Version = v.(int)
