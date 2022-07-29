@@ -97,7 +97,7 @@ func resourceQuestionRuleInstance() *schema.Resource {
 			},
 			"tags": {
 				Type:        schema.TypeList,
-				Description: "Tags to apply to the rule.",
+				Description: "Comma seperated list of tags to apply to the rule.",
 				Optional:    true,
 				Elem: &schema.Schema{
 					Type: schema.TypeString,
