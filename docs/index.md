@@ -24,7 +24,7 @@ provider "jupiterone" {
 ### Required
 
 - `account_id` (String) JupiterOne account ID to create resources in
-- `api_key` (String) API Key used to make requests to the JupiterOne APIs
+- `api_key` (String, Sensitive) API Key used to make requests to the JupiterOne APIs
 
 ### Optional
 

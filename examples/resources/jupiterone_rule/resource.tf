@@ -10,6 +10,8 @@ resource "jupiterone_rule" "unencrypted_critical_data_stores" {
       version = "v1"
     }
   }
+  
+  tags = ["exampletag"]
 
   outputs = [
     "queries.query0.total",

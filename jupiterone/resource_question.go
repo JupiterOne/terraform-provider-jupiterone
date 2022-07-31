@@ -51,16 +51,6 @@ func resourceQuestion() *schema.Resource {
 	}
 }
 
-func buildQuestionTagList(terraformTagList []interface{}) []string {
-	tagList := make([]string, len(terraformTagList))
-
-	for i, tag := range terraformTagList {
-		tagList[i] = tag.(string)
-	}
-
-	return tagList
-}
-
 func buildQuestionQueryList(terraformQuestionQueryList []interface{}) (*[]client.QuestionQuery, error) {
 	questionQueryList := make([]client.QuestionQuery, len(terraformQuestionQueryList))
 
@@ -107,7 +97,7 @@ func buildQuestionProperties(d *schema.ResourceData) (*client.QuestionProperties
 	}
 
 	if v, ok := d.GetOk("tags"); ok {
-		question.Tags = buildQuestionTagList(v.([]interface{}))
+		question.Tags = interfaceSliceToStringSlice(v.([]interface{}))
 	}
 
 	if v, ok := d.GetOk("query"); ok {

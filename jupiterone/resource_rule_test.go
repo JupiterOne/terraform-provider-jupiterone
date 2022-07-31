@@ -42,6 +42,9 @@ func TestRuleInstance_Basic(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "description", "Test"),
 					resource.TestCheckResourceAttr(resourceName, "spec_version", "1"),
 					resource.TestCheckResourceAttr(resourceName, "polling_interval", "ONE_DAY"),
+					resource.TestCheckResourceAttr(resourceName, "tags.#", "2"),
+					resource.TestCheckResourceAttr(resourceName, "tags.0", "tag1"),
+					resource.TestCheckResourceAttr(resourceName, "tags.1", "tag2"),
 					resource.TestCheckResourceAttr(resourceName, "operations", operations),
 					resource.TestCheckResourceAttr(resourceName, "outputs.#", "2"),
 					resource.TestCheckResourceAttr(resourceName, "outputs.0", "queries.query0.total"),
@@ -63,6 +66,9 @@ func TestRuleInstance_Basic(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "description", "Test"),
 					resource.TestCheckResourceAttr(resourceName, "spec_version", "1"),
 					resource.TestCheckResourceAttr(resourceName, "polling_interval", "ONE_DAY"),
+					resource.TestCheckResourceAttr(resourceName, "tags.#", "2"),
+					resource.TestCheckResourceAttr(resourceName, "tags.0", "tag1"),
+					resource.TestCheckResourceAttr(resourceName, "tags.1", "tag2"),
 					resource.TestCheckResourceAttr(resourceName, "operations", operationsUpdate),
 					resource.TestCheckResourceAttr(resourceName, "outputs.#", "2"),
 					resource.TestCheckResourceAttr(resourceName, "outputs.0", "queries.query0.total"),
@@ -100,7 +106,7 @@ func TestRuleInstance_Config_Errors(t *testing.T) {
 			},
 			{
 				Config:      testRuleInstanceBasicConfigWithPollingInterval(rName, "INVALID_POLLING_INTERVAL"),
-				ExpectError: regexp.MustCompile(`expected polling_interval to be one of \[DISABLED THIRTY_MINUTES ONE_HOUR ONE_DAY\], got INVALID_POLLING_INTERVAL`),
+				ExpectError: regexp.MustCompile(`expected polling_interval to be one of \[DISABLED THIRTY_MINUTES ONE_HOUR ONE_DAY ONE_WEEK\], got INVALID_POLLING_INTERVAL`),
 			},
 		},
 	})
@@ -195,6 +201,7 @@ func testRuleInstanceBasicConfigWithOperations(rName string, operations string) 
 			description = "Test"
 			spec_version = 1
 			polling_interval = "ONE_DAY"
+			tags = ["tag1","tag2"]
 
 			question {
 				queries {
@@ -222,6 +229,7 @@ func testRuleInstanceBasicConfigWithPollingInterval(rName string, pollingInterva
 			spec_version = 1
 			polling_interval = %q
 
+			tags = ["tag1","tag2"]
 			question {
 				queries {
 					name = "query0"
