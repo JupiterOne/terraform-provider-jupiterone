@@ -80,6 +80,7 @@ func resourceQuestionRuleInstance() *schema.Resource {
 				Type:        schema.TypeString,
 				Description: "Specifies the name of a question to be used in rule evaluation.",
 				Optional:    true,
+				Deprecated:  "The question_name identifier is deprecated. Prefer to use a question's id property with question_id to reference a jupiterone_question in a jupiterone_rule.",
 			},
 			"operations": {
 				Type:         schema.TypeString,
