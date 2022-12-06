@@ -41,7 +41,7 @@ func TestRuleInstance_Basic(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "name", rName),
 					resource.TestCheckResourceAttr(resourceName, "description", "Test"),
 					resource.TestCheckResourceAttr(resourceName, "spec_version", "1"),
-					resource.TestCheckResourceAttr(resourceName, "polling_interval", "ONE_DAY"),
+					resource.TestCheckResourceAttr(resourceName, "polling_interval", "ONE_WEEK"),
 					resource.TestCheckResourceAttr(resourceName, "tags.#", "2"),
 					resource.TestCheckResourceAttr(resourceName, "tags.0", "tag1"),
 					resource.TestCheckResourceAttr(resourceName, "tags.1", "tag2"),
@@ -65,7 +65,7 @@ func TestRuleInstance_Basic(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "name", rName),
 					resource.TestCheckResourceAttr(resourceName, "description", "Test"),
 					resource.TestCheckResourceAttr(resourceName, "spec_version", "1"),
-					resource.TestCheckResourceAttr(resourceName, "polling_interval", "ONE_DAY"),
+					resource.TestCheckResourceAttr(resourceName, "polling_interval", "ONE_WEEK"),
 					resource.TestCheckResourceAttr(resourceName, "tags.#", "2"),
 					resource.TestCheckResourceAttr(resourceName, "tags.0", "tag1"),
 					resource.TestCheckResourceAttr(resourceName, "tags.1", "tag2"),
@@ -200,7 +200,7 @@ func testRuleInstanceBasicConfigWithOperations(rName string, operations string) 
 			name = %q
 			description = "Test"
 			spec_version = 1
-			polling_interval = "ONE_DAY"
+			polling_interval = "ONE_WEEK"
 			tags = ["tag1","tag2"]
 
 			question {
