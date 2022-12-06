@@ -227,12 +227,12 @@ func createQuestionRuleInstanceResource(_ context.Context, d *schema.ResourceDat
 }
 
 func resourceQuestionRuleInstanceUpdate(_ context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
-	qri, err := newQuestionRuleInstance(d)
+	questionRuleInstance, err := newQuestionRuleInstance(d)
 	if err != nil {
 		return diag.Errorf("failed to build question rule instance: %s", err.Error())
 	}
 
-	updatedQuestionRuleInstance, err := m.(*ProviderConfiguration).Client.UpdateQuestionRuleInstance(qri)
+	updatedQuestionRuleInstance, err := m.(*ProviderConfiguration).Client.UpdateQuestionRuleInstance(questionRuleInstance)
 	if err != nil {
 		return diag.Errorf("failed to update question rule instance: %s", err.Error())
 	}
@@ -328,7 +328,7 @@ func resourceQuestionRuleInstanceRead(_ context.Context, d *schema.ResourceData,
 		return diag.FromErr(err)
 	}
 
-	d.SetId(d.Id())
+	d.SetId(questionRuleInstance.Id)
 	return nil
 }
 
