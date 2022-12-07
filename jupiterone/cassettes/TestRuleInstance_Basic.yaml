@@ -3,7 +3,7 @@ version: 1
 interactions:
 - request:
     body: |
-      {"query":"\n\t\t\tmutation CreateQuestionRuleInstance ($instance: CreateInlineQuestionRuleInstanceInput!) {\n\t\t\t\tcreateQuestionRuleInstance: createInlineQuestionRuleInstance (\n\t\t\t\t\tinstance: $instance\n\t\t\t\t) {\n\t\t\t\t\tid\n\t\t\t\t\tname\n\t\t\t\t\tdescription\n\t\t\t\t\tversion\n\t\t\t\t\tspecVersion\n\t\t\t\t\tlatest\n\t\t\t\t\tdeleted\n\t\t\t\t\taccountId\n\t\t\t\t\ttype\n\t\t\t\t\tpollingInterval\n\t\t\t\t\ttemplates\n\t\t\t\t\tquestion {\n\t\t\t\t\t\tqueries {\n\t\t\t\t\t\t\tname\n\t\t\t\t\t\t\tquery\n\t\t\t\t\t\t\tversion\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t\toperations {\n\t\t\t\t\t\twhen\n\t\t\t\t\t\tactions\n\t\t\t\t\t}\n\t\t\t\t\toutputs\n\t\t\t\t\ttags\n\t\t\t\t}\n\t\t\t}\n\t\t","variables":{"instance":{"name":"tf-acc-test-5278254352274409628","description":"Test","specVersion":1,"pollingInterval":"ONE_WEEK","templates":null,"question":{"queries":[{"name":"query0","query":"Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true","version":"v1"}]},"operations":[{"when":{"condition":"{{queries.query0.total != 0}}","specVersion":1,"type":"FILTER"},"actions":[{"targetProperty":"alertLevel","targetValue":"HIGH","type":"SET_PROPERTY"},{"type":"CREATE_ALERT"}]}],"outputs":["queries.query0.total","alertLevel"],"tags":["tag1","tag2"]}}}
+      {"query":"\n\t\t\tmutation CreateQuestionRuleInstance ($instance: CreateInlineQuestionRuleInstanceInput!) {\n\t\t\t\tcreateQuestionRuleInstance: createInlineQuestionRuleInstance (\n\t\t\t\t\tinstance: $instance\n\t\t\t\t) {\n\t\t\t\t\tid\n\t\t\t\t\tname\n\t\t\t\t\tdescription\n\t\t\t\t\tversion\n\t\t\t\t\tspecVersion\n\t\t\t\t\tlatest\n\t\t\t\t\tdeleted\n\t\t\t\t\taccountId\n\t\t\t\t\ttype\n\t\t\t\t\tpollingInterval\n\t\t\t\t\ttemplates\n\t\t\t\t\tquestion {\n\t\t\t\t\t\tqueries {\n\t\t\t\t\t\t\tname\n\t\t\t\t\t\t\tquery\n\t\t\t\t\t\t\tversion\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t\toperations {\n\t\t\t\t\t\twhen\n\t\t\t\t\t\tactions\n\t\t\t\t\t}\n\t\t\t\t\toutputs\n\t\t\t\t\ttags\n\t\t\t\t}\n\t\t\t}\n\t\t","variables":{"instance":{"name":"tf-provider-rule","description":"Test","specVersion":1,"pollingInterval":"ONE_WEEK","templates":null,"question":{"queries":[{"name":"query0","query":"Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true","version":"v1"}]},"operations":[{"when":{"condition":"{{queries.query0.total != 0}}","specVersion":1,"type":"FILTER"},"actions":[{"targetProperty":"alertLevel","targetValue":"HIGH","type":"SET_PROPERTY"},{"type":"CREATE_ALERT"}]}],"outputs":["queries.query0.total","alertLevel"],"tags":["tag1","tag2"]}}}
     form: {}
     headers:
       Accept:
@@ -16,12 +16,12 @@ interactions:
     method: POST
   response:
     body: |
-      {"data":{"createQuestionRuleInstance":{"id":"7060d853-bc73-4865-90a1-adab066f8362","name":"tf-acc-test-5278254352274409628","description":"Test","version":1,"specVersion":1,"latest":true,"deleted":false,"accountId":"1316127e-baf6-4c4a-bc01-4fbe9ddd3415","type":"QUESTION","pollingInterval":"ONE_WEEK","templates":null,"question":{"queries":[{"name":"query0","query":"Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true","version":"v1"}]},"operations":[{"when":{"condition":"{{queries.query0.total != 0}}","specVersion":1,"type":"FILTER"},"actions":[{"targetProperty":"alertLevel","targetValue":"HIGH","type":"SET_PROPERTY","id":"3fb15a9d-9fe4-4d85-a670-6587cbb76f7c"},{"type":"CREATE_ALERT","id":"4901c436-54e4-4dcd-9c28-b95a81db8406"}]}],"outputs":["queries.query0.total","alertLevel"],"tags":["tag1","tag2"]}}}
+      {"data":{"createQuestionRuleInstance":{"id":"f2ad0219-549e-4f36-9569-35f8979c38fa","name":"tf-provider-rule","description":"Test","version":1,"specVersion":1,"latest":true,"deleted":false,"accountId":"1316127e-baf6-4c4a-bc01-4fbe9ddd3415","type":"QUESTION","pollingInterval":"ONE_WEEK","templates":null,"question":{"queries":[{"name":"query0","query":"Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true","version":"v1"}]},"operations":[{"when":{"condition":"{{queries.query0.total != 0}}","specVersion":1,"type":"FILTER"},"actions":[{"targetProperty":"alertLevel","targetValue":"HIGH","type":"SET_PROPERTY","id":"97ff6748-7ca3-4af6-8276-cb24a3948cd9"},{"type":"CREATE_ALERT","id":"d09b1286-820f-461f-b4a6-2eb46a2393ec"}]}],"outputs":["queries.query0.total","alertLevel"],"tags":["tag1","tag2"]}}}
     headers:
       Access-Control-Allow-Credentials:
       - "true"
       Content-Length:
-      - "878"
+      - "863"
       Content-Security-Policy:
       - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self''
         https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self''
@@ -70,7 +70,7 @@ interactions:
     duration: ""
 - request:
     body: |
-      {"query":"\n\t\tquery GetQuestionRuleInstance($id: ID!) {\n\t\t\tquestionRuleInstance (id: $id) {\n\t\t\t\tid\n\t\t\t\tname\n\t\t\t\tdescription\n\t\t\t\tversion\n\t\t\t\tspecVersion\n\t\t\t\tlatest\n\t\t\t\tpollingInterval\n\t\t\t\tdeleted\n\t\t\t\taccountId\n\t\t\t\ttype\n\t\t\t\ttemplates\n\t\t\t\tquestion {\n\t\t\t\t\tqueries {\n\t\t\t\t\t\tname\n\t\t\t\t\t\tquery\n\t\t\t\t\t\tversion\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t\toperations {\n\t\t\t\t\twhen\n\t\t\t\t\tactions\n\t\t\t\t}\n\t\t\t\toutputs\n\t\t\t\ttags\n\t\t\t}\n\t\t}\n\t","variables":{"id":"7060d853-bc73-4865-90a1-adab066f8362"}}
+      {"query":"\n\t\tquery GetQuestionRuleInstance($id: ID!) {\n\t\t\tquestionRuleInstance (id: $id) {\n\t\t\t\tid\n\t\t\t\tname\n\t\t\t\tdescription\n\t\t\t\tversion\n\t\t\t\tspecVersion\n\t\t\t\tlatest\n\t\t\t\tpollingInterval\n\t\t\t\tdeleted\n\t\t\t\taccountId\n\t\t\t\ttype\n\t\t\t\ttemplates\n\t\t\t\tquestion {\n\t\t\t\t\tqueries {\n\t\t\t\t\t\tname\n\t\t\t\t\t\tquery\n\t\t\t\t\t\tversion\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t\toperations {\n\t\t\t\t\twhen\n\t\t\t\t\tactions\n\t\t\t\t}\n\t\t\t\toutputs\n\t\t\t\ttags\n\t\t\t}\n\t\t}\n\t","variables":{"id":"f2ad0219-549e-4f36-9569-35f8979c38fa"}}
     form: {}
     headers:
       Accept:
@@ -83,12 +83,12 @@ interactions:
     method: POST
   response:
     body: |
-      {"data":{"questionRuleInstance":{"id":"7060d853-bc73-4865-90a1-adab066f8362","name":"tf-acc-test-5278254352274409628","description":"Test","version":1,"specVersion":1,"latest":true,"pollingInterval":"ONE_WEEK","deleted":false,"accountId":"1316127e-baf6-4c4a-bc01-4fbe9ddd3415","type":"QUESTION","templates":null,"question":{"queries":[{"name":"query0","query":"Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true","version":"v1"}]},"operations":[{"when":{"type":"FILTER","condition":"{{queries.query0.total != 0}}","specVersion":1},"actions":[{"targetValue":"HIGH","id":"3fb15a9d-9fe4-4d85-a670-6587cbb76f7c","type":"SET_PROPERTY","targetProperty":"alertLevel"},{"type":"CREATE_ALERT","id":"4901c436-54e4-4dcd-9c28-b95a81db8406"}]}],"outputs":["queries.query0.total","alertLevel"],"tags":["tag1","tag2"]}}}
+      {"data":{"questionRuleInstance":{"id":"f2ad0219-549e-4f36-9569-35f8979c38fa","name":"tf-provider-rule","description":"Test","version":1,"specVersion":1,"latest":true,"pollingInterval":"ONE_WEEK","deleted":false,"accountId":"1316127e-baf6-4c4a-bc01-4fbe9ddd3415","type":"QUESTION","templates":null,"question":{"queries":[{"name":"query0","query":"Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true","version":"v1"}]},"operations":[{"when":{"type":"FILTER","condition":"{{queries.query0.total != 0}}","specVersion":1},"actions":[{"targetValue":"HIGH","id":"97ff6748-7ca3-4af6-8276-cb24a3948cd9","type":"SET_PROPERTY","targetProperty":"alertLevel"},{"type":"CREATE_ALERT","id":"d09b1286-820f-461f-b4a6-2eb46a2393ec"}]}],"outputs":["queries.query0.total","alertLevel"],"tags":["tag1","tag2"]}}}
     headers:
       Access-Control-Allow-Credentials:
       - "true"
       Content-Length:
-      - "872"
+      - "857"
       Content-Security-Policy:
       - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self''
         https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self''
@@ -137,7 +137,7 @@ interactions:
     duration: ""
 - request:
     body: |
-      {"query":"\n\t\tquery GetQuestionRuleInstance($id: ID!) {\n\t\t\tquestionRuleInstance (id: $id) {\n\t\t\t\tid\n\t\t\t\tname\n\t\t\t\tdescription\n\t\t\t\tversion\n\t\t\t\tspecVersion\n\t\t\t\tlatest\n\t\t\t\tpollingInterval\n\t\t\t\tdeleted\n\t\t\t\taccountId\n\t\t\t\ttype\n\t\t\t\ttemplates\n\t\t\t\tquestion {\n\t\t\t\t\tqueries {\n\t\t\t\t\t\tname\n\t\t\t\t\t\tquery\n\t\t\t\t\t\tversion\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t\toperations {\n\t\t\t\t\twhen\n\t\t\t\t\tactions\n\t\t\t\t}\n\t\t\t\toutputs\n\t\t\t\ttags\n\t\t\t}\n\t\t}\n\t","variables":{"id":"7060d853-bc73-4865-90a1-adab066f8362"}}
+      {"query":"\n\t\tquery GetQuestionRuleInstance($id: ID!) {\n\t\t\tquestionRuleInstance (id: $id) {\n\t\t\t\tid\n\t\t\t\tname\n\t\t\t\tdescription\n\t\t\t\tversion\n\t\t\t\tspecVersion\n\t\t\t\tlatest\n\t\t\t\tpollingInterval\n\t\t\t\tdeleted\n\t\t\t\taccountId\n\t\t\t\ttype\n\t\t\t\ttemplates\n\t\t\t\tquestion {\n\t\t\t\t\tqueries {\n\t\t\t\t\t\tname\n\t\t\t\t\t\tquery\n\t\t\t\t\t\tversion\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t\toperations {\n\t\t\t\t\twhen\n\t\t\t\t\tactions\n\t\t\t\t}\n\t\t\t\toutputs\n\t\t\t\ttags\n\t\t\t}\n\t\t}\n\t","variables":{"id":"f2ad0219-549e-4f36-9569-35f8979c38fa"}}
     form: {}
     headers:
       Accept:
@@ -150,12 +150,12 @@ interactions:
     method: POST
   response:
     body: |
-      {"data":{"questionRuleInstance":{"id":"7060d853-bc73-4865-90a1-adab066f8362","name":"tf-acc-test-5278254352274409628","description":"Test","version":1,"specVersion":1,"latest":true,"pollingInterval":"ONE_WEEK","deleted":false,"accountId":"1316127e-baf6-4c4a-bc01-4fbe9ddd3415","type":"QUESTION","templates":null,"question":{"queries":[{"name":"query0","query":"Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true","version":"v1"}]},"operations":[{"when":{"type":"FILTER","condition":"{{queries.query0.total != 0}}","specVersion":1},"actions":[{"targetValue":"HIGH","id":"3fb15a9d-9fe4-4d85-a670-6587cbb76f7c","type":"SET_PROPERTY","targetProperty":"alertLevel"},{"type":"CREATE_ALERT","id":"4901c436-54e4-4dcd-9c28-b95a81db8406"}]}],"outputs":["queries.query0.total","alertLevel"],"tags":["tag1","tag2"]}}}
+      {"data":{"questionRuleInstance":{"id":"f2ad0219-549e-4f36-9569-35f8979c38fa","name":"tf-provider-rule","description":"Test","version":1,"specVersion":1,"latest":true,"pollingInterval":"ONE_WEEK","deleted":false,"accountId":"1316127e-baf6-4c4a-bc01-4fbe9ddd3415","type":"QUESTION","templates":null,"question":{"queries":[{"name":"query0","query":"Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true","version":"v1"}]},"operations":[{"when":{"type":"FILTER","condition":"{{queries.query0.total != 0}}","specVersion":1},"actions":[{"targetValue":"HIGH","id":"97ff6748-7ca3-4af6-8276-cb24a3948cd9","type":"SET_PROPERTY","targetProperty":"alertLevel"},{"type":"CREATE_ALERT","id":"d09b1286-820f-461f-b4a6-2eb46a2393ec"}]}],"outputs":["queries.query0.total","alertLevel"],"tags":["tag1","tag2"]}}}
     headers:
       Access-Control-Allow-Credentials:
       - "true"
       Content-Length:
-      - "872"
+      - "857"
       Content-Security-Policy:
       - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self''
         https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self''
@@ -204,7 +204,7 @@ interactions:
     duration: ""
 - request:
     body: |
-      {"query":"\n\t\tquery GetQuestionRuleInstance($id: ID!) {\n\t\t\tquestionRuleInstance (id: $id) {\n\t\t\t\tid\n\t\t\t\tname\n\t\t\t\tdescription\n\t\t\t\tversion\n\t\t\t\tspecVersion\n\t\t\t\tlatest\n\t\t\t\tpollingInterval\n\t\t\t\tdeleted\n\t\t\t\taccountId\n\t\t\t\ttype\n\t\t\t\ttemplates\n\t\t\t\tquestion {\n\t\t\t\t\tqueries {\n\t\t\t\t\t\tname\n\t\t\t\t\t\tquery\n\t\t\t\t\t\tversion\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t\toperations {\n\t\t\t\t\twhen\n\t\t\t\t\tactions\n\t\t\t\t}\n\t\t\t\toutputs\n\t\t\t\ttags\n\t\t\t}\n\t\t}\n\t","variables":{"id":"7060d853-bc73-4865-90a1-adab066f8362"}}
+      {"query":"\n\t\tquery GetQuestionRuleInstance($id: ID!) {\n\t\t\tquestionRuleInstance (id: $id) {\n\t\t\t\tid\n\t\t\t\tname\n\t\t\t\tdescription\n\t\t\t\tversion\n\t\t\t\tspecVersion\n\t\t\t\tlatest\n\t\t\t\tpollingInterval\n\t\t\t\tdeleted\n\t\t\t\taccountId\n\t\t\t\ttype\n\t\t\t\ttemplates\n\t\t\t\tquestion {\n\t\t\t\t\tqueries {\n\t\t\t\t\t\tname\n\t\t\t\t\t\tquery\n\t\t\t\t\t\tversion\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t\toperations {\n\t\t\t\t\twhen\n\t\t\t\t\tactions\n\t\t\t\t}\n\t\t\t\toutputs\n\t\t\t\ttags\n\t\t\t}\n\t\t}\n\t","variables":{"id":"f2ad0219-549e-4f36-9569-35f8979c38fa"}}
     form: {}
     headers:
       Accept:
@@ -217,12 +217,12 @@ interactions:
     method: POST
   response:
     body: |
-      {"data":{"questionRuleInstance":{"id":"7060d853-bc73-4865-90a1-adab066f8362","name":"tf-acc-test-5278254352274409628","description":"Test","version":1,"specVersion":1,"latest":true,"pollingInterval":"ONE_WEEK","deleted":false,"accountId":"1316127e-baf6-4c4a-bc01-4fbe9ddd3415","type":"QUESTION","templates":null,"question":{"queries":[{"name":"query0","query":"Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true","version":"v1"}]},"operations":[{"when":{"type":"FILTER","condition":"{{queries.query0.total != 0}}","specVersion":1},"actions":[{"targetValue":"HIGH","id":"3fb15a9d-9fe4-4d85-a670-6587cbb76f7c","type":"SET_PROPERTY","targetProperty":"alertLevel"},{"type":"CREATE_ALERT","id":"4901c436-54e4-4dcd-9c28-b95a81db8406"}]}],"outputs":["queries.query0.total","alertLevel"],"tags":["tag1","tag2"]}}}
+      {"data":{"questionRuleInstance":{"id":"f2ad0219-549e-4f36-9569-35f8979c38fa","name":"tf-provider-rule","description":"Test","version":1,"specVersion":1,"latest":true,"pollingInterval":"ONE_WEEK","deleted":false,"accountId":"1316127e-baf6-4c4a-bc01-4fbe9ddd3415","type":"QUESTION","templates":null,"question":{"queries":[{"name":"query0","query":"Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true","version":"v1"}]},"operations":[{"when":{"type":"FILTER","condition":"{{queries.query0.total != 0}}","specVersion":1},"actions":[{"targetValue":"HIGH","id":"97ff6748-7ca3-4af6-8276-cb24a3948cd9","type":"SET_PROPERTY","targetProperty":"alertLevel"},{"type":"CREATE_ALERT","id":"d09b1286-820f-461f-b4a6-2eb46a2393ec"}]}],"outputs":["queries.query0.total","alertLevel"],"tags":["tag1","tag2"]}}}
     headers:
       Access-Control-Allow-Credentials:
       - "true"
       Content-Length:
-      - "872"
+      - "857"
       Content-Security-Policy:
       - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self''
         https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self''
@@ -271,7 +271,7 @@ interactions:
     duration: ""
 - request:
     body: |
-      {"query":"\n\t\tmutation UpdateQuestionRuleInstance ($instance: UpdateInlineQuestionRuleInstanceInput!) {\n\t\t\t\tupdateQuestionRuleInstance: updateInlineQuestionRuleInstance (\n\t\t\t\t\tinstance: $instance\n\t\t\t\t) {\n\t\t\t\t\tid\n\t\t\t\t\tname\n\t\t\t\t\tdescription\n\t\t\t\t\tversion\n\t\t\t\t\tspecVersion\n\t\t\t\t\tlatest\n\t\t\t\t\tdeleted\n\t\t\t\t\taccountId\n\t\t\t\t\ttype\n\t\t\t\t\tpollingInterval\n\t\t\t\t\ttemplates\n\t\t\t\t\tquestion {\n\t\t\t\t\t\tqueries {\n\t\t\t\t\t\t\tname\n\t\t\t\t\t\t\tquery\n\t\t\t\t\t\t\tversion\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t\toperations {\n\t\t\t\t\t\twhen\n\t\t\t\t\t\tactions\n\t\t\t\t\t}\n\t\t\t\t\toutputs\n\t\t\t\t\ttags\n\t\t\t\t}\n\t\t\t}","variables":{"instance":{"id":"7060d853-bc73-4865-90a1-adab066f8362","name":"tf-acc-test-5278254352274409628","description":"Test","version":1,"specVersion":1,"pollingInterval":"ONE_WEEK","templates":null,"question":{"queries":[{"name":"query0","query":"Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true","version":"v1"}]},"operations":[{"actions":[{"targetProperty":"alertLevel","targetValue":"HIGH","type":"SET_PROPERTY"},{"type":"CREATE_ALERT"}]}],"outputs":["queries.query0.total","alertLevel"],"tags":["tag1","tag2"]}}}
+      {"query":"\n\t\tmutation UpdateQuestionRuleInstance ($instance: UpdateInlineQuestionRuleInstanceInput!) {\n\t\t\t\tupdateQuestionRuleInstance: updateInlineQuestionRuleInstance (\n\t\t\t\t\tinstance: $instance\n\t\t\t\t) {\n\t\t\t\t\tid\n\t\t\t\t\tname\n\t\t\t\t\tdescription\n\t\t\t\t\tversion\n\t\t\t\t\tspecVersion\n\t\t\t\t\tlatest\n\t\t\t\t\tdeleted\n\t\t\t\t\taccountId\n\t\t\t\t\ttype\n\t\t\t\t\tpollingInterval\n\t\t\t\t\ttemplates\n\t\t\t\t\tquestion {\n\t\t\t\t\t\tqueries {\n\t\t\t\t\t\t\tname\n\t\t\t\t\t\t\tquery\n\t\t\t\t\t\t\tversion\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t\toperations {\n\t\t\t\t\t\twhen\n\t\t\t\t\t\tactions\n\t\t\t\t\t}\n\t\t\t\t\toutputs\n\t\t\t\t\ttags\n\t\t\t\t}\n\t\t\t}\n\t\t","variables":{"instance":{"id":"f2ad0219-549e-4f36-9569-35f8979c38fa","name":"tf-provider-rule","description":"Test","version":1,"specVersion":1,"pollingInterval":"ONE_WEEK","templates":null,"question":{"queries":[{"name":"query0","query":"Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true","version":"v1"}]},"operations":[{"actions":[{"targetProperty":"alertLevel","targetValue":"HIGH","type":"SET_PROPERTY"},{"type":"CREATE_ALERT"}]}],"outputs":["queries.query0.total","alertLevel"],"tags":["tag1","tag2"]}}}
     form: {}
     headers:
       Accept:
@@ -284,12 +284,12 @@ interactions:
     method: POST
   response:
     body: |
-      {"data":{"updateQuestionRuleInstance":{"id":"7060d853-bc73-4865-90a1-adab066f8362","name":"tf-acc-test-5278254352274409628","description":"Test","version":2,"specVersion":1,"latest":true,"deleted":false,"accountId":"1316127e-baf6-4c4a-bc01-4fbe9ddd3415","type":"QUESTION","pollingInterval":"ONE_WEEK","templates":null,"question":{"queries":[{"name":"query0","query":"Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true","version":"v1"}]},"operations":[{"when":null,"actions":[{"targetProperty":"alertLevel","targetValue":"HIGH","type":"SET_PROPERTY","id":"95c30b9c-0cf9-4d3e-8399-84cd4c780257"},{"type":"CREATE_ALERT","id":"70ae6f5c-00c9-47be-b85b-9a80870ed02a"}]}],"outputs":["queries.query0.total","alertLevel"],"tags":["tag1","tag2"]}}}
+      {"data":{"updateQuestionRuleInstance":{"id":"f2ad0219-549e-4f36-9569-35f8979c38fa","name":"tf-provider-rule","description":"Test","version":2,"specVersion":1,"latest":true,"deleted":false,"accountId":"1316127e-baf6-4c4a-bc01-4fbe9ddd3415","type":"QUESTION","pollingInterval":"ONE_WEEK","templates":null,"question":{"queries":[{"name":"query0","query":"Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true","version":"v1"}]},"operations":[{"when":null,"actions":[{"targetProperty":"alertLevel","targetValue":"HIGH","type":"SET_PROPERTY","id":"23552c21-8d46-48f1-ae7d-1ad42e628b39"},{"type":"CREATE_ALERT","id":"64baee15-496c-4fed-805b-5694bc45ce1d"}]}],"outputs":["queries.query0.total","alertLevel"],"tags":["tag1","tag2"]}}}
     headers:
       Access-Control-Allow-Credentials:
       - "true"
       Content-Length:
-      - "805"
+      - "790"
       Content-Security-Policy:
       - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self''
         https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self''
@@ -338,7 +338,7 @@ interactions:
     duration: ""
 - request:
     body: |
-      {"query":"\n\t\tquery GetQuestionRuleInstance($id: ID!) {\n\t\t\tquestionRuleInstance (id: $id) {\n\t\t\t\tid\n\t\t\t\tname\n\t\t\t\tdescription\n\t\t\t\tversion\n\t\t\t\tspecVersion\n\t\t\t\tlatest\n\t\t\t\tpollingInterval\n\t\t\t\tdeleted\n\t\t\t\taccountId\n\t\t\t\ttype\n\t\t\t\ttemplates\n\t\t\t\tquestion {\n\t\t\t\t\tqueries {\n\t\t\t\t\t\tname\n\t\t\t\t\t\tquery\n\t\t\t\t\t\tversion\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t\toperations {\n\t\t\t\t\twhen\n\t\t\t\t\tactions\n\t\t\t\t}\n\t\t\t\toutputs\n\t\t\t\ttags\n\t\t\t}\n\t\t}\n\t","variables":{"id":"7060d853-bc73-4865-90a1-adab066f8362"}}
+      {"query":"\n\t\tquery GetQuestionRuleInstance($id: ID!) {\n\t\t\tquestionRuleInstance (id: $id) {\n\t\t\t\tid\n\t\t\t\tname\n\t\t\t\tdescription\n\t\t\t\tversion\n\t\t\t\tspecVersion\n\t\t\t\tlatest\n\t\t\t\tpollingInterval\n\t\t\t\tdeleted\n\t\t\t\taccountId\n\t\t\t\ttype\n\t\t\t\ttemplates\n\t\t\t\tquestion {\n\t\t\t\t\tqueries {\n\t\t\t\t\t\tname\n\t\t\t\t\t\tquery\n\t\t\t\t\t\tversion\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t\toperations {\n\t\t\t\t\twhen\n\t\t\t\t\tactions\n\t\t\t\t}\n\t\t\t\toutputs\n\t\t\t\ttags\n\t\t\t}\n\t\t}\n\t","variables":{"id":"f2ad0219-549e-4f36-9569-35f8979c38fa"}}
     form: {}
     headers:
       Accept:
@@ -351,12 +351,12 @@ interactions:
     method: POST
   response:
     body: |
-      {"data":{"questionRuleInstance":{"id":"7060d853-bc73-4865-90a1-adab066f8362","name":"tf-acc-test-5278254352274409628","description":"Test","version":2,"specVersion":1,"latest":true,"pollingInterval":"ONE_WEEK","deleted":false,"accountId":"1316127e-baf6-4c4a-bc01-4fbe9ddd3415","type":"QUESTION","templates":null,"question":{"queries":[{"name":"query0","query":"Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true","version":"v1"}]},"operations":[{"when":null,"actions":[{"targetValue":"HIGH","id":"95c30b9c-0cf9-4d3e-8399-84cd4c780257","type":"SET_PROPERTY","targetProperty":"alertLevel"},{"type":"CREATE_ALERT","id":"70ae6f5c-00c9-47be-b85b-9a80870ed02a"}]}],"outputs":["queries.query0.total","alertLevel"],"tags":["tag1","tag2"]}}}
+      {"data":{"questionRuleInstance":{"id":"f2ad0219-549e-4f36-9569-35f8979c38fa","name":"tf-provider-rule","description":"Test","version":2,"specVersion":1,"latest":true,"pollingInterval":"ONE_WEEK","deleted":false,"accountId":"1316127e-baf6-4c4a-bc01-4fbe9ddd3415","type":"QUESTION","templates":null,"question":{"queries":[{"name":"query0","query":"Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true","version":"v1"}]},"operations":[{"when":null,"actions":[{"targetValue":"HIGH","id":"23552c21-8d46-48f1-ae7d-1ad42e628b39","type":"SET_PROPERTY","targetProperty":"alertLevel"},{"type":"CREATE_ALERT","id":"64baee15-496c-4fed-805b-5694bc45ce1d"}]}],"outputs":["queries.query0.total","alertLevel"],"tags":["tag1","tag2"]}}}
     headers:
       Access-Control-Allow-Credentials:
       - "true"
       Content-Length:
-      - "799"
+      - "784"
       Content-Security-Policy:
       - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self''
         https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self''
@@ -405,7 +405,7 @@ interactions:
     duration: ""
 - request:
     body: |
-      {"query":"\n\t\tquery GetQuestionRuleInstance($id: ID!) {\n\t\t\tquestionRuleInstance (id: $id) {\n\t\t\t\tid\n\t\t\t\tname\n\t\t\t\tdescription\n\t\t\t\tversion\n\t\t\t\tspecVersion\n\t\t\t\tlatest\n\t\t\t\tpollingInterval\n\t\t\t\tdeleted\n\t\t\t\taccountId\n\t\t\t\ttype\n\t\t\t\ttemplates\n\t\t\t\tquestion {\n\t\t\t\t\tqueries {\n\t\t\t\t\t\tname\n\t\t\t\t\t\tquery\n\t\t\t\t\t\tversion\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t\toperations {\n\t\t\t\t\twhen\n\t\t\t\t\tactions\n\t\t\t\t}\n\t\t\t\toutputs\n\t\t\t\ttags\n\t\t\t}\n\t\t}\n\t","variables":{"id":"7060d853-bc73-4865-90a1-adab066f8362"}}
+      {"query":"\n\t\tquery GetQuestionRuleInstance($id: ID!) {\n\t\t\tquestionRuleInstance (id: $id) {\n\t\t\t\tid\n\t\t\t\tname\n\t\t\t\tdescription\n\t\t\t\tversion\n\t\t\t\tspecVersion\n\t\t\t\tlatest\n\t\t\t\tpollingInterval\n\t\t\t\tdeleted\n\t\t\t\taccountId\n\t\t\t\ttype\n\t\t\t\ttemplates\n\t\t\t\tquestion {\n\t\t\t\t\tqueries {\n\t\t\t\t\t\tname\n\t\t\t\t\t\tquery\n\t\t\t\t\t\tversion\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t\toperations {\n\t\t\t\t\twhen\n\t\t\t\t\tactions\n\t\t\t\t}\n\t\t\t\toutputs\n\t\t\t\ttags\n\t\t\t}\n\t\t}\n\t","variables":{"id":"f2ad0219-549e-4f36-9569-35f8979c38fa"}}
     form: {}
     headers:
       Accept:
@@ -418,12 +418,12 @@ interactions:
     method: POST
   response:
     body: |
-      {"data":{"questionRuleInstance":{"id":"7060d853-bc73-4865-90a1-adab066f8362","name":"tf-acc-test-5278254352274409628","description":"Test","version":2,"specVersion":1,"latest":true,"pollingInterval":"ONE_WEEK","deleted":false,"accountId":"1316127e-baf6-4c4a-bc01-4fbe9ddd3415","type":"QUESTION","templates":null,"question":{"queries":[{"name":"query0","query":"Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true","version":"v1"}]},"operations":[{"when":null,"actions":[{"targetValue":"HIGH","id":"95c30b9c-0cf9-4d3e-8399-84cd4c780257","type":"SET_PROPERTY","targetProperty":"alertLevel"},{"type":"CREATE_ALERT","id":"70ae6f5c-00c9-47be-b85b-9a80870ed02a"}]}],"outputs":["queries.query0.total","alertLevel"],"tags":["tag1","tag2"]}}}
+      {"data":{"questionRuleInstance":{"id":"f2ad0219-549e-4f36-9569-35f8979c38fa","name":"tf-provider-rule","description":"Test","version":2,"specVersion":1,"latest":true,"pollingInterval":"ONE_WEEK","deleted":false,"accountId":"1316127e-baf6-4c4a-bc01-4fbe9ddd3415","type":"QUESTION","templates":null,"question":{"queries":[{"name":"query0","query":"Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true","version":"v1"}]},"operations":[{"when":null,"actions":[{"targetValue":"HIGH","id":"23552c21-8d46-48f1-ae7d-1ad42e628b39","type":"SET_PROPERTY","targetProperty":"alertLevel"},{"type":"CREATE_ALERT","id":"64baee15-496c-4fed-805b-5694bc45ce1d"}]}],"outputs":["queries.query0.total","alertLevel"],"tags":["tag1","tag2"]}}}
     headers:
       Access-Control-Allow-Credentials:
       - "true"
       Content-Length:
-      - "799"
+      - "784"
       Content-Security-Policy:
       - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self''
         https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self''
@@ -472,7 +472,7 @@ interactions:
     duration: ""
 - request:
     body: |
-      {"query":"\n\t\tmutation DeleteRuleInstance ($id: ID!) {\n\t\t\tdeleteRuleInstance (id: $id) {\n\t\t\t\tid\n\t\t\t}\n\t      }\n\t","variables":{"id":"7060d853-bc73-4865-90a1-adab066f8362"}}
+      {"query":"\n\t\tmutation DeleteRuleInstance ($id: ID!) {\n\t\t\tdeleteRuleInstance (id: $id) {\n\t\t\t\tid\n\t\t\t}\n\t      }\n\t","variables":{"id":"f2ad0219-549e-4f36-9569-35f8979c38fa"}}
     form: {}
     headers:
       Accept:
@@ -485,7 +485,7 @@ interactions:
     method: POST
   response:
     body: |
-      {"data":{"deleteRuleInstance":{"id":"7060d853-bc73-4865-90a1-adab066f8362"}}}
+      {"data":{"deleteRuleInstance":{"id":"f2ad0219-549e-4f36-9569-35f8979c38fa"}}}
     headers:
       Access-Control-Allow-Credentials:
       - "true"
@@ -539,7 +539,7 @@ interactions:
     duration: ""
 - request:
     body: |
-      {"query":"\n\t\tquery GetQuestionRuleInstance($id: ID!) {\n\t\t\tquestionRuleInstance (id: $id) {\n\t\t\t\tid\n\t\t\t\tname\n\t\t\t\tdescription\n\t\t\t\tversion\n\t\t\t\tspecVersion\n\t\t\t\tlatest\n\t\t\t\tpollingInterval\n\t\t\t\tdeleted\n\t\t\t\taccountId\n\t\t\t\ttype\n\t\t\t\ttemplates\n\t\t\t\tquestion {\n\t\t\t\t\tqueries {\n\t\t\t\t\t\tname\n\t\t\t\t\t\tquery\n\t\t\t\t\t\tversion\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t\toperations {\n\t\t\t\t\twhen\n\t\t\t\t\tactions\n\t\t\t\t}\n\t\t\t\toutputs\n\t\t\t\ttags\n\t\t\t}\n\t\t}\n\t","variables":{"id":"7060d853-bc73-4865-90a1-adab066f8362"}}
+      {"query":"\n\t\tquery GetQuestionRuleInstance($id: ID!) {\n\t\t\tquestionRuleInstance (id: $id) {\n\t\t\t\tid\n\t\t\t\tname\n\t\t\t\tdescription\n\t\t\t\tversion\n\t\t\t\tspecVersion\n\t\t\t\tlatest\n\t\t\t\tpollingInterval\n\t\t\t\tdeleted\n\t\t\t\taccountId\n\t\t\t\ttype\n\t\t\t\ttemplates\n\t\t\t\tquestion {\n\t\t\t\t\tqueries {\n\t\t\t\t\t\tname\n\t\t\t\t\t\tquery\n\t\t\t\t\t\tversion\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t\toperations {\n\t\t\t\t\twhen\n\t\t\t\t\tactions\n\t\t\t\t}\n\t\t\t\toutputs\n\t\t\t\ttags\n\t\t\t}\n\t\t}\n\t","variables":{"id":"f2ad0219-549e-4f36-9569-35f8979c38fa"}}
     form: {}
     headers:
       Accept:
