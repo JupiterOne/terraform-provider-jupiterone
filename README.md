@@ -69,12 +69,15 @@ for more details.
 ```
 provider_installation {
 
-  # Use /home/developer/go/bin as an overridden package directory
+  # Use /home/$USER/go/bin as an overridden package directory
   # for the jupiterone provider. This disables the version and checksum
   # verifications for this provider and forces Terraform to look for the
   # jupiterone provider plugin in the given directory.
+
+  # Replace $USER with your username. On Mac and Linux systems this can be found
+  # through running "echo $USER" in your terminal.
   dev_overrides {
-    "registry.terraform.io/hashicorp/jupiterone" = "/home/developer/go/bin"
+    "registry.terraform.io/hashicorp/jupiterone" = "/home/$USER/go/bin"
   }
 
   # For all other providers, install them directly from their origin provider
