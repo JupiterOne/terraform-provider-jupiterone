@@ -1,13 +1,14 @@
 package jupiterone
 
 import (
+	"bytes"
 	"context"
+	"encoding/json"
 
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
 	"github.com/jupiterone/terraform-provider-jupiterone/jupiterone/internal/client"
-	"github.com/mitchellh/mapstructure"
 )
 
 const MIN_RULE_NAME_LENGTH = 1
@@ -17,7 +18,7 @@ func resourceQuestionRuleInstance() *schema.Resource {
 	var RulePollingIntervals = []string{"DISABLED", "THIRTY_MINUTES", "ONE_HOUR", "ONE_DAY", "ONE_WEEK"}
 
 	return &schema.Resource{
-		CreateContext: resourceQuestionRuleInstanceCreate,
+		CreateContext: createQuestionRuleInstanceResource,
 		ReadContext:   resourceQuestionRuleInstanceRead,
 		UpdateContext: resourceQuestionRuleInstanceUpdate,
 		DeleteContext: resourceQuestionRuleInstanceDelete,
@@ -25,7 +26,6 @@ func resourceQuestionRuleInstance() *schema.Resource {
 			"name": {
 				Type:         schema.TypeString,
 				Required:     true,
-				ForceNew:     true,
 				Description:  "Name of the rule, which is unique to each account.",
 				ValidateFunc: validation.StringLenBetween(MIN_RULE_NAME_LENGTH, MAX_RULE_NAME_LENGTH),
 			},
@@ -83,10 +83,11 @@ func resourceQuestionRuleInstance() *schema.Resource {
 				Deprecated:  "The question_name identifier is deprecated. Prefer to use a question's id property with question_id to reference a jupiterone_question in a jupiterone_rule.",
 			},
 			"operations": {
-				Type:         schema.TypeString,
-				Description:  "Actions that are executed when a corresponding condition is met.",
-				ValidateFunc: validation.StringIsJSON,
-				Required:     true,
+				Type:             schema.TypeString,
+				Description:      "Actions that are executed when a corresponding condition is met.",
+				ValidateFunc:     validation.StringIsJSON,
+				Required:         true,
+				DiffSuppressFunc: jsonDiffSuppressFunc,
 			},
 			"outputs": {
 				Type:        schema.TypeList,
@@ -137,9 +138,8 @@ func getQuestionQuerySchema() map[string]*schema.Schema {
 	}
 }
 
-func buildQuestionRuleInstanceProperties(d *schema.ResourceData) (*client.CommonQuestionRuleInstanceProperties, error) {
-	var questionRuleInstance client.CommonQuestionRuleInstanceProperties
-
+func newQuestionRuleInstance(d *schema.ResourceData) (*client.QuestionRuleInstance, error) {
+	questionRuleInstance := &client.QuestionRuleInstance{}
 	if v, ok := d.GetOk("name"); ok {
 		questionRuleInstance.Name = v.(string)
 	}
@@ -161,28 +161,30 @@ func buildQuestionRuleInstanceProperties(d *schema.ResourceData) (*client.Common
 	}
 
 	if v, ok := d.GetOk("operations"); ok {
-		questionRuleInstance.Operations = v.(string)
-	} else {
-		questionRuleInstance.Operations = "[]"
-	}
-
-	if v, ok := d.GetOk("question"); ok {
-		ruleQuestion, err := buildQuestionRuleInstanceQuestion(v.([]interface{}))
+		ops := make([]client.RuleOperation, 0)
+		err := json.Unmarshal([]byte(v.(string)), &ops)
 		if err != nil {
 			return nil, err
 		}
+		questionRuleInstance.Operations = ops
+	}
 
-		questionRuleInstance.Question = &(*ruleQuestion)[0]
+	if v, ok := d.GetOk("question"); ok {
+		v := v.([]interface{})
+		if len(v) == 0 {
+			questionRuleInstance.Question = map[string]interface{}{}
+		} else {
+			// Question MaxItems is 1. Enforced at schema level.
+			questionRuleInstance.Question = v[0].(map[string]interface{})
+		}
 	}
 
 	if v, ok := d.GetOk("question_id"); ok {
-		value := v.(string)
-		questionRuleInstance.QuestionId = &value
+		questionRuleInstance.QuestionId = v.(string)
 	}
 
 	if v, ok := d.GetOk("question_name"); ok {
-		value := v.(string)
-		questionRuleInstance.QuestionName = &value
+		questionRuleInstance.QuestionName = v.(string)
 	}
 
 	if v, ok := d.GetOk("templates"); ok {
@@ -193,36 +195,25 @@ func buildQuestionRuleInstanceProperties(d *schema.ResourceData) (*client.Common
 		questionRuleInstance.Tags = interfaceSliceToStringSlice(v.([]interface{}))
 	}
 
-	return &questionRuleInstance, nil
-}
-
-func buildQuestionRuleInstanceQuestion(terraformRuleQuestionList []interface{}) (*[]client.RuleQuestion, error) {
-	ruleQuestionList := make([]client.RuleQuestion, len(terraformRuleQuestionList))
-
-	for i, terraformRuleQuestion := range terraformRuleQuestionList {
-		var ruleQuestion client.RuleQuestion
-
-		if err := mapstructure.Decode(terraformRuleQuestion, &ruleQuestion); err != nil {
-			return nil, err
-		}
-
-		for i, query := range ruleQuestion.Queries {
-			ruleQuestion.Queries[i].Query = removeCRFromString(query.Query)
-		}
-
-		ruleQuestionList[i] = ruleQuestion
+	if v, ok := d.GetOk("version"); ok {
+		questionRuleInstance.Version = v.(int)
 	}
 
-	return &ruleQuestionList, nil
+	if d.Id() != "" {
+		questionRuleInstance.Id = d.Id()
+	}
+
+	return questionRuleInstance, nil
+
 }
 
-func resourceQuestionRuleInstanceCreate(_ context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
-	questionRuleInstanceProperties, err := buildQuestionRuleInstanceProperties(d)
+func createQuestionRuleInstanceResource(_ context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
+	questionRuleInstance, err := newQuestionRuleInstance(d)
 	if err != nil {
 		return diag.Errorf("failed to build question rule instance: %s", err.Error())
 	}
 
-	createdQuestion, err := m.(*ProviderConfiguration).Client.CreateQuestionRuleInstance(*questionRuleInstanceProperties)
+	createdQuestion, err := m.(*ProviderConfiguration).Client.CreateQuestionRuleInstance(*questionRuleInstance)
 	if err != nil {
 		return diag.Errorf("failed to create question rule instance: %s", err.Error())
 	}
@@ -236,29 +227,12 @@ func resourceQuestionRuleInstanceCreate(_ context.Context, d *schema.ResourceDat
 }
 
 func resourceQuestionRuleInstanceUpdate(_ context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
-	questionRuleInstanceProperties, err := buildQuestionRuleInstanceProperties(d)
+	questionRuleInstance, err := newQuestionRuleInstance(d)
 	if err != nil {
 		return diag.Errorf("failed to build question rule instance: %s", err.Error())
 	}
 
-	var updateQuestionRuleInstanceProperties client.UpdateQuestionRuleInstanceProperties
-	updateQuestionRuleInstanceProperties.Id = d.Id()
-	updateQuestionRuleInstanceProperties.Name = questionRuleInstanceProperties.Name
-	updateQuestionRuleInstanceProperties.Description = questionRuleInstanceProperties.Description
-	updateQuestionRuleInstanceProperties.SpecVersion = questionRuleInstanceProperties.SpecVersion
-	updateQuestionRuleInstanceProperties.PollingInterval = questionRuleInstanceProperties.PollingInterval
-	updateQuestionRuleInstanceProperties.Operations = questionRuleInstanceProperties.Operations
-	updateQuestionRuleInstanceProperties.Outputs = questionRuleInstanceProperties.Outputs
-	updateQuestionRuleInstanceProperties.Question = questionRuleInstanceProperties.Question
-	updateQuestionRuleInstanceProperties.Templates = questionRuleInstanceProperties.Templates
-	updateQuestionRuleInstanceProperties.Tags = questionRuleInstanceProperties.Tags
-
-	if v, ok := d.GetOk("version"); ok {
-		updateQuestionRuleInstanceProperties.Version = v.(int)
-	}
-
-	updatedQuestionRuleInstance, err := m.(*ProviderConfiguration).Client.UpdateQuestionRuleInstance(updateQuestionRuleInstanceProperties)
-
+	updatedQuestionRuleInstance, err := m.(*ProviderConfiguration).Client.UpdateQuestionRuleInstance(questionRuleInstance)
 	if err != nil {
 		return diag.Errorf("failed to update question rule instance: %s", err.Error())
 	}
@@ -286,10 +260,86 @@ func resourceQuestionRuleInstanceRead(_ context.Context, d *schema.ResourceData,
 		return diag.Errorf("failed to read existing question rule instance: %s", err.Error())
 	}
 
-	if err := d.Set("version", questionRuleInstance.Version); err != nil {
+	err = d.Set("name", questionRuleInstance.Name)
+	if err != nil {
+		return diag.FromErr(err)
+	}
+
+	err = d.Set("description", questionRuleInstance.Description)
+	if err != nil {
+		return diag.FromErr(err)
+	}
+
+	err = d.Set("version", questionRuleInstance.Version)
+	if err != nil {
+		return diag.FromErr(err)
+	}
+	err = d.Set("polling_interval", questionRuleInstance.PollingInterval)
+	if err != nil {
+		return diag.FromErr(err)
+	}
+
+	err = d.Set("templates", questionRuleInstance.Templates)
+	if err != nil {
+		return diag.FromErr(err)
+	}
+
+	questionSlice := []map[string]interface{}{questionRuleInstance.Question}
+	err = d.Set("question", questionSlice)
+	if err != nil {
+		return diag.FromErr(err)
+	}
+
+	err = d.Set("question_id", questionRuleInstance.QuestionId)
+	if err != nil {
+		return diag.FromErr(err)
+	}
+
+	err = d.Set("question_name", questionRuleInstance.QuestionName)
+	if err != nil {
+		return diag.FromErr(err)
+	}
+
+	ops, err := processOperationsState(questionRuleInstance.Operations)
+	if err != nil {
+		return diag.FromErr(err)
+	}
+
+	err = d.Set("operations", ops)
+	if err != nil {
+		return diag.FromErr(err)
+	}
+
+	err = d.Set("outputs", questionRuleInstance.Outputs)
+	if err != nil {
+		return diag.FromErr(err)
+	}
+
+	err = d.Set("tags", questionRuleInstance.Tags)
+	if err != nil {
 		return diag.FromErr(err)
 	}
 
 	d.SetId(questionRuleInstance.Id)
 	return nil
+}
+
+func processOperationsState(ruleOperations []client.RuleOperation) (string, error) {
+	// Because we store the Operations as a raw string. The id property, which
+	// is set after the creation of the question creates a diff that would cause
+	// the Operations to update on every terraform apply
+	for _, op := range ruleOperations {
+		for _, action := range op.Actions {
+			delete(action, "id")
+		}
+	}
+
+	buf := new(bytes.Buffer)
+	encoder := json.NewEncoder(buf)
+	encoder.SetEscapeHTML(false)
+	err := encoder.Encode(ruleOperations)
+	if err != nil {
+		return "", err
+	}
+	return buf.String(), nil
 }
