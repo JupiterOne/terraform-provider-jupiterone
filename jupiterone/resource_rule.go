@@ -300,19 +300,11 @@ func resourceQuestionRuleInstanceRead(_ context.Context, d *schema.ResourceData,
 		return diag.FromErr(err)
 	}
 
-	// Because we store the Operations as a raw string. The id property, which
-	// is set after the creation of the question creates a diff that would cause
-	// the Operations to update on every terraform apply
-	for _, op := range questionRuleInstance.Operations {
-		for _, action := range op.Actions {
-			delete(action, "id")
-		}
-	}
-
-	ops, err := operationsToJSONString(questionRuleInstance.Operations)
+	ops, err := processOperationsState(questionRuleInstance.Operations)
 	if err != nil {
 		return diag.FromErr(err)
 	}
+
 	err = d.Set("operations", ops)
 	if err != nil {
 		return diag.FromErr(err)
@@ -332,11 +324,20 @@ func resourceQuestionRuleInstanceRead(_ context.Context, d *schema.ResourceData,
 	return nil
 }
 
-func operationsToJSONString(ops []client.RuleOperation) (string, error) {
+func processOperationsState(ruleOperations []client.RuleOperation) (string, error) {
+	// Because we store the Operations as a raw string. The id property, which
+	// is set after the creation of the question creates a diff that would cause
+	// the Operations to update on every terraform apply
+	for _, op := range ruleOperations {
+		for _, action := range op.Actions {
+			delete(action, "id")
+		}
+	}
+
 	buf := new(bytes.Buffer)
 	encoder := json.NewEncoder(buf)
 	encoder.SetEscapeHTML(false)
-	err := encoder.Encode(ops)
+	err := encoder.Encode(ruleOperations)
 	if err != nil {
 		return "", err
 	}
