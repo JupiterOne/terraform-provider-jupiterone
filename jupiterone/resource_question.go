@@ -144,6 +144,39 @@ func resourceQuestionRead(_ context.Context, d *schema.ResourceData, m interface
 	if err != nil {
 		return diag.Errorf("failed to read existing question: %s", err.Error())
 	}
+	err = d.Set("title", question.Title)
+	if err != nil {
+		return diag.FromErr(err)
+	}
+
+	err = d.Set("description", question.Description)
+	if err != nil {
+		return diag.FromErr(err)
+	}
+
+	err = d.Set("tags", question.Tags)
+	if err != nil {
+		return diag.FromErr(err)
+	}
+
+	convertedQueries, err := queriesToMapStringInterface(question.Queries)
+	if err != nil {
+		return diag.FromErr(err)
+	}
+
+	err = d.Set("query", convertedQueries)
+	if err != nil {
+		return diag.FromErr(err)
+	}
+
+	/*
+		TODO @zemberdotnet: read updates once compliance is actually supported in the
+		internal client
+		err = d.Set("compliance", question.Compliance)
+		if err != nil {
+			return diag.FromErr(err)
+		}
+	*/
 
 	d.SetId(question.Id)
 	return nil

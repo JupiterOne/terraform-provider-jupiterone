@@ -7,7 +7,6 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
@@ -18,8 +17,8 @@ func TestQuestion_Basic(t *testing.T) {
 	accProviders, cleanup := testAccProviders(t)
 	defer cleanup(t)
 	accProvider := testAccProvider(t, accProviders)
-	rName := acctest.RandomWithPrefix("tf-acc-test")
 	resourceName := "jupiterone_question.test"
+	title := "tf-test-question"
 	ctx := context.Background()
 
 	resource.Test(t, resource.TestCase{
@@ -28,14 +27,14 @@ func TestQuestion_Basic(t *testing.T) {
 		CheckDestroy: testAccCheckQuestionDestroy(ctx, accProvider),
 		Steps: []resource.TestStep{
 			{
-				Config: testQuestionBasicConfigWithTags(rName, rName),
+				Config: testQuestionBasicConfigWithTags(title, "testing-tag-1"),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckQuestionExists(ctx, accProvider),
 					resource.TestCheckResourceAttrSet(resourceName, "id"),
-					resource.TestCheckResourceAttr(resourceName, "title", rName),
+					resource.TestCheckResourceAttr(resourceName, "title", title),
 					resource.TestCheckResourceAttr(resourceName, "description", "Test"),
 					resource.TestCheckResourceAttr(resourceName, "tags.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.0", rName),
+					resource.TestCheckResourceAttr(resourceName, "tags.0", "testing-tag-1"),
 					resource.TestCheckResourceAttr(resourceName, "query.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "query.0.name", "query0"),
 					resource.TestCheckResourceAttr(resourceName, "query.0.version", "v1"),
@@ -43,14 +42,14 @@ func TestQuestion_Basic(t *testing.T) {
 				),
 			},
 			{
-				Config: testQuestionBasicConfigWithTags(rName, rName+"-1"),
+				Config: testQuestionBasicConfigWithTags(title, "testing-tag-2"),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckQuestionExists(ctx, accProvider),
 					resource.TestCheckResourceAttrSet(resourceName, "id"),
-					resource.TestCheckResourceAttr(resourceName, "title", rName),
+					resource.TestCheckResourceAttr(resourceName, "title", title),
 					resource.TestCheckResourceAttr(resourceName, "description", "Test"),
 					resource.TestCheckResourceAttr(resourceName, "tags.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.0", rName+"-1"),
+					resource.TestCheckResourceAttr(resourceName, "tags.0", "testing-tag-2"),
 					resource.TestCheckResourceAttr(resourceName, "query.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "query.0.name", "query0"),
 					resource.TestCheckResourceAttr(resourceName, "query.0.version", "v1"),
