@@ -43,6 +43,7 @@ func (c *JupiterOneClient) GetQuestion(id string) (*Question, error) {
 				title
 				description
 				queries {
+					name
 					query
 					version
 				}
@@ -85,6 +86,7 @@ func (c *JupiterOneClient) CreateQuestion(properties QuestionProperties) (*Quest
 				title
 				description
 				queries {
+					name
 					query
 					version
 				}
@@ -130,6 +132,7 @@ func (c *JupiterOneClient) UpdateQuestion(id string, properties QuestionProperti
 				title
 				description
 				queries {
+					name
 					query
 					version
 				}

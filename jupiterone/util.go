@@ -1,11 +1,13 @@
 package jupiterone
 
 import (
+	"bytes"
 	"encoding/json"
 	"reflect"
 	"strings"
 
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+	"github.com/jupiterone/terraform-provider-jupiterone/jupiterone/internal/client"
 )
 
 func removeCRFromString(s string) string {
@@ -38,4 +40,21 @@ func jsonDiffSuppressFunc(k, oldValue, newValue string, d *schema.ResourceData) 
 	}
 
 	return reflect.DeepEqual(old, new)
+}
+
+func queriesToMapStringInterface(c []client.QuestionQuery) ([]map[string]interface{}, error) {
+	buf := new(bytes.Buffer)
+	enc := json.NewEncoder(buf)
+	enc.SetEscapeHTML(false)
+	err := enc.Encode(c)
+	if err != nil {
+		return nil, err
+	}
+
+	msi := []map[string]interface{}{}
+	err = json.Unmarshal(buf.Bytes(), &msi)
+	if err != nil {
+		return nil, err
+	}
+	return msi, nil
 }

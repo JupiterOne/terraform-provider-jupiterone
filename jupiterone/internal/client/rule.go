@@ -17,11 +17,11 @@ type QuestionRuleInstance struct {
 	Deleted         bool                   `json:"deleted,omitempty"`
 	Type            string                 `json:"type,omitempty"`
 	PollingInterval string                 `json:"pollingInterval"`
-	Templates       interface{}            `json:"templates"`              // <Diff type - BaseQuestionRuleInstance
-	Question        map[string]interface{} `json:"question,omitempty"`     // Diff type - *RuleQuestion
-	QuestionId      string                 `json:"questionId,omitempty"`   // diff type - *string `json:"questionId"`
-	QuestionName    string                 `json:"questionName,omitempty"` // diff type  - *string `json:"questionName"`
-	Operations      []RuleOperation        `json:"operations"`             // < Diff type - string - BaseQuestionRuleInstance
+	Templates       interface{}            `json:"templates"`
+	Question        map[string]interface{} `json:"question,omitempty"`
+	QuestionId      string                 `json:"questionId,omitempty"`
+	QuestionName    string                 `json:"questionName,omitempty"`
+	Operations      []RuleOperation        `json:"operations"`
 	Outputs         []string               `json:"outputs"`
 	Tags            []string               `json:"tags"`
 }
