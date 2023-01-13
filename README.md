@@ -3,7 +3,7 @@
 ## Requirements
 
 - [Terraform](https://www.terraform.io/downloads.html) 1.0.1
-- [Go](https://golang.org/doc/install) 1.16 (to build the provider plugin)
+- [Go](https://golang.org/doc/install) 1.18 (to build the provider plugin)
 
 ## Example Usage
 
@@ -22,7 +22,7 @@ Please see the Go documentation for the most up to date information about using 
 
 To add a new dependency `github.com/author/dependency` to your Terraform provider:
 
-```
+```shell
 go get github.com/author/dependency
 go mod tidy
 ```
@@ -66,7 +66,7 @@ to your `~/.terraformrc` file. This is valid for Terraform 0.14+. Please see
 [Terraform's documentation](https://www.terraform.io/docs/cli/config/config-file.html#development-overrides-for-provider-developers)
 for more details.
 
-```
+```hcl
 provider_installation {
 
   # Use /home/$USER/go/bin as an overridden package directory

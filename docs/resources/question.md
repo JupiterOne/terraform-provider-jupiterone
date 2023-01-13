@@ -3,12 +3,12 @@
 page_title: "jupiterone_question Resource - terraform-provider-jupiterone"
 subcategory: ""
 description: |-
-  
+  A saved JupiterOne Question
 ---
 
 # jupiterone_question (Resource)
 
-
+A saved JupiterOne Question
 
 ## Example Usage
 
@@ -32,30 +32,17 @@ resource "jupiterone_question" "unencrypted_critical_data_stores" {
 ### Required
 
 - `description` (String)
-- `query` (Block List, Min: 1) (see [below for nested schema](#nestedblock--query))
 - `title` (String) The title of the question
 
 ### Optional
 
 - `compliance` (Block List) (see [below for nested schema](#nestedblock--compliance))
+- `query` (Block List) (see [below for nested schema](#nestedblock--query))
 - `tags` (List of String)
 
 ### Read-Only
 
 - `id` (String) The ID of this resource.
-
-<a id="nestedblock--query"></a>
-### Nested Schema for `query`
-
-Required:
-
-- `query` (String)
-- `version` (String)
-
-Optional:
-
-- `name` (String)
-
 
 <a id="nestedblock--compliance"></a>
 ### Nested Schema for `compliance`
@@ -68,5 +55,18 @@ Optional:
 
 - `controls` (List of String)
 - `requirements` (List of String)
+
+
+<a id="nestedblock--query"></a>
+### Nested Schema for `query`
+
+Required:
+
+- `query` (String)
+- `version` (String)
+
+Optional:
+
+- `name` (String)
 
 

@@ -8,34 +8,40 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/acctest"
+	"github.com/hashicorp/go-cleanhttp"
+	"github.com/hashicorp/terraform-plugin-sdk/helper/acctest"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/logging"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
 	"github.com/jupiterone/terraform-provider-jupiterone/jupiterone/internal/client"
 )
 
 func TestRuleInstance_Basic(t *testing.T) {
-	accProviders, cleanup := testAccProviders(t)
+	ctx := context.TODO()
+
+	recorder, cleanup := setupCassettes(t.Name())
 	defer cleanup(t)
-	accProvider := testAccProvider(t, accProviders)
+	testHttpClient := cleanhttp.DefaultClient()
+	testHttpClient.Transport = logging.NewTransport("JupiterOne", recorder)
+	// testJ1Client is used for direct calls for CheckDestroy/etc.
+	testJ1Client, err := client.NewClientFromEnv(ctx, testHttpClient)
+	if err != nil {
+		t.Fatal("error configuring check client", err)
+	}
+
 	ruleName := "tf-provider-rule"
 	resourceName := "jupiterone_rule.test"
-
 	operations := getValidOperations()
 	operationsUpdate := getValidOperationsWithoutConditions()
-
-	ctx := context.Background()
-
 	resource.Test(t, resource.TestCase{
-		PreCheck:     func() { testAccPreCheck(t) },
-		Providers:    accProviders,
-		CheckDestroy: testAccCheckRuleInstanceDestroy(ctx, resourceName, accProvider),
+		PreCheck:                 func() { testAccPreCheck(t) },
+		ProtoV6ProviderFactories: testAccProtoV6ProviderFactories(testJ1Client),
+		CheckDestroy:             testAccCheckRuleInstanceDestroy(ctx, resourceName, testJ1Client),
 		Steps: []resource.TestStep{
 			{
 				Config: testRuleInstanceBasicConfigWithOperations(ruleName, operations),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckRuleExists(ctx, resourceName, accProvider),
+					testAccCheckRuleExists(ctx, resourceName, testJ1Client),
 					resource.TestCheckResourceAttrSet(resourceName, "id"),
 					resource.TestCheckResourceAttr(resourceName, "version", "1"),
 					resource.TestCheckResourceAttr(resourceName, "name", ruleName),
@@ -59,7 +65,7 @@ func TestRuleInstance_Basic(t *testing.T) {
 			{
 				Config: testRuleInstanceBasicConfigWithOperations(ruleName, operationsUpdate),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckRuleExists(ctx, resourceName, accProvider),
+					testAccCheckRuleExists(ctx, resourceName, testJ1Client),
 					resource.TestCheckResourceAttrSet(resourceName, "id"),
 					resource.TestCheckResourceAttr(resourceName, "version", "2"),
 					resource.TestCheckResourceAttr(resourceName, "name", ruleName),
@@ -85,29 +91,36 @@ func TestRuleInstance_Basic(t *testing.T) {
 }
 
 func TestRuleInstance_Config_Errors(t *testing.T) {
-	accProviders, cleanup := testAccProviders(t)
-	defer cleanup(t)
-	accProvider := testAccProvider(t, accProviders)
-	rName := acctest.RandomWithPrefix("tf-acc-test")
-	ctx := context.Background()
-	resourceName := "jupiterone_rule.test"
+	ctx := context.TODO()
 
+	recorder, cleanup := setupCassettes(t.Name())
+	defer cleanup(t)
+	testHttpClient := cleanhttp.DefaultClient()
+	testHttpClient.Transport = logging.NewTransport("JupiterOne", recorder)
+	// testJ1Client is used for direct calls for CheckDestroy/etc.
+	testJ1Client, err := client.NewClientFromEnv(ctx, testHttpClient)
+	if err != nil {
+		t.Fatal("error configuring check client", err)
+	}
+
+	rName := acctest.RandomWithPrefix("tf-acc-test")
+	resourceName := "jupiterone_rule.test"
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:     func() { testAccPreCheck(t) },
-		Providers:    accProviders,
-		CheckDestroy: testAccCheckRuleInstanceDestroy(ctx, resourceName, accProvider),
+		PreCheck:                 func() { testAccPreCheck(t) },
+		ProtoV6ProviderFactories: testAccProtoV6ProviderFactories(testJ1Client),
+		CheckDestroy:             testAccCheckRuleInstanceDestroy(ctx, resourceName, testJ1Client),
 		Steps: []resource.TestStep{
 			{
 				Config:      testRuleInstanceBasicConfigWithOperations(rName, "not json"),
-				ExpectError: regexp.MustCompile(`"operations" contains an invalid JSON`),
+				ExpectError: regexp.MustCompile(`string value must be valid JSON`),
 			},
 			{
 				Config:      testRuleInstanceBasicConfigWithOperations("", getValidOperations()),
-				ExpectError: regexp.MustCompile(`expected length of name to be in the range \(1 - 255\)`),
+				ExpectError: regexp.MustCompile(`Attribute name string length must be between 1 and 255, got: 0`),
 			},
 			{
 				Config:      testRuleInstanceBasicConfigWithPollingInterval(rName, "INVALID_POLLING_INTERVAL"),
-				ExpectError: regexp.MustCompile(`expected polling_interval to be one of \[DISABLED THIRTY_MINUTES ONE_HOUR ONE_DAY ONE_WEEK\], got INVALID_POLLING_INTERVAL`),
+				ExpectError: regexp.MustCompile(`Attribute polling_interval value must be one of:`),
 			},
 		},
 	})
@@ -121,11 +134,9 @@ func getValidOperationsWithoutConditions() string {
 	return `[{"actions":[{"targetValue":"HIGH","type":"SET_PROPERTY","targetProperty":"alertLevel"},{"type":"CREATE_ALERT"}]}]`
 }
 
-func testAccCheckRuleExists(ctx context.Context, ruleName string, accProvider *schema.Provider) resource.TestCheckFunc {
+func testAccCheckRuleExists(ctx context.Context, ruleName string, client *client.JupiterOneClient) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		resource := s.RootModule().Resources[ruleName]
-		providerConf := accProvider.Meta().(*ProviderConfiguration)
-		client := providerConf.Client
 
 		err := ruleExistsHelper(ctx, resource.Primary.ID, client)
 		if err != nil {
@@ -157,11 +168,9 @@ func ruleExistsHelper(ctx context.Context, id string, client *client.JupiterOneC
 	return nil
 }
 
-func testAccCheckRuleInstanceDestroy(ctx context.Context, resourceName string, accProvider *schema.Provider) func(*terraform.State) error {
+func testAccCheckRuleInstanceDestroy(ctx context.Context, resourceName string, client *client.JupiterOneClient) func(*terraform.State) error {
 	return func(s *terraform.State) error {
 		resource := s.RootModule().Resources[resourceName]
-		providerConf := accProvider.Meta().(*ProviderConfiguration)
-		client := providerConf.Client
 
 		if err := ruleInstanceDestroyHelper(ctx, resource.Primary.ID, client); err != nil {
 			return err

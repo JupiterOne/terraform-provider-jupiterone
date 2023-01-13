@@ -3,12 +3,12 @@
 page_title: "jupiterone_rule Resource - terraform-provider-jupiterone"
 subcategory: ""
 description: |-
-  
+  A saved JupiterOne question based alert
 ---
 
 # jupiterone_rule (Resource)
 
-
+A saved JupiterOne question based alert
 
 ## Example Usage
 
@@ -108,7 +108,7 @@ resource "jupiterone_rule" "users_without_mfa" {
 
 - `outputs` (List of String) Names of properties that can be used throughout the rule evaluation process and will be included in each record of a rule evaluation. (e.g. queries.query0.total)
 - `polling_interval` (String) Frequency of automated rule evaluation. Defaults to ONE_DAY.
-- `question` (Block List, Max: 1) Contains properties related to queries used in the rule evaluation. (see [below for nested schema](#nestedblock--question))
+- `question` (Block List) Contains properties related to queries used in the rule evaluation. (see [below for nested schema](#nestedblock--question))
 - `question_id` (String) Specifies the ID of a question to be used in rule evaluation.
 - `question_name` (String, Deprecated) Specifies the name of a question to be used in rule evaluation.
 - `spec_version` (Number) Rule evaluation specification version in the case of breaking changes.
@@ -117,15 +117,15 @@ resource "jupiterone_rule" "users_without_mfa" {
 
 ### Read-Only
 
-- `id` (String) The ID of this resource.
+- `id` (String) Unique id that identifies the rule
 - `version` (Number) Computed current version of the rule. Incremented each time the rule is updated.
 
 <a id="nestedblock--question"></a>
 ### Nested Schema for `question`
 
-Required:
+Optional:
 
-- `queries` (Block List, Min: 1) (see [below for nested schema](#nestedblock--question--queries))
+- `queries` (Block List) Contains properties related to queries used in the rule evaluation. (see [below for nested schema](#nestedblock--question--queries))
 
 <a id="nestedblock--question--queries"></a>
 ### Nested Schema for `question.queries`

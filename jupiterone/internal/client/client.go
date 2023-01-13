@@ -1,8 +1,10 @@
 package client
 
 import (
+	"context"
 	"log"
 	"net/http"
+	"os"
 	"time"
 
 	"github.com/machinebox/graphql"
@@ -11,9 +13,11 @@ import (
 const DefaultRegion string = "us"
 
 type JupiterOneClientConfig struct {
-	APIKey     string
-	AccountID  string
-	Region     string
+	APIKey    string
+	AccountID string
+	Region    string
+	// Client is mostly used to inject the `go-vcr` transport recorder
+	// for testing
 	HTTPClient *http.Client
 }
 
@@ -42,7 +46,6 @@ func (c *JupiterOneClientConfig) Client() (*JupiterOneClient, error) {
 	endpoint := c.getGraphQLEndpoint()
 
 	var client *graphql.Client
-
 	if c.HTTPClient != nil {
 		client = graphql.NewClient(endpoint, graphql.WithHTTPClient(c.HTTPClient))
 	} else {
@@ -57,6 +60,19 @@ func (c *JupiterOneClientConfig) Client() (*JupiterOneClient, error) {
 	}
 
 	return jupiterOneClient, nil
+}
+
+// NewClientFromEnv configures the J1 client itself from the environment
+// variables for use in testing.
+func NewClientFromEnv(ctx context.Context, client *http.Client) (*JupiterOneClient, error) {
+	config := JupiterOneClientConfig{
+		APIKey:     os.Getenv("JUPITERONE_API_KEY"),
+		AccountID:  os.Getenv("JUPITERONE_ACCOUNT_ID"),
+		Region:     os.Getenv("JUPITERONE_REGION"),
+		HTTPClient: client,
+	}
+
+	return config.Client()
 }
 
 func (c *JupiterOneClient) prepareRequest(query string) *graphql.Request {

@@ -8,7 +8,6 @@ issues:
 linters:
   disable-all: true
   enable:
-    - deadcode
     - errcheck
     - gofmt
     - gomnd
@@ -19,11 +18,9 @@ linters:
     - nakedret
     - nilerr
     - staticcheck
-    - structcheck
     - unconvert
     - unused
     - unparam
-    - varcheck
     - vet
 
 linters-settings:
