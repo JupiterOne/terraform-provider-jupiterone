@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/Khan/genqlient/graphql"
 	"github.com/hashicorp/terraform-plugin-framework-validators/listvalidator"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
@@ -16,13 +17,20 @@ import (
 	"github.com/jupiterone/terraform-provider-jupiterone/jupiterone/internal/client"
 )
 
+var QueryResultsAre = []string{
+	string(client.QueryResultsAreBad),
+	string(client.QueryResultsAreGood),
+	string(client.QueryResultsAreInformative),
+	string(client.QueryResultsAreUnknown),
+}
+
 // Ensure provider defined types fully satisfy framework interfaces
 var _ resource.Resource = &QuestionResource{}
 var _ resource.ResourceWithConfigure = &QuestionResource{}
 
 type QuestionResource struct {
 	version string
-	client  *client.JupiterOneClient
+	qlient  graphql.Client
 }
 
 type QuestionComplianceModel struct {
@@ -31,16 +39,15 @@ type QuestionComplianceModel struct {
 	Controls     []string `json:"controls,omitempty" tfsdk:"controls"`
 }
 
-// QueryModel represents the terraform HCL `query` elements.
-//
-// This only exists as different from the client QuestionQuery due to the need
-// to strip out CRs before sending to the server.
-type QueryModel struct {
+// QuestionQueryModel represents the terraform HCL `query` elements.
+type QuestionQueryModel struct {
 	// Query tests must be cleaned of carriage returns before being sent to
 	// the server.
-	Query   string `json:"query" tfsdk:"query"`
-	Version string `json:"version" tfsdk:"version"`
-	Name    string `json:"name" tfsdk:"name"`
+	Query           string `json:"query" tfsdk:"query"`
+	Version         string `json:"version" tfsdk:"version"`
+	Name            string `json:"name" tfsdk:"name"`
+	IncludedDeleted bool   `json:"include_deleted" tfsdk:"include_deleted"`
+	ResultsAre      string `json:"results_are" tfsdk:"results_are"`
 }
 
 // QuestionModel is the terraform HCL representation of a question. This
@@ -52,12 +59,13 @@ type QueryModel struct {
 //
 // TODO: Unify the client types and the state model if possible
 type QuestionModel struct {
-	Id          types.String               `json:"id,omitempty" tfsdk:"id"`
-	Title       types.String               `json:"title,omitempty" tfsdk:"title"`
-	Description types.String               `json:"description,omitempty" tfsdk:"description"`
-	Tags        []string                   `json:"tags,omitempty" tfsdk:"tags"`
-	Query       []*QueryModel              `json:"query,omitempty" tfsdk:"query"`
-	Compliance  []*QuestionComplianceModel `json:"compliance,omitempty" tfsdk:"compliance"`
+	Id              types.String               `json:"id,omitempty" tfsdk:"id"`
+	Title           types.String               `json:"title,omitempty" tfsdk:"title"`
+	Description     types.String               `json:"description,omitempty" tfsdk:"description"`
+	PollingInterval types.String               `json:"polling_interval,omitempty" tfsdk:"polling_interval"`
+	Tags            []string                   `json:"tags,omitempty" tfsdk:"tags"`
+	Query           []*QuestionQueryModel      `json:"query,omitempty" tfsdk:"query"`
+	Compliance      []*QuestionComplianceModel `json:"compliance,omitempty" tfsdk:"compliance"`
 }
 
 func NewQuestionResource() resource.Resource {
@@ -87,6 +95,17 @@ func (*QuestionResource) Schema(ctx context.Context, req resource.SchemaRequest,
 			"description": schema.StringAttribute{
 				Required: true,
 			},
+			"polling_interval": schema.StringAttribute{
+				Description: "Frequency of automated question evaluation. Defaults to ONE_DAY.",
+				Computed:    true,
+				Optional:    true,
+				PlanModifiers: []planmodifier.String{
+					StringDefaultValue(string(client.SchedulerPollingIntervalOneDay)),
+				},
+				Validators: []validator.String{
+					stringvalidator.OneOf(PollingIntervals...),
+				},
+			},
 			"tags": schema.ListAttribute{
 				Optional:    true,
 				ElementType: types.StringType,
@@ -97,7 +116,44 @@ func (*QuestionResource) Schema(ctx context.Context, req resource.SchemaRequest,
 		Blocks: map[string]schema.Block{
 			"query": schema.ListNestedBlock{
 				NestedObject: schema.NestedBlockObject{
-					Attributes: questionQuerySchemaAttributes(),
+					Attributes: map[string]schema.Attribute{
+						"name": schema.StringAttribute{
+							Optional: true,
+							Validators: []validator.String{
+								stringvalidator.LengthBetween(MIN_RULE_NAME_LENGTH, MAX_RULE_NAME_LENGTH),
+							},
+						},
+						"query": schema.StringAttribute{
+							Required: true,
+							Validators: []validator.String{
+								stringvalidator.LengthAtLeast(1),
+							},
+						},
+						"version": schema.StringAttribute{
+							Required: true,
+							Validators: []validator.String{
+								stringvalidator.LengthBetween(MIN_RULE_NAME_LENGTH, MAX_RULE_NAME_LENGTH),
+							},
+						},
+						"include_deleted": schema.BoolAttribute{
+							Optional: true,
+							Computed: true,
+							PlanModifiers: []planmodifier.Bool{
+								BoolDefaultValuePlanModifier(false),
+							},
+						},
+						"results_are": schema.StringAttribute{
+							Description: "Defaults to INFORMATIVE.",
+							Computed:    true,
+							Optional:    true,
+							PlanModifiers: []planmodifier.String{
+								StringDefaultValue(string(client.QueryResultsAreInformative)),
+							},
+							Validators: []validator.String{
+								stringvalidator.OneOf(QueryResultsAre...),
+							},
+						},
+					},
 				},
 				Validators: []validator.List{
 					listvalidator.SizeAtLeast(1),
@@ -124,29 +180,6 @@ func (*QuestionResource) Schema(ctx context.Context, req resource.SchemaRequest,
 	}
 }
 
-func questionQuerySchemaAttributes() map[string]schema.Attribute {
-	return map[string]schema.Attribute{
-		"name": schema.StringAttribute{
-			Optional: true,
-			Validators: []validator.String{
-				stringvalidator.LengthBetween(MIN_RULE_NAME_LENGTH, MAX_RULE_NAME_LENGTH),
-			},
-		},
-		"query": schema.StringAttribute{
-			Required: true,
-			Validators: []validator.String{
-				stringvalidator.LengthAtLeast(1),
-			},
-		},
-		"version": schema.StringAttribute{
-			Required: true,
-			Validators: []validator.String{
-				stringvalidator.LengthBetween(MIN_RULE_NAME_LENGTH, MAX_RULE_NAME_LENGTH),
-			},
-		},
-	}
-}
-
 // Configure implements resource.ResourceWithConfigure
 func (r *QuestionResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
@@ -166,7 +199,7 @@ func (r *QuestionResource) Configure(ctx context.Context, req resource.Configure
 	}
 
 	r.version = p.version
-	r.client = p.Client
+	r.qlient = p.Qlient
 }
 
 // Create implements resource.Resource
@@ -175,21 +208,19 @@ func (r *QuestionResource) Create(ctx context.Context, req resource.CreateReques
 
 	// Read Terraform plan data into the model
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &data)...)
-
 	if resp.Diagnostics.HasError() {
 		return
 	}
 
-	q := data.BuildQuestion()
+	quest := data.BuildCreateQuestionInput()
+	created, err := client.CreateQuestion(ctx, r.qlient, quest)
 
-	var err error
-	q, err = r.client.CreateQuestion(q)
 	if err != nil {
 		resp.Diagnostics.AddError("failed to create question", err.Error())
 		return
 	}
 
-	data.Id = types.StringValue(q.Id)
+	data.Id = types.StringValue(created.CreateQuestion.Id)
 
 	tflog.Trace(ctx, "Created question",
 		map[string]interface{}{"title": data.Title, "id": data.Id})
@@ -208,7 +239,7 @@ func (r *QuestionResource) Delete(ctx context.Context, req resource.DeleteReques
 		return
 	}
 
-	if err := r.client.DeleteQuestion(data.Id.ValueString()); err != nil {
+	if _, err := client.DeleteQuestion(ctx, r.qlient, data.Id.ValueString()); err != nil {
 		resp.Diagnostics.AddError("failed to delete question", err.Error())
 	}
 }
@@ -224,32 +255,31 @@ func (r *QuestionResource) Read(ctx context.Context, req resource.ReadRequest, r
 		return
 	}
 
-	q, err := r.client.GetQuestion(data.Id.ValueString())
+	q, err := client.GetQuestionById(ctx, r.qlient, data.Id.ValueString())
 	if err != nil {
 		resp.Diagnostics.AddError("failed to get question", err.Error())
 		return
 	}
 
-	// the API response fields are 1:1 with the state except for the queries
-	// themselves, which may have been stripped of line breaks
-	data = QuestionModel{
-		Id:          types.StringValue(q.Id),
-		Title:       types.StringValue(q.Title),
-		Description: types.StringValue(q.Description),
-		Tags:        q.Tags,
-	}
+	data.Title = types.StringValue(q.Question.Title)
+	data.Description = types.StringValue(q.Question.Description)
+	data.Tags = q.Question.Tags
+	data.PollingInterval = types.StringValue(string(q.Question.PollingInterval))
 
-	data.Query = make([]*QueryModel, 0, len(q.Queries))
-	for _, query := range q.Queries {
-		data.Query = append(data.Query, &QueryModel{
-			Query:   query.Query,
-			Version: query.Version,
-			Name:    query.Name,
+	// queries, which may have been stripped of line breaks
+	data.Query = make([]*QuestionQueryModel, 0, len(q.Question.Queries))
+	for _, query := range q.Question.Queries {
+		data.Query = append(data.Query, &QuestionQueryModel{
+			Query:           query.Query,
+			Version:         query.Version,
+			Name:            query.Name,
+			ResultsAre:      string(query.ResultsAre),
+			IncludedDeleted: query.IncludeDeleted,
 		})
 	}
 
-	data.Compliance = make([]*QuestionComplianceModel, 0, len(q.Compliance))
-	for _, compliance := range q.Compliance {
+	data.Compliance = make([]*QuestionComplianceModel, 0, len(q.Question.Compliance))
+	for _, compliance := range q.Question.Compliance {
 		data.Compliance = append(data.Compliance, &QuestionComplianceModel{
 			Standard:     compliance.Standard,
 			Requirements: compliance.Requirements,
@@ -272,12 +302,9 @@ func (r *QuestionResource) Update(ctx context.Context, req resource.UpdateReques
 		return
 	}
 
-	q := data.BuildQuestion()
-	id := q.Id
-	// question id must be empty when sending update object
-	q.Id = ""
+	u := data.BuildQuestion()
 
-	_, err := r.client.UpdateQuestion(id, q)
+	_, err := client.UpdateQuestion(ctx, r.qlient, data.Id.ValueString(), u)
 	if err != nil {
 		resp.Diagnostics.AddError("failed to update question", err.Error())
 		return
@@ -289,27 +316,60 @@ func (r *QuestionResource) Update(ctx context.Context, req resource.UpdateReques
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
 }
 
-func (qm *QuestionModel) BuildQuestion() *client.Question {
-	q := &client.Question{
-		Id:          qm.Id.ValueString(),
-		Title:       qm.Title.ValueString(),
-		Description: qm.Description.ValueString(),
-		Tags:        qm.Tags,
+func (qm *QuestionModel) BuildQuestion() client.QuestionUpdate {
+	q := client.QuestionUpdate{
+		Title:           qm.Title.ValueString(),
+		Description:     qm.Description.ValueString(),
+		Tags:            qm.Tags,
+		PollingInterval: client.SchedulerPollingInterval(qm.PollingInterval.ValueString()),
 	}
 
-	q.Queries = make([]client.QuestionQuery, 0, len(qm.Query))
+	q.Queries = make([]client.QuestionQueryInput, 0, len(qm.Query))
 	for _, query := range qm.Query {
 		query.Query = removeCRFromString(query.Query)
-		q.Queries = append(q.Queries, client.QuestionQuery{
-			Query:   query.Query,
-			Version: query.Version,
-			Name:    query.Name,
+		q.Queries = append(q.Queries, client.QuestionQueryInput{
+			Query:          query.Query,
+			Version:        query.Version,
+			Name:           query.Name,
+			ResultsAre:     client.QueryResultsAre(query.ResultsAre),
+			IncludeDeleted: query.IncludedDeleted,
 		})
 	}
 
-	q.Compliance = make([]client.QuestionComplianceMetaData, 0, len(qm.Compliance))
+	q.Compliance = make([]client.QuestionComplianceMetaDataInput, 0, len(qm.Compliance))
 	for _, compliance := range qm.Compliance {
-		q.Compliance = append(q.Compliance, client.QuestionComplianceMetaData{
+		q.Compliance = append(q.Compliance, client.QuestionComplianceMetaDataInput{
+			Standard:     compliance.Standard,
+			Requirements: compliance.Requirements,
+			Controls:     compliance.Controls,
+		})
+	}
+	return q
+}
+
+func (qm *QuestionModel) BuildCreateQuestionInput() client.CreateQuestionInput {
+	q := client.CreateQuestionInput{
+		Title:           qm.Title.ValueString(),
+		Description:     qm.Description.ValueString(),
+		PollingInterval: client.SchedulerPollingInterval(qm.PollingInterval.ValueString()),
+		Tags:            qm.Tags,
+	}
+
+	q.Queries = make([]client.QuestionQueryInput, 0, len(qm.Query))
+	for _, query := range qm.Query {
+		query.Query = removeCRFromString(query.Query)
+		q.Queries = append(q.Queries, client.QuestionQueryInput{
+			Query:          query.Query,
+			Version:        query.Version,
+			Name:           query.Name,
+			ResultsAre:     client.QueryResultsAre(query.ResultsAre),
+			IncludeDeleted: query.IncludedDeleted,
+		})
+	}
+
+	q.Compliance = make([]client.QuestionComplianceMetaDataInput, 0, len(qm.Compliance))
+	for _, compliance := range qm.Compliance {
+		q.Compliance = append(q.Compliance, client.QuestionComplianceMetaDataInput{
 			Standard:     compliance.Standard,
 			Requirements: compliance.Requirements,
 			Controls:     compliance.Controls,

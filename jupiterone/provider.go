@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/Khan/genqlient/graphql"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/provider"
 	"github.com/hashicorp/terraform-plugin-framework/provider/schema"
@@ -20,7 +21,7 @@ type JupiterOneProvider struct {
 	// provider is built and ran locally, and "test" when running acceptance
 	// testing.
 	version string
-	Client  *client.JupiterOneClient
+	Qlient  graphql.Client
 }
 
 type JupiterOneProviderModel struct {
@@ -50,7 +51,7 @@ func (p *JupiterOneProvider) Configure(ctx context.Context, req provider.Configu
 
 	// NOTE: One important use case here is client already being set at part
 	// of the acceptance tests to use the preconfigured `go-vcr` transport.
-	if p.Client == nil {
+	if p.Qlient == nil {
 		apiKey := data.APIKey.ValueString()
 		accountId := data.AccountID.ValueString()
 		region := data.Region.ValueString()
@@ -105,7 +106,7 @@ func (p *JupiterOneProvider) Configure(ctx context.Context, req provider.Configu
 		}
 
 		var err error
-		p.Client, err = config.Client()
+		p.Qlient, err = config.Qlient()
 		if err != nil {
 			resp.Diagnostics.AddError("failed to create JupiterOne client in provider configuration: %s", err.Error())
 			return

@@ -37,6 +37,31 @@ If you're building the provider, follow the instructions to [install it as a plu
 
 If you wish to work on the provider, you'll first need [Go](http://www.golang.org) installed on your machine (please check the [requirements](https://github.com/jupiterone/terraform-provider-jupiterone#requirements) before proceeding). To compile the provider, run `make build`.
 
+### Adding or Updating GraphQL Queries
+
+The GraphQL client methods are generated using the
+[khan/genqlient](https://github.com/Khan/genqlient) library. The primary
+advantages are:
+
+- Compile time query checking
+- Generated full types for all API calls
+
+Requirements:
+
+- `node` and `yarn` are installed
+
+```shell
+$EDITOR jupiterone/internal/client/<query source file>.graphql
+
+# the J1 env variables and node library is only necessary to query and
+# save the updated schema the first time
+export JUPITERONE_ACCOUNT=:your_account_id
+export JUPITERONE_API_KEY=:your_api_key
+yarn add graphql
+
+make generate-client
+```
+
 ### Testing
 
 In order to test the provider, you can simply run `make test`. Pre-recorded API responses
@@ -56,7 +81,7 @@ _Note:_ Acceptance tests create/update/destroy real resources. Never run this on
 a production JupiterOne organization.
 
 ```sh
-$ make testacc
+make testacc
 ```
 
 ### Using development environment provider locally

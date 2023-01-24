@@ -1,0 +1,125 @@
+query GetQuestionRuleInstance($id: ID!) {
+  questionRuleInstance(id: $id) {
+    id
+    name
+    description
+    version
+    specVersion
+    latest
+    pollingInterval
+    deleted
+    type
+    templates
+    notifyOnFailure
+    questionId
+    question {
+      queries {
+        name
+        query
+        version
+        includeDeleted
+      }
+    }
+    # @genqlient(typename: RuleOperationOutput)
+    operations {
+      when
+      actions
+    }
+    outputs
+    tags
+  }
+}
+
+# @genqlient(for: "RuleOperationInput.when", omitempty: true)
+mutation CreateInlineQuestionRuleInstance(
+  $instance: CreateInlineQuestionRuleInstanceInput!
+) {
+  createQuestionRuleInstance: createInlineQuestionRuleInstance(
+    instance: $instance
+  ) {
+    id
+    version
+    specVersion
+    question {
+      queries {
+        name
+        query
+        version
+        includeDeleted
+      }
+    }
+    # genqlient(typename: RuleOperationOutput)
+    operations {
+      when
+      actions
+    }
+  }
+}
+
+# @genqlient(for: "RuleOperationInput.when", omitempty: true)
+mutation CreateReferencedQuestionRuleInstance(
+  $instance: CreateReferencedQuestionRuleInstanceInput!
+) {
+  createQuestionRuleInstance: createReferencedQuestionRuleInstance(
+    instance: $instance
+  ) {
+    id
+    version
+    specVersion
+    # @genqlient(typename: RuleOperationOutput)
+    operations {
+      when
+      actions
+    }
+  }
+}
+
+# The API is inconsistent about empty values, so `omitempty` is required
+# for some of these. For example "when: null," will produce an error, but
+# `templates: null` will not when include in the request.
+# @genqlient(for: "RuleOperationInput.when", omitempty: true)
+# @genqlient(for: "UpdateInlineQuestionRuleInstanceInput.latestAlertId", omitempty: true)
+# @genqlient(for: "UpdateInlineQuestionRuleInstanceInput.outputs", omitempty: true)
+# @genqlient(for: "UpdateInlineQuestionRuleInstanceInput.state", omitempty: true)
+mutation UpdateInlineQuestionRuleInstance(
+  $instance: UpdateInlineQuestionRuleInstanceInput!
+) {
+  updateInlineQuestionRuleInstance: updateInlineQuestionRuleInstance(
+    instance: $instance
+  ) {
+    version
+    specVersion
+    # @genqlient(typename: RuleOperationOutput)
+    operations {
+      when
+      actions
+    }
+  }
+}
+
+# @genqlient(for: "RuleOperationInput.when", omitempty: true)
+# @genqlient(for: "UpdateReferencedQuestionRuleInstanceInput.questionName", omitempty: true)
+# @genqlient(for: "UpdateReferencedQuestionRuleInstanceInput.outputs", omitempty: true)
+# @genqlient(for: "UpdateReferencedQuestionRuleInstanceInput.latestAlertId", omitempty: true)
+# @genqlient(for: "UpdateReferencedQuestionRuleInstanceInput.state", omitempty: true)
+mutation UpdateReferencedQuestionRuleInstance(
+  $instance: UpdateReferencedQuestionRuleInstanceInput!
+) {
+  updateReferencedQuestionRuleInstance: updateReferencedQuestionRuleInstance(
+    instance: $instance
+  ) {
+    version
+    specVersion
+    # @genqlient(typename: RuleOperationOutput)
+    operations {
+      when
+      actions
+    }
+  }
+}
+
+mutation DeleteRuleInstance($id: ID!) {
+  deleteRuleInstance(id: $id) {
+    id
+  }
+}

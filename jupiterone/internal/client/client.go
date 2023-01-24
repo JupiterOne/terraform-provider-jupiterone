@@ -1,13 +1,16 @@
 package client
 
+//go:generate go run github.com/Khan/genqlient
+
 import (
 	"context"
 	"log"
 	"net/http"
 	"os"
-	"time"
 
-	"github.com/machinebox/graphql"
+	"github.com/Khan/genqlient/graphql"
+	genql "github.com/Khan/genqlient/graphql"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/logging"
 )
 
 const DefaultRegion string = "us"
@@ -21,10 +24,16 @@ type JupiterOneClientConfig struct {
 	HTTPClient *http.Client
 }
 
-type JupiterOneClient struct {
+type jupiterOneTransport struct {
 	apiKey, accountID string
-	graphqlClient     *graphql.Client
-	RetryTimeout      time.Duration
+	base              http.RoundTripper
+}
+
+func (t *jupiterOneTransport) RoundTrip(req *http.Request) (*http.Response, error) {
+	req.Header.Set("LifeOmic-Account", t.accountID)
+	req.Header.Set("Cache-Control", "no-cache")
+	req.Header.Set("Authorization", "Bearer "+t.apiKey)
+	return t.base.RoundTrip(req)
 }
 
 func (c *JupiterOneClientConfig) getRegion() string {
@@ -42,29 +51,9 @@ func (c *JupiterOneClientConfig) getGraphQLEndpoint() string {
 	return "https://api." + c.getRegion() + ".jupiterone.io/graphql"
 }
 
-func (c *JupiterOneClientConfig) Client() (*JupiterOneClient, error) {
-	endpoint := c.getGraphQLEndpoint()
-
-	var client *graphql.Client
-	if c.HTTPClient != nil {
-		client = graphql.NewClient(endpoint, graphql.WithHTTPClient(c.HTTPClient))
-	} else {
-		client = graphql.NewClient(endpoint)
-	}
-
-	jupiterOneClient := &JupiterOneClient{
-		apiKey:        c.APIKey,
-		accountID:     c.AccountID,
-		graphqlClient: client,
-		RetryTimeout:  time.Minute,
-	}
-
-	return jupiterOneClient, nil
-}
-
-// NewClientFromEnv configures the J1 client itself from the environment
+// NewQlientFromEnv configures the J1 client itself from the environment
 // variables for use in testing.
-func NewClientFromEnv(ctx context.Context, client *http.Client) (*JupiterOneClient, error) {
+func NewQlientFromEnv(ctx context.Context, client *http.Client) (graphql.Client, error) {
 	config := JupiterOneClientConfig{
 		APIKey:     os.Getenv("JUPITERONE_API_KEY"),
 		AccountID:  os.Getenv("JUPITERONE_ACCOUNT_ID"),
@@ -72,15 +61,24 @@ func NewClientFromEnv(ctx context.Context, client *http.Client) (*JupiterOneClie
 		HTTPClient: client,
 	}
 
-	return config.Client()
+	return config.Qlient()
 }
 
-func (c *JupiterOneClient) prepareRequest(query string) *graphql.Request {
-	req := graphql.NewRequest(query)
+func (c *JupiterOneClientConfig) Qlient() (graphql.Client, error) {
+	endpoint := c.getGraphQLEndpoint()
 
-	req.Header.Set("LifeOmic-Account", c.accountID)
-	req.Header.Set("Cache-Control", "no-cache")
-	req.Header.Set("Authorization", "Bearer "+c.apiKey)
+	transport := http.DefaultTransport
+	httpClient := &http.Client{}
+	if c.HTTPClient != nil {
+		httpClient = c.HTTPClient
+		transport = c.HTTPClient.Transport
+	}
 
-	return req
+	transport = &jupiterOneTransport{apiKey: c.APIKey, accountID: c.AccountID, base: transport}
+	transport = logging.NewLoggingHTTPTransport(transport)
+	httpClient.Transport = transport
+
+	client := genql.NewClient(endpoint, httpClient)
+
+	return client, nil
 }

@@ -1,13 +1,12 @@
 package jupiterone
 
 import (
-	"bytes"
 	"context"
 	"encoding/json"
 	"fmt"
 	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework-validators/helpers/validatordiag"
+	"github.com/Khan/genqlient/graphql"
 	"github.com/hashicorp/terraform-plugin-framework-validators/listvalidator"
 	"github.com/hashicorp/terraform-plugin-framework-validators/resourcevalidator"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
@@ -25,6 +24,18 @@ import (
 
 const MIN_RULE_NAME_LENGTH = 1
 const MAX_RULE_NAME_LENGTH = 255
+const MIN_JSON_LENGTH = 2
+
+var PollingIntervals = []string{
+	string(client.SchedulerPollingIntervalDisabled),
+	string(client.SchedulerPollingIntervalThirtyMinutes),
+	string(client.SchedulerPollingIntervalOneHour),
+	string(client.SchedulerPollingIntervalFourHours),
+	string(client.SchedulerPollingIntervalEightHours),
+	string(client.SchedulerPollingIntervalTwelveHours),
+	string(client.SchedulerPollingIntervalOneDay),
+	string(client.SchedulerPollingIntervalOneWeek),
+}
 
 // Ensure provider defined types fully satisfy framework interfaces
 var _ resource.Resource = &QuestionRuleResource{}
@@ -32,13 +43,58 @@ var _ resource.ResourceWithConfigure = &QuestionRuleResource{}
 var _ resource.ResourceWithConfigValidators = &QuestionRuleResource{}
 var _ resource.ResourceWithModifyPlan = &QuestionRuleResource{}
 
+type J1QueryInputModel struct {
+	// Query tests must be cleaned of carriage returns before being sent to
+	// the server.
+	Query           string `json:"query" tfsdk:"query"`
+	Version         string `json:"version" tfsdk:"version"`
+	Name            string `json:"name" tfsdk:"name"`
+	IncludedDeleted bool   `json:"include_deleted" tfsdk:"include_deleted"`
+}
+
 type QuestionRuleResource struct {
 	version string
-	client  *client.JupiterOneClient
+	qlient  graphql.Client
 }
 
 type RuleQuestion struct {
-	Queries []*QueryModel `json:"queries" tfsdk:"queries"`
+	Queries []*J1QueryInputModel `json:"queries" tfsdk:"queries"`
+}
+
+type RuleOperation struct {
+	When    types.String `json:"when" tfsdk:"when"`
+	Actions []string     `json:"actions" tfsdk:"actions"`
+}
+
+// newOperationsWithoutId removes any "id" fields before saving into state.
+func newOperationsWithoutId(ops []client.RuleOperationOutput) ([]RuleOperation, error) {
+	l := make([]RuleOperation, 0, len(ops))
+	for _, o := range ops {
+
+		op := RuleOperation{
+			Actions: make([]string, 0, len(o.Actions)),
+		}
+
+		if o.When != nil {
+			w, err := json.Marshal(o.When)
+			if err != nil {
+				return nil, err
+			}
+			op.When = types.StringValue(string(w))
+		}
+
+		for _, action := range o.Actions {
+			delete(action, "id")
+			a, err := json.Marshal(action)
+			if err != nil {
+				return nil, err
+			}
+			op.Actions = append(op.Actions, string(a))
+		}
+
+		l = append(l, op)
+	}
+	return l, nil
 }
 
 // RuleModel represents the terraform representation of the rule
@@ -48,16 +104,17 @@ type RuleModel struct {
 	Description     string            `json:"description" tfsdk:"description"`
 	Version         types.Int64       `json:"version,omitempty" tfsdk:"version"`
 	SpecVersion     types.Int64       `json:"specVersion,omitempty" tfsdk:"spec_version"`
-	PollingInterval string            `json:"pollingInterval" tfsdk:"polling_interval"`
+	PollingInterval string            `json:"polling_interval,omitempty" tfsdk:"polling_interval"`
 	Templates       map[string]string `json:"templates" tfsdk:"templates"`
 	Question        []*RuleQuestion   `json:"question,omitempty" tfsdk:"question"`
 	QuestionId      types.String      `json:"questionId,omitempty" tfsdk:"question_id"`
 	QuestionName    types.String      `json:"questionName,omitempty" tfsdk:"question_name"`
 	// Operations TODO: breaking change for new version to do more in the
 	// HCL and/or make better use of things like jsonencode
-	Operations string   `json:"operations" tfsdk:"operations"`
-	Outputs    []string `json:"outputs" tfsdk:"outputs"`
-	Tags       []string `json:"tags" tfsdk:"tags"`
+	Operations      []RuleOperation `json:"operations" tfsdk:"operations"`
+	Outputs         []string        `json:"outputs" tfsdk:"outputs"`
+	Tags            []string        `json:"tags" tfsdk:"tags"`
+	NotifyOnFailure bool            `json:"notify_on_failure" tfsdk:"notify_on_failure"`
 }
 
 func NewQuestionRuleResource() resource.Resource {
@@ -88,12 +145,11 @@ func (r *QuestionRuleResource) Configure(ctx context.Context, req resource.Confi
 	}
 
 	r.version = p.version
-	r.client = p.Client
+	r.qlient = p.Qlient
 }
 
 // Schema implements resource.ResourceWithConfigure
 func (*QuestionRuleResource) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
-	var RulePollingIntervals = []string{"DISABLED", "THIRTY_MINUTES", "ONE_HOUR", "ONE_DAY", "ONE_WEEK"}
 
 	resp.Schema = schema.Schema{
 		Description: "A saved JupiterOne question based alert",
@@ -130,6 +186,7 @@ func (*QuestionRuleResource) Schema(ctx context.Context, req resource.SchemaRequ
 				Computed:    true,
 				Optional:    true,
 				PlanModifiers: []planmodifier.Int64{
+					int64planmodifier.UseStateForUnknown(),
 					Int64DefaultValue(types.Int64Value(1)),
 				},
 			},
@@ -138,10 +195,10 @@ func (*QuestionRuleResource) Schema(ctx context.Context, req resource.SchemaRequ
 				Computed:    true,
 				Optional:    true,
 				PlanModifiers: []planmodifier.String{
-					StringDefaultValue(RulePollingIntervals[3]),
+					StringDefaultValue(string(client.SchedulerPollingIntervalOneDay)),
 				},
 				Validators: []validator.String{
-					stringvalidator.OneOf(RulePollingIntervals...),
+					stringvalidator.OneOf(PollingIntervals...),
 				},
 			},
 			"templates": schema.MapAttribute{
@@ -158,22 +215,32 @@ func (*QuestionRuleResource) Schema(ctx context.Context, req resource.SchemaRequ
 				DeprecationMessage: "The question_name identifier is deprecated. Prefer to use a question's id property with question_id to reference a jupiterone_question in a jupiterone_rule.",
 				Optional:           true,
 			},
-			"operations": schema.StringAttribute{
+			"operations": schema.ListNestedAttribute{
 				Description: "Actions that are executed when a corresponding condition is met.",
 				Required:    true,
-				// PlanModifiers currently tries to diff the json objects and
-				// ignore formatting changes, but long term should probably
-				// be a TODO for a more complete schema and encouraging
-				// jsonencode() usage instead.
-				PlanModifiers: []planmodifier.String{
-					jsonIgnoreDiffPlanModifier(),
-				},
-				// TODO: similar to above, longer term is to define more of the
-				// schema for HCL and encourage use of jsonencode()
-				// Alternative: Look for a JSONString CustomType that comes
-				// with it's own validation in it's marshalling
-				Validators: []validator.String{
-					jsonValidator{},
+				NestedObject: schema.NestedAttributeObject{
+					Attributes: map[string]schema.Attribute{
+						"when": schema.StringAttribute{
+							Optional: true,
+							Validators: []validator.String{
+								stringvalidator.LengthAtLeast(MIN_JSON_LENGTH),
+								jsonValidator{},
+							},
+							PlanModifiers: []planmodifier.String{
+								jsonIgnoreDiffPlanModifier(),
+							},
+						},
+						"actions": schema.ListAttribute{
+							Required:    true,
+							ElementType: types.StringType,
+							Validators: []validator.List{
+								jsonValidator{},
+							},
+							PlanModifiers: []planmodifier.List{
+								jsonIgnoreDiffPlanModifierList(),
+							},
+						},
+					},
 				},
 			},
 			"outputs": schema.ListAttribute{
@@ -186,6 +253,13 @@ func (*QuestionRuleResource) Schema(ctx context.Context, req resource.SchemaRequ
 				ElementType: types.StringType,
 				Optional:    true,
 			},
+			"notify_on_failure": schema.BoolAttribute{
+				Optional: true,
+				Computed: true,
+				PlanModifiers: []planmodifier.Bool{
+					BoolDefaultValuePlanModifier(false),
+				},
+			},
 		},
 		// TODO: Deprecate the use of blocks following new framework guidance:
 		// https://developer.hashicorp.com/terraform/plugin/framework/handling-data/blocks
@@ -197,7 +271,33 @@ func (*QuestionRuleResource) Schema(ctx context.Context, req resource.SchemaRequ
 						"queries": schema.ListNestedBlock{
 							Description: "Contains properties related to queries used in the rule evaluation.",
 							NestedObject: schema.NestedBlockObject{
-								Attributes: questionQuerySchemaAttributes(),
+								Attributes: map[string]schema.Attribute{
+									"name": schema.StringAttribute{
+										Optional: true,
+										Validators: []validator.String{
+											stringvalidator.LengthBetween(MIN_RULE_NAME_LENGTH, MAX_RULE_NAME_LENGTH),
+										},
+									},
+									"query": schema.StringAttribute{
+										Required: true,
+										Validators: []validator.String{
+											stringvalidator.LengthAtLeast(1),
+										},
+									},
+									"version": schema.StringAttribute{
+										Required: true,
+										Validators: []validator.String{
+											stringvalidator.LengthBetween(MIN_RULE_NAME_LENGTH, MAX_RULE_NAME_LENGTH),
+										},
+									},
+									"include_deleted": schema.BoolAttribute{
+										Optional: true,
+										Computed: true,
+										PlanModifiers: []planmodifier.Bool{
+											BoolDefaultValuePlanModifier(false),
+										},
+									},
+								},
 							},
 							Validators: []validator.List{
 								listvalidator.SizeAtLeast(1),
@@ -265,6 +365,15 @@ func (*QuestionRuleResource) ModifyPlan(ctx context.Context, req resource.Modify
 	}
 }
 
+type Versioner interface {
+	GetVersion() int
+}
+
+type IdVersioner interface {
+	Versioner
+	GetId() string
+}
+
 // Create implements resource.ResourceWithConfigure
 func (r *QuestionRuleResource) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
 	var data *RuleModel
@@ -276,33 +385,37 @@ func (r *QuestionRuleResource) Create(ctx context.Context, req resource.CreateRe
 		return
 	}
 
-	// TODO: in future versions, make operations more explicit in the schema
-	// TODO: This map can probably be replaces by existing structs as well
-	rule, err := data.BuildQuestionRuleInstance()
-	if err != nil {
-		resp.Diagnostics.AddError("failed to build rule from configuration", err.Error())
-		return
+	var c IdVersioner
+	if len(data.Question) > 0 {
+		rule, err := data.BuildCreateInlineQuestionRuleInstanceInput()
+		if err != nil {
+			resp.Diagnostics.AddError("failed to build rule from configuration", err.Error())
+			return
+		}
+
+		created, err := client.CreateInlineQuestionRuleInstance(ctx, r.qlient, rule)
+		if err != nil {
+			resp.Diagnostics.AddError("failed to create rule", err.Error())
+			return
+		}
+		c = &created.CreateQuestionRuleInstance
+	} else {
+		rule, err := data.BuildCreateReferencedQuestionRuleInstanceInput()
+		if err != nil {
+			resp.Diagnostics.AddError("failed to build rule from configuration", err.Error())
+			return
+		}
+
+		created, err := client.CreateReferencedQuestionRuleInstance(ctx, r.qlient, rule)
+		if err != nil {
+			resp.Diagnostics.AddError("failed to create rule", err.Error())
+			return
+		}
+		c = &created.CreateQuestionRuleInstance
 	}
 
-	rule, err = r.client.CreateQuestionRuleInstance(rule)
-	if err != nil {
-		resp.Diagnostics.AddError("failed to create rule", err.Error())
-		return
-	}
-
-	data.Id = types.StringValue(rule.Id)
-	data.Version = types.Int64Value(int64(rule.Version))
-
-	// TODO: This should _probably_ be done whenever values are read from the server
-	// and stored back to state, but version 0.5.0 didn't do this and relied
-	// solely on the suppress diff func, so leave this out for test/state
-	// compatibility until more improvements worth upgrading the state for are
-	// implemented
-	/* data.Operations, err = processOperationsState(rule.Operations)
-	if err != nil {
-		resp.Diagnostics.AddError("failed to save operations state", err.Error())
-		return
-	} */
+	data.Id = types.StringValue(c.GetId())
+	data.Version = types.Int64Value(int64(c.GetVersion()))
 
 	tflog.Trace(ctx, "Created rule",
 		map[string]interface{}{"title": data.Name, "id": data.Id})
@@ -321,59 +434,68 @@ func (r *QuestionRuleResource) Delete(ctx context.Context, req resource.DeleteRe
 		return
 	}
 
-	if err := r.client.DeleteQuestionRuleInstance(data.Id.ValueString()); err != nil {
+	if _, err := client.DeleteRuleInstance(ctx, r.qlient, data.Id.ValueString()); err != nil {
 		resp.Diagnostics.AddError("failed to delete rule", err.Error())
 	}
 }
 
 // Read implements resource.ResourceWithConfigure
 func (r *QuestionRuleResource) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
-	var data RuleModel
+	var oldData RuleModel
 
-	// Read Terraform ste into the model
-	resp.Diagnostics.Append(req.State.Get(ctx, &data)...)
+	// Read Terraform state into the model
+	resp.Diagnostics.Append(req.State.Get(ctx, &oldData)...)
 
 	if resp.Diagnostics.HasError() {
 		return
 	}
 
-	rule, err := r.client.GetQuestionRuleInstanceByID(data.Id.ValueString())
+	getResp, err := client.GetQuestionRuleInstance(ctx, r.qlient, oldData.Id.ValueString())
 	if err != nil {
 		resp.Diagnostics.AddError("failed to get rule", err.Error())
 		return
 	}
+	rule := getResp.QuestionRuleInstance
 
-	data = RuleModel{
+	data := RuleModel{
 		Id:              types.StringValue(rule.Id),
 		Name:            rule.Name,
 		Description:     rule.Description,
 		Version:         types.Int64Value(int64(rule.Version)),
 		SpecVersion:     types.Int64Value(int64(rule.SpecVersion)),
-		PollingInterval: rule.PollingInterval,
-		Templates:       rule.Templates,
+		PollingInterval: string(rule.PollingInterval),
 		Outputs:         rule.Outputs,
 		Tags:            rule.Tags,
+		NotifyOnFailure: rule.NotifyOnFailure,
+	}
+
+	// FIXME: handling of these JSON fields (map[string]interface{}) is not DRY
+	templates, err := json.Marshal(rule.Templates)
+	if err != nil {
+		resp.Diagnostics.AddError("error marshaling templates from response", err.Error())
+	}
+	err = json.Unmarshal(templates, &data.Templates)
+	if err != nil {
+		resp.Diagnostics.AddError("error unmarshaling templates from response", err.Error())
 	}
 
 	if rule.QuestionId != "" {
 		data.QuestionId = types.StringValue(rule.QuestionId)
 	}
-	if rule.QuestionName != "" {
-		data.QuestionName = types.StringValue(rule.QuestionName)
-	}
-	if queries := rule.Question["queries"]; len(queries) > 0 {
-		data.Question = []*RuleQuestion{{Queries: []*QueryModel{
+	if queries := rule.Question.Queries; len(queries) > 0 {
+		data.Question = []*RuleQuestion{{Queries: []*J1QueryInputModel{
 			{
-				Name:    queries[0]["name"],
-				Query:   queries[0]["query"],
-				Version: queries[0]["version"],
+				Name:            queries[0].Name,
+				Query:           queries[0].Query,
+				Version:         queries[0].Version,
+				IncludedDeleted: queries[0].IncludeDeleted,
 			},
 		}}}
 	}
 
-	data.Operations, err = processOperationsState(rule.Operations)
+	data.Operations, err = newOperationsWithoutId(rule.Operations)
 	if err != nil {
-		resp.Diagnostics.AddError("failed to process operations for rule", err.Error())
+		resp.Diagnostics.AddError("error unmarshaling templates from response", err.Error())
 		return
 	}
 
@@ -388,6 +510,10 @@ func (r *QuestionRuleResource) Update(ctx context.Context, req resource.UpdateRe
 	// Read Terraform plan data into the model
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &data)...)
 
+	if resp.Diagnostics.HasError() {
+		return
+	}
+
 	// The UpdateRule operation needs the most current version of the rule to update it.
 	// We fetch it from the state if it is not specified by the user.
 	if data.Version.IsUnknown() {
@@ -399,37 +525,36 @@ func (r *QuestionRuleResource) Update(ctx context.Context, req resource.UpdateRe
 		data.Version = state.Version
 	}
 
-	if resp.Diagnostics.HasError() {
-		return
+	var update Versioner
+	if len(data.Question) > 0 {
+		rule, err := data.BuildUpdateInlineQuestionRuleInstanceInput()
+		if err != nil {
+			resp.Diagnostics.AddError("failed to build rule from configuration", err.Error())
+			return
+		}
+
+		updated, err := client.UpdateInlineQuestionRuleInstance(ctx, r.qlient, rule)
+		if err != nil {
+			resp.Diagnostics.AddError("failed to update inline question rule", err.Error())
+			return
+		}
+		update = &updated.UpdateInlineQuestionRuleInstance
+	} else {
+		rule, err := data.BuildUpdateReferencedQuestionRuleInstanceInput()
+		if err != nil {
+			resp.Diagnostics.AddError("failed to build rule from configuration", err.Error())
+			return
+		}
+
+		updated, err := client.UpdateReferencedQuestionRuleInstance(ctx, r.qlient, rule)
+		if err != nil {
+			resp.Diagnostics.AddError("failed to update referenced question rule", err.Error())
+			return
+		}
+		update = &updated.UpdateReferencedQuestionRuleInstance
 	}
 
-	// TODO: in future versions, make operations more explicit in the schema
-	// TODO: This map can probably be replaces by existing structs as well
-	rule, err := data.BuildQuestionRuleInstance()
-	if err != nil {
-		resp.Diagnostics.AddError("failed to create rule", err.Error())
-		return
-	}
-
-	rule, err = r.client.UpdateQuestionRuleInstance(rule)
-	if err != nil {
-		resp.Diagnostics.AddError("failed to create rule", err.Error())
-		return
-	}
-
-	data.Id = types.StringValue(rule.Id)
-	data.Version = types.Int64Value(int64(rule.Version))
-
-	// TODO: This should _probably_ be done whenever values are read from the server
-	// and stored back to state, but version 0.5.0 only did this on Read and relied
-	// solely on the suppress diff func, so leave this out for test/state
-	// compatibility until more improvements worth upgrading the state for are
-	// implemented
-	//data.Operations, err = processOperationsState(rule.Operations)
-	//if err != nil {
-	//	resp.Diagnostics.AddError("failed to save operations state", err.Error())
-	//	return
-	//}
+	data.Version = types.Int64Value(int64(update.GetVersion()))
 
 	tflog.Trace(ctx, "Updated rule",
 		map[string]interface{}{"title": data.Name, "id": data.Id})
@@ -437,55 +562,144 @@ func (r *QuestionRuleResource) Update(ctx context.Context, req resource.UpdateRe
 	resp.Diagnostics.Append(resp.State.Set(ctx, data)...)
 }
 
-func processOperationsState(ruleOperations []client.RuleOperation) (string, error) {
-	// Because we store the Operations as a raw string. The id property, which
-	// is set after the creation of the question creates a diff that would cause
-	// the Operations to update on every terraform apply
-	for _, op := range ruleOperations {
-		for _, action := range op.Actions {
-			delete(action, "id")
+func (r *RuleModel) buildOperations() ([]client.RuleOperationInput, error) {
+	ops := make([]client.RuleOperationInput, 0, len(r.Operations))
+	for _, o := range r.Operations {
+		op := client.RuleOperationInput{}
+		if !o.When.IsNull() {
+			err := json.Unmarshal([]byte(o.When.ValueString()), &op.When)
+			if err != nil {
+				return nil, err
+			}
 		}
-	}
 
-	buf := new(bytes.Buffer)
-	encoder := json.NewEncoder(buf)
-	encoder.SetEscapeHTML(false)
-	err := encoder.Encode(ruleOperations)
-	if err != nil {
-		return "", err
+		for _, action := range o.Actions {
+			var a map[string]interface{}
+			err := json.Unmarshal([]byte(action), &a)
+			if err != nil {
+				return nil, err
+			}
+			// NOTE: "id" should not be saved as currently implemented, so any
+			// "id" value in the input would be coming from the config
+			delete(a, "id")
+			op.Actions = append(op.Actions, a)
+		}
+
+		ops = append(ops, op)
 	}
-	return buf.String(), nil
+	return ops, nil
 }
 
-func (r *RuleModel) BuildQuestionRuleInstance() (*client.QuestionRuleInstance, error) {
-	rule := &client.QuestionRuleInstance{
-		Id:              r.Id.ValueString(),
+func (r *RuleModel) BuildCreateReferencedQuestionRuleInstanceInput() (client.CreateReferencedQuestionRuleInstanceInput, error) {
+	rule := client.CreateReferencedQuestionRuleInstanceInput{
+		QuestionId:      r.QuestionId.ValueString(),
+		Tags:            r.Tags,
 		Name:            r.Name,
 		Description:     r.Description,
 		SpecVersion:     int(r.SpecVersion.ValueInt64()),
+		Outputs:         r.Outputs,
+		PollingInterval: client.SchedulerPollingInterval(r.PollingInterval),
+		NotifyOnFailure: r.NotifyOnFailure,
+	}
+
+	var err error
+	rule.Operations, err = r.buildOperations()
+	if err != nil {
+		return rule, err
+	}
+
+	// FIXME: is roundtripping the best way? does it help with keeping
+	// config/state/server responses from being detected as different?
+	templates, err := json.Marshal(r.Templates)
+	if err != nil {
+		return rule, err
+	}
+	err = json.Unmarshal(templates, &rule.Templates)
+	if err != nil {
+		return rule, err
+	}
+
+	return rule, nil
+}
+
+func (r *RuleModel) BuildUpdateReferencedQuestionRuleInstanceInput() (client.UpdateReferencedQuestionRuleInstanceInput, error) {
+	rule := client.UpdateReferencedQuestionRuleInstanceInput{
+		Id:              r.Id.ValueString(),
+		Name:            r.Name,
+		Description:     r.Description,
 		Version:         int(r.Version.ValueInt64()),
-		PollingInterval: r.PollingInterval,
-		Templates:       r.Templates,
+		SpecVersion:     int(r.SpecVersion.ValueInt64()),
 		QuestionId:      r.QuestionId.ValueString(),
-		QuestionName:    r.QuestionName.ValueString(),
+		PollingInterval: client.SchedulerPollingInterval(r.PollingInterval),
 		Outputs:         r.Outputs,
 		Tags:            r.Tags,
+		NotifyOnFailure: r.NotifyOnFailure,
 	}
 
-	ops := make([]client.RuleOperation, 0)
-	err := json.Unmarshal([]byte(r.Operations), &ops)
+	var err error
+	rule.Operations, err = r.buildOperations()
 	if err != nil {
-		return nil, err
+		return rule, err
 	}
-	rule.Operations = ops
+
+	// FIXME: is roundtripping the best way? does it help with keeping
+	// config/state/server responses from being detected as different?
+	templates, err := json.Marshal(r.Templates)
+	if err != nil {
+		return rule, err
+	}
+	err = json.Unmarshal(templates, &rule.Templates)
+	if err != nil {
+		return rule, err
+	}
+
+	rule.Operations = make([]client.RuleOperationInput, 0, len(r.Operations))
+	for _, o := range rule.Operations {
+		rule.Operations = append(rule.Operations, client.RuleOperationInput{
+			When:    o.GetWhen(),
+			Actions: o.GetActions(),
+		})
+	}
+
+	return rule, nil
+}
+
+func (r *RuleModel) BuildCreateInlineQuestionRuleInstanceInput() (client.CreateInlineQuestionRuleInstanceInput, error) {
+	rule := client.CreateInlineQuestionRuleInstanceInput{
+		Tags:            r.Tags,
+		Name:            r.Name,
+		Description:     r.Description,
+		SpecVersion:     int(r.SpecVersion.ValueInt64()),
+		Outputs:         r.Outputs,
+		PollingInterval: client.SchedulerPollingInterval(r.PollingInterval),
+		NotifyOnFailure: r.NotifyOnFailure,
+	}
+
+	var err error
+	rule.Operations, err = r.buildOperations()
+	if err != nil {
+		return rule, err
+	}
+
+	// FIXME: is roundtripping the best way? does it help with keeping
+	// config/state/server responses from being detected as different?
+	templates, err := json.Marshal(r.Templates)
+	if err != nil {
+		return rule, err
+	}
+	err = json.Unmarshal(templates, &rule.Templates)
+	if err != nil {
+		return rule, err
+	}
 
 	if len(r.Question) > 0 && len(r.Question[0].Queries) > 0 {
-		rule.Question = map[string][]map[string]string{
-			"queries": {
+		rule.Question = client.RuleQuestionDetailsInput{
+			Queries: []client.J1QueryInput{
 				{
-					"name":    r.Question[0].Queries[0].Name,
-					"query":   r.Question[0].Queries[0].Query,
-					"version": r.Question[0].Queries[0].Version,
+					Query:          r.Question[0].Queries[0].Query,
+					Name:           r.Question[0].Queries[0].Name,
+					Version:        r.Question[0].Queries[0].Version,
+					IncludeDeleted: r.Question[0].Queries[0].IncludedDeleted,
 				},
 			},
 		}
@@ -494,148 +708,49 @@ func (r *RuleModel) BuildQuestionRuleInstance() (*client.QuestionRuleInstance, e
 	return rule, nil
 }
 
-func jsonIgnoreDiffPlanModifier() planmodifier.String {
-	return jsonIgnoreDiff{}
-}
-
-type jsonIgnoreDiff struct {
-}
-
-// Description implements planmodifier.String
-func (jsonIgnoreDiff) Description(context.Context) string {
-	return "Compares json for object equality to ignore formatting changes"
-}
-
-// MarkdownDescription implements planmodifier.String
-func (j jsonIgnoreDiff) MarkdownDescription(ctx context.Context) string {
-	return j.Description(ctx)
-}
-
-// PlanModifyString implements planmodifier.String
-func (jsonIgnoreDiff) PlanModifyString(ctx context.Context, req planmodifier.StringRequest, resp *planmodifier.StringResponse) {
-	// always apply new values
-	if req.StateValue.ValueString() == "" {
-		return
+func (r *RuleModel) BuildUpdateInlineQuestionRuleInstanceInput() (client.UpdateInlineQuestionRuleInstanceInput, error) {
+	rule := client.UpdateInlineQuestionRuleInstanceInput{
+		Id:              r.Id.ValueString(),
+		Version:         int(r.Version.ValueInt64()),
+		State:           client.RuleStateInput{},
+		Tags:            r.Tags,
+		Name:            r.Name,
+		Description:     r.Description,
+		SpecVersion:     int(r.SpecVersion.ValueInt64()),
+		Outputs:         r.Outputs,
+		PollingInterval: client.SchedulerPollingInterval(r.PollingInterval),
+		NotifyOnFailure: r.NotifyOnFailure,
 	}
 
-	var oldValue interface{}
-	err := json.Unmarshal([]byte(req.StateValue.ValueString()), &oldValue)
+	var err error
+	rule.Operations, err = r.buildOperations()
 	if err != nil {
-		resp.Diagnostics.AddError("Invalid operations json in old state", err.Error())
-		return
+		return rule, err
 	}
 
-	var newValue interface{}
-	err = json.Unmarshal([]byte(req.PlanValue.ValueString()), &newValue)
+	// FIXME: is roundtripping the best way? does it help with keeping
+	// config/state/server responses from being detected as different?
+	templates, err := json.Marshal(r.Templates)
 	if err != nil {
-		resp.Diagnostics.AddError("Invalid operations json in old state", err.Error())
-		return
+		return rule, err
 	}
-
-	if reflect.DeepEqual(oldValue, newValue) {
-		resp.PlanValue = req.StateValue
-	}
-}
-
-func Int64DefaultValue(v types.Int64) planmodifier.Int64 {
-	return &int64DefaultValuePlanModifier{v}
-}
-
-// int64DefaultValuePlanModifier is based on the example at:
-// https://developer.hashicorp.com/terraform/plugin/framework/migrating/attributes-blocks/default-values
-type int64DefaultValuePlanModifier struct {
-	DefaultValue types.Int64
-}
-
-var _ planmodifier.Int64 = (*int64DefaultValuePlanModifier)(nil)
-
-func (apm *int64DefaultValuePlanModifier) Description(ctx context.Context) string {
-	return "sets a default value for an int64 value"
-}
-
-func (apm *int64DefaultValuePlanModifier) MarkdownDescription(ctx context.Context) string {
-	return apm.Description(ctx)
-}
-
-func (apm *int64DefaultValuePlanModifier) PlanModifyInt64(ctx context.Context, req planmodifier.Int64Request, res *planmodifier.Int64Response) {
-	// If the attribute configuration is not null, we are done here
-	if !req.ConfigValue.IsNull() {
-		return
-	}
-
-	// If the attribute plan is "known" and "not null", then a previous plan modifier in the sequence
-	// has already been applied, and we don't want to interfere.
-	if !req.PlanValue.IsUnknown() && !req.PlanValue.IsNull() {
-		return
-	}
-
-	res.PlanValue = apm.DefaultValue
-}
-
-func StringDefaultValue(v string) planmodifier.String {
-	return &stringDefaultValuePlanModifier{
-		DefaultValue: types.StringValue(v),
-	}
-}
-
-type stringDefaultValuePlanModifier struct {
-	DefaultValue types.String
-}
-
-var _ planmodifier.String = (*stringDefaultValuePlanModifier)(nil)
-
-func (apm *stringDefaultValuePlanModifier) Description(ctx context.Context) string {
-	return "sets a default value for an string value"
-}
-
-func (apm *stringDefaultValuePlanModifier) MarkdownDescription(ctx context.Context) string {
-	return apm.Description(ctx)
-}
-
-func (apm *stringDefaultValuePlanModifier) PlanModifyString(ctx context.Context, req planmodifier.StringRequest, res *planmodifier.StringResponse) {
-	// If the attribute configuration is not null, we are done here
-	if !req.ConfigValue.IsNull() {
-		return
-	}
-
-	// If the attribute plan is "known" and "not null", then a previous plan modifier in the sequence
-	// has already been applied, and we don't want to interfere.
-	if !req.PlanValue.IsUnknown() && !req.PlanValue.IsNull() {
-		return
-	}
-
-	res.PlanValue = apm.DefaultValue
-}
-
-var _ validator.String = jsonValidator{}
-
-// oneOfValidator validates that the value matches one of expected values.
-type jsonValidator struct {
-}
-
-// Description implements validator.String
-func (jsonValidator) Description(context.Context) string {
-	return "string value must be valid JSON"
-}
-
-// MarkdownDescription implements validator.String
-func (v jsonValidator) MarkdownDescription(ctx context.Context) string {
-	return v.Description(ctx)
-}
-
-// ValidateString implements validator.String
-func (v jsonValidator) ValidateString(ctx context.Context, req validator.StringRequest, resp *validator.StringResponse) {
-	if req.ConfigValue.IsUnknown() {
-		return
-	}
-
-	var d interface{}
-	err := json.Unmarshal([]byte(req.ConfigValue.ValueString()), &d)
+	err = json.Unmarshal(templates, &rule.Templates)
 	if err != nil {
-		resp.Diagnostics.Append(validatordiag.InvalidAttributeValueDiagnostic(
-			req.Path,
-			v.Description(ctx),
-			req.ConfigValue.String(),
-		))
+		return rule, err
 	}
+
+	if len(r.Question) > 0 && len(r.Question[0].Queries) > 0 {
+		rule.Question = client.RuleQuestionDetailsInput{
+			Queries: []client.J1QueryInput{
+				{
+					Query:          r.Question[0].Queries[0].Query,
+					Name:           r.Question[0].Queries[0].Name,
+					Version:        r.Question[0].Queries[0].Version,
+					IncludeDeleted: r.Question[0].Queries[0].IncludedDeleted,
+				},
+			},
+		}
+	}
+
+	return rule, nil
 }

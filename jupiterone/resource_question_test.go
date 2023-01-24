@@ -7,8 +7,8 @@ import (
 	"testing"
 	"time"
 
+	"github.com/Khan/genqlient/graphql"
 	"github.com/hashicorp/go-cleanhttp"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/logging"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
 	"github.com/jupiterone/terraform-provider-jupiterone/jupiterone/internal/client"
@@ -20,29 +20,28 @@ func TestQuestion_Basic(t *testing.T) {
 	recorder, cleanup := setupCassettes(t.Name())
 	defer cleanup(t)
 	testHttpClient := cleanhttp.DefaultClient()
-	testHttpClient.Transport = logging.NewTransport("JupiterOne", recorder)
-	// testJ1Client is used for direct calls for CheckDestroy/etc.
-	testJ1Client, err := client.NewClientFromEnv(ctx, testHttpClient)
+	testHttpClient.Transport = recorder
+	qlient, err := client.NewQlientFromEnv(ctx, testHttpClient)
 	if err != nil {
 		t.Fatal("error configuring check client", err)
 	}
 
 	resourceName := "jupiterone_question.test"
-	title := "tf-test-question"
+	questionName := "tf-provider-test-question"
 	resource.Test(t, resource.TestCase{
 		PreCheck:                 func() { testAccPreCheck(t) },
-		ProtoV6ProviderFactories: testAccProtoV6ProviderFactories(testJ1Client),
-		CheckDestroy:             testAccCheckQuestionDestroy(ctx, testJ1Client),
+		ProtoV6ProviderFactories: testAccProtoV6ProviderFactories(qlient),
+		CheckDestroy:             testAccCheckQuestionDestroy(ctx, qlient),
 		Steps: []resource.TestStep{
 			{
-				Config: testQuestionBasicConfigWithTags(title, "testing-tag-1"),
+				Config: testQuestionBasicConfigWithTags(questionName, "tf_acc:1"),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckQuestionExists(ctx, testJ1Client),
+					testAccCheckQuestionExists(ctx, qlient),
 					resource.TestCheckResourceAttrSet(resourceName, "id"),
-					resource.TestCheckResourceAttr(resourceName, "title", title),
+					resource.TestCheckResourceAttr(resourceName, "title", questionName),
 					resource.TestCheckResourceAttr(resourceName, "description", "Test"),
 					resource.TestCheckResourceAttr(resourceName, "tags.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.0", "testing-tag-1"),
+					resource.TestCheckResourceAttr(resourceName, "tags.0", "tf_acc:1"),
 					resource.TestCheckResourceAttr(resourceName, "query.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "query.0.name", "query0"),
 					resource.TestCheckResourceAttr(resourceName, "query.0.version", "v1"),
@@ -50,14 +49,14 @@ func TestQuestion_Basic(t *testing.T) {
 				),
 			},
 			{
-				Config: testQuestionBasicConfigWithTags(title, "testing-tag-2"),
+				Config: testQuestionBasicConfigWithTags(questionName, "tf_acc:2"),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckQuestionExists(ctx, testJ1Client),
+					testAccCheckQuestionExists(ctx, qlient),
 					resource.TestCheckResourceAttrSet(resourceName, "id"),
-					resource.TestCheckResourceAttr(resourceName, "title", title),
+					resource.TestCheckResourceAttr(resourceName, "title", questionName),
 					resource.TestCheckResourceAttr(resourceName, "description", "Test"),
 					resource.TestCheckResourceAttr(resourceName, "tags.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.0", "testing-tag-2"),
+					resource.TestCheckResourceAttr(resourceName, "tags.0", "tf_acc:2"),
 					resource.TestCheckResourceAttr(resourceName, "query.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "query.0.name", "query0"),
 					resource.TestCheckResourceAttr(resourceName, "query.0.version", "v1"),
@@ -68,22 +67,28 @@ func TestQuestion_Basic(t *testing.T) {
 	})
 }
 
-func testAccCheckQuestionExists(ctx context.Context, client *client.JupiterOneClient) resource.TestCheckFunc {
+func testAccCheckQuestionExists(ctx context.Context, qlient graphql.Client) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		if err := questionExistsHelper(ctx, s, client); err != nil {
+		if err := questionExistsHelper(ctx, s, qlient); err != nil {
 			return err
 		}
 		return nil
 	}
 }
 
-func questionExistsHelper(ctx context.Context, s *terraform.State, client *client.JupiterOneClient) error {
+func questionExistsHelper(ctx context.Context, s *terraform.State, qlient graphql.Client) error {
+	duration := 10 * time.Second
+	if isReplaying() {
+		// no reason to wait as long on replays, but the retries would be recorded and
+		// have to be exercised and this can't be set to 0.
+		duration = time.Second
+	}
 	for _, r := range s.RootModule().Resources {
-		err := resource.RetryContext(ctx, 10*time.Second, func() *resource.RetryError {
+		err := resource.RetryContext(ctx, duration, func() *resource.RetryError {
 			id := r.Primary.ID
-			question, err := client.GetQuestion(id)
+			_, err := client.GetQuestionById(ctx, qlient, id)
 
-			if question != nil {
+			if err == nil {
 				return nil
 			}
 
@@ -102,22 +107,28 @@ func questionExistsHelper(ctx context.Context, s *terraform.State, client *clien
 	return nil
 }
 
-func testAccCheckQuestionDestroy(ctx context.Context, client *client.JupiterOneClient) func(*terraform.State) error {
+func testAccCheckQuestionDestroy(ctx context.Context, qlient graphql.Client) func(*terraform.State) error {
 	return func(s *terraform.State) error {
-		if err := questionDestroyHelper(ctx, s, client); err != nil {
+		if err := questionDestroyHelper(ctx, s, qlient); err != nil {
 			return err
 		}
 		return nil
 	}
 }
 
-func questionDestroyHelper(ctx context.Context, s *terraform.State, client *client.JupiterOneClient) error {
+func questionDestroyHelper(ctx context.Context, s *terraform.State, qlient graphql.Client) error {
+	duration := 10 * time.Second
+	if isReplaying() {
+		// no reason to wait as long on replays, but the retries would be recorded and
+		// have to be exercised and this can't be set to 0.
+		duration = time.Second
+	}
 	for _, r := range s.RootModule().Resources {
-		err := resource.RetryContext(ctx, 30*time.Second, func() *resource.RetryError {
+		err := resource.RetryContext(ctx, duration, func() *resource.RetryError {
 			id := r.Primary.ID
-			question, err := client.GetQuestion(id)
+			_, err := client.GetQuestionById(ctx, qlient, id)
 
-			if question != nil {
+			if err == nil {
 				return resource.RetryableError(fmt.Errorf("Question still exists (id=%q)", id))
 			}
 

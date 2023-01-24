@@ -43,4 +43,12 @@ test-compile:
 docs:
 	go run github.com/hashicorp/terraform-plugin-docs/cmd/tfplugindocs
 
+jupiterone/internal/client/schema.graphql:
+	@scripts/get_current_schema.bash
+
+jupiterone/internal/client/generated.go: jupiterone/internal/client/*.graphql jupiterone/internal/client/genqlient.yaml
+	@go run github.com/Khan/genqlient ./jupiterone/internal/client/genqlient.yaml
+
+generate-client: jupiterone/internal/client/generated.go
+
 .PHONY: build test testacc cassettes fmtcheck lint tools test-compile docs
