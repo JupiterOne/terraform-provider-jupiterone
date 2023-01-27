@@ -1,7 +1,6 @@
 package jupiterone
 
 import (
-	"context"
 	"fmt"
 	"log"
 	"net/http"
@@ -11,12 +10,30 @@ import (
 
 	"github.com/dnaeon/go-vcr/cassette"
 	"github.com/dnaeon/go-vcr/recorder"
-	"github.com/hashicorp/go-cleanhttp"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/logging"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+	"github.com/hashicorp/terraform-plugin-framework/provider"
+	"github.com/hashicorp/terraform-plugin-framework/providerserver"
+	"github.com/hashicorp/terraform-plugin-go/tfprotov6"
 	"github.com/jupiterone/terraform-provider-jupiterone/jupiterone/internal/client"
 )
+
+// testAccProtoV6ProviderFactories are used to instantiate a provider during
+// acceptance testing. The factory function will be invoked for every Terraform
+// CLI command executed to create a provider server to which the CLI can
+// reattach.
+func testAccProtoV6ProviderFactories(j1Client *client.JupiterOneClient) map[string]func() (tfprotov6.ProviderServer, error) {
+	return map[string]func() (tfprotov6.ProviderServer, error){
+		"jupiterone": providerserver.NewProtocol6WithError(NewTestProvider(j1Client)()),
+	}
+}
+
+func NewTestProvider(j1Client *client.JupiterOneClient) func() provider.Provider {
+	return func() provider.Provider {
+		return &JupiterOneProvider{
+			version: "test",
+			Client:  j1Client,
+		}
+	}
+}
 
 func isRecording() bool {
 	return os.Getenv("RECORD") == "true"
@@ -44,7 +61,7 @@ func stripHeadersFromCassetteInteraction(i *cassette.Interaction) {
 	i.Response.Headers.Del("X-Cache")
 }
 
-func initAccProvider(t *testing.T) (*schema.Provider, func(t *testing.T)) {
+func setupCassettes(name string) (*recorder.Recorder, func(t *testing.T)) {
 	var mode recorder.Mode
 	if isRecording() {
 		mode = recorder.ModeRecording
@@ -54,7 +71,7 @@ func initAccProvider(t *testing.T) (*schema.Provider, func(t *testing.T)) {
 		mode = recorder.ModeDisabled
 	}
 
-	rec, err := recorder.NewAsMode(fmt.Sprintf("cassettes/%s", t.Name()), mode, nil)
+	rec, err := recorder.NewAsMode(fmt.Sprintf("cassettes/%s", name), mode, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -73,67 +90,10 @@ func initAccProvider(t *testing.T) (*schema.Provider, func(t *testing.T)) {
 		stripHeadersFromCassetteInteraction(i)
 		return nil
 	})
-
-	p := Provider()
-	ctx := context.Background()
-	p.ConfigureContextFunc = testProviderConfigure(ctx, rec)
-
 	cleanup := func(t *testing.T) {
 		_ = rec.Stop()
 	}
-	return p, cleanup
-}
-
-func testProviderConfigure(_ context.Context, recorder *recorder.Recorder) schema.ConfigureContextFunc {
-	return func(_ context.Context, d *schema.ResourceData) (interface{}, diag.Diagnostics) {
-		testHTTPClient := cleanhttp.DefaultClient()
-		testHTTPClient.Transport = logging.NewTransport("JupiterOne", recorder)
-
-		config := client.JupiterOneClientConfig{
-			APIKey:     d.Get("api_key").(string),
-			AccountID:  d.Get("account_id").(string),
-			Region:     d.Get("region").(string),
-			HTTPClient: testHTTPClient,
-		}
-
-		client, err := config.Client()
-
-		if err != nil {
-			return nil, diag.Errorf("Failed to create JupiterOne client in provider configuration: %s", err.Error())
-		}
-
-		return &ProviderConfiguration{
-			Client: client,
-		}, nil
-	}
-}
-
-func testAccProviders(t *testing.T) (map[string]*schema.Provider, func(t *testing.T)) {
-	provider, cleanup := initAccProvider(t)
-	return map[string]*schema.Provider{
-		"jupiterone": provider,
-	}, cleanup
-}
-
-func testAccProvider(t *testing.T, accProviders map[string]*schema.Provider) *schema.Provider {
-	accProvider, ok := accProviders["jupiterone"]
-	if !ok {
-		t.Fatal("Could not find jupiterone provider")
-	}
-	return accProvider
-}
-
-func TestProvider(t *testing.T) {
-	accProvider, cleanup := initAccProvider(t)
-	defer cleanup(t)
-
-	if err := accProvider.InternalValidate(); err != nil {
-		t.Fatalf("err: %s", err)
-	}
-}
-
-func TestProvider_impl(t *testing.T) {
-	var _ = Provider()
+	return rec, cleanup
 }
 
 func testAccPreCheck(t *testing.T) {

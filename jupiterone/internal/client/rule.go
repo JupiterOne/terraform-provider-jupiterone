@@ -7,23 +7,24 @@ import (
 )
 
 type QuestionRuleInstance struct {
-	Id              string                 `json:"id,omitempty"`
-	AccountId       string                 `json:"accountId,omitempty"`
-	Name            string                 `json:"name"`
-	Description     string                 `json:"description"`
-	Version         int                    `json:"version,omitempty"`
-	SpecVersion     int                    `json:"specVersion,omitempty"`
-	Latest          bool                   `json:"latest,omitempty"`
-	Deleted         bool                   `json:"deleted,omitempty"`
-	Type            string                 `json:"type,omitempty"`
-	PollingInterval string                 `json:"pollingInterval"`
-	Templates       interface{}            `json:"templates"`
-	Question        map[string]interface{} `json:"question,omitempty"`
-	QuestionId      string                 `json:"questionId,omitempty"`
-	QuestionName    string                 `json:"questionName,omitempty"`
-	Operations      []RuleOperation        `json:"operations"`
-	Outputs         []string               `json:"outputs"`
-	Tags            []string               `json:"tags"`
+	Id              string            `json:"id,omitempty"`
+	AccountId       string            `json:"accountId,omitempty"`
+	Name            string            `json:"name"`
+	Description     string            `json:"description"`
+	Version         int               `json:"version,omitempty"`
+	SpecVersion     int               `json:"specVersion,omitempty"`
+	Latest          bool              `json:"latest,omitempty"`
+	Deleted         bool              `json:"deleted,omitempty"`
+	Type            string            `json:"type,omitempty"`
+	PollingInterval string            `json:"pollingInterval"`
+	Templates       map[string]string `json:"templates"`
+	// Question: TODO: make into structs
+	Question     map[string][]map[string]string `json:"question,omitempty"`
+	QuestionId   string                         `json:"questionId,omitempty"`
+	QuestionName string                         `json:"questionName,omitempty"`
+	Operations   []RuleOperation                `json:"operations"`
+	Outputs      []string                       `json:"outputs"`
+	Tags         []string                       `json:"tags"`
 }
 
 type RuleOperation struct {
@@ -79,7 +80,7 @@ func (c *JupiterOneClient) GetQuestionRuleInstanceByID(id string) (*QuestionRule
 	return &resp.QuestionRuleInstance, nil
 }
 
-func (c *JupiterOneClient) CreateQuestionRuleInstance(questionRuleInstance QuestionRuleInstance) (*QuestionRuleInstance, error) {
+func (c *JupiterOneClient) CreateQuestionRuleInstance(questionRuleInstance *QuestionRuleInstance) (*QuestionRuleInstance, error) {
 	var req *graphql.Request
 	if questionRuleInstance.QuestionId != "" || questionRuleInstance.QuestionName != "" {
 		req = c.prepareRequest(`
@@ -156,7 +157,6 @@ func (c *JupiterOneClient) CreateQuestionRuleInstance(questionRuleInstance Quest
 		return nil, err
 	}
 	return resp.CreateQuestionRuleInstance, nil
-
 }
 
 func (c *JupiterOneClient) UpdateQuestionRuleInstance(instance *QuestionRuleInstance) (*QuestionRuleInstance, error) {

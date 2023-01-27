@@ -2,227 +2,318 @@ package jupiterone
 
 import (
 	"context"
+	"fmt"
 
-	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+	"github.com/hashicorp/terraform-plugin-framework-validators/listvalidator"
+	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
+	"github.com/hashicorp/terraform-plugin-framework/resource"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 	"github.com/jupiterone/terraform-provider-jupiterone/jupiterone/internal/client"
-	"github.com/mitchellh/mapstructure"
 )
 
-func resourceQuestion() *schema.Resource {
-	return &schema.Resource{
-		CreateContext: resourceQuestionCreate,
-		ReadContext:   resourceQuestionRead,
-		UpdateContext: resourceQuestionUpdate,
-		DeleteContext: resourceQuestionDelete,
-		Schema: map[string]*schema.Schema{
-			"title": {
-				Type:        schema.TypeString,
+// Ensure provider defined types fully satisfy framework interfaces
+var _ resource.Resource = &QuestionResource{}
+var _ resource.ResourceWithConfigure = &QuestionResource{}
+
+type QuestionResource struct {
+	version string
+	client  *client.JupiterOneClient
+}
+
+type QuestionComplianceModel struct {
+	Standard     string   `json:"standard" tfsdk:"standard"`
+	Requirements []string `json:"requirements,omitempty" tfsdk:"requirements"`
+	Controls     []string `json:"controls,omitempty" tfsdk:"controls"`
+}
+
+// QueryModel represents the terraform HCL `query` elements.
+//
+// This only exists as different from the client QuestionQuery due to the need
+// to strip out CRs before sending to the server.
+type QueryModel struct {
+	// Query tests must be cleaned of carriage returns before being sent to
+	// the server.
+	Query   string `json:"query" tfsdk:"query"`
+	Version string `json:"version" tfsdk:"version"`
+	Name    string `json:"name" tfsdk:"name"`
+}
+
+// QuestionModel is the terraform HCL representation of a question. This
+// currently has to be different from the `client.Question`:
+//
+//  1. allow the use of the `types.String` for ID being computed and the optional values
+//  2. make it clearer where the line breaks are being stripped from the input
+//     and state
+//
+// TODO: Unify the client types and the state model if possible
+type QuestionModel struct {
+	Id          types.String               `json:"id,omitempty" tfsdk:"id"`
+	Title       types.String               `json:"title,omitempty" tfsdk:"title"`
+	Description types.String               `json:"description,omitempty" tfsdk:"description"`
+	Tags        []string                   `json:"tags,omitempty" tfsdk:"tags"`
+	Query       []*QueryModel              `json:"query,omitempty" tfsdk:"query"`
+	Compliance  []*QuestionComplianceModel `json:"compliance,omitempty" tfsdk:"compliance"`
+}
+
+func NewQuestionResource() resource.Resource {
+	return &QuestionResource{}
+}
+
+// Metadata implements resource.Resource
+func (*QuestionResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
+	resp.TypeName = req.ProviderTypeName + "_question"
+}
+
+// Schema implements resource.Resource
+func (*QuestionResource) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
+	resp.Schema = schema.Schema{
+		Description: "A saved JupiterOne Question",
+		Attributes: map[string]schema.Attribute{
+			"id": schema.StringAttribute{
+				Computed: true,
+				PlanModifiers: []planmodifier.String{
+					stringplanmodifier.UseStateForUnknown(),
+				},
+			},
+			"title": schema.StringAttribute{
 				Required:    true,
 				Description: "The title of the question",
 			},
-			"description": {
-				Type:     schema.TypeString,
+			"description": schema.StringAttribute{
 				Required: true,
 			},
-			"tags": {
-				Type:     schema.TypeList,
-				Optional: true,
-				Elem: &schema.Schema{
-					Type: schema.TypeString,
+			"tags": schema.ListAttribute{
+				Optional:    true,
+				ElementType: types.StringType,
+			},
+		},
+		// TODO: Deprecate the use of blocks following new framework guidance:
+		// https://developer.hashicorp.com/terraform/plugin/framework/handling-data/blocks
+		Blocks: map[string]schema.Block{
+			"query": schema.ListNestedBlock{
+				NestedObject: schema.NestedBlockObject{
+					Attributes: questionQuerySchemaAttributes(),
+				},
+				Validators: []validator.List{
+					listvalidator.SizeAtLeast(1),
 				},
 			},
-			"query": {
-				Type:     schema.TypeList,
-				Required: true,
-				Elem: &schema.Resource{
-					// from resource_question_rule_instance.go
-					Schema: getQuestionQuerySchema(),
-				},
-			},
-			"compliance": {
-				Type:     schema.TypeList,
-				Optional: true,
-				Elem: &schema.Resource{
-					Schema: getQuestionComplianceSchema(),
+			"compliance": schema.ListNestedBlock{
+				NestedObject: schema.NestedBlockObject{
+					Attributes: map[string]schema.Attribute{
+						"standard": schema.StringAttribute{
+							Required: true,
+						},
+						"requirements": schema.ListAttribute{
+							Optional:    true,
+							ElementType: types.StringType,
+						},
+						"controls": schema.ListAttribute{
+							Optional:    true,
+							ElementType: types.StringType,
+						},
+					},
 				},
 			},
 		},
 	}
 }
 
-func buildQuestionQueryList(terraformQuestionQueryList []interface{}) (*[]client.QuestionQuery, error) {
-	questionQueryList := make([]client.QuestionQuery, len(terraformQuestionQueryList))
-
-	for i, terraformQuestionQuery := range terraformQuestionQueryList {
-		var query client.QuestionQuery
-
-		if err := mapstructure.Decode(terraformQuestionQuery, &query); err != nil {
-			return nil, err
-		}
-
-		query.Query = removeCRFromString(query.Query)
-
-		questionQueryList[i] = query
-	}
-
-	return &questionQueryList, nil
-}
-
-func buildQuestionComplianceMetaDataList(terraformComplianceList []interface{}) (*[]client.QuestionComplianceMetaData, error) {
-	complianceMetaDataList := make([]client.QuestionComplianceMetaData, len(terraformComplianceList))
-
-	for i, terraformComplianceMetaData := range terraformComplianceList {
-		var complianceMetaData client.QuestionComplianceMetaData
-
-		if err := mapstructure.Decode(terraformComplianceMetaData, &complianceMetaData); err != nil {
-			return nil, err
-		}
-
-		complianceMetaDataList[i] = complianceMetaData
-	}
-
-	return &complianceMetaDataList, nil
-}
-
-func buildQuestionProperties(d *schema.ResourceData) (*client.QuestionProperties, error) {
-	var question client.QuestionProperties
-
-	if v, ok := d.GetOk("title"); ok {
-		question.Title = v.(string)
-	}
-
-	if v, ok := d.GetOk("description"); ok {
-		question.Description = v.(string)
-	}
-
-	if v, ok := d.GetOk("tags"); ok {
-		question.Tags = interfaceSliceToStringSlice(v.([]interface{}))
-	}
-
-	if v, ok := d.GetOk("query"); ok {
-		queries, err := buildQuestionQueryList(v.([]interface{}))
-
-		if err != nil {
-			return nil, err
-		}
-
-		question.Queries = *queries
-	}
-
-	if v, ok := d.GetOk("compliance"); ok {
-		complianceList, err := buildQuestionComplianceMetaDataList(v.([]interface{}))
-
-		if err != nil {
-			return nil, err
-		}
-
-		question.Compliance = *complianceList
-	}
-
-	return &question, nil
-}
-
-func resourceQuestionCreate(_ context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
-	questionProperties, err := buildQuestionProperties(d)
-	if err != nil {
-		return diag.Errorf("failed to build question: %s", err.Error())
-	}
-
-	createdQuestion, err := m.(*ProviderConfiguration).Client.CreateQuestion(*questionProperties)
-	if err != nil {
-		return diag.Errorf("failed to create question: %s", err.Error())
-	}
-
-	d.SetId(createdQuestion.Id)
-
-	return nil
-}
-
-func resourceQuestionRead(_ context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
-	question, err := m.(*ProviderConfiguration).Client.GetQuestion(d.Id())
-	if err != nil {
-		return diag.Errorf("failed to read existing question: %s", err.Error())
-	}
-	err = d.Set("title", question.Title)
-	if err != nil {
-		return diag.FromErr(err)
-	}
-
-	err = d.Set("description", question.Description)
-	if err != nil {
-		return diag.FromErr(err)
-	}
-
-	err = d.Set("tags", question.Tags)
-	if err != nil {
-		return diag.FromErr(err)
-	}
-
-	convertedQueries, err := queriesToMapStringInterface(question.Queries)
-	if err != nil {
-		return diag.FromErr(err)
-	}
-
-	err = d.Set("query", convertedQueries)
-	if err != nil {
-		return diag.FromErr(err)
-	}
-
-	/*
-		TODO @zemberdotnet: read updates once compliance is actually supported in the
-		internal client
-		err = d.Set("compliance", question.Compliance)
-		if err != nil {
-			return diag.FromErr(err)
-		}
-	*/
-
-	d.SetId(question.Id)
-	return nil
-}
-
-func resourceQuestionUpdate(_ context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
-	questionProperties, err := buildQuestionProperties(d)
-	if err != nil {
-		return diag.Errorf("failed to build question: %s", err.Error())
-	}
-
-	if _, err := m.(*ProviderConfiguration).Client.UpdateQuestion(d.Id(), *questionProperties); err != nil {
-		return diag.Errorf("failed to update question: %s", err.Error())
-	}
-
-	return nil
-}
-
-func resourceQuestionDelete(_ context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
-	if err := m.(*ProviderConfiguration).Client.DeleteQuestion(d.Id()); err != nil {
-		return diag.Errorf("failed to delete question: %s", err.Error())
-	}
-
-	d.SetId("")
-	return nil
-}
-
-func getQuestionComplianceSchema() map[string]*schema.Schema {
-	return map[string]*schema.Schema{
-		"standard": {
-			Type:     schema.TypeString,
+func questionQuerySchemaAttributes() map[string]schema.Attribute {
+	return map[string]schema.Attribute{
+		"name": schema.StringAttribute{
+			Optional: true,
+			Validators: []validator.String{
+				stringvalidator.LengthBetween(MIN_RULE_NAME_LENGTH, MAX_RULE_NAME_LENGTH),
+			},
+		},
+		"query": schema.StringAttribute{
 			Required: true,
-		},
-		"requirements": {
-			Type:     schema.TypeList,
-			Optional: true,
-			Elem: &schema.Schema{
-				Type: schema.TypeString,
+			Validators: []validator.String{
+				stringvalidator.LengthAtLeast(1),
 			},
 		},
-		"controls": {
-			Type:     schema.TypeList,
-			Optional: true,
-			Elem: &schema.Schema{
-				Type: schema.TypeString,
+		"version": schema.StringAttribute{
+			Required: true,
+			Validators: []validator.String{
+				stringvalidator.LengthBetween(MIN_RULE_NAME_LENGTH, MAX_RULE_NAME_LENGTH),
 			},
 		},
 	}
+}
+
+// Configure implements resource.ResourceWithConfigure
+func (r *QuestionResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
+	// Prevent panic if the provider has not been configured.
+	if req.ProviderData == nil {
+		return
+	}
+
+	p, ok := req.ProviderData.(*JupiterOneProvider)
+
+	if !ok {
+		resp.Diagnostics.AddError(
+			"Unexpected Resource Configure Type",
+			fmt.Sprintf("Expected JupiterOneProvider, got: %T. Please report this issue to the provider developers.", req.ProviderData),
+		)
+
+		return
+	}
+
+	r.version = p.version
+	r.client = p.Client
+}
+
+// Create implements resource.Resource
+func (r *QuestionResource) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
+	var data QuestionModel
+
+	// Read Terraform plan data into the model
+	resp.Diagnostics.Append(req.Plan.Get(ctx, &data)...)
+
+	if resp.Diagnostics.HasError() {
+		return
+	}
+
+	q := data.BuildQuestion()
+
+	var err error
+	q, err = r.client.CreateQuestion(q)
+	if err != nil {
+		resp.Diagnostics.AddError("failed to create question", err.Error())
+		return
+	}
+
+	data.Id = types.StringValue(q.Id)
+
+	tflog.Trace(ctx, "Created question",
+		map[string]interface{}{"title": data.Title, "id": data.Id})
+
+	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
+}
+
+// Delete implements resource.Resource
+func (r *QuestionResource) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
+	var data QuestionModel
+
+	// Read Terraform ste into the model
+	resp.Diagnostics.Append(req.State.Get(ctx, &data)...)
+
+	if resp.Diagnostics.HasError() {
+		return
+	}
+
+	if err := r.client.DeleteQuestion(data.Id.ValueString()); err != nil {
+		resp.Diagnostics.AddError("failed to delete question", err.Error())
+	}
+}
+
+// Read implements resource.Resource
+func (r *QuestionResource) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
+	var data QuestionModel
+
+	// Read Terraform state into the model
+	resp.Diagnostics.Append(req.State.Get(ctx, &data)...)
+
+	if resp.Diagnostics.HasError() {
+		return
+	}
+
+	q, err := r.client.GetQuestion(data.Id.ValueString())
+	if err != nil {
+		resp.Diagnostics.AddError("failed to get question", err.Error())
+		return
+	}
+
+	// the API response fields are 1:1 with the state except for the queries
+	// themselves, which may have been stripped of line breaks
+	data = QuestionModel{
+		Id:          types.StringValue(q.Id),
+		Title:       types.StringValue(q.Title),
+		Description: types.StringValue(q.Description),
+		Tags:        q.Tags,
+	}
+
+	data.Query = make([]*QueryModel, 0, len(q.Queries))
+	for _, query := range q.Queries {
+		data.Query = append(data.Query, &QueryModel{
+			Query:   query.Query,
+			Version: query.Version,
+			Name:    query.Name,
+		})
+	}
+
+	data.Compliance = make([]*QuestionComplianceModel, 0, len(q.Compliance))
+	for _, compliance := range q.Compliance {
+		data.Compliance = append(data.Compliance, &QuestionComplianceModel{
+			Standard:     compliance.Standard,
+			Requirements: compliance.Requirements,
+			Controls:     compliance.Controls,
+		})
+	}
+
+	// Save updated data into Terraform state
+	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
+}
+
+// Update implements resource.Resource
+func (r *QuestionResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
+	var data QuestionModel
+
+	// Read Terraform plan data into the model
+	resp.Diagnostics.Append(req.Plan.Get(ctx, &data)...)
+
+	if resp.Diagnostics.HasError() {
+		return
+	}
+
+	q := data.BuildQuestion()
+	id := q.Id
+	// question id must be empty when sending update object
+	q.Id = ""
+
+	_, err := r.client.UpdateQuestion(id, q)
+	if err != nil {
+		resp.Diagnostics.AddError("failed to update question", err.Error())
+		return
+	}
+
+	tflog.Trace(ctx, "Updated question",
+		map[string]interface{}{"title": data.Title, "id": data.Id})
+
+	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
+}
+
+func (qm *QuestionModel) BuildQuestion() *client.Question {
+	q := &client.Question{
+		Id:          qm.Id.ValueString(),
+		Title:       qm.Title.ValueString(),
+		Description: qm.Description.ValueString(),
+		Tags:        qm.Tags,
+	}
+
+	q.Queries = make([]client.QuestionQuery, 0, len(qm.Query))
+	for _, query := range qm.Query {
+		query.Query = removeCRFromString(query.Query)
+		q.Queries = append(q.Queries, client.QuestionQuery{
+			Query:   query.Query,
+			Version: query.Version,
+			Name:    query.Name,
+		})
+	}
+
+	q.Compliance = make([]client.QuestionComplianceMetaData, 0, len(qm.Compliance))
+	for _, compliance := range qm.Compliance {
+		q.Compliance = append(q.Compliance, client.QuestionComplianceMetaData{
+			Standard:     compliance.Standard,
+			Requirements: compliance.Requirements,
+			Controls:     compliance.Controls,
+		})
+	}
+	return q
 }

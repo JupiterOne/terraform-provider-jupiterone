@@ -7,29 +7,37 @@ import (
 	"testing"
 	"time"
 
+	"github.com/hashicorp/go-cleanhttp"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/logging"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
 	"github.com/jupiterone/terraform-provider-jupiterone/jupiterone/internal/client"
 )
 
 func TestQuestion_Basic(t *testing.T) {
-	accProviders, cleanup := testAccProviders(t)
+	ctx := context.TODO()
+
+	recorder, cleanup := setupCassettes(t.Name())
 	defer cleanup(t)
-	accProvider := testAccProvider(t, accProviders)
+	testHttpClient := cleanhttp.DefaultClient()
+	testHttpClient.Transport = logging.NewTransport("JupiterOne", recorder)
+	// testJ1Client is used for direct calls for CheckDestroy/etc.
+	testJ1Client, err := client.NewClientFromEnv(ctx, testHttpClient)
+	if err != nil {
+		t.Fatal("error configuring check client", err)
+	}
+
 	resourceName := "jupiterone_question.test"
 	title := "tf-test-question"
-	ctx := context.Background()
-
 	resource.Test(t, resource.TestCase{
-		PreCheck:     func() { testAccPreCheck(t) },
-		Providers:    accProviders,
-		CheckDestroy: testAccCheckQuestionDestroy(ctx, accProvider),
+		PreCheck:                 func() { testAccPreCheck(t) },
+		ProtoV6ProviderFactories: testAccProtoV6ProviderFactories(testJ1Client),
+		CheckDestroy:             testAccCheckQuestionDestroy(ctx, testJ1Client),
 		Steps: []resource.TestStep{
 			{
 				Config: testQuestionBasicConfigWithTags(title, "testing-tag-1"),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckQuestionExists(ctx, accProvider),
+					testAccCheckQuestionExists(ctx, testJ1Client),
 					resource.TestCheckResourceAttrSet(resourceName, "id"),
 					resource.TestCheckResourceAttr(resourceName, "title", title),
 					resource.TestCheckResourceAttr(resourceName, "description", "Test"),
@@ -44,7 +52,7 @@ func TestQuestion_Basic(t *testing.T) {
 			{
 				Config: testQuestionBasicConfigWithTags(title, "testing-tag-2"),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckQuestionExists(ctx, accProvider),
+					testAccCheckQuestionExists(ctx, testJ1Client),
 					resource.TestCheckResourceAttrSet(resourceName, "id"),
 					resource.TestCheckResourceAttr(resourceName, "title", title),
 					resource.TestCheckResourceAttr(resourceName, "description", "Test"),
@@ -60,11 +68,8 @@ func TestQuestion_Basic(t *testing.T) {
 	})
 }
 
-func testAccCheckQuestionExists(ctx context.Context, accProvider *schema.Provider) resource.TestCheckFunc {
+func testAccCheckQuestionExists(ctx context.Context, client *client.JupiterOneClient) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		providerConf := accProvider.Meta().(*ProviderConfiguration)
-		client := providerConf.Client
-
 		if err := questionExistsHelper(ctx, s, client); err != nil {
 			return err
 		}
@@ -97,11 +102,8 @@ func questionExistsHelper(ctx context.Context, s *terraform.State, client *clien
 	return nil
 }
 
-func testAccCheckQuestionDestroy(ctx context.Context, accProvider *schema.Provider) func(*terraform.State) error {
+func testAccCheckQuestionDestroy(ctx context.Context, client *client.JupiterOneClient) func(*terraform.State) error {
 	return func(s *terraform.State) error {
-		providerConf := accProvider.Meta().(*ProviderConfiguration)
-		client := providerConf.Client
-
 		if err := questionDestroyHelper(ctx, s, client); err != nil {
 			return err
 		}
@@ -135,6 +137,8 @@ func questionDestroyHelper(ctx context.Context, s *terraform.State, client *clie
 
 func testQuestionBasicConfigWithTags(rName string, tag string) string {
 	return fmt.Sprintf(`
+		provider "jupiterone" {}
+
 		resource "jupiterone_question" "test" {
 			title = %q
 			description = "Test"
