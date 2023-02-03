@@ -593,6 +593,7 @@ func (r *RuleModel) buildOperations() ([]client.RuleOperationInput, error) {
 func (r *RuleModel) BuildCreateReferencedQuestionRuleInstanceInput() (client.CreateReferencedQuestionRuleInstanceInput, error) {
 	rule := client.CreateReferencedQuestionRuleInstanceInput{
 		QuestionId:      r.QuestionId.ValueString(),
+		QuestionName:    "",
 		Tags:            r.Tags,
 		Name:            r.Name,
 		Description:     r.Description,

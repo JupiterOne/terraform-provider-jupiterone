@@ -320,7 +320,7 @@ func (v *CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance) GetOper
 
 type CreateReferencedQuestionRuleInstanceInput struct {
 	QuestionId      string                   `json:"questionId"`
-	QuestionName    string                   `json:"questionName"`
+	QuestionName    string                   `json:"questionName,omitempty"`
 	Templates       map[string]interface{}   `json:"templates"`
 	Tags            []string                 `json:"tags"`
 	Name            string                   `json:"name"`
@@ -1455,6 +1455,9 @@ query GetQuestionRuleInstance ($id: ID!) {
 	return &data, err
 }
 
+// The API is inconsistent about empty values, so `omitempty` is required
+// for some of these. For example "when: null," will produce an error, but
+// `templates: null` will not when include in the request.
 func UpdateInlineQuestionRuleInstance(
 	ctx context.Context,
 	client graphql.Client,
