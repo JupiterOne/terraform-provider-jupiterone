@@ -496,7 +496,6 @@ func (r *QuestionRuleResource) Read(ctx context.Context, req resource.ReadReques
 	data.Operations, err = newOperationsWithoutId(rule.Operations)
 	if err != nil {
 		resp.Diagnostics.AddError("error unmarshaling templates from response", err.Error())
-		return
 	}
 
 	// Save updated data into Terraform state
@@ -654,12 +653,9 @@ func (r *RuleModel) BuildUpdateReferencedQuestionRuleInstanceInput() (client.Upd
 		return rule, err
 	}
 
-	rule.Operations = make([]client.RuleOperationInput, 0, len(r.Operations))
-	for _, o := range rule.Operations {
-		rule.Operations = append(rule.Operations, client.RuleOperationInput{
-			When:    o.GetWhen(),
-			Actions: o.GetActions(),
-		})
+	rule.Operations, err = r.buildOperations()
+	if err != nil {
+		return rule, err
 	}
 
 	return rule, nil

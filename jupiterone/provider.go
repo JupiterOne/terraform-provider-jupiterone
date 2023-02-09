@@ -105,7 +105,7 @@ func (p *JupiterOneProvider) Configure(ctx context.Context, req provider.Configu
 			Region:    region,
 		}
 
-		p.Qlient = config.Qlient()
+		p.Qlient = config.Qlient(ctx)
 		log.Println("[INFO] JupiterOne client successfully initialized")
 	} else {
 		log.Println("[INFO] Using already configured client")

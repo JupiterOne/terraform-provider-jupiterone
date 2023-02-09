@@ -5,7 +5,6 @@ go 1.18
 require (
 	github.com/Khan/genqlient v0.5.0
 	github.com/client9/misspell v0.3.4
-	github.com/dnaeon/go-vcr v1.2.0
 	github.com/golangci/golangci-lint v1.46.2
 	github.com/hashicorp/go-cleanhttp v0.5.2
 	github.com/hashicorp/terraform-plugin-docs v0.13.0
@@ -16,6 +15,7 @@ require (
 	github.com/hashicorp/terraform-plugin-sdk v1.17.2
 	github.com/hashicorp/terraform-plugin-sdk/v2 v2.24.1
 	github.com/stretchr/testify v1.8.1
+	gopkg.in/dnaeon/go-vcr.v3 v3.1.2
 )
 
 require (

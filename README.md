@@ -64,23 +64,44 @@ make generate-client
 
 ### Testing
 
-In order to test the provider, you can simply run `make test`. Pre-recorded API responses
-(cassettes) are run. The cassettes are stored in `jupiterone/cassettes/`.
-When tests are modified, the cassettes need to be re-recorded.
+In order to test the provider, you can simply run `make testacc`. Pre-recorded
+API responses (cassettes) are read in from
+[jupiterone/cassettes/*.yaml](jupiterone/cassettes) files and returned.  When
+tests are modified, the cassettes need to be re-recorded.
 
 _Note:_ Recording cassettes creates/updates/destroys real resources. Never run this on
 a production JupiterOne organization.
 
-In order to re-record all cassettes you need to have `JUPITERONE_API_KEY` and `JUPITERONE_ACCOUNT_ID`
-for your testing organization in your environment. With that, run `make cassettes`.
-If you only need to re-record a subset of your tests, you can run `make cassettes TESTARGS ="-run XXX"`.
+In order to record cassettes you need to have `JUPITERONE_API_KEY` and `JUPITERONE_ACCOUNT_ID`
+for your testing organization in your environment.
 
-To run the full suite of Acceptance tests, run `make testacc`.
-
-_Note:_ Acceptance tests create/update/destroy real resources. Never run this on
-a production JupiterOne organization.
+To re-record _all_ cassettes:
 
 ```sh
+export JUPITERONE_ACCOUNT_ID=your-account-id
+export JUPITERONE_API_KEY=xxxxxx
+make cassettes
+```
+
+If you only need to re-record a subset of your tests, delete the related
+cassette file and run the tests as usual. This takes advantage of `go-vcr`s
+default [`ModeRecordOnce`](https://pkg.go.dev/gopkg.in/dnaeon/go-vcr.v3@v3.1.2/recorder#Mode)
+functionality.
+
+```sh
+export JUPITERONE_ACCOUNT_ID=your-account-id
+export JUPITERONE_API_KEY=xxxxxx
+rm jupiterone/cassettes/:some-test.yaml
+make testacc
+```
+
+### Debugging HTTP Traffic
+
+To log the HTTP request and response contents, set the `TF_LOG` level to `DEBUG`
+or lower:
+
+```shell
+export TF_LOG=DEBUG
 make testacc
 ```
 

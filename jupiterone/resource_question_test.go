@@ -8,7 +8,6 @@ import (
 	"time"
 
 	"github.com/Khan/genqlient/graphql"
-	"github.com/hashicorp/go-cleanhttp"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
 	"github.com/jupiterone/terraform-provider-jupiterone/jupiterone/internal/client"
@@ -17,23 +16,20 @@ import (
 func TestQuestion_Basic(t *testing.T) {
 	ctx := context.TODO()
 
-	recorder, cleanup := setupCassettes(t.Name())
+	recordingClient, directClient, cleanup := setupTestClients(ctx, t)
 	defer cleanup(t)
-	testHttpClient := cleanhttp.DefaultClient()
-	testHttpClient.Transport = recorder
-	qlient := client.NewQlientFromEnv(ctx, testHttpClient)
 
 	resourceName := "jupiterone_question.test"
 	questionName := "tf-provider-test-question"
 	resource.Test(t, resource.TestCase{
 		PreCheck:                 func() { testAccPreCheck(t) },
-		ProtoV6ProviderFactories: testAccProtoV6ProviderFactories(qlient),
-		CheckDestroy:             testAccCheckQuestionDestroy(ctx, qlient),
+		ProtoV6ProviderFactories: testAccProtoV6ProviderFactories(recordingClient),
+		CheckDestroy:             testAccCheckQuestionDestroy(ctx, directClient),
 		Steps: []resource.TestStep{
 			{
 				Config: testQuestionBasicConfigWithTags(questionName, "tf_acc:1"),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckQuestionExists(ctx, qlient),
+					testAccCheckQuestionExists(ctx, directClient),
 					resource.TestCheckResourceAttrSet(resourceName, "id"),
 					resource.TestCheckResourceAttr(resourceName, "title", questionName),
 					resource.TestCheckResourceAttr(resourceName, "description", "Test"),
@@ -48,7 +44,7 @@ func TestQuestion_Basic(t *testing.T) {
 			{
 				Config: testQuestionBasicConfigWithTags(questionName, "tf_acc:2"),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckQuestionExists(ctx, qlient),
+					testAccCheckQuestionExists(ctx, directClient),
 					resource.TestCheckResourceAttrSet(resourceName, "id"),
 					resource.TestCheckResourceAttr(resourceName, "title", questionName),
 					resource.TestCheckResourceAttr(resourceName, "description", "Test"),
@@ -74,12 +70,11 @@ func testAccCheckQuestionExists(ctx context.Context, qlient graphql.Client) reso
 }
 
 func questionExistsHelper(ctx context.Context, s *terraform.State, qlient graphql.Client) error {
-	duration := 10 * time.Second
-	if isReplaying() {
-		// no reason to wait as long on replays, but the retries would be recorded and
-		// have to be exercised and this can't be set to 0.
-		duration = time.Second
+	if qlient == nil {
+		return nil
 	}
+
+	duration := 10 * time.Second
 	for _, r := range s.RootModule().Resources {
 		err := resource.RetryContext(ctx, duration, func() *resource.RetryError {
 			id := r.Primary.ID
@@ -114,12 +109,11 @@ func testAccCheckQuestionDestroy(ctx context.Context, qlient graphql.Client) fun
 }
 
 func questionDestroyHelper(ctx context.Context, s *terraform.State, qlient graphql.Client) error {
-	duration := 10 * time.Second
-	if isReplaying() {
-		// no reason to wait as long on replays, but the retries would be recorded and
-		// have to be exercised and this can't be set to 0.
-		duration = time.Second
+	if qlient == nil {
+		return nil
 	}
+
+	duration := 10 * time.Second
 	for _, r := range s.RootModule().Resources {
 		err := resource.RetryContext(ctx, duration, func() *resource.RetryError {
 			id := r.Primary.ID

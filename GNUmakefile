@@ -2,19 +2,29 @@ TEST?=$$(go list ./...)
 PKG_NAME=jupiterone
 DIR=~/.terraform.d/plugins
 
+JUPITERONE_ACCOUNT_ID?=fake
+JUPITERONE_API_KEY?=fake
+JUPITERONE_REGION?=fake
+
+export JUPITERONE_ACCOUNT_ID JUPITERONE_API_KEY JUPITERONE_REGION
+
 default: build
 
 build: fmtcheck
-	go install
+	go build ./...
 
-test: fmtcheck
-	JUPITERONE_API_KEY=fake JUPITERONE_ACCOUNT_ID=fake RECORD=false TF_ACC=1 go test $(TEST) -v $(TESTARGS) -timeout=5m -parallel=4
+install: fmtcheck
+	go install .
+
+test:
+	go test $(TEST) -v $(TESTARGS) -timeout 120m
 
 testacc: fmtcheck
 	TF_ACC=1 go test $(TEST) -v $(TESTARGS) -timeout 120m
 
 cassettes: fmtcheck
-	RECORD=true TF_ACC=1 go test $(TEST) -v $(TESTARGS) -timeout 120m
+	rm -f jupiterone/cassettes/*.yaml
+	TF_ACC=1 go test $(TEST) -v $(TESTARGS) -timeout 120m
 
 fmt:
 	@echo "==> Fixing source code with gofmt..."
