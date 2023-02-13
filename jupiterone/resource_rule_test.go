@@ -23,10 +23,7 @@ func TestRuleInstance_Basic(t *testing.T) {
 	defer cleanup(t)
 	testHttpClient := cleanhttp.DefaultClient()
 	testHttpClient.Transport = recorder
-	qlient, err := client.NewQlientFromEnv(ctx, testHttpClient)
-	if err != nil {
-		t.Fatal("error configuring check client", err)
-	}
+	qlient := client.NewQlientFromEnv(ctx, testHttpClient)
 
 	ruleName := "tf-provider-test-rule"
 	resourceName := "jupiterone_rule.test"
@@ -100,10 +97,7 @@ func TestRuleInstance_Config_Errors(t *testing.T) {
 	defer cleanup(t)
 	testHttpClient := cleanhttp.DefaultClient()
 	testHttpClient.Transport = recorder
-	qlient, err := client.NewQlientFromEnv(ctx, testHttpClient)
-	if err != nil {
-		t.Fatal("error configuring check client", err)
-	}
+	qlient := client.NewQlientFromEnv(ctx, testHttpClient)
 
 	rName := acctest.RandomWithPrefix("tf-acc-test")
 	resourceName := "jupiterone_rule.test"

@@ -53,7 +53,7 @@ func (c *JupiterOneClientConfig) getGraphQLEndpoint() string {
 
 // NewQlientFromEnv configures the J1 client itself from the environment
 // variables for use in testing.
-func NewQlientFromEnv(ctx context.Context, client *http.Client) (graphql.Client, error) {
+func NewQlientFromEnv(ctx context.Context, client *http.Client) graphql.Client {
 	config := JupiterOneClientConfig{
 		APIKey:     os.Getenv("JUPITERONE_API_KEY"),
 		AccountID:  os.Getenv("JUPITERONE_ACCOUNT_ID"),
@@ -64,7 +64,7 @@ func NewQlientFromEnv(ctx context.Context, client *http.Client) (graphql.Client,
 	return config.Qlient()
 }
 
-func (c *JupiterOneClientConfig) Qlient() (graphql.Client, error) {
+func (c *JupiterOneClientConfig) Qlient() graphql.Client {
 	endpoint := c.getGraphQLEndpoint()
 
 	transport := http.DefaultTransport
@@ -80,5 +80,5 @@ func (c *JupiterOneClientConfig) Qlient() (graphql.Client, error) {
 
 	client := genql.NewClient(endpoint, httpClient)
 
-	return client, nil
+	return client
 }

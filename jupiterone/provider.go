@@ -105,12 +105,7 @@ func (p *JupiterOneProvider) Configure(ctx context.Context, req provider.Configu
 			Region:    region,
 		}
 
-		var err error
-		p.Qlient, err = config.Qlient()
-		if err != nil {
-			resp.Diagnostics.AddError("failed to create JupiterOne client in provider configuration: %s", err.Error())
-			return
-		}
+		p.Qlient = config.Qlient()
 		log.Println("[INFO] JupiterOne client successfully initialized")
 	} else {
 		log.Println("[INFO] Using already configured client")

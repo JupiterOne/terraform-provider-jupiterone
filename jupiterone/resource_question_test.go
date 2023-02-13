@@ -21,10 +21,7 @@ func TestQuestion_Basic(t *testing.T) {
 	defer cleanup(t)
 	testHttpClient := cleanhttp.DefaultClient()
 	testHttpClient.Transport = recorder
-	qlient, err := client.NewQlientFromEnv(ctx, testHttpClient)
-	if err != nil {
-		t.Fatal("error configuring check client", err)
-	}
+	qlient := client.NewQlientFromEnv(ctx, testHttpClient)
 
 	resourceName := "jupiterone_question.test"
 	questionName := "tf-provider-test-question"
