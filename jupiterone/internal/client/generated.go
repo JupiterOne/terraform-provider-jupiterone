@@ -157,91 +157,11 @@ func (v *CreateInlineQuestionRuleInstanceResponse) GetCreateQuestionRuleInstance
 
 // CreateQuestionCreateQuestion includes the requested fields of the GraphQL type Question.
 type CreateQuestionCreateQuestion struct {
-	Id              string                                                             `json:"id"`
-	Title           string                                                             `json:"title"`
-	Description     string                                                             `json:"description"`
-	PollingInterval SchedulerPollingInterval                                           `json:"pollingInterval"`
-	Queries         []CreateQuestionCreateQuestionQueriesQuestionQuery                 `json:"queries"`
-	Tags            []string                                                           `json:"tags"`
-	Compliance      []CreateQuestionCreateQuestionComplianceQuestionComplianceMetaData `json:"compliance"`
+	Id string `json:"id"`
 }
 
 // GetId returns CreateQuestionCreateQuestion.Id, and is useful for accessing the field via an interface.
 func (v *CreateQuestionCreateQuestion) GetId() string { return v.Id }
-
-// GetTitle returns CreateQuestionCreateQuestion.Title, and is useful for accessing the field via an interface.
-func (v *CreateQuestionCreateQuestion) GetTitle() string { return v.Title }
-
-// GetDescription returns CreateQuestionCreateQuestion.Description, and is useful for accessing the field via an interface.
-func (v *CreateQuestionCreateQuestion) GetDescription() string { return v.Description }
-
-// GetPollingInterval returns CreateQuestionCreateQuestion.PollingInterval, and is useful for accessing the field via an interface.
-func (v *CreateQuestionCreateQuestion) GetPollingInterval() SchedulerPollingInterval {
-	return v.PollingInterval
-}
-
-// GetQueries returns CreateQuestionCreateQuestion.Queries, and is useful for accessing the field via an interface.
-func (v *CreateQuestionCreateQuestion) GetQueries() []CreateQuestionCreateQuestionQueriesQuestionQuery {
-	return v.Queries
-}
-
-// GetTags returns CreateQuestionCreateQuestion.Tags, and is useful for accessing the field via an interface.
-func (v *CreateQuestionCreateQuestion) GetTags() []string { return v.Tags }
-
-// GetCompliance returns CreateQuestionCreateQuestion.Compliance, and is useful for accessing the field via an interface.
-func (v *CreateQuestionCreateQuestion) GetCompliance() []CreateQuestionCreateQuestionComplianceQuestionComplianceMetaData {
-	return v.Compliance
-}
-
-// CreateQuestionCreateQuestionComplianceQuestionComplianceMetaData includes the requested fields of the GraphQL type QuestionComplianceMetaData.
-type CreateQuestionCreateQuestionComplianceQuestionComplianceMetaData struct {
-	Standard     string   `json:"standard"`
-	Requirements []string `json:"requirements"`
-	Controls     []string `json:"controls"`
-}
-
-// GetStandard returns CreateQuestionCreateQuestionComplianceQuestionComplianceMetaData.Standard, and is useful for accessing the field via an interface.
-func (v *CreateQuestionCreateQuestionComplianceQuestionComplianceMetaData) GetStandard() string {
-	return v.Standard
-}
-
-// GetRequirements returns CreateQuestionCreateQuestionComplianceQuestionComplianceMetaData.Requirements, and is useful for accessing the field via an interface.
-func (v *CreateQuestionCreateQuestionComplianceQuestionComplianceMetaData) GetRequirements() []string {
-	return v.Requirements
-}
-
-// GetControls returns CreateQuestionCreateQuestionComplianceQuestionComplianceMetaData.Controls, and is useful for accessing the field via an interface.
-func (v *CreateQuestionCreateQuestionComplianceQuestionComplianceMetaData) GetControls() []string {
-	return v.Controls
-}
-
-// CreateQuestionCreateQuestionQueriesQuestionQuery includes the requested fields of the GraphQL type QuestionQuery.
-type CreateQuestionCreateQuestionQueriesQuestionQuery struct {
-	Name           string          `json:"name"`
-	Query          string          `json:"query"`
-	Version        string          `json:"version"`
-	IncludeDeleted bool            `json:"includeDeleted"`
-	ResultsAre     QueryResultsAre `json:"resultsAre"`
-}
-
-// GetName returns CreateQuestionCreateQuestionQueriesQuestionQuery.Name, and is useful for accessing the field via an interface.
-func (v *CreateQuestionCreateQuestionQueriesQuestionQuery) GetName() string { return v.Name }
-
-// GetQuery returns CreateQuestionCreateQuestionQueriesQuestionQuery.Query, and is useful for accessing the field via an interface.
-func (v *CreateQuestionCreateQuestionQueriesQuestionQuery) GetQuery() string { return v.Query }
-
-// GetVersion returns CreateQuestionCreateQuestionQueriesQuestionQuery.Version, and is useful for accessing the field via an interface.
-func (v *CreateQuestionCreateQuestionQueriesQuestionQuery) GetVersion() string { return v.Version }
-
-// GetIncludeDeleted returns CreateQuestionCreateQuestionQueriesQuestionQuery.IncludeDeleted, and is useful for accessing the field via an interface.
-func (v *CreateQuestionCreateQuestionQueriesQuestionQuery) GetIncludeDeleted() bool {
-	return v.IncludeDeleted
-}
-
-// GetResultsAre returns CreateQuestionCreateQuestionQueriesQuestionQuery.ResultsAre, and is useful for accessing the field via an interface.
-func (v *CreateQuestionCreateQuestionQueriesQuestionQuery) GetResultsAre() QueryResultsAre {
-	return v.ResultsAre
-}
 
 type CreateQuestionInput struct {
 	Title           string                            `json:"title"`
@@ -421,13 +341,13 @@ func (v *DeleteRuleInstanceResponse) GetDeleteRuleInstance() DeleteRuleInstanceD
 
 // GetQuestionByIdQuestion includes the requested fields of the GraphQL type Question.
 type GetQuestionByIdQuestion struct {
-	Id              string                                                        `json:"id"`
-	Title           string                                                        `json:"title"`
-	Description     string                                                        `json:"description"`
-	PollingInterval SchedulerPollingInterval                                      `json:"pollingInterval"`
-	Queries         []GetQuestionByIdQuestionQueriesQuestionQuery                 `json:"queries"`
-	Tags            []string                                                      `json:"tags"`
-	Compliance      []GetQuestionByIdQuestionComplianceQuestionComplianceMetaData `json:"compliance"`
+	Id              string                       `json:"id"`
+	Title           string                       `json:"title"`
+	Description     string                       `json:"description"`
+	PollingInterval SchedulerPollingInterval     `json:"pollingInterval"`
+	Queries         []QuestionQuery              `json:"queries"`
+	Tags            []string                     `json:"tags"`
+	Compliance      []QuestionComplianceMetaData `json:"compliance"`
 }
 
 // GetId returns GetQuestionByIdQuestion.Id, and is useful for accessing the field via an interface.
@@ -445,67 +365,13 @@ func (v *GetQuestionByIdQuestion) GetPollingInterval() SchedulerPollingInterval 
 }
 
 // GetQueries returns GetQuestionByIdQuestion.Queries, and is useful for accessing the field via an interface.
-func (v *GetQuestionByIdQuestion) GetQueries() []GetQuestionByIdQuestionQueriesQuestionQuery {
-	return v.Queries
-}
+func (v *GetQuestionByIdQuestion) GetQueries() []QuestionQuery { return v.Queries }
 
 // GetTags returns GetQuestionByIdQuestion.Tags, and is useful for accessing the field via an interface.
 func (v *GetQuestionByIdQuestion) GetTags() []string { return v.Tags }
 
 // GetCompliance returns GetQuestionByIdQuestion.Compliance, and is useful for accessing the field via an interface.
-func (v *GetQuestionByIdQuestion) GetCompliance() []GetQuestionByIdQuestionComplianceQuestionComplianceMetaData {
-	return v.Compliance
-}
-
-// GetQuestionByIdQuestionComplianceQuestionComplianceMetaData includes the requested fields of the GraphQL type QuestionComplianceMetaData.
-type GetQuestionByIdQuestionComplianceQuestionComplianceMetaData struct {
-	Standard     string   `json:"standard"`
-	Requirements []string `json:"requirements"`
-	Controls     []string `json:"controls"`
-}
-
-// GetStandard returns GetQuestionByIdQuestionComplianceQuestionComplianceMetaData.Standard, and is useful for accessing the field via an interface.
-func (v *GetQuestionByIdQuestionComplianceQuestionComplianceMetaData) GetStandard() string {
-	return v.Standard
-}
-
-// GetRequirements returns GetQuestionByIdQuestionComplianceQuestionComplianceMetaData.Requirements, and is useful for accessing the field via an interface.
-func (v *GetQuestionByIdQuestionComplianceQuestionComplianceMetaData) GetRequirements() []string {
-	return v.Requirements
-}
-
-// GetControls returns GetQuestionByIdQuestionComplianceQuestionComplianceMetaData.Controls, and is useful for accessing the field via an interface.
-func (v *GetQuestionByIdQuestionComplianceQuestionComplianceMetaData) GetControls() []string {
-	return v.Controls
-}
-
-// GetQuestionByIdQuestionQueriesQuestionQuery includes the requested fields of the GraphQL type QuestionQuery.
-type GetQuestionByIdQuestionQueriesQuestionQuery struct {
-	Name           string          `json:"name"`
-	Query          string          `json:"query"`
-	Version        string          `json:"version"`
-	IncludeDeleted bool            `json:"includeDeleted"`
-	ResultsAre     QueryResultsAre `json:"resultsAre"`
-}
-
-// GetName returns GetQuestionByIdQuestionQueriesQuestionQuery.Name, and is useful for accessing the field via an interface.
-func (v *GetQuestionByIdQuestionQueriesQuestionQuery) GetName() string { return v.Name }
-
-// GetQuery returns GetQuestionByIdQuestionQueriesQuestionQuery.Query, and is useful for accessing the field via an interface.
-func (v *GetQuestionByIdQuestionQueriesQuestionQuery) GetQuery() string { return v.Query }
-
-// GetVersion returns GetQuestionByIdQuestionQueriesQuestionQuery.Version, and is useful for accessing the field via an interface.
-func (v *GetQuestionByIdQuestionQueriesQuestionQuery) GetVersion() string { return v.Version }
-
-// GetIncludeDeleted returns GetQuestionByIdQuestionQueriesQuestionQuery.IncludeDeleted, and is useful for accessing the field via an interface.
-func (v *GetQuestionByIdQuestionQueriesQuestionQuery) GetIncludeDeleted() bool {
-	return v.IncludeDeleted
-}
-
-// GetResultsAre returns GetQuestionByIdQuestionQueriesQuestionQuery.ResultsAre, and is useful for accessing the field via an interface.
-func (v *GetQuestionByIdQuestionQueriesQuestionQuery) GetResultsAre() QueryResultsAre {
-	return v.ResultsAre
-}
+func (v *GetQuestionByIdQuestion) GetCompliance() []QuestionComplianceMetaData { return v.Compliance }
 
 // GetQuestionByIdResponse is returned by GetQuestionById on success.
 type GetQuestionByIdResponse struct {
@@ -669,6 +535,22 @@ const (
 	QueryResultsAreUnknown     QueryResultsAre = "UNKNOWN"
 )
 
+// QuestionComplianceMetaData includes the requested fields of the GraphQL type QuestionComplianceMetaData.
+type QuestionComplianceMetaData struct {
+	Standard     string   `json:"standard"`
+	Requirements []string `json:"requirements"`
+	Controls     []string `json:"controls"`
+}
+
+// GetStandard returns QuestionComplianceMetaData.Standard, and is useful for accessing the field via an interface.
+func (v *QuestionComplianceMetaData) GetStandard() string { return v.Standard }
+
+// GetRequirements returns QuestionComplianceMetaData.Requirements, and is useful for accessing the field via an interface.
+func (v *QuestionComplianceMetaData) GetRequirements() []string { return v.Requirements }
+
+// GetControls returns QuestionComplianceMetaData.Controls, and is useful for accessing the field via an interface.
+func (v *QuestionComplianceMetaData) GetControls() []string { return v.Controls }
+
 type QuestionComplianceMetaDataInput struct {
 	Standard     string   `json:"standard"`
 	Requirements []string `json:"requirements"`
@@ -683,6 +565,30 @@ func (v *QuestionComplianceMetaDataInput) GetRequirements() []string { return v.
 
 // GetControls returns QuestionComplianceMetaDataInput.Controls, and is useful for accessing the field via an interface.
 func (v *QuestionComplianceMetaDataInput) GetControls() []string { return v.Controls }
+
+// QuestionQuery includes the requested fields of the GraphQL type QuestionQuery.
+type QuestionQuery struct {
+	Name           string          `json:"name"`
+	Query          string          `json:"query"`
+	Version        string          `json:"version"`
+	IncludeDeleted bool            `json:"includeDeleted"`
+	ResultsAre     QueryResultsAre `json:"resultsAre"`
+}
+
+// GetName returns QuestionQuery.Name, and is useful for accessing the field via an interface.
+func (v *QuestionQuery) GetName() string { return v.Name }
+
+// GetQuery returns QuestionQuery.Query, and is useful for accessing the field via an interface.
+func (v *QuestionQuery) GetQuery() string { return v.Query }
+
+// GetVersion returns QuestionQuery.Version, and is useful for accessing the field via an interface.
+func (v *QuestionQuery) GetVersion() string { return v.Version }
+
+// GetIncludeDeleted returns QuestionQuery.IncludeDeleted, and is useful for accessing the field via an interface.
+func (v *QuestionQuery) GetIncludeDeleted() bool { return v.IncludeDeleted }
+
+// GetResultsAre returns QuestionQuery.ResultsAre, and is useful for accessing the field via an interface.
+func (v *QuestionQuery) GetResultsAre() QueryResultsAre { return v.ResultsAre }
 
 type QuestionQueryInput struct {
 	Query          string          `json:"query"`
@@ -921,43 +827,11 @@ func (v *UpdateQuestionResponse) GetUpdateQuestion() UpdateQuestionUpdateQuestio
 
 // UpdateQuestionUpdateQuestion includes the requested fields of the GraphQL type Question.
 type UpdateQuestionUpdateQuestion struct {
-	PollingInterval SchedulerPollingInterval                           `json:"pollingInterval"`
-	Queries         []UpdateQuestionUpdateQuestionQueriesQuestionQuery `json:"queries"`
+	Id string `json:"id"`
 }
 
-// GetPollingInterval returns UpdateQuestionUpdateQuestion.PollingInterval, and is useful for accessing the field via an interface.
-func (v *UpdateQuestionUpdateQuestion) GetPollingInterval() SchedulerPollingInterval {
-	return v.PollingInterval
-}
-
-// GetQueries returns UpdateQuestionUpdateQuestion.Queries, and is useful for accessing the field via an interface.
-func (v *UpdateQuestionUpdateQuestion) GetQueries() []UpdateQuestionUpdateQuestionQueriesQuestionQuery {
-	return v.Queries
-}
-
-// UpdateQuestionUpdateQuestionQueriesQuestionQuery includes the requested fields of the GraphQL type QuestionQuery.
-type UpdateQuestionUpdateQuestionQueriesQuestionQuery struct {
-	Name           string          `json:"name"`
-	Version        string          `json:"version"`
-	IncludeDeleted bool            `json:"includeDeleted"`
-	ResultsAre     QueryResultsAre `json:"resultsAre"`
-}
-
-// GetName returns UpdateQuestionUpdateQuestionQueriesQuestionQuery.Name, and is useful for accessing the field via an interface.
-func (v *UpdateQuestionUpdateQuestionQueriesQuestionQuery) GetName() string { return v.Name }
-
-// GetVersion returns UpdateQuestionUpdateQuestionQueriesQuestionQuery.Version, and is useful for accessing the field via an interface.
-func (v *UpdateQuestionUpdateQuestionQueriesQuestionQuery) GetVersion() string { return v.Version }
-
-// GetIncludeDeleted returns UpdateQuestionUpdateQuestionQueriesQuestionQuery.IncludeDeleted, and is useful for accessing the field via an interface.
-func (v *UpdateQuestionUpdateQuestionQueriesQuestionQuery) GetIncludeDeleted() bool {
-	return v.IncludeDeleted
-}
-
-// GetResultsAre returns UpdateQuestionUpdateQuestionQueriesQuestionQuery.ResultsAre, and is useful for accessing the field via an interface.
-func (v *UpdateQuestionUpdateQuestionQueriesQuestionQuery) GetResultsAre() QueryResultsAre {
-	return v.ResultsAre
-}
+// GetId returns UpdateQuestionUpdateQuestion.Id, and is useful for accessing the field via an interface.
+func (v *UpdateQuestionUpdateQuestion) GetId() string { return v.Id }
 
 type UpdateReferencedQuestionRuleInstanceInput struct {
 	QuestionId      string                   `json:"questionId"`
@@ -1211,22 +1085,6 @@ func CreateQuestion(
 mutation CreateQuestion ($question: CreateQuestionInput!) {
 	createQuestion(question: $question) {
 		id
-		title
-		description
-		pollingInterval
-		queries {
-			name
-			query
-			version
-			includeDeleted
-			resultsAre
-		}
-		tags
-		compliance {
-			standard
-			requirements
-			controls
-		}
 	}
 }
 `,
@@ -1506,13 +1364,7 @@ func UpdateQuestion(
 		Query: `
 mutation UpdateQuestion ($id: ID!, $update: QuestionUpdate!) {
 	updateQuestion(id: $id, update: $update) {
-		pollingInterval
-		queries {
-			name
-			version
-			includeDeleted
-			resultsAre
-		}
+		id
 	}
 }
 `,

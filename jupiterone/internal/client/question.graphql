@@ -4,6 +4,7 @@ query GetQuestionById($id: ID!) {
     title
     description
     pollingInterval
+    # @genqlient(typename: QuestionQuery)
     queries {
       name
       query
@@ -12,6 +13,7 @@ query GetQuestionById($id: ID!) {
       resultsAre
     }
     tags
+    # @genqlient(typename: QuestionComplianceMetaData)
     compliance {
       standard
       requirements
@@ -23,35 +25,12 @@ query GetQuestionById($id: ID!) {
 mutation CreateQuestion($question: CreateQuestionInput!) {
   createQuestion(question: $question) {
     id
-    title
-    description
-    pollingInterval
-    queries {
-      name
-      query
-      version
-      includeDeleted
-      resultsAre
-    }
-    tags
-    compliance {
-      standard
-      requirements
-      controls
-    }
   }
 }
 
 mutation UpdateQuestion($id: ID!, $update: QuestionUpdate!) {
   updateQuestion(id: $id, update: $update) {
-    pollingInterval
-    queries {
-      name
-      #  query
-      version
-      includeDeleted
-      resultsAre
-    }
+    id
   }
 }
 
