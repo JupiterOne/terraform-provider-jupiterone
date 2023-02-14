@@ -1,0 +1,14 @@
+# Default genqlient config; for full documentation see:
+# https://github.com/Khan/genqlient/blob/main/docs/genqlient.yaml
+schema: schema.graphql
+operations:
+- question.graphql
+- rule.graphql
+generated: generated.go
+
+bindings:
+  # TODO: implement a custom type and marshalling for JSON strings
+  JSON:
+    type: map[string]interface{}
+  Primitive:
+    type: string

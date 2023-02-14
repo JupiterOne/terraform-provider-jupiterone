@@ -41,3 +41,9 @@ node_modules
 main.tf
 variables.tf
 terraform.txt
+
+# temp file for generate schema (genqlient and scripts/get_current_schema.bash)
+introspection_result.json
+schema.json
+schema.graphql
+

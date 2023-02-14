@@ -2,26 +2,28 @@
 version: 1
 interactions:
 - request:
-    body: |
-      {"query":"\n\t\tmutation CreateQuestion($question: CreateQuestionInput!) {\n\t\t\tcreateQuestion(question: $question) {\n\t\t\t\tid\n\t\t\t\ttitle\n\t\t\t\tdescription\n\t\t\t\tqueries {\n\t\t\t\t\tquery\n\t\t\t\t\tversion\n\t\t\t\t}\n\t\t\t\ttags\n\t\t\t\tvariables {\n\t\t\t\t\tname\n\t\t\t\t\trequired\n\t\t\t\t\tdefault\n\t\t\t\t}\n\t\t\t\tcompliance {\n\t\t\t\t\ttype\n\t\t\t\t\tdetails {\n\t\t\t\t\t\tname\n\t\t\t\t\t\tdescription\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t","variables":{"question":{"title":"tf-test-question","description":"Test","tags":["testing-tag-1"],"queries":[{"query":"Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true","version":"v1","name":"query0"}],"compliance":null}}}
+    body: '{"query":"\nmutation CreateQuestion ($question: CreateQuestionInput!) {\n\tcreateQuestion(question:
+      $question) {\n\t\tid\n\t\ttitle\n\t\tdescription\n\t\tpollingInterval\n\t\tqueries
+      {\n\t\t\tname\n\t\t\tquery\n\t\t\tversion\n\t\t\tincludeDeleted\n\t\t\tresultsAre\n\t\t}\n\t\ttags\n\t\tcompliance
+      {\n\t\t\tstandard\n\t\t\trequirements\n\t\t\tcontrols\n\t\t}\n\t}\n}\n","variables":{"question":{"title":"tf-provider-test-question","name":"","tags":["tf_acc:1"],"description":"Test","showTrend":false,"pollingInterval":"ONE_DAY","queries":[{"query":"Find
+      DataStore with classification=(''critical'' or ''sensitive'' or ''confidential''
+      or ''restricted'') and encrypted!=true","version":"v1","name":"query0","resultsAre":"INFORMATIVE","includeDeleted":false}],"compliance":[],"variables":null}},"operationName":"CreateQuestion"}'
     form: {}
     headers:
-      Accept:
-      - application/json; charset=utf-8
       Cache-Control:
       - no-cache
       Content-Type:
-      - application/json; charset=utf-8
+      - application/json
     url: https://api.us.jupiterone.io/graphql
     method: POST
   response:
     body: |
-      {"data":{"createQuestion":{"id":"0fdf27e3-e708-4fa5-a4f2-d727e105efb2","title":"tf-test-question","description":"Test","queries":[{"query":"Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true","version":"v1"}],"tags":["testing-tag-1"],"variables":null,"compliance":null}}}
+      {"data":{"createQuestion":{"id":"4542a0e0-07b2-4471-a879-16720ca04f52","title":"tf-provider-test-question","description":"Test","pollingInterval":"ONE_DAY","queries":[{"name":"query0","query":"Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true","version":"v1","includeDeleted":false,"resultsAre":"INFORMATIVE"}],"tags":["tf_acc:1"],"compliance":[]}}}
     headers:
       Access-Control-Allow-Credentials:
       - "true"
       Content-Length:
-      - "338"
+      - "417"
       Content-Security-Policy:
       - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self''
         https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self''
@@ -69,26 +71,25 @@ interactions:
     code: 200
     duration: ""
 - request:
-    body: |
-      {"query":"\n\t\tquery GetQuestionById ($id: ID!) {\n\t\t\tquestion(id: $id) {\n\t\t\t\tid\n\t\t\t\ttitle\n\t\t\t\tdescription\n\t\t\t\tqueries {\n\t\t\t\t\tname\n\t\t\t\t\tquery\n\t\t\t\t\tversion\n\t\t\t\t}\n\t\t\t\ttags\n\t\t\t\tcompliance {\n\t\t\t\t\ttype\n\t\t\t\t\tdetails {\n\t\t\t\t\t\tname\n\t\t\t\t\t\tdescription\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t\taccountId\n\t\t\t\tintegrationDefinitionId\n\t\t\t}\n\t\t}\n\t","variables":{"id":"0fdf27e3-e708-4fa5-a4f2-d727e105efb2"}}
+    body: '{"query":"\nquery GetQuestionById ($id: ID!) {\n\tquestion(id: $id) {\n\t\tid\n\t\ttitle\n\t\tdescription\n\t\tpollingInterval\n\t\tqueries
+      {\n\t\t\tname\n\t\t\tquery\n\t\t\tversion\n\t\t\tincludeDeleted\n\t\t\tresultsAre\n\t\t}\n\t\ttags\n\t\tcompliance
+      {\n\t\t\tstandard\n\t\t\trequirements\n\t\t\tcontrols\n\t\t}\n\t}\n}\n","variables":{"id":"4542a0e0-07b2-4471-a879-16720ca04f52"},"operationName":"GetQuestionById"}'
     form: {}
     headers:
-      Accept:
-      - application/json; charset=utf-8
       Cache-Control:
       - no-cache
       Content-Type:
-      - application/json; charset=utf-8
+      - application/json
     url: https://api.us.jupiterone.io/graphql
     method: POST
   response:
     body: |
-      {"data":{"question":{"id":"0fdf27e3-e708-4fa5-a4f2-d727e105efb2","title":"tf-test-question","description":"Test","queries":[{"name":"query0","query":"Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true","version":"v1"}],"tags":["testing-tag-1"],"compliance":null,"accountId":"1316127e-baf6-4c4a-bc01-4fbe9ddd3415","integrationDefinitionId":null}}}
+      {"data":{"question":{"id":"4542a0e0-07b2-4471-a879-16720ca04f52","title":"tf-provider-test-question","description":"Test","pollingInterval":"ONE_DAY","queries":[{"name":"query0","query":"Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true","version":"v1","includeDeleted":false,"resultsAre":"INFORMATIVE"}],"tags":["tf_acc:1"],"compliance":[]}}}
     headers:
       Access-Control-Allow-Credentials:
       - "true"
       Content-Length:
-      - "413"
+      - "411"
       Content-Security-Policy:
       - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self''
         https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self''
@@ -136,26 +137,25 @@ interactions:
     code: 200
     duration: ""
 - request:
-    body: |
-      {"query":"\n\t\tquery GetQuestionById ($id: ID!) {\n\t\t\tquestion(id: $id) {\n\t\t\t\tid\n\t\t\t\ttitle\n\t\t\t\tdescription\n\t\t\t\tqueries {\n\t\t\t\t\tname\n\t\t\t\t\tquery\n\t\t\t\t\tversion\n\t\t\t\t}\n\t\t\t\ttags\n\t\t\t\tcompliance {\n\t\t\t\t\ttype\n\t\t\t\t\tdetails {\n\t\t\t\t\t\tname\n\t\t\t\t\t\tdescription\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t\taccountId\n\t\t\t\tintegrationDefinitionId\n\t\t\t}\n\t\t}\n\t","variables":{"id":"0fdf27e3-e708-4fa5-a4f2-d727e105efb2"}}
+    body: '{"query":"\nquery GetQuestionById ($id: ID!) {\n\tquestion(id: $id) {\n\t\tid\n\t\ttitle\n\t\tdescription\n\t\tpollingInterval\n\t\tqueries
+      {\n\t\t\tname\n\t\t\tquery\n\t\t\tversion\n\t\t\tincludeDeleted\n\t\t\tresultsAre\n\t\t}\n\t\ttags\n\t\tcompliance
+      {\n\t\t\tstandard\n\t\t\trequirements\n\t\t\tcontrols\n\t\t}\n\t}\n}\n","variables":{"id":"4542a0e0-07b2-4471-a879-16720ca04f52"},"operationName":"GetQuestionById"}'
     form: {}
     headers:
-      Accept:
-      - application/json; charset=utf-8
       Cache-Control:
       - no-cache
       Content-Type:
-      - application/json; charset=utf-8
+      - application/json
     url: https://api.us.jupiterone.io/graphql
     method: POST
   response:
     body: |
-      {"data":{"question":{"id":"0fdf27e3-e708-4fa5-a4f2-d727e105efb2","title":"tf-test-question","description":"Test","queries":[{"name":"query0","query":"Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true","version":"v1"}],"tags":["testing-tag-1"],"compliance":null,"accountId":"1316127e-baf6-4c4a-bc01-4fbe9ddd3415","integrationDefinitionId":null}}}
+      {"data":{"question":{"id":"4542a0e0-07b2-4471-a879-16720ca04f52","title":"tf-provider-test-question","description":"Test","pollingInterval":"ONE_DAY","queries":[{"name":"query0","query":"Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true","version":"v1","includeDeleted":false,"resultsAre":"INFORMATIVE"}],"tags":["tf_acc:1"],"compliance":[]}}}
     headers:
       Access-Control-Allow-Credentials:
       - "true"
       Content-Length:
-      - "413"
+      - "411"
       Content-Security-Policy:
       - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self''
         https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self''
@@ -203,26 +203,25 @@ interactions:
     code: 200
     duration: ""
 - request:
-    body: |
-      {"query":"\n\t\tquery GetQuestionById ($id: ID!) {\n\t\t\tquestion(id: $id) {\n\t\t\t\tid\n\t\t\t\ttitle\n\t\t\t\tdescription\n\t\t\t\tqueries {\n\t\t\t\t\tname\n\t\t\t\t\tquery\n\t\t\t\t\tversion\n\t\t\t\t}\n\t\t\t\ttags\n\t\t\t\tcompliance {\n\t\t\t\t\ttype\n\t\t\t\t\tdetails {\n\t\t\t\t\t\tname\n\t\t\t\t\t\tdescription\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t\taccountId\n\t\t\t\tintegrationDefinitionId\n\t\t\t}\n\t\t}\n\t","variables":{"id":"0fdf27e3-e708-4fa5-a4f2-d727e105efb2"}}
+    body: '{"query":"\nquery GetQuestionById ($id: ID!) {\n\tquestion(id: $id) {\n\t\tid\n\t\ttitle\n\t\tdescription\n\t\tpollingInterval\n\t\tqueries
+      {\n\t\t\tname\n\t\t\tquery\n\t\t\tversion\n\t\t\tincludeDeleted\n\t\t\tresultsAre\n\t\t}\n\t\ttags\n\t\tcompliance
+      {\n\t\t\tstandard\n\t\t\trequirements\n\t\t\tcontrols\n\t\t}\n\t}\n}\n","variables":{"id":"4542a0e0-07b2-4471-a879-16720ca04f52"},"operationName":"GetQuestionById"}'
     form: {}
     headers:
-      Accept:
-      - application/json; charset=utf-8
       Cache-Control:
       - no-cache
       Content-Type:
-      - application/json; charset=utf-8
+      - application/json
     url: https://api.us.jupiterone.io/graphql
     method: POST
   response:
     body: |
-      {"data":{"question":{"id":"0fdf27e3-e708-4fa5-a4f2-d727e105efb2","title":"tf-test-question","description":"Test","queries":[{"name":"query0","query":"Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true","version":"v1"}],"tags":["testing-tag-1"],"compliance":null,"accountId":"1316127e-baf6-4c4a-bc01-4fbe9ddd3415","integrationDefinitionId":null}}}
+      {"data":{"question":{"id":"4542a0e0-07b2-4471-a879-16720ca04f52","title":"tf-provider-test-question","description":"Test","pollingInterval":"ONE_DAY","queries":[{"name":"query0","query":"Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true","version":"v1","includeDeleted":false,"resultsAre":"INFORMATIVE"}],"tags":["tf_acc:1"],"compliance":[]}}}
     headers:
       Access-Control-Allow-Credentials:
       - "true"
       Content-Length:
-      - "413"
+      - "411"
       Content-Security-Policy:
       - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self''
         https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self''
@@ -270,26 +269,27 @@ interactions:
     code: 200
     duration: ""
 - request:
-    body: |
-      {"query":"\n\t\tmutation UpdateQuestion ($id: ID!, $update: QuestionUpdate!) {\n\t\t\tupdateQuestion(id: $id, update: $update) {\n\t\t\t\tid\n\t\t\t\ttitle\n\t\t\t\tdescription\n\t\t\t\tqueries {\n\t\t\t\t\tquery\n\t\t\t\t\tversion\n\t\t\t\t}\n\t\t\t\ttags\n\t\t\t\tvariables {\n\t\t\t\t\tname\n\t\t\t\t\trequired\n\t\t\t\t\tdefault\n\t\t\t\t}\n\t\t\t\tcompliance {\n\t\t\t\t\ttype\n\t\t\t\t\tdetails {\n\t\t\t\t\t\tname\n\t\t\t\t\t\tdescription\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t","variables":{"id":"0fdf27e3-e708-4fa5-a4f2-d727e105efb2","update":{"title":"tf-test-question","description":"Test","tags":["testing-tag-2"],"queries":[{"query":"Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true","version":"v1","name":"query0"}],"compliance":null}}}
+    body: '{"query":"\nmutation UpdateQuestion ($id: ID!, $update: QuestionUpdate!)
+      {\n\tupdateQuestion(id: $id, update: $update) {\n\t\tpollingInterval\n\t\tqueries
+      {\n\t\t\tname\n\t\t\tversion\n\t\t\tincludeDeleted\n\t\t\tresultsAre\n\t\t}\n\t}\n}\n","variables":{"id":"4542a0e0-07b2-4471-a879-16720ca04f52","update":{"title":"tf-provider-test-question","queries":[{"query":"Find
+      DataStore with classification=(''critical'' or ''sensitive'' or ''confidential''
+      or ''restricted'') and encrypted!=true","version":"v1","name":"query0","resultsAre":"INFORMATIVE","includeDeleted":false}],"compliance":[],"tags":["tf_acc:2"],"description":"Test","showTrend":false,"pollingInterval":"ONE_DAY"}},"operationName":"UpdateQuestion"}'
     form: {}
     headers:
-      Accept:
-      - application/json; charset=utf-8
       Cache-Control:
       - no-cache
       Content-Type:
-      - application/json; charset=utf-8
+      - application/json
     url: https://api.us.jupiterone.io/graphql
     method: POST
   response:
     body: |
-      {"data":{"updateQuestion":{"id":"0fdf27e3-e708-4fa5-a4f2-d727e105efb2","title":"tf-test-question","description":"Test","queries":[{"query":"Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true","version":"v1"}],"tags":["testing-tag-2"],"variables":null,"compliance":null}}}
+      {"data":{"updateQuestion":{"pollingInterval":"ONE_DAY","queries":[{"name":"query0","version":"v1","includeDeleted":false,"resultsAre":"INFORMATIVE"}]}}}
     headers:
       Access-Control-Allow-Credentials:
       - "true"
       Content-Length:
-      - "338"
+      - "153"
       Content-Security-Policy:
       - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self''
         https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self''
@@ -337,26 +337,25 @@ interactions:
     code: 200
     duration: ""
 - request:
-    body: |
-      {"query":"\n\t\tquery GetQuestionById ($id: ID!) {\n\t\t\tquestion(id: $id) {\n\t\t\t\tid\n\t\t\t\ttitle\n\t\t\t\tdescription\n\t\t\t\tqueries {\n\t\t\t\t\tname\n\t\t\t\t\tquery\n\t\t\t\t\tversion\n\t\t\t\t}\n\t\t\t\ttags\n\t\t\t\tcompliance {\n\t\t\t\t\ttype\n\t\t\t\t\tdetails {\n\t\t\t\t\t\tname\n\t\t\t\t\t\tdescription\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t\taccountId\n\t\t\t\tintegrationDefinitionId\n\t\t\t}\n\t\t}\n\t","variables":{"id":"0fdf27e3-e708-4fa5-a4f2-d727e105efb2"}}
+    body: '{"query":"\nquery GetQuestionById ($id: ID!) {\n\tquestion(id: $id) {\n\t\tid\n\t\ttitle\n\t\tdescription\n\t\tpollingInterval\n\t\tqueries
+      {\n\t\t\tname\n\t\t\tquery\n\t\t\tversion\n\t\t\tincludeDeleted\n\t\t\tresultsAre\n\t\t}\n\t\ttags\n\t\tcompliance
+      {\n\t\t\tstandard\n\t\t\trequirements\n\t\t\tcontrols\n\t\t}\n\t}\n}\n","variables":{"id":"4542a0e0-07b2-4471-a879-16720ca04f52"},"operationName":"GetQuestionById"}'
     form: {}
     headers:
-      Accept:
-      - application/json; charset=utf-8
       Cache-Control:
       - no-cache
       Content-Type:
-      - application/json; charset=utf-8
+      - application/json
     url: https://api.us.jupiterone.io/graphql
     method: POST
   response:
     body: |
-      {"data":{"question":{"id":"0fdf27e3-e708-4fa5-a4f2-d727e105efb2","title":"tf-test-question","description":"Test","queries":[{"name":"query0","query":"Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true","version":"v1"}],"tags":["testing-tag-2"],"compliance":null,"accountId":"1316127e-baf6-4c4a-bc01-4fbe9ddd3415","integrationDefinitionId":null}}}
+      {"data":{"question":{"id":"4542a0e0-07b2-4471-a879-16720ca04f52","title":"tf-provider-test-question","description":"Test","pollingInterval":"ONE_DAY","queries":[{"name":"query0","query":"Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true","version":"v1","includeDeleted":false,"resultsAre":"INFORMATIVE"}],"tags":["tf_acc:2"],"compliance":[]}}}
     headers:
       Access-Control-Allow-Credentials:
       - "true"
       Content-Length:
-      - "413"
+      - "411"
       Content-Security-Policy:
       - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self''
         https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self''
@@ -404,26 +403,25 @@ interactions:
     code: 200
     duration: ""
 - request:
-    body: |
-      {"query":"\n\t\tquery GetQuestionById ($id: ID!) {\n\t\t\tquestion(id: $id) {\n\t\t\t\tid\n\t\t\t\ttitle\n\t\t\t\tdescription\n\t\t\t\tqueries {\n\t\t\t\t\tname\n\t\t\t\t\tquery\n\t\t\t\t\tversion\n\t\t\t\t}\n\t\t\t\ttags\n\t\t\t\tcompliance {\n\t\t\t\t\ttype\n\t\t\t\t\tdetails {\n\t\t\t\t\t\tname\n\t\t\t\t\t\tdescription\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t\taccountId\n\t\t\t\tintegrationDefinitionId\n\t\t\t}\n\t\t}\n\t","variables":{"id":"0fdf27e3-e708-4fa5-a4f2-d727e105efb2"}}
+    body: '{"query":"\nquery GetQuestionById ($id: ID!) {\n\tquestion(id: $id) {\n\t\tid\n\t\ttitle\n\t\tdescription\n\t\tpollingInterval\n\t\tqueries
+      {\n\t\t\tname\n\t\t\tquery\n\t\t\tversion\n\t\t\tincludeDeleted\n\t\t\tresultsAre\n\t\t}\n\t\ttags\n\t\tcompliance
+      {\n\t\t\tstandard\n\t\t\trequirements\n\t\t\tcontrols\n\t\t}\n\t}\n}\n","variables":{"id":"4542a0e0-07b2-4471-a879-16720ca04f52"},"operationName":"GetQuestionById"}'
     form: {}
     headers:
-      Accept:
-      - application/json; charset=utf-8
       Cache-Control:
       - no-cache
       Content-Type:
-      - application/json; charset=utf-8
+      - application/json
     url: https://api.us.jupiterone.io/graphql
     method: POST
   response:
     body: |
-      {"data":{"question":{"id":"0fdf27e3-e708-4fa5-a4f2-d727e105efb2","title":"tf-test-question","description":"Test","queries":[{"name":"query0","query":"Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true","version":"v1"}],"tags":["testing-tag-2"],"compliance":null,"accountId":"1316127e-baf6-4c4a-bc01-4fbe9ddd3415","integrationDefinitionId":null}}}
+      {"data":{"question":{"id":"4542a0e0-07b2-4471-a879-16720ca04f52","title":"tf-provider-test-question","description":"Test","pollingInterval":"ONE_DAY","queries":[{"name":"query0","query":"Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true","version":"v1","includeDeleted":false,"resultsAre":"INFORMATIVE"}],"tags":["tf_acc:2"],"compliance":[]}}}
     headers:
       Access-Control-Allow-Credentials:
       - "true"
       Content-Length:
-      - "413"
+      - "411"
       Content-Security-Policy:
       - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self''
         https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self''
@@ -471,21 +469,19 @@ interactions:
     code: 200
     duration: ""
 - request:
-    body: |
-      {"query":"\n\t\tmutation DeleteQuestion($id: ID!) {\n\t\t\tdeleteQuestion(id: $id) {\n\t\t\t\tid\n\t\t\t}\n\t\t}\n\t","variables":{"id":"0fdf27e3-e708-4fa5-a4f2-d727e105efb2"}}
+    body: '{"query":"\nmutation DeleteQuestion ($id: ID!) {\n\tdeleteQuestion(id:
+      $id) {\n\t\tid\n\t}\n}\n","variables":{"id":"4542a0e0-07b2-4471-a879-16720ca04f52"},"operationName":"DeleteQuestion"}'
     form: {}
     headers:
-      Accept:
-      - application/json; charset=utf-8
       Cache-Control:
       - no-cache
       Content-Type:
-      - application/json; charset=utf-8
+      - application/json
     url: https://api.us.jupiterone.io/graphql
     method: POST
   response:
     body: |
-      {"data":{"deleteQuestion":{"id":"0fdf27e3-e708-4fa5-a4f2-d727e105efb2"}}}
+      {"data":{"deleteQuestion":{"id":"4542a0e0-07b2-4471-a879-16720ca04f52"}}}
     headers:
       Access-Control-Allow-Credentials:
       - "true"
@@ -538,21 +534,20 @@ interactions:
     code: 200
     duration: ""
 - request:
-    body: |
-      {"query":"\n\t\tquery GetQuestionById ($id: ID!) {\n\t\t\tquestion(id: $id) {\n\t\t\t\tid\n\t\t\t\ttitle\n\t\t\t\tdescription\n\t\t\t\tqueries {\n\t\t\t\t\tname\n\t\t\t\t\tquery\n\t\t\t\t\tversion\n\t\t\t\t}\n\t\t\t\ttags\n\t\t\t\tcompliance {\n\t\t\t\t\ttype\n\t\t\t\t\tdetails {\n\t\t\t\t\t\tname\n\t\t\t\t\t\tdescription\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t\taccountId\n\t\t\t\tintegrationDefinitionId\n\t\t\t}\n\t\t}\n\t","variables":{"id":"0fdf27e3-e708-4fa5-a4f2-d727e105efb2"}}
+    body: '{"query":"\nquery GetQuestionById ($id: ID!) {\n\tquestion(id: $id) {\n\t\tid\n\t\ttitle\n\t\tdescription\n\t\tpollingInterval\n\t\tqueries
+      {\n\t\t\tname\n\t\t\tquery\n\t\t\tversion\n\t\t\tincludeDeleted\n\t\t\tresultsAre\n\t\t}\n\t\ttags\n\t\tcompliance
+      {\n\t\t\tstandard\n\t\t\trequirements\n\t\t\tcontrols\n\t\t}\n\t}\n}\n","variables":{"id":"4542a0e0-07b2-4471-a879-16720ca04f52"},"operationName":"GetQuestionById"}'
     form: {}
     headers:
-      Accept:
-      - application/json; charset=utf-8
       Cache-Control:
       - no-cache
       Content-Type:
-      - application/json; charset=utf-8
+      - application/json
     url: https://api.us.jupiterone.io/graphql
     method: POST
   response:
     body: |
-      {"errors":[{"message":"Unable to fetch question. Reason: Cannot fetch question that does not exist","extensions":{"code":"BAD_USER_INPUT","serviceName":"questions","exception":{"stacktrace":["UserInputError: Unable to fetch question. Reason: Cannot fetch question that does not exist","    at getQuestion2 (/var/task/index.js:808028:11)","    at runMicrotasks (<anonymous>)","    at processTicksAndRejections (internal/process/task_queues.js:95:5)","    at async Promise.all (index 0)"],"message":"Unable to fetch question. Reason: Cannot fetch question that does not exist","locations":[],"path":["question"]}}}],"data":null}
+      {"errors":[{"message":"Unable to fetch question. Reason: Cannot fetch question that does not exist","extensions":{"code":"BAD_USER_INPUT","serviceName":"questions","exception":{"stacktrace":["UserInputError: Unable to fetch question. Reason: Cannot fetch question that does not exist","    at getQuestion2 (/var/task/index.js:808038:11)","    at runMicrotasks (<anonymous>)","    at processTicksAndRejections (internal/process/task_queues.js:95:5)","    at async Promise.all (index 0)"],"message":"Unable to fetch question. Reason: Cannot fetch question that does not exist","locations":[],"path":["question"]}}}],"data":null}
     headers:
       Access-Control-Allow-Credentials:
       - "true"

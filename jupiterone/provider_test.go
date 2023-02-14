@@ -8,29 +8,29 @@ import (
 	"os"
 	"testing"
 
+	"github.com/Khan/genqlient/graphql"
 	"github.com/dnaeon/go-vcr/cassette"
 	"github.com/dnaeon/go-vcr/recorder"
 	"github.com/hashicorp/terraform-plugin-framework/provider"
 	"github.com/hashicorp/terraform-plugin-framework/providerserver"
 	"github.com/hashicorp/terraform-plugin-go/tfprotov6"
-	"github.com/jupiterone/terraform-provider-jupiterone/jupiterone/internal/client"
 )
 
 // testAccProtoV6ProviderFactories are used to instantiate a provider during
 // acceptance testing. The factory function will be invoked for every Terraform
 // CLI command executed to create a provider server to which the CLI can
 // reattach.
-func testAccProtoV6ProviderFactories(j1Client *client.JupiterOneClient) map[string]func() (tfprotov6.ProviderServer, error) {
+func testAccProtoV6ProviderFactories(qlient graphql.Client) map[string]func() (tfprotov6.ProviderServer, error) {
 	return map[string]func() (tfprotov6.ProviderServer, error){
-		"jupiterone": providerserver.NewProtocol6WithError(NewTestProvider(j1Client)()),
+		"jupiterone": providerserver.NewProtocol6WithError(NewTestProvider(qlient)()),
 	}
 }
 
-func NewTestProvider(j1Client *client.JupiterOneClient) func() provider.Provider {
+func NewTestProvider(qlient graphql.Client) func() provider.Provider {
 	return func() provider.Provider {
 		return &JupiterOneProvider{
 			version: "test",
-			Client:  j1Client,
+			Qlient:  qlient,
 		}
 	}
 }
@@ -40,7 +40,7 @@ func isRecording() bool {
 }
 
 func isReplaying() bool {
-	return os.Getenv("RECORD") == "false"
+	return !isRecording()
 }
 
 // Ensure that the URL that we store in cassettes is always consistent regardless

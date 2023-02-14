@@ -1,0 +1,41 @@
+query GetQuestionById($id: ID!) {
+  question(id: $id) {
+    id
+    title
+    description
+    pollingInterval
+    # @genqlient(typename: QuestionQuery)
+    queries {
+      name
+      query
+      version
+      includeDeleted
+      resultsAre
+    }
+    tags
+    # @genqlient(typename: QuestionComplianceMetaData)
+    compliance {
+      standard
+      requirements
+      controls
+    }
+  }
+}
+
+mutation CreateQuestion($question: CreateQuestionInput!) {
+  createQuestion(question: $question) {
+    id
+  }
+}
+
+mutation UpdateQuestion($id: ID!, $update: QuestionUpdate!) {
+  updateQuestion(id: $id, update: $update) {
+    id
+  }
+}
+
+mutation DeleteQuestion($id: ID!) {
+  deleteQuestion(id: $id) {
+    id
+  }
+}
