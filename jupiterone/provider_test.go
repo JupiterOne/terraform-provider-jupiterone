@@ -1,19 +1,22 @@
 package jupiterone
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"net/http"
-	"net/url"
 	"os"
+	"strings"
 	"testing"
 
 	"github.com/Khan/genqlient/graphql"
-	"github.com/dnaeon/go-vcr/cassette"
-	"github.com/dnaeon/go-vcr/recorder"
+	"github.com/hashicorp/go-cleanhttp"
 	"github.com/hashicorp/terraform-plugin-framework/provider"
 	"github.com/hashicorp/terraform-plugin-framework/providerserver"
 	"github.com/hashicorp/terraform-plugin-go/tfprotov6"
+	"github.com/jupiterone/terraform-provider-jupiterone/jupiterone/internal/client"
+	"gopkg.in/dnaeon/go-vcr.v3/cassette"
+	"gopkg.in/dnaeon/go-vcr.v3/recorder"
 )
 
 // testAccProtoV6ProviderFactories are used to instantiate a provider during
@@ -35,22 +38,7 @@ func NewTestProvider(qlient graphql.Client) func() provider.Provider {
 	}
 }
 
-func isRecording() bool {
-	return os.Getenv("RECORD") == "true"
-}
-
-func isReplaying() bool {
-	return !isRecording()
-}
-
-// Ensure that the URL that we store in cassettes is always consistent regardless
-// of what region is specified.
-func normalizeURL(u *url.URL) *url.URL {
-	u.Host = "api.us.jupiterone.io"
-	return u
-}
-
-func stripHeadersFromCassetteInteraction(i *cassette.Interaction) {
+func stripHeadersFromCassetteInteraction(i *cassette.Interaction) error {
 	i.Request.Headers.Del("LifeOmic-Account")
 	i.Request.Headers.Del("Authorization")
 	i.Response.Headers.Del("Date")
@@ -59,51 +47,62 @@ func stripHeadersFromCassetteInteraction(i *cassette.Interaction) {
 	i.Response.Headers.Del("X-Amz-Cf-Id")
 	i.Response.Headers.Del("X-Amz-Cf-Pop")
 	i.Response.Headers.Del("X-Cache")
+
+	return nil
 }
 
 func setupCassettes(name string) (*recorder.Recorder, func(t *testing.T)) {
-	var mode recorder.Mode
-	if isRecording() {
-		mode = recorder.ModeRecording
-	} else if isReplaying() {
-		mode = recorder.ModeReplaying
-	} else {
-		mode = recorder.ModeDisabled
-	}
-
-	rec, err := recorder.NewAsMode(fmt.Sprintf("cassettes/%s", name), mode, nil)
+	rec, err := recorder.NewWithOptions(&recorder.Options{
+		CassetteName:       fmt.Sprintf("cassettes/%s", name),
+		Mode:               recorder.ModeRecordOnce,
+		RealTransport:      cleanhttp.DefaultTransport(),
+		SkipRequestLatency: true,
+	})
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	rec.SetMatcher(func(r *http.Request, i cassette.Request) bool {
-		return r.Method == i.Method && normalizeURL(r.URL).String() == i.URL
+	rec.SetMatcher(func(req *http.Request, c cassette.Request) bool {
+		// ignore hostname prefixes and URI paths on replays
+		return req.Method == c.Method && strings.HasSuffix(req.Host, "jupiterone.io")
 	})
 
-	rec.AddFilter(func(i *cassette.Interaction) error {
-		u, err := url.Parse(i.URL)
-		if err != nil {
-			return err
-		}
+	rec.AddHook(stripHeadersFromCassetteInteraction, recorder.BeforeSaveHook)
 
-		i.URL = normalizeURL(u).String()
-		stripHeadersFromCassetteInteraction(i)
-		return nil
-	})
 	cleanup := func(t *testing.T) {
 		_ = rec.Stop()
 	}
 	return rec, cleanup
 }
 
-func testAccPreCheck(t *testing.T) {
-	if isReplaying() {
-		return
+// setupTestClients creates clients to be used during tests
+//
+//   - recorderClient: uses a go-vcr recorder for replaying API responses
+//   - directClient: nil when not recording, for sending requests directly J1 for
+//     requests that verify the state during recording, but don't need to be
+//     repeated during replays.
+func setupTestClients(ctx context.Context, t *testing.T) (recordingClient graphql.Client, directClient graphql.Client, cleanup func(t *testing.T)) {
+	var recorder *recorder.Recorder
+
+	recorder, cleanup = setupCassettes(t.Name())
+
+	recordingClient = client.NewQlientFromEnv(ctx, recorder)
+
+	if recorder.IsRecording() {
+		directClient = client.NewQlientFromEnv(ctx, nil)
 	}
+
+	return
+}
+
+func testAccPreCheck(t *testing.T) {
 	if v := os.Getenv("JUPITERONE_API_KEY"); v == "" {
 		t.Fatal("JUPITERONE_API_KEY must be set for acceptance tests")
 	}
 	if v := os.Getenv("JUPITERONE_ACCOUNT_ID"); v == "" {
 		t.Fatal("JUPITERONE_ACCOUNT_ID must be set for acceptance tests")
+	}
+	if v := os.Getenv("JUPITERONE_REGION"); v == "" {
+		t.Fatal("JUPITERONE_REGION must be set for acceptance tests")
 	}
 }

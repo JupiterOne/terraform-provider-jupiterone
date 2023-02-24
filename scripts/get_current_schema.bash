@@ -7,6 +7,8 @@ BASE_DIR=$(cd "${SCRIPT_DIR}/.." &> /dev/null && pwd)
 
 CLIENT_DIR="${BASE_DIR}/jupiterone/internal/client"
 
+JUPITERONE_URL=https://graphql.us.jupiterone.io/
+
 # This is script is to guide the updating of the SDL schema from the current
 # introspection queries from the API.
 
@@ -17,7 +19,7 @@ CLIENT_DIR="${BASE_DIR}/jupiterone/internal/client"
 if [ -f "introspection_result.json" ]; then
     echo "Using already downloaded results, delete introspection_result.json to force a fetch"
 else
-    curl --fail --location --request POST 'https://api.us.jupiterone.io/graphql' \
+    curl --fail --location --request POST "${JUPITERONE_URL}" \
     --header "LifeOmic-Account: ${JUPITERONE_ACCOUNT}" \
     --header "Authorization: Bearer ${JUPITERONE_API_KEY}" \
     --header 'Content-Type: application/json' \

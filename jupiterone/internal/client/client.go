@@ -4,12 +4,13 @@ package client
 
 import (
 	"context"
-	"log"
 	"net/http"
 	"os"
 
 	"github.com/Khan/genqlient/graphql"
 	genql "github.com/Khan/genqlient/graphql"
+	"github.com/hashicorp/go-cleanhttp"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/logging"
 )
 
@@ -19,9 +20,9 @@ type JupiterOneClientConfig struct {
 	APIKey    string
 	AccountID string
 	Region    string
-	// Client is mostly used to inject the `go-vcr` transport recorder
+	// RoundTripper is mostly used to inject the `go-vcr` transport recorder
 	// for testing
-	HTTPClient *http.Client
+	RoundTripper http.RoundTripper
 }
 
 type jupiterOneTransport struct {
@@ -36,47 +37,44 @@ func (t *jupiterOneTransport) RoundTrip(req *http.Request) (*http.Response, erro
 	return t.base.RoundTrip(req)
 }
 
-func (c *JupiterOneClientConfig) getRegion() string {
+func (c *JupiterOneClientConfig) getRegion(ctx context.Context) string {
 	region := c.Region
 
 	if region == "" {
 		region = DefaultRegion
 	}
 
-	log.Printf("[info] Utilizing region: %s", region)
+	tflog.Info(ctx, "Utilizing region", map[string]interface{}{"region": region})
 	return region
 }
 
-func (c *JupiterOneClientConfig) getGraphQLEndpoint() string {
-	return "https://api." + c.getRegion() + ".jupiterone.io/graphql"
+func (c *JupiterOneClientConfig) getGraphQLEndpoint(ctx context.Context) string {
+	return "https://graphql." + c.getRegion(ctx) + ".jupiterone.io/"
 }
 
 // NewQlientFromEnv configures the J1 client itself from the environment
 // variables for use in testing.
-func NewQlientFromEnv(ctx context.Context, client *http.Client) graphql.Client {
+func NewQlientFromEnv(ctx context.Context, transport http.RoundTripper) graphql.Client {
 	config := JupiterOneClientConfig{
-		APIKey:     os.Getenv("JUPITERONE_API_KEY"),
-		AccountID:  os.Getenv("JUPITERONE_ACCOUNT_ID"),
-		Region:     os.Getenv("JUPITERONE_REGION"),
-		HTTPClient: client,
+		APIKey:       os.Getenv("JUPITERONE_API_KEY"),
+		AccountID:    os.Getenv("JUPITERONE_ACCOUNT_ID"),
+		Region:       os.Getenv("JUPITERONE_REGION"),
+		RoundTripper: transport,
 	}
 
-	return config.Qlient()
+	return config.Qlient(ctx)
 }
 
-func (c *JupiterOneClientConfig) Qlient() graphql.Client {
-	endpoint := c.getGraphQLEndpoint()
+func (c *JupiterOneClientConfig) Qlient(ctx context.Context) graphql.Client {
+	endpoint := c.getGraphQLEndpoint(ctx)
 
-	transport := http.DefaultTransport
-	httpClient := &http.Client{}
-	if c.HTTPClient != nil {
-		httpClient = c.HTTPClient
-		transport = c.HTTPClient.Transport
+	httpClient := cleanhttp.DefaultClient()
+	if c.RoundTripper != nil {
+		httpClient.Transport = c.RoundTripper
 	}
 
-	transport = &jupiterOneTransport{apiKey: c.APIKey, accountID: c.AccountID, base: transport}
-	transport = logging.NewLoggingHTTPTransport(transport)
-	httpClient.Transport = transport
+	httpClient.Transport = &jupiterOneTransport{apiKey: c.APIKey, accountID: c.AccountID, base: httpClient.Transport}
+	httpClient.Transport = logging.NewLoggingHTTPTransport(httpClient.Transport)
 
 	client := genql.NewClient(endpoint, httpClient)
 
