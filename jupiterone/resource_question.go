@@ -7,6 +7,7 @@ import (
 	"github.com/Khan/genqlient/graphql"
 	"github.com/hashicorp/terraform-plugin-framework-validators/listvalidator"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
+	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
@@ -27,6 +28,7 @@ var QueryResultsAre = []string{
 // Ensure provider defined types fully satisfy framework interfaces
 var _ resource.Resource = &QuestionResource{}
 var _ resource.ResourceWithConfigure = &QuestionResource{}
+var _ resource.ResourceWithImportState = &QuestionResource{}
 
 type QuestionResource struct {
 	version string
@@ -289,6 +291,11 @@ func (r *QuestionResource) Read(ctx context.Context, req resource.ReadRequest, r
 
 	// Save updated data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
+}
+
+// ImportState implements resource.ResourceWithImportState
+func (*QuestionResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
+	resource.ImportStatePassthroughID(ctx, path.Root("id"), req, resp)
 }
 
 // Update implements resource.Resource
