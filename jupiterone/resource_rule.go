@@ -40,6 +40,7 @@ var PollingIntervals = []string{
 // Ensure provider defined types fully satisfy framework interfaces
 var _ resource.Resource = &QuestionRuleResource{}
 var _ resource.ResourceWithConfigure = &QuestionRuleResource{}
+var _ resource.ResourceWithImportState = &QuestionRuleResource{}
 var _ resource.ResourceWithConfigValidators = &QuestionRuleResource{}
 var _ resource.ResourceWithModifyPlan = &QuestionRuleResource{}
 
@@ -100,11 +101,11 @@ func newOperationsWithoutId(ops []client.RuleOperationOutput) ([]RuleOperation, 
 // RuleModel represents the terraform representation of the rule
 type RuleModel struct {
 	Id              types.String      `json:"id,omitempty" tfsdk:"id"`
-	Name            string            `json:"name" tfsdk:"name"`
-	Description     string            `json:"description" tfsdk:"description"`
+	Name            types.String      `json:"name" tfsdk:"name"`
+	Description     types.String      `json:"description" tfsdk:"description"`
 	Version         types.Int64       `json:"version,omitempty" tfsdk:"version"`
 	SpecVersion     types.Int64       `json:"specVersion,omitempty" tfsdk:"spec_version"`
-	PollingInterval string            `json:"polling_interval,omitempty" tfsdk:"polling_interval"`
+	PollingInterval types.String      `json:"polling_interval,omitempty" tfsdk:"polling_interval"`
 	Templates       map[string]string `json:"templates" tfsdk:"templates"`
 	Question        []*RuleQuestion   `json:"question,omitempty" tfsdk:"question"`
 	QuestionId      types.String      `json:"questionId,omitempty" tfsdk:"question_id"`
@@ -114,7 +115,7 @@ type RuleModel struct {
 	Operations      []RuleOperation `json:"operations" tfsdk:"operations"`
 	Outputs         []string        `json:"outputs" tfsdk:"outputs"`
 	Tags            []string        `json:"tags" tfsdk:"tags"`
-	NotifyOnFailure bool            `json:"notify_on_failure" tfsdk:"notify_on_failure"`
+	NotifyOnFailure types.Bool      `json:"notify_on_failure" tfsdk:"notify_on_failure"`
 }
 
 func NewQuestionRuleResource() resource.Resource {
@@ -459,14 +460,14 @@ func (r *QuestionRuleResource) Read(ctx context.Context, req resource.ReadReques
 
 	data := RuleModel{
 		Id:              types.StringValue(rule.Id),
-		Name:            rule.Name,
-		Description:     rule.Description,
+		Name:            types.StringValue(rule.Name),
+		Description:     types.StringValue(rule.Description),
 		Version:         types.Int64Value(int64(rule.Version)),
 		SpecVersion:     types.Int64Value(int64(rule.SpecVersion)),
-		PollingInterval: string(rule.PollingInterval),
+		PollingInterval: types.StringValue(string(rule.PollingInterval)),
 		Outputs:         rule.Outputs,
 		Tags:            rule.Tags,
-		NotifyOnFailure: rule.NotifyOnFailure,
+		NotifyOnFailure: types.BoolValue(rule.NotifyOnFailure),
 	}
 
 	// FIXME: handling of these JSON fields (map[string]interface{}) is not DRY
@@ -500,6 +501,11 @@ func (r *QuestionRuleResource) Read(ctx context.Context, req resource.ReadReques
 
 	// Save updated data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
+}
+
+// ImportState implements resource.ResourceWithImportState
+func (*QuestionRuleResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
+	resource.ImportStatePassthroughID(ctx, path.Root("id"), req, resp)
 }
 
 // Update implements resource.ResourceWithConfigure
@@ -594,12 +600,12 @@ func (r *RuleModel) BuildCreateReferencedQuestionRuleInstanceInput() (client.Cre
 		QuestionId:      r.QuestionId.ValueString(),
 		QuestionName:    "",
 		Tags:            r.Tags,
-		Name:            r.Name,
-		Description:     r.Description,
+		Name:            r.Name.ValueString(),
+		Description:     r.Description.ValueString(),
 		SpecVersion:     int(r.SpecVersion.ValueInt64()),
 		Outputs:         r.Outputs,
-		PollingInterval: client.SchedulerPollingInterval(r.PollingInterval),
-		NotifyOnFailure: r.NotifyOnFailure,
+		PollingInterval: client.SchedulerPollingInterval(r.PollingInterval.ValueString()),
+		NotifyOnFailure: r.NotifyOnFailure.ValueBool(),
 	}
 
 	var err error
@@ -625,15 +631,15 @@ func (r *RuleModel) BuildCreateReferencedQuestionRuleInstanceInput() (client.Cre
 func (r *RuleModel) BuildUpdateReferencedQuestionRuleInstanceInput() (client.UpdateReferencedQuestionRuleInstanceInput, error) {
 	rule := client.UpdateReferencedQuestionRuleInstanceInput{
 		Id:              r.Id.ValueString(),
-		Name:            r.Name,
-		Description:     r.Description,
+		Name:            r.Name.ValueString(),
+		Description:     r.Description.ValueString(),
 		Version:         int(r.Version.ValueInt64()),
 		SpecVersion:     int(r.SpecVersion.ValueInt64()),
 		QuestionId:      r.QuestionId.ValueString(),
-		PollingInterval: client.SchedulerPollingInterval(r.PollingInterval),
+		PollingInterval: client.SchedulerPollingInterval(r.PollingInterval.ValueString()),
 		Outputs:         r.Outputs,
 		Tags:            r.Tags,
-		NotifyOnFailure: r.NotifyOnFailure,
+		NotifyOnFailure: r.NotifyOnFailure.ValueBool(),
 	}
 
 	var err error
@@ -664,12 +670,12 @@ func (r *RuleModel) BuildUpdateReferencedQuestionRuleInstanceInput() (client.Upd
 func (r *RuleModel) BuildCreateInlineQuestionRuleInstanceInput() (client.CreateInlineQuestionRuleInstanceInput, error) {
 	rule := client.CreateInlineQuestionRuleInstanceInput{
 		Tags:            r.Tags,
-		Name:            r.Name,
-		Description:     r.Description,
+		Name:            r.Name.ValueString(),
+		Description:     r.Description.ValueString(),
 		SpecVersion:     int(r.SpecVersion.ValueInt64()),
 		Outputs:         r.Outputs,
-		PollingInterval: client.SchedulerPollingInterval(r.PollingInterval),
-		NotifyOnFailure: r.NotifyOnFailure,
+		PollingInterval: client.SchedulerPollingInterval(r.PollingInterval.ValueString()),
+		NotifyOnFailure: r.NotifyOnFailure.ValueBool(),
 	}
 
 	var err error
@@ -711,12 +717,12 @@ func (r *RuleModel) BuildUpdateInlineQuestionRuleInstanceInput() (client.UpdateI
 		Version:         int(r.Version.ValueInt64()),
 		State:           client.RuleStateInput{},
 		Tags:            r.Tags,
-		Name:            r.Name,
-		Description:     r.Description,
+		Name:            r.Name.ValueString(),
+		Description:     r.Description.ValueString(),
 		SpecVersion:     int(r.SpecVersion.ValueInt64()),
 		Outputs:         r.Outputs,
-		PollingInterval: client.SchedulerPollingInterval(r.PollingInterval),
-		NotifyOnFailure: r.NotifyOnFailure,
+		PollingInterval: client.SchedulerPollingInterval(r.PollingInterval.ValueString()),
+		NotifyOnFailure: r.NotifyOnFailure.ValueBool(),
 	}
 
 	var err error

@@ -88,6 +88,48 @@ func TestInlineRuleInstance_Basic(t *testing.T) {
 	})
 }
 
+func TestInlineRuleInstance_BasicImport(t *testing.T) {
+	ctx := context.TODO()
+
+	recordingClient, directClient, cleanup := setupTestClients(ctx, t)
+	defer cleanup(t)
+
+	ruleName := "tf-provider-test-rule"
+	resource.Test(t, resource.TestCase{
+		PreCheck:                 func() { testAccPreCheck(t) },
+		ProtoV6ProviderFactories: testAccProtoV6ProviderFactories(recordingClient),
+		CheckDestroy:             testAccCheckRuleInstanceDestroy(ctx, directClient),
+		Steps: []resource.TestStep{
+			{
+				ImportState:   true,
+				ResourceName:  testRuleResourceName,
+				ImportStateId: createTestRule(ctx, t, recordingClient, ruleName),
+				Config:        testInlineRuleInstanceBasicConfigWithOperations(ruleName, getValidOperationsWithoutFilter()),
+				Check: resource.ComposeTestCheckFunc(
+					testAccCheckRuleExists(ctx, testRuleResourceName, directClient),
+					resource.TestCheckResourceAttrSet(testRuleResourceName, "id"),
+					resource.TestCheckResourceAttr(testRuleResourceName, "version", "1"),
+					resource.TestCheckResourceAttr(testRuleResourceName, "name", ruleName),
+					resource.TestCheckResourceAttr(testRuleResourceName, "description", "Test"),
+					resource.TestCheckResourceAttr(testRuleResourceName, "spec_version", "1"),
+					resource.TestCheckResourceAttr(testRuleResourceName, "polling_interval", "ONE_WEEK"),
+					resource.TestCheckResourceAttr(testRuleResourceName, "tags.#", "2"),
+					resource.TestCheckResourceAttr(testRuleResourceName, "tags.0", "tf_acc:1"),
+					resource.TestCheckResourceAttr(testRuleResourceName, "tags.1", "tf_acc:2"),
+					resource.TestCheckResourceAttr(testRuleResourceName, "outputs.#", "2"),
+					resource.TestCheckResourceAttr(testRuleResourceName, "outputs.0", "queries.query0.total"),
+					resource.TestCheckResourceAttr(testRuleResourceName, "outputs.1", "alertLevel"),
+					resource.TestCheckResourceAttr(testRuleResourceName, "question.#", "1"),
+					resource.TestCheckResourceAttr(testRuleResourceName, "question.0.queries.#", "1"),
+					resource.TestCheckResourceAttr(testRuleResourceName, "question.0.queries.0.name", "query0"),
+					resource.TestCheckResourceAttr(testRuleResourceName, "question.0.queries.0.version", "v1"),
+					resource.TestCheckResourceAttr(testRuleResourceName, "question.0.queries.0.query", "Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true"),
+				),
+			},
+		},
+	})
+}
+
 func TestReferencedQuestionRule_Basic(t *testing.T) {
 	ctx := context.TODO()
 
@@ -169,6 +211,37 @@ func TestRuleInstance_Config_Errors(t *testing.T) {
 			},
 		},
 	})
+}
+
+// createTestRule directly creates a rule for testing. Because the id must be
+// return for the import and other tests, this must be called with a recorder
+// client
+func createTestRule(ctx context.Context, t *testing.T, qlient graphql.Client, name string) string {
+	r, err := client.CreateInlineQuestionRuleInstance(ctx, qlient, client.CreateInlineQuestionRuleInstanceInput{
+		Name:            name,
+		Description:     "test",
+		Tags:            []string{"tf_acc:1", "tf_acc:2"},
+		SpecVersion:     1,
+		Outputs:         []string{"queries.query0.total", "alertLevel"},
+		PollingInterval: client.SchedulerPollingIntervalOneDay,
+		NotifyOnFailure: false,
+		Question: client.RuleQuestionDetailsInput{
+			Queries: []client.J1QueryInput{
+				{
+					Name:    "query0",
+					Query:   "Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true",
+					Version: "v1",
+				},
+			},
+		},
+		Operations: []client.RuleOperationInput{},
+	})
+	if err != nil {
+		t.Log("error creating rule for import test", err)
+		t.FailNow()
+	}
+
+	return r.CreateQuestionRuleInstance.Id
 }
 
 func testAccCheckRuleExists(ctx context.Context, ruleName string, qlient graphql.Client) resource.TestCheckFunc {
