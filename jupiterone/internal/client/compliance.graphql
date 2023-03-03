@@ -1,0 +1,131 @@
+query GetComplianceFrameworkById($frameworkId: ID!) {
+  complianceFramework(input: { id: $frameworkId }) {
+    id
+    name
+    version
+    frameworkType
+    webLink
+    scopeFilters
+    summaryConfig {
+      showPoliciesAndProcedures
+      showEvidence
+      showGapAnalysis
+      showAuditTracking
+    }
+  }
+}
+
+mutation CreateComplianceFramework(
+  $framework: CreateComplianceFrameworkInput!
+) {
+  createComplianceFramework(input: $framework) {
+    id
+  }
+}
+
+mutation UpdateComplianceFramework($input: UpdateComplianceFrameworkInput!) {
+  updateComplianceFramework(input: $input) {
+    id
+  }
+}
+
+mutation DeleteComplianceFramework($input: DeleteComplianceFrameworkInput!) {
+  deleteComplianceFramework(input: $input)
+}
+
+mutation CreateComplianceGroup($input: CreateComplianceGroupInput!) {
+  createComplianceGroup(input: $input) {
+    id
+  }
+}
+
+mutation DeleteComplianceGroup($id: ID!) {
+  deleteComplianceGroup(input: { id: $id })
+}
+
+mutation UpdateComplianceGroup($input: UpdateComplianceGroupInput!) {
+  updateComplianceGroup(input: $input) {
+    id
+  }
+}
+
+# FIXME: there is currently no `complianceGroup` query, so the full list
+# must be retrieved and then searched for the matching ID
+query GetComplianceGroups($frameworkId: ID!) {
+  complianceFramework(input: { id: $frameworkId }) {
+    # @genqlient(typename: ComplianceGroup)
+    groups {
+      id
+      frameworkId
+      name
+      description
+      displayCategory
+      webLink
+    }
+  }
+}
+
+query GetComplianceFrameworkItemById($id: ID!) {
+  complianceFrameworkItem(input: { id: $id }) {
+    name
+    description
+    frameworkId
+    groupId
+    displayCategory
+    ref
+    webLink
+  }
+}
+
+mutation CreateComplianceFrameworkItem(
+  $input: CreateComplianceFrameworkItemInput!
+) {
+  createComplianceFrameworkItem(input: $input) {
+    id
+  }
+}
+
+mutation DeleteComplianceFrameworkItem($id: ID!) {
+  deleteComplianceFrameworkItem(input: { id: $id })
+}
+
+# @genqlient(for: "UpdateComplianceFrameworkItemFields.auditStatus", omitempty: true)
+mutation UpdateComplianceFrameworkItem(
+  $input: UpdateComplianceFrameworkItemInput!
+) {
+  updateComplianceFrameworkItem(input: $input) {
+    id
+  }
+}
+
+query GetComplianceLibraryItemById($id: ID!) {
+  complianceLibraryItem(input: { id: $id }) {
+    name
+    description
+    displayCategory
+    ref
+    webLink
+    policyItemId
+  }
+}
+
+mutation CreateComplianceLibraryItem(
+  $input: CreateComplianceLibraryItemInput!
+) {
+  createComplianceLibraryItem(input: $input) {
+    id
+  }
+}
+
+mutation DeleteComplianceLibraryItem($id: ID!) {
+  deleteComplianceLibraryItem(input: { id: $id })
+}
+
+# @genqlient(for: "UpdateComplianceLibraryItemFields.policyItemId", omitempty: true)
+mutation UpdateComplianceLibraryItem(
+  $input: UpdateComplianceLibraryItemInput!
+) {
+  updateComplianceLibraryItem(input: $input) {
+    id
+  }
+}

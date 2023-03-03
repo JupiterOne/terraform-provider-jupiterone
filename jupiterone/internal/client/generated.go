@@ -8,6 +8,229 @@ import (
 	"github.com/Khan/genqlient/graphql"
 )
 
+type ComplianceFrameworkItemAuditStatus string
+
+const (
+	ComplianceFrameworkItemAuditStatusAccepted       ComplianceFrameworkItemAuditStatus = "ACCEPTED"
+	ComplianceFrameworkItemAuditStatusActionRequired ComplianceFrameworkItemAuditStatus = "ACTION_REQUIRED"
+	ComplianceFrameworkItemAuditStatusInProgress     ComplianceFrameworkItemAuditStatus = "IN_PROGRESS"
+	ComplianceFrameworkItemAuditStatusOpen           ComplianceFrameworkItemAuditStatus = "OPEN"
+	ComplianceFrameworkItemAuditStatusReady          ComplianceFrameworkItemAuditStatus = "READY"
+	ComplianceFrameworkItemAuditStatusUnderReview    ComplianceFrameworkItemAuditStatus = "UNDER_REVIEW"
+)
+
+type ComplianceFrameworkType string
+
+const (
+	ComplianceFrameworkTypeBenchmark     ComplianceFrameworkType = "BENCHMARK"
+	ComplianceFrameworkTypeQuestionnaire ComplianceFrameworkType = "QUESTIONNAIRE"
+	ComplianceFrameworkTypeStandard      ComplianceFrameworkType = "STANDARD"
+)
+
+// ComplianceGroup includes the requested fields of the GraphQL type ComplianceGroup.
+type ComplianceGroup struct {
+	Id              string `json:"id"`
+	FrameworkId     string `json:"frameworkId"`
+	Name            string `json:"name"`
+	Description     string `json:"description"`
+	DisplayCategory string `json:"displayCategory"`
+	WebLink         string `json:"webLink"`
+}
+
+// GetId returns ComplianceGroup.Id, and is useful for accessing the field via an interface.
+func (v *ComplianceGroup) GetId() string { return v.Id }
+
+// GetFrameworkId returns ComplianceGroup.FrameworkId, and is useful for accessing the field via an interface.
+func (v *ComplianceGroup) GetFrameworkId() string { return v.FrameworkId }
+
+// GetName returns ComplianceGroup.Name, and is useful for accessing the field via an interface.
+func (v *ComplianceGroup) GetName() string { return v.Name }
+
+// GetDescription returns ComplianceGroup.Description, and is useful for accessing the field via an interface.
+func (v *ComplianceGroup) GetDescription() string { return v.Description }
+
+// GetDisplayCategory returns ComplianceGroup.DisplayCategory, and is useful for accessing the field via an interface.
+func (v *ComplianceGroup) GetDisplayCategory() string { return v.DisplayCategory }
+
+// GetWebLink returns ComplianceGroup.WebLink, and is useful for accessing the field via an interface.
+func (v *ComplianceGroup) GetWebLink() string { return v.WebLink }
+
+// CreateComplianceFrameworkCreateComplianceFramework includes the requested fields of the GraphQL type ComplianceFramework.
+type CreateComplianceFrameworkCreateComplianceFramework struct {
+	Id string `json:"id"`
+}
+
+// GetId returns CreateComplianceFrameworkCreateComplianceFramework.Id, and is useful for accessing the field via an interface.
+func (v *CreateComplianceFrameworkCreateComplianceFramework) GetId() string { return v.Id }
+
+type CreateComplianceFrameworkInput struct {
+	Name          string                   `json:"name"`
+	Version       string                   `json:"version"`
+	FrameworkType ComplianceFrameworkType  `json:"frameworkType"`
+	WebLink       string                   `json:"webLink"`
+	ScopeFilters  []map[string]interface{} `json:"scopeFilters"`
+}
+
+// GetName returns CreateComplianceFrameworkInput.Name, and is useful for accessing the field via an interface.
+func (v *CreateComplianceFrameworkInput) GetName() string { return v.Name }
+
+// GetVersion returns CreateComplianceFrameworkInput.Version, and is useful for accessing the field via an interface.
+func (v *CreateComplianceFrameworkInput) GetVersion() string { return v.Version }
+
+// GetFrameworkType returns CreateComplianceFrameworkInput.FrameworkType, and is useful for accessing the field via an interface.
+func (v *CreateComplianceFrameworkInput) GetFrameworkType() ComplianceFrameworkType {
+	return v.FrameworkType
+}
+
+// GetWebLink returns CreateComplianceFrameworkInput.WebLink, and is useful for accessing the field via an interface.
+func (v *CreateComplianceFrameworkInput) GetWebLink() string { return v.WebLink }
+
+// GetScopeFilters returns CreateComplianceFrameworkInput.ScopeFilters, and is useful for accessing the field via an interface.
+func (v *CreateComplianceFrameworkInput) GetScopeFilters() []map[string]interface{} {
+	return v.ScopeFilters
+}
+
+// CreateComplianceFrameworkItemCreateComplianceFrameworkItem includes the requested fields of the GraphQL type ComplianceFrameworkItem.
+type CreateComplianceFrameworkItemCreateComplianceFrameworkItem struct {
+	Id string `json:"id"`
+}
+
+// GetId returns CreateComplianceFrameworkItemCreateComplianceFrameworkItem.Id, and is useful for accessing the field via an interface.
+func (v *CreateComplianceFrameworkItemCreateComplianceFrameworkItem) GetId() string { return v.Id }
+
+type CreateComplianceFrameworkItemInput struct {
+	Name            string `json:"name"`
+	Description     string `json:"description"`
+	DisplayCategory string `json:"displayCategory"`
+	Ref             string `json:"ref"`
+	FrameworkId     string `json:"frameworkId"`
+	GroupId         string `json:"groupId"`
+	WebLink         string `json:"webLink"`
+}
+
+// GetName returns CreateComplianceFrameworkItemInput.Name, and is useful for accessing the field via an interface.
+func (v *CreateComplianceFrameworkItemInput) GetName() string { return v.Name }
+
+// GetDescription returns CreateComplianceFrameworkItemInput.Description, and is useful for accessing the field via an interface.
+func (v *CreateComplianceFrameworkItemInput) GetDescription() string { return v.Description }
+
+// GetDisplayCategory returns CreateComplianceFrameworkItemInput.DisplayCategory, and is useful for accessing the field via an interface.
+func (v *CreateComplianceFrameworkItemInput) GetDisplayCategory() string { return v.DisplayCategory }
+
+// GetRef returns CreateComplianceFrameworkItemInput.Ref, and is useful for accessing the field via an interface.
+func (v *CreateComplianceFrameworkItemInput) GetRef() string { return v.Ref }
+
+// GetFrameworkId returns CreateComplianceFrameworkItemInput.FrameworkId, and is useful for accessing the field via an interface.
+func (v *CreateComplianceFrameworkItemInput) GetFrameworkId() string { return v.FrameworkId }
+
+// GetGroupId returns CreateComplianceFrameworkItemInput.GroupId, and is useful for accessing the field via an interface.
+func (v *CreateComplianceFrameworkItemInput) GetGroupId() string { return v.GroupId }
+
+// GetWebLink returns CreateComplianceFrameworkItemInput.WebLink, and is useful for accessing the field via an interface.
+func (v *CreateComplianceFrameworkItemInput) GetWebLink() string { return v.WebLink }
+
+// CreateComplianceFrameworkItemResponse is returned by CreateComplianceFrameworkItem on success.
+type CreateComplianceFrameworkItemResponse struct {
+	CreateComplianceFrameworkItem CreateComplianceFrameworkItemCreateComplianceFrameworkItem `json:"createComplianceFrameworkItem"`
+}
+
+// GetCreateComplianceFrameworkItem returns CreateComplianceFrameworkItemResponse.CreateComplianceFrameworkItem, and is useful for accessing the field via an interface.
+func (v *CreateComplianceFrameworkItemResponse) GetCreateComplianceFrameworkItem() CreateComplianceFrameworkItemCreateComplianceFrameworkItem {
+	return v.CreateComplianceFrameworkItem
+}
+
+// CreateComplianceFrameworkResponse is returned by CreateComplianceFramework on success.
+type CreateComplianceFrameworkResponse struct {
+	CreateComplianceFramework CreateComplianceFrameworkCreateComplianceFramework `json:"createComplianceFramework"`
+}
+
+// GetCreateComplianceFramework returns CreateComplianceFrameworkResponse.CreateComplianceFramework, and is useful for accessing the field via an interface.
+func (v *CreateComplianceFrameworkResponse) GetCreateComplianceFramework() CreateComplianceFrameworkCreateComplianceFramework {
+	return v.CreateComplianceFramework
+}
+
+// CreateComplianceGroupCreateComplianceGroup includes the requested fields of the GraphQL type ComplianceGroup.
+type CreateComplianceGroupCreateComplianceGroup struct {
+	Id string `json:"id"`
+}
+
+// GetId returns CreateComplianceGroupCreateComplianceGroup.Id, and is useful for accessing the field via an interface.
+func (v *CreateComplianceGroupCreateComplianceGroup) GetId() string { return v.Id }
+
+type CreateComplianceGroupInput struct {
+	Name            string `json:"name"`
+	Description     string `json:"description"`
+	DisplayCategory string `json:"displayCategory"`
+	FrameworkId     string `json:"frameworkId"`
+	WebLink         string `json:"webLink"`
+}
+
+// GetName returns CreateComplianceGroupInput.Name, and is useful for accessing the field via an interface.
+func (v *CreateComplianceGroupInput) GetName() string { return v.Name }
+
+// GetDescription returns CreateComplianceGroupInput.Description, and is useful for accessing the field via an interface.
+func (v *CreateComplianceGroupInput) GetDescription() string { return v.Description }
+
+// GetDisplayCategory returns CreateComplianceGroupInput.DisplayCategory, and is useful for accessing the field via an interface.
+func (v *CreateComplianceGroupInput) GetDisplayCategory() string { return v.DisplayCategory }
+
+// GetFrameworkId returns CreateComplianceGroupInput.FrameworkId, and is useful for accessing the field via an interface.
+func (v *CreateComplianceGroupInput) GetFrameworkId() string { return v.FrameworkId }
+
+// GetWebLink returns CreateComplianceGroupInput.WebLink, and is useful for accessing the field via an interface.
+func (v *CreateComplianceGroupInput) GetWebLink() string { return v.WebLink }
+
+// CreateComplianceGroupResponse is returned by CreateComplianceGroup on success.
+type CreateComplianceGroupResponse struct {
+	CreateComplianceGroup CreateComplianceGroupCreateComplianceGroup `json:"createComplianceGroup"`
+}
+
+// GetCreateComplianceGroup returns CreateComplianceGroupResponse.CreateComplianceGroup, and is useful for accessing the field via an interface.
+func (v *CreateComplianceGroupResponse) GetCreateComplianceGroup() CreateComplianceGroupCreateComplianceGroup {
+	return v.CreateComplianceGroup
+}
+
+// CreateComplianceLibraryItemCreateComplianceLibraryItem includes the requested fields of the GraphQL type ComplianceLibraryItem.
+type CreateComplianceLibraryItemCreateComplianceLibraryItem struct {
+	Id string `json:"id"`
+}
+
+// GetId returns CreateComplianceLibraryItemCreateComplianceLibraryItem.Id, and is useful for accessing the field via an interface.
+func (v *CreateComplianceLibraryItemCreateComplianceLibraryItem) GetId() string { return v.Id }
+
+type CreateComplianceLibraryItemInput struct {
+	Name            string `json:"name"`
+	Description     string `json:"description"`
+	DisplayCategory string `json:"displayCategory"`
+	Ref             string `json:"ref"`
+	WebLink         string `json:"webLink"`
+}
+
+// GetName returns CreateComplianceLibraryItemInput.Name, and is useful for accessing the field via an interface.
+func (v *CreateComplianceLibraryItemInput) GetName() string { return v.Name }
+
+// GetDescription returns CreateComplianceLibraryItemInput.Description, and is useful for accessing the field via an interface.
+func (v *CreateComplianceLibraryItemInput) GetDescription() string { return v.Description }
+
+// GetDisplayCategory returns CreateComplianceLibraryItemInput.DisplayCategory, and is useful for accessing the field via an interface.
+func (v *CreateComplianceLibraryItemInput) GetDisplayCategory() string { return v.DisplayCategory }
+
+// GetRef returns CreateComplianceLibraryItemInput.Ref, and is useful for accessing the field via an interface.
+func (v *CreateComplianceLibraryItemInput) GetRef() string { return v.Ref }
+
+// GetWebLink returns CreateComplianceLibraryItemInput.WebLink, and is useful for accessing the field via an interface.
+func (v *CreateComplianceLibraryItemInput) GetWebLink() string { return v.WebLink }
+
+// CreateComplianceLibraryItemResponse is returned by CreateComplianceLibraryItem on success.
+type CreateComplianceLibraryItemResponse struct {
+	CreateComplianceLibraryItem CreateComplianceLibraryItemCreateComplianceLibraryItem `json:"createComplianceLibraryItem"`
+}
+
+// GetCreateComplianceLibraryItem returns CreateComplianceLibraryItemResponse.CreateComplianceLibraryItem, and is useful for accessing the field via an interface.
+func (v *CreateComplianceLibraryItemResponse) GetCreateComplianceLibraryItem() CreateComplianceLibraryItemCreateComplianceLibraryItem {
+	return v.CreateComplianceLibraryItem
+}
+
 // CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance includes the requested fields of the GraphQL type QuestionRuleInstance.
 type CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance struct {
 	Id          string                                                                                `json:"id"`
@@ -303,6 +526,53 @@ func (v *CreateReferencedQuestionRuleInstanceResponse) GetCreateQuestionRuleInst
 	return v.CreateQuestionRuleInstance
 }
 
+type DeleteComplianceFrameworkInput struct {
+	Id string `json:"id"`
+}
+
+// GetId returns DeleteComplianceFrameworkInput.Id, and is useful for accessing the field via an interface.
+func (v *DeleteComplianceFrameworkInput) GetId() string { return v.Id }
+
+// DeleteComplianceFrameworkItemResponse is returned by DeleteComplianceFrameworkItem on success.
+type DeleteComplianceFrameworkItemResponse struct {
+	DeleteComplianceFrameworkItem string `json:"deleteComplianceFrameworkItem"`
+}
+
+// GetDeleteComplianceFrameworkItem returns DeleteComplianceFrameworkItemResponse.DeleteComplianceFrameworkItem, and is useful for accessing the field via an interface.
+func (v *DeleteComplianceFrameworkItemResponse) GetDeleteComplianceFrameworkItem() string {
+	return v.DeleteComplianceFrameworkItem
+}
+
+// DeleteComplianceFrameworkResponse is returned by DeleteComplianceFramework on success.
+type DeleteComplianceFrameworkResponse struct {
+	DeleteComplianceFramework string `json:"deleteComplianceFramework"`
+}
+
+// GetDeleteComplianceFramework returns DeleteComplianceFrameworkResponse.DeleteComplianceFramework, and is useful for accessing the field via an interface.
+func (v *DeleteComplianceFrameworkResponse) GetDeleteComplianceFramework() string {
+	return v.DeleteComplianceFramework
+}
+
+// DeleteComplianceGroupResponse is returned by DeleteComplianceGroup on success.
+type DeleteComplianceGroupResponse struct {
+	DeleteComplianceGroup string `json:"deleteComplianceGroup"`
+}
+
+// GetDeleteComplianceGroup returns DeleteComplianceGroupResponse.DeleteComplianceGroup, and is useful for accessing the field via an interface.
+func (v *DeleteComplianceGroupResponse) GetDeleteComplianceGroup() string {
+	return v.DeleteComplianceGroup
+}
+
+// DeleteComplianceLibraryItemResponse is returned by DeleteComplianceLibraryItem on success.
+type DeleteComplianceLibraryItemResponse struct {
+	DeleteComplianceLibraryItem string `json:"deleteComplianceLibraryItem"`
+}
+
+// GetDeleteComplianceLibraryItem returns DeleteComplianceLibraryItemResponse.DeleteComplianceLibraryItem, and is useful for accessing the field via an interface.
+func (v *DeleteComplianceLibraryItemResponse) GetDeleteComplianceLibraryItem() string {
+	return v.DeleteComplianceLibraryItem
+}
+
 // DeleteQuestionDeleteQuestion includes the requested fields of the GraphQL type Question.
 type DeleteQuestionDeleteQuestion struct {
 	Id string `json:"id"`
@@ -337,6 +607,192 @@ type DeleteRuleInstanceResponse struct {
 // GetDeleteRuleInstance returns DeleteRuleInstanceResponse.DeleteRuleInstance, and is useful for accessing the field via an interface.
 func (v *DeleteRuleInstanceResponse) GetDeleteRuleInstance() DeleteRuleInstanceDeleteRuleInstanceDeleteRuleInstanceResult {
 	return v.DeleteRuleInstance
+}
+
+// GetComplianceFrameworkByIdComplianceFramework includes the requested fields of the GraphQL type ComplianceFramework.
+type GetComplianceFrameworkByIdComplianceFramework struct {
+	Id            string                                                     `json:"id"`
+	Name          string                                                     `json:"name"`
+	Version       string                                                     `json:"version"`
+	FrameworkType ComplianceFrameworkType                                    `json:"frameworkType"`
+	WebLink       string                                                     `json:"webLink"`
+	ScopeFilters  []map[string]interface{}                                   `json:"scopeFilters"`
+	SummaryConfig GetComplianceFrameworkByIdComplianceFrameworkSummaryConfig `json:"summaryConfig"`
+}
+
+// GetId returns GetComplianceFrameworkByIdComplianceFramework.Id, and is useful for accessing the field via an interface.
+func (v *GetComplianceFrameworkByIdComplianceFramework) GetId() string { return v.Id }
+
+// GetName returns GetComplianceFrameworkByIdComplianceFramework.Name, and is useful for accessing the field via an interface.
+func (v *GetComplianceFrameworkByIdComplianceFramework) GetName() string { return v.Name }
+
+// GetVersion returns GetComplianceFrameworkByIdComplianceFramework.Version, and is useful for accessing the field via an interface.
+func (v *GetComplianceFrameworkByIdComplianceFramework) GetVersion() string { return v.Version }
+
+// GetFrameworkType returns GetComplianceFrameworkByIdComplianceFramework.FrameworkType, and is useful for accessing the field via an interface.
+func (v *GetComplianceFrameworkByIdComplianceFramework) GetFrameworkType() ComplianceFrameworkType {
+	return v.FrameworkType
+}
+
+// GetWebLink returns GetComplianceFrameworkByIdComplianceFramework.WebLink, and is useful for accessing the field via an interface.
+func (v *GetComplianceFrameworkByIdComplianceFramework) GetWebLink() string { return v.WebLink }
+
+// GetScopeFilters returns GetComplianceFrameworkByIdComplianceFramework.ScopeFilters, and is useful for accessing the field via an interface.
+func (v *GetComplianceFrameworkByIdComplianceFramework) GetScopeFilters() []map[string]interface{} {
+	return v.ScopeFilters
+}
+
+// GetSummaryConfig returns GetComplianceFrameworkByIdComplianceFramework.SummaryConfig, and is useful for accessing the field via an interface.
+func (v *GetComplianceFrameworkByIdComplianceFramework) GetSummaryConfig() GetComplianceFrameworkByIdComplianceFrameworkSummaryConfig {
+	return v.SummaryConfig
+}
+
+// GetComplianceFrameworkByIdComplianceFrameworkSummaryConfig includes the requested fields of the GraphQL type ComplianceFrameworkSummaryConfig.
+type GetComplianceFrameworkByIdComplianceFrameworkSummaryConfig struct {
+	ShowPoliciesAndProcedures bool `json:"showPoliciesAndProcedures"`
+	ShowEvidence              bool `json:"showEvidence"`
+	ShowGapAnalysis           bool `json:"showGapAnalysis"`
+	ShowAuditTracking         bool `json:"showAuditTracking"`
+}
+
+// GetShowPoliciesAndProcedures returns GetComplianceFrameworkByIdComplianceFrameworkSummaryConfig.ShowPoliciesAndProcedures, and is useful for accessing the field via an interface.
+func (v *GetComplianceFrameworkByIdComplianceFrameworkSummaryConfig) GetShowPoliciesAndProcedures() bool {
+	return v.ShowPoliciesAndProcedures
+}
+
+// GetShowEvidence returns GetComplianceFrameworkByIdComplianceFrameworkSummaryConfig.ShowEvidence, and is useful for accessing the field via an interface.
+func (v *GetComplianceFrameworkByIdComplianceFrameworkSummaryConfig) GetShowEvidence() bool {
+	return v.ShowEvidence
+}
+
+// GetShowGapAnalysis returns GetComplianceFrameworkByIdComplianceFrameworkSummaryConfig.ShowGapAnalysis, and is useful for accessing the field via an interface.
+func (v *GetComplianceFrameworkByIdComplianceFrameworkSummaryConfig) GetShowGapAnalysis() bool {
+	return v.ShowGapAnalysis
+}
+
+// GetShowAuditTracking returns GetComplianceFrameworkByIdComplianceFrameworkSummaryConfig.ShowAuditTracking, and is useful for accessing the field via an interface.
+func (v *GetComplianceFrameworkByIdComplianceFrameworkSummaryConfig) GetShowAuditTracking() bool {
+	return v.ShowAuditTracking
+}
+
+// GetComplianceFrameworkByIdResponse is returned by GetComplianceFrameworkById on success.
+type GetComplianceFrameworkByIdResponse struct {
+	ComplianceFramework GetComplianceFrameworkByIdComplianceFramework `json:"complianceFramework"`
+}
+
+// GetComplianceFramework returns GetComplianceFrameworkByIdResponse.ComplianceFramework, and is useful for accessing the field via an interface.
+func (v *GetComplianceFrameworkByIdResponse) GetComplianceFramework() GetComplianceFrameworkByIdComplianceFramework {
+	return v.ComplianceFramework
+}
+
+// GetComplianceFrameworkItemByIdComplianceFrameworkItem includes the requested fields of the GraphQL type ComplianceFrameworkItem.
+type GetComplianceFrameworkItemByIdComplianceFrameworkItem struct {
+	Name            string `json:"name"`
+	Description     string `json:"description"`
+	FrameworkId     string `json:"frameworkId"`
+	GroupId         string `json:"groupId"`
+	DisplayCategory string `json:"displayCategory"`
+	Ref             string `json:"ref"`
+	WebLink         string `json:"webLink"`
+}
+
+// GetName returns GetComplianceFrameworkItemByIdComplianceFrameworkItem.Name, and is useful for accessing the field via an interface.
+func (v *GetComplianceFrameworkItemByIdComplianceFrameworkItem) GetName() string { return v.Name }
+
+// GetDescription returns GetComplianceFrameworkItemByIdComplianceFrameworkItem.Description, and is useful for accessing the field via an interface.
+func (v *GetComplianceFrameworkItemByIdComplianceFrameworkItem) GetDescription() string {
+	return v.Description
+}
+
+// GetFrameworkId returns GetComplianceFrameworkItemByIdComplianceFrameworkItem.FrameworkId, and is useful for accessing the field via an interface.
+func (v *GetComplianceFrameworkItemByIdComplianceFrameworkItem) GetFrameworkId() string {
+	return v.FrameworkId
+}
+
+// GetGroupId returns GetComplianceFrameworkItemByIdComplianceFrameworkItem.GroupId, and is useful for accessing the field via an interface.
+func (v *GetComplianceFrameworkItemByIdComplianceFrameworkItem) GetGroupId() string { return v.GroupId }
+
+// GetDisplayCategory returns GetComplianceFrameworkItemByIdComplianceFrameworkItem.DisplayCategory, and is useful for accessing the field via an interface.
+func (v *GetComplianceFrameworkItemByIdComplianceFrameworkItem) GetDisplayCategory() string {
+	return v.DisplayCategory
+}
+
+// GetRef returns GetComplianceFrameworkItemByIdComplianceFrameworkItem.Ref, and is useful for accessing the field via an interface.
+func (v *GetComplianceFrameworkItemByIdComplianceFrameworkItem) GetRef() string { return v.Ref }
+
+// GetWebLink returns GetComplianceFrameworkItemByIdComplianceFrameworkItem.WebLink, and is useful for accessing the field via an interface.
+func (v *GetComplianceFrameworkItemByIdComplianceFrameworkItem) GetWebLink() string { return v.WebLink }
+
+// GetComplianceFrameworkItemByIdResponse is returned by GetComplianceFrameworkItemById on success.
+type GetComplianceFrameworkItemByIdResponse struct {
+	ComplianceFrameworkItem GetComplianceFrameworkItemByIdComplianceFrameworkItem `json:"complianceFrameworkItem"`
+}
+
+// GetComplianceFrameworkItem returns GetComplianceFrameworkItemByIdResponse.ComplianceFrameworkItem, and is useful for accessing the field via an interface.
+func (v *GetComplianceFrameworkItemByIdResponse) GetComplianceFrameworkItem() GetComplianceFrameworkItemByIdComplianceFrameworkItem {
+	return v.ComplianceFrameworkItem
+}
+
+// GetComplianceGroupsComplianceFramework includes the requested fields of the GraphQL type ComplianceFramework.
+type GetComplianceGroupsComplianceFramework struct {
+	Groups []ComplianceGroup `json:"groups"`
+}
+
+// GetGroups returns GetComplianceGroupsComplianceFramework.Groups, and is useful for accessing the field via an interface.
+func (v *GetComplianceGroupsComplianceFramework) GetGroups() []ComplianceGroup { return v.Groups }
+
+// GetComplianceGroupsResponse is returned by GetComplianceGroups on success.
+type GetComplianceGroupsResponse struct {
+	ComplianceFramework GetComplianceGroupsComplianceFramework `json:"complianceFramework"`
+}
+
+// GetComplianceFramework returns GetComplianceGroupsResponse.ComplianceFramework, and is useful for accessing the field via an interface.
+func (v *GetComplianceGroupsResponse) GetComplianceFramework() GetComplianceGroupsComplianceFramework {
+	return v.ComplianceFramework
+}
+
+// GetComplianceLibraryItemByIdComplianceLibraryItem includes the requested fields of the GraphQL type ComplianceLibraryItem.
+type GetComplianceLibraryItemByIdComplianceLibraryItem struct {
+	Name            string `json:"name"`
+	Description     string `json:"description"`
+	DisplayCategory string `json:"displayCategory"`
+	Ref             string `json:"ref"`
+	WebLink         string `json:"webLink"`
+	PolicyItemId    string `json:"policyItemId"`
+}
+
+// GetName returns GetComplianceLibraryItemByIdComplianceLibraryItem.Name, and is useful for accessing the field via an interface.
+func (v *GetComplianceLibraryItemByIdComplianceLibraryItem) GetName() string { return v.Name }
+
+// GetDescription returns GetComplianceLibraryItemByIdComplianceLibraryItem.Description, and is useful for accessing the field via an interface.
+func (v *GetComplianceLibraryItemByIdComplianceLibraryItem) GetDescription() string {
+	return v.Description
+}
+
+// GetDisplayCategory returns GetComplianceLibraryItemByIdComplianceLibraryItem.DisplayCategory, and is useful for accessing the field via an interface.
+func (v *GetComplianceLibraryItemByIdComplianceLibraryItem) GetDisplayCategory() string {
+	return v.DisplayCategory
+}
+
+// GetRef returns GetComplianceLibraryItemByIdComplianceLibraryItem.Ref, and is useful for accessing the field via an interface.
+func (v *GetComplianceLibraryItemByIdComplianceLibraryItem) GetRef() string { return v.Ref }
+
+// GetWebLink returns GetComplianceLibraryItemByIdComplianceLibraryItem.WebLink, and is useful for accessing the field via an interface.
+func (v *GetComplianceLibraryItemByIdComplianceLibraryItem) GetWebLink() string { return v.WebLink }
+
+// GetPolicyItemId returns GetComplianceLibraryItemByIdComplianceLibraryItem.PolicyItemId, and is useful for accessing the field via an interface.
+func (v *GetComplianceLibraryItemByIdComplianceLibraryItem) GetPolicyItemId() string {
+	return v.PolicyItemId
+}
+
+// GetComplianceLibraryItemByIdResponse is returned by GetComplianceLibraryItemById on success.
+type GetComplianceLibraryItemByIdResponse struct {
+	ComplianceLibraryItem GetComplianceLibraryItemByIdComplianceLibraryItem `json:"complianceLibraryItem"`
+}
+
+// GetComplianceLibraryItem returns GetComplianceLibraryItemByIdResponse.ComplianceLibraryItem, and is useful for accessing the field via an interface.
+func (v *GetComplianceLibraryItemByIdResponse) GetComplianceLibraryItem() GetComplianceLibraryItemByIdComplianceLibraryItem {
+	return v.ComplianceLibraryItem
 }
 
 // GetQuestionByIdQuestion includes the requested fields of the GraphQL type Question.
@@ -716,6 +1172,228 @@ const (
 	SchedulerPollingIntervalOneWeek       SchedulerPollingInterval = "ONE_WEEK"
 )
 
+type UpdateComplianceFrameworkFields struct {
+	Name         string                   `json:"name"`
+	WebLink      string                   `json:"webLink"`
+	ScopeFilters []map[string]interface{} `json:"scopeFilters"`
+}
+
+// GetName returns UpdateComplianceFrameworkFields.Name, and is useful for accessing the field via an interface.
+func (v *UpdateComplianceFrameworkFields) GetName() string { return v.Name }
+
+// GetWebLink returns UpdateComplianceFrameworkFields.WebLink, and is useful for accessing the field via an interface.
+func (v *UpdateComplianceFrameworkFields) GetWebLink() string { return v.WebLink }
+
+// GetScopeFilters returns UpdateComplianceFrameworkFields.ScopeFilters, and is useful for accessing the field via an interface.
+func (v *UpdateComplianceFrameworkFields) GetScopeFilters() []map[string]interface{} {
+	return v.ScopeFilters
+}
+
+type UpdateComplianceFrameworkInput struct {
+	Id      string                          `json:"id"`
+	Updates UpdateComplianceFrameworkFields `json:"updates"`
+}
+
+// GetId returns UpdateComplianceFrameworkInput.Id, and is useful for accessing the field via an interface.
+func (v *UpdateComplianceFrameworkInput) GetId() string { return v.Id }
+
+// GetUpdates returns UpdateComplianceFrameworkInput.Updates, and is useful for accessing the field via an interface.
+func (v *UpdateComplianceFrameworkInput) GetUpdates() UpdateComplianceFrameworkFields {
+	return v.Updates
+}
+
+type UpdateComplianceFrameworkItemFields struct {
+	AuditStatus     ComplianceFrameworkItemAuditStatus `json:"auditStatus,omitempty"`
+	Name            string                             `json:"name"`
+	Description     string                             `json:"description"`
+	DisplayCategory string                             `json:"displayCategory"`
+	GroupId         string                             `json:"groupId"`
+	Ref             string                             `json:"ref"`
+	WebLink         string                             `json:"webLink"`
+}
+
+// GetAuditStatus returns UpdateComplianceFrameworkItemFields.AuditStatus, and is useful for accessing the field via an interface.
+func (v *UpdateComplianceFrameworkItemFields) GetAuditStatus() ComplianceFrameworkItemAuditStatus {
+	return v.AuditStatus
+}
+
+// GetName returns UpdateComplianceFrameworkItemFields.Name, and is useful for accessing the field via an interface.
+func (v *UpdateComplianceFrameworkItemFields) GetName() string { return v.Name }
+
+// GetDescription returns UpdateComplianceFrameworkItemFields.Description, and is useful for accessing the field via an interface.
+func (v *UpdateComplianceFrameworkItemFields) GetDescription() string { return v.Description }
+
+// GetDisplayCategory returns UpdateComplianceFrameworkItemFields.DisplayCategory, and is useful for accessing the field via an interface.
+func (v *UpdateComplianceFrameworkItemFields) GetDisplayCategory() string { return v.DisplayCategory }
+
+// GetGroupId returns UpdateComplianceFrameworkItemFields.GroupId, and is useful for accessing the field via an interface.
+func (v *UpdateComplianceFrameworkItemFields) GetGroupId() string { return v.GroupId }
+
+// GetRef returns UpdateComplianceFrameworkItemFields.Ref, and is useful for accessing the field via an interface.
+func (v *UpdateComplianceFrameworkItemFields) GetRef() string { return v.Ref }
+
+// GetWebLink returns UpdateComplianceFrameworkItemFields.WebLink, and is useful for accessing the field via an interface.
+func (v *UpdateComplianceFrameworkItemFields) GetWebLink() string { return v.WebLink }
+
+type UpdateComplianceFrameworkItemInput struct {
+	Id      string                              `json:"id"`
+	Updates UpdateComplianceFrameworkItemFields `json:"updates"`
+}
+
+// GetId returns UpdateComplianceFrameworkItemInput.Id, and is useful for accessing the field via an interface.
+func (v *UpdateComplianceFrameworkItemInput) GetId() string { return v.Id }
+
+// GetUpdates returns UpdateComplianceFrameworkItemInput.Updates, and is useful for accessing the field via an interface.
+func (v *UpdateComplianceFrameworkItemInput) GetUpdates() UpdateComplianceFrameworkItemFields {
+	return v.Updates
+}
+
+// UpdateComplianceFrameworkItemResponse is returned by UpdateComplianceFrameworkItem on success.
+type UpdateComplianceFrameworkItemResponse struct {
+	UpdateComplianceFrameworkItem UpdateComplianceFrameworkItemUpdateComplianceFrameworkItem `json:"updateComplianceFrameworkItem"`
+}
+
+// GetUpdateComplianceFrameworkItem returns UpdateComplianceFrameworkItemResponse.UpdateComplianceFrameworkItem, and is useful for accessing the field via an interface.
+func (v *UpdateComplianceFrameworkItemResponse) GetUpdateComplianceFrameworkItem() UpdateComplianceFrameworkItemUpdateComplianceFrameworkItem {
+	return v.UpdateComplianceFrameworkItem
+}
+
+// UpdateComplianceFrameworkItemUpdateComplianceFrameworkItem includes the requested fields of the GraphQL type ComplianceFrameworkItem.
+type UpdateComplianceFrameworkItemUpdateComplianceFrameworkItem struct {
+	Id string `json:"id"`
+}
+
+// GetId returns UpdateComplianceFrameworkItemUpdateComplianceFrameworkItem.Id, and is useful for accessing the field via an interface.
+func (v *UpdateComplianceFrameworkItemUpdateComplianceFrameworkItem) GetId() string { return v.Id }
+
+// UpdateComplianceFrameworkResponse is returned by UpdateComplianceFramework on success.
+type UpdateComplianceFrameworkResponse struct {
+	UpdateComplianceFramework UpdateComplianceFrameworkUpdateComplianceFramework `json:"updateComplianceFramework"`
+}
+
+// GetUpdateComplianceFramework returns UpdateComplianceFrameworkResponse.UpdateComplianceFramework, and is useful for accessing the field via an interface.
+func (v *UpdateComplianceFrameworkResponse) GetUpdateComplianceFramework() UpdateComplianceFrameworkUpdateComplianceFramework {
+	return v.UpdateComplianceFramework
+}
+
+// UpdateComplianceFrameworkUpdateComplianceFramework includes the requested fields of the GraphQL type ComplianceFramework.
+type UpdateComplianceFrameworkUpdateComplianceFramework struct {
+	Id string `json:"id"`
+}
+
+// GetId returns UpdateComplianceFrameworkUpdateComplianceFramework.Id, and is useful for accessing the field via an interface.
+func (v *UpdateComplianceFrameworkUpdateComplianceFramework) GetId() string { return v.Id }
+
+type UpdateComplianceGroupFields struct {
+	Name            string `json:"name"`
+	Description     string `json:"description"`
+	DisplayCategory string `json:"displayCategory"`
+	FrameworkId     string `json:"frameworkId"`
+	WebLink         string `json:"webLink"`
+}
+
+// GetName returns UpdateComplianceGroupFields.Name, and is useful for accessing the field via an interface.
+func (v *UpdateComplianceGroupFields) GetName() string { return v.Name }
+
+// GetDescription returns UpdateComplianceGroupFields.Description, and is useful for accessing the field via an interface.
+func (v *UpdateComplianceGroupFields) GetDescription() string { return v.Description }
+
+// GetDisplayCategory returns UpdateComplianceGroupFields.DisplayCategory, and is useful for accessing the field via an interface.
+func (v *UpdateComplianceGroupFields) GetDisplayCategory() string { return v.DisplayCategory }
+
+// GetFrameworkId returns UpdateComplianceGroupFields.FrameworkId, and is useful for accessing the field via an interface.
+func (v *UpdateComplianceGroupFields) GetFrameworkId() string { return v.FrameworkId }
+
+// GetWebLink returns UpdateComplianceGroupFields.WebLink, and is useful for accessing the field via an interface.
+func (v *UpdateComplianceGroupFields) GetWebLink() string { return v.WebLink }
+
+type UpdateComplianceGroupInput struct {
+	Id      string                      `json:"id"`
+	Updates UpdateComplianceGroupFields `json:"updates"`
+}
+
+// GetId returns UpdateComplianceGroupInput.Id, and is useful for accessing the field via an interface.
+func (v *UpdateComplianceGroupInput) GetId() string { return v.Id }
+
+// GetUpdates returns UpdateComplianceGroupInput.Updates, and is useful for accessing the field via an interface.
+func (v *UpdateComplianceGroupInput) GetUpdates() UpdateComplianceGroupFields { return v.Updates }
+
+// UpdateComplianceGroupResponse is returned by UpdateComplianceGroup on success.
+type UpdateComplianceGroupResponse struct {
+	UpdateComplianceGroup UpdateComplianceGroupUpdateComplianceGroup `json:"updateComplianceGroup"`
+}
+
+// GetUpdateComplianceGroup returns UpdateComplianceGroupResponse.UpdateComplianceGroup, and is useful for accessing the field via an interface.
+func (v *UpdateComplianceGroupResponse) GetUpdateComplianceGroup() UpdateComplianceGroupUpdateComplianceGroup {
+	return v.UpdateComplianceGroup
+}
+
+// UpdateComplianceGroupUpdateComplianceGroup includes the requested fields of the GraphQL type ComplianceGroup.
+type UpdateComplianceGroupUpdateComplianceGroup struct {
+	Id string `json:"id"`
+}
+
+// GetId returns UpdateComplianceGroupUpdateComplianceGroup.Id, and is useful for accessing the field via an interface.
+func (v *UpdateComplianceGroupUpdateComplianceGroup) GetId() string { return v.Id }
+
+type UpdateComplianceLibraryItemFields struct {
+	Name            string `json:"name"`
+	Description     string `json:"description"`
+	DisplayCategory string `json:"displayCategory"`
+	PolicyItemId    string `json:"policyItemId,omitempty"`
+	Ref             string `json:"ref"`
+	WebLink         string `json:"webLink"`
+}
+
+// GetName returns UpdateComplianceLibraryItemFields.Name, and is useful for accessing the field via an interface.
+func (v *UpdateComplianceLibraryItemFields) GetName() string { return v.Name }
+
+// GetDescription returns UpdateComplianceLibraryItemFields.Description, and is useful for accessing the field via an interface.
+func (v *UpdateComplianceLibraryItemFields) GetDescription() string { return v.Description }
+
+// GetDisplayCategory returns UpdateComplianceLibraryItemFields.DisplayCategory, and is useful for accessing the field via an interface.
+func (v *UpdateComplianceLibraryItemFields) GetDisplayCategory() string { return v.DisplayCategory }
+
+// GetPolicyItemId returns UpdateComplianceLibraryItemFields.PolicyItemId, and is useful for accessing the field via an interface.
+func (v *UpdateComplianceLibraryItemFields) GetPolicyItemId() string { return v.PolicyItemId }
+
+// GetRef returns UpdateComplianceLibraryItemFields.Ref, and is useful for accessing the field via an interface.
+func (v *UpdateComplianceLibraryItemFields) GetRef() string { return v.Ref }
+
+// GetWebLink returns UpdateComplianceLibraryItemFields.WebLink, and is useful for accessing the field via an interface.
+func (v *UpdateComplianceLibraryItemFields) GetWebLink() string { return v.WebLink }
+
+type UpdateComplianceLibraryItemInput struct {
+	Id      string                            `json:"id"`
+	Updates UpdateComplianceLibraryItemFields `json:"updates"`
+}
+
+// GetId returns UpdateComplianceLibraryItemInput.Id, and is useful for accessing the field via an interface.
+func (v *UpdateComplianceLibraryItemInput) GetId() string { return v.Id }
+
+// GetUpdates returns UpdateComplianceLibraryItemInput.Updates, and is useful for accessing the field via an interface.
+func (v *UpdateComplianceLibraryItemInput) GetUpdates() UpdateComplianceLibraryItemFields {
+	return v.Updates
+}
+
+// UpdateComplianceLibraryItemResponse is returned by UpdateComplianceLibraryItem on success.
+type UpdateComplianceLibraryItemResponse struct {
+	UpdateComplianceLibraryItem UpdateComplianceLibraryItemUpdateComplianceLibraryItem `json:"updateComplianceLibraryItem"`
+}
+
+// GetUpdateComplianceLibraryItem returns UpdateComplianceLibraryItemResponse.UpdateComplianceLibraryItem, and is useful for accessing the field via an interface.
+func (v *UpdateComplianceLibraryItemResponse) GetUpdateComplianceLibraryItem() UpdateComplianceLibraryItemUpdateComplianceLibraryItem {
+	return v.UpdateComplianceLibraryItem
+}
+
+// UpdateComplianceLibraryItemUpdateComplianceLibraryItem includes the requested fields of the GraphQL type ComplianceLibraryItem.
+type UpdateComplianceLibraryItemUpdateComplianceLibraryItem struct {
+	Id string `json:"id"`
+}
+
+// GetId returns UpdateComplianceLibraryItemUpdateComplianceLibraryItem.Id, and is useful for accessing the field via an interface.
+func (v *UpdateComplianceLibraryItemUpdateComplianceLibraryItem) GetId() string { return v.Id }
+
 type UpdateInlineQuestionRuleInstanceInput struct {
 	Question        RuleQuestionDetailsInput `json:"question"`
 	Id              string                   `json:"id"`
@@ -936,6 +1614,44 @@ func (v *UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstanc
 	return v.Operations
 }
 
+// __CreateComplianceFrameworkInput is used internally by genqlient
+type __CreateComplianceFrameworkInput struct {
+	Framework CreateComplianceFrameworkInput `json:"framework"`
+}
+
+// GetFramework returns __CreateComplianceFrameworkInput.Framework, and is useful for accessing the field via an interface.
+func (v *__CreateComplianceFrameworkInput) GetFramework() CreateComplianceFrameworkInput {
+	return v.Framework
+}
+
+// __CreateComplianceFrameworkItemInput is used internally by genqlient
+type __CreateComplianceFrameworkItemInput struct {
+	Input CreateComplianceFrameworkItemInput `json:"input"`
+}
+
+// GetInput returns __CreateComplianceFrameworkItemInput.Input, and is useful for accessing the field via an interface.
+func (v *__CreateComplianceFrameworkItemInput) GetInput() CreateComplianceFrameworkItemInput {
+	return v.Input
+}
+
+// __CreateComplianceGroupInput is used internally by genqlient
+type __CreateComplianceGroupInput struct {
+	Input CreateComplianceGroupInput `json:"input"`
+}
+
+// GetInput returns __CreateComplianceGroupInput.Input, and is useful for accessing the field via an interface.
+func (v *__CreateComplianceGroupInput) GetInput() CreateComplianceGroupInput { return v.Input }
+
+// __CreateComplianceLibraryItemInput is used internally by genqlient
+type __CreateComplianceLibraryItemInput struct {
+	Input CreateComplianceLibraryItemInput `json:"input"`
+}
+
+// GetInput returns __CreateComplianceLibraryItemInput.Input, and is useful for accessing the field via an interface.
+func (v *__CreateComplianceLibraryItemInput) GetInput() CreateComplianceLibraryItemInput {
+	return v.Input
+}
+
 // __CreateInlineQuestionRuleInstanceInput is used internally by genqlient
 type __CreateInlineQuestionRuleInstanceInput struct {
 	Instance CreateInlineQuestionRuleInstanceInput `json:"instance"`
@@ -964,6 +1680,38 @@ func (v *__CreateReferencedQuestionRuleInstanceInput) GetInstance() CreateRefere
 	return v.Instance
 }
 
+// __DeleteComplianceFrameworkInput is used internally by genqlient
+type __DeleteComplianceFrameworkInput struct {
+	Input DeleteComplianceFrameworkInput `json:"input"`
+}
+
+// GetInput returns __DeleteComplianceFrameworkInput.Input, and is useful for accessing the field via an interface.
+func (v *__DeleteComplianceFrameworkInput) GetInput() DeleteComplianceFrameworkInput { return v.Input }
+
+// __DeleteComplianceFrameworkItemInput is used internally by genqlient
+type __DeleteComplianceFrameworkItemInput struct {
+	Id string `json:"id"`
+}
+
+// GetId returns __DeleteComplianceFrameworkItemInput.Id, and is useful for accessing the field via an interface.
+func (v *__DeleteComplianceFrameworkItemInput) GetId() string { return v.Id }
+
+// __DeleteComplianceGroupInput is used internally by genqlient
+type __DeleteComplianceGroupInput struct {
+	Id string `json:"id"`
+}
+
+// GetId returns __DeleteComplianceGroupInput.Id, and is useful for accessing the field via an interface.
+func (v *__DeleteComplianceGroupInput) GetId() string { return v.Id }
+
+// __DeleteComplianceLibraryItemInput is used internally by genqlient
+type __DeleteComplianceLibraryItemInput struct {
+	Id string `json:"id"`
+}
+
+// GetId returns __DeleteComplianceLibraryItemInput.Id, and is useful for accessing the field via an interface.
+func (v *__DeleteComplianceLibraryItemInput) GetId() string { return v.Id }
+
 // __DeleteQuestionInput is used internally by genqlient
 type __DeleteQuestionInput struct {
 	Id string `json:"id"`
@@ -980,6 +1728,38 @@ type __DeleteRuleInstanceInput struct {
 // GetId returns __DeleteRuleInstanceInput.Id, and is useful for accessing the field via an interface.
 func (v *__DeleteRuleInstanceInput) GetId() string { return v.Id }
 
+// __GetComplianceFrameworkByIdInput is used internally by genqlient
+type __GetComplianceFrameworkByIdInput struct {
+	FrameworkId string `json:"frameworkId"`
+}
+
+// GetFrameworkId returns __GetComplianceFrameworkByIdInput.FrameworkId, and is useful for accessing the field via an interface.
+func (v *__GetComplianceFrameworkByIdInput) GetFrameworkId() string { return v.FrameworkId }
+
+// __GetComplianceFrameworkItemByIdInput is used internally by genqlient
+type __GetComplianceFrameworkItemByIdInput struct {
+	Id string `json:"id"`
+}
+
+// GetId returns __GetComplianceFrameworkItemByIdInput.Id, and is useful for accessing the field via an interface.
+func (v *__GetComplianceFrameworkItemByIdInput) GetId() string { return v.Id }
+
+// __GetComplianceGroupsInput is used internally by genqlient
+type __GetComplianceGroupsInput struct {
+	FrameworkId string `json:"frameworkId"`
+}
+
+// GetFrameworkId returns __GetComplianceGroupsInput.FrameworkId, and is useful for accessing the field via an interface.
+func (v *__GetComplianceGroupsInput) GetFrameworkId() string { return v.FrameworkId }
+
+// __GetComplianceLibraryItemByIdInput is used internally by genqlient
+type __GetComplianceLibraryItemByIdInput struct {
+	Id string `json:"id"`
+}
+
+// GetId returns __GetComplianceLibraryItemByIdInput.Id, and is useful for accessing the field via an interface.
+func (v *__GetComplianceLibraryItemByIdInput) GetId() string { return v.Id }
+
 // __GetQuestionByIdInput is used internally by genqlient
 type __GetQuestionByIdInput struct {
 	Id string `json:"id"`
@@ -995,6 +1775,42 @@ type __GetQuestionRuleInstanceInput struct {
 
 // GetId returns __GetQuestionRuleInstanceInput.Id, and is useful for accessing the field via an interface.
 func (v *__GetQuestionRuleInstanceInput) GetId() string { return v.Id }
+
+// __UpdateComplianceFrameworkInput is used internally by genqlient
+type __UpdateComplianceFrameworkInput struct {
+	Input UpdateComplianceFrameworkInput `json:"input"`
+}
+
+// GetInput returns __UpdateComplianceFrameworkInput.Input, and is useful for accessing the field via an interface.
+func (v *__UpdateComplianceFrameworkInput) GetInput() UpdateComplianceFrameworkInput { return v.Input }
+
+// __UpdateComplianceFrameworkItemInput is used internally by genqlient
+type __UpdateComplianceFrameworkItemInput struct {
+	Input UpdateComplianceFrameworkItemInput `json:"input"`
+}
+
+// GetInput returns __UpdateComplianceFrameworkItemInput.Input, and is useful for accessing the field via an interface.
+func (v *__UpdateComplianceFrameworkItemInput) GetInput() UpdateComplianceFrameworkItemInput {
+	return v.Input
+}
+
+// __UpdateComplianceGroupInput is used internally by genqlient
+type __UpdateComplianceGroupInput struct {
+	Input UpdateComplianceGroupInput `json:"input"`
+}
+
+// GetInput returns __UpdateComplianceGroupInput.Input, and is useful for accessing the field via an interface.
+func (v *__UpdateComplianceGroupInput) GetInput() UpdateComplianceGroupInput { return v.Input }
+
+// __UpdateComplianceLibraryItemInput is used internally by genqlient
+type __UpdateComplianceLibraryItemInput struct {
+	Input UpdateComplianceLibraryItemInput `json:"input"`
+}
+
+// GetInput returns __UpdateComplianceLibraryItemInput.Input, and is useful for accessing the field via an interface.
+func (v *__UpdateComplianceLibraryItemInput) GetInput() UpdateComplianceLibraryItemInput {
+	return v.Input
+}
 
 // __UpdateInlineQuestionRuleInstanceInput is used internally by genqlient
 type __UpdateInlineQuestionRuleInstanceInput struct {
@@ -1026,6 +1842,134 @@ type __UpdateReferencedQuestionRuleInstanceInput struct {
 // GetInstance returns __UpdateReferencedQuestionRuleInstanceInput.Instance, and is useful for accessing the field via an interface.
 func (v *__UpdateReferencedQuestionRuleInstanceInput) GetInstance() UpdateReferencedQuestionRuleInstanceInput {
 	return v.Instance
+}
+
+func CreateComplianceFramework(
+	ctx context.Context,
+	client graphql.Client,
+	framework CreateComplianceFrameworkInput,
+) (*CreateComplianceFrameworkResponse, error) {
+	req := &graphql.Request{
+		OpName: "CreateComplianceFramework",
+		Query: `
+mutation CreateComplianceFramework ($framework: CreateComplianceFrameworkInput!) {
+	createComplianceFramework(input: $framework) {
+		id
+	}
+}
+`,
+		Variables: &__CreateComplianceFrameworkInput{
+			Framework: framework,
+		},
+	}
+	var err error
+
+	var data CreateComplianceFrameworkResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func CreateComplianceFrameworkItem(
+	ctx context.Context,
+	client graphql.Client,
+	input CreateComplianceFrameworkItemInput,
+) (*CreateComplianceFrameworkItemResponse, error) {
+	req := &graphql.Request{
+		OpName: "CreateComplianceFrameworkItem",
+		Query: `
+mutation CreateComplianceFrameworkItem ($input: CreateComplianceFrameworkItemInput!) {
+	createComplianceFrameworkItem(input: $input) {
+		id
+	}
+}
+`,
+		Variables: &__CreateComplianceFrameworkItemInput{
+			Input: input,
+		},
+	}
+	var err error
+
+	var data CreateComplianceFrameworkItemResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func CreateComplianceGroup(
+	ctx context.Context,
+	client graphql.Client,
+	input CreateComplianceGroupInput,
+) (*CreateComplianceGroupResponse, error) {
+	req := &graphql.Request{
+		OpName: "CreateComplianceGroup",
+		Query: `
+mutation CreateComplianceGroup ($input: CreateComplianceGroupInput!) {
+	createComplianceGroup(input: $input) {
+		id
+	}
+}
+`,
+		Variables: &__CreateComplianceGroupInput{
+			Input: input,
+		},
+	}
+	var err error
+
+	var data CreateComplianceGroupResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func CreateComplianceLibraryItem(
+	ctx context.Context,
+	client graphql.Client,
+	input CreateComplianceLibraryItemInput,
+) (*CreateComplianceLibraryItemResponse, error) {
+	req := &graphql.Request{
+		OpName: "CreateComplianceLibraryItem",
+		Query: `
+mutation CreateComplianceLibraryItem ($input: CreateComplianceLibraryItemInput!) {
+	createComplianceLibraryItem(input: $input) {
+		id
+	}
+}
+`,
+		Variables: &__CreateComplianceLibraryItemInput{
+			Input: input,
+		},
+	}
+	var err error
+
+	var data CreateComplianceLibraryItemResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
 }
 
 func CreateInlineQuestionRuleInstance(
@@ -1144,6 +2088,126 @@ mutation CreateReferencedQuestionRuleInstance ($instance: CreateReferencedQuesti
 	return &data, err
 }
 
+func DeleteComplianceFramework(
+	ctx context.Context,
+	client graphql.Client,
+	input DeleteComplianceFrameworkInput,
+) (*DeleteComplianceFrameworkResponse, error) {
+	req := &graphql.Request{
+		OpName: "DeleteComplianceFramework",
+		Query: `
+mutation DeleteComplianceFramework ($input: DeleteComplianceFrameworkInput!) {
+	deleteComplianceFramework(input: $input)
+}
+`,
+		Variables: &__DeleteComplianceFrameworkInput{
+			Input: input,
+		},
+	}
+	var err error
+
+	var data DeleteComplianceFrameworkResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func DeleteComplianceFrameworkItem(
+	ctx context.Context,
+	client graphql.Client,
+	id string,
+) (*DeleteComplianceFrameworkItemResponse, error) {
+	req := &graphql.Request{
+		OpName: "DeleteComplianceFrameworkItem",
+		Query: `
+mutation DeleteComplianceFrameworkItem ($id: ID!) {
+	deleteComplianceFrameworkItem(input: {id:$id})
+}
+`,
+		Variables: &__DeleteComplianceFrameworkItemInput{
+			Id: id,
+		},
+	}
+	var err error
+
+	var data DeleteComplianceFrameworkItemResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func DeleteComplianceGroup(
+	ctx context.Context,
+	client graphql.Client,
+	id string,
+) (*DeleteComplianceGroupResponse, error) {
+	req := &graphql.Request{
+		OpName: "DeleteComplianceGroup",
+		Query: `
+mutation DeleteComplianceGroup ($id: ID!) {
+	deleteComplianceGroup(input: {id:$id})
+}
+`,
+		Variables: &__DeleteComplianceGroupInput{
+			Id: id,
+		},
+	}
+	var err error
+
+	var data DeleteComplianceGroupResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func DeleteComplianceLibraryItem(
+	ctx context.Context,
+	client graphql.Client,
+	id string,
+) (*DeleteComplianceLibraryItemResponse, error) {
+	req := &graphql.Request{
+		OpName: "DeleteComplianceLibraryItem",
+		Query: `
+mutation DeleteComplianceLibraryItem ($id: ID!) {
+	deleteComplianceLibraryItem(input: {id:$id})
+}
+`,
+		Variables: &__DeleteComplianceLibraryItemInput{
+			Id: id,
+		},
+	}
+	var err error
+
+	var data DeleteComplianceLibraryItemResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
 func DeleteQuestion(
 	ctx context.Context,
 	client graphql.Client,
@@ -1197,6 +2261,165 @@ mutation DeleteRuleInstance ($id: ID!) {
 	var err error
 
 	var data DeleteRuleInstanceResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func GetComplianceFrameworkById(
+	ctx context.Context,
+	client graphql.Client,
+	frameworkId string,
+) (*GetComplianceFrameworkByIdResponse, error) {
+	req := &graphql.Request{
+		OpName: "GetComplianceFrameworkById",
+		Query: `
+query GetComplianceFrameworkById ($frameworkId: ID!) {
+	complianceFramework(input: {id:$frameworkId}) {
+		id
+		name
+		version
+		frameworkType
+		webLink
+		scopeFilters
+		summaryConfig {
+			showPoliciesAndProcedures
+			showEvidence
+			showGapAnalysis
+			showAuditTracking
+		}
+	}
+}
+`,
+		Variables: &__GetComplianceFrameworkByIdInput{
+			FrameworkId: frameworkId,
+		},
+	}
+	var err error
+
+	var data GetComplianceFrameworkByIdResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func GetComplianceFrameworkItemById(
+	ctx context.Context,
+	client graphql.Client,
+	id string,
+) (*GetComplianceFrameworkItemByIdResponse, error) {
+	req := &graphql.Request{
+		OpName: "GetComplianceFrameworkItemById",
+		Query: `
+query GetComplianceFrameworkItemById ($id: ID!) {
+	complianceFrameworkItem(input: {id:$id}) {
+		name
+		description
+		frameworkId
+		groupId
+		displayCategory
+		ref
+		webLink
+	}
+}
+`,
+		Variables: &__GetComplianceFrameworkItemByIdInput{
+			Id: id,
+		},
+	}
+	var err error
+
+	var data GetComplianceFrameworkItemByIdResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+// FIXME: there is currently no `complianceGroup` query, so the full list
+// must be retrieved and then searched for the matching ID
+func GetComplianceGroups(
+	ctx context.Context,
+	client graphql.Client,
+	frameworkId string,
+) (*GetComplianceGroupsResponse, error) {
+	req := &graphql.Request{
+		OpName: "GetComplianceGroups",
+		Query: `
+query GetComplianceGroups ($frameworkId: ID!) {
+	complianceFramework(input: {id:$frameworkId}) {
+		groups {
+			id
+			frameworkId
+			name
+			description
+			displayCategory
+			webLink
+		}
+	}
+}
+`,
+		Variables: &__GetComplianceGroupsInput{
+			FrameworkId: frameworkId,
+		},
+	}
+	var err error
+
+	var data GetComplianceGroupsResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func GetComplianceLibraryItemById(
+	ctx context.Context,
+	client graphql.Client,
+	id string,
+) (*GetComplianceLibraryItemByIdResponse, error) {
+	req := &graphql.Request{
+		OpName: "GetComplianceLibraryItemById",
+		Query: `
+query GetComplianceLibraryItemById ($id: ID!) {
+	complianceLibraryItem(input: {id:$id}) {
+		name
+		description
+		displayCategory
+		ref
+		webLink
+		policyItemId
+	}
+}
+`,
+		Variables: &__GetComplianceLibraryItemByIdInput{
+			Id: id,
+		},
+	}
+	var err error
+
+	var data GetComplianceLibraryItemByIdResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(
@@ -1302,6 +2525,134 @@ query GetQuestionRuleInstance ($id: ID!) {
 	var err error
 
 	var data GetQuestionRuleInstanceResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func UpdateComplianceFramework(
+	ctx context.Context,
+	client graphql.Client,
+	input UpdateComplianceFrameworkInput,
+) (*UpdateComplianceFrameworkResponse, error) {
+	req := &graphql.Request{
+		OpName: "UpdateComplianceFramework",
+		Query: `
+mutation UpdateComplianceFramework ($input: UpdateComplianceFrameworkInput!) {
+	updateComplianceFramework(input: $input) {
+		id
+	}
+}
+`,
+		Variables: &__UpdateComplianceFrameworkInput{
+			Input: input,
+		},
+	}
+	var err error
+
+	var data UpdateComplianceFrameworkResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func UpdateComplianceFrameworkItem(
+	ctx context.Context,
+	client graphql.Client,
+	input UpdateComplianceFrameworkItemInput,
+) (*UpdateComplianceFrameworkItemResponse, error) {
+	req := &graphql.Request{
+		OpName: "UpdateComplianceFrameworkItem",
+		Query: `
+mutation UpdateComplianceFrameworkItem ($input: UpdateComplianceFrameworkItemInput!) {
+	updateComplianceFrameworkItem(input: $input) {
+		id
+	}
+}
+`,
+		Variables: &__UpdateComplianceFrameworkItemInput{
+			Input: input,
+		},
+	}
+	var err error
+
+	var data UpdateComplianceFrameworkItemResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func UpdateComplianceGroup(
+	ctx context.Context,
+	client graphql.Client,
+	input UpdateComplianceGroupInput,
+) (*UpdateComplianceGroupResponse, error) {
+	req := &graphql.Request{
+		OpName: "UpdateComplianceGroup",
+		Query: `
+mutation UpdateComplianceGroup ($input: UpdateComplianceGroupInput!) {
+	updateComplianceGroup(input: $input) {
+		id
+	}
+}
+`,
+		Variables: &__UpdateComplianceGroupInput{
+			Input: input,
+		},
+	}
+	var err error
+
+	var data UpdateComplianceGroupResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func UpdateComplianceLibraryItem(
+	ctx context.Context,
+	client graphql.Client,
+	input UpdateComplianceLibraryItemInput,
+) (*UpdateComplianceLibraryItemResponse, error) {
+	req := &graphql.Request{
+		OpName: "UpdateComplianceLibraryItem",
+		Query: `
+mutation UpdateComplianceLibraryItem ($input: UpdateComplianceLibraryItemInput!) {
+	updateComplianceLibraryItem(input: $input) {
+		id
+	}
+}
+`,
+		Variables: &__UpdateComplianceLibraryItemInput{
+			Input: input,
+		},
+	}
+	var err error
+
+	var data UpdateComplianceLibraryItemResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(

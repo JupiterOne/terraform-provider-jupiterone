@@ -14,18 +14,18 @@ A saved JupiterOne question based alert
 
 ```terraform
 resource "jupiterone_rule" "unencrypted_critical_data_stores" {
-  name = "unencrypted-critical-data-stores"
-  description = "Unencrypted data store with classification label of 'critical' or 'sensitive' or 'confidential' or 'restricted'"
+  name             = "unencrypted-critical-data-stores"
+  description      = "Unencrypted data store with classification label of 'critical' or 'sensitive' or 'confidential' or 'restricted'"
   polling_interval = "ONE_DAY"
 
   question {
     queries {
-      name = "query0"
-      query = "Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true"
+      name    = "query0"
+      query   = "Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true"
       version = "v1"
     }
   }
-  
+
   tags = ["exampletag"]
 
   outputs = [
@@ -33,37 +33,42 @@ resource "jupiterone_rule" "unencrypted_critical_data_stores" {
     "alertLevel"
   ]
 
-  operations = <<EOF
-    [
-      {
-        "when": {
-          "type": "FILTER",
-          "specVersion": 1,
-          "condition": "{{queries.query0.total != 0}}"
-        },
-        "actions": [
-          {
-            "targetValue": "HIGH",
-            "type": "SET_PROPERTY",
-            "targetProperty": "alertLevel"
-          },
-          {
-            "type": "CREATE_ALERT"
-          }
+  operations = [
+    {
+      when = jsonencode({
+        "type" : "FILTER",
+        "specVersion" : 1,
+        "condition" : [
+          "AND",
+          [
+            "queries.query0.total",
+            "<",
+            1000
+          ]
         ]
-      }
-    ]
-  EOF
+      }),
+      actions = [
+        jsonencode({
+          "targetValue" : "INFO",
+          "type" : "SET_PROPERTY",
+          "targetProperty" : "alertLevel"
+        }),
+        jsonencode({
+          "type" : "CREATE_ALERT"
+        })
+      ]
+    }
+  ]
 }
 
 
 resource "jupiterone_rule" "users_without_mfa" {
-  name = "users-without-mfa"
-  description = "Users who do not have mfa enabled."
+  name             = "users-without-mfa"
+  description      = "Users who do not have mfa enabled."
   polling_interval = "ONE_DAY"
 
   question_id = jupiterone_question.users_without_mfa.id
-  
+
   tags = ["critical"]
 
   outputs = [
@@ -71,27 +76,25 @@ resource "jupiterone_rule" "users_without_mfa" {
     "alertLevel"
   ]
 
-  operations = <<EOF
-    [
-      {
-        "when": {
-          "type": "FILTER",
-          "specVersion": 1,
-          "condition": "{{queries.query0.total != 0}}"
-        },
-        "actions": [
-          {
-            "targetValue": "HIGH",
-            "type": "SET_PROPERTY",
-            "targetProperty": "alertLevel"
-          },
-          {
-            "type": "CREATE_ALERT"
-          }
-        ]
-      }
-    ]
-  EOF
+  operations = [
+    {
+      when = jsonencode({
+        "type" : "FILTER",
+        "specVersion" : 1,
+        "condition" : "{{queries.query0.total != 0}}"
+      }),
+      actions = [
+        jsonencode({
+          "targetValue" : "INFO",
+          "type" : "SET_PROPERTY",
+          "targetProperty" : "alertLevel"
+        }),
+        jsonencode({
+          "type" : "CREATE_ALERT"
+        })
+      ]
+    }
+  ]
 }
 ```
 
@@ -102,10 +105,11 @@ resource "jupiterone_rule" "users_without_mfa" {
 
 - `description` (String) Description of the rule
 - `name` (String) Name of the rule, which is unique to each account.
-- `operations` (String) Actions that are executed when a corresponding condition is met.
+- `operations` (Attributes List) Actions that are executed when a corresponding condition is met. (see [below for nested schema](#nestedatt--operations))
 
 ### Optional
 
+- `notify_on_failure` (Boolean)
 - `outputs` (List of String) Names of properties that can be used throughout the rule evaluation process and will be included in each record of a rule evaluation. (e.g. queries.query0.total)
 - `polling_interval` (String) Frequency of automated rule evaluation. Defaults to ONE_DAY.
 - `question` (Block List) Contains properties related to queries used in the rule evaluation. (see [below for nested schema](#nestedblock--question))
@@ -119,6 +123,18 @@ resource "jupiterone_rule" "users_without_mfa" {
 
 - `id` (String) Unique id that identifies the rule
 - `version` (Number) Computed current version of the rule. Incremented each time the rule is updated.
+
+<a id="nestedatt--operations"></a>
+### Nested Schema for `operations`
+
+Required:
+
+- `actions` (List of String)
+
+Optional:
+
+- `when` (String)
+
 
 <a id="nestedblock--question"></a>
 ### Nested Schema for `question`
@@ -137,6 +153,7 @@ Required:
 
 Optional:
 
+- `include_deleted` (Boolean)
 - `name` (String)
 
 
