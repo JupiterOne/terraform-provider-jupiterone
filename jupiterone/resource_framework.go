@@ -51,8 +51,6 @@ func (c *ComplianceFrameworkModel) BuildScopeFilters() ([]map[string]interface{}
 var _ resource.Resource = &ComplianceFrameworkResource{}
 var _ resource.ResourceWithConfigure = &ComplianceFrameworkResource{}
 var _ resource.ResourceWithImportState = &ComplianceFrameworkResource{}
-var _ resource.ResourceWithConfigValidators = &ComplianceFrameworkResource{}
-var _ resource.ResourceWithModifyPlan = &ComplianceFrameworkResource{}
 
 type ComplianceFrameworkResource struct {
 	version string
@@ -142,17 +140,6 @@ func (*ComplianceFrameworkResource) Schema(_ context.Context, _ resource.SchemaR
 			},
 		},
 	}
-}
-
-// ModifyPlan implements resource.ResourceWithModifyPlan
-func (*ComplianceFrameworkResource) ModifyPlan(ctx context.Context, _ resource.ModifyPlanRequest, _ *resource.ModifyPlanResponse) {
-	tflog.Info(ctx, "TODO")
-}
-
-// ConfigValidators implements resource.ResourceWithConfigValidators
-func (*ComplianceFrameworkResource) ConfigValidators(ctx context.Context) []resource.ConfigValidator {
-	tflog.Info(ctx, "TODO")
-	return nil
 }
 
 // ImportState implements resource.ResourceWithImportState
