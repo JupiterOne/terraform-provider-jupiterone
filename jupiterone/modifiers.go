@@ -202,13 +202,14 @@ func (jsonIgnoreDiff) PlanModifyMap(ctx context.Context, req planmodifier.MapReq
 		s, ok := v.(types.String)
 		if !ok {
 			// this is very bad and shouldn't haven't gotten past validation
+			resp.Diagnostics.AddError(fmt.Sprintf("Invalid value type for json string in plan for %s", req.Path), "invalid value")
 			return
 		}
 
 		var newValue map[string]interface{}
 		err := json.Unmarshal([]byte(s.ValueString()), &newValue)
 		if err != nil {
-			resp.Diagnostics.AddError(fmt.Sprintf("Invalid json in state for %s", req.Path), err.Error())
+			resp.Diagnostics.AddError(fmt.Sprintf("Invalid json in plan for %s", req.Path), err.Error())
 			return
 		}
 
@@ -216,6 +217,7 @@ func (jsonIgnoreDiff) PlanModifyMap(ctx context.Context, req planmodifier.MapReq
 		if !ok {
 			// this is also very bad and shouldn't haven't gotten into state,
 			// but continue and let apply try to save a new valid value
+			resp.Diagnostics.AddWarning(fmt.Sprintf("Invalid json in state for %s, this likely a bug in the provider", req.Path), err.Error())
 			return
 		}
 		var oldValue map[string]interface{}
