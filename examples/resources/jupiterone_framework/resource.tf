@@ -5,7 +5,13 @@ resource "jupiterone_framework" "custom_standard" {
   version        = "v1"
   framework_type = "STANDARD"
 
-  web_link = "https://community.askj1.com/kb/articles/795-compliance-api-endpoints"
+  web_link = "https://community.askj1.com/kb/articles/1154-adding-compliance-frameworks"
+
+  scope_filters = [
+    jsonencode({
+      "tag.specialtag" : "specialvalue"
+    }),
+  ]
 }
 
 resource "jupiterone_group" "custom_group_1" {
