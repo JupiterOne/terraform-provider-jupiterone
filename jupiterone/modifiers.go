@@ -49,6 +49,7 @@ func (pm *boolDefaultValuePlanModifier) PlanModifyBool(ctx context.Context, req 
 
 var _ planmodifier.String = (*jsonIgnoreDiff)(nil)
 var _ planmodifier.List = (*jsonIgnoreDiff)(nil)
+var _ planmodifier.Map = (*jsonIgnoreDiff)(nil)
 
 func jsonIgnoreDiffPlanModifier() planmodifier.String {
 	return jsonIgnoreDiff{}
@@ -180,6 +181,67 @@ func (j jsonIgnoreDiff) PlanModifyList(ctx context.Context, req planmodifier.Lis
 	resp.PlanValue = req.StateValue
 }
 
+// PlanModifyMap implements planmodifier.Map
+func (jsonIgnoreDiff) PlanModifyMap(ctx context.Context, req planmodifier.MapRequest, resp *planmodifier.MapResponse) {
+	if req.ConfigValue.IsNull() {
+		return
+	}
+
+	if req.StateValue.IsUnknown() || req.StateValue.IsNull() {
+		return
+	}
+
+	oldValues := req.StateValue.Elements()
+	for k, v := range req.PlanValue.Elements() {
+		o, ok := oldValues[k]
+		if !ok {
+			// something new, go ahead with the plan
+			return
+		}
+
+		s, ok := v.(types.String)
+		if !ok {
+			// this is very bad and shouldn't haven't gotten past validation
+			resp.Diagnostics.AddError(fmt.Sprintf("Invalid value type for json string in plan for %s", req.Path), "invalid value")
+			return
+		}
+
+		var newValue map[string]interface{}
+		err := json.Unmarshal([]byte(s.ValueString()), &newValue)
+		if err != nil {
+			resp.Diagnostics.AddError(fmt.Sprintf("Invalid json in plan for %s", req.Path), err.Error())
+			return
+		}
+
+		s, ok = o.(types.String)
+		if !ok {
+			// this is also very bad and shouldn't haven't gotten into state,
+			// but continue and let apply try to save a new valid value
+			resp.Diagnostics.AddWarning(fmt.Sprintf("Invalid json in state for %s, this likely a bug in the provider", req.Path), err.Error())
+			return
+		}
+		var oldValue map[string]interface{}
+		err = json.Unmarshal([]byte(s.ValueString()), &oldValue)
+		if err != nil {
+			resp.Diagnostics.AddError(fmt.Sprintf("Invalid json in plan for %s", req.Path), err.Error())
+			return
+		}
+
+		if !reflect.DeepEqual(oldValue, newValue) {
+			return
+		}
+
+		delete(oldValues, k)
+	}
+
+	if len(oldValues) > 0 {
+		// something was removed in the plan
+		return
+	}
+
+	resp.PlanValue = req.StateValue
+}
+
 func Int64DefaultValue(v types.Int64) planmodifier.Int64 {
 	return &int64DefaultValuePlanModifier{v}
 }
@@ -252,6 +314,7 @@ func (apm *stringDefaultValuePlanModifier) PlanModifyString(ctx context.Context,
 
 var _ validator.String = jsonValidator{}
 var _ validator.List = jsonValidator{}
+var _ validator.Map = jsonValidator{}
 
 // oneOfValidator validates that the value matches one of expected values.
 type jsonValidator struct {
@@ -305,6 +368,30 @@ func (v jsonValidator) ValidateList(ctx context.Context, req validator.ListReque
 	for _, s := range vals {
 		var d interface{}
 		err := json.Unmarshal([]byte(s), &d)
+		if err != nil {
+			resp.Diagnostics.Append(validatordiag.InvalidAttributeValueDiagnostic(
+				req.Path,
+				v.Description(ctx),
+				req.ConfigValue.String(),
+			))
+		}
+	}
+}
+
+// ValidateMap implements validator.Map
+func (v jsonValidator) ValidateMap(ctx context.Context, req validator.MapRequest, resp *validator.MapResponse) {
+	for _, val := range req.ConfigValue.Elements() {
+		s, ok := val.(types.String)
+		if !ok {
+			resp.Diagnostics.Append(validatordiag.InvalidAttributeValueDiagnostic(
+				req.Path,
+				v.Description(ctx),
+				val.String(),
+			))
+		}
+
+		var d interface{}
+		err := json.Unmarshal([]byte(s.ValueString()), &d)
 		if err != nil {
 			resp.Diagnostics.Append(validatordiag.InvalidAttributeValueDiagnostic(
 				req.Path,

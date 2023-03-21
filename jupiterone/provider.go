@@ -131,6 +131,10 @@ func (*JupiterOneProvider) Resources(context.Context) []func() resource.Resource
 	return []func() resource.Resource{
 		NewQuestionResource,
 		NewQuestionRuleResource,
+		NewFrameworkResource,
+		NewGroupResource,
+		NewFrameworkItemResource,
+		NewLibraryItemResource,
 	}
 }
 

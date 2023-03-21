@@ -4,6 +4,7 @@ schema: schema.graphql
 operations:
 - question.graphql
 - rule.graphql
+- compliance.graphql
 generated: generated.go
 
 bindings:
@@ -12,3 +13,5 @@ bindings:
     type: map[string]interface{}
   Primitive:
     type: string
+  Long:
+    type: int64

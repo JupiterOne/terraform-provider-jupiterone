@@ -151,7 +151,6 @@ func (r *QuestionRuleResource) Configure(ctx context.Context, req resource.Confi
 
 // Schema implements resource.ResourceWithConfigure
 func (*QuestionRuleResource) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
-
 	resp.Schema = schema.Schema{
 		Description: "A saved JupiterOne question based alert",
 		Attributes: map[string]schema.Attribute{
