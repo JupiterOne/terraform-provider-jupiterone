@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"github.com/Khan/genqlient/graphql"
+	"github.com/hashicorp/go-hclog"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
@@ -42,6 +43,8 @@ func TestInlineRuleInstance_Basic(t *testing.T) {
 					resource.TestCheckResourceAttr(testRuleResourceName, "description", "Test"),
 					resource.TestCheckResourceAttr(testRuleResourceName, "spec_version", "1"),
 					resource.TestCheckResourceAttr(testRuleResourceName, "polling_interval", "ONE_WEEK"),
+					resource.TestCheckResourceAttr(testRuleResourceName, "notify_on_failure", "false"),
+					resource.TestCheckResourceAttr(testRuleResourceName, "trigger_on_new_only", "true"),
 					resource.TestCheckResourceAttr(testRuleResourceName, "tags.#", "2"),
 					resource.TestCheckResourceAttr(testRuleResourceName, "tags.0", "tf_acc:1"),
 					resource.TestCheckResourceAttr(testRuleResourceName, "tags.1", "tf_acc:2"),
@@ -68,6 +71,8 @@ func TestInlineRuleInstance_Basic(t *testing.T) {
 					resource.TestCheckResourceAttr(testRuleResourceName, "description", "Test"),
 					resource.TestCheckResourceAttr(testRuleResourceName, "spec_version", "1"),
 					resource.TestCheckResourceAttr(testRuleResourceName, "polling_interval", "ONE_WEEK"),
+					resource.TestCheckResourceAttr(testRuleResourceName, "notify_on_failure", "false"),
+					resource.TestCheckResourceAttr(testRuleResourceName, "trigger_on_new_only", "true"),
 					resource.TestCheckResourceAttr(testRuleResourceName, "tags.#", "2"),
 					resource.TestCheckResourceAttr(testRuleResourceName, "tags.0", "tf_acc:1"),
 					resource.TestCheckResourceAttr(testRuleResourceName, "tags.1", "tf_acc:2"),
@@ -101,8 +106,10 @@ func TestInlineRuleInstance_BasicImport(t *testing.T) {
 		CheckDestroy:             testAccCheckRuleInstanceDestroy(ctx, directClient),
 		Steps: []resource.TestStep{
 			{
-				ImportState:   true,
-				ResourceName:  testRuleResourceName,
+				ImportState:        true,
+				ImportStatePersist: true, // set to true to do destroy the created rule
+				ResourceName:       testRuleResourceName,
+				// must use recordingClient for createTestRule to return the uuid
 				ImportStateId: createTestRule(ctx, t, recordingClient, ruleName),
 				Config:        testInlineRuleInstanceBasicConfigWithOperations(ruleName, getValidOperationsWithoutFilter()),
 				Check: resource.ComposeTestCheckFunc(
@@ -113,6 +120,7 @@ func TestInlineRuleInstance_BasicImport(t *testing.T) {
 					resource.TestCheckResourceAttr(testRuleResourceName, "description", "Test"),
 					resource.TestCheckResourceAttr(testRuleResourceName, "spec_version", "1"),
 					resource.TestCheckResourceAttr(testRuleResourceName, "polling_interval", "ONE_WEEK"),
+					resource.TestCheckResourceAttr(testRuleResourceName, "trigger_on_new_only", "false"),
 					resource.TestCheckResourceAttr(testRuleResourceName, "tags.#", "2"),
 					resource.TestCheckResourceAttr(testRuleResourceName, "tags.0", "tf_acc:1"),
 					resource.TestCheckResourceAttr(testRuleResourceName, "tags.1", "tf_acc:2"),
@@ -282,7 +290,11 @@ func ruleExistsHelper(ctx context.Context, id string, qlient graphql.Client) err
 func testAccCheckRuleInstanceDestroy(ctx context.Context, qlient graphql.Client) func(*terraform.State) error {
 	return func(s *terraform.State) error {
 		resource := s.RootModule().Resources[testRuleResourceName]
-
+		if resource == nil {
+			hclog.Default().Debug("No resource found for rule name", "resource_name", testRuleResourceName)
+			return nil
+		}
+		hclog.Default().Debug("Attempting to delete resource for rule name", "resource_name", testRuleResourceName, "resource_id", resource.Primary.ID)
 		return ruleInstanceDestroyHelper(ctx, resource.Primary.ID, qlient)
 	}
 }
@@ -361,6 +373,8 @@ func testInlineRuleInstanceBasicConfigWithOperations(rName string, operations st
 			description = "Test"
 			spec_version = 1
 			polling_interval = "ONE_WEEK"
+			notify_on_failure = false
+			trigger_on_new_only = true
 			tags = ["tf_acc:1","tf_acc:2"]
 
 			question {
@@ -401,6 +415,7 @@ func testReferencedRuleInstanceBasicConfigWithOperations(rName string, operation
 			spec_version = 1
 			polling_interval = "ONE_WEEK"
 			tags = ["tf_acc:1","tf_acc:2"]
+			notify_on_failure = false
 
 			question_id = jupiterone_question.test.id
 
@@ -423,8 +438,10 @@ func testRuleInstanceBasicConfigWithPollingInterval(rName string, pollingInterva
 			description = "Test"
 			spec_version = 1
 			polling_interval = %q
+			notify_on_failure = false
 
 			tags = ["tf_acc:1","tf_acc:2"]
+
 			question {
 				queries {
 					name = "query0"

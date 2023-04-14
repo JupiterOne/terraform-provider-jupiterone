@@ -318,16 +318,17 @@ func (v *CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceQuestionRuleQ
 }
 
 type CreateInlineQuestionRuleInstanceInput struct {
-	Question        RuleQuestionDetailsInput `json:"question"`
-	Templates       map[string]interface{}   `json:"templates"`
-	Tags            []string                 `json:"tags"`
-	Name            string                   `json:"name"`
-	Description     string                   `json:"description"`
-	SpecVersion     int                      `json:"specVersion"`
-	Operations      []RuleOperationInput     `json:"operations"`
-	Outputs         []string                 `json:"outputs"`
-	PollingInterval SchedulerPollingInterval `json:"pollingInterval"`
-	NotifyOnFailure bool                     `json:"notifyOnFailure"`
+	Question                        RuleQuestionDetailsInput `json:"question"`
+	Templates                       map[string]interface{}   `json:"templates"`
+	Tags                            []string                 `json:"tags"`
+	Name                            string                   `json:"name"`
+	Description                     string                   `json:"description"`
+	SpecVersion                     int                      `json:"specVersion"`
+	Operations                      []RuleOperationInput     `json:"operations"`
+	Outputs                         []string                 `json:"outputs"`
+	PollingInterval                 SchedulerPollingInterval `json:"pollingInterval"`
+	NotifyOnFailure                 bool                     `json:"notifyOnFailure"`
+	TriggerActionsOnNewEntitiesOnly bool                     `json:"triggerActionsOnNewEntitiesOnly"`
 }
 
 // GetQuestion returns CreateInlineQuestionRuleInstanceInput.Question, and is useful for accessing the field via an interface.
@@ -368,6 +369,11 @@ func (v *CreateInlineQuestionRuleInstanceInput) GetPollingInterval() SchedulerPo
 // GetNotifyOnFailure returns CreateInlineQuestionRuleInstanceInput.NotifyOnFailure, and is useful for accessing the field via an interface.
 func (v *CreateInlineQuestionRuleInstanceInput) GetNotifyOnFailure() bool { return v.NotifyOnFailure }
 
+// GetTriggerActionsOnNewEntitiesOnly returns CreateInlineQuestionRuleInstanceInput.TriggerActionsOnNewEntitiesOnly, and is useful for accessing the field via an interface.
+func (v *CreateInlineQuestionRuleInstanceInput) GetTriggerActionsOnNewEntitiesOnly() bool {
+	return v.TriggerActionsOnNewEntitiesOnly
+}
+
 // CreateInlineQuestionRuleInstanceResponse is returned by CreateInlineQuestionRuleInstance on success.
 type CreateInlineQuestionRuleInstanceResponse struct {
 	CreateQuestionRuleInstance CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance `json:"createQuestionRuleInstance"`
@@ -393,6 +399,7 @@ type CreateQuestionInput struct {
 	Description     string                            `json:"description"`
 	ShowTrend       bool                              `json:"showTrend"`
 	PollingInterval SchedulerPollingInterval          `json:"pollingInterval"`
+	WidgetId        string                            `json:"widgetId"`
 	Queries         []QuestionQueryInput              `json:"queries"`
 	Compliance      []QuestionComplianceMetaDataInput `json:"compliance"`
 	Variables       []QuestionVariableInput           `json:"variables"`
@@ -415,6 +422,9 @@ func (v *CreateQuestionInput) GetShowTrend() bool { return v.ShowTrend }
 
 // GetPollingInterval returns CreateQuestionInput.PollingInterval, and is useful for accessing the field via an interface.
 func (v *CreateQuestionInput) GetPollingInterval() SchedulerPollingInterval { return v.PollingInterval }
+
+// GetWidgetId returns CreateQuestionInput.WidgetId, and is useful for accessing the field via an interface.
+func (v *CreateQuestionInput) GetWidgetId() string { return v.WidgetId }
 
 // GetQueries returns CreateQuestionInput.Queries, and is useful for accessing the field via an interface.
 func (v *CreateQuestionInput) GetQueries() []QuestionQueryInput { return v.Queries }
@@ -462,24 +472,21 @@ func (v *CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance) GetOper
 }
 
 type CreateReferencedQuestionRuleInstanceInput struct {
-	QuestionId      string                   `json:"questionId"`
-	QuestionName    string                   `json:"questionName,omitempty"`
-	Templates       map[string]interface{}   `json:"templates"`
-	Tags            []string                 `json:"tags"`
-	Name            string                   `json:"name"`
-	Description     string                   `json:"description"`
-	SpecVersion     int                      `json:"specVersion"`
-	Operations      []RuleOperationInput     `json:"operations"`
-	Outputs         []string                 `json:"outputs"`
-	PollingInterval SchedulerPollingInterval `json:"pollingInterval"`
-	NotifyOnFailure bool                     `json:"notifyOnFailure"`
+	QuestionId                      string                   `json:"questionId"`
+	Templates                       map[string]interface{}   `json:"templates"`
+	Tags                            []string                 `json:"tags"`
+	Name                            string                   `json:"name"`
+	Description                     string                   `json:"description"`
+	SpecVersion                     int                      `json:"specVersion"`
+	Operations                      []RuleOperationInput     `json:"operations"`
+	Outputs                         []string                 `json:"outputs"`
+	PollingInterval                 SchedulerPollingInterval `json:"pollingInterval"`
+	NotifyOnFailure                 bool                     `json:"notifyOnFailure"`
+	TriggerActionsOnNewEntitiesOnly bool                     `json:"triggerActionsOnNewEntitiesOnly"`
 }
 
 // GetQuestionId returns CreateReferencedQuestionRuleInstanceInput.QuestionId, and is useful for accessing the field via an interface.
 func (v *CreateReferencedQuestionRuleInstanceInput) GetQuestionId() string { return v.QuestionId }
-
-// GetQuestionName returns CreateReferencedQuestionRuleInstanceInput.QuestionName, and is useful for accessing the field via an interface.
-func (v *CreateReferencedQuestionRuleInstanceInput) GetQuestionName() string { return v.QuestionName }
 
 // GetTemplates returns CreateReferencedQuestionRuleInstanceInput.Templates, and is useful for accessing the field via an interface.
 func (v *CreateReferencedQuestionRuleInstanceInput) GetTemplates() map[string]interface{} {
@@ -514,6 +521,11 @@ func (v *CreateReferencedQuestionRuleInstanceInput) GetPollingInterval() Schedul
 // GetNotifyOnFailure returns CreateReferencedQuestionRuleInstanceInput.NotifyOnFailure, and is useful for accessing the field via an interface.
 func (v *CreateReferencedQuestionRuleInstanceInput) GetNotifyOnFailure() bool {
 	return v.NotifyOnFailure
+}
+
+// GetTriggerActionsOnNewEntitiesOnly returns CreateReferencedQuestionRuleInstanceInput.TriggerActionsOnNewEntitiesOnly, and is useful for accessing the field via an interface.
+func (v *CreateReferencedQuestionRuleInstanceInput) GetTriggerActionsOnNewEntitiesOnly() bool {
+	return v.TriggerActionsOnNewEntitiesOnly
 }
 
 // CreateReferencedQuestionRuleInstanceResponse is returned by CreateReferencedQuestionRuleInstance on success.
@@ -839,22 +851,23 @@ func (v *GetQuestionByIdResponse) GetQuestion() GetQuestionByIdQuestion { return
 
 // GetQuestionRuleInstanceQuestionRuleInstance includes the requested fields of the GraphQL type QuestionRuleInstance.
 type GetQuestionRuleInstanceQuestionRuleInstance struct {
-	Id              string                                                                 `json:"id"`
-	Name            string                                                                 `json:"name"`
-	Description     string                                                                 `json:"description"`
-	Version         int                                                                    `json:"version"`
-	SpecVersion     int                                                                    `json:"specVersion"`
-	Latest          bool                                                                   `json:"latest"`
-	PollingInterval SchedulerPollingInterval                                               `json:"pollingInterval"`
-	Deleted         bool                                                                   `json:"deleted"`
-	Type            RuleInstanceType                                                       `json:"type"`
-	Templates       map[string]interface{}                                                 `json:"templates"`
-	NotifyOnFailure bool                                                                   `json:"notifyOnFailure"`
-	QuestionId      string                                                                 `json:"questionId"`
-	Question        GetQuestionRuleInstanceQuestionRuleInstanceQuestionRuleQuestionDetails `json:"question"`
-	Operations      []RuleOperationOutput                                                  `json:"operations"`
-	Outputs         []string                                                               `json:"outputs"`
-	Tags            []string                                                               `json:"tags"`
+	Id                              string                                                                 `json:"id"`
+	Name                            string                                                                 `json:"name"`
+	Description                     string                                                                 `json:"description"`
+	Version                         int                                                                    `json:"version"`
+	SpecVersion                     int                                                                    `json:"specVersion"`
+	Latest                          bool                                                                   `json:"latest"`
+	PollingInterval                 SchedulerPollingInterval                                               `json:"pollingInterval"`
+	Deleted                         bool                                                                   `json:"deleted"`
+	Type                            RuleInstanceType                                                       `json:"type"`
+	Templates                       map[string]interface{}                                                 `json:"templates"`
+	NotifyOnFailure                 bool                                                                   `json:"notifyOnFailure"`
+	TriggerActionsOnNewEntitiesOnly bool                                                                   `json:"triggerActionsOnNewEntitiesOnly"`
+	QuestionId                      string                                                                 `json:"questionId"`
+	Question                        GetQuestionRuleInstanceQuestionRuleInstanceQuestionRuleQuestionDetails `json:"question"`
+	Operations                      []RuleOperationOutput                                                  `json:"operations"`
+	Outputs                         []string                                                               `json:"outputs"`
+	Tags                            []string                                                               `json:"tags"`
 }
 
 // GetId returns GetQuestionRuleInstanceQuestionRuleInstance.Id, and is useful for accessing the field via an interface.
@@ -894,6 +907,11 @@ func (v *GetQuestionRuleInstanceQuestionRuleInstance) GetTemplates() map[string]
 // GetNotifyOnFailure returns GetQuestionRuleInstanceQuestionRuleInstance.NotifyOnFailure, and is useful for accessing the field via an interface.
 func (v *GetQuestionRuleInstanceQuestionRuleInstance) GetNotifyOnFailure() bool {
 	return v.NotifyOnFailure
+}
+
+// GetTriggerActionsOnNewEntitiesOnly returns GetQuestionRuleInstanceQuestionRuleInstance.TriggerActionsOnNewEntitiesOnly, and is useful for accessing the field via an interface.
+func (v *GetQuestionRuleInstanceQuestionRuleInstance) GetTriggerActionsOnNewEntitiesOnly() bool {
+	return v.TriggerActionsOnNewEntitiesOnly
 }
 
 // GetQuestionId returns GetQuestionRuleInstanceQuestionRuleInstance.QuestionId, and is useful for accessing the field via an interface.
@@ -1077,6 +1095,7 @@ type QuestionUpdate struct {
 	Description     string                            `json:"description"`
 	ShowTrend       bool                              `json:"showTrend"`
 	PollingInterval SchedulerPollingInterval          `json:"pollingInterval"`
+	WidgetId        string                            `json:"widgetId"`
 }
 
 // GetTitle returns QuestionUpdate.Title, and is useful for accessing the field via an interface.
@@ -1099,6 +1118,9 @@ func (v *QuestionUpdate) GetShowTrend() bool { return v.ShowTrend }
 
 // GetPollingInterval returns QuestionUpdate.PollingInterval, and is useful for accessing the field via an interface.
 func (v *QuestionUpdate) GetPollingInterval() SchedulerPollingInterval { return v.PollingInterval }
+
+// GetWidgetId returns QuestionUpdate.WidgetId, and is useful for accessing the field via an interface.
+func (v *QuestionUpdate) GetWidgetId() string { return v.WidgetId }
 
 type QuestionVariableInput struct {
 	Name     string `json:"name"`
@@ -1395,20 +1417,21 @@ type UpdateComplianceLibraryItemUpdateComplianceLibraryItem struct {
 func (v *UpdateComplianceLibraryItemUpdateComplianceLibraryItem) GetId() string { return v.Id }
 
 type UpdateInlineQuestionRuleInstanceInput struct {
-	Question        RuleQuestionDetailsInput `json:"question"`
-	Id              string                   `json:"id"`
-	Version         int                      `json:"version"`
-	State           RuleStateInput           `json:"state,omitempty"`
-	LatestAlertId   string                   `json:"latestAlertId,omitempty"`
-	Templates       map[string]interface{}   `json:"templates"`
-	Tags            []string                 `json:"tags"`
-	Name            string                   `json:"name"`
-	Description     string                   `json:"description"`
-	SpecVersion     int                      `json:"specVersion"`
-	Operations      []RuleOperationInput     `json:"operations"`
-	Outputs         []string                 `json:"outputs,omitempty"`
-	PollingInterval SchedulerPollingInterval `json:"pollingInterval"`
-	NotifyOnFailure bool                     `json:"notifyOnFailure"`
+	Question                        RuleQuestionDetailsInput `json:"question"`
+	Id                              string                   `json:"id"`
+	Version                         int                      `json:"version"`
+	State                           RuleStateInput           `json:"state,omitempty"`
+	LatestAlertId                   string                   `json:"latestAlertId,omitempty"`
+	Templates                       map[string]interface{}   `json:"templates"`
+	Tags                            []string                 `json:"tags"`
+	Name                            string                   `json:"name"`
+	Description                     string                   `json:"description"`
+	SpecVersion                     int                      `json:"specVersion"`
+	Operations                      []RuleOperationInput     `json:"operations"`
+	Outputs                         []string                 `json:"outputs,omitempty"`
+	PollingInterval                 SchedulerPollingInterval `json:"pollingInterval"`
+	NotifyOnFailure                 bool                     `json:"notifyOnFailure"`
+	TriggerActionsOnNewEntitiesOnly bool                     `json:"triggerActionsOnNewEntitiesOnly"`
 }
 
 // GetQuestion returns UpdateInlineQuestionRuleInstanceInput.Question, and is useful for accessing the field via an interface.
@@ -1461,6 +1484,11 @@ func (v *UpdateInlineQuestionRuleInstanceInput) GetPollingInterval() SchedulerPo
 // GetNotifyOnFailure returns UpdateInlineQuestionRuleInstanceInput.NotifyOnFailure, and is useful for accessing the field via an interface.
 func (v *UpdateInlineQuestionRuleInstanceInput) GetNotifyOnFailure() bool { return v.NotifyOnFailure }
 
+// GetTriggerActionsOnNewEntitiesOnly returns UpdateInlineQuestionRuleInstanceInput.TriggerActionsOnNewEntitiesOnly, and is useful for accessing the field via an interface.
+func (v *UpdateInlineQuestionRuleInstanceInput) GetTriggerActionsOnNewEntitiesOnly() bool {
+	return v.TriggerActionsOnNewEntitiesOnly
+}
+
 // UpdateInlineQuestionRuleInstanceResponse is returned by UpdateInlineQuestionRuleInstance on success.
 type UpdateInlineQuestionRuleInstanceResponse struct {
 	UpdateInlineQuestionRuleInstance UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance `json:"updateInlineQuestionRuleInstance"`
@@ -1512,28 +1540,25 @@ type UpdateQuestionUpdateQuestion struct {
 func (v *UpdateQuestionUpdateQuestion) GetId() string { return v.Id }
 
 type UpdateReferencedQuestionRuleInstanceInput struct {
-	QuestionId      string                   `json:"questionId"`
-	QuestionName    string                   `json:"questionName,omitempty"`
-	Id              string                   `json:"id"`
-	Version         int                      `json:"version"`
-	State           RuleStateInput           `json:"state,omitempty"`
-	LatestAlertId   string                   `json:"latestAlertId,omitempty"`
-	Templates       map[string]interface{}   `json:"templates"`
-	Tags            []string                 `json:"tags"`
-	Name            string                   `json:"name"`
-	Description     string                   `json:"description"`
-	SpecVersion     int                      `json:"specVersion"`
-	Operations      []RuleOperationInput     `json:"operations"`
-	Outputs         []string                 `json:"outputs,omitempty"`
-	PollingInterval SchedulerPollingInterval `json:"pollingInterval"`
-	NotifyOnFailure bool                     `json:"notifyOnFailure"`
+	QuestionId                      string                   `json:"questionId"`
+	Id                              string                   `json:"id"`
+	Version                         int                      `json:"version"`
+	State                           RuleStateInput           `json:"state,omitempty"`
+	LatestAlertId                   string                   `json:"latestAlertId,omitempty"`
+	Templates                       map[string]interface{}   `json:"templates"`
+	Tags                            []string                 `json:"tags"`
+	Name                            string                   `json:"name"`
+	Description                     string                   `json:"description"`
+	SpecVersion                     int                      `json:"specVersion"`
+	Operations                      []RuleOperationInput     `json:"operations"`
+	Outputs                         []string                 `json:"outputs,omitempty"`
+	PollingInterval                 SchedulerPollingInterval `json:"pollingInterval"`
+	NotifyOnFailure                 bool                     `json:"notifyOnFailure"`
+	TriggerActionsOnNewEntitiesOnly bool                     `json:"triggerActionsOnNewEntitiesOnly"`
 }
 
 // GetQuestionId returns UpdateReferencedQuestionRuleInstanceInput.QuestionId, and is useful for accessing the field via an interface.
 func (v *UpdateReferencedQuestionRuleInstanceInput) GetQuestionId() string { return v.QuestionId }
-
-// GetQuestionName returns UpdateReferencedQuestionRuleInstanceInput.QuestionName, and is useful for accessing the field via an interface.
-func (v *UpdateReferencedQuestionRuleInstanceInput) GetQuestionName() string { return v.QuestionName }
 
 // GetId returns UpdateReferencedQuestionRuleInstanceInput.Id, and is useful for accessing the field via an interface.
 func (v *UpdateReferencedQuestionRuleInstanceInput) GetId() string { return v.Id }
@@ -1580,6 +1605,11 @@ func (v *UpdateReferencedQuestionRuleInstanceInput) GetPollingInterval() Schedul
 // GetNotifyOnFailure returns UpdateReferencedQuestionRuleInstanceInput.NotifyOnFailure, and is useful for accessing the field via an interface.
 func (v *UpdateReferencedQuestionRuleInstanceInput) GetNotifyOnFailure() bool {
 	return v.NotifyOnFailure
+}
+
+// GetTriggerActionsOnNewEntitiesOnly returns UpdateReferencedQuestionRuleInstanceInput.TriggerActionsOnNewEntitiesOnly, and is useful for accessing the field via an interface.
+func (v *UpdateReferencedQuestionRuleInstanceInput) GetTriggerActionsOnNewEntitiesOnly() bool {
+	return v.TriggerActionsOnNewEntitiesOnly
 }
 
 // UpdateReferencedQuestionRuleInstanceResponse is returned by UpdateReferencedQuestionRuleInstance on success.
@@ -2500,6 +2530,7 @@ query GetQuestionRuleInstance ($id: ID!) {
 		type
 		templates
 		notifyOnFailure
+		triggerActionsOnNewEntitiesOnly
 		questionId
 		question {
 			queries {

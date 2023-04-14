@@ -11,6 +11,7 @@ query GetQuestionRuleInstance($id: ID!) {
     type
     templates
     notifyOnFailure
+    triggerActionsOnNewEntitiesOnly
     questionId
     question {
       queries {
@@ -57,7 +58,6 @@ mutation CreateInlineQuestionRuleInstance(
 }
 
 # @genqlient(for: "RuleOperationInput.when", omitempty: true)
-# @genqlient(for: "CreateReferencedQuestionRuleInstanceInput.questionName", omitempty: true)
 mutation CreateReferencedQuestionRuleInstance(
   $instance: CreateReferencedQuestionRuleInstanceInput!
 ) {
@@ -99,7 +99,6 @@ mutation UpdateInlineQuestionRuleInstance(
 }
 
 # @genqlient(for: "RuleOperationInput.when", omitempty: true)
-# @genqlient(for: "UpdateReferencedQuestionRuleInstanceInput.questionName", omitempty: true)
 # @genqlient(for: "UpdateReferencedQuestionRuleInstanceInput.outputs", omitempty: true)
 # @genqlient(for: "UpdateReferencedQuestionRuleInstanceInput.latestAlertId", omitempty: true)
 # @genqlient(for: "UpdateReferencedQuestionRuleInstanceInput.state", omitempty: true)
