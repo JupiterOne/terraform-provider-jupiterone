@@ -30,7 +30,7 @@ interactions:
         content_length: 85
         uncompressed: false
         body: |
-            {"data":{"createComplianceFramework":{"id":"b4cf4dfa-4d56-4c4c-9011-d9ecc26d90ab"}}}
+            {"data":{"createComplianceFramework":{"id":"67d99820-c5ef-4c78-8f1f-c2f9f189aec0"}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -78,7 +78,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 868.110583ms
+        duration: 996.113209ms
     - id: 1
       request:
         proto: HTTP/1.1
@@ -90,7 +90,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nmutation CreateComplianceGroup ($input: CreateComplianceGroupInput!) {\n\tcreateComplianceGroup(input: $input) {\n\t\tid\n\t}\n}\n","variables":{"input":{"name":"tf-provider-acc test Group","description":"","displayCategory":"","frameworkId":"b4cf4dfa-4d56-4c4c-9011-d9ecc26d90ab","webLink":""}},"operationName":"CreateComplianceGroup"}'
+        body: '{"query":"\nmutation CreateComplianceGroup ($input: CreateComplianceGroupInput!) {\n\tcreateComplianceGroup(input: $input) {\n\t\tid\n\t}\n}\n","variables":{"input":{"name":"tf-provider-acc test Group","description":"","displayCategory":"","frameworkId":"67d99820-c5ef-4c78-8f1f-c2f9f189aec0","webLink":""}},"operationName":"CreateComplianceGroup"}'
         form: {}
         headers:
             Cache-Control:
@@ -108,7 +108,7 @@ interactions:
         content_length: 81
         uncompressed: false
         body: |
-            {"data":{"createComplianceGroup":{"id":"a42b12b5-8ce8-4bcd-b281-f14c8da73424"}}}
+            {"data":{"createComplianceGroup":{"id":"b900023d-8739-45fe-b0a7-403224610a0f"}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -156,7 +156,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 902.600208ms
+        duration: 784.45925ms
     - id: 2
       request:
         proto: HTTP/1.1
@@ -168,7 +168,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetComplianceFrameworkById ($frameworkId: ID!) {\n\tcomplianceFramework(input: {id:$frameworkId}) {\n\t\tid\n\t\tname\n\t\tversion\n\t\tframeworkType\n\t\twebLink\n\t\tscopeFilters\n\t\tsummaryConfig {\n\t\t\tshowPoliciesAndProcedures\n\t\t\tshowEvidence\n\t\t\tshowGapAnalysis\n\t\t\tshowAuditTracking\n\t\t}\n\t}\n}\n","variables":{"frameworkId":"b4cf4dfa-4d56-4c4c-9011-d9ecc26d90ab"},"operationName":"GetComplianceFrameworkById"}'
+        body: '{"query":"\nquery GetComplianceFrameworkById ($frameworkId: ID!) {\n\tcomplianceFramework(input: {id:$frameworkId}) {\n\t\tid\n\t\tname\n\t\tversion\n\t\tframeworkType\n\t\twebLink\n\t\tscopeFilters\n\t\tsummaryConfig {\n\t\t\tshowPoliciesAndProcedures\n\t\t\tshowEvidence\n\t\t\tshowGapAnalysis\n\t\t\tshowAuditTracking\n\t\t}\n\t}\n}\n","variables":{"frameworkId":"67d99820-c5ef-4c78-8f1f-c2f9f189aec0"},"operationName":"GetComplianceFrameworkById"}'
         form: {}
         headers:
             Cache-Control:
@@ -186,7 +186,7 @@ interactions:
         content_length: 380
         uncompressed: false
         body: |
-            {"data":{"complianceFramework":{"id":"b4cf4dfa-4d56-4c4c-9011-d9ecc26d90ab","name":"tf-provider-acc-test-framework","version":"v1","frameworkType":"STANDARD","webLink":"https://community.askj1.com/kb/articles/795-compliance-api-endpoints","scopeFilters":[],"summaryConfig":{"showPoliciesAndProcedures":true,"showEvidence":true,"showGapAnalysis":true,"showAuditTracking":false}}}}
+            {"data":{"complianceFramework":{"id":"67d99820-c5ef-4c78-8f1f-c2f9f189aec0","name":"tf-provider-acc-test-framework","version":"v1","frameworkType":"STANDARD","webLink":"https://community.askj1.com/kb/articles/795-compliance-api-endpoints","scopeFilters":[],"summaryConfig":{"showPoliciesAndProcedures":true,"showEvidence":true,"showGapAnalysis":true,"showAuditTracking":false}}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -234,7 +234,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 432.513042ms
+        duration: 365.095459ms
     - id: 3
       request:
         proto: HTTP/1.1
@@ -246,7 +246,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetComplianceGroups ($frameworkId: ID!) {\n\tcomplianceFramework(input: {id:$frameworkId}) {\n\t\tgroups {\n\t\t\tid\n\t\t\tframeworkId\n\t\t\tname\n\t\t\tdescription\n\t\t\tdisplayCategory\n\t\t\twebLink\n\t\t}\n\t}\n}\n","variables":{"frameworkId":"b4cf4dfa-4d56-4c4c-9011-d9ecc26d90ab"},"operationName":"GetComplianceGroups"}'
+        body: '{"query":"\nquery GetComplianceGroups ($frameworkId: ID!) {\n\tcomplianceFramework(input: {id:$frameworkId}) {\n\t\tgroups {\n\t\t\tid\n\t\t\tframeworkId\n\t\t\tname\n\t\t\tdescription\n\t\t\tdisplayCategory\n\t\t\twebLink\n\t\t}\n\t}\n}\n","variables":{"frameworkId":"67d99820-c5ef-4c78-8f1f-c2f9f189aec0"},"operationName":"GetComplianceGroups"}'
         form: {}
         headers:
             Cache-Control:
@@ -264,7 +264,7 @@ interactions:
         content_length: 234
         uncompressed: false
         body: |
-            {"data":{"complianceFramework":{"groups":[{"id":"a42b12b5-8ce8-4bcd-b281-f14c8da73424","frameworkId":"b4cf4dfa-4d56-4c4c-9011-d9ecc26d90ab","name":"tf-provider-acc test Group","description":"","displayCategory":"","webLink":null}]}}}
+            {"data":{"complianceFramework":{"groups":[{"id":"b900023d-8739-45fe-b0a7-403224610a0f","frameworkId":"67d99820-c5ef-4c78-8f1f-c2f9f189aec0","name":"tf-provider-acc test Group","description":"","displayCategory":"","webLink":null}]}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -312,7 +312,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 709.341ms
+        duration: 950.697209ms
     - id: 4
       request:
         proto: HTTP/1.1
@@ -324,7 +324,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetComplianceFrameworkById ($frameworkId: ID!) {\n\tcomplianceFramework(input: {id:$frameworkId}) {\n\t\tid\n\t\tname\n\t\tversion\n\t\tframeworkType\n\t\twebLink\n\t\tscopeFilters\n\t\tsummaryConfig {\n\t\t\tshowPoliciesAndProcedures\n\t\t\tshowEvidence\n\t\t\tshowGapAnalysis\n\t\t\tshowAuditTracking\n\t\t}\n\t}\n}\n","variables":{"frameworkId":"b4cf4dfa-4d56-4c4c-9011-d9ecc26d90ab"},"operationName":"GetComplianceFrameworkById"}'
+        body: '{"query":"\nquery GetComplianceFrameworkById ($frameworkId: ID!) {\n\tcomplianceFramework(input: {id:$frameworkId}) {\n\t\tid\n\t\tname\n\t\tversion\n\t\tframeworkType\n\t\twebLink\n\t\tscopeFilters\n\t\tsummaryConfig {\n\t\t\tshowPoliciesAndProcedures\n\t\t\tshowEvidence\n\t\t\tshowGapAnalysis\n\t\t\tshowAuditTracking\n\t\t}\n\t}\n}\n","variables":{"frameworkId":"67d99820-c5ef-4c78-8f1f-c2f9f189aec0"},"operationName":"GetComplianceFrameworkById"}'
         form: {}
         headers:
             Cache-Control:
@@ -342,7 +342,7 @@ interactions:
         content_length: 380
         uncompressed: false
         body: |
-            {"data":{"complianceFramework":{"id":"b4cf4dfa-4d56-4c4c-9011-d9ecc26d90ab","name":"tf-provider-acc-test-framework","version":"v1","frameworkType":"STANDARD","webLink":"https://community.askj1.com/kb/articles/795-compliance-api-endpoints","scopeFilters":[],"summaryConfig":{"showPoliciesAndProcedures":true,"showEvidence":true,"showGapAnalysis":true,"showAuditTracking":false}}}}
+            {"data":{"complianceFramework":{"id":"67d99820-c5ef-4c78-8f1f-c2f9f189aec0","name":"tf-provider-acc-test-framework","version":"v1","frameworkType":"STANDARD","webLink":"https://community.askj1.com/kb/articles/795-compliance-api-endpoints","scopeFilters":[],"summaryConfig":{"showPoliciesAndProcedures":true,"showEvidence":true,"showGapAnalysis":true,"showAuditTracking":false}}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -390,7 +390,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 437.497834ms
+        duration: 431.972541ms
     - id: 5
       request:
         proto: HTTP/1.1
@@ -402,7 +402,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetComplianceGroups ($frameworkId: ID!) {\n\tcomplianceFramework(input: {id:$frameworkId}) {\n\t\tgroups {\n\t\t\tid\n\t\t\tframeworkId\n\t\t\tname\n\t\t\tdescription\n\t\t\tdisplayCategory\n\t\t\twebLink\n\t\t}\n\t}\n}\n","variables":{"frameworkId":"b4cf4dfa-4d56-4c4c-9011-d9ecc26d90ab"},"operationName":"GetComplianceGroups"}'
+        body: '{"query":"\nquery GetComplianceGroups ($frameworkId: ID!) {\n\tcomplianceFramework(input: {id:$frameworkId}) {\n\t\tgroups {\n\t\t\tid\n\t\t\tframeworkId\n\t\t\tname\n\t\t\tdescription\n\t\t\tdisplayCategory\n\t\t\twebLink\n\t\t}\n\t}\n}\n","variables":{"frameworkId":"67d99820-c5ef-4c78-8f1f-c2f9f189aec0"},"operationName":"GetComplianceGroups"}'
         form: {}
         headers:
             Cache-Control:
@@ -420,7 +420,7 @@ interactions:
         content_length: 234
         uncompressed: false
         body: |
-            {"data":{"complianceFramework":{"groups":[{"id":"a42b12b5-8ce8-4bcd-b281-f14c8da73424","frameworkId":"b4cf4dfa-4d56-4c4c-9011-d9ecc26d90ab","name":"tf-provider-acc test Group","description":"","displayCategory":"","webLink":null}]}}}
+            {"data":{"complianceFramework":{"groups":[{"id":"b900023d-8739-45fe-b0a7-403224610a0f","frameworkId":"67d99820-c5ef-4c78-8f1f-c2f9f189aec0","name":"tf-provider-acc test Group","description":"","displayCategory":"","webLink":null}]}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -468,7 +468,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 656.34425ms
+        duration: 818.827834ms
     - id: 6
       request:
         proto: HTTP/1.1
@@ -480,7 +480,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nmutation UpdateComplianceGroup ($input: UpdateComplianceGroupInput!) {\n\tupdateComplianceGroup(input: $input) {\n\t\tid\n\t}\n}\n","variables":{"input":{"id":"a42b12b5-8ce8-4bcd-b281-f14c8da73424","updates":{"name":"tf-provider-acc test Group","description":"tf-provider acceptance test group","displayCategory":"first","frameworkId":"b4cf4dfa-4d56-4c4c-9011-d9ecc26d90ab","webLink":"https://community.askj1.com/kb/articles/795-compliance-api-endpoints"}}},"operationName":"UpdateComplianceGroup"}'
+        body: '{"query":"\nmutation UpdateComplianceGroup ($input: UpdateComplianceGroupInput!) {\n\tupdateComplianceGroup(input: $input) {\n\t\tid\n\t}\n}\n","variables":{"input":{"id":"b900023d-8739-45fe-b0a7-403224610a0f","updates":{"name":"tf-provider-acc test Group","description":"tf-provider acceptance test group","displayCategory":"first","frameworkId":"67d99820-c5ef-4c78-8f1f-c2f9f189aec0","webLink":"https://community.askj1.com/kb/articles/795-compliance-api-endpoints"}}},"operationName":"UpdateComplianceGroup"}'
         form: {}
         headers:
             Cache-Control:
@@ -498,7 +498,7 @@ interactions:
         content_length: 81
         uncompressed: false
         body: |
-            {"data":{"updateComplianceGroup":{"id":"a42b12b5-8ce8-4bcd-b281-f14c8da73424"}}}
+            {"data":{"updateComplianceGroup":{"id":"b900023d-8739-45fe-b0a7-403224610a0f"}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -546,7 +546,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 791.685458ms
+        duration: 658.6075ms
     - id: 7
       request:
         proto: HTTP/1.1
@@ -558,7 +558,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetComplianceFrameworkById ($frameworkId: ID!) {\n\tcomplianceFramework(input: {id:$frameworkId}) {\n\t\tid\n\t\tname\n\t\tversion\n\t\tframeworkType\n\t\twebLink\n\t\tscopeFilters\n\t\tsummaryConfig {\n\t\t\tshowPoliciesAndProcedures\n\t\t\tshowEvidence\n\t\t\tshowGapAnalysis\n\t\t\tshowAuditTracking\n\t\t}\n\t}\n}\n","variables":{"frameworkId":"b4cf4dfa-4d56-4c4c-9011-d9ecc26d90ab"},"operationName":"GetComplianceFrameworkById"}'
+        body: '{"query":"\nquery GetComplianceFrameworkById ($frameworkId: ID!) {\n\tcomplianceFramework(input: {id:$frameworkId}) {\n\t\tid\n\t\tname\n\t\tversion\n\t\tframeworkType\n\t\twebLink\n\t\tscopeFilters\n\t\tsummaryConfig {\n\t\t\tshowPoliciesAndProcedures\n\t\t\tshowEvidence\n\t\t\tshowGapAnalysis\n\t\t\tshowAuditTracking\n\t\t}\n\t}\n}\n","variables":{"frameworkId":"67d99820-c5ef-4c78-8f1f-c2f9f189aec0"},"operationName":"GetComplianceFrameworkById"}'
         form: {}
         headers:
             Cache-Control:
@@ -576,7 +576,7 @@ interactions:
         content_length: 380
         uncompressed: false
         body: |
-            {"data":{"complianceFramework":{"id":"b4cf4dfa-4d56-4c4c-9011-d9ecc26d90ab","name":"tf-provider-acc-test-framework","version":"v1","frameworkType":"STANDARD","webLink":"https://community.askj1.com/kb/articles/795-compliance-api-endpoints","scopeFilters":[],"summaryConfig":{"showPoliciesAndProcedures":true,"showEvidence":true,"showGapAnalysis":true,"showAuditTracking":false}}}}
+            {"data":{"complianceFramework":{"id":"67d99820-c5ef-4c78-8f1f-c2f9f189aec0","name":"tf-provider-acc-test-framework","version":"v1","frameworkType":"STANDARD","webLink":"https://community.askj1.com/kb/articles/795-compliance-api-endpoints","scopeFilters":[],"summaryConfig":{"showPoliciesAndProcedures":true,"showEvidence":true,"showGapAnalysis":true,"showAuditTracking":false}}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -624,7 +624,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 481.643584ms
+        duration: 476.190458ms
     - id: 8
       request:
         proto: HTTP/1.1
@@ -636,7 +636,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetComplianceGroups ($frameworkId: ID!) {\n\tcomplianceFramework(input: {id:$frameworkId}) {\n\t\tgroups {\n\t\t\tid\n\t\t\tframeworkId\n\t\t\tname\n\t\t\tdescription\n\t\t\tdisplayCategory\n\t\t\twebLink\n\t\t}\n\t}\n}\n","variables":{"frameworkId":"b4cf4dfa-4d56-4c4c-9011-d9ecc26d90ab"},"operationName":"GetComplianceGroups"}'
+        body: '{"query":"\nquery GetComplianceGroups ($frameworkId: ID!) {\n\tcomplianceFramework(input: {id:$frameworkId}) {\n\t\tgroups {\n\t\t\tid\n\t\t\tframeworkId\n\t\t\tname\n\t\t\tdescription\n\t\t\tdisplayCategory\n\t\t\twebLink\n\t\t}\n\t}\n}\n","variables":{"frameworkId":"67d99820-c5ef-4c78-8f1f-c2f9f189aec0"},"operationName":"GetComplianceGroups"}'
         form: {}
         headers:
             Cache-Control:
@@ -654,7 +654,7 @@ interactions:
         content_length: 338
         uncompressed: false
         body: |
-            {"data":{"complianceFramework":{"groups":[{"id":"a42b12b5-8ce8-4bcd-b281-f14c8da73424","frameworkId":"b4cf4dfa-4d56-4c4c-9011-d9ecc26d90ab","name":"tf-provider-acc test Group","description":"tf-provider acceptance test group","displayCategory":"first","webLink":"https://community.askj1.com/kb/articles/795-compliance-api-endpoints"}]}}}
+            {"data":{"complianceFramework":{"groups":[{"id":"b900023d-8739-45fe-b0a7-403224610a0f","frameworkId":"67d99820-c5ef-4c78-8f1f-c2f9f189aec0","name":"tf-provider-acc test Group","description":"tf-provider acceptance test group","displayCategory":"first","webLink":"https://community.askj1.com/kb/articles/795-compliance-api-endpoints"}]}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -702,7 +702,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 712.511417ms
+        duration: 673.471708ms
     - id: 9
       request:
         proto: HTTP/1.1
@@ -714,7 +714,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetComplianceFrameworkById ($frameworkId: ID!) {\n\tcomplianceFramework(input: {id:$frameworkId}) {\n\t\tid\n\t\tname\n\t\tversion\n\t\tframeworkType\n\t\twebLink\n\t\tscopeFilters\n\t\tsummaryConfig {\n\t\t\tshowPoliciesAndProcedures\n\t\t\tshowEvidence\n\t\t\tshowGapAnalysis\n\t\t\tshowAuditTracking\n\t\t}\n\t}\n}\n","variables":{"frameworkId":"b4cf4dfa-4d56-4c4c-9011-d9ecc26d90ab"},"operationName":"GetComplianceFrameworkById"}'
+        body: '{"query":"\nquery GetComplianceFrameworkById ($frameworkId: ID!) {\n\tcomplianceFramework(input: {id:$frameworkId}) {\n\t\tid\n\t\tname\n\t\tversion\n\t\tframeworkType\n\t\twebLink\n\t\tscopeFilters\n\t\tsummaryConfig {\n\t\t\tshowPoliciesAndProcedures\n\t\t\tshowEvidence\n\t\t\tshowGapAnalysis\n\t\t\tshowAuditTracking\n\t\t}\n\t}\n}\n","variables":{"frameworkId":"67d99820-c5ef-4c78-8f1f-c2f9f189aec0"},"operationName":"GetComplianceFrameworkById"}'
         form: {}
         headers:
             Cache-Control:
@@ -732,7 +732,7 @@ interactions:
         content_length: 380
         uncompressed: false
         body: |
-            {"data":{"complianceFramework":{"id":"b4cf4dfa-4d56-4c4c-9011-d9ecc26d90ab","name":"tf-provider-acc-test-framework","version":"v1","frameworkType":"STANDARD","webLink":"https://community.askj1.com/kb/articles/795-compliance-api-endpoints","scopeFilters":[],"summaryConfig":{"showPoliciesAndProcedures":true,"showEvidence":true,"showGapAnalysis":true,"showAuditTracking":false}}}}
+            {"data":{"complianceFramework":{"id":"67d99820-c5ef-4c78-8f1f-c2f9f189aec0","name":"tf-provider-acc-test-framework","version":"v1","frameworkType":"STANDARD","webLink":"https://community.askj1.com/kb/articles/795-compliance-api-endpoints","scopeFilters":[],"summaryConfig":{"showPoliciesAndProcedures":true,"showEvidence":true,"showGapAnalysis":true,"showAuditTracking":false}}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -780,7 +780,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 438.275917ms
+        duration: 445.126958ms
     - id: 10
       request:
         proto: HTTP/1.1
@@ -792,7 +792,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetComplianceGroups ($frameworkId: ID!) {\n\tcomplianceFramework(input: {id:$frameworkId}) {\n\t\tgroups {\n\t\t\tid\n\t\t\tframeworkId\n\t\t\tname\n\t\t\tdescription\n\t\t\tdisplayCategory\n\t\t\twebLink\n\t\t}\n\t}\n}\n","variables":{"frameworkId":"b4cf4dfa-4d56-4c4c-9011-d9ecc26d90ab"},"operationName":"GetComplianceGroups"}'
+        body: '{"query":"\nquery GetComplianceGroups ($frameworkId: ID!) {\n\tcomplianceFramework(input: {id:$frameworkId}) {\n\t\tgroups {\n\t\t\tid\n\t\t\tframeworkId\n\t\t\tname\n\t\t\tdescription\n\t\t\tdisplayCategory\n\t\t\twebLink\n\t\t}\n\t}\n}\n","variables":{"frameworkId":"67d99820-c5ef-4c78-8f1f-c2f9f189aec0"},"operationName":"GetComplianceGroups"}'
         form: {}
         headers:
             Cache-Control:
@@ -810,7 +810,7 @@ interactions:
         content_length: 338
         uncompressed: false
         body: |
-            {"data":{"complianceFramework":{"groups":[{"id":"a42b12b5-8ce8-4bcd-b281-f14c8da73424","frameworkId":"b4cf4dfa-4d56-4c4c-9011-d9ecc26d90ab","name":"tf-provider-acc test Group","description":"tf-provider acceptance test group","displayCategory":"first","webLink":"https://community.askj1.com/kb/articles/795-compliance-api-endpoints"}]}}}
+            {"data":{"complianceFramework":{"groups":[{"id":"b900023d-8739-45fe-b0a7-403224610a0f","frameworkId":"67d99820-c5ef-4c78-8f1f-c2f9f189aec0","name":"tf-provider-acc test Group","description":"tf-provider acceptance test group","displayCategory":"first","webLink":"https://community.askj1.com/kb/articles/795-compliance-api-endpoints"}]}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -858,7 +858,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 673.692709ms
+        duration: 649.756667ms
     - id: 11
       request:
         proto: HTTP/1.1
@@ -870,7 +870,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nmutation UpdateComplianceGroup ($input: UpdateComplianceGroupInput!) {\n\tupdateComplianceGroup(input: $input) {\n\t\tid\n\t}\n}\n","variables":{"input":{"id":"a42b12b5-8ce8-4bcd-b281-f14c8da73424","updates":{"name":"tf-provider-acc-test updated name","description":"tf-provider acceptance test group","displayCategory":"first","frameworkId":"b4cf4dfa-4d56-4c4c-9011-d9ecc26d90ab","webLink":"https://community.askj1.com/kb/articles/795-compliance-api-endpoints"}}},"operationName":"UpdateComplianceGroup"}'
+        body: '{"query":"\nmutation UpdateComplianceGroup ($input: UpdateComplianceGroupInput!) {\n\tupdateComplianceGroup(input: $input) {\n\t\tid\n\t}\n}\n","variables":{"input":{"id":"b900023d-8739-45fe-b0a7-403224610a0f","updates":{"name":"tf-provider-acc-test updated name","description":"tf-provider acceptance test group","displayCategory":"first","frameworkId":"67d99820-c5ef-4c78-8f1f-c2f9f189aec0","webLink":"https://community.askj1.com/kb/articles/795-compliance-api-endpoints"}}},"operationName":"UpdateComplianceGroup"}'
         form: {}
         headers:
             Cache-Control:
@@ -888,7 +888,7 @@ interactions:
         content_length: 81
         uncompressed: false
         body: |
-            {"data":{"updateComplianceGroup":{"id":"a42b12b5-8ce8-4bcd-b281-f14c8da73424"}}}
+            {"data":{"updateComplianceGroup":{"id":"b900023d-8739-45fe-b0a7-403224610a0f"}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -936,7 +936,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 692.2095ms
+        duration: 615.201541ms
     - id: 12
       request:
         proto: HTTP/1.1
@@ -948,7 +948,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetComplianceFrameworkById ($frameworkId: ID!) {\n\tcomplianceFramework(input: {id:$frameworkId}) {\n\t\tid\n\t\tname\n\t\tversion\n\t\tframeworkType\n\t\twebLink\n\t\tscopeFilters\n\t\tsummaryConfig {\n\t\t\tshowPoliciesAndProcedures\n\t\t\tshowEvidence\n\t\t\tshowGapAnalysis\n\t\t\tshowAuditTracking\n\t\t}\n\t}\n}\n","variables":{"frameworkId":"b4cf4dfa-4d56-4c4c-9011-d9ecc26d90ab"},"operationName":"GetComplianceFrameworkById"}'
+        body: '{"query":"\nquery GetComplianceFrameworkById ($frameworkId: ID!) {\n\tcomplianceFramework(input: {id:$frameworkId}) {\n\t\tid\n\t\tname\n\t\tversion\n\t\tframeworkType\n\t\twebLink\n\t\tscopeFilters\n\t\tsummaryConfig {\n\t\t\tshowPoliciesAndProcedures\n\t\t\tshowEvidence\n\t\t\tshowGapAnalysis\n\t\t\tshowAuditTracking\n\t\t}\n\t}\n}\n","variables":{"frameworkId":"67d99820-c5ef-4c78-8f1f-c2f9f189aec0"},"operationName":"GetComplianceFrameworkById"}'
         form: {}
         headers:
             Cache-Control:
@@ -966,7 +966,7 @@ interactions:
         content_length: 380
         uncompressed: false
         body: |
-            {"data":{"complianceFramework":{"id":"b4cf4dfa-4d56-4c4c-9011-d9ecc26d90ab","name":"tf-provider-acc-test-framework","version":"v1","frameworkType":"STANDARD","webLink":"https://community.askj1.com/kb/articles/795-compliance-api-endpoints","scopeFilters":[],"summaryConfig":{"showPoliciesAndProcedures":true,"showEvidence":true,"showGapAnalysis":true,"showAuditTracking":false}}}}
+            {"data":{"complianceFramework":{"id":"67d99820-c5ef-4c78-8f1f-c2f9f189aec0","name":"tf-provider-acc-test-framework","version":"v1","frameworkType":"STANDARD","webLink":"https://community.askj1.com/kb/articles/795-compliance-api-endpoints","scopeFilters":[],"summaryConfig":{"showPoliciesAndProcedures":true,"showEvidence":true,"showGapAnalysis":true,"showAuditTracking":false}}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -1014,7 +1014,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 444.115ms
+        duration: 429.512916ms
     - id: 13
       request:
         proto: HTTP/1.1
@@ -1026,7 +1026,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetComplianceGroups ($frameworkId: ID!) {\n\tcomplianceFramework(input: {id:$frameworkId}) {\n\t\tgroups {\n\t\t\tid\n\t\t\tframeworkId\n\t\t\tname\n\t\t\tdescription\n\t\t\tdisplayCategory\n\t\t\twebLink\n\t\t}\n\t}\n}\n","variables":{"frameworkId":"b4cf4dfa-4d56-4c4c-9011-d9ecc26d90ab"},"operationName":"GetComplianceGroups"}'
+        body: '{"query":"\nquery GetComplianceGroups ($frameworkId: ID!) {\n\tcomplianceFramework(input: {id:$frameworkId}) {\n\t\tgroups {\n\t\t\tid\n\t\t\tframeworkId\n\t\t\tname\n\t\t\tdescription\n\t\t\tdisplayCategory\n\t\t\twebLink\n\t\t}\n\t}\n}\n","variables":{"frameworkId":"67d99820-c5ef-4c78-8f1f-c2f9f189aec0"},"operationName":"GetComplianceGroups"}'
         form: {}
         headers:
             Cache-Control:
@@ -1044,7 +1044,7 @@ interactions:
         content_length: 345
         uncompressed: false
         body: |
-            {"data":{"complianceFramework":{"groups":[{"id":"a42b12b5-8ce8-4bcd-b281-f14c8da73424","frameworkId":"b4cf4dfa-4d56-4c4c-9011-d9ecc26d90ab","name":"tf-provider-acc-test updated name","description":"tf-provider acceptance test group","displayCategory":"first","webLink":"https://community.askj1.com/kb/articles/795-compliance-api-endpoints"}]}}}
+            {"data":{"complianceFramework":{"groups":[{"id":"b900023d-8739-45fe-b0a7-403224610a0f","frameworkId":"67d99820-c5ef-4c78-8f1f-c2f9f189aec0","name":"tf-provider-acc-test updated name","description":"tf-provider acceptance test group","displayCategory":"first","webLink":"https://community.askj1.com/kb/articles/795-compliance-api-endpoints"}]}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -1092,7 +1092,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 687.208041ms
+        duration: 585.311583ms
     - id: 14
       request:
         proto: HTTP/1.1
@@ -1104,7 +1104,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetComplianceFrameworkById ($frameworkId: ID!) {\n\tcomplianceFramework(input: {id:$frameworkId}) {\n\t\tid\n\t\tname\n\t\tversion\n\t\tframeworkType\n\t\twebLink\n\t\tscopeFilters\n\t\tsummaryConfig {\n\t\t\tshowPoliciesAndProcedures\n\t\t\tshowEvidence\n\t\t\tshowGapAnalysis\n\t\t\tshowAuditTracking\n\t\t}\n\t}\n}\n","variables":{"frameworkId":"b4cf4dfa-4d56-4c4c-9011-d9ecc26d90ab"},"operationName":"GetComplianceFrameworkById"}'
+        body: '{"query":"\nquery GetComplianceFrameworkById ($frameworkId: ID!) {\n\tcomplianceFramework(input: {id:$frameworkId}) {\n\t\tid\n\t\tname\n\t\tversion\n\t\tframeworkType\n\t\twebLink\n\t\tscopeFilters\n\t\tsummaryConfig {\n\t\t\tshowPoliciesAndProcedures\n\t\t\tshowEvidence\n\t\t\tshowGapAnalysis\n\t\t\tshowAuditTracking\n\t\t}\n\t}\n}\n","variables":{"frameworkId":"67d99820-c5ef-4c78-8f1f-c2f9f189aec0"},"operationName":"GetComplianceFrameworkById"}'
         form: {}
         headers:
             Cache-Control:
@@ -1122,7 +1122,7 @@ interactions:
         content_length: 380
         uncompressed: false
         body: |
-            {"data":{"complianceFramework":{"id":"b4cf4dfa-4d56-4c4c-9011-d9ecc26d90ab","name":"tf-provider-acc-test-framework","version":"v1","frameworkType":"STANDARD","webLink":"https://community.askj1.com/kb/articles/795-compliance-api-endpoints","scopeFilters":[],"summaryConfig":{"showPoliciesAndProcedures":true,"showEvidence":true,"showGapAnalysis":true,"showAuditTracking":false}}}}
+            {"data":{"complianceFramework":{"id":"67d99820-c5ef-4c78-8f1f-c2f9f189aec0","name":"tf-provider-acc-test-framework","version":"v1","frameworkType":"STANDARD","webLink":"https://community.askj1.com/kb/articles/795-compliance-api-endpoints","scopeFilters":[],"summaryConfig":{"showPoliciesAndProcedures":true,"showEvidence":true,"showGapAnalysis":true,"showAuditTracking":false}}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -1170,7 +1170,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 460.000041ms
+        duration: 471.571416ms
     - id: 15
       request:
         proto: HTTP/1.1
@@ -1182,7 +1182,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetComplianceGroups ($frameworkId: ID!) {\n\tcomplianceFramework(input: {id:$frameworkId}) {\n\t\tgroups {\n\t\t\tid\n\t\t\tframeworkId\n\t\t\tname\n\t\t\tdescription\n\t\t\tdisplayCategory\n\t\t\twebLink\n\t\t}\n\t}\n}\n","variables":{"frameworkId":"b4cf4dfa-4d56-4c4c-9011-d9ecc26d90ab"},"operationName":"GetComplianceGroups"}'
+        body: '{"query":"\nquery GetComplianceGroups ($frameworkId: ID!) {\n\tcomplianceFramework(input: {id:$frameworkId}) {\n\t\tgroups {\n\t\t\tid\n\t\t\tframeworkId\n\t\t\tname\n\t\t\tdescription\n\t\t\tdisplayCategory\n\t\t\twebLink\n\t\t}\n\t}\n}\n","variables":{"frameworkId":"67d99820-c5ef-4c78-8f1f-c2f9f189aec0"},"operationName":"GetComplianceGroups"}'
         form: {}
         headers:
             Cache-Control:
@@ -1200,7 +1200,7 @@ interactions:
         content_length: 345
         uncompressed: false
         body: |
-            {"data":{"complianceFramework":{"groups":[{"id":"a42b12b5-8ce8-4bcd-b281-f14c8da73424","frameworkId":"b4cf4dfa-4d56-4c4c-9011-d9ecc26d90ab","name":"tf-provider-acc-test updated name","description":"tf-provider acceptance test group","displayCategory":"first","webLink":"https://community.askj1.com/kb/articles/795-compliance-api-endpoints"}]}}}
+            {"data":{"complianceFramework":{"groups":[{"id":"b900023d-8739-45fe-b0a7-403224610a0f","frameworkId":"67d99820-c5ef-4c78-8f1f-c2f9f189aec0","name":"tf-provider-acc-test updated name","description":"tf-provider acceptance test group","displayCategory":"first","webLink":"https://community.askj1.com/kb/articles/795-compliance-api-endpoints"}]}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -1248,7 +1248,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 805.487208ms
+        duration: 635.174167ms
     - id: 16
       request:
         proto: HTTP/1.1
@@ -1260,7 +1260,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nmutation UpdateComplianceGroup ($input: UpdateComplianceGroupInput!) {\n\tupdateComplianceGroup(input: $input) {\n\t\tid\n\t}\n}\n","variables":{"input":{"id":"a42b12b5-8ce8-4bcd-b281-f14c8da73424","updates":{"name":"tf-provider-acc test Group","description":"","displayCategory":"","frameworkId":"b4cf4dfa-4d56-4c4c-9011-d9ecc26d90ab","webLink":""}}},"operationName":"UpdateComplianceGroup"}'
+        body: '{"query":"\nmutation UpdateComplianceGroup ($input: UpdateComplianceGroupInput!) {\n\tupdateComplianceGroup(input: $input) {\n\t\tid\n\t}\n}\n","variables":{"input":{"id":"b900023d-8739-45fe-b0a7-403224610a0f","updates":{"name":"tf-provider-acc test Group","description":"","displayCategory":"","frameworkId":"67d99820-c5ef-4c78-8f1f-c2f9f189aec0","webLink":""}}},"operationName":"UpdateComplianceGroup"}'
         form: {}
         headers:
             Cache-Control:
@@ -1278,7 +1278,7 @@ interactions:
         content_length: 81
         uncompressed: false
         body: |
-            {"data":{"updateComplianceGroup":{"id":"a42b12b5-8ce8-4bcd-b281-f14c8da73424"}}}
+            {"data":{"updateComplianceGroup":{"id":"b900023d-8739-45fe-b0a7-403224610a0f"}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -1326,7 +1326,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 865.151125ms
+        duration: 749.440875ms
     - id: 17
       request:
         proto: HTTP/1.1
@@ -1338,7 +1338,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetComplianceFrameworkById ($frameworkId: ID!) {\n\tcomplianceFramework(input: {id:$frameworkId}) {\n\t\tid\n\t\tname\n\t\tversion\n\t\tframeworkType\n\t\twebLink\n\t\tscopeFilters\n\t\tsummaryConfig {\n\t\t\tshowPoliciesAndProcedures\n\t\t\tshowEvidence\n\t\t\tshowGapAnalysis\n\t\t\tshowAuditTracking\n\t\t}\n\t}\n}\n","variables":{"frameworkId":"b4cf4dfa-4d56-4c4c-9011-d9ecc26d90ab"},"operationName":"GetComplianceFrameworkById"}'
+        body: '{"query":"\nquery GetComplianceFrameworkById ($frameworkId: ID!) {\n\tcomplianceFramework(input: {id:$frameworkId}) {\n\t\tid\n\t\tname\n\t\tversion\n\t\tframeworkType\n\t\twebLink\n\t\tscopeFilters\n\t\tsummaryConfig {\n\t\t\tshowPoliciesAndProcedures\n\t\t\tshowEvidence\n\t\t\tshowGapAnalysis\n\t\t\tshowAuditTracking\n\t\t}\n\t}\n}\n","variables":{"frameworkId":"67d99820-c5ef-4c78-8f1f-c2f9f189aec0"},"operationName":"GetComplianceFrameworkById"}'
         form: {}
         headers:
             Cache-Control:
@@ -1356,7 +1356,7 @@ interactions:
         content_length: 380
         uncompressed: false
         body: |
-            {"data":{"complianceFramework":{"id":"b4cf4dfa-4d56-4c4c-9011-d9ecc26d90ab","name":"tf-provider-acc-test-framework","version":"v1","frameworkType":"STANDARD","webLink":"https://community.askj1.com/kb/articles/795-compliance-api-endpoints","scopeFilters":[],"summaryConfig":{"showPoliciesAndProcedures":true,"showEvidence":true,"showGapAnalysis":true,"showAuditTracking":false}}}}
+            {"data":{"complianceFramework":{"id":"67d99820-c5ef-4c78-8f1f-c2f9f189aec0","name":"tf-provider-acc-test-framework","version":"v1","frameworkType":"STANDARD","webLink":"https://community.askj1.com/kb/articles/795-compliance-api-endpoints","scopeFilters":[],"summaryConfig":{"showPoliciesAndProcedures":true,"showEvidence":true,"showGapAnalysis":true,"showAuditTracking":false}}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -1404,7 +1404,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 425.348625ms
+        duration: 477.288459ms
     - id: 18
       request:
         proto: HTTP/1.1
@@ -1416,7 +1416,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetComplianceGroups ($frameworkId: ID!) {\n\tcomplianceFramework(input: {id:$frameworkId}) {\n\t\tgroups {\n\t\t\tid\n\t\t\tframeworkId\n\t\t\tname\n\t\t\tdescription\n\t\t\tdisplayCategory\n\t\t\twebLink\n\t\t}\n\t}\n}\n","variables":{"frameworkId":"b4cf4dfa-4d56-4c4c-9011-d9ecc26d90ab"},"operationName":"GetComplianceGroups"}'
+        body: '{"query":"\nquery GetComplianceGroups ($frameworkId: ID!) {\n\tcomplianceFramework(input: {id:$frameworkId}) {\n\t\tgroups {\n\t\t\tid\n\t\t\tframeworkId\n\t\t\tname\n\t\t\tdescription\n\t\t\tdisplayCategory\n\t\t\twebLink\n\t\t}\n\t}\n}\n","variables":{"frameworkId":"67d99820-c5ef-4c78-8f1f-c2f9f189aec0"},"operationName":"GetComplianceGroups"}'
         form: {}
         headers:
             Cache-Control:
@@ -1434,7 +1434,7 @@ interactions:
         content_length: 234
         uncompressed: false
         body: |
-            {"data":{"complianceFramework":{"groups":[{"id":"a42b12b5-8ce8-4bcd-b281-f14c8da73424","frameworkId":"b4cf4dfa-4d56-4c4c-9011-d9ecc26d90ab","name":"tf-provider-acc test Group","description":"","displayCategory":"","webLink":null}]}}}
+            {"data":{"complianceFramework":{"groups":[{"id":"b900023d-8739-45fe-b0a7-403224610a0f","frameworkId":"67d99820-c5ef-4c78-8f1f-c2f9f189aec0","name":"tf-provider-acc test Group","description":"","displayCategory":"","webLink":null}]}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -1482,7 +1482,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 1.136613708s
+        duration: 688.919792ms
     - id: 19
       request:
         proto: HTTP/1.1
@@ -1494,7 +1494,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nmutation DeleteComplianceGroup ($id: ID!) {\n\tdeleteComplianceGroup(input: {id:$id})\n}\n","variables":{"id":"a42b12b5-8ce8-4bcd-b281-f14c8da73424"},"operationName":"DeleteComplianceGroup"}'
+        body: '{"query":"\nmutation DeleteComplianceGroup ($id: ID!) {\n\tdeleteComplianceGroup(input: {id:$id})\n}\n","variables":{"id":"b900023d-8739-45fe-b0a7-403224610a0f"},"operationName":"DeleteComplianceGroup"}'
         form: {}
         headers:
             Cache-Control:
@@ -1512,7 +1512,7 @@ interactions:
         content_length: 74
         uncompressed: false
         body: |
-            {"data":{"deleteComplianceGroup":"a42b12b5-8ce8-4bcd-b281-f14c8da73424"}}
+            {"data":{"deleteComplianceGroup":"b900023d-8739-45fe-b0a7-403224610a0f"}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -1560,7 +1560,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 427.466917ms
+        duration: 356.548417ms
     - id: 20
       request:
         proto: HTTP/1.1
@@ -1572,7 +1572,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nmutation DeleteComplianceFramework ($input: DeleteComplianceFrameworkInput!) {\n\tdeleteComplianceFramework(input: $input)\n}\n","variables":{"input":{"id":"b4cf4dfa-4d56-4c4c-9011-d9ecc26d90ab"}},"operationName":"DeleteComplianceFramework"}'
+        body: '{"query":"\nmutation DeleteComplianceFramework ($input: DeleteComplianceFrameworkInput!) {\n\tdeleteComplianceFramework(input: $input)\n}\n","variables":{"input":{"id":"67d99820-c5ef-4c78-8f1f-c2f9f189aec0"}},"operationName":"DeleteComplianceFramework"}'
         form: {}
         headers:
             Cache-Control:
@@ -1590,7 +1590,7 @@ interactions:
         content_length: 78
         uncompressed: false
         body: |
-            {"data":{"deleteComplianceFramework":"b4cf4dfa-4d56-4c4c-9011-d9ecc26d90ab"}}
+            {"data":{"deleteComplianceFramework":"67d99820-c5ef-4c78-8f1f-c2f9f189aec0"}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -1638,4 +1638,4 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 849.390666ms
+        duration: 883.708083ms

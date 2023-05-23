@@ -30,7 +30,7 @@ interactions:
         content_length: 85
         uncompressed: false
         body: |
-            {"data":{"createComplianceFramework":{"id":"bd516f2e-8874-4bd4-9575-fa7f58d5210b"}}}
+            {"data":{"createComplianceFramework":{"id":"d1694465-728b-4371-a11b-797222a193e1"}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -78,7 +78,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 1.176838583s
+        duration: 1.705535792s
     - id: 1
       request:
         proto: HTTP/1.1
@@ -90,7 +90,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetComplianceFrameworkById ($frameworkId: ID!) {\n\tcomplianceFramework(input: {id:$frameworkId}) {\n\t\tid\n\t\tname\n\t\tversion\n\t\tframeworkType\n\t\twebLink\n\t\tscopeFilters\n\t\tsummaryConfig {\n\t\t\tshowPoliciesAndProcedures\n\t\t\tshowEvidence\n\t\t\tshowGapAnalysis\n\t\t\tshowAuditTracking\n\t\t}\n\t}\n}\n","variables":{"frameworkId":"bd516f2e-8874-4bd4-9575-fa7f58d5210b"},"operationName":"GetComplianceFrameworkById"}'
+        body: '{"query":"\nquery GetComplianceFrameworkById ($frameworkId: ID!) {\n\tcomplianceFramework(input: {id:$frameworkId}) {\n\t\tid\n\t\tname\n\t\tversion\n\t\tframeworkType\n\t\twebLink\n\t\tscopeFilters\n\t\tsummaryConfig {\n\t\t\tshowPoliciesAndProcedures\n\t\t\tshowEvidence\n\t\t\tshowGapAnalysis\n\t\t\tshowAuditTracking\n\t\t}\n\t}\n}\n","variables":{"frameworkId":"d1694465-728b-4371-a11b-797222a193e1"},"operationName":"GetComplianceFrameworkById"}'
         form: {}
         headers:
             Cache-Control:
@@ -108,7 +108,7 @@ interactions:
         content_length: 394
         uncompressed: false
         body: |
-            {"data":{"complianceFramework":{"id":"bd516f2e-8874-4bd4-9575-fa7f58d5210b","name":"tf-provider-acc-test-framework","version":"v1","frameworkType":"STANDARD","webLink":"https://community.askj1.com/kb/articles/795-compliance-api-endpoints","scopeFilters":[{"env":"prod"}],"summaryConfig":{"showPoliciesAndProcedures":true,"showEvidence":true,"showGapAnalysis":true,"showAuditTracking":false}}}}
+            {"data":{"complianceFramework":{"id":"d1694465-728b-4371-a11b-797222a193e1","name":"tf-provider-acc-test-framework","version":"v1","frameworkType":"STANDARD","webLink":"https://community.askj1.com/kb/articles/795-compliance-api-endpoints","scopeFilters":[{"env":"prod"}],"summaryConfig":{"showPoliciesAndProcedures":true,"showEvidence":true,"showGapAnalysis":true,"showAuditTracking":false}}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -156,7 +156,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 460.074625ms
+        duration: 394.30625ms
     - id: 2
       request:
         proto: HTTP/1.1
@@ -168,7 +168,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetComplianceFrameworkById ($frameworkId: ID!) {\n\tcomplianceFramework(input: {id:$frameworkId}) {\n\t\tid\n\t\tname\n\t\tversion\n\t\tframeworkType\n\t\twebLink\n\t\tscopeFilters\n\t\tsummaryConfig {\n\t\t\tshowPoliciesAndProcedures\n\t\t\tshowEvidence\n\t\t\tshowGapAnalysis\n\t\t\tshowAuditTracking\n\t\t}\n\t}\n}\n","variables":{"frameworkId":"bd516f2e-8874-4bd4-9575-fa7f58d5210b"},"operationName":"GetComplianceFrameworkById"}'
+        body: '{"query":"\nquery GetComplianceFrameworkById ($frameworkId: ID!) {\n\tcomplianceFramework(input: {id:$frameworkId}) {\n\t\tid\n\t\tname\n\t\tversion\n\t\tframeworkType\n\t\twebLink\n\t\tscopeFilters\n\t\tsummaryConfig {\n\t\t\tshowPoliciesAndProcedures\n\t\t\tshowEvidence\n\t\t\tshowGapAnalysis\n\t\t\tshowAuditTracking\n\t\t}\n\t}\n}\n","variables":{"frameworkId":"d1694465-728b-4371-a11b-797222a193e1"},"operationName":"GetComplianceFrameworkById"}'
         form: {}
         headers:
             Cache-Control:
@@ -186,7 +186,7 @@ interactions:
         content_length: 394
         uncompressed: false
         body: |
-            {"data":{"complianceFramework":{"id":"bd516f2e-8874-4bd4-9575-fa7f58d5210b","name":"tf-provider-acc-test-framework","version":"v1","frameworkType":"STANDARD","webLink":"https://community.askj1.com/kb/articles/795-compliance-api-endpoints","scopeFilters":[{"env":"prod"}],"summaryConfig":{"showPoliciesAndProcedures":true,"showEvidence":true,"showGapAnalysis":true,"showAuditTracking":false}}}}
+            {"data":{"complianceFramework":{"id":"d1694465-728b-4371-a11b-797222a193e1","name":"tf-provider-acc-test-framework","version":"v1","frameworkType":"STANDARD","webLink":"https://community.askj1.com/kb/articles/795-compliance-api-endpoints","scopeFilters":[{"env":"prod"}],"summaryConfig":{"showPoliciesAndProcedures":true,"showEvidence":true,"showGapAnalysis":true,"showAuditTracking":false}}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -234,7 +234,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 534.625625ms
+        duration: 358.692917ms
     - id: 3
       request:
         proto: HTTP/1.1
@@ -246,7 +246,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nmutation UpdateComplianceFramework ($input: UpdateComplianceFrameworkInput!) {\n\tupdateComplianceFramework(input: $input) {\n\t\tid\n\t}\n}\n","variables":{"input":{"id":"bd516f2e-8874-4bd4-9575-fa7f58d5210b","updates":{"name":"Updated Framework Name","webLink":"https://community.askj1.com/kb/articles/795-compliance-api-endpoints","scopeFilters":[]}}},"operationName":"UpdateComplianceFramework"}'
+        body: '{"query":"\nmutation UpdateComplianceFramework ($input: UpdateComplianceFrameworkInput!) {\n\tupdateComplianceFramework(input: $input) {\n\t\tid\n\t}\n}\n","variables":{"input":{"id":"d1694465-728b-4371-a11b-797222a193e1","updates":{"name":"Updated Framework Name","webLink":"https://community.askj1.com/kb/articles/795-compliance-api-endpoints","scopeFilters":[]}}},"operationName":"UpdateComplianceFramework"}'
         form: {}
         headers:
             Cache-Control:
@@ -264,7 +264,7 @@ interactions:
         content_length: 85
         uncompressed: false
         body: |
-            {"data":{"updateComplianceFramework":{"id":"bd516f2e-8874-4bd4-9575-fa7f58d5210b"}}}
+            {"data":{"updateComplianceFramework":{"id":"d1694465-728b-4371-a11b-797222a193e1"}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -312,7 +312,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 813.891958ms
+        duration: 887.970042ms
     - id: 4
       request:
         proto: HTTP/1.1
@@ -324,7 +324,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetComplianceFrameworkById ($frameworkId: ID!) {\n\tcomplianceFramework(input: {id:$frameworkId}) {\n\t\tid\n\t\tname\n\t\tversion\n\t\tframeworkType\n\t\twebLink\n\t\tscopeFilters\n\t\tsummaryConfig {\n\t\t\tshowPoliciesAndProcedures\n\t\t\tshowEvidence\n\t\t\tshowGapAnalysis\n\t\t\tshowAuditTracking\n\t\t}\n\t}\n}\n","variables":{"frameworkId":"bd516f2e-8874-4bd4-9575-fa7f58d5210b"},"operationName":"GetComplianceFrameworkById"}'
+        body: '{"query":"\nquery GetComplianceFrameworkById ($frameworkId: ID!) {\n\tcomplianceFramework(input: {id:$frameworkId}) {\n\t\tid\n\t\tname\n\t\tversion\n\t\tframeworkType\n\t\twebLink\n\t\tscopeFilters\n\t\tsummaryConfig {\n\t\t\tshowPoliciesAndProcedures\n\t\t\tshowEvidence\n\t\t\tshowGapAnalysis\n\t\t\tshowAuditTracking\n\t\t}\n\t}\n}\n","variables":{"frameworkId":"d1694465-728b-4371-a11b-797222a193e1"},"operationName":"GetComplianceFrameworkById"}'
         form: {}
         headers:
             Cache-Control:
@@ -342,7 +342,7 @@ interactions:
         content_length: 372
         uncompressed: false
         body: |
-            {"data":{"complianceFramework":{"id":"bd516f2e-8874-4bd4-9575-fa7f58d5210b","name":"Updated Framework Name","version":"v1","frameworkType":"STANDARD","webLink":"https://community.askj1.com/kb/articles/795-compliance-api-endpoints","scopeFilters":[],"summaryConfig":{"showPoliciesAndProcedures":true,"showEvidence":true,"showGapAnalysis":true,"showAuditTracking":false}}}}
+            {"data":{"complianceFramework":{"id":"d1694465-728b-4371-a11b-797222a193e1","name":"Updated Framework Name","version":"v1","frameworkType":"STANDARD","webLink":"https://community.askj1.com/kb/articles/795-compliance-api-endpoints","scopeFilters":[],"summaryConfig":{"showPoliciesAndProcedures":true,"showEvidence":true,"showGapAnalysis":true,"showAuditTracking":false}}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -390,7 +390,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 438.547209ms
+        duration: 469.612042ms
     - id: 5
       request:
         proto: HTTP/1.1
@@ -402,7 +402,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nmutation DeleteComplianceFramework ($input: DeleteComplianceFrameworkInput!) {\n\tdeleteComplianceFramework(input: $input)\n}\n","variables":{"input":{"id":"bd516f2e-8874-4bd4-9575-fa7f58d5210b"}},"operationName":"DeleteComplianceFramework"}'
+        body: '{"query":"\nmutation DeleteComplianceFramework ($input: DeleteComplianceFrameworkInput!) {\n\tdeleteComplianceFramework(input: $input)\n}\n","variables":{"input":{"id":"d1694465-728b-4371-a11b-797222a193e1"}},"operationName":"DeleteComplianceFramework"}'
         form: {}
         headers:
             Cache-Control:
@@ -420,7 +420,7 @@ interactions:
         content_length: 78
         uncompressed: false
         body: |
-            {"data":{"deleteComplianceFramework":"bd516f2e-8874-4bd4-9575-fa7f58d5210b"}}
+            {"data":{"deleteComplianceFramework":"d1694465-728b-4371-a11b-797222a193e1"}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -468,4 +468,4 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 836.642458ms
+        duration: 830.945916ms

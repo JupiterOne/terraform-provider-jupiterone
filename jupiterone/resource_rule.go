@@ -109,13 +109,13 @@ type RuleModel struct {
 	Templates       map[string]string `json:"templates" tfsdk:"templates"`
 	Question        []*RuleQuestion   `json:"question,omitempty" tfsdk:"question"`
 	QuestionId      types.String      `json:"questionId,omitempty" tfsdk:"question_id"`
-	QuestionName    types.String      `json:"questionName,omitempty" tfsdk:"question_name"`
 	// Operations TODO: breaking change for new version to do more in the
 	// HCL and/or make better use of things like jsonencode
-	Operations      []RuleOperation `json:"operations" tfsdk:"operations"`
-	Outputs         []string        `json:"outputs" tfsdk:"outputs"`
-	Tags            []string        `json:"tags" tfsdk:"tags"`
-	NotifyOnFailure types.Bool      `json:"notify_on_failure" tfsdk:"notify_on_failure"`
+	Operations       []RuleOperation `json:"operations" tfsdk:"operations"`
+	Outputs          []string        `json:"outputs" tfsdk:"outputs"`
+	Tags             []string        `json:"tags" tfsdk:"tags"`
+	NotifyOnFailure  types.Bool      `json:"notify_on_failure" tfsdk:"notify_on_failure"`
+	TriggerOnNewOnly types.Bool      `json:"trigger_on_new_only" tfsdk:"trigger_on_new_only"`
 }
 
 func NewQuestionRuleResource() resource.Resource {
@@ -210,11 +210,6 @@ func (*QuestionRuleResource) Schema(ctx context.Context, req resource.SchemaRequ
 				Description: "Specifies the ID of a question to be used in rule evaluation.",
 				Optional:    true,
 			},
-			"question_name": schema.StringAttribute{
-				Description:        "Specifies the name of a question to be used in rule evaluation.",
-				DeprecationMessage: "The question_name identifier is deprecated. Prefer to use a question's id property with question_id to reference a jupiterone_question in a jupiterone_rule.",
-				Optional:           true,
-			},
 			"operations": schema.ListNestedAttribute{
 				Description: "Actions that are executed when a corresponding condition is met.",
 				Required:    true,
@@ -254,6 +249,13 @@ func (*QuestionRuleResource) Schema(ctx context.Context, req resource.SchemaRequ
 				Optional:    true,
 			},
 			"notify_on_failure": schema.BoolAttribute{
+				Optional: true,
+				Computed: true,
+				PlanModifiers: []planmodifier.Bool{
+					BoolDefaultValuePlanModifier(false),
+				},
+			},
+			"trigger_on_new_only": schema.BoolAttribute{
 				Optional: true,
 				Computed: true,
 				PlanModifiers: []planmodifier.Bool{
@@ -319,12 +321,10 @@ func (*QuestionRuleResource) ConfigValidators(context.Context) []resource.Config
 		resourcevalidator.Conflicting(
 			path.MatchRoot("question"),
 			path.MatchRoot("question_id"),
-			path.MatchRoot("question_name"),
 		),
 		resourcevalidator.AtLeastOneOf(
 			path.MatchRoot("question"),
 			path.MatchRoot("question_id"),
-			path.MatchRoot("question_name"),
 		),
 	}
 }
@@ -458,15 +458,16 @@ func (r *QuestionRuleResource) Read(ctx context.Context, req resource.ReadReques
 	rule := getResp.QuestionRuleInstance
 
 	data := RuleModel{
-		Id:              types.StringValue(rule.Id),
-		Name:            types.StringValue(rule.Name),
-		Description:     types.StringValue(rule.Description),
-		Version:         types.Int64Value(int64(rule.Version)),
-		SpecVersion:     types.Int64Value(int64(rule.SpecVersion)),
-		PollingInterval: types.StringValue(string(rule.PollingInterval)),
-		Outputs:         rule.Outputs,
-		Tags:            rule.Tags,
-		NotifyOnFailure: types.BoolValue(rule.NotifyOnFailure),
+		Id:               types.StringValue(rule.Id),
+		Name:             types.StringValue(rule.Name),
+		Description:      types.StringValue(rule.Description),
+		Version:          types.Int64Value(int64(rule.Version)),
+		SpecVersion:      types.Int64Value(int64(rule.SpecVersion)),
+		PollingInterval:  types.StringValue(string(rule.PollingInterval)),
+		Outputs:          rule.Outputs,
+		Tags:             rule.Tags,
+		NotifyOnFailure:  types.BoolValue(rule.NotifyOnFailure),
+		TriggerOnNewOnly: types.BoolValue(rule.TriggerActionsOnNewEntitiesOnly),
 	}
 
 	// FIXME: handling of these JSON fields (map[string]interface{}) is not DRY
@@ -596,15 +597,15 @@ func (r *RuleModel) buildOperations() ([]client.RuleOperationInput, error) {
 
 func (r *RuleModel) BuildCreateReferencedQuestionRuleInstanceInput() (client.CreateReferencedQuestionRuleInstanceInput, error) {
 	rule := client.CreateReferencedQuestionRuleInstanceInput{
-		QuestionId:      r.QuestionId.ValueString(),
-		QuestionName:    "",
-		Tags:            r.Tags,
-		Name:            r.Name.ValueString(),
-		Description:     r.Description.ValueString(),
-		SpecVersion:     int(r.SpecVersion.ValueInt64()),
-		Outputs:         r.Outputs,
-		PollingInterval: client.SchedulerPollingInterval(r.PollingInterval.ValueString()),
-		NotifyOnFailure: r.NotifyOnFailure.ValueBool(),
+		QuestionId:                      r.QuestionId.ValueString(),
+		Tags:                            r.Tags,
+		Name:                            r.Name.ValueString(),
+		Description:                     r.Description.ValueString(),
+		SpecVersion:                     int(r.SpecVersion.ValueInt64()),
+		Outputs:                         r.Outputs,
+		PollingInterval:                 client.SchedulerPollingInterval(r.PollingInterval.ValueString()),
+		NotifyOnFailure:                 r.NotifyOnFailure.ValueBool(),
+		TriggerActionsOnNewEntitiesOnly: r.TriggerOnNewOnly.ValueBool(),
 	}
 
 	var err error
@@ -629,16 +630,17 @@ func (r *RuleModel) BuildCreateReferencedQuestionRuleInstanceInput() (client.Cre
 
 func (r *RuleModel) BuildUpdateReferencedQuestionRuleInstanceInput() (client.UpdateReferencedQuestionRuleInstanceInput, error) {
 	rule := client.UpdateReferencedQuestionRuleInstanceInput{
-		Id:              r.Id.ValueString(),
-		Name:            r.Name.ValueString(),
-		Description:     r.Description.ValueString(),
-		Version:         int(r.Version.ValueInt64()),
-		SpecVersion:     int(r.SpecVersion.ValueInt64()),
-		QuestionId:      r.QuestionId.ValueString(),
-		PollingInterval: client.SchedulerPollingInterval(r.PollingInterval.ValueString()),
-		Outputs:         r.Outputs,
-		Tags:            r.Tags,
-		NotifyOnFailure: r.NotifyOnFailure.ValueBool(),
+		Id:                              r.Id.ValueString(),
+		Name:                            r.Name.ValueString(),
+		Description:                     r.Description.ValueString(),
+		Version:                         int(r.Version.ValueInt64()),
+		SpecVersion:                     int(r.SpecVersion.ValueInt64()),
+		QuestionId:                      r.QuestionId.ValueString(),
+		PollingInterval:                 client.SchedulerPollingInterval(r.PollingInterval.ValueString()),
+		Outputs:                         r.Outputs,
+		Tags:                            r.Tags,
+		NotifyOnFailure:                 r.NotifyOnFailure.ValueBool(),
+		TriggerActionsOnNewEntitiesOnly: r.TriggerOnNewOnly.ValueBool(),
 	}
 
 	var err error
@@ -668,13 +670,14 @@ func (r *RuleModel) BuildUpdateReferencedQuestionRuleInstanceInput() (client.Upd
 
 func (r *RuleModel) BuildCreateInlineQuestionRuleInstanceInput() (client.CreateInlineQuestionRuleInstanceInput, error) {
 	rule := client.CreateInlineQuestionRuleInstanceInput{
-		Tags:            r.Tags,
-		Name:            r.Name.ValueString(),
-		Description:     r.Description.ValueString(),
-		SpecVersion:     int(r.SpecVersion.ValueInt64()),
-		Outputs:         r.Outputs,
-		PollingInterval: client.SchedulerPollingInterval(r.PollingInterval.ValueString()),
-		NotifyOnFailure: r.NotifyOnFailure.ValueBool(),
+		Tags:                            r.Tags,
+		Name:                            r.Name.ValueString(),
+		Description:                     r.Description.ValueString(),
+		SpecVersion:                     int(r.SpecVersion.ValueInt64()),
+		Outputs:                         r.Outputs,
+		PollingInterval:                 client.SchedulerPollingInterval(r.PollingInterval.ValueString()),
+		NotifyOnFailure:                 r.NotifyOnFailure.ValueBool(),
+		TriggerActionsOnNewEntitiesOnly: r.TriggerOnNewOnly.ValueBool(),
 	}
 
 	var err error
@@ -712,16 +715,17 @@ func (r *RuleModel) BuildCreateInlineQuestionRuleInstanceInput() (client.CreateI
 
 func (r *RuleModel) BuildUpdateInlineQuestionRuleInstanceInput() (client.UpdateInlineQuestionRuleInstanceInput, error) {
 	rule := client.UpdateInlineQuestionRuleInstanceInput{
-		Id:              r.Id.ValueString(),
-		Version:         int(r.Version.ValueInt64()),
-		State:           client.RuleStateInput{},
-		Tags:            r.Tags,
-		Name:            r.Name.ValueString(),
-		Description:     r.Description.ValueString(),
-		SpecVersion:     int(r.SpecVersion.ValueInt64()),
-		Outputs:         r.Outputs,
-		PollingInterval: client.SchedulerPollingInterval(r.PollingInterval.ValueString()),
-		NotifyOnFailure: r.NotifyOnFailure.ValueBool(),
+		Id:                              r.Id.ValueString(),
+		Version:                         int(r.Version.ValueInt64()),
+		State:                           client.RuleStateInput{},
+		Tags:                            r.Tags,
+		Name:                            r.Name.ValueString(),
+		Description:                     r.Description.ValueString(),
+		SpecVersion:                     int(r.SpecVersion.ValueInt64()),
+		Outputs:                         r.Outputs,
+		PollingInterval:                 client.SchedulerPollingInterval(r.PollingInterval.ValueString()),
+		NotifyOnFailure:                 r.NotifyOnFailure.ValueBool(),
+		TriggerActionsOnNewEntitiesOnly: r.TriggerOnNewOnly.ValueBool(),
 	}
 
 	var err error
