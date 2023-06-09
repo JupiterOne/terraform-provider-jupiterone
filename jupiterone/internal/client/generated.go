@@ -8,6 +8,47 @@ import (
 	"github.com/Khan/genqlient/graphql"
 )
 
+// AttachComplianceLibraryItemToComplianceFrameworkItemAttachComplianceLibraryItemToComplianceFrameworkItemComplianceLibraryItemToComplianceFrameworkItemRelationship includes the requested fields of the GraphQL type ComplianceLibraryItemToComplianceFrameworkItemRelationship.
+type AttachComplianceLibraryItemToComplianceFrameworkItemAttachComplianceLibraryItemToComplianceFrameworkItemComplianceLibraryItemToComplianceFrameworkItemRelationship struct {
+	RelationshipType LibraryItemToFrameworkItemRelationshipType `json:"relationshipType"`
+}
+
+// GetRelationshipType returns AttachComplianceLibraryItemToComplianceFrameworkItemAttachComplianceLibraryItemToComplianceFrameworkItemComplianceLibraryItemToComplianceFrameworkItemRelationship.RelationshipType, and is useful for accessing the field via an interface.
+func (v *AttachComplianceLibraryItemToComplianceFrameworkItemAttachComplianceLibraryItemToComplianceFrameworkItemComplianceLibraryItemToComplianceFrameworkItemRelationship) GetRelationshipType() LibraryItemToFrameworkItemRelationshipType {
+	return v.RelationshipType
+}
+
+type AttachComplianceLibraryItemToComplianceFrameworkItemInput struct {
+	FrameworkItemId  string                                     `json:"frameworkItemId"`
+	LibraryItemId    string                                     `json:"libraryItemId"`
+	RelationshipType LibraryItemToFrameworkItemRelationshipType `json:"relationshipType"`
+}
+
+// GetFrameworkItemId returns AttachComplianceLibraryItemToComplianceFrameworkItemInput.FrameworkItemId, and is useful for accessing the field via an interface.
+func (v *AttachComplianceLibraryItemToComplianceFrameworkItemInput) GetFrameworkItemId() string {
+	return v.FrameworkItemId
+}
+
+// GetLibraryItemId returns AttachComplianceLibraryItemToComplianceFrameworkItemInput.LibraryItemId, and is useful for accessing the field via an interface.
+func (v *AttachComplianceLibraryItemToComplianceFrameworkItemInput) GetLibraryItemId() string {
+	return v.LibraryItemId
+}
+
+// GetRelationshipType returns AttachComplianceLibraryItemToComplianceFrameworkItemInput.RelationshipType, and is useful for accessing the field via an interface.
+func (v *AttachComplianceLibraryItemToComplianceFrameworkItemInput) GetRelationshipType() LibraryItemToFrameworkItemRelationshipType {
+	return v.RelationshipType
+}
+
+// AttachComplianceLibraryItemToComplianceFrameworkItemResponse is returned by AttachComplianceLibraryItemToComplianceFrameworkItem on success.
+type AttachComplianceLibraryItemToComplianceFrameworkItemResponse struct {
+	AttachComplianceLibraryItemToComplianceFrameworkItem AttachComplianceLibraryItemToComplianceFrameworkItemAttachComplianceLibraryItemToComplianceFrameworkItemComplianceLibraryItemToComplianceFrameworkItemRelationship `json:"attachComplianceLibraryItemToComplianceFrameworkItem"`
+}
+
+// GetAttachComplianceLibraryItemToComplianceFrameworkItem returns AttachComplianceLibraryItemToComplianceFrameworkItemResponse.AttachComplianceLibraryItemToComplianceFrameworkItem, and is useful for accessing the field via an interface.
+func (v *AttachComplianceLibraryItemToComplianceFrameworkItemResponse) GetAttachComplianceLibraryItemToComplianceFrameworkItem() AttachComplianceLibraryItemToComplianceFrameworkItemAttachComplianceLibraryItemToComplianceFrameworkItemComplianceLibraryItemToComplianceFrameworkItemRelationship {
+	return v.AttachComplianceLibraryItemToComplianceFrameworkItem
+}
+
 type ComplianceFrameworkItemAuditStatus string
 
 const (
@@ -635,6 +676,41 @@ func (v *DeleteRuleInstanceResponse) GetDeleteRuleInstance() DeleteRuleInstanceD
 	return v.DeleteRuleInstance
 }
 
+// DetachComplianceLibraryItemFromComplianceFrameworkItemDetachComplianceLibraryItemFromComplianceFrameworkItemComplianceLibraryItemToComplianceFrameworkItemRelationship includes the requested fields of the GraphQL type ComplianceLibraryItemToComplianceFrameworkItemRelationship.
+type DetachComplianceLibraryItemFromComplianceFrameworkItemDetachComplianceLibraryItemFromComplianceFrameworkItemComplianceLibraryItemToComplianceFrameworkItemRelationship struct {
+	RelationshipType LibraryItemToFrameworkItemRelationshipType `json:"relationshipType"`
+}
+
+// GetRelationshipType returns DetachComplianceLibraryItemFromComplianceFrameworkItemDetachComplianceLibraryItemFromComplianceFrameworkItemComplianceLibraryItemToComplianceFrameworkItemRelationship.RelationshipType, and is useful for accessing the field via an interface.
+func (v *DetachComplianceLibraryItemFromComplianceFrameworkItemDetachComplianceLibraryItemFromComplianceFrameworkItemComplianceLibraryItemToComplianceFrameworkItemRelationship) GetRelationshipType() LibraryItemToFrameworkItemRelationshipType {
+	return v.RelationshipType
+}
+
+type DetachComplianceLibraryItemFromComplianceFrameworkItemInput struct {
+	FrameworkItemId string `json:"frameworkItemId"`
+	LibraryItemId   string `json:"libraryItemId"`
+}
+
+// GetFrameworkItemId returns DetachComplianceLibraryItemFromComplianceFrameworkItemInput.FrameworkItemId, and is useful for accessing the field via an interface.
+func (v *DetachComplianceLibraryItemFromComplianceFrameworkItemInput) GetFrameworkItemId() string {
+	return v.FrameworkItemId
+}
+
+// GetLibraryItemId returns DetachComplianceLibraryItemFromComplianceFrameworkItemInput.LibraryItemId, and is useful for accessing the field via an interface.
+func (v *DetachComplianceLibraryItemFromComplianceFrameworkItemInput) GetLibraryItemId() string {
+	return v.LibraryItemId
+}
+
+// DetachComplianceLibraryItemFromComplianceFrameworkItemResponse is returned by DetachComplianceLibraryItemFromComplianceFrameworkItem on success.
+type DetachComplianceLibraryItemFromComplianceFrameworkItemResponse struct {
+	DetachComplianceLibraryItemFromComplianceFrameworkItem DetachComplianceLibraryItemFromComplianceFrameworkItemDetachComplianceLibraryItemFromComplianceFrameworkItemComplianceLibraryItemToComplianceFrameworkItemRelationship `json:"detachComplianceLibraryItemFromComplianceFrameworkItem"`
+}
+
+// GetDetachComplianceLibraryItemFromComplianceFrameworkItem returns DetachComplianceLibraryItemFromComplianceFrameworkItemResponse.DetachComplianceLibraryItemFromComplianceFrameworkItem, and is useful for accessing the field via an interface.
+func (v *DetachComplianceLibraryItemFromComplianceFrameworkItemResponse) GetDetachComplianceLibraryItemFromComplianceFrameworkItem() DetachComplianceLibraryItemFromComplianceFrameworkItemDetachComplianceLibraryItemFromComplianceFrameworkItemComplianceLibraryItemToComplianceFrameworkItemRelationship {
+	return v.DetachComplianceLibraryItemFromComplianceFrameworkItem
+}
+
 // GetComplianceFrameworkByIdComplianceFramework includes the requested fields of the GraphQL type ComplianceFramework.
 type GetComplianceFrameworkByIdComplianceFramework struct {
 	Id            string                                                     `json:"id"`
@@ -756,6 +832,62 @@ type GetComplianceFrameworkItemByIdResponse struct {
 
 // GetComplianceFrameworkItem returns GetComplianceFrameworkItemByIdResponse.ComplianceFrameworkItem, and is useful for accessing the field via an interface.
 func (v *GetComplianceFrameworkItemByIdResponse) GetComplianceFrameworkItem() GetComplianceFrameworkItemByIdComplianceFrameworkItem {
+	return v.ComplianceFrameworkItem
+}
+
+// GetComplianceFrameworkItemRelationshipsByIdComplianceFrameworkItem includes the requested fields of the GraphQL type ComplianceFrameworkItem.
+type GetComplianceFrameworkItemRelationshipsByIdComplianceFrameworkItem struct {
+	LibraryItems GetComplianceFrameworkItemRelationshipsByIdComplianceFrameworkItemLibraryItemsComplianceLibraryItemsForFrameworkItem `json:"libraryItems"`
+}
+
+// GetLibraryItems returns GetComplianceFrameworkItemRelationshipsByIdComplianceFrameworkItem.LibraryItems, and is useful for accessing the field via an interface.
+func (v *GetComplianceFrameworkItemRelationshipsByIdComplianceFrameworkItem) GetLibraryItems() GetComplianceFrameworkItemRelationshipsByIdComplianceFrameworkItemLibraryItemsComplianceLibraryItemsForFrameworkItem {
+	return v.LibraryItems
+}
+
+// GetComplianceFrameworkItemRelationshipsByIdComplianceFrameworkItemLibraryItemsComplianceLibraryItemsForFrameworkItem includes the requested fields of the GraphQL type ComplianceLibraryItemsForFrameworkItem.
+type GetComplianceFrameworkItemRelationshipsByIdComplianceFrameworkItemLibraryItemsComplianceLibraryItemsForFrameworkItem struct {
+	InheritedEvidenceLibraryItems []GetComplianceFrameworkItemRelationshipsByIdComplianceFrameworkItemLibraryItemsComplianceLibraryItemsForFrameworkItemInheritedEvidenceLibraryItemsComplianceLibraryItem `json:"inheritedEvidenceLibraryItems"`
+	IgnoredEvidenceLibraryItems   []GetComplianceFrameworkItemRelationshipsByIdComplianceFrameworkItemLibraryItemsComplianceLibraryItemsForFrameworkItemIgnoredEvidenceLibraryItemsComplianceLibraryItem   `json:"ignoredEvidenceLibraryItems"`
+}
+
+// GetInheritedEvidenceLibraryItems returns GetComplianceFrameworkItemRelationshipsByIdComplianceFrameworkItemLibraryItemsComplianceLibraryItemsForFrameworkItem.InheritedEvidenceLibraryItems, and is useful for accessing the field via an interface.
+func (v *GetComplianceFrameworkItemRelationshipsByIdComplianceFrameworkItemLibraryItemsComplianceLibraryItemsForFrameworkItem) GetInheritedEvidenceLibraryItems() []GetComplianceFrameworkItemRelationshipsByIdComplianceFrameworkItemLibraryItemsComplianceLibraryItemsForFrameworkItemInheritedEvidenceLibraryItemsComplianceLibraryItem {
+	return v.InheritedEvidenceLibraryItems
+}
+
+// GetIgnoredEvidenceLibraryItems returns GetComplianceFrameworkItemRelationshipsByIdComplianceFrameworkItemLibraryItemsComplianceLibraryItemsForFrameworkItem.IgnoredEvidenceLibraryItems, and is useful for accessing the field via an interface.
+func (v *GetComplianceFrameworkItemRelationshipsByIdComplianceFrameworkItemLibraryItemsComplianceLibraryItemsForFrameworkItem) GetIgnoredEvidenceLibraryItems() []GetComplianceFrameworkItemRelationshipsByIdComplianceFrameworkItemLibraryItemsComplianceLibraryItemsForFrameworkItemIgnoredEvidenceLibraryItemsComplianceLibraryItem {
+	return v.IgnoredEvidenceLibraryItems
+}
+
+// GetComplianceFrameworkItemRelationshipsByIdComplianceFrameworkItemLibraryItemsComplianceLibraryItemsForFrameworkItemIgnoredEvidenceLibraryItemsComplianceLibraryItem includes the requested fields of the GraphQL type ComplianceLibraryItem.
+type GetComplianceFrameworkItemRelationshipsByIdComplianceFrameworkItemLibraryItemsComplianceLibraryItemsForFrameworkItemIgnoredEvidenceLibraryItemsComplianceLibraryItem struct {
+	Id string `json:"id"`
+}
+
+// GetId returns GetComplianceFrameworkItemRelationshipsByIdComplianceFrameworkItemLibraryItemsComplianceLibraryItemsForFrameworkItemIgnoredEvidenceLibraryItemsComplianceLibraryItem.Id, and is useful for accessing the field via an interface.
+func (v *GetComplianceFrameworkItemRelationshipsByIdComplianceFrameworkItemLibraryItemsComplianceLibraryItemsForFrameworkItemIgnoredEvidenceLibraryItemsComplianceLibraryItem) GetId() string {
+	return v.Id
+}
+
+// GetComplianceFrameworkItemRelationshipsByIdComplianceFrameworkItemLibraryItemsComplianceLibraryItemsForFrameworkItemInheritedEvidenceLibraryItemsComplianceLibraryItem includes the requested fields of the GraphQL type ComplianceLibraryItem.
+type GetComplianceFrameworkItemRelationshipsByIdComplianceFrameworkItemLibraryItemsComplianceLibraryItemsForFrameworkItemInheritedEvidenceLibraryItemsComplianceLibraryItem struct {
+	Id string `json:"id"`
+}
+
+// GetId returns GetComplianceFrameworkItemRelationshipsByIdComplianceFrameworkItemLibraryItemsComplianceLibraryItemsForFrameworkItemInheritedEvidenceLibraryItemsComplianceLibraryItem.Id, and is useful for accessing the field via an interface.
+func (v *GetComplianceFrameworkItemRelationshipsByIdComplianceFrameworkItemLibraryItemsComplianceLibraryItemsForFrameworkItemInheritedEvidenceLibraryItemsComplianceLibraryItem) GetId() string {
+	return v.Id
+}
+
+// GetComplianceFrameworkItemRelationshipsByIdResponse is returned by GetComplianceFrameworkItemRelationshipsById on success.
+type GetComplianceFrameworkItemRelationshipsByIdResponse struct {
+	ComplianceFrameworkItem GetComplianceFrameworkItemRelationshipsByIdComplianceFrameworkItem `json:"complianceFrameworkItem"`
+}
+
+// GetComplianceFrameworkItem returns GetComplianceFrameworkItemRelationshipsByIdResponse.ComplianceFrameworkItem, and is useful for accessing the field via an interface.
+func (v *GetComplianceFrameworkItemRelationshipsByIdResponse) GetComplianceFrameworkItem() GetComplianceFrameworkItemRelationshipsByIdComplianceFrameworkItem {
 	return v.ComplianceFrameworkItem
 }
 
@@ -1013,6 +1145,13 @@ func (v *J1QueryInput) GetVersion() string { return v.Version }
 
 // GetIncludeDeleted returns J1QueryInput.IncludeDeleted, and is useful for accessing the field via an interface.
 func (v *J1QueryInput) GetIncludeDeleted() bool { return v.IncludeDeleted }
+
+type LibraryItemToFrameworkItemRelationshipType string
+
+const (
+	LibraryItemToFrameworkItemRelationshipTypeIgnoreEvidence  LibraryItemToFrameworkItemRelationshipType = "IGNORE_EVIDENCE"
+	LibraryItemToFrameworkItemRelationshipTypeInheritEvidence LibraryItemToFrameworkItemRelationshipType = "INHERIT_EVIDENCE"
+)
 
 type QueryResultsAre string
 
@@ -1423,6 +1562,56 @@ func (v *UpdateComplianceLibraryItemResponse) GetUpdateComplianceLibraryItem() U
 	return v.UpdateComplianceLibraryItem
 }
 
+type UpdateComplianceLibraryItemToComplianceFrameworkItemRelationshipFields struct {
+	RelationshipType LibraryItemToFrameworkItemRelationshipType `json:"relationshipType"`
+}
+
+// GetRelationshipType returns UpdateComplianceLibraryItemToComplianceFrameworkItemRelationshipFields.RelationshipType, and is useful for accessing the field via an interface.
+func (v *UpdateComplianceLibraryItemToComplianceFrameworkItemRelationshipFields) GetRelationshipType() LibraryItemToFrameworkItemRelationshipType {
+	return v.RelationshipType
+}
+
+type UpdateComplianceLibraryItemToComplianceFrameworkItemRelationshipInput struct {
+	FrameworkItemId string                                                                 `json:"frameworkItemId"`
+	LibraryItemId   string                                                                 `json:"libraryItemId"`
+	Updates         UpdateComplianceLibraryItemToComplianceFrameworkItemRelationshipFields `json:"updates"`
+}
+
+// GetFrameworkItemId returns UpdateComplianceLibraryItemToComplianceFrameworkItemRelationshipInput.FrameworkItemId, and is useful for accessing the field via an interface.
+func (v *UpdateComplianceLibraryItemToComplianceFrameworkItemRelationshipInput) GetFrameworkItemId() string {
+	return v.FrameworkItemId
+}
+
+// GetLibraryItemId returns UpdateComplianceLibraryItemToComplianceFrameworkItemRelationshipInput.LibraryItemId, and is useful for accessing the field via an interface.
+func (v *UpdateComplianceLibraryItemToComplianceFrameworkItemRelationshipInput) GetLibraryItemId() string {
+	return v.LibraryItemId
+}
+
+// GetUpdates returns UpdateComplianceLibraryItemToComplianceFrameworkItemRelationshipInput.Updates, and is useful for accessing the field via an interface.
+func (v *UpdateComplianceLibraryItemToComplianceFrameworkItemRelationshipInput) GetUpdates() UpdateComplianceLibraryItemToComplianceFrameworkItemRelationshipFields {
+	return v.Updates
+}
+
+// UpdateComplianceLibraryItemToComplianceFrameworkItemRelationshipResponse is returned by UpdateComplianceLibraryItemToComplianceFrameworkItemRelationship on success.
+type UpdateComplianceLibraryItemToComplianceFrameworkItemRelationshipResponse struct {
+	UpdateComplianceLibraryItemToComplianceFrameworkItemRelationship UpdateComplianceLibraryItemToComplianceFrameworkItemRelationshipUpdateComplianceLibraryItemToComplianceFrameworkItemRelationship `json:"updateComplianceLibraryItemToComplianceFrameworkItemRelationship"`
+}
+
+// GetUpdateComplianceLibraryItemToComplianceFrameworkItemRelationship returns UpdateComplianceLibraryItemToComplianceFrameworkItemRelationshipResponse.UpdateComplianceLibraryItemToComplianceFrameworkItemRelationship, and is useful for accessing the field via an interface.
+func (v *UpdateComplianceLibraryItemToComplianceFrameworkItemRelationshipResponse) GetUpdateComplianceLibraryItemToComplianceFrameworkItemRelationship() UpdateComplianceLibraryItemToComplianceFrameworkItemRelationshipUpdateComplianceLibraryItemToComplianceFrameworkItemRelationship {
+	return v.UpdateComplianceLibraryItemToComplianceFrameworkItemRelationship
+}
+
+// UpdateComplianceLibraryItemToComplianceFrameworkItemRelationshipUpdateComplianceLibraryItemToComplianceFrameworkItemRelationship includes the requested fields of the GraphQL type ComplianceLibraryItemToComplianceFrameworkItemRelationship.
+type UpdateComplianceLibraryItemToComplianceFrameworkItemRelationshipUpdateComplianceLibraryItemToComplianceFrameworkItemRelationship struct {
+	RelationshipType LibraryItemToFrameworkItemRelationshipType `json:"relationshipType"`
+}
+
+// GetRelationshipType returns UpdateComplianceLibraryItemToComplianceFrameworkItemRelationshipUpdateComplianceLibraryItemToComplianceFrameworkItemRelationship.RelationshipType, and is useful for accessing the field via an interface.
+func (v *UpdateComplianceLibraryItemToComplianceFrameworkItemRelationshipUpdateComplianceLibraryItemToComplianceFrameworkItemRelationship) GetRelationshipType() LibraryItemToFrameworkItemRelationshipType {
+	return v.RelationshipType
+}
+
 // UpdateComplianceLibraryItemUpdateComplianceLibraryItem includes the requested fields of the GraphQL type ComplianceLibraryItem.
 type UpdateComplianceLibraryItemUpdateComplianceLibraryItem struct {
 	Id string `json:"id"`
@@ -1671,6 +1860,16 @@ func (v *UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstanc
 	return v.Operations
 }
 
+// __AttachComplianceLibraryItemToComplianceFrameworkItemInput is used internally by genqlient
+type __AttachComplianceLibraryItemToComplianceFrameworkItemInput struct {
+	Input AttachComplianceLibraryItemToComplianceFrameworkItemInput `json:"input"`
+}
+
+// GetInput returns __AttachComplianceLibraryItemToComplianceFrameworkItemInput.Input, and is useful for accessing the field via an interface.
+func (v *__AttachComplianceLibraryItemToComplianceFrameworkItemInput) GetInput() AttachComplianceLibraryItemToComplianceFrameworkItemInput {
+	return v.Input
+}
+
 // __CreateComplianceFrameworkInput is used internally by genqlient
 type __CreateComplianceFrameworkInput struct {
 	Framework CreateComplianceFrameworkInput `json:"framework"`
@@ -1785,6 +1984,16 @@ type __DeleteRuleInstanceInput struct {
 // GetId returns __DeleteRuleInstanceInput.Id, and is useful for accessing the field via an interface.
 func (v *__DeleteRuleInstanceInput) GetId() string { return v.Id }
 
+// __DetachComplianceLibraryItemFromComplianceFrameworkItemInput is used internally by genqlient
+type __DetachComplianceLibraryItemFromComplianceFrameworkItemInput struct {
+	Input DetachComplianceLibraryItemFromComplianceFrameworkItemInput `json:"input"`
+}
+
+// GetInput returns __DetachComplianceLibraryItemFromComplianceFrameworkItemInput.Input, and is useful for accessing the field via an interface.
+func (v *__DetachComplianceLibraryItemFromComplianceFrameworkItemInput) GetInput() DetachComplianceLibraryItemFromComplianceFrameworkItemInput {
+	return v.Input
+}
+
 // __GetComplianceFrameworkByIdInput is used internally by genqlient
 type __GetComplianceFrameworkByIdInput struct {
 	FrameworkId string `json:"frameworkId"`
@@ -1800,6 +2009,14 @@ type __GetComplianceFrameworkItemByIdInput struct {
 
 // GetId returns __GetComplianceFrameworkItemByIdInput.Id, and is useful for accessing the field via an interface.
 func (v *__GetComplianceFrameworkItemByIdInput) GetId() string { return v.Id }
+
+// __GetComplianceFrameworkItemRelationshipsByIdInput is used internally by genqlient
+type __GetComplianceFrameworkItemRelationshipsByIdInput struct {
+	Id string `json:"id"`
+}
+
+// GetId returns __GetComplianceFrameworkItemRelationshipsByIdInput.Id, and is useful for accessing the field via an interface.
+func (v *__GetComplianceFrameworkItemRelationshipsByIdInput) GetId() string { return v.Id }
 
 // __GetComplianceGroupsInput is used internally by genqlient
 type __GetComplianceGroupsInput struct {
@@ -1869,6 +2086,16 @@ func (v *__UpdateComplianceLibraryItemInput) GetInput() UpdateComplianceLibraryI
 	return v.Input
 }
 
+// __UpdateComplianceLibraryItemToComplianceFrameworkItemRelationshipInput is used internally by genqlient
+type __UpdateComplianceLibraryItemToComplianceFrameworkItemRelationshipInput struct {
+	Input UpdateComplianceLibraryItemToComplianceFrameworkItemRelationshipInput `json:"input"`
+}
+
+// GetInput returns __UpdateComplianceLibraryItemToComplianceFrameworkItemRelationshipInput.Input, and is useful for accessing the field via an interface.
+func (v *__UpdateComplianceLibraryItemToComplianceFrameworkItemRelationshipInput) GetInput() UpdateComplianceLibraryItemToComplianceFrameworkItemRelationshipInput {
+	return v.Input
+}
+
 // __UpdateInlineQuestionRuleInstanceInput is used internally by genqlient
 type __UpdateInlineQuestionRuleInstanceInput struct {
 	Instance UpdateInlineQuestionRuleInstanceInput `json:"instance"`
@@ -1899,6 +2126,38 @@ type __UpdateReferencedQuestionRuleInstanceInput struct {
 // GetInstance returns __UpdateReferencedQuestionRuleInstanceInput.Instance, and is useful for accessing the field via an interface.
 func (v *__UpdateReferencedQuestionRuleInstanceInput) GetInstance() UpdateReferencedQuestionRuleInstanceInput {
 	return v.Instance
+}
+
+func AttachComplianceLibraryItemToComplianceFrameworkItem(
+	ctx context.Context,
+	client graphql.Client,
+	input AttachComplianceLibraryItemToComplianceFrameworkItemInput,
+) (*AttachComplianceLibraryItemToComplianceFrameworkItemResponse, error) {
+	req := &graphql.Request{
+		OpName: "AttachComplianceLibraryItemToComplianceFrameworkItem",
+		Query: `
+mutation AttachComplianceLibraryItemToComplianceFrameworkItem ($input: AttachComplianceLibraryItemToComplianceFrameworkItemInput!) {
+	attachComplianceLibraryItemToComplianceFrameworkItem(input: $input) {
+		relationshipType
+	}
+}
+`,
+		Variables: &__AttachComplianceLibraryItemToComplianceFrameworkItemInput{
+			Input: input,
+		},
+	}
+	var err error
+
+	var data AttachComplianceLibraryItemToComplianceFrameworkItemResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
 }
 
 func CreateComplianceFramework(
@@ -2329,6 +2588,38 @@ mutation DeleteRuleInstance ($id: ID!) {
 	return &data, err
 }
 
+func DetachComplianceLibraryItemFromComplianceFrameworkItem(
+	ctx context.Context,
+	client graphql.Client,
+	input DetachComplianceLibraryItemFromComplianceFrameworkItemInput,
+) (*DetachComplianceLibraryItemFromComplianceFrameworkItemResponse, error) {
+	req := &graphql.Request{
+		OpName: "DetachComplianceLibraryItemFromComplianceFrameworkItem",
+		Query: `
+mutation DetachComplianceLibraryItemFromComplianceFrameworkItem ($input: DetachComplianceLibraryItemFromComplianceFrameworkItemInput!) {
+	detachComplianceLibraryItemFromComplianceFrameworkItem(input: $input) {
+		relationshipType
+	}
+}
+`,
+		Variables: &__DetachComplianceLibraryItemFromComplianceFrameworkItemInput{
+			Input: input,
+		},
+	}
+	var err error
+
+	var data DetachComplianceLibraryItemFromComplianceFrameworkItemResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
 func GetComplianceFrameworkById(
 	ctx context.Context,
 	client graphql.Client,
@@ -2399,6 +2690,46 @@ query GetComplianceFrameworkItemById ($id: ID!) {
 	var err error
 
 	var data GetComplianceFrameworkItemByIdResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+// this query for for use in compliance_relationship resource reads
+func GetComplianceFrameworkItemRelationshipsById(
+	ctx context.Context,
+	client graphql.Client,
+	id string,
+) (*GetComplianceFrameworkItemRelationshipsByIdResponse, error) {
+	req := &graphql.Request{
+		OpName: "GetComplianceFrameworkItemRelationshipsById",
+		Query: `
+query GetComplianceFrameworkItemRelationshipsById ($id: ID!) {
+	complianceFrameworkItem(input: {id:$id}) {
+		libraryItems {
+			inheritedEvidenceLibraryItems {
+				id
+			}
+			ignoredEvidenceLibraryItems {
+				id
+			}
+		}
+	}
+}
+`,
+		Variables: &__GetComplianceFrameworkItemRelationshipsByIdInput{
+			Id: id,
+		},
+	}
+	var err error
+
+	var data GetComplianceFrameworkItemRelationshipsByIdResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(
@@ -2711,6 +3042,38 @@ mutation UpdateComplianceLibraryItem ($input: UpdateComplianceLibraryItemInput!)
 	var err error
 
 	var data UpdateComplianceLibraryItemResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func UpdateComplianceLibraryItemToComplianceFrameworkItemRelationship(
+	ctx context.Context,
+	client graphql.Client,
+	input UpdateComplianceLibraryItemToComplianceFrameworkItemRelationshipInput,
+) (*UpdateComplianceLibraryItemToComplianceFrameworkItemRelationshipResponse, error) {
+	req := &graphql.Request{
+		OpName: "UpdateComplianceLibraryItemToComplianceFrameworkItemRelationship",
+		Query: `
+mutation UpdateComplianceLibraryItemToComplianceFrameworkItemRelationship ($input: UpdateComplianceLibraryItemToComplianceFrameworkItemRelationshipInput!) {
+	updateComplianceLibraryItemToComplianceFrameworkItemRelationship(input: $input) {
+		relationshipType
+	}
+}
+`,
+		Variables: &__UpdateComplianceLibraryItemToComplianceFrameworkItemRelationshipInput{
+			Input: input,
+		},
+	}
+	var err error
+
+	var data UpdateComplianceLibraryItemToComplianceFrameworkItemRelationshipResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(

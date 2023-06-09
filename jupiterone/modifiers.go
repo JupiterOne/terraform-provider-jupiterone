@@ -11,6 +11,9 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
+// UUIDStrLength is the length of UUID. TODO: Add a UUID validator
+const UUIDStrLength = 36
+
 var _ planmodifier.String = (*jsonIgnoreDiff)(nil)
 var _ planmodifier.List = (*jsonIgnoreDiff)(nil)
 var _ planmodifier.Map = (*jsonIgnoreDiff)(nil)

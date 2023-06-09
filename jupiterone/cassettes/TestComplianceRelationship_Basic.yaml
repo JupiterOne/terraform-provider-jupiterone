@@ -1,0 +1,939 @@
+---
+version: 2
+interactions:
+    - id: 0
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 341
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.us.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nmutation CreateComplianceFramework ($framework: CreateComplianceFrameworkInput!) {\n\tcreateComplianceFramework(input: $framework) {\n\t\tid\n\t}\n}\n","variables":{"framework":{"name":"tf-acc-test-framework","version":"1","frameworkType":"STANDARD","webLink":"","scopeFilters":null}},"operationName":"CreateComplianceFramework"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.us.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 85
+        uncompressed: false
+        body: |
+            {"data":{"createComplianceFramework":{"id":"9e8595a7-6b6e-42cc-8a29-c80e85f9e899"}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Content-Length:
+                - "85"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json
+            Cross-Origin-Embedder-Policy:
+                - require-corp
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Expect-Ct:
+                - max-age=0
+            Origin-Agent-Cluster:
+                - ?1
+            Ratelimit-Limit:
+                - "1000"
+            Ratelimit-Remaining:
+                - "999"
+            Ratelimit-Requested:
+                - "1"
+            Ratelimit-Reset:
+                - "1"
+            Referrer-Policy:
+                - no-referrer
+            Strict-Transport-Security:
+                - max-age=15552000; includeSubDomains
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 1.790640916s
+    - id: 1
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 339
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.us.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nmutation CreateComplianceGroup ($input: CreateComplianceGroupInput!) {\n\tcreateComplianceGroup(input: $input) {\n\t\tid\n\t}\n}\n","variables":{"input":{"name":"tf-acc-test-group","description":"","displayCategory":"","frameworkId":"9e8595a7-6b6e-42cc-8a29-c80e85f9e899","webLink":""}},"operationName":"CreateComplianceGroup"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.us.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 81
+        uncompressed: false
+        body: |
+            {"data":{"createComplianceGroup":{"id":"daee12fb-be37-461f-b9e3-9ad96d778159"}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Content-Length:
+                - "81"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json
+            Cross-Origin-Embedder-Policy:
+                - require-corp
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Expect-Ct:
+                - max-age=0
+            Origin-Agent-Cluster:
+                - ?1
+            Ratelimit-Limit:
+                - "1000"
+            Ratelimit-Remaining:
+                - "999"
+            Ratelimit-Requested:
+                - "1"
+            Ratelimit-Reset:
+                - "1"
+            Referrer-Policy:
+                - no-referrer
+            Strict-Transport-Security:
+                - max-age=15552000; includeSubDomains
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 1.15666s
+    - id: 2
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 428
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.us.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nmutation CreateComplianceFrameworkItem ($input: CreateComplianceFrameworkItemInput!) {\n\tcreateComplianceFrameworkItem(input: $input) {\n\t\tid\n\t}\n}\n","variables":{"input":{"name":"tf-acc-test-item","description":"","displayCategory":"","ref":"","frameworkId":"9e8595a7-6b6e-42cc-8a29-c80e85f9e899","groupId":"daee12fb-be37-461f-b9e3-9ad96d778159","webLink":""}},"operationName":"CreateComplianceFrameworkItem"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.us.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 89
+        uncompressed: false
+        body: |
+            {"data":{"createComplianceFrameworkItem":{"id":"58bf83f7-77bd-40d6-864a-34dc10dd5577"}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Content-Length:
+                - "89"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json
+            Cross-Origin-Embedder-Policy:
+                - require-corp
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Expect-Ct:
+                - max-age=0
+            Origin-Agent-Cluster:
+                - ?1
+            Ratelimit-Limit:
+                - "1000"
+            Ratelimit-Remaining:
+                - "999"
+            Ratelimit-Requested:
+                - "1"
+            Ratelimit-Reset:
+                - "1"
+            Referrer-Policy:
+                - no-referrer
+            Strict-Transport-Security:
+                - max-age=15552000; includeSubDomains
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 3.044858917s
+    - id: 3
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 321
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.us.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nmutation CreateComplianceLibraryItem ($input: CreateComplianceLibraryItemInput!) {\n\tcreateComplianceLibraryItem(input: $input) {\n\t\tid\n\t}\n}\n","variables":{"input":{"name":"tf-acc-test-control","description":"","displayCategory":"","ref":"","webLink":""}},"operationName":"CreateComplianceLibraryItem"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.us.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 87
+        uncompressed: false
+        body: |
+            {"data":{"createComplianceLibraryItem":{"id":"a4f10947-b942-4c9a-9e47-b9beae67dac3"}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Content-Length:
+                - "87"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json
+            Cross-Origin-Embedder-Policy:
+                - require-corp
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Expect-Ct:
+                - max-age=0
+            Origin-Agent-Cluster:
+                - ?1
+            Ratelimit-Limit:
+                - "1000"
+            Ratelimit-Remaining:
+                - "999"
+            Ratelimit-Requested:
+                - "1"
+            Ratelimit-Reset:
+                - "1"
+            Referrer-Policy:
+                - no-referrer
+            Strict-Transport-Security:
+                - max-age=15552000; includeSubDomains
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 1.455908875s
+    - id: 4
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 496
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.us.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nmutation AttachComplianceLibraryItemToComplianceFrameworkItem ($input: AttachComplianceLibraryItemToComplianceFrameworkItemInput!) {\n\tattachComplianceLibraryItemToComplianceFrameworkItem(input: $input) {\n\t\trelationshipType\n\t}\n}\n","variables":{"input":{"frameworkItemId":"58bf83f7-77bd-40d6-864a-34dc10dd5577","libraryItemId":"a4f10947-b942-4c9a-9e47-b9beae67dac3","relationshipType":"INHERIT_EVIDENCE"}},"operationName":"AttachComplianceLibraryItemToComplianceFrameworkItem"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.us.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 106
+        uncompressed: false
+        body: |
+            {"data":{"attachComplianceLibraryItemToComplianceFrameworkItem":{"relationshipType":"INHERIT_EVIDENCE"}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Content-Length:
+                - "106"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json
+            Cross-Origin-Embedder-Policy:
+                - require-corp
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Expect-Ct:
+                - max-age=0
+            Origin-Agent-Cluster:
+                - ?1
+            Ratelimit-Limit:
+                - "1000"
+            Ratelimit-Remaining:
+                - "999"
+            Ratelimit-Requested:
+                - "1"
+            Ratelimit-Reset:
+                - "1"
+            Referrer-Policy:
+                - no-referrer
+            Strict-Transport-Security:
+                - max-age=15552000; includeSubDomains
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 493.763625ms
+    - id: 5
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 397
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.us.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetComplianceFrameworkItemRelationshipsById ($id: ID!) {\n\tcomplianceFrameworkItem(input: {id:$id}) {\n\t\tlibraryItems {\n\t\t\tinheritedEvidenceLibraryItems {\n\t\t\t\tid\n\t\t\t}\n\t\t\tignoredEvidenceLibraryItems {\n\t\t\t\tid\n\t\t\t}\n\t\t}\n\t}\n}\n","variables":{"id":"58bf83f7-77bd-40d6-864a-34dc10dd5577"},"operationName":"GetComplianceFrameworkItemRelationshipsById"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.us.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 169
+        uncompressed: false
+        body: |
+            {"data":{"complianceFrameworkItem":{"libraryItems":{"inheritedEvidenceLibraryItems":[{"id":"a4f10947-b942-4c9a-9e47-b9beae67dac3"}],"ignoredEvidenceLibraryItems":[]}}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Content-Length:
+                - "169"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json
+            Cross-Origin-Embedder-Policy:
+                - require-corp
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Expect-Ct:
+                - max-age=0
+            Origin-Agent-Cluster:
+                - ?1
+            Ratelimit-Limit:
+                - "1000"
+            Ratelimit-Remaining:
+                - "999"
+            Ratelimit-Requested:
+                - "1"
+            Ratelimit-Reset:
+                - "1"
+            Referrer-Policy:
+                - no-referrer
+            Strict-Transport-Security:
+                - max-age=15552000; includeSubDomains
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 1.040642959s
+    - id: 6
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 397
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.us.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetComplianceFrameworkItemRelationshipsById ($id: ID!) {\n\tcomplianceFrameworkItem(input: {id:$id}) {\n\t\tlibraryItems {\n\t\t\tinheritedEvidenceLibraryItems {\n\t\t\t\tid\n\t\t\t}\n\t\t\tignoredEvidenceLibraryItems {\n\t\t\t\tid\n\t\t\t}\n\t\t}\n\t}\n}\n","variables":{"id":"58bf83f7-77bd-40d6-864a-34dc10dd5577"},"operationName":"GetComplianceFrameworkItemRelationshipsById"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.us.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 169
+        uncompressed: false
+        body: |
+            {"data":{"complianceFrameworkItem":{"libraryItems":{"inheritedEvidenceLibraryItems":[{"id":"a4f10947-b942-4c9a-9e47-b9beae67dac3"}],"ignoredEvidenceLibraryItems":[]}}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Content-Length:
+                - "169"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json
+            Cross-Origin-Embedder-Policy:
+                - require-corp
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Expect-Ct:
+                - max-age=0
+            Origin-Agent-Cluster:
+                - ?1
+            Ratelimit-Limit:
+                - "1000"
+            Ratelimit-Remaining:
+                - "999"
+            Ratelimit-Requested:
+                - "1"
+            Ratelimit-Reset:
+                - "1"
+            Referrer-Policy:
+                - no-referrer
+            Strict-Transport-Security:
+                - max-age=15552000; includeSubDomains
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 1.140330208s
+    - id: 7
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 555
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.us.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nmutation UpdateComplianceLibraryItemToComplianceFrameworkItemRelationship ($input: UpdateComplianceLibraryItemToComplianceFrameworkItemRelationshipInput!) {\n\tupdateComplianceLibraryItemToComplianceFrameworkItemRelationship(input: $input) {\n\t\trelationshipType\n\t}\n}\n","variables":{"input":{"frameworkItemId":"58bf83f7-77bd-40d6-864a-34dc10dd5577","libraryItemId":"a4f10947-b942-4c9a-9e47-b9beae67dac3","updates":{"relationshipType":"IGNORE_EVIDENCE"}}},"operationName":"UpdateComplianceLibraryItemToComplianceFrameworkItemRelationship"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.us.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 117
+        uncompressed: false
+        body: |
+            {"data":{"updateComplianceLibraryItemToComplianceFrameworkItemRelationship":{"relationshipType":"IGNORE_EVIDENCE"}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Content-Length:
+                - "117"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json
+            Cross-Origin-Embedder-Policy:
+                - require-corp
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Expect-Ct:
+                - max-age=0
+            Origin-Agent-Cluster:
+                - ?1
+            Ratelimit-Limit:
+                - "1000"
+            Ratelimit-Remaining:
+                - "999"
+            Ratelimit-Requested:
+                - "1"
+            Ratelimit-Reset:
+                - "1"
+            Referrer-Policy:
+                - no-referrer
+            Strict-Transport-Security:
+                - max-age=15552000; includeSubDomains
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 1.195835792s
+    - id: 8
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 397
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.us.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetComplianceFrameworkItemRelationshipsById ($id: ID!) {\n\tcomplianceFrameworkItem(input: {id:$id}) {\n\t\tlibraryItems {\n\t\t\tinheritedEvidenceLibraryItems {\n\t\t\t\tid\n\t\t\t}\n\t\t\tignoredEvidenceLibraryItems {\n\t\t\t\tid\n\t\t\t}\n\t\t}\n\t}\n}\n","variables":{"id":"58bf83f7-77bd-40d6-864a-34dc10dd5577"},"operationName":"GetComplianceFrameworkItemRelationshipsById"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.us.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 169
+        uncompressed: false
+        body: |
+            {"data":{"complianceFrameworkItem":{"libraryItems":{"inheritedEvidenceLibraryItems":[],"ignoredEvidenceLibraryItems":[{"id":"a4f10947-b942-4c9a-9e47-b9beae67dac3"}]}}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Content-Length:
+                - "169"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json
+            Cross-Origin-Embedder-Policy:
+                - require-corp
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Expect-Ct:
+                - max-age=0
+            Origin-Agent-Cluster:
+                - ?1
+            Ratelimit-Limit:
+                - "1000"
+            Ratelimit-Remaining:
+                - "999"
+            Ratelimit-Requested:
+                - "1"
+            Ratelimit-Reset:
+                - "1"
+            Referrer-Policy:
+                - no-referrer
+            Strict-Transport-Security:
+                - max-age=15552000; includeSubDomains
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 963.460667ms
+    - id: 9
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 466
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.us.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nmutation DetachComplianceLibraryItemFromComplianceFrameworkItem ($input: DetachComplianceLibraryItemFromComplianceFrameworkItemInput!) {\n\tdetachComplianceLibraryItemFromComplianceFrameworkItem(input: $input) {\n\t\trelationshipType\n\t}\n}\n","variables":{"input":{"frameworkItemId":"58bf83f7-77bd-40d6-864a-34dc10dd5577","libraryItemId":"a4f10947-b942-4c9a-9e47-b9beae67dac3"}},"operationName":"DetachComplianceLibraryItemFromComplianceFrameworkItem"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.us.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 107
+        uncompressed: false
+        body: |
+            {"data":{"detachComplianceLibraryItemFromComplianceFrameworkItem":{"relationshipType":"IGNORE_EVIDENCE"}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Content-Length:
+                - "107"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json
+            Cross-Origin-Embedder-Policy:
+                - require-corp
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Expect-Ct:
+                - max-age=0
+            Origin-Agent-Cluster:
+                - ?1
+            Ratelimit-Limit:
+                - "1000"
+            Ratelimit-Remaining:
+                - "999"
+            Ratelimit-Requested:
+                - "1"
+            Ratelimit-Reset:
+                - "1"
+            Referrer-Policy:
+                - no-referrer
+            Strict-Transport-Security:
+                - max-age=15552000; includeSubDomains
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 468.120375ms
+    - id: 10
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 253
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.us.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nmutation DeleteComplianceFramework ($input: DeleteComplianceFrameworkInput!) {\n\tdeleteComplianceFramework(input: $input)\n}\n","variables":{"input":{"id":"9e8595a7-6b6e-42cc-8a29-c80e85f9e899"}},"operationName":"DeleteComplianceFramework"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.us.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 78
+        uncompressed: false
+        body: |
+            {"data":{"deleteComplianceFramework":"9e8595a7-6b6e-42cc-8a29-c80e85f9e899"}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Content-Length:
+                - "78"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json
+            Cross-Origin-Embedder-Policy:
+                - require-corp
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Expect-Ct:
+                - max-age=0
+            Origin-Agent-Cluster:
+                - ?1
+            Ratelimit-Limit:
+                - "1000"
+            Ratelimit-Remaining:
+                - "999"
+            Ratelimit-Requested:
+                - "1"
+            Ratelimit-Reset:
+                - "1"
+            Referrer-Policy:
+                - no-referrer
+            Strict-Transport-Security:
+                - max-age=15552000; includeSubDomains
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 1.099630833s
+    - id: 11
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 220
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.us.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nmutation DeleteComplianceLibraryItem ($id: ID!) {\n\tdeleteComplianceLibraryItem(input: {id:$id})\n}\n","variables":{"id":"a4f10947-b942-4c9a-9e47-b9beae67dac3"},"operationName":"DeleteComplianceLibraryItem"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.us.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 80
+        uncompressed: false
+        body: |
+            {"data":{"deleteComplianceLibraryItem":"a4f10947-b942-4c9a-9e47-b9beae67dac3"}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Content-Length:
+                - "80"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json
+            Cross-Origin-Embedder-Policy:
+                - require-corp
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Expect-Ct:
+                - max-age=0
+            Origin-Agent-Cluster:
+                - ?1
+            Ratelimit-Limit:
+                - "1000"
+            Ratelimit-Remaining:
+                - "999"
+            Ratelimit-Requested:
+                - "1"
+            Ratelimit-Reset:
+                - "1"
+            Referrer-Policy:
+                - no-referrer
+            Strict-Transport-Security:
+                - max-age=15552000; includeSubDomains
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 439.663ms

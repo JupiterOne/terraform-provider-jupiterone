@@ -129,3 +129,43 @@ mutation UpdateComplianceLibraryItem(
     id
   }
 }
+
+mutation AttachComplianceLibraryItemToComplianceFrameworkItem(
+  $input: AttachComplianceLibraryItemToComplianceFrameworkItemInput!
+) {
+  attachComplianceLibraryItemToComplianceFrameworkItem(input: $input) {
+    relationshipType
+  }
+}
+
+mutation UpdateComplianceLibraryItemToComplianceFrameworkItemRelationship(
+  $input: UpdateComplianceLibraryItemToComplianceFrameworkItemRelationshipInput!
+) {
+  updateComplianceLibraryItemToComplianceFrameworkItemRelationship(
+    input: $input
+  ) {
+    relationshipType
+  }
+}
+
+mutation DetachComplianceLibraryItemFromComplianceFrameworkItem(
+  $input: DetachComplianceLibraryItemFromComplianceFrameworkItemInput!
+) {
+  detachComplianceLibraryItemFromComplianceFrameworkItem(input: $input) {
+    relationshipType
+  }
+}
+
+# this query for for use in compliance_relationship resource reads
+query GetComplianceFrameworkItemRelationshipsById($id: ID!) {
+  complianceFrameworkItem(input: { id: $id }) {
+    libraryItems {
+      inheritedEvidenceLibraryItems {
+        id
+      }
+      ignoredEvidenceLibraryItems {
+        id
+      }
+    }
+  }
+}
