@@ -186,17 +186,17 @@ func (*QuestionRuleResource) Schema(ctx context.Context, req resource.SchemaRequ
 			},
 			"spec_version": schema.Int64Attribute{
 				Description: "Rule evaluation specification version in the case of breaking changes.",
-				Computed:    true,
-				Optional:    true,
 				Default:     int64default.StaticInt64(1),
+				Optional:    true,
+				Computed:    true,
 				PlanModifiers: []planmodifier.Int64{
 					int64planmodifier.UseStateForUnknown(),
 				},
 			},
 			"polling_interval": schema.StringAttribute{
 				Description: "Frequency of automated rule evaluation. Defaults to ONE_DAY.",
-				Computed:    true,
 				Optional:    true,
+				Computed:    true,
 				Default:     stringdefault.StaticString(string(client.SchedulerPollingIntervalOneDay)),
 				Validators: []validator.String{
 					stringvalidator.OneOf(PollingIntervals...),
@@ -351,6 +351,14 @@ func (*QuestionRuleResource) ModifyPlan(ctx context.Context, req resource.Modify
 		return
 	}
 
+	// switching from referenced to inline requires replacement
+	if plan.QuestionId.IsNull() && !state.QuestionId.IsNull() {
+		resp.RequiresReplace = append(resp.RequiresReplace, path.Root("question_id"))
+	}
+	if len(plan.Question) == 0 && len(state.Question) != 0 {
+		resp.RequiresReplace = append(resp.RequiresReplace, path.Root("question"))
+	}
+
 	if !reflect.DeepEqual(plan, state) {
 		resp.Diagnostics.Append(resp.Plan.SetAttribute(ctx, path.Root("version"),
 			types.Int64Unknown())...)
@@ -474,6 +482,8 @@ func (r *QuestionRuleResource) Read(ctx context.Context, req resource.ReadReques
 
 	if rule.QuestionId != "" {
 		data.QuestionId = types.StringValue(rule.QuestionId)
+	} else {
+		data.QuestionId = types.StringNull()
 	}
 	if queries := rule.Question.Queries; len(queries) > 0 {
 		data.Question = []*RuleQuestion{{Queries: []*J1QueryInputModel{
@@ -484,6 +494,8 @@ func (r *QuestionRuleResource) Read(ctx context.Context, req resource.ReadReques
 				IncludedDeleted: queries[0].IncludeDeleted,
 			},
 		}}}
+	} else {
+		data.Question = nil
 	}
 
 	data.Operations, err = newOperationsWithoutId(rule.Operations)

@@ -82,6 +82,7 @@ mutation CreateReferencedQuestionRuleInstance(
 # @genqlient(for: "UpdateInlineQuestionRuleInstanceInput.latestAlertId", omitempty: true)
 # @genqlient(for: "UpdateInlineQuestionRuleInstanceInput.outputs", omitempty: true)
 # @genqlient(for: "UpdateInlineQuestionRuleInstanceInput.state", omitempty: true)
+# @genqlient(for: "UpdateInlineQuestionRuleInstanceInput.remediationSteps", omitempty: true)
 mutation UpdateInlineQuestionRuleInstance(
   $instance: UpdateInlineQuestionRuleInstanceInput!
 ) {

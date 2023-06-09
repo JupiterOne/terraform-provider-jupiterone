@@ -30,7 +30,7 @@ interactions:
         content_length: 87
         uncompressed: false
         body: |
-            {"data":{"createComplianceLibraryItem":{"id":"c3fcceb3-0432-410f-9ee2-f6fcda06960a"}}}
+            {"data":{"createComplianceLibraryItem":{"id":"8b1cba81-a151-4f48-8c99-0df4ef026ad7"}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -78,7 +78,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 1.048421958s
+        duration: 814.004291ms
     - id: 1
       request:
         proto: HTTP/1.1
@@ -90,7 +90,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetComplianceLibraryItemById ($id: ID!) {\n\tcomplianceLibraryItem(input: {id:$id}) {\n\t\tname\n\t\tdescription\n\t\tdisplayCategory\n\t\tref\n\t\twebLink\n\t\tpolicyItemId\n\t}\n}\n","variables":{"id":"c3fcceb3-0432-410f-9ee2-f6fcda06960a"},"operationName":"GetComplianceLibraryItemById"}'
+        body: '{"query":"\nquery GetComplianceLibraryItemById ($id: ID!) {\n\tcomplianceLibraryItem(input: {id:$id}) {\n\t\tname\n\t\tdescription\n\t\tdisplayCategory\n\t\tref\n\t\twebLink\n\t\tpolicyItemId\n\t}\n}\n","variables":{"id":"8b1cba81-a151-4f48-8c99-0df4ef026ad7"},"operationName":"GetComplianceLibraryItemById"}'
         form: {}
         headers:
             Cache-Control:
@@ -156,7 +156,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 823.158958ms
+        duration: 732.782ms
     - id: 2
       request:
         proto: HTTP/1.1
@@ -168,7 +168,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetComplianceLibraryItemById ($id: ID!) {\n\tcomplianceLibraryItem(input: {id:$id}) {\n\t\tname\n\t\tdescription\n\t\tdisplayCategory\n\t\tref\n\t\twebLink\n\t\tpolicyItemId\n\t}\n}\n","variables":{"id":"c3fcceb3-0432-410f-9ee2-f6fcda06960a"},"operationName":"GetComplianceLibraryItemById"}'
+        body: '{"query":"\nquery GetComplianceLibraryItemById ($id: ID!) {\n\tcomplianceLibraryItem(input: {id:$id}) {\n\t\tname\n\t\tdescription\n\t\tdisplayCategory\n\t\tref\n\t\twebLink\n\t\tpolicyItemId\n\t}\n}\n","variables":{"id":"8b1cba81-a151-4f48-8c99-0df4ef026ad7"},"operationName":"GetComplianceLibraryItemById"}'
         form: {}
         headers:
             Cache-Control:
@@ -234,7 +234,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 692.921375ms
+        duration: 523.44ms
     - id: 3
       request:
         proto: HTTP/1.1
@@ -246,7 +246,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nmutation UpdateComplianceLibraryItem ($input: UpdateComplianceLibraryItemInput!) {\n\tupdateComplianceLibraryItem(input: $input) {\n\t\tid\n\t}\n}\n","variables":{"input":{"id":"c3fcceb3-0432-410f-9ee2-f6fcda06960a","updates":{"name":"tf-provider-acc test LibraryItem","description":"tf-provider acceptance test library item","displayCategory":"third","ref":"test-requirement-2","webLink":"https://community.askj1.com/kb/articles/795-compliance-api-endpoints"}}},"operationName":"UpdateComplianceLibraryItem"}'
+        body: '{"query":"\nmutation UpdateComplianceLibraryItem ($input: UpdateComplianceLibraryItemInput!) {\n\tupdateComplianceLibraryItem(input: $input) {\n\t\tid\n\t}\n}\n","variables":{"input":{"id":"8b1cba81-a151-4f48-8c99-0df4ef026ad7","updates":{"name":"tf-provider-acc test LibraryItem","description":"tf-provider acceptance test library item","displayCategory":"third","ref":"test-requirement-2","webLink":"https://community.askj1.com/kb/articles/795-compliance-api-endpoints"}}},"operationName":"UpdateComplianceLibraryItem"}'
         form: {}
         headers:
             Cache-Control:
@@ -264,7 +264,7 @@ interactions:
         content_length: 87
         uncompressed: false
         body: |
-            {"data":{"updateComplianceLibraryItem":{"id":"c3fcceb3-0432-410f-9ee2-f6fcda06960a"}}}
+            {"data":{"updateComplianceLibraryItem":{"id":"8b1cba81-a151-4f48-8c99-0df4ef026ad7"}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -312,7 +312,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 807.280125ms
+        duration: 926.156208ms
     - id: 4
       request:
         proto: HTTP/1.1
@@ -324,7 +324,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetComplianceLibraryItemById ($id: ID!) {\n\tcomplianceLibraryItem(input: {id:$id}) {\n\t\tname\n\t\tdescription\n\t\tdisplayCategory\n\t\tref\n\t\twebLink\n\t\tpolicyItemId\n\t}\n}\n","variables":{"id":"c3fcceb3-0432-410f-9ee2-f6fcda06960a"},"operationName":"GetComplianceLibraryItemById"}'
+        body: '{"query":"\nquery GetComplianceLibraryItemById ($id: ID!) {\n\tcomplianceLibraryItem(input: {id:$id}) {\n\t\tname\n\t\tdescription\n\t\tdisplayCategory\n\t\tref\n\t\twebLink\n\t\tpolicyItemId\n\t}\n}\n","variables":{"id":"8b1cba81-a151-4f48-8c99-0df4ef026ad7"},"operationName":"GetComplianceLibraryItemById"}'
         form: {}
         headers:
             Cache-Control:
@@ -390,7 +390,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 564.576417ms
+        duration: 639.802791ms
     - id: 5
       request:
         proto: HTTP/1.1
@@ -402,7 +402,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetComplianceLibraryItemById ($id: ID!) {\n\tcomplianceLibraryItem(input: {id:$id}) {\n\t\tname\n\t\tdescription\n\t\tdisplayCategory\n\t\tref\n\t\twebLink\n\t\tpolicyItemId\n\t}\n}\n","variables":{"id":"c3fcceb3-0432-410f-9ee2-f6fcda06960a"},"operationName":"GetComplianceLibraryItemById"}'
+        body: '{"query":"\nquery GetComplianceLibraryItemById ($id: ID!) {\n\tcomplianceLibraryItem(input: {id:$id}) {\n\t\tname\n\t\tdescription\n\t\tdisplayCategory\n\t\tref\n\t\twebLink\n\t\tpolicyItemId\n\t}\n}\n","variables":{"id":"8b1cba81-a151-4f48-8c99-0df4ef026ad7"},"operationName":"GetComplianceLibraryItemById"}'
         form: {}
         headers:
             Cache-Control:
@@ -468,7 +468,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 580.363625ms
+        duration: 604.99475ms
     - id: 6
       request:
         proto: HTTP/1.1
@@ -480,7 +480,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nmutation UpdateComplianceLibraryItem ($input: UpdateComplianceLibraryItemInput!) {\n\tupdateComplianceLibraryItem(input: $input) {\n\t\tid\n\t}\n}\n","variables":{"input":{"id":"c3fcceb3-0432-410f-9ee2-f6fcda06960a","updates":{"name":"tf-provider-acc-test updated name","description":"tf-provider acceptance test library item","displayCategory":"third","ref":"test-requirement-2","webLink":"https://community.askj1.com/kb/articles/795-compliance-api-endpoints"}}},"operationName":"UpdateComplianceLibraryItem"}'
+        body: '{"query":"\nmutation UpdateComplianceLibraryItem ($input: UpdateComplianceLibraryItemInput!) {\n\tupdateComplianceLibraryItem(input: $input) {\n\t\tid\n\t}\n}\n","variables":{"input":{"id":"8b1cba81-a151-4f48-8c99-0df4ef026ad7","updates":{"name":"tf-provider-acc-test updated name","description":"tf-provider acceptance test library item","displayCategory":"third","ref":"test-requirement-2","webLink":"https://community.askj1.com/kb/articles/795-compliance-api-endpoints"}}},"operationName":"UpdateComplianceLibraryItem"}'
         form: {}
         headers:
             Cache-Control:
@@ -498,7 +498,7 @@ interactions:
         content_length: 87
         uncompressed: false
         body: |
-            {"data":{"updateComplianceLibraryItem":{"id":"c3fcceb3-0432-410f-9ee2-f6fcda06960a"}}}
+            {"data":{"updateComplianceLibraryItem":{"id":"8b1cba81-a151-4f48-8c99-0df4ef026ad7"}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -546,7 +546,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 792.8955ms
+        duration: 603.709875ms
     - id: 7
       request:
         proto: HTTP/1.1
@@ -558,7 +558,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetComplianceLibraryItemById ($id: ID!) {\n\tcomplianceLibraryItem(input: {id:$id}) {\n\t\tname\n\t\tdescription\n\t\tdisplayCategory\n\t\tref\n\t\twebLink\n\t\tpolicyItemId\n\t}\n}\n","variables":{"id":"c3fcceb3-0432-410f-9ee2-f6fcda06960a"},"operationName":"GetComplianceLibraryItemById"}'
+        body: '{"query":"\nquery GetComplianceLibraryItemById ($id: ID!) {\n\tcomplianceLibraryItem(input: {id:$id}) {\n\t\tname\n\t\tdescription\n\t\tdisplayCategory\n\t\tref\n\t\twebLink\n\t\tpolicyItemId\n\t}\n}\n","variables":{"id":"8b1cba81-a151-4f48-8c99-0df4ef026ad7"},"operationName":"GetComplianceLibraryItemById"}'
         form: {}
         headers:
             Cache-Control:
@@ -624,7 +624,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 624.816042ms
+        duration: 532.333833ms
     - id: 8
       request:
         proto: HTTP/1.1
@@ -636,7 +636,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetComplianceLibraryItemById ($id: ID!) {\n\tcomplianceLibraryItem(input: {id:$id}) {\n\t\tname\n\t\tdescription\n\t\tdisplayCategory\n\t\tref\n\t\twebLink\n\t\tpolicyItemId\n\t}\n}\n","variables":{"id":"c3fcceb3-0432-410f-9ee2-f6fcda06960a"},"operationName":"GetComplianceLibraryItemById"}'
+        body: '{"query":"\nquery GetComplianceLibraryItemById ($id: ID!) {\n\tcomplianceLibraryItem(input: {id:$id}) {\n\t\tname\n\t\tdescription\n\t\tdisplayCategory\n\t\tref\n\t\twebLink\n\t\tpolicyItemId\n\t}\n}\n","variables":{"id":"8b1cba81-a151-4f48-8c99-0df4ef026ad7"},"operationName":"GetComplianceLibraryItemById"}'
         form: {}
         headers:
             Cache-Control:
@@ -702,7 +702,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 667.865166ms
+        duration: 932.803083ms
     - id: 9
       request:
         proto: HTTP/1.1
@@ -714,7 +714,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nmutation UpdateComplianceLibraryItem ($input: UpdateComplianceLibraryItemInput!) {\n\tupdateComplianceLibraryItem(input: $input) {\n\t\tid\n\t}\n}\n","variables":{"input":{"id":"c3fcceb3-0432-410f-9ee2-f6fcda06960a","updates":{"name":"tf-provider-acc-test updated name","description":"","displayCategory":"","ref":"test-requirement-1","webLink":""}}},"operationName":"UpdateComplianceLibraryItem"}'
+        body: '{"query":"\nmutation UpdateComplianceLibraryItem ($input: UpdateComplianceLibraryItemInput!) {\n\tupdateComplianceLibraryItem(input: $input) {\n\t\tid\n\t}\n}\n","variables":{"input":{"id":"8b1cba81-a151-4f48-8c99-0df4ef026ad7","updates":{"name":"tf-provider-acc-test updated name","description":"","displayCategory":"","ref":"test-requirement-1","webLink":""}}},"operationName":"UpdateComplianceLibraryItem"}'
         form: {}
         headers:
             Cache-Control:
@@ -732,7 +732,7 @@ interactions:
         content_length: 87
         uncompressed: false
         body: |
-            {"data":{"updateComplianceLibraryItem":{"id":"c3fcceb3-0432-410f-9ee2-f6fcda06960a"}}}
+            {"data":{"updateComplianceLibraryItem":{"id":"8b1cba81-a151-4f48-8c99-0df4ef026ad7"}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -780,7 +780,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 635.434042ms
+        duration: 628.269667ms
     - id: 10
       request:
         proto: HTTP/1.1
@@ -792,7 +792,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetComplianceLibraryItemById ($id: ID!) {\n\tcomplianceLibraryItem(input: {id:$id}) {\n\t\tname\n\t\tdescription\n\t\tdisplayCategory\n\t\tref\n\t\twebLink\n\t\tpolicyItemId\n\t}\n}\n","variables":{"id":"c3fcceb3-0432-410f-9ee2-f6fcda06960a"},"operationName":"GetComplianceLibraryItemById"}'
+        body: '{"query":"\nquery GetComplianceLibraryItemById ($id: ID!) {\n\tcomplianceLibraryItem(input: {id:$id}) {\n\t\tname\n\t\tdescription\n\t\tdisplayCategory\n\t\tref\n\t\twebLink\n\t\tpolicyItemId\n\t}\n}\n","variables":{"id":"8b1cba81-a151-4f48-8c99-0df4ef026ad7"},"operationName":"GetComplianceLibraryItemById"}'
         form: {}
         headers:
             Cache-Control:
@@ -858,7 +858,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 592.793625ms
+        duration: 587.510917ms
     - id: 11
       request:
         proto: HTTP/1.1
@@ -870,7 +870,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nmutation DeleteComplianceLibraryItem ($id: ID!) {\n\tdeleteComplianceLibraryItem(input: {id:$id})\n}\n","variables":{"id":"c3fcceb3-0432-410f-9ee2-f6fcda06960a"},"operationName":"DeleteComplianceLibraryItem"}'
+        body: '{"query":"\nmutation DeleteComplianceLibraryItem ($id: ID!) {\n\tdeleteComplianceLibraryItem(input: {id:$id})\n}\n","variables":{"id":"8b1cba81-a151-4f48-8c99-0df4ef026ad7"},"operationName":"DeleteComplianceLibraryItem"}'
         form: {}
         headers:
             Cache-Control:
@@ -888,7 +888,7 @@ interactions:
         content_length: 80
         uncompressed: false
         body: |
-            {"data":{"deleteComplianceLibraryItem":"c3fcceb3-0432-410f-9ee2-f6fcda06960a"}}
+            {"data":{"deleteComplianceLibraryItem":"8b1cba81-a151-4f48-8c99-0df4ef026ad7"}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -936,4 +936,4 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 370.7255ms
+        duration: 404.92625ms

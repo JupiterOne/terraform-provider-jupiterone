@@ -6,13 +6,13 @@ interactions:
         proto: HTTP/1.1
         proto_major: 1
         proto_minor: 1
-        content_length: 973
+        content_length: 995
         transfer_encoding: []
         trailer: {}
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nmutation CreateInlineQuestionRuleInstance ($instance: CreateInlineQuestionRuleInstanceInput!) {\n\tcreateQuestionRuleInstance: createInlineQuestionRuleInstance(instance: $instance) {\n\t\tid\n\t\tversion\n\t\tspecVersion\n\t\tquestion {\n\t\t\tqueries {\n\t\t\t\tname\n\t\t\t\tquery\n\t\t\t\tversion\n\t\t\t\tincludeDeleted\n\t\t\t}\n\t\t}\n\t\toperations {\n\t\t\twhen\n\t\t\tactions\n\t\t}\n\t}\n}\n","variables":{"instance":{"question":{"queries":[{"query":"Find DataStore with classification=(''critical'' or ''sensitive'' or ''confidential'' or ''restricted'') and encrypted!=true","name":"query0","version":"v1","includeDeleted":false}]},"templates":null,"tags":["tf_acc:1","tf_acc:2"],"name":"tf-provider-test-rule","description":"test","specVersion":1,"operations":[],"outputs":["queries.query0.total","alertLevel"],"pollingInterval":"ONE_DAY","notifyOnFailure":false,"triggerActionsOnNewEntitiesOnly":false}},"operationName":"CreateInlineQuestionRuleInstance"}'
+        body: '{"query":"\nmutation CreateInlineQuestionRuleInstance ($instance: CreateInlineQuestionRuleInstanceInput!) {\n\tcreateQuestionRuleInstance: createInlineQuestionRuleInstance(instance: $instance) {\n\t\tid\n\t\tversion\n\t\tspecVersion\n\t\tquestion {\n\t\t\tqueries {\n\t\t\t\tname\n\t\t\t\tquery\n\t\t\t\tversion\n\t\t\t\tincludeDeleted\n\t\t\t}\n\t\t}\n\t\toperations {\n\t\t\twhen\n\t\t\tactions\n\t\t}\n\t}\n}\n","variables":{"instance":{"question":{"queries":[{"query":"Find DataStore with classification=(''critical'' or ''sensitive'' or ''confidential'' or ''restricted'') and encrypted!=true","name":"query0","version":"v1","includeDeleted":false}]},"templates":null,"tags":["tf_acc:1","tf_acc:2"],"name":"tf-provider-test-rule","description":"test","specVersion":1,"operations":[],"outputs":["queries.query0.total","alertLevel"],"pollingInterval":"ONE_DAY","notifyOnFailure":false,"triggerActionsOnNewEntitiesOnly":false,"remediationSteps":""}},"operationName":"CreateInlineQuestionRuleInstance"}'
         form: {}
         headers:
             Cache-Control:
@@ -30,7 +30,7 @@ interactions:
         content_length: 338
         uncompressed: false
         body: |
-            {"data":{"createQuestionRuleInstance":{"id":"b667115a-8a73-4681-b89c-9725a72c6c4c","version":1,"specVersion":1,"question":{"queries":[{"name":"query0","query":"Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true","version":"v1","includeDeleted":false}]},"operations":[]}}}
+            {"data":{"createQuestionRuleInstance":{"id":"df1ddec6-838f-4065-b6eb-2ecd51de58f1","version":1,"specVersion":1,"question":{"queries":[{"name":"query0","query":"Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true","version":"v1","includeDeleted":false}]},"operations":[]}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -78,7 +78,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 1.094275209s
+        duration: 1.3022135s
     - id: 1
       request:
         proto: HTTP/1.1
@@ -90,7 +90,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetQuestionRuleInstance ($id: ID!) {\n\tquestionRuleInstance(id: $id) {\n\t\tid\n\t\tname\n\t\tdescription\n\t\tversion\n\t\tspecVersion\n\t\tlatest\n\t\tpollingInterval\n\t\tdeleted\n\t\ttype\n\t\ttemplates\n\t\tnotifyOnFailure\n\t\ttriggerActionsOnNewEntitiesOnly\n\t\tquestionId\n\t\tquestion {\n\t\t\tqueries {\n\t\t\t\tname\n\t\t\t\tquery\n\t\t\t\tversion\n\t\t\t\tincludeDeleted\n\t\t\t}\n\t\t}\n\t\toperations {\n\t\t\twhen\n\t\t\tactions\n\t\t}\n\t\toutputs\n\t\ttags\n\t}\n}\n","variables":{"id":"b667115a-8a73-4681-b89c-9725a72c6c4c"},"operationName":"GetQuestionRuleInstance"}'
+        body: '{"query":"\nquery GetQuestionRuleInstance ($id: ID!) {\n\tquestionRuleInstance(id: $id) {\n\t\tid\n\t\tname\n\t\tdescription\n\t\tversion\n\t\tspecVersion\n\t\tlatest\n\t\tpollingInterval\n\t\tdeleted\n\t\ttype\n\t\ttemplates\n\t\tnotifyOnFailure\n\t\ttriggerActionsOnNewEntitiesOnly\n\t\tquestionId\n\t\tquestion {\n\t\t\tqueries {\n\t\t\t\tname\n\t\t\t\tquery\n\t\t\t\tversion\n\t\t\t\tincludeDeleted\n\t\t\t}\n\t\t}\n\t\toperations {\n\t\t\twhen\n\t\t\tactions\n\t\t}\n\t\toutputs\n\t\ttags\n\t}\n}\n","variables":{"id":"df1ddec6-838f-4065-b6eb-2ecd51de58f1"},"operationName":"GetQuestionRuleInstance"}'
         form: {}
         headers:
             Cache-Control:
@@ -108,7 +108,7 @@ interactions:
         content_length: 638
         uncompressed: false
         body: |
-            {"data":{"questionRuleInstance":{"id":"b667115a-8a73-4681-b89c-9725a72c6c4c","name":"tf-provider-test-rule","description":"test","version":1,"specVersion":1,"latest":true,"pollingInterval":"ONE_DAY","deleted":false,"type":"QUESTION","templates":null,"notifyOnFailure":false,"triggerActionsOnNewEntitiesOnly":false,"questionId":null,"question":{"queries":[{"name":"query0","query":"Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true","version":"v1","includeDeleted":false}]},"operations":[],"outputs":["queries.query0.total","alertLevel"],"tags":["tf_acc:1","tf_acc:2"]}}}
+            {"data":{"questionRuleInstance":{"id":"df1ddec6-838f-4065-b6eb-2ecd51de58f1","name":"tf-provider-test-rule","description":"test","version":1,"specVersion":1,"latest":true,"pollingInterval":"ONE_DAY","deleted":false,"type":"QUESTION","templates":null,"notifyOnFailure":false,"triggerActionsOnNewEntitiesOnly":false,"questionId":null,"question":{"queries":[{"name":"query0","query":"Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true","version":"v1","includeDeleted":false}]},"operations":[],"outputs":["queries.query0.total","alertLevel"],"tags":["tf_acc:1","tf_acc:2"]}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -156,7 +156,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 322.176458ms
+        duration: 318.138292ms
     - id: 2
       request:
         proto: HTTP/1.1
@@ -168,7 +168,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nmutation DeleteRuleInstance ($id: ID!) {\n\tdeleteRuleInstance(id: $id) {\n\t\tid\n\t}\n}\n","variables":{"id":"b667115a-8a73-4681-b89c-9725a72c6c4c"},"operationName":"DeleteRuleInstance"}'
+        body: '{"query":"\nmutation DeleteRuleInstance ($id: ID!) {\n\tdeleteRuleInstance(id: $id) {\n\t\tid\n\t}\n}\n","variables":{"id":"df1ddec6-838f-4065-b6eb-2ecd51de58f1"},"operationName":"DeleteRuleInstance"}'
         form: {}
         headers:
             Cache-Control:
@@ -186,7 +186,7 @@ interactions:
         content_length: 78
         uncompressed: false
         body: |
-            {"data":{"deleteRuleInstance":{"id":"b667115a-8a73-4681-b89c-9725a72c6c4c"}}}
+            {"data":{"deleteRuleInstance":{"id":"df1ddec6-838f-4065-b6eb-2ecd51de58f1"}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -234,4 +234,4 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 354.22ms
+        duration: 321.64175ms

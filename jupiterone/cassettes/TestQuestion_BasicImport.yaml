@@ -30,7 +30,7 @@ interactions:
         content_length: 74
         uncompressed: false
         body: |
-            {"data":{"createQuestion":{"id":"7a32c4a2-8055-4dc2-9e72-206fc4aacde2"}}}
+            {"data":{"createQuestion":{"id":"15212bc2-c193-4447-bbd5-38a01e3389e9"}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -78,7 +78,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 688.467916ms
+        duration: 798.802208ms
     - id: 1
       request:
         proto: HTTP/1.1
@@ -90,7 +90,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetQuestionById ($id: ID!) {\n\tquestion(id: $id) {\n\t\tid\n\t\ttitle\n\t\tdescription\n\t\tpollingInterval\n\t\tqueries {\n\t\t\tname\n\t\t\tquery\n\t\t\tversion\n\t\t\tincludeDeleted\n\t\t\tresultsAre\n\t\t}\n\t\ttags\n\t\tcompliance {\n\t\t\tstandard\n\t\t\trequirements\n\t\t\tcontrols\n\t\t}\n\t}\n}\n","variables":{"id":"7a32c4a2-8055-4dc2-9e72-206fc4aacde2"},"operationName":"GetQuestionById"}'
+        body: '{"query":"\nquery GetQuestionById ($id: ID!) {\n\tquestion(id: $id) {\n\t\tid\n\t\ttitle\n\t\tdescription\n\t\tpollingInterval\n\t\tqueries {\n\t\t\tname\n\t\t\tquery\n\t\t\tversion\n\t\t\tincludeDeleted\n\t\t\tresultsAre\n\t\t}\n\t\ttags\n\t\tcompliance {\n\t\t\tstandard\n\t\t\trequirements\n\t\t\tcontrols\n\t\t}\n\t}\n}\n","variables":{"id":"15212bc2-c193-4447-bbd5-38a01e3389e9"},"operationName":"GetQuestionById"}'
         form: {}
         headers:
             Cache-Control:
@@ -108,7 +108,7 @@ interactions:
         content_length: 405
         uncompressed: false
         body: |
-            {"data":{"question":{"id":"7a32c4a2-8055-4dc2-9e72-206fc4aacde2","title":"tf-provider-test-question","description":"test","pollingInterval":"ONE_DAY","queries":[{"name":"query0","query":"Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true","version":"v1","includeDeleted":false,"resultsAre":"BAD"}],"tags":["tf_acc:1"],"compliance":null}}}
+            {"data":{"question":{"id":"15212bc2-c193-4447-bbd5-38a01e3389e9","title":"tf-provider-test-question","description":"test","pollingInterval":"ONE_DAY","queries":[{"name":"query0","query":"Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true","version":"v1","includeDeleted":false,"resultsAre":"BAD"}],"tags":["tf_acc:1"],"compliance":null}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -156,4 +156,4 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 330.614125ms
+        duration: 341.47775ms
