@@ -228,9 +228,7 @@ func (*QuestionRuleResource) Schema(ctx context.Context, req resource.SchemaRequ
 						"actions": schema.ListAttribute{
 							Required:    true,
 							ElementType: types.StringType,
-							Validators: []validator.List{
-								jsonValidator{},
-							},
+							Validators:  []validator.List{},
 							PlanModifiers: []planmodifier.List{
 								jsonIgnoreDiffPlanModifierList(),
 							},

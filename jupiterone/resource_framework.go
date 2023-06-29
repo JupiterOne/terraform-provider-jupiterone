@@ -131,8 +131,8 @@ func (*ComplianceFrameworkResource) Schema(_ context.Context, _ resource.SchemaR
 				Description: "JSON encoded filters for scoping the framework.",
 				Optional:    true,
 				ElementType: types.StringType,
-				Validators: []validator.List{
-					jsonValidator{},
+				Validators:  []validator.List{
+					// jsonValidator{},
 				},
 				PlanModifiers: []planmodifier.List{
 					jsonIgnoreDiffPlanModifierList(),

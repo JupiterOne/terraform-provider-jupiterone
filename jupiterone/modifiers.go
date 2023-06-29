@@ -313,7 +313,8 @@ func (apm *stringDefaultValuePlanModifier) PlanModifyString(ctx context.Context,
 }
 
 var _ validator.String = jsonValidator{}
-var _ validator.List = jsonValidator{}
+
+// var _ validator.List = jsonValidator{}
 var _ validator.Map = jsonValidator{}
 
 // oneOfValidator validates that the value matches one of expected values.
@@ -353,30 +354,9 @@ func (v jsonValidator) ValidateString(ctx context.Context, req validator.StringR
 }
 
 // ValidateList implements validator.List
-func (v jsonValidator) ValidateList(ctx context.Context, req validator.ListRequest, resp *validator.ListResponse) {
-	var vals []string
-	err := req.ConfigValue.ElementsAs(ctx, &vals, false)
-	if err != nil {
-		resp.Diagnostics.Append(validatordiag.InvalidAttributeValueDiagnostic(
-			req.Path,
-			"not a valid string: "+v.Description(ctx),
-			req.ConfigValue.String(),
-		))
-		return
-	}
-
-	for _, s := range vals {
-		var d interface{}
-		err := json.Unmarshal([]byte(s), &d)
-		if err != nil {
-			resp.Diagnostics.Append(validatordiag.InvalidAttributeValueDiagnostic(
-				req.Path,
-				v.Description(ctx),
-				req.ConfigValue.String(),
-			))
-		}
-	}
-}
+// func (v jsonValidator) ValidateList(ctx context.Context, req validator.ListRequest, resp *validator.ListResponse) {
+// 	//
+// }
 
 // ValidateMap implements validator.Map
 func (v jsonValidator) ValidateMap(ctx context.Context, req validator.MapRequest, resp *validator.MapResponse) {
