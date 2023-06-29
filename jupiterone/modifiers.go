@@ -353,9 +353,6 @@ func (v jsonValidator) ValidateString(ctx context.Context, req validator.StringR
 }
 
 // ValidateList implements validator.List
-// func (v jsonValidator) ValidateList(ctx context.Context, req validator.ListRequest, resp *validator.ListResponse) {
-// 	//
-// }
 
 // ValidateMap implements validator.Map
 func (v jsonValidator) ValidateMap(ctx context.Context, req validator.MapRequest, resp *validator.MapResponse) {
