@@ -4,7 +4,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"os"
 	"reflect"
 
 	"github.com/hashicorp/terraform-plugin-framework-validators/helpers/validatordiag"
@@ -346,9 +345,6 @@ func (v jsonValidator) ValidateString(ctx context.Context, req validator.StringR
 	if req.ConfigValue.IsNull() {
 		return
 	}
-	f, _ := os.Open("out")
-	f.Write([]byte(fmt.Sprintf("%v\n%v\n", req.ConfigValue.ValueString(), *req.ConfigValue.ValueStringPointer())))
-	f.Close()
 
 	var d interface{}
 	err := json.Unmarshal([]byte(req.ConfigValue.ValueString()), &d)
@@ -364,12 +360,9 @@ func (v jsonValidator) ValidateString(ctx context.Context, req validator.StringR
 // ValidateList implements validator.List
 func (v jsonValidator) ValidateList(ctx context.Context, req validator.ListRequest, resp *validator.ListResponse) {
 	var vals []string
-	//f, _ := os.Open("out")
-	//	defer f.Close()
 
 	err := req.ConfigValue.ElementsAs(ctx, &vals, false)
 
-	//	f.Write([]byte(fmt.Sprintf("%v\n%v\n", req.ConfigValue.ValueString(), *req.ConfigValue.ValueStringPointer())))
 	if err != nil {
 		resp.Diagnostics.Append(validatordiag.InvalidAttributeValueDiagnostic(
 			req.Path,
