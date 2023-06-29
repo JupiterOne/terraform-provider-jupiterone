@@ -219,7 +219,6 @@ func (*QuestionRuleResource) Schema(ctx context.Context, req resource.SchemaRequ
 							Optional: true,
 							Validators: []validator.String{
 								stringvalidator.LengthAtLeast(MIN_JSON_LENGTH),
-								jsonValidator{},
 							},
 							PlanModifiers: []planmodifier.String{
 								jsonIgnoreDiffPlanModifier(),
@@ -228,9 +227,6 @@ func (*QuestionRuleResource) Schema(ctx context.Context, req resource.SchemaRequ
 						"actions": schema.ListAttribute{
 							Required:    true,
 							ElementType: types.StringType,
-							Validators: []validator.List{
-								jsonValidator{},
-							},
 							PlanModifiers: []planmodifier.List{
 								jsonIgnoreDiffPlanModifierList(),
 							},
