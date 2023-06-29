@@ -314,7 +314,6 @@ func (apm *stringDefaultValuePlanModifier) PlanModifyString(ctx context.Context,
 
 var _ validator.String = jsonValidator{}
 
-// var _ validator.List = jsonValidator{}
 var _ validator.Map = jsonValidator{}
 
 // oneOfValidator validates that the value matches one of expected values.
