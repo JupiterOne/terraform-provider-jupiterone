@@ -355,15 +355,7 @@ func (v jsonValidator) ValidateString(ctx context.Context, req validator.StringR
 // ValidateList implements validator.List
 func (v jsonValidator) ValidateList(ctx context.Context, req validator.ListRequest, resp *validator.ListResponse) {
 	var vals []string
-	err := req.ConfigValue.ElementsAs(ctx, &vals, false)
-	if err != nil {
-		resp.Diagnostics.Append(validatordiag.InvalidAttributeValueDiagnostic(
-			req.Path,
-			"not a valid string: "+v.Description(ctx),
-			req.ConfigValue.String(),
-		))
-		return
-	}
+	req.ConfigValue.ElementsAs(ctx, &vals, false)
 
 	for _, s := range vals {
 		var d interface{}
