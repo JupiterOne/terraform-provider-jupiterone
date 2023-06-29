@@ -132,7 +132,6 @@ func (*ComplianceFrameworkResource) Schema(_ context.Context, _ resource.SchemaR
 				Optional:    true,
 				ElementType: types.StringType,
 				Validators:  []validator.List{
-					// jsonValidator{},
 				},
 				PlanModifiers: []planmodifier.List{
 					jsonIgnoreDiffPlanModifierList(),
