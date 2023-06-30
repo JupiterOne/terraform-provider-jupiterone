@@ -8,7 +8,6 @@ import (
 
 	"github.com/hashicorp/terraform-plugin-framework-validators/helpers/validatordiag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
@@ -310,94 +309,4 @@ func (apm *stringDefaultValuePlanModifier) PlanModifyString(ctx context.Context,
 	}
 
 	res.PlanValue = apm.DefaultValue
-}
-
-var _ validator.String = jsonValidator{}
-var _ validator.List = jsonValidator{}
-var _ validator.Map = jsonValidator{}
-
-// oneOfValidator validates that the value matches one of expected values.
-type jsonValidator struct {
-}
-
-// Description implements validator.String
-func (jsonValidator) Description(context.Context) string {
-	return "string value must be valid JSON"
-}
-
-// MarkdownDescription implements validator.String
-func (v jsonValidator) MarkdownDescription(ctx context.Context) string {
-	return v.Description(ctx)
-}
-
-// ValidateString implements validator.String
-func (v jsonValidator) ValidateString(ctx context.Context, req validator.StringRequest, resp *validator.StringResponse) {
-	if req.ConfigValue.IsUnknown() {
-		return
-	}
-
-	// TODO: check if optional?
-	if req.ConfigValue.IsNull() {
-		return
-	}
-
-	var d interface{}
-	err := json.Unmarshal([]byte(req.ConfigValue.ValueString()), &d)
-	if err != nil {
-		resp.Diagnostics.Append(validatordiag.InvalidAttributeValueDiagnostic(
-			req.Path,
-			v.Description(ctx),
-			req.ConfigValue.String(),
-		))
-	}
-}
-
-// ValidateList implements validator.List
-func (v jsonValidator) ValidateList(ctx context.Context, req validator.ListRequest, resp *validator.ListResponse) {
-	var vals []string
-	err := req.ConfigValue.ElementsAs(ctx, &vals, false)
-	if err != nil {
-		resp.Diagnostics.Append(validatordiag.InvalidAttributeValueDiagnostic(
-			req.Path,
-			"not a valid string: "+v.Description(ctx),
-			req.ConfigValue.String(),
-		))
-		return
-	}
-
-	for _, s := range vals {
-		var d interface{}
-		err := json.Unmarshal([]byte(s), &d)
-		if err != nil {
-			resp.Diagnostics.Append(validatordiag.InvalidAttributeValueDiagnostic(
-				req.Path,
-				v.Description(ctx),
-				req.ConfigValue.String(),
-			))
-		}
-	}
-}
-
-// ValidateMap implements validator.Map
-func (v jsonValidator) ValidateMap(ctx context.Context, req validator.MapRequest, resp *validator.MapResponse) {
-	for _, val := range req.ConfigValue.Elements() {
-		s, ok := val.(types.String)
-		if !ok {
-			resp.Diagnostics.Append(validatordiag.InvalidAttributeValueDiagnostic(
-				req.Path,
-				v.Description(ctx),
-				val.String(),
-			))
-		}
-
-		var d interface{}
-		err := json.Unmarshal([]byte(s.ValueString()), &d)
-		if err != nil {
-			resp.Diagnostics.Append(validatordiag.InvalidAttributeValueDiagnostic(
-				req.Path,
-				v.Description(ctx),
-				req.ConfigValue.String(),
-			))
-		}
-	}
 }
