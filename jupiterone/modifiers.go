@@ -11,41 +11,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
-func BoolDefaultValuePlanModifier(b bool) planmodifier.Bool {
-	return &boolDefaultValuePlanModifier{
-		DefaultValue: types.BoolValue(b),
-	}
-}
-
-type boolDefaultValuePlanModifier struct {
-	DefaultValue types.Bool
-}
-
-var _ planmodifier.Bool = (*boolDefaultValuePlanModifier)(nil)
-
-func (pm *boolDefaultValuePlanModifier) Description(ctx context.Context) string {
-	return "sets a default value for a bool value"
-}
-
-func (pm *boolDefaultValuePlanModifier) MarkdownDescription(ctx context.Context) string {
-	return pm.Description(ctx)
-}
-
-func (pm *boolDefaultValuePlanModifier) PlanModifyBool(ctx context.Context, req planmodifier.BoolRequest, res *planmodifier.BoolResponse) {
-	// If the attribute configuration is not null, we are done here
-	if !req.ConfigValue.IsNull() {
-		return
-	}
-
-	// If the attribute plan is "known" and "not null", then a previous plan modifier in the sequence
-	// has already been applied, and we don't want to interfere.
-	if !req.PlanValue.IsUnknown() && !req.PlanValue.IsNull() {
-		return
-	}
-
-	res.PlanValue = pm.DefaultValue
-}
-
 var _ planmodifier.String = (*jsonIgnoreDiff)(nil)
 var _ planmodifier.List = (*jsonIgnoreDiff)(nil)
 var _ planmodifier.Map = (*jsonIgnoreDiff)(nil)
@@ -239,74 +204,4 @@ func (jsonIgnoreDiff) PlanModifyMap(ctx context.Context, req planmodifier.MapReq
 	}
 
 	resp.PlanValue = req.StateValue
-}
-
-func Int64DefaultValue(v types.Int64) planmodifier.Int64 {
-	return &int64DefaultValuePlanModifier{v}
-}
-
-// int64DefaultValuePlanModifier is based on the example at:
-// https://developer.hashicorp.com/terraform/plugin/framework/migrating/attributes-blocks/default-values
-type int64DefaultValuePlanModifier struct {
-	DefaultValue types.Int64
-}
-
-var _ planmodifier.Int64 = (*int64DefaultValuePlanModifier)(nil)
-
-func (apm *int64DefaultValuePlanModifier) Description(ctx context.Context) string {
-	return "sets a default value for an int64 value"
-}
-
-func (apm *int64DefaultValuePlanModifier) MarkdownDescription(ctx context.Context) string {
-	return apm.Description(ctx)
-}
-
-func (apm *int64DefaultValuePlanModifier) PlanModifyInt64(ctx context.Context, req planmodifier.Int64Request, res *planmodifier.Int64Response) {
-	// If the attribute configuration is not null, we are done here
-	if !req.ConfigValue.IsNull() {
-		return
-	}
-
-	// If the attribute plan is "known" and "not null", then a previous plan modifier in the sequence
-	// has already been applied, and we don't want to interfere.
-	if !req.PlanValue.IsUnknown() && !req.PlanValue.IsNull() {
-		return
-	}
-
-	res.PlanValue = apm.DefaultValue
-}
-
-func StringDefaultValue(v string) planmodifier.String {
-	return &stringDefaultValuePlanModifier{
-		DefaultValue: types.StringValue(v),
-	}
-}
-
-type stringDefaultValuePlanModifier struct {
-	DefaultValue types.String
-}
-
-var _ planmodifier.String = (*stringDefaultValuePlanModifier)(nil)
-
-func (apm *stringDefaultValuePlanModifier) Description(ctx context.Context) string {
-	return "sets a default value for an string value"
-}
-
-func (apm *stringDefaultValuePlanModifier) MarkdownDescription(ctx context.Context) string {
-	return apm.Description(ctx)
-}
-
-func (apm *stringDefaultValuePlanModifier) PlanModifyString(ctx context.Context, req planmodifier.StringRequest, res *planmodifier.StringResponse) {
-	// If the attribute configuration is not null, we are done here
-	if !req.ConfigValue.IsNull() {
-		return
-	}
-
-	// If the attribute plan is "known" and "not null", then a previous plan modifier in the sequence
-	// has already been applied, and we don't want to interfere.
-	if !req.PlanValue.IsUnknown() && !req.PlanValue.IsNull() {
-		return
-	}
-
-	res.PlanValue = apm.DefaultValue
 }

@@ -13,8 +13,11 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64default"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringdefault"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
@@ -185,18 +188,16 @@ func (*QuestionRuleResource) Schema(ctx context.Context, req resource.SchemaRequ
 				Description: "Rule evaluation specification version in the case of breaking changes.",
 				Computed:    true,
 				Optional:    true,
+				Default:     int64default.StaticInt64(1),
 				PlanModifiers: []planmodifier.Int64{
 					int64planmodifier.UseStateForUnknown(),
-					Int64DefaultValue(types.Int64Value(1)),
 				},
 			},
 			"polling_interval": schema.StringAttribute{
 				Description: "Frequency of automated rule evaluation. Defaults to ONE_DAY.",
 				Computed:    true,
 				Optional:    true,
-				PlanModifiers: []planmodifier.String{
-					StringDefaultValue(string(client.SchedulerPollingIntervalOneDay)),
-				},
+				Default:     stringdefault.StaticString(string(client.SchedulerPollingIntervalOneDay)),
 				Validators: []validator.String{
 					stringvalidator.OneOf(PollingIntervals...),
 				},
@@ -248,16 +249,12 @@ func (*QuestionRuleResource) Schema(ctx context.Context, req resource.SchemaRequ
 			"notify_on_failure": schema.BoolAttribute{
 				Optional: true,
 				Computed: true,
-				PlanModifiers: []planmodifier.Bool{
-					BoolDefaultValuePlanModifier(false),
-				},
+				Default:  booldefault.StaticBool(false),
 			},
 			"trigger_on_new_only": schema.BoolAttribute{
 				Optional: true,
 				Computed: true,
-				PlanModifiers: []planmodifier.Bool{
-					BoolDefaultValuePlanModifier(false),
-				},
+				Default:  booldefault.StaticBool(false),
 			},
 		},
 		// TODO: Deprecate the use of blocks following new framework guidance:
@@ -292,9 +289,7 @@ func (*QuestionRuleResource) Schema(ctx context.Context, req resource.SchemaRequ
 									"include_deleted": schema.BoolAttribute{
 										Optional: true,
 										Computed: true,
-										PlanModifiers: []planmodifier.Bool{
-											BoolDefaultValuePlanModifier(false),
-										},
+										Default:  booldefault.StaticBool(false),
 									},
 								},
 							},
