@@ -219,7 +219,6 @@ func (*QuestionRuleResource) Schema(ctx context.Context, req resource.SchemaRequ
 							Optional: true,
 							Validators: []validator.String{
 								stringvalidator.LengthAtLeast(MIN_JSON_LENGTH),
-								jsonValidator{},
 							},
 							PlanModifiers: []planmodifier.String{
 								jsonIgnoreDiffPlanModifier(),
