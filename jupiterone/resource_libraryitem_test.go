@@ -8,8 +8,9 @@ import (
 	"time"
 
 	"github.com/Khan/genqlient/graphql"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
+	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+	"github.com/hashicorp/terraform-plugin-testing/terraform"
 	"github.com/jupiterone/terraform-provider-jupiterone/jupiterone/internal/client"
 )
 
@@ -89,7 +90,7 @@ func testAccCheckLibraryItemExists(ctx context.Context, qlient graphql.Client) r
 			if r.Type != "jupiterone_libraryitem" {
 				continue
 			}
-			err := resource.RetryContext(ctx, duration, func() *resource.RetryError {
+			err := retry.RetryContext(ctx, duration, func() *retry.RetryError {
 				id := r.Primary.ID
 				_, err := client.GetComplianceLibraryItemById(ctx, qlient, id)
 
@@ -98,10 +99,10 @@ func testAccCheckLibraryItemExists(ctx context.Context, qlient graphql.Client) r
 				}
 
 				if err != nil && strings.Contains(err.Error(), "Could not find compliance library item with id") {
-					return resource.RetryableError(fmt.Errorf("LibraryItem does not exist (id=%q)", id))
+					return retry.RetryableError(fmt.Errorf("LibraryItem does not exist (id=%q)", id))
 				}
 
-				return resource.NonRetryableError(err)
+				return retry.NonRetryableError(err)
 			})
 
 			if err != nil {
@@ -124,19 +125,19 @@ func testAccCheckLibraryItemDestroy(ctx context.Context, qlient graphql.Client) 
 			if r.Type != "jupiterone_libraryitem" {
 				continue
 			}
-			err := resource.RetryContext(ctx, duration, func() *resource.RetryError {
+			err := retry.RetryContext(ctx, duration, func() *retry.RetryError {
 				id := r.Primary.ID
 				_, err := client.GetComplianceLibraryItemById(ctx, qlient, id)
 
 				if err == nil {
-					return resource.RetryableError(fmt.Errorf("LibraryItem still exists (id=%q)", id))
+					return retry.RetryableError(fmt.Errorf("LibraryItem still exists (id=%q)", id))
 				}
 
 				if err != nil && strings.Contains(err.Error(), "Could not find compliance library item with id") {
 					return nil
 				}
 
-				return resource.NonRetryableError(err)
+				return retry.NonRetryableError(err)
 			})
 
 			if err != nil {

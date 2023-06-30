@@ -8,8 +8,9 @@ import (
 	"time"
 
 	"github.com/Khan/genqlient/graphql"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
+	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+	"github.com/hashicorp/terraform-plugin-testing/terraform"
 	"github.com/jupiterone/terraform-provider-jupiterone/jupiterone/internal/client"
 )
 
@@ -138,7 +139,7 @@ func questionExistsHelper(ctx context.Context, s *terraform.State, qlient graphq
 
 	duration := 10 * time.Second
 	for _, r := range s.RootModule().Resources {
-		err := resource.RetryContext(ctx, duration, func() *resource.RetryError {
+		err := retry.RetryContext(ctx, duration, func() *retry.RetryError {
 			id := r.Primary.ID
 			_, err := client.GetQuestionById(ctx, qlient, id)
 
@@ -147,10 +148,10 @@ func questionExistsHelper(ctx context.Context, s *terraform.State, qlient graphq
 			}
 
 			if err != nil && strings.Contains(err.Error(), "Cannot fetch question that does not exist") {
-				return resource.RetryableError(fmt.Errorf("Question does not exist (id=%q)", id))
+				return retry.RetryableError(fmt.Errorf("Question does not exist (id=%q)", id))
 			}
 
-			return resource.NonRetryableError(err)
+			return retry.NonRetryableError(err)
 		})
 
 		if err != nil {
@@ -177,19 +178,19 @@ func questionDestroyHelper(ctx context.Context, s *terraform.State, qlient graph
 
 	duration := 10 * time.Second
 	for _, r := range s.RootModule().Resources {
-		err := resource.RetryContext(ctx, duration, func() *resource.RetryError {
+		err := retry.RetryContext(ctx, duration, func() *retry.RetryError {
 			id := r.Primary.ID
 			_, err := client.GetQuestionById(ctx, qlient, id)
 
 			if err == nil {
-				return resource.RetryableError(fmt.Errorf("Question still exists (id=%q)", id))
+				return retry.RetryableError(fmt.Errorf("Question still exists (id=%q)", id))
 			}
 
 			if err != nil && strings.Contains(err.Error(), "Cannot fetch question that does not exist") {
 				return nil
 			}
 
-			return resource.NonRetryableError(err)
+			return retry.NonRetryableError(err)
 		})
 
 		if err != nil {

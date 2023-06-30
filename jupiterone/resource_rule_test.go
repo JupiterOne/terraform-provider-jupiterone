@@ -10,9 +10,10 @@ import (
 
 	"github.com/Khan/genqlient/graphql"
 	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/terraform-plugin-sdk/helper/acctest"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
+	"github.com/hashicorp/terraform-plugin-testing/helper/acctest"
+	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+	"github.com/hashicorp/terraform-plugin-testing/terraform"
 	"github.com/jupiterone/terraform-provider-jupiterone/jupiterone/internal/client"
 )
 
@@ -266,7 +267,7 @@ func ruleExistsHelper(ctx context.Context, id string, qlient graphql.Client) err
 	}
 
 	duration := 10 * time.Second
-	err := resource.RetryContext(ctx, duration, func() *resource.RetryError {
+	err := retry.RetryContext(ctx, duration, func() *retry.RetryError {
 		_, err := client.GetQuestionRuleInstance(ctx, qlient, id)
 
 		if err == nil {
@@ -274,10 +275,10 @@ func ruleExistsHelper(ctx context.Context, id string, qlient graphql.Client) err
 		}
 
 		if err != nil && strings.Contains(err.Error(), "Rule instance does not exist.") {
-			return resource.RetryableError(fmt.Errorf("Rule instance does not exist (id=%q)", id))
+			return retry.RetryableError(fmt.Errorf("Rule instance does not exist (id=%q)", id))
 		}
 
-		return resource.NonRetryableError(err)
+		return retry.NonRetryableError(err)
 	})
 
 	if err != nil {
@@ -305,18 +306,18 @@ func ruleInstanceDestroyHelper(ctx context.Context, id string, qlient graphql.Cl
 	}
 
 	duration := 10 * time.Second
-	err := resource.RetryContext(ctx, duration, func() *resource.RetryError {
+	err := retry.RetryContext(ctx, duration, func() *retry.RetryError {
 		_, err := client.GetQuestionRuleInstance(ctx, qlient, id)
 
 		if err == nil {
-			return resource.RetryableError(fmt.Errorf("Rule instance still exists (id=%q)", id))
+			return retry.RetryableError(fmt.Errorf("Rule instance still exists (id=%q)", id))
 		}
 
 		if err != nil && strings.Contains(err.Error(), "Rule instance does not exist.") {
 			return nil
 		}
 
-		return resource.NonRetryableError(err)
+		return retry.NonRetryableError(err)
 	})
 
 	if err != nil {
