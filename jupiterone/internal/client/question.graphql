@@ -3,6 +3,7 @@ query GetQuestionById($id: ID!) {
     id
     title
     description
+    showTrend
     pollingInterval
     # @genqlient(typename: QuestionQuery)
     queries {
