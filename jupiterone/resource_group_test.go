@@ -9,8 +9,9 @@ import (
 	"time"
 
 	"github.com/Khan/genqlient/graphql"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
+	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+	"github.com/hashicorp/terraform-plugin-testing/terraform"
 )
 
 const testGroupName = "tf-provider-acc test Group"
@@ -94,7 +95,7 @@ func testAccCheckGroupExists(ctx context.Context, qlient graphql.Client) resourc
 			if !ok {
 				return errors.New("no framework id in group")
 			}
-			err := resource.RetryContext(ctx, duration, func() *resource.RetryError {
+			err := retry.RetryContext(ctx, duration, func() *retry.RetryError {
 				id := r.Primary.ID
 				_, err := getGroup(ctx, qlient, frameworkId, id)
 
@@ -103,10 +104,10 @@ func testAccCheckGroupExists(ctx context.Context, qlient graphql.Client) resourc
 				}
 
 				if err != nil && strings.Contains(err.Error(), "Could not find compliance framework with id") {
-					return resource.RetryableError(fmt.Errorf("Group does not exist (id=%q)", id))
+					return retry.RetryableError(fmt.Errorf("Group does not exist (id=%q)", id))
 				}
 
-				return resource.NonRetryableError(err)
+				return retry.NonRetryableError(err)
 			})
 
 			if err != nil {
@@ -133,19 +134,19 @@ func testAccCheckGroupDestroy(ctx context.Context, qlient graphql.Client) resour
 			if !ok {
 				return errors.New("no framework id in group")
 			}
-			err := resource.RetryContext(ctx, duration, func() *resource.RetryError {
+			err := retry.RetryContext(ctx, duration, func() *retry.RetryError {
 				id := r.Primary.ID
 				_, err := getGroup(ctx, qlient, frameworkId, id)
 
 				if err == nil {
-					return resource.RetryableError(fmt.Errorf("Group still exists (id=%q)", id))
+					return retry.RetryableError(fmt.Errorf("Group still exists (id=%q)", id))
 				}
 
 				if err != nil && strings.Contains(err.Error(), "Could not find compliance framework with id") {
 					return nil
 				}
 
-				return resource.NonRetryableError(err)
+				return retry.NonRetryableError(err)
 			})
 
 			if err != nil {
