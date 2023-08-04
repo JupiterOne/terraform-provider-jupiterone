@@ -392,6 +392,8 @@ type CreateQuestionCreateQuestion struct {
 // GetId returns CreateQuestionCreateQuestion.Id, and is useful for accessing the field via an interface.
 func (v *CreateQuestionCreateQuestion) GetId() string { return v.Id }
 
+// The question-service does not list questions when widgetId="",
+// we need to set it to null to allow the questions to show up in the UI
 type CreateQuestionInput struct {
 	Title           string                            `json:"title"`
 	Name            string                            `json:"name"`
@@ -399,7 +401,7 @@ type CreateQuestionInput struct {
 	Description     string                            `json:"description"`
 	ShowTrend       bool                              `json:"showTrend"`
 	PollingInterval SchedulerPollingInterval          `json:"pollingInterval"`
-	WidgetId        string                            `json:"widgetId"`
+	WidgetId        string                            `json:"widgetId,omitempty"`
 	Queries         []QuestionQueryInput              `json:"queries"`
 	Compliance      []QuestionComplianceMetaDataInput `json:"compliance"`
 	Variables       []QuestionVariableInput           `json:"variables"`
@@ -1095,7 +1097,7 @@ type QuestionUpdate struct {
 	Description     string                            `json:"description"`
 	ShowTrend       bool                              `json:"showTrend"`
 	PollingInterval SchedulerPollingInterval          `json:"pollingInterval"`
-	WidgetId        string                            `json:"widgetId"`
+	WidgetId        string                            `json:"widgetId,omitempty"`
 }
 
 // GetTitle returns QuestionUpdate.Title, and is useful for accessing the field via an interface.
