@@ -104,9 +104,7 @@ func (*QuestionResource) Schema(ctx context.Context, req resource.SchemaRequest,
 				Description: "Whether to enable daily trend data collection. Defaults to false.",
 				Optional:    true,
 				Computed:    true,
-				PlanModifiers: []planmodifier.Bool{
-					BoolDefaultValuePlanModifier(false),
-				},
+				Default:     booldefault.StaticBool(false),
 			},
 			"polling_interval": schema.StringAttribute{
 				Description: "Frequency of automated question evaluation. Defaults to ONE_DAY.",
