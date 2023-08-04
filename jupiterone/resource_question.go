@@ -10,7 +10,9 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringdefault"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
@@ -102,17 +104,13 @@ func (*QuestionResource) Schema(ctx context.Context, req resource.SchemaRequest,
 				Description: "Whether to enable daily trend data collection. Defaults to false.",
 				Optional:    true,
 				Computed:    true,
-				PlanModifiers: []planmodifier.Bool{
-					BoolDefaultValuePlanModifier(false),
-				},
+				Default:     booldefault.StaticBool(false),
 			},
 			"polling_interval": schema.StringAttribute{
 				Description: "Frequency of automated question evaluation. Defaults to ONE_DAY.",
 				Computed:    true,
 				Optional:    true,
-				PlanModifiers: []planmodifier.String{
-					StringDefaultValue(string(client.SchedulerPollingIntervalOneDay)),
-				},
+				Default:     stringdefault.StaticString(string(client.SchedulerPollingIntervalOneDay)),
 				Validators: []validator.String{
 					stringvalidator.OneOf(PollingIntervals...),
 				},
@@ -149,17 +147,13 @@ func (*QuestionResource) Schema(ctx context.Context, req resource.SchemaRequest,
 						"include_deleted": schema.BoolAttribute{
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Bool{
-								BoolDefaultValuePlanModifier(false),
-							},
+							Default:  booldefault.StaticBool(false),
 						},
 						"results_are": schema.StringAttribute{
 							Description: "Defaults to INFORMATIVE.",
 							Computed:    true,
 							Optional:    true,
-							PlanModifiers: []planmodifier.String{
-								StringDefaultValue(string(client.QueryResultsAreInformative)),
-							},
+							Default:     stringdefault.StaticString(string(client.QueryResultsAreInformative)),
 							Validators: []validator.String{
 								stringvalidator.OneOf(QueryResultsAre...),
 							},
