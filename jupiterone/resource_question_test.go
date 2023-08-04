@@ -3,11 +3,13 @@ package jupiterone
 import (
 	"context"
 	"fmt"
+	"regexp"
 	"strings"
 	"testing"
 	"time"
 
 	"github.com/Khan/genqlient/graphql"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
@@ -34,6 +36,7 @@ func TestQuestion_Basic(t *testing.T) {
 					resource.TestCheckResourceAttrSet(resourceName, "id"),
 					resource.TestCheckResourceAttr(resourceName, "title", questionTitle),
 					resource.TestCheckResourceAttr(resourceName, "description", "Test"),
+					resource.TestCheckResourceAttr(resourceName, "show_trend", "false"),
 					resource.TestCheckResourceAttr(resourceName, "tags.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags.0", "tf_acc:1"),
 					resource.TestCheckResourceAttr(resourceName, "query.#", "1"),
@@ -49,6 +52,7 @@ func TestQuestion_Basic(t *testing.T) {
 					resource.TestCheckResourceAttrSet(resourceName, "id"),
 					resource.TestCheckResourceAttr(resourceName, "title", questionTitle),
 					resource.TestCheckResourceAttr(resourceName, "description", "Test"),
+					resource.TestCheckResourceAttr(resourceName, "show_trend", "false"),
 					resource.TestCheckResourceAttr(resourceName, "tags.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags.0", "tf_acc:2"),
 					resource.TestCheckResourceAttr(resourceName, "query.#", "1"),
@@ -85,6 +89,7 @@ func TestQuestion_BasicImport(t *testing.T) {
 					resource.TestCheckResourceAttrSet(resourceName, "id"),
 					resource.TestCheckResourceAttr(resourceName, "title", questionTitle),
 					resource.TestCheckResourceAttr(resourceName, "description", "Test"),
+					resource.TestCheckResourceAttr(resourceName, "show_trend", "false"),
 					resource.TestCheckResourceAttr(resourceName, "tags.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags.0", "tf_acc:1"),
 					resource.TestCheckResourceAttr(resourceName, "query.#", "1"),
@@ -92,6 +97,25 @@ func TestQuestion_BasicImport(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "query.0.version", "v1"),
 					resource.TestCheckResourceAttr(resourceName, "query.0.query", "Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true"),
 				),
+			},
+		},
+	})
+}
+
+func TestQuestion_Config_Errors(t *testing.T) {
+	ctx := context.TODO()
+
+	recordingClient, _, cleanup := setupTestClients(ctx, t)
+	defer cleanup(t)
+
+	questionTitle := acctest.RandomWithPrefix("tf-provider-test-question")
+	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:                 func() { testAccPreCheck(t) },
+		ProtoV6ProviderFactories: testAccProtoV6ProviderFactories(recordingClient),
+		Steps: []resource.TestStep{
+			{
+				Config:      testQuestionBasicConfigWithShowTrend(questionTitle, "INVALID_SHOW_TREND"),
+				ExpectError: regexp.MustCompile(`Inappropriate value for attribute "show_trend"`),
 			},
 		},
 	})
@@ -198,6 +222,24 @@ func questionDestroyHelper(ctx context.Context, s *terraform.State, qlient graph
 		}
 	}
 	return nil
+}
+
+func testQuestionBasicConfigWithShowTrend(rName string, showTrend string) string {
+	return fmt.Sprintf(`
+		provider "jupiterone" {}
+
+		resource "jupiterone_question" "test" {
+			title = %q
+			description = "Test"
+			show_trend = %q
+
+			query {
+				name = "query0"
+				query = "Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true"
+				version = "v1"
+			}
+		}
+	`, rName, showTrend)
 }
 
 func testQuestionBasicConfigWithTags(rName string, tag string) string {
