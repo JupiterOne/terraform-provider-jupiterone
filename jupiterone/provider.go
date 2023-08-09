@@ -154,7 +154,8 @@ func (*JupiterOneProvider) Schema(ctx context.Context, req provider.SchemaReques
 				Description: "JupiterOne account ID to create resources in",
 			},
 			"region": schema.StringAttribute{
-				Optional: true,
+				Optional:    true,
+				Description: "region used for generating the GraphQL endpoint url. If not provided defaults to 'us'",
 			},
 		},
 	}

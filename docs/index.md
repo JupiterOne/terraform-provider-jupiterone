@@ -13,8 +13,9 @@ The JupiterOne provider provides resources to interact with a JupiterOne API.
 
 ```terraform
 provider "jupiterone" {
-  api_key = "${var.jupiterone_api_key}"
-  account_id = "${var.jupiterone_account}"
+  api_key    = var.jupiterone_api_key
+  account_id = var.jupiterone_account
+  region     = var.jupiterone_region
 }
 ```
 
@@ -25,4 +26,4 @@ provider "jupiterone" {
 
 - `account_id` (String) JupiterOne account ID to create resources in
 - `api_key` (String, Sensitive) API Key used to make requests to the JupiterOne APIs
-- `region` (String)
+- `region` (String) region used for generating the GraphQL endpoint url. If not provided defaults to 'us'
