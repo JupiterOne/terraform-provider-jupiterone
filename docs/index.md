@@ -25,4 +25,4 @@ provider "jupiterone" {
 
 - `account_id` (String) JupiterOne account ID to create resources in
 - `api_key` (String, Sensitive) API Key used to make requests to the JupiterOne APIs
-- `region` (String)
+- `region` (String) region used for generating the GraphQL endpoint url. If not provided defaults to 'us'

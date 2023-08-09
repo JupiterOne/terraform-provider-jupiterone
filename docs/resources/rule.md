@@ -114,10 +114,10 @@ resource "jupiterone_rule" "users_without_mfa" {
 - `polling_interval` (String) Frequency of automated rule evaluation. Defaults to ONE_DAY.
 - `question` (Block List) Contains properties related to queries used in the rule evaluation. (see [below for nested schema](#nestedblock--question))
 - `question_id` (String) Specifies the ID of a question to be used in rule evaluation.
-- `question_name` (String, Deprecated) Specifies the name of a question to be used in rule evaluation.
 - `spec_version` (Number) Rule evaluation specification version in the case of breaking changes.
 - `tags` (List of String) Comma separated list of tags to apply to the rule.
 - `templates` (Map of String) Optional key/value pairs of template name to template
+- `trigger_on_new_only` (Boolean)
 
 ### Read-Only
 
@@ -155,5 +155,3 @@ Optional:
 
 - `include_deleted` (Boolean)
 - `name` (String)
-
-

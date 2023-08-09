@@ -39,7 +39,7 @@ resource "jupiterone_question" "unencrypted_critical_data_stores" {
 - `compliance` (Block List) (see [below for nested schema](#nestedblock--compliance))
 - `polling_interval` (String) Frequency of automated question evaluation. Defaults to ONE_DAY.
 - `query` (Block List) (see [below for nested schema](#nestedblock--query))
-- `show_trend` (Boolean) Whether to enable trend data collection. Defaults to false.
+- `show_trend` (Boolean) Whether to enable daily trend data collection. Defaults to false.
 - `tags` (List of String)
 
 ### Read-Only
@@ -72,5 +72,3 @@ Optional:
 - `include_deleted` (Boolean)
 - `name` (String)
 - `results_are` (String) Defaults to INFORMATIVE.
-
-
