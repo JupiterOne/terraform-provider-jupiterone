@@ -351,14 +351,6 @@ func (*QuestionRuleResource) ModifyPlan(ctx context.Context, req resource.Modify
 		return
 	}
 
-	// switching from referenced to inline requires replacement
-	if plan.QuestionId.IsNull() && !state.QuestionId.IsNull() {
-		resp.RequiresReplace = append(resp.RequiresReplace, path.Root("question_id"))
-	}
-	if len(plan.Question) == 0 && len(state.Question) != 0 {
-		resp.RequiresReplace = append(resp.RequiresReplace, path.Root("question"))
-	}
-
 	if !reflect.DeepEqual(plan, state) {
 		resp.Diagnostics.Append(resp.Plan.SetAttribute(ctx, path.Root("version"),
 			types.Int64Unknown())...)
