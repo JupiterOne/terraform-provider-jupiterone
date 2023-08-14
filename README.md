@@ -57,6 +57,7 @@ $EDITOR jupiterone/internal/client/<query source file>.graphql
 # save the updated schema the first time
 export JUPITERONE_ACCOUNT=:your_account_id
 export JUPITERONE_API_KEY=:your_api_key
+export JUPITERONE_REGION=us
 yarn add graphql
 
 make generate-client
@@ -66,7 +67,7 @@ make generate-client
 
 In order to test the provider, you can simply run `make testacc`. Pre-recorded
 API responses (cassettes) are read in from
-[jupiterone/cassettes/*.yaml](jupiterone/cassettes) files and returned.  When
+[jupiterone/cassettes/\*.yaml](jupiterone/cassettes) files and returned. When
 tests are modified, the cassettes need to be re-recorded.
 
 _Note:_ Recording cassettes creates/updates/destroys real resources. Never run this on
@@ -80,6 +81,7 @@ To re-record _all_ cassettes:
 ```sh
 export JUPITERONE_ACCOUNT_ID=your-account-id
 export JUPITERONE_API_KEY=xxxxxx
+export JUPITERONE_REGION=us
 make cassettes
 ```
 
@@ -91,6 +93,7 @@ functionality.
 ```sh
 export JUPITERONE_ACCOUNT_ID=your-account-id
 export JUPITERONE_API_KEY=xxxxxx
+export JUPITERONE_REGION=us
 rm jupiterone/cassettes/:some-test.yaml
 make testacc
 ```
