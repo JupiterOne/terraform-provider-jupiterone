@@ -72,32 +72,28 @@ func (j jsonIgnoreDiff) PlanModifyString(ctx context.Context, req planmodifier.S
 
 // PlanModifyList implements planmodifier.List
 func (j jsonIgnoreDiff) PlanModifyList(ctx context.Context, req planmodifier.ListRequest, resp *planmodifier.ListResponse) {
-	if req.ConfigValue.IsNull() {
-		return
-	}
-
 	if req.StateValue.IsUnknown() || req.StateValue.IsNull() {
 		return
 	}
 
-	var vals []types.String
-	err := req.ConfigValue.ElementsAs(ctx, &vals, false)
+	var state []string
+	err := req.StateValue.ElementsAs(ctx, &state, false)
 	if err != nil {
 		resp.Diagnostics.Append(validatordiag.InvalidAttributeValueDiagnostic(
 			req.Path,
-			"not a valid string: "+j.Description(ctx),
-			req.ConfigValue.String(),
+			"not a valid array: "+j.Description(ctx),
+			req.StateValue.String(),
 		))
 		return
 	}
 
-	var state []types.String
-	err = req.StateValue.ElementsAs(ctx, &state, false)
+	var vals []string
+	err = req.PlanValue.ElementsAs(ctx, &vals, false)
 	if err != nil {
 		resp.Diagnostics.Append(validatordiag.InvalidAttributeValueDiagnostic(
 			req.Path,
-			"not a valid string: "+j.Description(ctx),
-			req.StateValue.String(),
+			"not a valid array: "+j.Description(ctx),
+			req.ConfigValue.String(),
 		))
 		return
 	}
@@ -111,18 +107,8 @@ func (j jsonIgnoreDiff) PlanModifyList(ctx context.Context, req planmodifier.Lis
 	// TODO: in theory, the order doesn't matter if the ids match, so try
 	// to match up ids instead of just relying on the order
 	for i := 0; i < len(vals); i++ {
-		if vals[i].IsNull() || vals[i].IsUnknown() {
-			// this would be weird, but without matching up list elements,
-			// just let it trigger for now
-			return
-		}
-
-		if state[i].IsNull() || state[i].IsUnknown() {
-			return
-		}
-
 		var oldValue map[string]interface{}
-		err := json.Unmarshal([]byte(state[i].ValueString()), &oldValue)
+		err := json.Unmarshal([]byte(state[i]), &oldValue)
 		if err != nil {
 			resp.Diagnostics.AddError(fmt.Sprintf("Invalid json in plan for %s", req.Path), err.Error())
 			return
@@ -130,7 +116,7 @@ func (j jsonIgnoreDiff) PlanModifyList(ctx context.Context, req planmodifier.Lis
 		delete(oldValue, "id")
 
 		var newValue map[string]interface{}
-		err = json.Unmarshal([]byte(vals[i].ValueString()), &newValue)
+		err = json.Unmarshal([]byte(vals[i]), &newValue)
 		if err != nil {
 			resp.Diagnostics.AddError(fmt.Sprintf("Invalid json in state for %s", req.Path), err.Error())
 			return

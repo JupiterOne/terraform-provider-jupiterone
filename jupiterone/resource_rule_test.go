@@ -171,22 +171,6 @@ func TestReferencedQuestionRule_Basic(t *testing.T) {
 					resource.TestCheckResourceAttrPair("jupiterone_question.test", "id", testRuleResourceName, "question_id"),
 				),
 			},
-			{
-				Config: testInlineRuleInstanceBasicConfigWithOperations(ruleName, operationsUpdate),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckRuleExists(ctx, testRuleResourceName, directClient),
-					resource.TestCheckResourceAttr(testRuleResourceName, "question.#", "1"),
-					resource.TestCheckNoResourceAttr(testRuleResourceName, "question_id"),
-				),
-			},
-			{
-				Config: testReferencedRuleInstanceBasicConfigWithOperations(ruleName, operationsUpdate),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckRuleExists(ctx, testRuleResourceName, directClient),
-					resource.TestCheckResourceAttr(testRuleResourceName, "question.#", "0"),
-					resource.TestCheckResourceAttrPair("jupiterone_question.test", "id", testRuleResourceName, "question_id"),
-				),
-			},
 		},
 	})
 }

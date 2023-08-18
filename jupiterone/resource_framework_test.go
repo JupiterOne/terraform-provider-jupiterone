@@ -30,6 +30,26 @@ func TestFramework_Basic(t *testing.T) {
 		CheckDestroy:             testAccCheckFrameworkDestroy(ctx, directClient),
 		Steps: []resource.TestStep{
 			{
+				Config: testFrameworkBasicConfig(updatedName, "[]"),
+				Check: resource.ComposeTestCheckFunc(
+					testAccCheckFrameworkExists(ctx, directClient),
+					resource.TestCheckResourceAttrSet(testFrameworkResourceName, "id"),
+					resource.TestCheckResourceAttr(testFrameworkResourceName, "name", updatedName),
+					resource.TestCheckResourceAttr(testFrameworkResourceName, "version", "v1"),
+					resource.TestCheckResourceAttr(testFrameworkResourceName, "scope_filters.#", "0"),
+				),
+			},
+			{
+				Config: testFrameworkNoFiltersConfig(testFrameworkName),
+				Check: resource.ComposeTestCheckFunc(
+					testAccCheckFrameworkExists(ctx, directClient),
+					resource.TestCheckResourceAttrSet(testFrameworkResourceName, "id"),
+					resource.TestCheckResourceAttr(testFrameworkResourceName, "name", testFrameworkName),
+					resource.TestCheckResourceAttr(testFrameworkResourceName, "version", "v1"),
+					resource.TestCheckResourceAttr(testFrameworkResourceName, "scope_filters.#", "0"),
+				),
+			},
+			{
 				Config: testFrameworkBasicConfig(testFrameworkName, testEnvScopeFilters),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckFrameworkExists(ctx, directClient),
@@ -37,6 +57,26 @@ func TestFramework_Basic(t *testing.T) {
 					resource.TestCheckResourceAttr(testFrameworkResourceName, "name", testFrameworkName),
 					resource.TestCheckResourceAttr(testFrameworkResourceName, "version", "v1"),
 					resource.TestCheckResourceAttr(testFrameworkResourceName, "scope_filters.#", "1"),
+				),
+			},
+			{
+				Config: testFrameworkBasicConfig(updatedName, "[]"),
+				Check: resource.ComposeTestCheckFunc(
+					testAccCheckFrameworkExists(ctx, directClient),
+					resource.TestCheckResourceAttrSet(testFrameworkResourceName, "id"),
+					resource.TestCheckResourceAttr(testFrameworkResourceName, "name", updatedName),
+					resource.TestCheckResourceAttr(testFrameworkResourceName, "version", "v1"),
+					resource.TestCheckResourceAttr(testFrameworkResourceName, "scope_filters.#", "0"),
+				),
+			},
+			{
+				Config: testFrameworkNoFiltersConfig(testFrameworkName),
+				Check: resource.ComposeTestCheckFunc(
+					testAccCheckFrameworkExists(ctx, directClient),
+					resource.TestCheckResourceAttrSet(testFrameworkResourceName, "id"),
+					resource.TestCheckResourceAttr(testFrameworkResourceName, "name", testFrameworkName),
+					resource.TestCheckResourceAttr(testFrameworkResourceName, "version", "v1"),
+					resource.TestCheckResourceAttr(testFrameworkResourceName, "scope_filters.#", "0"),
 				),
 			},
 			{
@@ -139,4 +179,19 @@ func testFrameworkBasicConfig(name, scopeFilters string) string {
 	}
 	`,
 		name, scopeFilters)
+}
+
+func testFrameworkNoFiltersConfig(name string) string {
+	return fmt.Sprintf(`
+	provider "jupiterone" {}
+
+	resource "jupiterone_framework" "test" {
+		name           = %q
+		version        = "v1"
+		framework_type = "STANDARD"
+
+		web_link = "https://community.askj1.com/kb/articles/795-compliance-api-endpoints"
+	}
+	`,
+		name)
 }

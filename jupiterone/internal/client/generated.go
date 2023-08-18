@@ -329,6 +329,7 @@ type CreateInlineQuestionRuleInstanceInput struct {
 	PollingInterval                 SchedulerPollingInterval `json:"pollingInterval"`
 	NotifyOnFailure                 bool                     `json:"notifyOnFailure"`
 	TriggerActionsOnNewEntitiesOnly bool                     `json:"triggerActionsOnNewEntitiesOnly"`
+	RemediationSteps                string                   `json:"remediationSteps"`
 }
 
 // GetQuestion returns CreateInlineQuestionRuleInstanceInput.Question, and is useful for accessing the field via an interface.
@@ -372,6 +373,11 @@ func (v *CreateInlineQuestionRuleInstanceInput) GetNotifyOnFailure() bool { retu
 // GetTriggerActionsOnNewEntitiesOnly returns CreateInlineQuestionRuleInstanceInput.TriggerActionsOnNewEntitiesOnly, and is useful for accessing the field via an interface.
 func (v *CreateInlineQuestionRuleInstanceInput) GetTriggerActionsOnNewEntitiesOnly() bool {
 	return v.TriggerActionsOnNewEntitiesOnly
+}
+
+// GetRemediationSteps returns CreateInlineQuestionRuleInstanceInput.RemediationSteps, and is useful for accessing the field via an interface.
+func (v *CreateInlineQuestionRuleInstanceInput) GetRemediationSteps() string {
+	return v.RemediationSteps
 }
 
 // CreateInlineQuestionRuleInstanceResponse is returned by CreateInlineQuestionRuleInstance on success.
@@ -485,6 +491,7 @@ type CreateReferencedQuestionRuleInstanceInput struct {
 	PollingInterval                 SchedulerPollingInterval `json:"pollingInterval"`
 	NotifyOnFailure                 bool                     `json:"notifyOnFailure"`
 	TriggerActionsOnNewEntitiesOnly bool                     `json:"triggerActionsOnNewEntitiesOnly"`
+	RemediationSteps                string                   `json:"remediationSteps"`
 }
 
 // GetQuestionId returns CreateReferencedQuestionRuleInstanceInput.QuestionId, and is useful for accessing the field via an interface.
@@ -528,6 +535,11 @@ func (v *CreateReferencedQuestionRuleInstanceInput) GetNotifyOnFailure() bool {
 // GetTriggerActionsOnNewEntitiesOnly returns CreateReferencedQuestionRuleInstanceInput.TriggerActionsOnNewEntitiesOnly, and is useful for accessing the field via an interface.
 func (v *CreateReferencedQuestionRuleInstanceInput) GetTriggerActionsOnNewEntitiesOnly() bool {
 	return v.TriggerActionsOnNewEntitiesOnly
+}
+
+// GetRemediationSteps returns CreateReferencedQuestionRuleInstanceInput.RemediationSteps, and is useful for accessing the field via an interface.
+func (v *CreateReferencedQuestionRuleInstanceInput) GetRemediationSteps() string {
+	return v.RemediationSteps
 }
 
 // CreateReferencedQuestionRuleInstanceResponse is returned by CreateReferencedQuestionRuleInstance on success.
@@ -1186,14 +1198,15 @@ func (v *RuleStateInput) GetActions() map[string]interface{} { return v.Actions 
 type SchedulerPollingInterval string
 
 const (
-	SchedulerPollingIntervalDisabled      SchedulerPollingInterval = "DISABLED"
-	SchedulerPollingIntervalThirtyMinutes SchedulerPollingInterval = "THIRTY_MINUTES"
-	SchedulerPollingIntervalOneHour       SchedulerPollingInterval = "ONE_HOUR"
-	SchedulerPollingIntervalFourHours     SchedulerPollingInterval = "FOUR_HOURS"
-	SchedulerPollingIntervalEightHours    SchedulerPollingInterval = "EIGHT_HOURS"
-	SchedulerPollingIntervalTwelveHours   SchedulerPollingInterval = "TWELVE_HOURS"
-	SchedulerPollingIntervalOneDay        SchedulerPollingInterval = "ONE_DAY"
-	SchedulerPollingIntervalOneWeek       SchedulerPollingInterval = "ONE_WEEK"
+	SchedulerPollingIntervalDisabled       SchedulerPollingInterval = "DISABLED"
+	SchedulerPollingIntervalFifteenMinutes SchedulerPollingInterval = "FIFTEEN_MINUTES"
+	SchedulerPollingIntervalThirtyMinutes  SchedulerPollingInterval = "THIRTY_MINUTES"
+	SchedulerPollingIntervalOneHour        SchedulerPollingInterval = "ONE_HOUR"
+	SchedulerPollingIntervalFourHours      SchedulerPollingInterval = "FOUR_HOURS"
+	SchedulerPollingIntervalEightHours     SchedulerPollingInterval = "EIGHT_HOURS"
+	SchedulerPollingIntervalTwelveHours    SchedulerPollingInterval = "TWELVE_HOURS"
+	SchedulerPollingIntervalOneDay         SchedulerPollingInterval = "ONE_DAY"
+	SchedulerPollingIntervalOneWeek        SchedulerPollingInterval = "ONE_WEEK"
 )
 
 type UpdateComplianceFrameworkFields struct {
@@ -1434,6 +1447,7 @@ type UpdateInlineQuestionRuleInstanceInput struct {
 	PollingInterval                 SchedulerPollingInterval `json:"pollingInterval"`
 	NotifyOnFailure                 bool                     `json:"notifyOnFailure"`
 	TriggerActionsOnNewEntitiesOnly bool                     `json:"triggerActionsOnNewEntitiesOnly"`
+	RemediationSteps                string                   `json:"remediationSteps,omitempty"`
 }
 
 // GetQuestion returns UpdateInlineQuestionRuleInstanceInput.Question, and is useful for accessing the field via an interface.
@@ -1489,6 +1503,11 @@ func (v *UpdateInlineQuestionRuleInstanceInput) GetNotifyOnFailure() bool { retu
 // GetTriggerActionsOnNewEntitiesOnly returns UpdateInlineQuestionRuleInstanceInput.TriggerActionsOnNewEntitiesOnly, and is useful for accessing the field via an interface.
 func (v *UpdateInlineQuestionRuleInstanceInput) GetTriggerActionsOnNewEntitiesOnly() bool {
 	return v.TriggerActionsOnNewEntitiesOnly
+}
+
+// GetRemediationSteps returns UpdateInlineQuestionRuleInstanceInput.RemediationSteps, and is useful for accessing the field via an interface.
+func (v *UpdateInlineQuestionRuleInstanceInput) GetRemediationSteps() string {
+	return v.RemediationSteps
 }
 
 // UpdateInlineQuestionRuleInstanceResponse is returned by UpdateInlineQuestionRuleInstance on success.
@@ -1557,6 +1576,7 @@ type UpdateReferencedQuestionRuleInstanceInput struct {
 	PollingInterval                 SchedulerPollingInterval `json:"pollingInterval"`
 	NotifyOnFailure                 bool                     `json:"notifyOnFailure"`
 	TriggerActionsOnNewEntitiesOnly bool                     `json:"triggerActionsOnNewEntitiesOnly"`
+	RemediationSteps                string                   `json:"remediationSteps"`
 }
 
 // GetQuestionId returns UpdateReferencedQuestionRuleInstanceInput.QuestionId, and is useful for accessing the field via an interface.
@@ -1612,6 +1632,11 @@ func (v *UpdateReferencedQuestionRuleInstanceInput) GetNotifyOnFailure() bool {
 // GetTriggerActionsOnNewEntitiesOnly returns UpdateReferencedQuestionRuleInstanceInput.TriggerActionsOnNewEntitiesOnly, and is useful for accessing the field via an interface.
 func (v *UpdateReferencedQuestionRuleInstanceInput) GetTriggerActionsOnNewEntitiesOnly() bool {
 	return v.TriggerActionsOnNewEntitiesOnly
+}
+
+// GetRemediationSteps returns UpdateReferencedQuestionRuleInstanceInput.RemediationSteps, and is useful for accessing the field via an interface.
+func (v *UpdateReferencedQuestionRuleInstanceInput) GetRemediationSteps() string {
+	return v.RemediationSteps
 }
 
 // UpdateReferencedQuestionRuleInstanceResponse is returned by UpdateReferencedQuestionRuleInstance on success.

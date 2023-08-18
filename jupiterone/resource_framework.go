@@ -7,10 +7,12 @@ import (
 
 	"github.com/Khan/genqlient/graphql"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listdefault"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -31,16 +33,20 @@ type ComplianceFrameworkModel struct {
 	Version       types.String `tfsdk:"version"`
 	FrameworkType types.String `tfsdk:"framework_type"`
 	WebLink       types.String `tfsdk:"web_link"`
-	ScopeFilters  []string     `tfsdk:"scope_filters"`
+	ScopeFilters  types.List   `tfsdk:"scope_filters"`
 }
 
 // BuildScopeFilters builds the data model that is accepted by the J1 API
 // for its `JSON` types
-func (c *ComplianceFrameworkModel) BuildScopeFilters() ([]map[string]interface{}, diag.Diagnostics) {
-	var diag diag.Diagnostics
-	scopeFilters := make([]map[string]interface{}, len(c.ScopeFilters))
-	for i, f := range c.ScopeFilters {
-		err := json.Unmarshal([]byte(f), &scopeFilters[i])
+func (c *ComplianceFrameworkModel) BuildScopeFilters(ctx context.Context) ([]map[string]interface{}, diag.Diagnostics) {
+	var elements []types.String
+	diag := c.ScopeFilters.ElementsAs(ctx, &elements, false)
+	if diag.HasError() {
+		return nil, diag
+	}
+	scopeFilters := make([]map[string]interface{}, len(c.ScopeFilters.Elements()))
+	for i, f := range elements {
+		err := json.Unmarshal([]byte(f.ValueString()), &scopeFilters[i])
 		if err != nil {
 			diag.AddError(fmt.Sprintf("Could not marshal scope filter at index %d", i), err.Error())
 		}
@@ -130,8 +136,10 @@ func (*ComplianceFrameworkResource) Schema(_ context.Context, _ resource.SchemaR
 			"scope_filters": schema.ListAttribute{
 				Description: "JSON encoded filters for scoping the framework.",
 				Optional:    true,
+				Computed:    true,
 				ElementType: types.StringType,
 				Validators:  []validator.List{},
+				Default:     listdefault.StaticValue(types.ListValueMust(types.StringType, []attr.Value{})),
 				PlanModifiers: []planmodifier.List{
 					jsonIgnoreDiffPlanModifierList(),
 				},
@@ -156,7 +164,7 @@ func (r *ComplianceFrameworkResource) Create(ctx context.Context, req resource.C
 		return
 	}
 
-	scopeFilters, diag := data.BuildScopeFilters()
+	scopeFilters, diag := data.BuildScopeFilters(ctx)
 	resp.Diagnostics.Append(diag...)
 	if resp.Diagnostics.HasError() {
 		return
@@ -238,7 +246,12 @@ func (r *ComplianceFrameworkResource) Read(ctx context.Context, req resource.Rea
 		return
 	}
 
-	data.ScopeFilters = newScopeFilters
+	var diag diag.Diagnostics
+	data.ScopeFilters, diag = types.ListValueFrom(ctx, types.StringType, newScopeFilters)
+	resp.Diagnostics.Append(diag...)
+	if resp.Diagnostics.HasError() {
+		return
+	}
 
 	// Save updated data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
@@ -255,7 +268,7 @@ func (r *ComplianceFrameworkResource) Update(ctx context.Context, req resource.U
 		return
 	}
 
-	scopeFilters, diag := data.BuildScopeFilters()
+	scopeFilters, diag := data.BuildScopeFilters(ctx)
 	resp.Diagnostics.Append(diag...)
 	if resp.Diagnostics.HasError() {
 		return

@@ -80,6 +80,9 @@ func (*ComplianceFrameworkItemResource) Schema(_ context.Context, _ resource.Sch
 			"framework_id": schema.StringAttribute{
 				Required:    true,
 				Description: "The internal ID of the framework this item belongs to",
+				PlanModifiers: []planmodifier.String{
+					stringplanmodifier.RequiresReplace(),
+				},
 			},
 			"group_id": schema.StringAttribute{
 				Required:    true,
