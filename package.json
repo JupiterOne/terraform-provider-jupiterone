@@ -1,4 +1,12 @@
 {
+  "name": "terraform-provider-jupiterone",
+  "version": "0.0.0",
+  "description": "Automatically generated package.json, please edit manually",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JupiterOne/terraform-provider-jupiterone"
+  },
+  "license": "UNLICENSED",
   "dependencies": {
     "graphql": "^16.6.0"
   }
