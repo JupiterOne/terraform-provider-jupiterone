@@ -556,19 +556,11 @@ func (v *CreateReferencedQuestionRuleInstanceResponse) GetCreateQuestionRuleInst
 
 // CreateUserGroupCreateIamGroupV1Group includes the requested fields of the GraphQL type V1Group.
 type CreateUserGroupCreateIamGroupV1Group struct {
-	Id          string `json:"id"`
-	Name        string `json:"name"`
-	Description string `json:"description"`
+	Id string `json:"id"`
 }
 
 // GetId returns CreateUserGroupCreateIamGroupV1Group.Id, and is useful for accessing the field via an interface.
 func (v *CreateUserGroupCreateIamGroupV1Group) GetId() string { return v.Id }
-
-// GetName returns CreateUserGroupCreateIamGroupV1Group.Name, and is useful for accessing the field via an interface.
-func (v *CreateUserGroupCreateIamGroupV1Group) GetName() string { return v.Name }
-
-// GetDescription returns CreateUserGroupCreateIamGroupV1Group.Description, and is useful for accessing the field via an interface.
-func (v *CreateUserGroupCreateIamGroupV1Group) GetDescription() string { return v.Description }
 
 // CreateUserGroupResponse is returned by CreateUserGroup on success.
 type CreateUserGroupResponse struct {
@@ -1721,6 +1713,24 @@ func (v *UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstanc
 	return v.Operations
 }
 
+// UpdateUserGroupResponse is returned by UpdateUserGroup on success.
+type UpdateUserGroupResponse struct {
+	UpdateIamGroup UpdateUserGroupUpdateIamGroupV1Group `json:"updateIamGroup"`
+}
+
+// GetUpdateIamGroup returns UpdateUserGroupResponse.UpdateIamGroup, and is useful for accessing the field via an interface.
+func (v *UpdateUserGroupResponse) GetUpdateIamGroup() UpdateUserGroupUpdateIamGroupV1Group {
+	return v.UpdateIamGroup
+}
+
+// UpdateUserGroupUpdateIamGroupV1Group includes the requested fields of the GraphQL type V1Group.
+type UpdateUserGroupUpdateIamGroupV1Group struct {
+	Id string `json:"id"`
+}
+
+// GetId returns UpdateUserGroupUpdateIamGroupV1Group.Id, and is useful for accessing the field via an interface.
+func (v *UpdateUserGroupUpdateIamGroupV1Group) GetId() string { return v.Id }
+
 // __CreateComplianceFrameworkInput is used internally by genqlient
 type __CreateComplianceFrameworkInput struct {
 	Framework CreateComplianceFrameworkInput `json:"framework"`
@@ -1978,6 +1988,30 @@ type __UpdateReferencedQuestionRuleInstanceInput struct {
 func (v *__UpdateReferencedQuestionRuleInstanceInput) GetInstance() UpdateReferencedQuestionRuleInstanceInput {
 	return v.Instance
 }
+
+// __UpdateUserGroupInput is used internally by genqlient
+type __UpdateUserGroupInput struct {
+	Id              string                   `json:"id"`
+	Name            string                   `json:"name"`
+	Description     string                   `json:"description"`
+	QueryPolicy     []map[string]interface{} `json:"queryPolicy"`
+	AbacPermissions []string                 `json:"abacPermissions"`
+}
+
+// GetId returns __UpdateUserGroupInput.Id, and is useful for accessing the field via an interface.
+func (v *__UpdateUserGroupInput) GetId() string { return v.Id }
+
+// GetName returns __UpdateUserGroupInput.Name, and is useful for accessing the field via an interface.
+func (v *__UpdateUserGroupInput) GetName() string { return v.Name }
+
+// GetDescription returns __UpdateUserGroupInput.Description, and is useful for accessing the field via an interface.
+func (v *__UpdateUserGroupInput) GetDescription() string { return v.Description }
+
+// GetQueryPolicy returns __UpdateUserGroupInput.QueryPolicy, and is useful for accessing the field via an interface.
+func (v *__UpdateUserGroupInput) GetQueryPolicy() []map[string]interface{} { return v.QueryPolicy }
+
+// GetAbacPermissions returns __UpdateUserGroupInput.AbacPermissions, and is useful for accessing the field via an interface.
+func (v *__UpdateUserGroupInput) GetAbacPermissions() []string { return v.AbacPermissions }
 
 func CreateComplianceFramework(
 	ctx context.Context,
@@ -2237,8 +2271,6 @@ func CreateUserGroup(
 mutation CreateUserGroup ($name: String!, $description: String, $queryPolicy: [JSON!], $abacPermissions: [String!]) {
 	createIamGroup(name: $name, description: $description, queryPolicy: $queryPolicy, abacPermissions: $abacPermissions) {
 		id
-		name
-		description
 	}
 }
 `,
@@ -2973,6 +3005,46 @@ mutation UpdateReferencedQuestionRuleInstance ($instance: UpdateReferencedQuesti
 	var err error
 
 	var data UpdateReferencedQuestionRuleInstanceResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func UpdateUserGroup(
+	ctx context.Context,
+	client graphql.Client,
+	id string,
+	name string,
+	description string,
+	queryPolicy []map[string]interface{},
+	abacPermissions []string,
+) (*UpdateUserGroupResponse, error) {
+	req := &graphql.Request{
+		OpName: "UpdateUserGroup",
+		Query: `
+mutation UpdateUserGroup ($id: String!, $name: String, $description: String, $queryPolicy: [JSON!], $abacPermissions: [String!]) {
+	updateIamGroup(id: $id, name: $name, description: $description, queryPolicy: $queryPolicy, abacPermissions: $abacPermissions) {
+		id
+	}
+}
+`,
+		Variables: &__UpdateUserGroupInput{
+			Id:              id,
+			Name:            name,
+			Description:     description,
+			QueryPolicy:     queryPolicy,
+			AbacPermissions: abacPermissions,
+		},
+	}
+	var err error
+
+	var data UpdateUserGroupResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(

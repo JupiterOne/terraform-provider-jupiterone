@@ -27,10 +27,11 @@ type UserGroupResource struct {
 
 // UserGroupModel is the terraform HCL representation of a user group.
 type UserGroupModel struct {
-	Id          types.String `json:"id,omitempty" tfsdk:"id"`
-	Name        types.String `json:"groupName,omitempty" tfsdk:"name"`
-	Description types.String `json:"groupDescription,omitempty" tfsdk:"description"`
-	Permissions []string     `json:"groupAbacPermission,omitempty" tfsdk:"permissions"`
+	Id          types.String 							`json:"id,omitempty" tfsdk:"id"`
+	Name        types.String 							`json:"groupName,omitempty" tfsdk:"name"`
+	Description types.String 							`json:"groupDescription,omitempty" tfsdk:"description"`
+	Permissions []string     							`json:"groupAbacPermission,omitempty" tfsdk:"permissions"`
+	QueryPolicy []map[string][]string			`json:"groupQueryPolicy,omitempty" tfsdk:"query_policy"`
 }
 
 func NewUserGroupResource() resource.Resource {
@@ -65,6 +66,15 @@ func (*UserGroupResource) Schema(ctx context.Context, req resource.SchemaRequest
 				Description: "A list of permissions for the user group.",
 				Optional:    true,
 				ElementType: types.StringType,
+			},
+			"query_policy": schema.ListAttribute{
+				Description: "A list of query policy statements for the user group.",
+				Optional:			true,
+				ElementType: types.MapType{
+					ElemType: types.ListType{
+						ElemType: types.StringType,
+					},
+				},
 			},
 		},
 	}
@@ -102,7 +112,27 @@ func (r *UserGroupResource) Create(ctx context.Context, req resource.CreateReque
 		return
 	}
 
-	created, err := client.CreateUserGroup(ctx, r.qlient, data.Name.ValueString(), data.Description.ValueString(), nil, data.Permissions)
+	// Convert from  []map[string][]string to []map[string]interface{}
+	var queryPolicy []map[string]interface{}
+
+	for _, statementData := range data.QueryPolicy {
+		var queryPolicyStatement = make(map[string]interface{}) // Initialize the map
+
+		for key, value := range statementData {
+			queryPolicyStatement[key] = value
+		}
+
+		queryPolicy = append(queryPolicy, queryPolicyStatement)
+	}
+
+	created, err := client.CreateUserGroup(
+		ctx,
+		r.qlient,
+		data.Name.ValueString(),
+		data.Description.ValueString(),
+		queryPolicy,
+		data.Permissions,
+	)
 
 	if err != nil {
 		resp.Diagnostics.AddError("failed to create user group", err.Error())
@@ -145,4 +175,45 @@ func (*UserGroupResource) ImportState(ctx context.Context, req resource.ImportSt
 
 // Update implements resource.Resource
 func (r *UserGroupResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
+	var data UserGroupModel
+
+	// Read Terraform plan data into the model
+	resp.Diagnostics.Append(req.Plan.Get(ctx, &data)...)
+
+	if resp.Diagnostics.HasError() {
+		return
+	}
+
+	// Convert from  []map[string][]string to []map[string]interface{}
+	var queryPolicy []map[string]interface{}
+
+	for _, statementData := range data.QueryPolicy {
+		var queryPolicyStatement = make(map[string]interface{}) // Initialize the map
+
+		for key, value := range statementData {
+			queryPolicyStatement[key] = value
+		}
+
+		queryPolicy = append(queryPolicy, queryPolicyStatement)
+	}
+
+	_, err := client.UpdateUserGroup(
+		ctx,
+		r.qlient,
+		data.Id.ValueString(),
+		data.Name.ValueString(),
+		data.Description.ValueString(),
+		queryPolicy,
+		data.Permissions,
+	)
+
+	if err != nil {
+		resp.Diagnostics.AddError("failed to update user group", err.Error())
+		return
+	}
+
+	tflog.Trace(ctx, "Updated user group",
+		map[string]interface{}{"title": data.Name, "id": data.Id})
+
+	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
 }

@@ -11,8 +11,24 @@ mutation CreateUserGroup(
     abacPermissions: $abacPermissions
   ) {
     id
-    name
-    description
+  }
+}
+
+mutation UpdateUserGroup(
+  $id: String!
+  $name: String
+  $description: String
+  $queryPolicy: [JSON!]
+  $abacPermissions: [String!]
+) {
+  updateIamGroup(
+    id: $id
+    name: $name
+    description: $description
+    queryPolicy: $queryPolicy
+    abacPermissions: $abacPermissions
+  ) {
+    id
   }
 }
 
