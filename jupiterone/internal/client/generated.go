@@ -330,6 +330,7 @@ type CreateInlineQuestionRuleInstanceInput struct {
 	NotifyOnFailure                 bool                     `json:"notifyOnFailure"`
 	TriggerActionsOnNewEntitiesOnly bool                     `json:"triggerActionsOnNewEntitiesOnly"`
 	RemediationSteps                string                   `json:"remediationSteps"`
+	J1Internal                      bool                     `json:"j1Internal"`
 }
 
 // GetQuestion returns CreateInlineQuestionRuleInstanceInput.Question, and is useful for accessing the field via an interface.
@@ -380,6 +381,9 @@ func (v *CreateInlineQuestionRuleInstanceInput) GetRemediationSteps() string {
 	return v.RemediationSteps
 }
 
+// GetJ1Internal returns CreateInlineQuestionRuleInstanceInput.J1Internal, and is useful for accessing the field via an interface.
+func (v *CreateInlineQuestionRuleInstanceInput) GetJ1Internal() bool { return v.J1Internal }
+
 // CreateInlineQuestionRuleInstanceResponse is returned by CreateInlineQuestionRuleInstance on success.
 type CreateInlineQuestionRuleInstanceResponse struct {
 	CreateQuestionRuleInstance CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance `json:"createQuestionRuleInstance"`
@@ -398,8 +402,6 @@ type CreateQuestionCreateQuestion struct {
 // GetId returns CreateQuestionCreateQuestion.Id, and is useful for accessing the field via an interface.
 func (v *CreateQuestionCreateQuestion) GetId() string { return v.Id }
 
-// The question-service does not list questions when widgetId="",
-// we need to set it to null to allow the questions to show up in the UI
 type CreateQuestionInput struct {
 	Title           string                            `json:"title"`
 	Name            string                            `json:"name"`
@@ -407,7 +409,7 @@ type CreateQuestionInput struct {
 	Description     string                            `json:"description"`
 	ShowTrend       bool                              `json:"showTrend"`
 	PollingInterval SchedulerPollingInterval          `json:"pollingInterval"`
-	WidgetId        string                            `json:"widgetId,omitempty"`
+	WidgetId        string                            `json:"widgetId"`
 	Queries         []QuestionQueryInput              `json:"queries"`
 	Compliance      []QuestionComplianceMetaDataInput `json:"compliance"`
 	Variables       []QuestionVariableInput           `json:"variables"`
@@ -552,6 +554,32 @@ func (v *CreateReferencedQuestionRuleInstanceResponse) GetCreateQuestionRuleInst
 	return v.CreateQuestionRuleInstance
 }
 
+// CreateUserGroupCreateIamGroupV1Group includes the requested fields of the GraphQL type V1Group.
+type CreateUserGroupCreateIamGroupV1Group struct {
+	Id          string `json:"id"`
+	Name        string `json:"name"`
+	Description string `json:"description"`
+}
+
+// GetId returns CreateUserGroupCreateIamGroupV1Group.Id, and is useful for accessing the field via an interface.
+func (v *CreateUserGroupCreateIamGroupV1Group) GetId() string { return v.Id }
+
+// GetName returns CreateUserGroupCreateIamGroupV1Group.Name, and is useful for accessing the field via an interface.
+func (v *CreateUserGroupCreateIamGroupV1Group) GetName() string { return v.Name }
+
+// GetDescription returns CreateUserGroupCreateIamGroupV1Group.Description, and is useful for accessing the field via an interface.
+func (v *CreateUserGroupCreateIamGroupV1Group) GetDescription() string { return v.Description }
+
+// CreateUserGroupResponse is returned by CreateUserGroup on success.
+type CreateUserGroupResponse struct {
+	CreateIamGroup CreateUserGroupCreateIamGroupV1Group `json:"createIamGroup"`
+}
+
+// GetCreateIamGroup returns CreateUserGroupResponse.CreateIamGroup, and is useful for accessing the field via an interface.
+func (v *CreateUserGroupResponse) GetCreateIamGroup() CreateUserGroupCreateIamGroupV1Group {
+	return v.CreateIamGroup
+}
+
 type DeleteComplianceFrameworkInput struct {
 	Id string `json:"id"`
 }
@@ -633,6 +661,24 @@ type DeleteRuleInstanceResponse struct {
 // GetDeleteRuleInstance returns DeleteRuleInstanceResponse.DeleteRuleInstance, and is useful for accessing the field via an interface.
 func (v *DeleteRuleInstanceResponse) GetDeleteRuleInstance() DeleteRuleInstanceDeleteRuleInstanceDeleteRuleInstanceResult {
 	return v.DeleteRuleInstance
+}
+
+// DeleteUserGroupDeleteIamGroupSuccessStatusResult includes the requested fields of the GraphQL type SuccessStatusResult.
+type DeleteUserGroupDeleteIamGroupSuccessStatusResult struct {
+	Success bool `json:"success"`
+}
+
+// GetSuccess returns DeleteUserGroupDeleteIamGroupSuccessStatusResult.Success, and is useful for accessing the field via an interface.
+func (v *DeleteUserGroupDeleteIamGroupSuccessStatusResult) GetSuccess() bool { return v.Success }
+
+// DeleteUserGroupResponse is returned by DeleteUserGroup on success.
+type DeleteUserGroupResponse struct {
+	DeleteIamGroup DeleteUserGroupDeleteIamGroupSuccessStatusResult `json:"deleteIamGroup"`
+}
+
+// GetDeleteIamGroup returns DeleteUserGroupResponse.DeleteIamGroup, and is useful for accessing the field via an interface.
+func (v *DeleteUserGroupResponse) GetDeleteIamGroup() DeleteUserGroupDeleteIamGroupSuccessStatusResult {
+	return v.DeleteIamGroup
 }
 
 // GetComplianceFrameworkByIdComplianceFramework includes the requested fields of the GraphQL type ComplianceFramework.
@@ -826,6 +872,7 @@ type GetQuestionByIdQuestion struct {
 	Id              string                       `json:"id"`
 	Title           string                       `json:"title"`
 	Description     string                       `json:"description"`
+	ShowTrend       bool                         `json:"showTrend"`
 	PollingInterval SchedulerPollingInterval     `json:"pollingInterval"`
 	Queries         []QuestionQuery              `json:"queries"`
 	Tags            []string                     `json:"tags"`
@@ -840,6 +887,9 @@ func (v *GetQuestionByIdQuestion) GetTitle() string { return v.Title }
 
 // GetDescription returns GetQuestionByIdQuestion.Description, and is useful for accessing the field via an interface.
 func (v *GetQuestionByIdQuestion) GetDescription() string { return v.Description }
+
+// GetShowTrend returns GetQuestionByIdQuestion.ShowTrend, and is useful for accessing the field via an interface.
+func (v *GetQuestionByIdQuestion) GetShowTrend() bool { return v.ShowTrend }
 
 // GetPollingInterval returns GetQuestionByIdQuestion.PollingInterval, and is useful for accessing the field via an interface.
 func (v *GetQuestionByIdQuestion) GetPollingInterval() SchedulerPollingInterval {
@@ -1109,7 +1159,7 @@ type QuestionUpdate struct {
 	Description     string                            `json:"description"`
 	ShowTrend       bool                              `json:"showTrend"`
 	PollingInterval SchedulerPollingInterval          `json:"pollingInterval"`
-	WidgetId        string                            `json:"widgetId,omitempty"`
+	WidgetId        string                            `json:"widgetId"`
 }
 
 // GetTitle returns QuestionUpdate.Title, and is useful for accessing the field via an interface.
@@ -1737,6 +1787,26 @@ func (v *__CreateReferencedQuestionRuleInstanceInput) GetInstance() CreateRefere
 	return v.Instance
 }
 
+// __CreateUserGroupInput is used internally by genqlient
+type __CreateUserGroupInput struct {
+	Name            string                   `json:"name"`
+	Description     string                   `json:"description"`
+	QueryPolicy     []map[string]interface{} `json:"queryPolicy"`
+	AbacPermissions []string                 `json:"abacPermissions"`
+}
+
+// GetName returns __CreateUserGroupInput.Name, and is useful for accessing the field via an interface.
+func (v *__CreateUserGroupInput) GetName() string { return v.Name }
+
+// GetDescription returns __CreateUserGroupInput.Description, and is useful for accessing the field via an interface.
+func (v *__CreateUserGroupInput) GetDescription() string { return v.Description }
+
+// GetQueryPolicy returns __CreateUserGroupInput.QueryPolicy, and is useful for accessing the field via an interface.
+func (v *__CreateUserGroupInput) GetQueryPolicy() []map[string]interface{} { return v.QueryPolicy }
+
+// GetAbacPermissions returns __CreateUserGroupInput.AbacPermissions, and is useful for accessing the field via an interface.
+func (v *__CreateUserGroupInput) GetAbacPermissions() []string { return v.AbacPermissions }
+
 // __DeleteComplianceFrameworkInput is used internally by genqlient
 type __DeleteComplianceFrameworkInput struct {
 	Input DeleteComplianceFrameworkInput `json:"input"`
@@ -1784,6 +1854,14 @@ type __DeleteRuleInstanceInput struct {
 
 // GetId returns __DeleteRuleInstanceInput.Id, and is useful for accessing the field via an interface.
 func (v *__DeleteRuleInstanceInput) GetId() string { return v.Id }
+
+// __DeleteUserGroupInput is used internally by genqlient
+type __DeleteUserGroupInput struct {
+	Name string `json:"name"`
+}
+
+// GetName returns __DeleteUserGroupInput.Name, and is useful for accessing the field via an interface.
+func (v *__DeleteUserGroupInput) GetName() string { return v.Name }
 
 // __GetComplianceFrameworkByIdInput is used internally by genqlient
 type __GetComplianceFrameworkByIdInput struct {
@@ -2145,6 +2223,46 @@ mutation CreateReferencedQuestionRuleInstance ($instance: CreateReferencedQuesti
 	return &data, err
 }
 
+func CreateUserGroup(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+	description string,
+	queryPolicy []map[string]interface{},
+	abacPermissions []string,
+) (*CreateUserGroupResponse, error) {
+	req := &graphql.Request{
+		OpName: "CreateUserGroup",
+		Query: `
+mutation CreateUserGroup ($name: String!, $description: String, $queryPolicy: [JSON!], $abacPermissions: [String!]) {
+	createIamGroup(name: $name, description: $description, queryPolicy: $queryPolicy, abacPermissions: $abacPermissions) {
+		id
+		name
+		description
+	}
+}
+`,
+		Variables: &__CreateUserGroupInput{
+			Name:            name,
+			Description:     description,
+			QueryPolicy:     queryPolicy,
+			AbacPermissions: abacPermissions,
+		},
+	}
+	var err error
+
+	var data CreateUserGroupResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
 func DeleteComplianceFramework(
 	ctx context.Context,
 	client graphql.Client,
@@ -2329,6 +2447,38 @@ mutation DeleteRuleInstance ($id: ID!) {
 	return &data, err
 }
 
+func DeleteUserGroup(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+) (*DeleteUserGroupResponse, error) {
+	req := &graphql.Request{
+		OpName: "DeleteUserGroup",
+		Query: `
+mutation DeleteUserGroup ($name: String!) {
+	deleteIamGroup(name: $name) {
+		success
+	}
+}
+`,
+		Variables: &__DeleteUserGroupInput{
+			Name: name,
+		},
+	}
+	var err error
+
+	var data DeleteUserGroupResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
 func GetComplianceFrameworkById(
 	ctx context.Context,
 	client graphql.Client,
@@ -2501,6 +2651,7 @@ query GetQuestionById ($id: ID!) {
 		id
 		title
 		description
+		showTrend
 		pollingInterval
 		queries {
 			name

@@ -46,20 +46,36 @@ advantages are:
 - Compile time query checking
 - Generated full types for all API calls
 
-Requirements:
+#### Requirements:
 
 - `node` and `yarn` are installed
 
-```shell
-$EDITOR jupiterone/internal/client/<query source file>.graphql
+#### Add queries and mutations
 
-# the J1 env variables and node library is only necessary to query and
-# save the updated schema the first time
+You should either update an existing `.graphql` file in the `/jupiterone/internal/client` directory, or create a new one.
+
+If you create a new one, be sure to add the file to the [genqlient.yaml](jupiterone/internal/client/genqlient.yaml) file `operations` section.
+
+#### Set environment variables
+
+You should always generate the gql client from the production api so that you do not include any in-progress work from dev. Set these environment variables before running the next commands.
+
+```shell
 export JUPITERONE_ACCOUNT=:your_account_id
 export JUPITERONE_API_KEY=:your_api_key
 export JUPITERONE_REGION=us
-yarn add graphql
+```
 
+#### Generating the client
+
+These commands will generate several files:
+
+- introspection_result.json
+- jupiterone/internal/client/schema.graphql
+- jupiterone/internal/client/generated.go <-- Only generated file that gets committed to the repository
+
+```shell
+scripts/get_current_schema.bash
 make generate-client
 ```
 

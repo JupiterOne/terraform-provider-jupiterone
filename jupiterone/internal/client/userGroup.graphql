@@ -1,0 +1,23 @@
+mutation CreateUserGroup(
+  $name: String!
+  $description: String
+  $queryPolicy: [JSON!]
+  $abacPermissions: [String!]
+) {
+  createIamGroup(
+    name: $name
+    description: $description
+    queryPolicy: $queryPolicy
+    abacPermissions: $abacPermissions
+  ) {
+    id
+    name
+    description
+  }
+}
+
+mutation DeleteUserGroup($name: String!) {
+  deleteIamGroup(name: $name) {
+    success
+  }
+}
