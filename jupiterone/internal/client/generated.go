@@ -1037,6 +1037,62 @@ func (v *GetQuestionRuleInstanceResponse) GetQuestionRuleInstance() GetQuestionR
 	return v.QuestionRuleInstance
 }
 
+// GetUserGroupIamGetGroupIamGroup includes the requested fields of the GraphQL type IamGroup.
+type GetUserGroupIamGetGroupIamGroup struct {
+	Id                  string                                                              `json:"id"`
+	GroupName           string                                                              `json:"groupName"`
+	GroupDescription    string                                                              `json:"groupDescription"`
+	GroupQueryPolicy    GetUserGroupIamGetGroupIamGroupGroupQueryPolicyIamQueryPolicy       `json:"groupQueryPolicy"`
+	GroupAbacPermission GetUserGroupIamGetGroupIamGroupGroupAbacPermissionIamAbacPermission `json:"groupAbacPermission"`
+}
+
+// GetId returns GetUserGroupIamGetGroupIamGroup.Id, and is useful for accessing the field via an interface.
+func (v *GetUserGroupIamGetGroupIamGroup) GetId() string { return v.Id }
+
+// GetGroupName returns GetUserGroupIamGetGroupIamGroup.GroupName, and is useful for accessing the field via an interface.
+func (v *GetUserGroupIamGetGroupIamGroup) GetGroupName() string { return v.GroupName }
+
+// GetGroupDescription returns GetUserGroupIamGetGroupIamGroup.GroupDescription, and is useful for accessing the field via an interface.
+func (v *GetUserGroupIamGetGroupIamGroup) GetGroupDescription() string { return v.GroupDescription }
+
+// GetGroupQueryPolicy returns GetUserGroupIamGetGroupIamGroup.GroupQueryPolicy, and is useful for accessing the field via an interface.
+func (v *GetUserGroupIamGetGroupIamGroup) GetGroupQueryPolicy() GetUserGroupIamGetGroupIamGroupGroupQueryPolicyIamQueryPolicy {
+	return v.GroupQueryPolicy
+}
+
+// GetGroupAbacPermission returns GetUserGroupIamGetGroupIamGroup.GroupAbacPermission, and is useful for accessing the field via an interface.
+func (v *GetUserGroupIamGetGroupIamGroup) GetGroupAbacPermission() GetUserGroupIamGetGroupIamGroupGroupAbacPermissionIamAbacPermission {
+	return v.GroupAbacPermission
+}
+
+// GetUserGroupIamGetGroupIamGroupGroupAbacPermissionIamAbacPermission includes the requested fields of the GraphQL type IamAbacPermission.
+type GetUserGroupIamGetGroupIamGroupGroupAbacPermissionIamAbacPermission struct {
+	Statement []string `json:"statement"`
+}
+
+// GetStatement returns GetUserGroupIamGetGroupIamGroupGroupAbacPermissionIamAbacPermission.Statement, and is useful for accessing the field via an interface.
+func (v *GetUserGroupIamGetGroupIamGroupGroupAbacPermissionIamAbacPermission) GetStatement() []string {
+	return v.Statement
+}
+
+// GetUserGroupIamGetGroupIamGroupGroupQueryPolicyIamQueryPolicy includes the requested fields of the GraphQL type IamQueryPolicy.
+type GetUserGroupIamGetGroupIamGroupGroupQueryPolicyIamQueryPolicy struct {
+	Statement []map[string]interface{} `json:"statement"`
+}
+
+// GetStatement returns GetUserGroupIamGetGroupIamGroupGroupQueryPolicyIamQueryPolicy.Statement, and is useful for accessing the field via an interface.
+func (v *GetUserGroupIamGetGroupIamGroupGroupQueryPolicyIamQueryPolicy) GetStatement() []map[string]interface{} {
+	return v.Statement
+}
+
+// GetUserGroupResponse is returned by GetUserGroup on success.
+type GetUserGroupResponse struct {
+	IamGetGroup GetUserGroupIamGetGroupIamGroup `json:"iamGetGroup"`
+}
+
+// GetIamGetGroup returns GetUserGroupResponse.IamGetGroup, and is useful for accessing the field via an interface.
+func (v *GetUserGroupResponse) GetIamGetGroup() GetUserGroupIamGetGroupIamGroup { return v.IamGetGroup }
+
 type J1QueryInput struct {
 	Query          string `json:"query"`
 	Name           string `json:"name"`
@@ -1921,6 +1977,14 @@ type __GetQuestionRuleInstanceInput struct {
 // GetId returns __GetQuestionRuleInstanceInput.Id, and is useful for accessing the field via an interface.
 func (v *__GetQuestionRuleInstanceInput) GetId() string { return v.Id }
 
+// __GetUserGroupInput is used internally by genqlient
+type __GetUserGroupInput struct {
+	Id string `json:"id"`
+}
+
+// GetId returns __GetUserGroupInput.Id, and is useful for accessing the field via an interface.
+func (v *__GetUserGroupInput) GetId() string { return v.Id }
+
 // __UpdateComplianceFrameworkInput is used internally by genqlient
 type __UpdateComplianceFrameworkInput struct {
 	Input UpdateComplianceFrameworkInput `json:"input"`
@@ -2766,6 +2830,46 @@ query GetQuestionRuleInstance ($id: ID!) {
 	var err error
 
 	var data GetQuestionRuleInstanceResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func GetUserGroup(
+	ctx context.Context,
+	client graphql.Client,
+	id string,
+) (*GetUserGroupResponse, error) {
+	req := &graphql.Request{
+		OpName: "GetUserGroup",
+		Query: `
+query GetUserGroup ($id: String!) {
+	iamGetGroup(group: $id) {
+		id
+		groupName
+		groupDescription
+		groupQueryPolicy {
+			statement
+		}
+		groupAbacPermission {
+			statement
+		}
+	}
+}
+`,
+		Variables: &__GetUserGroupInput{
+			Id: id,
+		},
+	}
+	var err error
+
+	var data GetUserGroupResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(

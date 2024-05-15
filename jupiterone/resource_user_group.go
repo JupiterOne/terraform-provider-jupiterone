@@ -2,6 +2,7 @@ package jupiterone
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 
 	"github.com/Khan/genqlient/graphql"
@@ -165,7 +166,59 @@ func (r *UserGroupResource) Delete(ctx context.Context, req resource.DeleteReque
 
 // Read implements resource.Resource
 func (r *UserGroupResource) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
+	var data UserGroupModel
 
+	// Read Terraform state into the model
+	resp.Diagnostics.Append(req.State.Get(ctx, &data)...)
+
+	if resp.Diagnostics.HasError() {
+		return
+	}
+
+	group, err := client.GetUserGroup(ctx, r.qlient, data.Id.ValueString())
+	if err != nil {
+		resp.Diagnostics.AddError("failed to get user group", err.Error())
+		return
+	}
+
+	data.Name = types.StringValue(group.IamGetGroup.GroupName)
+	data.Description = types.StringValue(group.IamGetGroup.GroupDescription)
+	data.Permissions = group.IamGetGroup.GroupAbacPermission.Statement
+
+	// Convert from []map[string]interface{} to []map[string][]string
+	var queryPolicy []map[string][]string
+
+	for _, statementData := range group.IamGetGroup.GroupQueryPolicy.Statement {
+		var queryPolicyStatement = make(map[string][]string) // Initialize the map
+
+		for key, value := range statementData {
+			// Was unable to parse the []string from the JSON response in any other way.
+			// So we convert the value to a string and then unmarshal it into a []string.
+			stringValue, stringifyError := json.Marshal(value)
+
+			if stringifyError != nil {
+				resp.Diagnostics.AddError("failed to parse query policy", stringifyError.Error())
+				return
+			}
+
+			var arrayValue []string
+			parseError := json.Unmarshal([]byte(stringValue), &arrayValue)
+
+			if parseError != nil {
+				resp.Diagnostics.AddError("failed to parse query policy", parseError.Error())
+				return
+			}
+
+			queryPolicyStatement[key] = arrayValue
+		}
+
+		queryPolicy = append(queryPolicy, queryPolicyStatement)
+	}
+
+	data.QueryPolicy = queryPolicy
+
+	// Save updated data into Terraform state
+	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
 }
 
 // ImportState implements resource.ResourceWithImportState

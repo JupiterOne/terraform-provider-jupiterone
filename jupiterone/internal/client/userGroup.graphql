@@ -37,3 +37,17 @@ mutation DeleteUserGroup($name: String!) {
     success
   }
 }
+
+query GetUserGroup($id: String!) {
+  iamGetGroup(group: $id) {
+    id
+    groupName
+    groupDescription
+    groupQueryPolicy {
+      statement
+    }
+    groupAbacPermission {
+      statement
+    }
+  }
+}
