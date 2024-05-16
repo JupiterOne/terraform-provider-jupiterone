@@ -51,3 +51,24 @@ query GetUserGroup($id: String!) {
     }
   }
 }
+
+query GetGroupsByName($name: String!) {
+  iamGetGroupList(limit: 10000, groupNameFilter: $name) {
+    items {
+      id
+      groupName
+      groupDescription
+      status
+      groupQueryPolicy {
+        statement
+      }
+      groupAbacPermission {
+        statement
+      }
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}

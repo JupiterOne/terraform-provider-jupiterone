@@ -859,6 +859,104 @@ func (v *GetComplianceLibraryItemByIdResponse) GetComplianceLibraryItem() GetCom
 	return v.ComplianceLibraryItem
 }
 
+// GetGroupsByNameIamGetGroupListIamGroupPage includes the requested fields of the GraphQL type IamGroupPage.
+type GetGroupsByNameIamGetGroupListIamGroupPage struct {
+	Items    []GetGroupsByNameIamGetGroupListIamGroupPageItemsIamGroup `json:"items"`
+	PageInfo GetGroupsByNameIamGetGroupListIamGroupPagePageInfo        `json:"pageInfo"`
+}
+
+// GetItems returns GetGroupsByNameIamGetGroupListIamGroupPage.Items, and is useful for accessing the field via an interface.
+func (v *GetGroupsByNameIamGetGroupListIamGroupPage) GetItems() []GetGroupsByNameIamGetGroupListIamGroupPageItemsIamGroup {
+	return v.Items
+}
+
+// GetPageInfo returns GetGroupsByNameIamGetGroupListIamGroupPage.PageInfo, and is useful for accessing the field via an interface.
+func (v *GetGroupsByNameIamGetGroupListIamGroupPage) GetPageInfo() GetGroupsByNameIamGetGroupListIamGroupPagePageInfo {
+	return v.PageInfo
+}
+
+// GetGroupsByNameIamGetGroupListIamGroupPageItemsIamGroup includes the requested fields of the GraphQL type IamGroup.
+type GetGroupsByNameIamGetGroupListIamGroupPageItemsIamGroup struct {
+	Id                  string                                                                                      `json:"id"`
+	GroupName           string                                                                                      `json:"groupName"`
+	GroupDescription    string                                                                                      `json:"groupDescription"`
+	Status              string                                                                                      `json:"status"`
+	GroupQueryPolicy    GetGroupsByNameIamGetGroupListIamGroupPageItemsIamGroupGroupQueryPolicyIamQueryPolicy       `json:"groupQueryPolicy"`
+	GroupAbacPermission GetGroupsByNameIamGetGroupListIamGroupPageItemsIamGroupGroupAbacPermissionIamAbacPermission `json:"groupAbacPermission"`
+}
+
+// GetId returns GetGroupsByNameIamGetGroupListIamGroupPageItemsIamGroup.Id, and is useful for accessing the field via an interface.
+func (v *GetGroupsByNameIamGetGroupListIamGroupPageItemsIamGroup) GetId() string { return v.Id }
+
+// GetGroupName returns GetGroupsByNameIamGetGroupListIamGroupPageItemsIamGroup.GroupName, and is useful for accessing the field via an interface.
+func (v *GetGroupsByNameIamGetGroupListIamGroupPageItemsIamGroup) GetGroupName() string {
+	return v.GroupName
+}
+
+// GetGroupDescription returns GetGroupsByNameIamGetGroupListIamGroupPageItemsIamGroup.GroupDescription, and is useful for accessing the field via an interface.
+func (v *GetGroupsByNameIamGetGroupListIamGroupPageItemsIamGroup) GetGroupDescription() string {
+	return v.GroupDescription
+}
+
+// GetStatus returns GetGroupsByNameIamGetGroupListIamGroupPageItemsIamGroup.Status, and is useful for accessing the field via an interface.
+func (v *GetGroupsByNameIamGetGroupListIamGroupPageItemsIamGroup) GetStatus() string { return v.Status }
+
+// GetGroupQueryPolicy returns GetGroupsByNameIamGetGroupListIamGroupPageItemsIamGroup.GroupQueryPolicy, and is useful for accessing the field via an interface.
+func (v *GetGroupsByNameIamGetGroupListIamGroupPageItemsIamGroup) GetGroupQueryPolicy() GetGroupsByNameIamGetGroupListIamGroupPageItemsIamGroupGroupQueryPolicyIamQueryPolicy {
+	return v.GroupQueryPolicy
+}
+
+// GetGroupAbacPermission returns GetGroupsByNameIamGetGroupListIamGroupPageItemsIamGroup.GroupAbacPermission, and is useful for accessing the field via an interface.
+func (v *GetGroupsByNameIamGetGroupListIamGroupPageItemsIamGroup) GetGroupAbacPermission() GetGroupsByNameIamGetGroupListIamGroupPageItemsIamGroupGroupAbacPermissionIamAbacPermission {
+	return v.GroupAbacPermission
+}
+
+// GetGroupsByNameIamGetGroupListIamGroupPageItemsIamGroupGroupAbacPermissionIamAbacPermission includes the requested fields of the GraphQL type IamAbacPermission.
+type GetGroupsByNameIamGetGroupListIamGroupPageItemsIamGroupGroupAbacPermissionIamAbacPermission struct {
+	Statement []string `json:"statement"`
+}
+
+// GetStatement returns GetGroupsByNameIamGetGroupListIamGroupPageItemsIamGroupGroupAbacPermissionIamAbacPermission.Statement, and is useful for accessing the field via an interface.
+func (v *GetGroupsByNameIamGetGroupListIamGroupPageItemsIamGroupGroupAbacPermissionIamAbacPermission) GetStatement() []string {
+	return v.Statement
+}
+
+// GetGroupsByNameIamGetGroupListIamGroupPageItemsIamGroupGroupQueryPolicyIamQueryPolicy includes the requested fields of the GraphQL type IamQueryPolicy.
+type GetGroupsByNameIamGetGroupListIamGroupPageItemsIamGroupGroupQueryPolicyIamQueryPolicy struct {
+	Statement []map[string]interface{} `json:"statement"`
+}
+
+// GetStatement returns GetGroupsByNameIamGetGroupListIamGroupPageItemsIamGroupGroupQueryPolicyIamQueryPolicy.Statement, and is useful for accessing the field via an interface.
+func (v *GetGroupsByNameIamGetGroupListIamGroupPageItemsIamGroupGroupQueryPolicyIamQueryPolicy) GetStatement() []map[string]interface{} {
+	return v.Statement
+}
+
+// GetGroupsByNameIamGetGroupListIamGroupPagePageInfo includes the requested fields of the GraphQL type PageInfo.
+type GetGroupsByNameIamGetGroupListIamGroupPagePageInfo struct {
+	EndCursor   string `json:"endCursor"`
+	HasNextPage bool   `json:"hasNextPage"`
+}
+
+// GetEndCursor returns GetGroupsByNameIamGetGroupListIamGroupPagePageInfo.EndCursor, and is useful for accessing the field via an interface.
+func (v *GetGroupsByNameIamGetGroupListIamGroupPagePageInfo) GetEndCursor() string {
+	return v.EndCursor
+}
+
+// GetHasNextPage returns GetGroupsByNameIamGetGroupListIamGroupPagePageInfo.HasNextPage, and is useful for accessing the field via an interface.
+func (v *GetGroupsByNameIamGetGroupListIamGroupPagePageInfo) GetHasNextPage() bool {
+	return v.HasNextPage
+}
+
+// GetGroupsByNameResponse is returned by GetGroupsByName on success.
+type GetGroupsByNameResponse struct {
+	IamGetGroupList GetGroupsByNameIamGetGroupListIamGroupPage `json:"iamGetGroupList"`
+}
+
+// GetIamGetGroupList returns GetGroupsByNameResponse.IamGetGroupList, and is useful for accessing the field via an interface.
+func (v *GetGroupsByNameResponse) GetIamGetGroupList() GetGroupsByNameIamGetGroupListIamGroupPage {
+	return v.IamGetGroupList
+}
+
 // GetInvitationsIamGetAccountIamAccount includes the requested fields of the GraphQL type IamAccount.
 type GetInvitationsIamGetAccountIamAccount struct {
 	Id                 string                                                                   `json:"id"`
@@ -2197,6 +2295,14 @@ type __GetComplianceLibraryItemByIdInput struct {
 // GetId returns __GetComplianceLibraryItemByIdInput.Id, and is useful for accessing the field via an interface.
 func (v *__GetComplianceLibraryItemByIdInput) GetId() string { return v.Id }
 
+// __GetGroupsByNameInput is used internally by genqlient
+type __GetGroupsByNameInput struct {
+	Name string `json:"name"`
+}
+
+// GetName returns __GetGroupsByNameInput.Name, and is useful for accessing the field via an interface.
+func (v *__GetGroupsByNameInput) GetName() string { return v.Name }
+
 // __GetQuestionByIdInput is used internally by genqlient
 type __GetQuestionByIdInput struct {
 	Id string `json:"id"`
@@ -2999,6 +3105,53 @@ query GetComplianceLibraryItemById ($id: ID!) {
 	var err error
 
 	var data GetComplianceLibraryItemByIdResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func GetGroupsByName(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+) (*GetGroupsByNameResponse, error) {
+	req := &graphql.Request{
+		OpName: "GetGroupsByName",
+		Query: `
+query GetGroupsByName ($name: String!) {
+	iamGetGroupList(limit: 10000, groupNameFilter: $name) {
+		items {
+			id
+			groupName
+			groupDescription
+			status
+			groupQueryPolicy {
+				statement
+			}
+			groupAbacPermission {
+				statement
+			}
+		}
+		pageInfo {
+			endCursor
+			hasNextPage
+		}
+	}
+}
+`,
+		Variables: &__GetGroupsByNameInput{
+			Name: name,
+		},
+	}
+	var err error
+
+	var data GetGroupsByNameResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(
