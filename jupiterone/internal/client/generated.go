@@ -859,6 +859,78 @@ func (v *GetComplianceLibraryItemByIdResponse) GetComplianceLibraryItem() GetCom
 	return v.ComplianceLibraryItem
 }
 
+// GetInvitationsIamGetAccountIamAccount includes the requested fields of the GraphQL type IamAccount.
+type GetInvitationsIamGetAccountIamAccount struct {
+	Id                 string                                                                   `json:"id"`
+	AccountInvitations GetInvitationsIamGetAccountIamAccountAccountInvitationsIamInvitationPage `json:"accountInvitations"`
+}
+
+// GetId returns GetInvitationsIamGetAccountIamAccount.Id, and is useful for accessing the field via an interface.
+func (v *GetInvitationsIamGetAccountIamAccount) GetId() string { return v.Id }
+
+// GetAccountInvitations returns GetInvitationsIamGetAccountIamAccount.AccountInvitations, and is useful for accessing the field via an interface.
+func (v *GetInvitationsIamGetAccountIamAccount) GetAccountInvitations() GetInvitationsIamGetAccountIamAccountAccountInvitationsIamInvitationPage {
+	return v.AccountInvitations
+}
+
+// GetInvitationsIamGetAccountIamAccountAccountInvitationsIamInvitationPage includes the requested fields of the GraphQL type IamInvitationPage.
+type GetInvitationsIamGetAccountIamAccountAccountInvitationsIamInvitationPage struct {
+	Items    []GetInvitationsIamGetAccountIamAccountAccountInvitationsIamInvitationPageItemsIamInvitation `json:"items"`
+	PageInfo GetInvitationsIamGetAccountIamAccountAccountInvitationsIamInvitationPagePageInfo             `json:"pageInfo"`
+}
+
+// GetItems returns GetInvitationsIamGetAccountIamAccountAccountInvitationsIamInvitationPage.Items, and is useful for accessing the field via an interface.
+func (v *GetInvitationsIamGetAccountIamAccountAccountInvitationsIamInvitationPage) GetItems() []GetInvitationsIamGetAccountIamAccountAccountInvitationsIamInvitationPageItemsIamInvitation {
+	return v.Items
+}
+
+// GetPageInfo returns GetInvitationsIamGetAccountIamAccountAccountInvitationsIamInvitationPage.PageInfo, and is useful for accessing the field via an interface.
+func (v *GetInvitationsIamGetAccountIamAccountAccountInvitationsIamInvitationPage) GetPageInfo() GetInvitationsIamGetAccountIamAccountAccountInvitationsIamInvitationPagePageInfo {
+	return v.PageInfo
+}
+
+// GetInvitationsIamGetAccountIamAccountAccountInvitationsIamInvitationPageItemsIamInvitation includes the requested fields of the GraphQL type IamInvitation.
+type GetInvitationsIamGetAccountIamAccountAccountInvitationsIamInvitationPageItemsIamInvitation struct {
+	Id      string `json:"id"`
+	GroupId string `json:"groupId"`
+	Email   string `json:"email"`
+}
+
+// GetId returns GetInvitationsIamGetAccountIamAccountAccountInvitationsIamInvitationPageItemsIamInvitation.Id, and is useful for accessing the field via an interface.
+func (v *GetInvitationsIamGetAccountIamAccountAccountInvitationsIamInvitationPageItemsIamInvitation) GetId() string {
+	return v.Id
+}
+
+// GetGroupId returns GetInvitationsIamGetAccountIamAccountAccountInvitationsIamInvitationPageItemsIamInvitation.GroupId, and is useful for accessing the field via an interface.
+func (v *GetInvitationsIamGetAccountIamAccountAccountInvitationsIamInvitationPageItemsIamInvitation) GetGroupId() string {
+	return v.GroupId
+}
+
+// GetEmail returns GetInvitationsIamGetAccountIamAccountAccountInvitationsIamInvitationPageItemsIamInvitation.Email, and is useful for accessing the field via an interface.
+func (v *GetInvitationsIamGetAccountIamAccountAccountInvitationsIamInvitationPageItemsIamInvitation) GetEmail() string {
+	return v.Email
+}
+
+// GetInvitationsIamGetAccountIamAccountAccountInvitationsIamInvitationPagePageInfo includes the requested fields of the GraphQL type PageInfo.
+type GetInvitationsIamGetAccountIamAccountAccountInvitationsIamInvitationPagePageInfo struct {
+	EndCursor string `json:"endCursor"`
+}
+
+// GetEndCursor returns GetInvitationsIamGetAccountIamAccountAccountInvitationsIamInvitationPagePageInfo.EndCursor, and is useful for accessing the field via an interface.
+func (v *GetInvitationsIamGetAccountIamAccountAccountInvitationsIamInvitationPagePageInfo) GetEndCursor() string {
+	return v.EndCursor
+}
+
+// GetInvitationsResponse is returned by GetInvitations on success.
+type GetInvitationsResponse struct {
+	IamGetAccount GetInvitationsIamGetAccountIamAccount `json:"iamGetAccount"`
+}
+
+// GetIamGetAccount returns GetInvitationsResponse.IamGetAccount, and is useful for accessing the field via an interface.
+func (v *GetInvitationsResponse) GetIamGetAccount() GetInvitationsIamGetAccountIamAccount {
+	return v.IamGetAccount
+}
+
 // GetQuestionByIdQuestion includes the requested fields of the GraphQL type Question.
 type GetQuestionByIdQuestion struct {
 	Id              string                       `json:"id"`
@@ -1093,6 +1165,130 @@ type GetUserGroupResponse struct {
 // GetIamGetGroup returns GetUserGroupResponse.IamGetGroup, and is useful for accessing the field via an interface.
 func (v *GetUserGroupResponse) GetIamGetGroup() GetUserGroupIamGetGroupIamGroup { return v.IamGetGroup }
 
+// GetUsersByEmailIamGetUserListIamAccountUserPage includes the requested fields of the GraphQL type IamAccountUserPage.
+type GetUsersByEmailIamGetUserListIamAccountUserPage struct {
+	Items []GetUsersByEmailIamGetUserListIamAccountUserPageItemsIamAccountUser `json:"items"`
+}
+
+// GetItems returns GetUsersByEmailIamGetUserListIamAccountUserPage.Items, and is useful for accessing the field via an interface.
+func (v *GetUsersByEmailIamGetUserListIamAccountUserPage) GetItems() []GetUsersByEmailIamGetUserListIamAccountUserPageItemsIamAccountUser {
+	return v.Items
+}
+
+// GetUsersByEmailIamGetUserListIamAccountUserPageItemsIamAccountUser includes the requested fields of the GraphQL type IamAccountUser.
+type GetUsersByEmailIamGetUserListIamAccountUserPageItemsIamAccountUser struct {
+	Id          string                                                                                   `json:"id"`
+	Email       string                                                                                   `json:"email"`
+	NickName    string                                                                                   `json:"nickName"`
+	FirstName   string                                                                                   `json:"firstName"`
+	LastName    string                                                                                   `json:"lastName"`
+	UserGroups  GetUsersByEmailIamGetUserListIamAccountUserPageItemsIamAccountUserUserGroupsIamGroupPage `json:"userGroups"`
+	TimeCreated string                                                                                   `json:"_timeCreated"`
+	TimeUpdated string                                                                                   `json:"_timeUpdated"`
+}
+
+// GetId returns GetUsersByEmailIamGetUserListIamAccountUserPageItemsIamAccountUser.Id, and is useful for accessing the field via an interface.
+func (v *GetUsersByEmailIamGetUserListIamAccountUserPageItemsIamAccountUser) GetId() string {
+	return v.Id
+}
+
+// GetEmail returns GetUsersByEmailIamGetUserListIamAccountUserPageItemsIamAccountUser.Email, and is useful for accessing the field via an interface.
+func (v *GetUsersByEmailIamGetUserListIamAccountUserPageItemsIamAccountUser) GetEmail() string {
+	return v.Email
+}
+
+// GetNickName returns GetUsersByEmailIamGetUserListIamAccountUserPageItemsIamAccountUser.NickName, and is useful for accessing the field via an interface.
+func (v *GetUsersByEmailIamGetUserListIamAccountUserPageItemsIamAccountUser) GetNickName() string {
+	return v.NickName
+}
+
+// GetFirstName returns GetUsersByEmailIamGetUserListIamAccountUserPageItemsIamAccountUser.FirstName, and is useful for accessing the field via an interface.
+func (v *GetUsersByEmailIamGetUserListIamAccountUserPageItemsIamAccountUser) GetFirstName() string {
+	return v.FirstName
+}
+
+// GetLastName returns GetUsersByEmailIamGetUserListIamAccountUserPageItemsIamAccountUser.LastName, and is useful for accessing the field via an interface.
+func (v *GetUsersByEmailIamGetUserListIamAccountUserPageItemsIamAccountUser) GetLastName() string {
+	return v.LastName
+}
+
+// GetUserGroups returns GetUsersByEmailIamGetUserListIamAccountUserPageItemsIamAccountUser.UserGroups, and is useful for accessing the field via an interface.
+func (v *GetUsersByEmailIamGetUserListIamAccountUserPageItemsIamAccountUser) GetUserGroups() GetUsersByEmailIamGetUserListIamAccountUserPageItemsIamAccountUserUserGroupsIamGroupPage {
+	return v.UserGroups
+}
+
+// GetTimeCreated returns GetUsersByEmailIamGetUserListIamAccountUserPageItemsIamAccountUser.TimeCreated, and is useful for accessing the field via an interface.
+func (v *GetUsersByEmailIamGetUserListIamAccountUserPageItemsIamAccountUser) GetTimeCreated() string {
+	return v.TimeCreated
+}
+
+// GetTimeUpdated returns GetUsersByEmailIamGetUserListIamAccountUserPageItemsIamAccountUser.TimeUpdated, and is useful for accessing the field via an interface.
+func (v *GetUsersByEmailIamGetUserListIamAccountUserPageItemsIamAccountUser) GetTimeUpdated() string {
+	return v.TimeUpdated
+}
+
+// GetUsersByEmailIamGetUserListIamAccountUserPageItemsIamAccountUserUserGroupsIamGroupPage includes the requested fields of the GraphQL type IamGroupPage.
+type GetUsersByEmailIamGetUserListIamAccountUserPageItemsIamAccountUserUserGroupsIamGroupPage struct {
+	Items    []GetUsersByEmailIamGetUserListIamAccountUserPageItemsIamAccountUserUserGroupsIamGroupPageItemsIamGroup `json:"items"`
+	PageInfo GetUsersByEmailIamGetUserListIamAccountUserPageItemsIamAccountUserUserGroupsIamGroupPagePageInfo        `json:"pageInfo"`
+}
+
+// GetItems returns GetUsersByEmailIamGetUserListIamAccountUserPageItemsIamAccountUserUserGroupsIamGroupPage.Items, and is useful for accessing the field via an interface.
+func (v *GetUsersByEmailIamGetUserListIamAccountUserPageItemsIamAccountUserUserGroupsIamGroupPage) GetItems() []GetUsersByEmailIamGetUserListIamAccountUserPageItemsIamAccountUserUserGroupsIamGroupPageItemsIamGroup {
+	return v.Items
+}
+
+// GetPageInfo returns GetUsersByEmailIamGetUserListIamAccountUserPageItemsIamAccountUserUserGroupsIamGroupPage.PageInfo, and is useful for accessing the field via an interface.
+func (v *GetUsersByEmailIamGetUserListIamAccountUserPageItemsIamAccountUserUserGroupsIamGroupPage) GetPageInfo() GetUsersByEmailIamGetUserListIamAccountUserPageItemsIamAccountUserUserGroupsIamGroupPagePageInfo {
+	return v.PageInfo
+}
+
+// GetUsersByEmailIamGetUserListIamAccountUserPageItemsIamAccountUserUserGroupsIamGroupPageItemsIamGroup includes the requested fields of the GraphQL type IamGroup.
+type GetUsersByEmailIamGetUserListIamAccountUserPageItemsIamAccountUserUserGroupsIamGroupPageItemsIamGroup struct {
+	Id string `json:"id"`
+}
+
+// GetId returns GetUsersByEmailIamGetUserListIamAccountUserPageItemsIamAccountUserUserGroupsIamGroupPageItemsIamGroup.Id, and is useful for accessing the field via an interface.
+func (v *GetUsersByEmailIamGetUserListIamAccountUserPageItemsIamAccountUserUserGroupsIamGroupPageItemsIamGroup) GetId() string {
+	return v.Id
+}
+
+// GetUsersByEmailIamGetUserListIamAccountUserPageItemsIamAccountUserUserGroupsIamGroupPagePageInfo includes the requested fields of the GraphQL type PageInfo.
+type GetUsersByEmailIamGetUserListIamAccountUserPageItemsIamAccountUserUserGroupsIamGroupPagePageInfo struct {
+	EndCursor string `json:"endCursor"`
+}
+
+// GetEndCursor returns GetUsersByEmailIamGetUserListIamAccountUserPageItemsIamAccountUserUserGroupsIamGroupPagePageInfo.EndCursor, and is useful for accessing the field via an interface.
+func (v *GetUsersByEmailIamGetUserListIamAccountUserPageItemsIamAccountUserUserGroupsIamGroupPagePageInfo) GetEndCursor() string {
+	return v.EndCursor
+}
+
+// GetUsersByEmailResponse is returned by GetUsersByEmail on success.
+type GetUsersByEmailResponse struct {
+	IamGetUserList GetUsersByEmailIamGetUserListIamAccountUserPage `json:"iamGetUserList"`
+}
+
+// GetIamGetUserList returns GetUsersByEmailResponse.IamGetUserList, and is useful for accessing the field via an interface.
+func (v *GetUsersByEmailResponse) GetIamGetUserList() GetUsersByEmailIamGetUserListIamAccountUserPage {
+	return v.IamGetUserList
+}
+
+// InviteUserInviteIamInvitation includes the requested fields of the GraphQL type IamInvitation.
+type InviteUserInviteIamInvitation struct {
+	Id string `json:"id"`
+}
+
+// GetId returns InviteUserInviteIamInvitation.Id, and is useful for accessing the field via an interface.
+func (v *InviteUserInviteIamInvitation) GetId() string { return v.Id }
+
+// InviteUserResponse is returned by InviteUser on success.
+type InviteUserResponse struct {
+	Invite InviteUserInviteIamInvitation `json:"invite"`
+}
+
+// GetInvite returns InviteUserResponse.Invite, and is useful for accessing the field via an interface.
+func (v *InviteUserResponse) GetInvite() InviteUserInviteIamInvitation { return v.Invite }
+
 type J1QueryInput struct {
 	Query          string `json:"query"`
 	Name           string `json:"name"`
@@ -1248,6 +1444,46 @@ func (v *QuestionVariableInput) GetRequired() bool { return v.Required }
 
 // GetDefault returns QuestionVariableInput.Default, and is useful for accessing the field via an interface.
 func (v *QuestionVariableInput) GetDefault() string { return v.Default }
+
+// RemoveUserFromGroupIamDeleteGroupUsersDeleteInfo includes the requested fields of the GraphQL type DeleteInfo.
+type RemoveUserFromGroupIamDeleteGroupUsersDeleteInfo struct {
+	Success bool `json:"success"`
+}
+
+// GetSuccess returns RemoveUserFromGroupIamDeleteGroupUsersDeleteInfo.Success, and is useful for accessing the field via an interface.
+func (v *RemoveUserFromGroupIamDeleteGroupUsersDeleteInfo) GetSuccess() bool { return v.Success }
+
+// RemoveUserFromGroupResponse is returned by RemoveUserFromGroup on success.
+type RemoveUserFromGroupResponse struct {
+	IamDeleteGroupUsers RemoveUserFromGroupIamDeleteGroupUsersDeleteInfo `json:"iamDeleteGroupUsers"`
+}
+
+// GetIamDeleteGroupUsers returns RemoveUserFromGroupResponse.IamDeleteGroupUsers, and is useful for accessing the field via an interface.
+func (v *RemoveUserFromGroupResponse) GetIamDeleteGroupUsers() RemoveUserFromGroupIamDeleteGroupUsersDeleteInfo {
+	return v.IamDeleteGroupUsers
+}
+
+// RevokeInvitationResponse is returned by RevokeInvitation on success.
+type RevokeInvitationResponse struct {
+	UpdateInvitation RevokeInvitationUpdateInvitationIamInvitation `json:"updateInvitation"`
+}
+
+// GetUpdateInvitation returns RevokeInvitationResponse.UpdateInvitation, and is useful for accessing the field via an interface.
+func (v *RevokeInvitationResponse) GetUpdateInvitation() RevokeInvitationUpdateInvitationIamInvitation {
+	return v.UpdateInvitation
+}
+
+// RevokeInvitationUpdateInvitationIamInvitation includes the requested fields of the GraphQL type IamInvitation.
+type RevokeInvitationUpdateInvitationIamInvitation struct {
+	Id     string `json:"id"`
+	Status string `json:"status"`
+}
+
+// GetId returns RevokeInvitationUpdateInvitationIamInvitation.Id, and is useful for accessing the field via an interface.
+func (v *RevokeInvitationUpdateInvitationIamInvitation) GetId() string { return v.Id }
+
+// GetStatus returns RevokeInvitationUpdateInvitationIamInvitation.Status, and is useful for accessing the field via an interface.
+func (v *RevokeInvitationUpdateInvitationIamInvitation) GetStatus() string { return v.Status }
 
 type RuleInstanceType string
 
@@ -1984,6 +2220,46 @@ type __GetUserGroupInput struct {
 
 // GetId returns __GetUserGroupInput.Id, and is useful for accessing the field via an interface.
 func (v *__GetUserGroupInput) GetId() string { return v.Id }
+
+// __GetUsersByEmailInput is used internally by genqlient
+type __GetUsersByEmailInput struct {
+	Email string `json:"email"`
+}
+
+// GetEmail returns __GetUsersByEmailInput.Email, and is useful for accessing the field via an interface.
+func (v *__GetUsersByEmailInput) GetEmail() string { return v.Email }
+
+// __InviteUserInput is used internally by genqlient
+type __InviteUserInput struct {
+	Email   string `json:"email"`
+	GroupId string `json:"groupId"`
+}
+
+// GetEmail returns __InviteUserInput.Email, and is useful for accessing the field via an interface.
+func (v *__InviteUserInput) GetEmail() string { return v.Email }
+
+// GetGroupId returns __InviteUserInput.GroupId, and is useful for accessing the field via an interface.
+func (v *__InviteUserInput) GetGroupId() string { return v.GroupId }
+
+// __RemoveUserFromGroupInput is used internally by genqlient
+type __RemoveUserFromGroupInput struct {
+	UserId  string `json:"userId"`
+	GroupId string `json:"groupId"`
+}
+
+// GetUserId returns __RemoveUserFromGroupInput.UserId, and is useful for accessing the field via an interface.
+func (v *__RemoveUserFromGroupInput) GetUserId() string { return v.UserId }
+
+// GetGroupId returns __RemoveUserFromGroupInput.GroupId, and is useful for accessing the field via an interface.
+func (v *__RemoveUserFromGroupInput) GetGroupId() string { return v.GroupId }
+
+// __RevokeInvitationInput is used internally by genqlient
+type __RevokeInvitationInput struct {
+	Id string `json:"id"`
+}
+
+// GetId returns __RevokeInvitationInput.Id, and is useful for accessing the field via an interface.
+func (v *__RevokeInvitationInput) GetId() string { return v.Id }
 
 // __UpdateComplianceFrameworkInput is used internally by genqlient
 type __UpdateComplianceFrameworkInput struct {
@@ -2734,6 +3010,44 @@ query GetComplianceLibraryItemById ($id: ID!) {
 	return &data, err
 }
 
+func GetInvitations(
+	ctx context.Context,
+	client graphql.Client,
+) (*GetInvitationsResponse, error) {
+	req := &graphql.Request{
+		OpName: "GetInvitations",
+		Query: `
+query GetInvitations {
+	iamGetAccount {
+		id
+		accountInvitations(limit: 10000) {
+			items {
+				id
+				groupId
+				email
+			}
+			pageInfo {
+				endCursor
+			}
+		}
+	}
+}
+`,
+	}
+	var err error
+
+	var data GetInvitationsResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
 func GetQuestionById(
 	ctx context.Context,
 	client graphql.Client,
@@ -2870,6 +3184,155 @@ query GetUserGroup ($id: String!) {
 	var err error
 
 	var data GetUserGroupResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func GetUsersByEmail(
+	ctx context.Context,
+	client graphql.Client,
+	email string,
+) (*GetUsersByEmailResponse, error) {
+	req := &graphql.Request{
+		OpName: "GetUsersByEmail",
+		Query: `
+query GetUsersByEmail ($email: String!) {
+	iamGetUserList(emailFilter: $email, limit: 1000) {
+		items {
+			id
+			email
+			nickName
+			firstName
+			lastName
+			userGroups(limit: 3000) {
+				items {
+					id
+				}
+				pageInfo {
+					endCursor
+				}
+			}
+			_timeCreated
+			_timeUpdated
+		}
+	}
+}
+`,
+		Variables: &__GetUsersByEmailInput{
+			Email: email,
+		},
+	}
+	var err error
+
+	var data GetUsersByEmailResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func InviteUser(
+	ctx context.Context,
+	client graphql.Client,
+	email string,
+	groupId string,
+) (*InviteUserResponse, error) {
+	req := &graphql.Request{
+		OpName: "InviteUser",
+		Query: `
+mutation InviteUser ($email: String!, $groupId: String!) {
+	invite(input: {email:$email,groupId:$groupId}) {
+		id
+	}
+}
+`,
+		Variables: &__InviteUserInput{
+			Email:   email,
+			GroupId: groupId,
+		},
+	}
+	var err error
+
+	var data InviteUserResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func RemoveUserFromGroup(
+	ctx context.Context,
+	client graphql.Client,
+	userId string,
+	groupId string,
+) (*RemoveUserFromGroupResponse, error) {
+	req := &graphql.Request{
+		OpName: "RemoveUserFromGroup",
+		Query: `
+mutation RemoveUserFromGroup ($userId: String!, $groupId: ID!) {
+	iamDeleteGroupUsers(input: {group:$groupId,users:[$userId]}) {
+		success
+	}
+}
+`,
+		Variables: &__RemoveUserFromGroupInput{
+			UserId:  userId,
+			GroupId: groupId,
+		},
+	}
+	var err error
+
+	var data RemoveUserFromGroupResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func RevokeInvitation(
+	ctx context.Context,
+	client graphql.Client,
+	id string,
+) (*RevokeInvitationResponse, error) {
+	req := &graphql.Request{
+		OpName: "RevokeInvitation",
+		Query: `
+mutation RevokeInvitation ($id: ID!) {
+	updateInvitation(input: {invitationId:$id,status:REVOKED}) {
+		id
+		status
+	}
+}
+`,
+		Variables: &__RevokeInvitationInput{
+			Id: id,
+		},
+	}
+	var err error
+
+	var data RevokeInvitationResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(

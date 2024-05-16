@@ -1,0 +1,56 @@
+mutation InviteUser($email: String!, $groupId: String!) {
+  invite(input: { email: $email, groupId: $groupId }) {
+    id
+  }
+}
+
+query GetUsersByEmail($email: String!) {
+  iamGetUserList(emailFilter: $email, limit: 1000) {
+    items {
+      id
+      email
+      nickName
+      firstName
+      lastName
+      userGroups(limit: 3000) {
+        items {
+          id
+        }
+        pageInfo {
+          endCursor
+        }
+      }
+      _timeCreated
+      _timeUpdated
+    }
+  }
+}
+
+mutation RemoveUserFromGroup($userId: String!, $groupId: ID!) {
+  iamDeleteGroupUsers(input: { group: $groupId, users: [$userId] }) {
+    success
+  }
+}
+
+query GetInvitations {
+  iamGetAccount {
+    id
+    accountInvitations(limit: 10000) {
+      items {
+        id
+        groupId
+        email
+      }
+      pageInfo {
+        endCursor
+      }
+    }
+  }
+}
+
+mutation RevokeInvitation($id: ID!) {
+  updateInvitation(input: { invitationId: $id, status: REVOKED }) {
+    id
+    status
+  }
+}

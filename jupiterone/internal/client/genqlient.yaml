@@ -6,6 +6,7 @@ operations:
   - rule.graphql
   - compliance.graphql
   - userGroup.graphql
+  - user.graphql
 generated: generated.go
 
 bindings:
