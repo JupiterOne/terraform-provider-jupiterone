@@ -205,7 +205,7 @@ func (r *UserGroupMembershipResource) Read(ctx context.Context, req resource.Rea
 		resp.Diagnostics.AddError("failed to get invitations", getInvitesErr.Error())
 		return
 	}
-	
+
 	for _, invite := range invitations.IamGetAccount.AccountInvitations.Items {
 		if invite.Email == data.Email.ValueString() && invite.GroupId == data.GroupId.ValueString() {
 			// Membership exists, we can return early
@@ -235,9 +235,9 @@ func (r *UserGroupMembershipResource) Update(ctx context.Context, req resource.U
 	// Read Terraform plan and state data into the models
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &data)...)
 	resp.Diagnostics.Append(req.State.Get(ctx, &currentState)...)
-	
+
 	if resp.Diagnostics.HasError() {
-			return
+		return
 	}
 
 	// We are going to remove the old user from the group and invite the new user
@@ -283,7 +283,7 @@ func (r *UserGroupMembershipResource) Update(ctx context.Context, req resource.U
 				resp.Diagnostics.AddError("failed to remove invitation", removeInviteErr.Error())
 			}
 			tflog.Trace(ctx, "Invitation was revoked",
-					map[string]interface{}{"groupId": currentState.GroupId, "email": currentState.Email})
+				map[string]interface{}{"groupId": currentState.GroupId, "email": currentState.Email})
 		}
 	}
 

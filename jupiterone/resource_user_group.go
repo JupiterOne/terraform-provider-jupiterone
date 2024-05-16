@@ -28,11 +28,11 @@ type UserGroupResource struct {
 
 // UserGroupModel is the terraform HCL representation of a user group.
 type UserGroupModel struct {
-	Id          types.String 							`json:"id,omitempty" tfsdk:"id"`
-	Name        types.String 							`json:"groupName,omitempty" tfsdk:"name"`
-	Description types.String 							`json:"groupDescription,omitempty" tfsdk:"description"`
-	Permissions []string     							`json:"groupAbacPermission,omitempty" tfsdk:"permissions"`
-	QueryPolicy []map[string][]string			`json:"groupQueryPolicy,omitempty" tfsdk:"query_policy"`
+	Id          types.String          `json:"id,omitempty" tfsdk:"id"`
+	Name        types.String          `json:"groupName,omitempty" tfsdk:"name"`
+	Description types.String          `json:"groupDescription,omitempty" tfsdk:"description"`
+	Permissions []string              `json:"groupAbacPermission,omitempty" tfsdk:"permissions"`
+	QueryPolicy []map[string][]string `json:"groupQueryPolicy,omitempty" tfsdk:"query_policy"`
 }
 
 func NewUserGroupResource() resource.Resource {
@@ -70,7 +70,7 @@ func (*UserGroupResource) Schema(ctx context.Context, req resource.SchemaRequest
 			},
 			"query_policy": schema.ListAttribute{
 				Description: "A list of query policy statements for the user group.",
-				Optional:			true,
+				Optional:    true,
 				ElementType: types.MapType{
 					ElemType: types.ListType{
 						ElemType: types.StringType,

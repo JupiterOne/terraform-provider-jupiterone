@@ -15,30 +15,29 @@ import (
 // Ensure the implementation satisfies the expected interfaces.
 // Ensure the implementation satisfies the expected interfaces.
 var (
-  _ datasource.DataSource              = &userGroupDataSource{}
-  _ datasource.DataSourceWithConfigure = &userGroupDataSource{}
+	_ datasource.DataSource              = &userGroupDataSource{}
+	_ datasource.DataSourceWithConfigure = &userGroupDataSource{}
 )
 
 // NewCoffeesDataSource is a helper function to simplify the provider implementation.
 func NewUserGroupDataSource() datasource.DataSource {
-  return &userGroupDataSource{}
+	return &userGroupDataSource{}
 }
 
 // coffeesDataSource is the data source implementation.
 type userGroupDataSource struct {
-  version string
+	version string
 	qlient  graphql.Client
 }
 
 // coffeesDataSourceModel maps the data source schema data.
 type userGroupDataSourceModel struct {
-  Id          types.String          `json:"id,omitempty" tfsdk:"id"`
+	Id          types.String          `json:"id,omitempty" tfsdk:"id"`
 	Name        types.String          `json:"groupName,omitempty" tfsdk:"name"`
 	Description types.String          `json:"groupDescription,omitempty" tfsdk:"description"`
 	Permissions []string              `json:"groupAbacPermission,omitempty" tfsdk:"permissions"`
 	QueryPolicy []map[string][]string `json:"groupQueryPolicy,omitempty" tfsdk:"query_policy"`
 }
-
 
 // Metadata implements resource.Resource
 func (*userGroupDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
@@ -54,21 +53,21 @@ func (*userGroupDataSource) Schema(ctx context.Context, req datasource.SchemaReq
 				Computed: true,
 			},
 			"name": schema.StringAttribute{
-				Required: true,
+				Required:    true,
 				Description: "The name of the user group",
 			},
 			"description": schema.StringAttribute{
-				Computed: true,
+				Computed:    true,
 				Description: "The description of the user group",
 			},
 			"permissions": schema.ListAttribute{
 				Description: "A list of permissions for the user group.",
-				Computed: true,
+				Computed:    true,
 				ElementType: types.StringType,
 			},
 			"query_policy": schema.ListAttribute{
 				Description: "A list of query policy statements for the user group.",
-				Computed: true,
+				Computed:    true,
 				ElementType: types.MapType{
 					ElemType: types.ListType{
 						ElemType: types.StringType,
@@ -81,7 +80,7 @@ func (*userGroupDataSource) Schema(ctx context.Context, req datasource.SchemaReq
 
 // Read refreshes the Terraform state with the latest data.
 func (d *userGroupDataSource) Read(ctx context.Context, req datasource.ReadRequest, resp *datasource.ReadResponse) {
-  var data UserGroupModel
+	var data UserGroupModel
 
 	// Read Terraform state into the model
 	resp.Diagnostics.Append(req.Config.Get(ctx, &data)...)
