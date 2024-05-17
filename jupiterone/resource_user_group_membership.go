@@ -5,7 +5,6 @@ import (
 	"fmt"
 
 	"github.com/Khan/genqlient/graphql"
-	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
@@ -16,7 +15,6 @@ import (
 // Ensure provider defined types fully satisfy framework interfaces
 var _ resource.Resource = &UserGroupMembershipResource{}
 var _ resource.ResourceWithConfigure = &UserGroupMembershipResource{}
-var _ resource.ResourceWithImportState = &UserGroupMembershipResource{}
 
 type UserGroupMembershipResource struct {
 	version string
@@ -25,6 +23,7 @@ type UserGroupMembershipResource struct {
 
 // UserGroupMembershipModel is the terraform HCL representation of a user group membership.
 type UserGroupMembershipModel struct {
+	Id      types.String `json:"id,omitempty" tfsdk:"id"`
 	GroupId types.String `json:"groupId,omitempty" tfsdk:"group_id"`
 	Email   types.String `json:"email,omitempty" tfsdk:"email"`
 }
@@ -43,6 +42,9 @@ func (*UserGroupMembershipResource) Schema(ctx context.Context, req resource.Sch
 	resp.Schema = schema.Schema{
 		Description: "A saved JupiterOne User Group Membership",
 		Attributes: map[string]schema.Attribute{
+			"id": schema.StringAttribute{
+				Computed: true,
+			},
 			"group_id": schema.StringAttribute{
 				Required: true,
 			},
@@ -100,6 +102,8 @@ func (r *UserGroupMembershipResource) Create(ctx context.Context, req resource.C
 
 	tflog.Trace(ctx, "Created user group membership",
 		map[string]interface{}{"groupId": data.GroupId, "email": data.Email})
+
+	data.Id = types.StringValue("placeholder")
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
 }
@@ -190,6 +194,7 @@ func (r *UserGroupMembershipResource) Read(ctx context.Context, req resource.Rea
 			if group.Id == data.GroupId.ValueString() {
 				// Membership exists, we can return early
 				tflog.Trace(ctx, "User was found and is part of the group")
+				data.Id = types.StringValue("placeholder")
 				resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
 				return
 			}
@@ -210,6 +215,7 @@ func (r *UserGroupMembershipResource) Read(ctx context.Context, req resource.Rea
 		if invite.Email == data.Email.ValueString() && invite.GroupId == data.GroupId.ValueString() {
 			// Membership exists, we can return early
 			tflog.Trace(ctx, "Found invitation for user")
+			data.Id = types.StringValue("placeholder")
 			resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
 			return
 		}
@@ -218,12 +224,6 @@ func (r *UserGroupMembershipResource) Read(ctx context.Context, req resource.Rea
 	// If we reach this point, the user is not part of the group
 	// and there are no open invitations, so we should remove this resource
 	resp.State.RemoveResource(ctx)
-}
-
-// ImportState implements resource.ResourceWithImportState
-func (*UserGroupMembershipResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
-	resource.ImportStatePassthroughID(ctx, path.Root("groupId"), req, resp)
-	resource.ImportStatePassthroughID(ctx, path.Root("email"), req, resp)
 }
 
 // Update implements resource.Resource

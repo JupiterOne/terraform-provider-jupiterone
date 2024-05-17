@@ -992,6 +992,7 @@ type GetInvitationsIamGetAccountIamAccountAccountInvitationsIamInvitationPageIte
 	Id      string `json:"id"`
 	GroupId string `json:"groupId"`
 	Email   string `json:"email"`
+	Status  string `json:"status"`
 }
 
 // GetId returns GetInvitationsIamGetAccountIamAccountAccountInvitationsIamInvitationPageItemsIamInvitation.Id, and is useful for accessing the field via an interface.
@@ -1007,6 +1008,11 @@ func (v *GetInvitationsIamGetAccountIamAccountAccountInvitationsIamInvitationPag
 // GetEmail returns GetInvitationsIamGetAccountIamAccountAccountInvitationsIamInvitationPageItemsIamInvitation.Email, and is useful for accessing the field via an interface.
 func (v *GetInvitationsIamGetAccountIamAccountAccountInvitationsIamInvitationPageItemsIamInvitation) GetEmail() string {
 	return v.Email
+}
+
+// GetStatus returns GetInvitationsIamGetAccountIamAccountAccountInvitationsIamInvitationPageItemsIamInvitation.Status, and is useful for accessing the field via an interface.
+func (v *GetInvitationsIamGetAccountIamAccountAccountInvitationsIamInvitationPageItemsIamInvitation) GetStatus() string {
+	return v.Status
 }
 
 // GetInvitationsIamGetAccountIamAccountAccountInvitationsIamInvitationPagePageInfo includes the requested fields of the GraphQL type PageInfo.
@@ -3178,6 +3184,7 @@ query GetInvitations {
 				id
 				groupId
 				email
+				status
 			}
 			pageInfo {
 				endCursor
