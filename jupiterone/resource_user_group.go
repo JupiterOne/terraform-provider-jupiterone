@@ -202,7 +202,7 @@ func (r *UserGroupResource) Read(ctx context.Context, req resource.ReadRequest, 
 			}
 
 			var arrayValue []string
-			parseError := json.Unmarshal([]byte(stringValue), &arrayValue)
+			parseError := json.Unmarshal(stringValue, &arrayValue)
 
 			if parseError != nil {
 				resp.Diagnostics.AddError("failed to parse query policy", parseError.Error())

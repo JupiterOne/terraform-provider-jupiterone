@@ -30,15 +30,6 @@ type userGroupDataSource struct {
 	qlient  graphql.Client
 }
 
-// coffeesDataSourceModel maps the data source schema data.
-type userGroupDataSourceModel struct {
-	Id          types.String          `json:"id,omitempty" tfsdk:"id"`
-	Name        types.String          `json:"groupName,omitempty" tfsdk:"name"`
-	Description types.String          `json:"groupDescription,omitempty" tfsdk:"description"`
-	Permissions []string              `json:"groupAbacPermission,omitempty" tfsdk:"permissions"`
-	QueryPolicy []map[string][]string `json:"groupQueryPolicy,omitempty" tfsdk:"query_policy"`
-}
-
 // Metadata implements resource.Resource
 func (*userGroupDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
 	resp.TypeName = req.ProviderTypeName + "_user_group"
@@ -136,7 +127,7 @@ func (d *userGroupDataSource) Read(ctx context.Context, req datasource.ReadReque
 			}
 
 			var arrayValue []string
-			parseError := json.Unmarshal([]byte(stringValue), &arrayValue)
+			parseError := json.Unmarshal(stringValue, &arrayValue)
 
 			if parseError != nil {
 				resp.Diagnostics.AddError("failed to parse query policy", parseError.Error())
