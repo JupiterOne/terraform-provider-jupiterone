@@ -33,12 +33,17 @@ If you're building the provider, follow the instructions to [install it as a plu
 
 ## Developing the Provider
 
+If this is your first time developing in go, or developing a terraform provider, it may be wise to do some of the [GO Terraform Plugin Framework tutorial](https://developer.hashicorp.com/terraform/tutorials/providers-plugin-framework/providers-plugin-framework-provider). This is what is used to build this provider.
+
 ### Building
 
 If you wish to work on the provider, you'll first need [Go](http://www.golang.org) installed on your machine (please check the [requirements](https://github.com/jupiterone/terraform-provider-jupiterone#requirements) before proceeding). To compile the provider, run `make build`.
 
 ```shell
 make build
+
+# If the above command doesn't work, try the next command in the root directory
+go install .
 ```
 
 ### Adding a new resource
@@ -370,8 +375,8 @@ provider_installation {
 
   # Replace $USER with your username. On Mac and Linux systems this can be found
   # through running "echo $USER" in your terminal.
-  dev_overrides {
-    "registry.terraform.io/hashicorp/jupiterone" = "/home/$USER/go/bin"
+	dev_overrides {
+    "JupiterOne/jupiterone" = "/Users/$USER/go/bin"
   }
 
   # For all other providers, install them directly from their origin provider
