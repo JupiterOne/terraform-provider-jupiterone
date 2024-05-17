@@ -19,12 +19,12 @@ var (
 	_ datasource.DataSourceWithConfigure = &userGroupDataSource{}
 )
 
-// NewCoffeesDataSource is a helper function to simplify the provider implementation.
+// NewUserGroupDataSource is a helper function to simplify the provider implementation.
 func NewUserGroupDataSource() datasource.DataSource {
 	return &userGroupDataSource{}
 }
 
-// coffeesDataSource is the data source implementation.
+// userGroupDataSource is the data source implementation.
 type userGroupDataSource struct {
 	version string
 	qlient  graphql.Client
