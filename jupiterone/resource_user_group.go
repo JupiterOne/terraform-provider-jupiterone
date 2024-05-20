@@ -58,13 +58,13 @@ func (*UserGroupResource) Schema(ctx context.Context, req resource.SchemaRequest
 				Optional:    true,
 				Description: "The description of the user group",
 			},
-			"permissions": schema.ListAttribute{
-				Description: "A list of permissions for the user group.",
+			"permissions": schema.SetAttribute{
+				Description: "A set of permissions for the user group.",
 				Optional:    true,
 				ElementType: types.StringType,
 			},
-			"query_policy": schema.ListAttribute{
-				Description: "A list of query policy statements for the user group.",
+			"query_policy": schema.SetAttribute{
+				Description: "A set of query policy statements for the user group.",
 				Optional:    true,
 				ElementType: types.MapType{
 					ElemType: types.ListType{

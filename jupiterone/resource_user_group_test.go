@@ -174,7 +174,7 @@ func testUserGroupBasicConfig(rName string, description string) string {
 		resource "jupiterone_user_group" "test" {
 			name = %q
 			description = %q
-			permissions = ["readGraph"]
+			permissions = ["readGraph", "accessInsights"]
 			query_policy = [{"_class": ["User"]}]
 		}
 	`, rName, description)
