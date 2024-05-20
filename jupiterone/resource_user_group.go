@@ -16,11 +16,6 @@ import (
 	"github.com/jupiterone/terraform-provider-jupiterone/jupiterone/internal/client"
 )
 
-// Ensure provider defined types fully satisfy framework interfaces
-var _ resource.Resource = &UserGroupResource{}
-var _ resource.ResourceWithConfigure = &UserGroupResource{}
-var _ resource.ResourceWithImportState = &UserGroupResource{}
-
 type UserGroupResource struct {
 	version string
 	qlient  graphql.Client
@@ -113,11 +108,10 @@ func (r *UserGroupResource) Create(ctx context.Context, req resource.CreateReque
 		return
 	}
 
-	// Convert from  []map[string][]string to []map[string]interface{}
 	var queryPolicy []map[string]interface{}
 
 	for _, statementData := range data.QueryPolicy {
-		var queryPolicyStatement = make(map[string]interface{}) // Initialize the map
+		var queryPolicyStatement = make(map[string]interface{})
 
 		for key, value := range statementData {
 			queryPolicyStatement[key] = value

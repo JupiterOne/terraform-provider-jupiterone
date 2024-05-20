@@ -12,13 +12,6 @@ import (
 	"github.com/jupiterone/terraform-provider-jupiterone/jupiterone/internal/client"
 )
 
-// Ensure the implementation satisfies the expected interfaces.
-// Ensure the implementation satisfies the expected interfaces.
-var (
-	_ datasource.DataSource              = &userGroupDataSource{}
-	_ datasource.DataSourceWithConfigure = &userGroupDataSource{}
-)
-
 // NewUserGroupDataSource is a helper function to simplify the provider implementation.
 func NewUserGroupDataSource() datasource.DataSource {
 	return &userGroupDataSource{}
@@ -114,7 +107,7 @@ func (d *userGroupDataSource) Read(ctx context.Context, req datasource.ReadReque
 	var queryPolicy []map[string][]string
 
 	for _, statementData := range group.GroupQueryPolicy.Statement {
-		var queryPolicyStatement = make(map[string][]string) // Initialize the map
+		var queryPolicyStatement = make(map[string][]string)
 
 		for key, value := range statementData {
 			// Was unable to parse the []string from the JSON response in any other way.

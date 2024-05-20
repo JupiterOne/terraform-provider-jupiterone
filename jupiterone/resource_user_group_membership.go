@@ -12,10 +12,6 @@ import (
 	"github.com/jupiterone/terraform-provider-jupiterone/jupiterone/internal/client"
 )
 
-// Ensure provider defined types fully satisfy framework interfaces
-var _ resource.Resource = &UserGroupMembershipResource{}
-var _ resource.ResourceWithConfigure = &UserGroupMembershipResource{}
-
 type UserGroupMembershipResource struct {
 	version string
 	qlient  graphql.Client
