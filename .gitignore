@@ -48,3 +48,5 @@ introspection_result.json
 schema.json
 schema.graphql
 
+# Terrform lock files from testing
+.terraform.lock.hcl

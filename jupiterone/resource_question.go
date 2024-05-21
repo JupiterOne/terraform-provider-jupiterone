@@ -3,6 +3,7 @@ package jupiterone
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/Khan/genqlient/graphql"
 	"github.com/hashicorp/terraform-plugin-framework-validators/listvalidator"
@@ -262,8 +263,15 @@ func (r *QuestionResource) Read(ctx context.Context, req resource.ReadRequest, r
 
 	q, err := client.GetQuestionById(ctx, r.qlient, data.Id.ValueString())
 	if err != nil {
-		resp.Diagnostics.AddError("failed to get question", err.Error())
-		return
+		// If the error is a not found error, we should remove the resource so it can be recreated
+		if strings.Contains(err.Error(), "does not exist") {
+			resp.State.RemoveResource(ctx)
+			return
+		} else {
+			resp.Diagnostics.AddError("failed to get question", err.Error())
+			return
+		}
+
 	}
 
 	data.Title = types.StringValue(q.Question.Title)
