@@ -297,6 +297,8 @@ func (r *UserGroupMembershipResource) Update(ctx context.Context, req resource.U
 		return
 	}
 
+	data.Id = types.StringValue("placeholder")
+
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
 
 	tflog.Trace(ctx, "Created user group membership",
