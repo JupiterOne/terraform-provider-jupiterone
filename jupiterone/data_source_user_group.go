@@ -31,26 +31,26 @@ func (*userGroupDataSource) Metadata(ctx context.Context, req datasource.Metadat
 // Schema implements resource.Resource
 func (*userGroupDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Description: "A saved JupiterOne User Group",
+		Description: "A saved JupiterOne User Group.",
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed: true,
 			},
 			"name": schema.StringAttribute{
 				Required:    true,
-				Description: "The name of the user group",
+				Description: "The name of the user group.",
 			},
 			"description": schema.StringAttribute{
 				Computed:    true,
-				Description: "The description of the user group",
+				Description: "The description of the user group.",
 			},
-			"permissions": schema.ListAttribute{
-				Description: "A list of permissions for the user group.",
+			"permissions": schema.SetAttribute{
+				Description: "A set of permissions for the user group.",
 				Computed:    true,
 				ElementType: types.StringType,
 			},
-			"query_policy": schema.ListAttribute{
-				Description: "A list of query policy statements for the user group.",
+			"query_policy": schema.SetAttribute{
+				Description: "A set of query policy statements for the user group.",
 				Computed:    true,
 				ElementType: types.MapType{
 					ElemType: types.ListType{

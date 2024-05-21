@@ -42,7 +42,7 @@ func (*UserGroupResource) Metadata(ctx context.Context, req resource.MetadataReq
 // Schema implements resource.Resource
 func (*UserGroupResource) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Description: "A saved JupiterOne User Group",
+		Description: "A saved JupiterOne User Group.",
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed: true,
@@ -52,11 +52,11 @@ func (*UserGroupResource) Schema(ctx context.Context, req resource.SchemaRequest
 			},
 			"name": schema.StringAttribute{
 				Required:    true,
-				Description: "The name of the user group",
+				Description: "The name of the user group.",
 			},
 			"description": schema.StringAttribute{
 				Optional:    true,
-				Description: "The description of the user group",
+				Description: "The description of the user group.",
 			},
 			"permissions": schema.SetAttribute{
 				Description: "A set of permissions for the user group.",

@@ -36,17 +36,18 @@ func (*UserGroupMembershipResource) Metadata(ctx context.Context, req resource.M
 // Schema implements resource.Resource
 func (*UserGroupMembershipResource) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Description: "A saved JupiterOne User Group Membership",
+		Description: "A saved JupiterOne User Group Membership.",
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed: true,
 			},
 			"group_id": schema.StringAttribute{
 				Required: true,
+				Description: "The id of the group to add the user to.",
 			},
 			"email": schema.StringAttribute{
 				Required:    true,
-				Description: "The email of the user to add to the group",
+				Description: "The email of the user to add to the group.",
 			},
 		},
 	}
