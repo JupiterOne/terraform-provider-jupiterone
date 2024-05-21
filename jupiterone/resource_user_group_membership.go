@@ -19,6 +19,8 @@ type UserGroupMembershipResource struct {
 
 // UserGroupMembershipModel is the terraform HCL representation of a user group membership.
 type UserGroupMembershipModel struct {
+	// Id is a placeholder attribute that is not used in the provider, it is only used to satisfy the Terraform SDK
+	// https://developer.hashicorp.com/terraform/tutorials/providers-plugin-framework/providers-plugin-framework-acceptance-testing#implement-data-source-id-attribute
 	Id      types.String `json:"id,omitempty" tfsdk:"id"`
 	GroupId types.String `json:"groupId,omitempty" tfsdk:"group_id"`
 	Email   types.String `json:"email,omitempty" tfsdk:"email"`
