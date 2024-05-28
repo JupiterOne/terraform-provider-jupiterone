@@ -1,0 +1,74 @@
+mutation CreateUserGroup(
+  $name: String!
+  $description: String
+  $queryPolicy: [JSON!]
+  $abacPermissions: [String!]
+) {
+  createIamGroup(
+    name: $name
+    description: $description
+    queryPolicy: $queryPolicy
+    abacPermissions: $abacPermissions
+  ) {
+    id
+  }
+}
+
+mutation UpdateUserGroup(
+  $id: String!
+  $name: String
+  $description: String
+  $queryPolicy: [JSON!]
+  $abacPermissions: [String!]
+) {
+  updateIamGroup(
+    id: $id
+    name: $name
+    description: $description
+    queryPolicy: $queryPolicy
+    abacPermissions: $abacPermissions
+  ) {
+    id
+  }
+}
+
+mutation DeleteUserGroup($name: String!) {
+  deleteIamGroup(name: $name) {
+    success
+  }
+}
+
+query GetUserGroup($id: String!) {
+  iamGetGroup(group: $id) {
+    id
+    groupName
+    groupDescription
+    groupQueryPolicy {
+      statement
+    }
+    groupAbacPermission {
+      statement
+    }
+  }
+}
+
+query GetGroupsByName($name: String!) {
+  iamGetGroupList(limit: 10000, groupNameFilter: $name) {
+    items {
+      id
+      groupName
+      groupDescription
+      status
+      groupQueryPolicy {
+        statement
+      }
+      groupAbacPermission {
+        statement
+      }
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}

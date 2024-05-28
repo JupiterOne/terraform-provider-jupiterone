@@ -2,9 +2,11 @@
 # https://github.com/Khan/genqlient/blob/main/docs/genqlient.yaml
 schema: schema.graphql
 operations:
-- question.graphql
-- rule.graphql
-- compliance.graphql
+  - question.graphql
+  - rule.graphql
+  - compliance.graphql
+  - userGroup.graphql
+  - user.graphql
 generated: generated.go
 
 bindings:

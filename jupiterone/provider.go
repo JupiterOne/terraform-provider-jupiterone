@@ -117,7 +117,9 @@ func (p *JupiterOneProvider) Configure(ctx context.Context, req provider.Configu
 
 // DataSources implements provider.Provider
 func (*JupiterOneProvider) DataSources(context.Context) []func() datasource.DataSource {
-	return []func() datasource.DataSource{}
+	return []func() datasource.DataSource{
+		NewUserGroupDataSource,
+	}
 }
 
 // Metadata implements provider.Provider
@@ -135,6 +137,8 @@ func (*JupiterOneProvider) Resources(context.Context) []func() resource.Resource
 		NewGroupResource,
 		NewFrameworkItemResource,
 		NewLibraryItemResource,
+		NewUserGroupResource,
+		NewUserGroupMembershipResource,
 	}
 }
 

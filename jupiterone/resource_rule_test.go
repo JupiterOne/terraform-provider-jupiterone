@@ -192,7 +192,7 @@ func TestRuleInstance_Config_Errors(t *testing.T) {
 			},
 			{
 				Config:      testInlineRuleInstanceBasicConfigWithOperations(rName, getInvalidOperations()),
-				ExpectError: regexp.MustCompile(`string value must be valid JSON`),
+				ExpectError: regexp.MustCompile(`invalid character`),
 			},
 			{
 				Config:      testInlineRuleInstanceBasicConfigWithOperations("", getValidOperations()),

@@ -7,7 +7,7 @@ BASE_DIR=$(cd "${SCRIPT_DIR}/.." &> /dev/null && pwd)
 
 CLIENT_DIR="${BASE_DIR}/jupiterone/internal/client"
 
-JUPITERONE_URL=https://graphql.us.jupiterone.io/
+JUPITERONE_URL=https://graphql.${JUPITERONE_REGION}.jupiterone.io/
 
 # This is script is to guide the updating of the SDL schema from the current
 # introspection queries from the API.
