@@ -19,8 +19,6 @@ type UserGroupMembershipResource struct {
 
 // UserGroupMembershipModel is the terraform HCL representation of a user group membership.
 type UserGroupMembershipModel struct {
-	// Id is a placeholder attribute that is not used in the provider, it is only used to satisfy the Terraform SDK
-	// https://developer.hashicorp.com/terraform/tutorials/providers-plugin-framework/providers-plugin-framework-acceptance-testing#implement-data-source-id-attribute
 	Id      types.String `json:"id,omitempty" tfsdk:"id"`
 	GroupId types.String `json:"groupId,omitempty" tfsdk:"group_id"`
 	Email   types.String `json:"email,omitempty" tfsdk:"email"`
@@ -44,7 +42,7 @@ func (*UserGroupMembershipResource) Schema(ctx context.Context, req resource.Sch
 				Computed: true,
 			},
 			"group_id": schema.StringAttribute{
-				Required: true,
+				Required:    true,
 				Description: "The id of the group to add the user to.",
 			},
 			"email": schema.StringAttribute{
@@ -102,7 +100,7 @@ func (r *UserGroupMembershipResource) Create(ctx context.Context, req resource.C
 	tflog.Trace(ctx, "Created user group membership",
 		map[string]interface{}{"groupId": data.GroupId, "email": data.Email})
 
-	data.Id = types.StringValue("placeholder")
+	data.Id = types.StringValue(fmt.Sprintf("%s-%s", data.Email.ValueString(), data.GroupId.ValueString()))
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
 }
@@ -193,8 +191,6 @@ func (r *UserGroupMembershipResource) Read(ctx context.Context, req resource.Rea
 			if group.Id == data.GroupId.ValueString() {
 				// Membership exists, we can return early
 				tflog.Trace(ctx, "User was found and is part of the group")
-				data.Id = types.StringValue("placeholder")
-				resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
 				return
 			}
 		}
@@ -214,8 +210,6 @@ func (r *UserGroupMembershipResource) Read(ctx context.Context, req resource.Rea
 		if invite.Email == data.Email.ValueString() && invite.GroupId == data.GroupId.ValueString() {
 			// Membership exists, we can return early
 			tflog.Trace(ctx, "Found invitation for user")
-			data.Id = types.StringValue("placeholder")
-			resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
 			return
 		}
 	}
@@ -299,7 +293,7 @@ func (r *UserGroupMembershipResource) Update(ctx context.Context, req resource.U
 		return
 	}
 
-	data.Id = types.StringValue("placeholder")
+	data.Id = types.StringValue(fmt.Sprintf("%s-%s", data.Email.ValueString(), data.GroupId.ValueString()))
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
 

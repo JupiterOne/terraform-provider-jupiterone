@@ -12,7 +12,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nmutation CreateUserGroup ($name: String!, $description: String, $queryPolicy: [JSON!], $abacPermissions: [String!]) {\n\tcreateIamGroup(name: $name, description: $description, queryPolicy: $queryPolicy, abacPermissions: $abacPermissions) {\n\t\tid\n\t}\n}\n","variables":{"name":"tf-provider-test-user-group","description":"description of tf-provider-test-user-group","queryPolicy":[{"_class":["User"]}],"abacPermissions":["readGraph","accessInsights"]},"operationName":"CreateUserGroup"}'
+        body: '{"query":"\nmutation CreateUserGroup ($name: String!, $description: String, $queryPolicy: [JSON!], $abacPermissions: [String!]) {\n\tcreateIamGroup(name: $name, description: $description, queryPolicy: $queryPolicy, abacPermissions: $abacPermissions) {\n\t\tid\n\t}\n}\n","variables":{"name":"tf-provider-test-user-group","description":"description of tf-provider-test-user-group","queryPolicy":[{"_class":["User"]}],"abacPermissions":["accessInsights","readGraph"]},"operationName":"CreateUserGroup"}'
         form: {}
         headers:
             Cache-Control:
@@ -30,7 +30,7 @@ interactions:
         content_length: 74
         uncompressed: false
         body: |
-            {"data":{"createIamGroup":{"id":"704a7a19-5a6c-423c-9336-7ccaa9ff6017"}}}
+            {"data":{"createIamGroup":{"id":"53af6660-189f-4037-a9ec-2300a2dec0cb"}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -78,8 +78,86 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 571.315375ms
+        duration: 373.120542ms
     - id: 1
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 321
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.us.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetUserGroup ($id: String!) {\n\tiamGetGroup(group: $id) {\n\t\tid\n\t\tgroupName\n\t\tgroupDescription\n\t\tgroupQueryPolicy {\n\t\t\tstatement\n\t\t}\n\t\tgroupAbacPermission {\n\t\t\tstatement\n\t\t}\n\t}\n}\n","variables":{"id":"53af6660-189f-4037-a9ec-2300a2dec0cb"},"operationName":"GetUserGroup"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.us.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 299
+        uncompressed: false
+        body: |
+            {"data":{"iamGetGroup":{"id":"53af6660-189f-4037-a9ec-2300a2dec0cb","groupName":"tf-provider-test-user-group","groupDescription":"description of tf-provider-test-user-group","groupQueryPolicy":{"statement":[{"_class":["User"]}]},"groupAbacPermission":{"statement":["readGraph","accessInsights"]}}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Content-Length:
+                - "299"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json
+            Cross-Origin-Embedder-Policy:
+                - require-corp
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Expect-Ct:
+                - max-age=0
+            Origin-Agent-Cluster:
+                - ?1
+            Ratelimit-Limit:
+                - "1000"
+            Ratelimit-Remaining:
+                - "999"
+            Ratelimit-Requested:
+                - "1"
+            Ratelimit-Reset:
+                - "1"
+            Referrer-Policy:
+                - no-referrer
+            Strict-Transport-Security:
+                - max-age=15552000; includeSubDomains
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 224.319958ms
+    - id: 2
       request:
         proto: HTTP/1.1
         proto_major: 1
@@ -156,4 +234,4 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 355.871458ms
+        duration: 391.834791ms
