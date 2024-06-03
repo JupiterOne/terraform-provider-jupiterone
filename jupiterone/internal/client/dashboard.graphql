@@ -1,0 +1,37 @@
+query GetDashboard($dashboardId: String!) {
+  getDashboard(dashboardId: $dashboardId) {
+    id
+    name
+  }
+}
+
+# @genqlient(for: "CreateInsightsDashboardInput.layouts", omitempty: true, pointer:true)
+# @genqlient(for: "CreateInsightsDashboardInput.category", omitempty: true)
+# @genqlient(for: "CreateInsightsDashboardInput.dashboardId", omitempty: true)
+mutation CreateDashboard(
+    $input: CreateInsightsDashboardInput!
+) {
+    createDashboard(
+        input: $input
+    ) {
+        name
+        id
+    }
+}
+
+mutation DeleteDashboard($dashboardId: String!) {
+  deleteDashboard(dashboardId: $dashboardId) {
+    success
+  }
+}
+
+# @genqlient(for: "PatchInsightsDashboardInput.layouts", omitempty: true, pointer:true)
+# @genqlient(for: "PatchInsightsDashboardInput.category", omitempty: true)
+mutation UpdateDashboard(
+    $input: PatchInsightsDashboardInput!
+) {
+  patchDashboard(input: $input) {
+    id
+    name
+  }
+}

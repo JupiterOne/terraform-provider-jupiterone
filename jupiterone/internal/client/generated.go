@@ -8,6 +8,13 @@ import (
 	"github.com/Khan/genqlient/graphql"
 )
 
+type BoardType string
+
+const (
+	BoardTypeAccount BoardType = "Account"
+	BoardTypeUser    BoardType = "User"
+)
+
 type ComplianceFrameworkItemAuditStatus string
 
 const (
@@ -231,6 +238,28 @@ func (v *CreateComplianceLibraryItemResponse) GetCreateComplianceLibraryItem() C
 	return v.CreateComplianceLibraryItem
 }
 
+// CreateDashboardCreateDashboardInsightsDashboard includes the requested fields of the GraphQL type InsightsDashboard.
+type CreateDashboardCreateDashboardInsightsDashboard struct {
+	Name string `json:"name"`
+	Id   string `json:"id"`
+}
+
+// GetName returns CreateDashboardCreateDashboardInsightsDashboard.Name, and is useful for accessing the field via an interface.
+func (v *CreateDashboardCreateDashboardInsightsDashboard) GetName() string { return v.Name }
+
+// GetId returns CreateDashboardCreateDashboardInsightsDashboard.Id, and is useful for accessing the field via an interface.
+func (v *CreateDashboardCreateDashboardInsightsDashboard) GetId() string { return v.Id }
+
+// CreateDashboardResponse is returned by CreateDashboard on success.
+type CreateDashboardResponse struct {
+	CreateDashboard CreateDashboardCreateDashboardInsightsDashboard `json:"createDashboard"`
+}
+
+// GetCreateDashboard returns CreateDashboardResponse.CreateDashboard, and is useful for accessing the field via an interface.
+func (v *CreateDashboardResponse) GetCreateDashboard() CreateDashboardCreateDashboardInsightsDashboard {
+	return v.CreateDashboard
+}
+
 // CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance includes the requested fields of the GraphQL type QuestionRuleInstance.
 type CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance struct {
 	Id          string                                                                                `json:"id"`
@@ -393,6 +422,188 @@ type CreateInlineQuestionRuleInstanceResponse struct {
 func (v *CreateInlineQuestionRuleInstanceResponse) GetCreateQuestionRuleInstance() CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance {
 	return v.CreateQuestionRuleInstance
 }
+
+type CreateInsightsDashboardInput struct {
+	DashboardId         string                               `json:"dashboardId,omitempty"`
+	Name                string                               `json:"name"`
+	Type                BoardType                            `json:"type"`
+	UserIds             []string                             `json:"userIds"`
+	GroupIds            []string                             `json:"groupIds"`
+	Category            string                               `json:"category,omitempty"`
+	Widgets             []CreateInsightsWidgetInput          `json:"widgets"`
+	Layouts             *CreateInsightsDashboardLayoutConfig `json:"layouts,omitempty"`
+	Published           bool                                 `json:"published"`
+	PublishedToUserIds  []string                             `json:"publishedToUserIds"`
+	PublishedToGroupIds []string                             `json:"publishedToGroupIds"`
+	Ttd                 int64                                `json:"ttd"`
+}
+
+// GetDashboardId returns CreateInsightsDashboardInput.DashboardId, and is useful for accessing the field via an interface.
+func (v *CreateInsightsDashboardInput) GetDashboardId() string { return v.DashboardId }
+
+// GetName returns CreateInsightsDashboardInput.Name, and is useful for accessing the field via an interface.
+func (v *CreateInsightsDashboardInput) GetName() string { return v.Name }
+
+// GetType returns CreateInsightsDashboardInput.Type, and is useful for accessing the field via an interface.
+func (v *CreateInsightsDashboardInput) GetType() BoardType { return v.Type }
+
+// GetUserIds returns CreateInsightsDashboardInput.UserIds, and is useful for accessing the field via an interface.
+func (v *CreateInsightsDashboardInput) GetUserIds() []string { return v.UserIds }
+
+// GetGroupIds returns CreateInsightsDashboardInput.GroupIds, and is useful for accessing the field via an interface.
+func (v *CreateInsightsDashboardInput) GetGroupIds() []string { return v.GroupIds }
+
+// GetCategory returns CreateInsightsDashboardInput.Category, and is useful for accessing the field via an interface.
+func (v *CreateInsightsDashboardInput) GetCategory() string { return v.Category }
+
+// GetWidgets returns CreateInsightsDashboardInput.Widgets, and is useful for accessing the field via an interface.
+func (v *CreateInsightsDashboardInput) GetWidgets() []CreateInsightsWidgetInput { return v.Widgets }
+
+// GetLayouts returns CreateInsightsDashboardInput.Layouts, and is useful for accessing the field via an interface.
+func (v *CreateInsightsDashboardInput) GetLayouts() *CreateInsightsDashboardLayoutConfig {
+	return v.Layouts
+}
+
+// GetPublished returns CreateInsightsDashboardInput.Published, and is useful for accessing the field via an interface.
+func (v *CreateInsightsDashboardInput) GetPublished() bool { return v.Published }
+
+// GetPublishedToUserIds returns CreateInsightsDashboardInput.PublishedToUserIds, and is useful for accessing the field via an interface.
+func (v *CreateInsightsDashboardInput) GetPublishedToUserIds() []string { return v.PublishedToUserIds }
+
+// GetPublishedToGroupIds returns CreateInsightsDashboardInput.PublishedToGroupIds, and is useful for accessing the field via an interface.
+func (v *CreateInsightsDashboardInput) GetPublishedToGroupIds() []string {
+	return v.PublishedToGroupIds
+}
+
+// GetTtd returns CreateInsightsDashboardInput.Ttd, and is useful for accessing the field via an interface.
+func (v *CreateInsightsDashboardInput) GetTtd() int64 { return v.Ttd }
+
+type CreateInsightsDashboardLayoutConfig struct {
+	Xs []CreateInsightsDashboardLayoutItem `json:"xs"`
+	Sm []CreateInsightsDashboardLayoutItem `json:"sm"`
+	Md []CreateInsightsDashboardLayoutItem `json:"md"`
+	Lg []CreateInsightsDashboardLayoutItem `json:"lg"`
+	Xl []CreateInsightsDashboardLayoutItem `json:"xl"`
+}
+
+// GetXs returns CreateInsightsDashboardLayoutConfig.Xs, and is useful for accessing the field via an interface.
+func (v *CreateInsightsDashboardLayoutConfig) GetXs() []CreateInsightsDashboardLayoutItem {
+	return v.Xs
+}
+
+// GetSm returns CreateInsightsDashboardLayoutConfig.Sm, and is useful for accessing the field via an interface.
+func (v *CreateInsightsDashboardLayoutConfig) GetSm() []CreateInsightsDashboardLayoutItem {
+	return v.Sm
+}
+
+// GetMd returns CreateInsightsDashboardLayoutConfig.Md, and is useful for accessing the field via an interface.
+func (v *CreateInsightsDashboardLayoutConfig) GetMd() []CreateInsightsDashboardLayoutItem {
+	return v.Md
+}
+
+// GetLg returns CreateInsightsDashboardLayoutConfig.Lg, and is useful for accessing the field via an interface.
+func (v *CreateInsightsDashboardLayoutConfig) GetLg() []CreateInsightsDashboardLayoutItem {
+	return v.Lg
+}
+
+// GetXl returns CreateInsightsDashboardLayoutConfig.Xl, and is useful for accessing the field via an interface.
+func (v *CreateInsightsDashboardLayoutConfig) GetXl() []CreateInsightsDashboardLayoutItem {
+	return v.Xl
+}
+
+type CreateInsightsDashboardLayoutItem struct {
+	Static bool   `json:"static"`
+	Moved  bool   `json:"moved"`
+	W      int    `json:"w"`
+	H      int    `json:"h"`
+	X      int    `json:"x"`
+	Y      int64  `json:"y"`
+	I      string `json:"i"`
+}
+
+// GetStatic returns CreateInsightsDashboardLayoutItem.Static, and is useful for accessing the field via an interface.
+func (v *CreateInsightsDashboardLayoutItem) GetStatic() bool { return v.Static }
+
+// GetMoved returns CreateInsightsDashboardLayoutItem.Moved, and is useful for accessing the field via an interface.
+func (v *CreateInsightsDashboardLayoutItem) GetMoved() bool { return v.Moved }
+
+// GetW returns CreateInsightsDashboardLayoutItem.W, and is useful for accessing the field via an interface.
+func (v *CreateInsightsDashboardLayoutItem) GetW() int { return v.W }
+
+// GetH returns CreateInsightsDashboardLayoutItem.H, and is useful for accessing the field via an interface.
+func (v *CreateInsightsDashboardLayoutItem) GetH() int { return v.H }
+
+// GetX returns CreateInsightsDashboardLayoutItem.X, and is useful for accessing the field via an interface.
+func (v *CreateInsightsDashboardLayoutItem) GetX() int { return v.X }
+
+// GetY returns CreateInsightsDashboardLayoutItem.Y, and is useful for accessing the field via an interface.
+func (v *CreateInsightsDashboardLayoutItem) GetY() int64 { return v.Y }
+
+// GetI returns CreateInsightsDashboardLayoutItem.I, and is useful for accessing the field via an interface.
+func (v *CreateInsightsDashboardLayoutItem) GetI() string { return v.I }
+
+type CreateInsightsWidgetConfigInput struct {
+	Queries  []CreateInsightsWidgetConfigQueryInput `json:"queries"`
+	Settings map[string]interface{}                 `json:"settings"`
+}
+
+// GetQueries returns CreateInsightsWidgetConfigInput.Queries, and is useful for accessing the field via an interface.
+func (v *CreateInsightsWidgetConfigInput) GetQueries() []CreateInsightsWidgetConfigQueryInput {
+	return v.Queries
+}
+
+// GetSettings returns CreateInsightsWidgetConfigInput.Settings, and is useful for accessing the field via an interface.
+func (v *CreateInsightsWidgetConfigInput) GetSettings() map[string]interface{} { return v.Settings }
+
+type CreateInsightsWidgetConfigQueryInput struct {
+	Id    string `json:"id"`
+	Name  string `json:"name"`
+	Query string `json:"query"`
+}
+
+// GetId returns CreateInsightsWidgetConfigQueryInput.Id, and is useful for accessing the field via an interface.
+func (v *CreateInsightsWidgetConfigQueryInput) GetId() string { return v.Id }
+
+// GetName returns CreateInsightsWidgetConfigQueryInput.Name, and is useful for accessing the field via an interface.
+func (v *CreateInsightsWidgetConfigQueryInput) GetName() string { return v.Name }
+
+// GetQuery returns CreateInsightsWidgetConfigQueryInput.Query, and is useful for accessing the field via an interface.
+func (v *CreateInsightsWidgetConfigQueryInput) GetQuery() string { return v.Query }
+
+type CreateInsightsWidgetInput struct {
+	Id              string                          `json:"id"`
+	Title           string                          `json:"title"`
+	Description     string                          `json:"description"`
+	Type            string                          `json:"type"`
+	QuestionId      string                          `json:"questionId"`
+	NoResultMessage string                          `json:"noResultMessage"`
+	IncludeDeleted  bool                            `json:"includeDeleted"`
+	Config          CreateInsightsWidgetConfigInput `json:"config"`
+}
+
+// GetId returns CreateInsightsWidgetInput.Id, and is useful for accessing the field via an interface.
+func (v *CreateInsightsWidgetInput) GetId() string { return v.Id }
+
+// GetTitle returns CreateInsightsWidgetInput.Title, and is useful for accessing the field via an interface.
+func (v *CreateInsightsWidgetInput) GetTitle() string { return v.Title }
+
+// GetDescription returns CreateInsightsWidgetInput.Description, and is useful for accessing the field via an interface.
+func (v *CreateInsightsWidgetInput) GetDescription() string { return v.Description }
+
+// GetType returns CreateInsightsWidgetInput.Type, and is useful for accessing the field via an interface.
+func (v *CreateInsightsWidgetInput) GetType() string { return v.Type }
+
+// GetQuestionId returns CreateInsightsWidgetInput.QuestionId, and is useful for accessing the field via an interface.
+func (v *CreateInsightsWidgetInput) GetQuestionId() string { return v.QuestionId }
+
+// GetNoResultMessage returns CreateInsightsWidgetInput.NoResultMessage, and is useful for accessing the field via an interface.
+func (v *CreateInsightsWidgetInput) GetNoResultMessage() string { return v.NoResultMessage }
+
+// GetIncludeDeleted returns CreateInsightsWidgetInput.IncludeDeleted, and is useful for accessing the field via an interface.
+func (v *CreateInsightsWidgetInput) GetIncludeDeleted() bool { return v.IncludeDeleted }
+
+// GetConfig returns CreateInsightsWidgetInput.Config, and is useful for accessing the field via an interface.
+func (v *CreateInsightsWidgetInput) GetConfig() CreateInsightsWidgetConfigInput { return v.Config }
 
 // CreateQuestionCreateQuestion includes the requested fields of the GraphQL type Question.
 type CreateQuestionCreateQuestion struct {
@@ -617,6 +828,24 @@ type DeleteComplianceLibraryItemResponse struct {
 // GetDeleteComplianceLibraryItem returns DeleteComplianceLibraryItemResponse.DeleteComplianceLibraryItem, and is useful for accessing the field via an interface.
 func (v *DeleteComplianceLibraryItemResponse) GetDeleteComplianceLibraryItem() string {
 	return v.DeleteComplianceLibraryItem
+}
+
+// DeleteDashboardDeleteDashboardDeleteResult includes the requested fields of the GraphQL type DeleteResult.
+type DeleteDashboardDeleteDashboardDeleteResult struct {
+	Success bool `json:"success"`
+}
+
+// GetSuccess returns DeleteDashboardDeleteDashboardDeleteResult.Success, and is useful for accessing the field via an interface.
+func (v *DeleteDashboardDeleteDashboardDeleteResult) GetSuccess() bool { return v.Success }
+
+// DeleteDashboardResponse is returned by DeleteDashboard on success.
+type DeleteDashboardResponse struct {
+	DeleteDashboard DeleteDashboardDeleteDashboardDeleteResult `json:"deleteDashboard"`
+}
+
+// GetDeleteDashboard returns DeleteDashboardResponse.DeleteDashboard, and is useful for accessing the field via an interface.
+func (v *DeleteDashboardResponse) GetDeleteDashboard() DeleteDashboardDeleteDashboardDeleteResult {
+	return v.DeleteDashboard
 }
 
 // DeleteQuestionDeleteQuestion includes the requested fields of the GraphQL type Question.
@@ -857,6 +1086,28 @@ type GetComplianceLibraryItemByIdResponse struct {
 // GetComplianceLibraryItem returns GetComplianceLibraryItemByIdResponse.ComplianceLibraryItem, and is useful for accessing the field via an interface.
 func (v *GetComplianceLibraryItemByIdResponse) GetComplianceLibraryItem() GetComplianceLibraryItemByIdComplianceLibraryItem {
 	return v.ComplianceLibraryItem
+}
+
+// GetDashboardGetDashboardInsightsDashboard includes the requested fields of the GraphQL type InsightsDashboard.
+type GetDashboardGetDashboardInsightsDashboard struct {
+	Id   string `json:"id"`
+	Name string `json:"name"`
+}
+
+// GetId returns GetDashboardGetDashboardInsightsDashboard.Id, and is useful for accessing the field via an interface.
+func (v *GetDashboardGetDashboardInsightsDashboard) GetId() string { return v.Id }
+
+// GetName returns GetDashboardGetDashboardInsightsDashboard.Name, and is useful for accessing the field via an interface.
+func (v *GetDashboardGetDashboardInsightsDashboard) GetName() string { return v.Name }
+
+// GetDashboardResponse is returned by GetDashboard on success.
+type GetDashboardResponse struct {
+	GetDashboard GetDashboardGetDashboardInsightsDashboard `json:"getDashboard"`
+}
+
+// GetGetDashboard returns GetDashboardResponse.GetDashboard, and is useful for accessing the field via an interface.
+func (v *GetDashboardResponse) GetGetDashboard() GetDashboardGetDashboardInsightsDashboard {
+	return v.GetDashboard
 }
 
 // GetGroupsByNameIamGetGroupListIamGroupPage includes the requested fields of the GraphQL type IamGroupPage.
@@ -1412,6 +1663,51 @@ func (v *J1QueryInput) GetVersion() string { return v.Version }
 // GetIncludeDeleted returns J1QueryInput.IncludeDeleted, and is useful for accessing the field via an interface.
 func (v *J1QueryInput) GetIncludeDeleted() bool { return v.IncludeDeleted }
 
+type PatchInsightsDashboardInput struct {
+	DashboardId         string                               `json:"dashboardId"`
+	Name                string                               `json:"name"`
+	UserIds             []string                             `json:"userIds"`
+	GroupIds            []string                             `json:"groupIds"`
+	Category            string                               `json:"category,omitempty"`
+	Widgets             []CreateInsightsWidgetInput          `json:"widgets"`
+	Layouts             *CreateInsightsDashboardLayoutConfig `json:"layouts,omitempty"`
+	Published           bool                                 `json:"published"`
+	PublishedToUserIds  []string                             `json:"publishedToUserIds"`
+	PublishedToGroupIds []string                             `json:"publishedToGroupIds"`
+}
+
+// GetDashboardId returns PatchInsightsDashboardInput.DashboardId, and is useful for accessing the field via an interface.
+func (v *PatchInsightsDashboardInput) GetDashboardId() string { return v.DashboardId }
+
+// GetName returns PatchInsightsDashboardInput.Name, and is useful for accessing the field via an interface.
+func (v *PatchInsightsDashboardInput) GetName() string { return v.Name }
+
+// GetUserIds returns PatchInsightsDashboardInput.UserIds, and is useful for accessing the field via an interface.
+func (v *PatchInsightsDashboardInput) GetUserIds() []string { return v.UserIds }
+
+// GetGroupIds returns PatchInsightsDashboardInput.GroupIds, and is useful for accessing the field via an interface.
+func (v *PatchInsightsDashboardInput) GetGroupIds() []string { return v.GroupIds }
+
+// GetCategory returns PatchInsightsDashboardInput.Category, and is useful for accessing the field via an interface.
+func (v *PatchInsightsDashboardInput) GetCategory() string { return v.Category }
+
+// GetWidgets returns PatchInsightsDashboardInput.Widgets, and is useful for accessing the field via an interface.
+func (v *PatchInsightsDashboardInput) GetWidgets() []CreateInsightsWidgetInput { return v.Widgets }
+
+// GetLayouts returns PatchInsightsDashboardInput.Layouts, and is useful for accessing the field via an interface.
+func (v *PatchInsightsDashboardInput) GetLayouts() *CreateInsightsDashboardLayoutConfig {
+	return v.Layouts
+}
+
+// GetPublished returns PatchInsightsDashboardInput.Published, and is useful for accessing the field via an interface.
+func (v *PatchInsightsDashboardInput) GetPublished() bool { return v.Published }
+
+// GetPublishedToUserIds returns PatchInsightsDashboardInput.PublishedToUserIds, and is useful for accessing the field via an interface.
+func (v *PatchInsightsDashboardInput) GetPublishedToUserIds() []string { return v.PublishedToUserIds }
+
+// GetPublishedToGroupIds returns PatchInsightsDashboardInput.PublishedToGroupIds, and is useful for accessing the field via an interface.
+func (v *PatchInsightsDashboardInput) GetPublishedToGroupIds() []string { return v.PublishedToGroupIds }
+
 type QueryResultsAre string
 
 const (
@@ -1869,6 +2165,28 @@ type UpdateComplianceLibraryItemUpdateComplianceLibraryItem struct {
 // GetId returns UpdateComplianceLibraryItemUpdateComplianceLibraryItem.Id, and is useful for accessing the field via an interface.
 func (v *UpdateComplianceLibraryItemUpdateComplianceLibraryItem) GetId() string { return v.Id }
 
+// UpdateDashboardPatchDashboardInsightsDashboard includes the requested fields of the GraphQL type InsightsDashboard.
+type UpdateDashboardPatchDashboardInsightsDashboard struct {
+	Id   string `json:"id"`
+	Name string `json:"name"`
+}
+
+// GetId returns UpdateDashboardPatchDashboardInsightsDashboard.Id, and is useful for accessing the field via an interface.
+func (v *UpdateDashboardPatchDashboardInsightsDashboard) GetId() string { return v.Id }
+
+// GetName returns UpdateDashboardPatchDashboardInsightsDashboard.Name, and is useful for accessing the field via an interface.
+func (v *UpdateDashboardPatchDashboardInsightsDashboard) GetName() string { return v.Name }
+
+// UpdateDashboardResponse is returned by UpdateDashboard on success.
+type UpdateDashboardResponse struct {
+	PatchDashboard UpdateDashboardPatchDashboardInsightsDashboard `json:"patchDashboard"`
+}
+
+// GetPatchDashboard returns UpdateDashboardResponse.PatchDashboard, and is useful for accessing the field via an interface.
+func (v *UpdateDashboardResponse) GetPatchDashboard() UpdateDashboardPatchDashboardInsightsDashboard {
+	return v.PatchDashboard
+}
+
 type UpdateInlineQuestionRuleInstanceInput struct {
 	Question                        RuleQuestionDetailsInput `json:"question"`
 	Id                              string                   `json:"id"`
@@ -2165,6 +2483,14 @@ func (v *__CreateComplianceLibraryItemInput) GetInput() CreateComplianceLibraryI
 	return v.Input
 }
 
+// __CreateDashboardInput is used internally by genqlient
+type __CreateDashboardInput struct {
+	Input CreateInsightsDashboardInput `json:"input"`
+}
+
+// GetInput returns __CreateDashboardInput.Input, and is useful for accessing the field via an interface.
+func (v *__CreateDashboardInput) GetInput() CreateInsightsDashboardInput { return v.Input }
+
 // __CreateInlineQuestionRuleInstanceInput is used internally by genqlient
 type __CreateInlineQuestionRuleInstanceInput struct {
 	Instance CreateInlineQuestionRuleInstanceInput `json:"instance"`
@@ -2245,6 +2571,14 @@ type __DeleteComplianceLibraryItemInput struct {
 // GetId returns __DeleteComplianceLibraryItemInput.Id, and is useful for accessing the field via an interface.
 func (v *__DeleteComplianceLibraryItemInput) GetId() string { return v.Id }
 
+// __DeleteDashboardInput is used internally by genqlient
+type __DeleteDashboardInput struct {
+	DashboardId string `json:"dashboardId"`
+}
+
+// GetDashboardId returns __DeleteDashboardInput.DashboardId, and is useful for accessing the field via an interface.
+func (v *__DeleteDashboardInput) GetDashboardId() string { return v.DashboardId }
+
 // __DeleteQuestionInput is used internally by genqlient
 type __DeleteQuestionInput struct {
 	Id string `json:"id"`
@@ -2300,6 +2634,14 @@ type __GetComplianceLibraryItemByIdInput struct {
 
 // GetId returns __GetComplianceLibraryItemByIdInput.Id, and is useful for accessing the field via an interface.
 func (v *__GetComplianceLibraryItemByIdInput) GetId() string { return v.Id }
+
+// __GetDashboardInput is used internally by genqlient
+type __GetDashboardInput struct {
+	DashboardId string `json:"dashboardId"`
+}
+
+// GetDashboardId returns __GetDashboardInput.DashboardId, and is useful for accessing the field via an interface.
+func (v *__GetDashboardInput) GetDashboardId() string { return v.DashboardId }
 
 // __GetGroupsByNameInput is used internally by genqlient
 type __GetGroupsByNameInput struct {
@@ -2408,6 +2750,14 @@ type __UpdateComplianceLibraryItemInput struct {
 func (v *__UpdateComplianceLibraryItemInput) GetInput() UpdateComplianceLibraryItemInput {
 	return v.Input
 }
+
+// __UpdateDashboardInput is used internally by genqlient
+type __UpdateDashboardInput struct {
+	Input PatchInsightsDashboardInput `json:"input"`
+}
+
+// GetInput returns __UpdateDashboardInput.Input, and is useful for accessing the field via an interface.
+func (v *__UpdateDashboardInput) GetInput() PatchInsightsDashboardInput { return v.Input }
 
 // __UpdateInlineQuestionRuleInstanceInput is used internally by genqlient
 type __UpdateInlineQuestionRuleInstanceInput struct {
@@ -2582,6 +2932,39 @@ mutation CreateComplianceLibraryItem ($input: CreateComplianceLibraryItemInput!)
 	var err error
 
 	var data CreateComplianceLibraryItemResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func CreateDashboard(
+	ctx context.Context,
+	client graphql.Client,
+	input CreateInsightsDashboardInput,
+) (*CreateDashboardResponse, error) {
+	req := &graphql.Request{
+		OpName: "CreateDashboard",
+		Query: `
+mutation CreateDashboard ($input: CreateInsightsDashboardInput!) {
+	createDashboard(input: $input) {
+		name
+		id
+	}
+}
+`,
+		Variables: &__CreateDashboardInput{
+			Input: input,
+		},
+	}
+	var err error
+
+	var data CreateDashboardResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(
@@ -2867,6 +3250,38 @@ mutation DeleteComplianceLibraryItem ($id: ID!) {
 	return &data, err
 }
 
+func DeleteDashboard(
+	ctx context.Context,
+	client graphql.Client,
+	dashboardId string,
+) (*DeleteDashboardResponse, error) {
+	req := &graphql.Request{
+		OpName: "DeleteDashboard",
+		Query: `
+mutation DeleteDashboard ($dashboardId: String!) {
+	deleteDashboard(dashboardId: $dashboardId) {
+		success
+	}
+}
+`,
+		Variables: &__DeleteDashboardInput{
+			DashboardId: dashboardId,
+		},
+	}
+	var err error
+
+	var data DeleteDashboardResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
 func DeleteQuestion(
 	ctx context.Context,
 	client graphql.Client,
@@ -3111,6 +3526,39 @@ query GetComplianceLibraryItemById ($id: ID!) {
 	var err error
 
 	var data GetComplianceLibraryItemByIdResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func GetDashboard(
+	ctx context.Context,
+	client graphql.Client,
+	dashboardId string,
+) (*GetDashboardResponse, error) {
+	req := &graphql.Request{
+		OpName: "GetDashboard",
+		Query: `
+query GetDashboard ($dashboardId: String!) {
+	getDashboard(dashboardId: $dashboardId) {
+		id
+		name
+	}
+}
+`,
+		Variables: &__GetDashboardInput{
+			DashboardId: dashboardId,
+		},
+	}
+	var err error
+
+	var data GetDashboardResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(
@@ -3621,6 +4069,39 @@ mutation UpdateComplianceLibraryItem ($input: UpdateComplianceLibraryItemInput!)
 	var err error
 
 	var data UpdateComplianceLibraryItemResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func UpdateDashboard(
+	ctx context.Context,
+	client graphql.Client,
+	input PatchInsightsDashboardInput,
+) (*UpdateDashboardResponse, error) {
+	req := &graphql.Request{
+		OpName: "UpdateDashboard",
+		Query: `
+mutation UpdateDashboard ($input: PatchInsightsDashboardInput!) {
+	patchDashboard(input: $input) {
+		id
+		name
+	}
+}
+`,
+		Variables: &__UpdateDashboardInput{
+			Input: input,
+		},
+	}
+	var err error
+
+	var data UpdateDashboardResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(
