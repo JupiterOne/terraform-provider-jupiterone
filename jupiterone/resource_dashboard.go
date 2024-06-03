@@ -18,7 +18,7 @@ import (
 )
 
 // At the moment we can only support Account Type dashboards with account based API tokens.
-// User Type dashboards requoire a user API token:
+// User Type dashboards require a user API token:
 // https://github.com/JupiterOne/dashboard-service/blob/059f43edc997482099be37fd731c4645f556d0b5/src/api/graphql/public/serializers/dashboardSerializers.ts#L54
 var DashboardTypes = []string{
 	string(client.BoardTypeAccount),
@@ -97,7 +97,7 @@ func (r *DashboardResource) Create(ctx context.Context, req resource.CreateReque
 
 	data.Id = types.StringValue(created.CreateDashboard.Id)
 
-	tflog.Trace(ctx, "Created dashbaord",
+	tflog.Trace(ctx, "Created dashboard",
 		map[string]interface{}{"title": data.Name, "id": data.Id})
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
