@@ -139,6 +139,7 @@ func (*JupiterOneProvider) Resources(context.Context) []func() resource.Resource
 		NewLibraryItemResource,
 		NewUserGroupResource,
 		NewUserGroupMembershipResource,
+		NewDashboardResource,
 	}
 }
 
