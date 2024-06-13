@@ -478,14 +478,20 @@ func (r *QuestionRuleResource) Read(ctx context.Context, req resource.ReadReques
 		data.QuestionId = types.StringNull()
 	}
 	if queries := rule.Question.Queries; len(queries) > 0 {
-		data.Question = []*RuleQuestion{{Queries: []*J1QueryInputModel{
+		queryModels := make([]*J1QueryInputModel, len(queries))
+		for i, query := range queries {
+			queryModels[i] = &J1QueryInputModel{
+				Name:            query.Name,
+				Query:           query.Query,
+				Version:         query.Version,
+				IncludedDeleted: query.IncludeDeleted,
+			}
+		}
+		data.Question = []*RuleQuestion{
 			{
-				Name:            queries[0].Name,
-				Query:           queries[0].Query,
-				Version:         queries[0].Version,
-				IncludedDeleted: queries[0].IncludeDeleted,
+				Queries: queryModels,
 			},
-		}}}
+		}
 	} else {
 		data.Question = nil
 	}
@@ -694,15 +700,17 @@ func (r *RuleModel) BuildCreateInlineQuestionRuleInstanceInput() (client.CreateI
 	}
 
 	if len(r.Question) > 0 && len(r.Question[0].Queries) > 0 {
+		queries := make([]client.J1QueryInput, len(r.Question[0].Queries))
+		for i, query := range r.Question[0].Queries {
+			queries[i] = client.J1QueryInput{
+				Query:          query.Query,
+				Name:           query.Name,
+				Version:        query.Version,
+				IncludeDeleted: query.IncludedDeleted,
+			}
+		}
 		rule.Question = client.RuleQuestionDetailsInput{
-			Queries: []client.J1QueryInput{
-				{
-					Query:          r.Question[0].Queries[0].Query,
-					Name:           r.Question[0].Queries[0].Name,
-					Version:        r.Question[0].Queries[0].Version,
-					IncludeDeleted: r.Question[0].Queries[0].IncludedDeleted,
-				},
-			},
+			Queries: queries,
 		}
 	}
 
@@ -742,15 +750,17 @@ func (r *RuleModel) BuildUpdateInlineQuestionRuleInstanceInput() (client.UpdateI
 	}
 
 	if len(r.Question) > 0 && len(r.Question[0].Queries) > 0 {
+		queries := make([]client.J1QueryInput, len(r.Question[0].Queries))
+		for i, query := range r.Question[0].Queries {
+			queries[i] = client.J1QueryInput{
+				Query:          query.Query,
+				Name:           query.Name,
+				Version:        query.Version,
+				IncludeDeleted: query.IncludedDeleted,
+			}
+		}
 		rule.Question = client.RuleQuestionDetailsInput{
-			Queries: []client.J1QueryInput{
-				{
-					Query:          r.Question[0].Queries[0].Query,
-					Name:           r.Question[0].Queries[0].Name,
-					Version:        r.Question[0].Queries[0].Version,
-					IncludeDeleted: r.Question[0].Queries[0].IncludedDeleted,
-				},
-			},
+			Queries: queries,
 		}
 	}
 
