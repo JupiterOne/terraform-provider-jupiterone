@@ -8,6 +8,7 @@ operations:
   - userGroup.graphql
   - user.graphql
   - dashboard.graphql
+  - widget.graphql
 generated: generated.go
 
 bindings:
