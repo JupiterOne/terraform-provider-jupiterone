@@ -783,6 +783,54 @@ func (v *CreateUserGroupResponse) GetCreateIamGroup() CreateUserGroupCreateIamGr
 	return v.CreateIamGroup
 }
 
+// CreateWidgetCreateWidgetInsightsWidget includes the requested fields of the GraphQL type InsightsWidget.
+type CreateWidgetCreateWidgetInsightsWidget struct {
+	Id              string `json:"id"`
+	WidgetId        string `json:"widgetId"`
+	Title           string `json:"title"`
+	Description     string `json:"description"`
+	Type            string `json:"type"`
+	QuestionId      string `json:"questionId"`
+	NoResultMessage string `json:"noResultMessage"`
+	IncludeDeleted  bool   `json:"includeDeleted"`
+}
+
+// GetId returns CreateWidgetCreateWidgetInsightsWidget.Id, and is useful for accessing the field via an interface.
+func (v *CreateWidgetCreateWidgetInsightsWidget) GetId() string { return v.Id }
+
+// GetWidgetId returns CreateWidgetCreateWidgetInsightsWidget.WidgetId, and is useful for accessing the field via an interface.
+func (v *CreateWidgetCreateWidgetInsightsWidget) GetWidgetId() string { return v.WidgetId }
+
+// GetTitle returns CreateWidgetCreateWidgetInsightsWidget.Title, and is useful for accessing the field via an interface.
+func (v *CreateWidgetCreateWidgetInsightsWidget) GetTitle() string { return v.Title }
+
+// GetDescription returns CreateWidgetCreateWidgetInsightsWidget.Description, and is useful for accessing the field via an interface.
+func (v *CreateWidgetCreateWidgetInsightsWidget) GetDescription() string { return v.Description }
+
+// GetType returns CreateWidgetCreateWidgetInsightsWidget.Type, and is useful for accessing the field via an interface.
+func (v *CreateWidgetCreateWidgetInsightsWidget) GetType() string { return v.Type }
+
+// GetQuestionId returns CreateWidgetCreateWidgetInsightsWidget.QuestionId, and is useful for accessing the field via an interface.
+func (v *CreateWidgetCreateWidgetInsightsWidget) GetQuestionId() string { return v.QuestionId }
+
+// GetNoResultMessage returns CreateWidgetCreateWidgetInsightsWidget.NoResultMessage, and is useful for accessing the field via an interface.
+func (v *CreateWidgetCreateWidgetInsightsWidget) GetNoResultMessage() string {
+	return v.NoResultMessage
+}
+
+// GetIncludeDeleted returns CreateWidgetCreateWidgetInsightsWidget.IncludeDeleted, and is useful for accessing the field via an interface.
+func (v *CreateWidgetCreateWidgetInsightsWidget) GetIncludeDeleted() bool { return v.IncludeDeleted }
+
+// CreateWidgetResponse is returned by CreateWidget on success.
+type CreateWidgetResponse struct {
+	CreateWidget CreateWidgetCreateWidgetInsightsWidget `json:"createWidget"`
+}
+
+// GetCreateWidget returns CreateWidgetResponse.CreateWidget, and is useful for accessing the field via an interface.
+func (v *CreateWidgetResponse) GetCreateWidget() CreateWidgetCreateWidgetInsightsWidget {
+	return v.CreateWidget
+}
+
 type DeleteComplianceFrameworkInput struct {
 	Id string `json:"id"`
 }
@@ -900,6 +948,24 @@ type DeleteUserGroupResponse struct {
 // GetDeleteIamGroup returns DeleteUserGroupResponse.DeleteIamGroup, and is useful for accessing the field via an interface.
 func (v *DeleteUserGroupResponse) GetDeleteIamGroup() DeleteUserGroupDeleteIamGroupSuccessStatusResult {
 	return v.DeleteIamGroup
+}
+
+// DeleteWidgetDeleteWidgetDeleteResult includes the requested fields of the GraphQL type DeleteResult.
+type DeleteWidgetDeleteWidgetDeleteResult struct {
+	Success bool `json:"success"`
+}
+
+// GetSuccess returns DeleteWidgetDeleteWidgetDeleteResult.Success, and is useful for accessing the field via an interface.
+func (v *DeleteWidgetDeleteWidgetDeleteResult) GetSuccess() bool { return v.Success }
+
+// DeleteWidgetResponse is returned by DeleteWidget on success.
+type DeleteWidgetResponse struct {
+	DeleteWidget DeleteWidgetDeleteWidgetDeleteResult `json:"deleteWidget"`
+}
+
+// GetDeleteWidget returns DeleteWidgetResponse.DeleteWidget, and is useful for accessing the field via an interface.
+func (v *DeleteWidgetResponse) GetDeleteWidget() DeleteWidgetDeleteWidgetDeleteResult {
+	return v.DeleteWidget
 }
 
 // GetComplianceFrameworkByIdComplianceFramework includes the requested fields of the GraphQL type ComplianceFramework.
@@ -1627,6 +1693,22 @@ type GetUsersByEmailResponse struct {
 func (v *GetUsersByEmailResponse) GetIamGetUserList() GetUsersByEmailIamGetUserListIamAccountUserPage {
 	return v.IamGetUserList
 }
+
+// GetWidgetGetWidgetGetWidgetResult includes the requested fields of the GraphQL type GetWidgetResult.
+type GetWidgetGetWidgetGetWidgetResult struct {
+	Widget map[string]interface{} `json:"widget"`
+}
+
+// GetWidget returns GetWidgetGetWidgetGetWidgetResult.Widget, and is useful for accessing the field via an interface.
+func (v *GetWidgetGetWidgetGetWidgetResult) GetWidget() map[string]interface{} { return v.Widget }
+
+// GetWidgetResponse is returned by GetWidget on success.
+type GetWidgetResponse struct {
+	GetWidget GetWidgetGetWidgetGetWidgetResult `json:"getWidget"`
+}
+
+// GetGetWidget returns GetWidgetResponse.GetWidget, and is useful for accessing the field via an interface.
+func (v *GetWidgetResponse) GetGetWidget() GetWidgetGetWidgetGetWidgetResult { return v.GetWidget }
 
 // InviteUserInviteIamInvitation includes the requested fields of the GraphQL type IamInvitation.
 type InviteUserInviteIamInvitation struct {
@@ -2445,6 +2527,87 @@ type UpdateUserGroupUpdateIamGroupV1Group struct {
 // GetId returns UpdateUserGroupUpdateIamGroupV1Group.Id, and is useful for accessing the field via an interface.
 func (v *UpdateUserGroupUpdateIamGroupV1Group) GetId() string { return v.Id }
 
+// UpdateWidgetResponse is returned by UpdateWidget on success.
+type UpdateWidgetResponse struct {
+	UpdateWidget UpdateWidgetUpdateWidgetSetInsightsSettingsResult `json:"updateWidget"`
+}
+
+// GetUpdateWidget returns UpdateWidgetResponse.UpdateWidget, and is useful for accessing the field via an interface.
+func (v *UpdateWidgetResponse) GetUpdateWidget() UpdateWidgetUpdateWidgetSetInsightsSettingsResult {
+	return v.UpdateWidget
+}
+
+// UpdateWidgetUpdateWidgetSetInsightsSettingsResult includes the requested fields of the GraphQL type SetInsightsSettingsResult.
+type UpdateWidgetUpdateWidgetSetInsightsSettingsResult struct {
+	ResultCode string `json:"resultCode"`
+}
+
+// GetResultCode returns UpdateWidgetUpdateWidgetSetInsightsSettingsResult.ResultCode, and is useful for accessing the field via an interface.
+func (v *UpdateWidgetUpdateWidgetSetInsightsSettingsResult) GetResultCode() string {
+	return v.ResultCode
+}
+
+type Widget struct {
+	Id              string       `json:"id"`
+	Title           string       `json:"title"`
+	Description     string       `json:"description"`
+	Config          WidgetConfig `json:"config"`
+	Type            string       `json:"type"`
+	QuestionId      string       `json:"questionId"`
+	NoResultMessage string       `json:"noResultMessage"`
+	IncludeDeleted  bool         `json:"includeDeleted"`
+}
+
+// GetId returns Widget.Id, and is useful for accessing the field via an interface.
+func (v *Widget) GetId() string { return v.Id }
+
+// GetTitle returns Widget.Title, and is useful for accessing the field via an interface.
+func (v *Widget) GetTitle() string { return v.Title }
+
+// GetDescription returns Widget.Description, and is useful for accessing the field via an interface.
+func (v *Widget) GetDescription() string { return v.Description }
+
+// GetConfig returns Widget.Config, and is useful for accessing the field via an interface.
+func (v *Widget) GetConfig() WidgetConfig { return v.Config }
+
+// GetType returns Widget.Type, and is useful for accessing the field via an interface.
+func (v *Widget) GetType() string { return v.Type }
+
+// GetQuestionId returns Widget.QuestionId, and is useful for accessing the field via an interface.
+func (v *Widget) GetQuestionId() string { return v.QuestionId }
+
+// GetNoResultMessage returns Widget.NoResultMessage, and is useful for accessing the field via an interface.
+func (v *Widget) GetNoResultMessage() string { return v.NoResultMessage }
+
+// GetIncludeDeleted returns Widget.IncludeDeleted, and is useful for accessing the field via an interface.
+func (v *Widget) GetIncludeDeleted() bool { return v.IncludeDeleted }
+
+type WidgetConfig struct {
+	Queries  []WidgetQuery          `json:"queries"`
+	Settings map[string]interface{} `json:"settings"`
+}
+
+// GetQueries returns WidgetConfig.Queries, and is useful for accessing the field via an interface.
+func (v *WidgetConfig) GetQueries() []WidgetQuery { return v.Queries }
+
+// GetSettings returns WidgetConfig.Settings, and is useful for accessing the field via an interface.
+func (v *WidgetConfig) GetSettings() map[string]interface{} { return v.Settings }
+
+type WidgetQuery struct {
+	Id    string `json:"id"`
+	Name  string `json:"name"`
+	Query string `json:"query"`
+}
+
+// GetId returns WidgetQuery.Id, and is useful for accessing the field via an interface.
+func (v *WidgetQuery) GetId() string { return v.Id }
+
+// GetName returns WidgetQuery.Name, and is useful for accessing the field via an interface.
+func (v *WidgetQuery) GetName() string { return v.Name }
+
+// GetQuery returns WidgetQuery.Query, and is useful for accessing the field via an interface.
+func (v *WidgetQuery) GetQuery() string { return v.Query }
+
 // __CreateComplianceFrameworkInput is used internally by genqlient
 type __CreateComplianceFrameworkInput struct {
 	Framework CreateComplianceFrameworkInput `json:"framework"`
@@ -2539,6 +2702,18 @@ func (v *__CreateUserGroupInput) GetQueryPolicy() []map[string]interface{} { ret
 // GetAbacPermissions returns __CreateUserGroupInput.AbacPermissions, and is useful for accessing the field via an interface.
 func (v *__CreateUserGroupInput) GetAbacPermissions() []string { return v.AbacPermissions }
 
+// __CreateWidgetInput is used internally by genqlient
+type __CreateWidgetInput struct {
+	DashboardId string                    `json:"dashboardId"`
+	Input       CreateInsightsWidgetInput `json:"input"`
+}
+
+// GetDashboardId returns __CreateWidgetInput.DashboardId, and is useful for accessing the field via an interface.
+func (v *__CreateWidgetInput) GetDashboardId() string { return v.DashboardId }
+
+// GetInput returns __CreateWidgetInput.Input, and is useful for accessing the field via an interface.
+func (v *__CreateWidgetInput) GetInput() CreateInsightsWidgetInput { return v.Input }
+
 // __DeleteComplianceFrameworkInput is used internally by genqlient
 type __DeleteComplianceFrameworkInput struct {
 	Input DeleteComplianceFrameworkInput `json:"input"`
@@ -2602,6 +2777,18 @@ type __DeleteUserGroupInput struct {
 
 // GetName returns __DeleteUserGroupInput.Name, and is useful for accessing the field via an interface.
 func (v *__DeleteUserGroupInput) GetName() string { return v.Name }
+
+// __DeleteWidgetInput is used internally by genqlient
+type __DeleteWidgetInput struct {
+	DashboardId string `json:"dashboardId"`
+	WidgetId    string `json:"widgetId"`
+}
+
+// GetDashboardId returns __DeleteWidgetInput.DashboardId, and is useful for accessing the field via an interface.
+func (v *__DeleteWidgetInput) GetDashboardId() string { return v.DashboardId }
+
+// GetWidgetId returns __DeleteWidgetInput.WidgetId, and is useful for accessing the field via an interface.
+func (v *__DeleteWidgetInput) GetWidgetId() string { return v.WidgetId }
 
 // __GetComplianceFrameworkByIdInput is used internally by genqlient
 type __GetComplianceFrameworkByIdInput struct {
@@ -2682,6 +2869,22 @@ type __GetUsersByEmailInput struct {
 
 // GetEmail returns __GetUsersByEmailInput.Email, and is useful for accessing the field via an interface.
 func (v *__GetUsersByEmailInput) GetEmail() string { return v.Email }
+
+// __GetWidgetInput is used internally by genqlient
+type __GetWidgetInput struct {
+	BoardId   string `json:"boardId"`
+	BoardType string `json:"boardType"`
+	WidgetId  string `json:"widgetId"`
+}
+
+// GetBoardId returns __GetWidgetInput.BoardId, and is useful for accessing the field via an interface.
+func (v *__GetWidgetInput) GetBoardId() string { return v.BoardId }
+
+// GetBoardType returns __GetWidgetInput.BoardType, and is useful for accessing the field via an interface.
+func (v *__GetWidgetInput) GetBoardType() string { return v.BoardType }
+
+// GetWidgetId returns __GetWidgetInput.WidgetId, and is useful for accessing the field via an interface.
+func (v *__GetWidgetInput) GetWidgetId() string { return v.WidgetId }
 
 // __InviteUserInput is used internally by genqlient
 type __InviteUserInput struct {
@@ -2814,6 +3017,22 @@ func (v *__UpdateUserGroupInput) GetQueryPolicy() []map[string]interface{} { ret
 
 // GetAbacPermissions returns __UpdateUserGroupInput.AbacPermissions, and is useful for accessing the field via an interface.
 func (v *__UpdateUserGroupInput) GetAbacPermissions() []string { return v.AbacPermissions }
+
+// __UpdateWidgetInput is used internally by genqlient
+type __UpdateWidgetInput struct {
+	BoardId   string `json:"boardId"`
+	BoardType string `json:"boardType"`
+	NewWidget Widget `json:"newWidget"`
+}
+
+// GetBoardId returns __UpdateWidgetInput.BoardId, and is useful for accessing the field via an interface.
+func (v *__UpdateWidgetInput) GetBoardId() string { return v.BoardId }
+
+// GetBoardType returns __UpdateWidgetInput.BoardType, and is useful for accessing the field via an interface.
+func (v *__UpdateWidgetInput) GetBoardType() string { return v.BoardType }
+
+// GetNewWidget returns __UpdateWidgetInput.NewWidget, and is useful for accessing the field via an interface.
+func (v *__UpdateWidgetInput) GetNewWidget() Widget { return v.NewWidget }
 
 func CreateComplianceFramework(
 	ctx context.Context,
@@ -3130,6 +3349,47 @@ mutation CreateUserGroup ($name: String!, $description: String, $queryPolicy: [J
 	return &data, err
 }
 
+func CreateWidget(
+	ctx context.Context,
+	client graphql.Client,
+	dashboardId string,
+	input CreateInsightsWidgetInput,
+) (*CreateWidgetResponse, error) {
+	req := &graphql.Request{
+		OpName: "CreateWidget",
+		Query: `
+mutation CreateWidget ($dashboardId: String!, $input: CreateInsightsWidgetInput!) {
+	createWidget(dashboardId: $dashboardId, input: $input) {
+		id
+		widgetId
+		title
+		description
+		type
+		questionId
+		noResultMessage
+		includeDeleted
+	}
+}
+`,
+		Variables: &__CreateWidgetInput{
+			DashboardId: dashboardId,
+			Input:       input,
+		},
+	}
+	var err error
+
+	var data CreateWidgetResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
 func DeleteComplianceFramework(
 	ctx context.Context,
 	client graphql.Client,
@@ -3367,6 +3627,40 @@ mutation DeleteUserGroup ($name: String!) {
 	var err error
 
 	var data DeleteUserGroupResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func DeleteWidget(
+	ctx context.Context,
+	client graphql.Client,
+	dashboardId string,
+	widgetId string,
+) (*DeleteWidgetResponse, error) {
+	req := &graphql.Request{
+		OpName: "DeleteWidget",
+		Query: `
+mutation DeleteWidget ($dashboardId: String!, $widgetId: String!) {
+	deleteWidget(dashboardId: $dashboardId, widgetId: $widgetId) {
+		success
+	}
+}
+`,
+		Variables: &__DeleteWidgetInput{
+			DashboardId: dashboardId,
+			WidgetId:    widgetId,
+		},
+	}
+	var err error
+
+	var data DeleteWidgetResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(
@@ -3851,6 +4145,42 @@ query GetUsersByEmail ($email: String!) {
 	return &data, err
 }
 
+func GetWidget(
+	ctx context.Context,
+	client graphql.Client,
+	boardId string,
+	boardType string,
+	widgetId string,
+) (*GetWidgetResponse, error) {
+	req := &graphql.Request{
+		OpName: "GetWidget",
+		Query: `
+query GetWidget ($boardId: String!, $boardType: String!, $widgetId: String!) {
+	getWidget(boardId: $boardId, boardType: $boardType, widgetId: $widgetId) {
+		widget
+	}
+}
+`,
+		Variables: &__GetWidgetInput{
+			BoardId:   boardId,
+			BoardType: boardType,
+			WidgetId:  widgetId,
+		},
+	}
+	var err error
+
+	var data GetWidgetResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
 func InviteUser(
 	ctx context.Context,
 	client graphql.Client,
@@ -4253,6 +4583,42 @@ mutation UpdateUserGroup ($id: String!, $name: String, $description: String, $qu
 	var err error
 
 	var data UpdateUserGroupResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func UpdateWidget(
+	ctx context.Context,
+	client graphql.Client,
+	boardId string,
+	boardType string,
+	newWidget Widget,
+) (*UpdateWidgetResponse, error) {
+	req := &graphql.Request{
+		OpName: "UpdateWidget",
+		Query: `
+mutation UpdateWidget ($boardId: String!, $boardType: String!, $newWidget: Widget!) {
+	updateWidget(boardId: $boardId, boardType: $boardType, newWidget: $newWidget) {
+		resultCode
+	}
+}
+`,
+		Variables: &__UpdateWidgetInput{
+			BoardId:   boardId,
+			BoardType: boardType,
+			NewWidget: newWidget,
+		},
+	}
+	var err error
+
+	var data UpdateWidgetResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(

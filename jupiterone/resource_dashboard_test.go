@@ -14,7 +14,7 @@ import (
 	"github.com/jupiterone/terraform-provider-jupiterone/jupiterone/internal/client"
 )
 
-func TestDashboardBasic(t *testing.T) {
+func TestDashboard_Basic(t *testing.T) {
 	ctx := context.TODO()
 
 	recordingClient, directClient, cleanup := setupTestClients(ctx, t)

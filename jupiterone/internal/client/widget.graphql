@@ -1,0 +1,30 @@
+query GetWidget($boardId: String!, $boardType: String!, $widgetId: String!) {
+  getWidget(boardId: $boardId, boardType: $boardType, widgetId: $widgetId) {
+    widget
+  }
+}
+
+mutation CreateWidget($dashboardId: String!, $input: CreateInsightsWidgetInput!) {
+    createWidget(dashboardId: $dashboardId, input: $input) {
+        id
+        widgetId
+        title
+        description
+        type
+        questionId
+        noResultMessage
+        includeDeleted
+    }
+}
+
+mutation DeleteWidget($dashboardId: String!, $widgetId: String!) {
+    deleteWidget(dashboardId: $dashboardId, widgetId: $widgetId) {
+        success
+    }
+}
+
+mutation UpdateWidget($boardId: String!, $boardType: String!, $newWidget: Widget!) {
+    updateWidget(boardId: $boardId, boardType: $boardType, newWidget: $newWidget) {
+        resultCode
+    }
+}

@@ -30,7 +30,7 @@ interactions:
         content_length: 111
         uncompressed: false
         body: |
-            {"data":{"createDashboard":{"name":"tf-provider-test-dashboard","id":"7f637ded-99f6-41e1-b9fa-1cffd1f0b87c"}}}
+            {"data":{"createDashboard":{"name":"tf-provider-test-dashboard","id":"86a338a3-7783-4fdb-8c68-347aa4d811fb"}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -78,7 +78,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 712.679541ms
+        duration: 662.687334ms
     - id: 1
       request:
         proto: HTTP/1.1
@@ -90,7 +90,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetDashboard ($dashboardId: String!) {\n\tgetDashboard(dashboardId: $dashboardId) {\n\t\tid\n\t\tname\n\t}\n}\n","variables":{"dashboardId":"7f637ded-99f6-41e1-b9fa-1cffd1f0b87c"},"operationName":"GetDashboard"}'
+        body: '{"query":"\nquery GetDashboard ($dashboardId: String!) {\n\tgetDashboard(dashboardId: $dashboardId) {\n\t\tid\n\t\tname\n\t}\n}\n","variables":{"dashboardId":"86a338a3-7783-4fdb-8c68-347aa4d811fb"},"operationName":"GetDashboard"}'
         form: {}
         headers:
             Cache-Control:
@@ -108,7 +108,7 @@ interactions:
         content_length: 108
         uncompressed: false
         body: |
-            {"data":{"getDashboard":{"id":"7f637ded-99f6-41e1-b9fa-1cffd1f0b87c","name":"tf-provider-test-dashboard"}}}
+            {"data":{"getDashboard":{"id":"86a338a3-7783-4fdb-8c68-347aa4d811fb","name":"tf-provider-test-dashboard"}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -156,7 +156,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 574.276584ms
+        duration: 662.471625ms
     - id: 2
       request:
         proto: HTTP/1.1
@@ -168,7 +168,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nmutation DeleteDashboard ($dashboardId: String!) {\n\tdeleteDashboard(dashboardId: $dashboardId) {\n\t\tsuccess\n\t}\n}\n","variables":{"dashboardId":"7f637ded-99f6-41e1-b9fa-1cffd1f0b87c"},"operationName":"DeleteDashboard"}'
+        body: '{"query":"\nmutation DeleteDashboard ($dashboardId: String!) {\n\tdeleteDashboard(dashboardId: $dashboardId) {\n\t\tsuccess\n\t}\n}\n","variables":{"dashboardId":"86a338a3-7783-4fdb-8c68-347aa4d811fb"},"operationName":"DeleteDashboard"}'
         form: {}
         headers:
             Cache-Control:
@@ -234,4 +234,4 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 622.6525ms
+        duration: 729.556542ms
