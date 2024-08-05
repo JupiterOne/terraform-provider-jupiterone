@@ -135,9 +135,9 @@ func (r *DashboardResource) Read(ctx context.Context, req resource.ReadRequest, 
 	dashboard, err := client.GetDashboard(ctx, r.qlient, data.Id.ValueString())
 	if err != nil {
 		if strings.Contains(err.Error(), "not found") {
-				resp.State.RemoveResource(ctx)
+			resp.State.RemoveResource(ctx)
 		} else {
-				resp.Diagnostics.AddError("failed to get dashboard", err.Error())
+			resp.Diagnostics.AddError("failed to get dashboard", err.Error())
 		}
 		return
 	}

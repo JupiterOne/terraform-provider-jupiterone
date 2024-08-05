@@ -177,9 +177,9 @@ func (r *ComplianceGroupResource) Read(ctx context.Context, req resource.ReadReq
 	if err != nil {
 		if err != nil {
 			if strings.Contains(err.Error(), "Could not find") {
-					resp.State.RemoveResource(ctx)
+				resp.State.RemoveResource(ctx)
 			} else {
-					resp.Diagnostics.AddError("failed to find group", err.Error())
+				resp.Diagnostics.AddError("failed to find group", err.Error())
 			}
 		}
 		return

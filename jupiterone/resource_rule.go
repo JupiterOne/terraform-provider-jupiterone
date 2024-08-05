@@ -446,9 +446,9 @@ func (r *QuestionRuleResource) Read(ctx context.Context, req resource.ReadReques
 	getResp, err := client.GetQuestionRuleInstance(ctx, r.qlient, oldData.Id.ValueString())
 	if err != nil {
 		if strings.Contains(err.Error(), "does not exist") {
-				resp.State.RemoveResource(ctx)
+			resp.State.RemoveResource(ctx)
 		} else {
-				resp.Diagnostics.AddError("failed to get rule", err.Error())
+			resp.Diagnostics.AddError("failed to get rule", err.Error())
 		}
 		return
 	}

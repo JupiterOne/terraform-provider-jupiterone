@@ -152,9 +152,9 @@ func (r *WidgetResource) Read(ctx context.Context, req resource.ReadRequest, res
 	response, err := client.GetWidget(ctx, r.qlient, data.DashboardId.ValueString(), "Account", data.Id.ValueString())
 	if err != nil {
 		if strings.Contains(err.Error(), "not found") {
-				resp.State.RemoveResource(ctx)
+			resp.State.RemoveResource(ctx)
 		} else {
-				resp.Diagnostics.AddError("failed to get widget", err.Error())
+			resp.Diagnostics.AddError("failed to get widget", err.Error())
 		}
 		return
 	}

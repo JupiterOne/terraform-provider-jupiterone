@@ -185,9 +185,9 @@ func (r *ComplianceFrameworkItemResource) Read(ctx context.Context, req resource
 	if r, err := client.GetComplianceFrameworkItemById(ctx, r.qlient, data.Id.ValueString()); err != nil {
 		if err != nil {
 			if strings.Contains(err.Error(), "Could not find") {
-					resp.State.RemoveResource(ctx)
+				resp.State.RemoveResource(ctx)
 			} else {
-					resp.Diagnostics.AddError("failed to find framework item", err.Error())
+				resp.Diagnostics.AddError("failed to find framework item", err.Error())
 			}
 		}
 		return
