@@ -38,7 +38,6 @@ See the [examples](./examples) directory
 1. Enter the repository directory
 1. Build the provider with `make build` or invoke `go install` directly.
 1. Install the provider locally as referenced [here](#using-development-environment-provider-locally)
-1.
 
 ## Adding Dependencies
 
