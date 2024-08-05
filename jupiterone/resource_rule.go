@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"reflect"
+	"strings"
 
 	"github.com/Khan/genqlient/graphql"
 	"github.com/hashicorp/terraform-plugin-framework-validators/listvalidator"
@@ -444,7 +445,11 @@ func (r *QuestionRuleResource) Read(ctx context.Context, req resource.ReadReques
 
 	getResp, err := client.GetQuestionRuleInstance(ctx, r.qlient, oldData.Id.ValueString())
 	if err != nil {
-		resp.Diagnostics.AddError("failed to get rule", err.Error())
+		if strings.Contains(err.Error(), "does not exist") {
+			resp.State.RemoveResource(ctx)
+		} else {
+			resp.Diagnostics.AddError("failed to get rule", err.Error())
+		}
 		return
 	}
 	rule := getResp.QuestionRuleInstance

@@ -5,15 +5,39 @@
 - [Terraform](https://www.terraform.io/downloads.html) 1.0.1
 - [Go](https://golang.org/doc/install) 1.18 (to build the provider plugin)
 
+## Using the provider
+
+Add the jupiterone provider to your project's terraform:
+
+```hcl
+terraform {
+  required_providers {
+    jupiterone = {
+      source  = "JupiterOne/jupiterone"
+      version = "x.x.x" # Replace with desired version
+    }
+  }
+}
+
+provider "jupiterone" {
+  # Configuration options
+  account_id = "xxxxx"
+  api_key = "xxxx"
+  region  = "us"
+}
+```
+
 ## Example Usage
 
-See the `examples` directory
+See the [examples](./examples) directory
 
 ## Building The Provider
 
+1. Install [Go](https://go.dev/doc/install) and `make`
 1. Clone the repository
-2. Enter the repository directory
-3. Build the provider with `make build` or invoke `go install` directly.
+1. Enter the repository directory
+1. Build the provider with `make build` or invoke `go install` directly.
+1. Install the provider locally as referenced [here](#using-development-environment-provider-locally)
 
 ## Adding Dependencies
 
@@ -26,10 +50,6 @@ To add a new dependency `github.com/author/dependency` to your Terraform provide
 go get github.com/author/dependency
 go mod tidy
 ```
-
-## Using the provider
-
-If you're building the provider, follow the instructions to [install it as a plugin.](https://www.terraform.io/docs/plugins/basics.html#installing-a-plugin) After placing it into your plugins directory, run `terraform init` to initialize it.
 
 ## Developing the Provider
 
@@ -217,7 +237,11 @@ func (r *J1EntityResource) Read(ctx context.Context, req resource.ReadRequest, r
   // See other resource.go files for examples
 	entity, err := client.GetJ1Entity(ctx, r.qlient, data.Id.ValueString())
 	if err != nil {
-		resp.Diagnostics.AddError("failed to get j1 entity", err.Error())
+		if strings.Contains(err.Error(), "not found") {
+				resp.State.RemoveResource(ctx)
+		} else {
+				resp.Diagnostics.AddError("failed to get entity", err.Error())
+		}
 		return
 	}
 
@@ -358,7 +382,7 @@ export TF_LOG=DEBUG
 make testacc
 ```
 
-### Using development environment provider locally
+## Using development environment provider locally
 
 In order to check changes you made locally to the provider, you can use the binary you just compiled by adding the following
 to your `~/.terraformrc` file. This is valid for Terraform 0.14+. Please see
