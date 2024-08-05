@@ -13,7 +13,7 @@ A JupiterOne insights dashboard.
 ## Example Usage
 
 ```terraform
-resource "jupiterone_dashboard" "compliance_dashboard" {
+resource "jupiterone_dashboard" "compliance" {
   name          = "Compliance Dashboard"
   type          = "Account"
 }

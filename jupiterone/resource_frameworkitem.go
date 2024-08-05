@@ -3,6 +3,7 @@ package jupiterone
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/Khan/genqlient/graphql"
 	"github.com/hashicorp/terraform-plugin-framework/path"
@@ -182,7 +183,13 @@ func (r *ComplianceFrameworkItemResource) Read(ctx context.Context, req resource
 
 	var i client.GetComplianceFrameworkItemByIdComplianceFrameworkItem
 	if r, err := client.GetComplianceFrameworkItemById(ctx, r.qlient, data.Id.ValueString()); err != nil {
-		resp.Diagnostics.AddError("failed to find framework item", err.Error())
+		if err != nil {
+			if strings.Contains(err.Error(), "Could not find") {
+					resp.State.RemoveResource(ctx)
+			} else {
+					resp.Diagnostics.AddError("failed to find framework item", err.Error())
+			}
+		}
 		return
 	} else {
 		i = r.ComplianceFrameworkItem

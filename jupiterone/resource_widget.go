@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"strings"
 
 	"github.com/Khan/genqlient/graphql"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
@@ -150,7 +151,11 @@ func (r *WidgetResource) Read(ctx context.Context, req resource.ReadRequest, res
 	// Fetch the widget data from the API
 	response, err := client.GetWidget(ctx, r.qlient, data.DashboardId.ValueString(), "Account", data.Id.ValueString())
 	if err != nil {
-		resp.Diagnostics.AddError("failed to get widget", err.Error())
+		if strings.Contains(err.Error(), "not found") {
+				resp.State.RemoveResource(ctx)
+		} else {
+				resp.Diagnostics.AddError("failed to get widget", err.Error())
+		}
 		return
 	}
 

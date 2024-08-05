@@ -3,6 +3,7 @@ package jupiterone
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/Khan/genqlient/graphql"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
@@ -133,7 +134,11 @@ func (r *DashboardResource) Read(ctx context.Context, req resource.ReadRequest, 
 
 	dashboard, err := client.GetDashboard(ctx, r.qlient, data.Id.ValueString())
 	if err != nil {
-		resp.Diagnostics.AddError("failed to get dashboard", err.Error())
+		if strings.Contains(err.Error(), "not found") {
+				resp.State.RemoveResource(ctx)
+		} else {
+				resp.Diagnostics.AddError("failed to get dashboard", err.Error())
+		}
 		return
 	}
 

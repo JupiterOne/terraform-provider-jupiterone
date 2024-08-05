@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"strings"
 
 	"github.com/Khan/genqlient/graphql"
 	"github.com/hashicorp/terraform-plugin-framework/path"
@@ -171,7 +172,11 @@ func (r *UserGroupResource) Read(ctx context.Context, req resource.ReadRequest, 
 
 	group, err := client.GetUserGroup(ctx, r.qlient, data.Id.ValueString())
 	if err != nil {
-		resp.Diagnostics.AddError("failed to get user group", err.Error())
+		if strings.Contains(err.Error(), "does not exist") {
+			resp.State.RemoveResource(ctx)
+		} else {
+			resp.Diagnostics.AddError("failed to get user group", err.Error())
+		}
 		return
 	}
 

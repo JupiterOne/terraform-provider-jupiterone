@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"strings"
 
 	"github.com/Khan/genqlient/graphql"
 	"github.com/hashicorp/terraform-plugin-framework/path"
@@ -174,7 +175,13 @@ func (r *ComplianceGroupResource) Read(ctx context.Context, req resource.ReadReq
 	group, err := getGroup(ctx, r.qlient, data.FrameworkId.ValueString(), data.Id.ValueString())
 
 	if err != nil {
-		resp.Diagnostics.AddError("failed to find group", err.Error())
+		if err != nil {
+			if strings.Contains(err.Error(), "Could not find") {
+					resp.State.RemoveResource(ctx)
+			} else {
+					resp.Diagnostics.AddError("failed to find group", err.Error())
+			}
+		}
 		return
 	}
 
