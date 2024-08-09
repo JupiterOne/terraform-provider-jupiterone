@@ -49,4 +49,4 @@ schema.json
 schema.graphql
 
 # Terrform lock files from testing
-.terraform.lock.hcl
+.terraform*
