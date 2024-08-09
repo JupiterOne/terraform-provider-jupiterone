@@ -23,6 +23,9 @@ import (
 )
 
 const DefaultRegion string = "us"
+const MaxBackoff = 60 * time.Second
+const MinBackoff = 15 * time.Second
+const PowerOfTwo = 2
 
 var (
 	lastNon429Response time.Time
@@ -59,7 +62,6 @@ func (t *jupiterOneTransport) RoundTrip(req *http.Request) (*http.Response, erro
 // RetryTransport is a custom RoundTripper that adds retry logic with backoff.
 type RetryTransport struct {
 	Transport  http.RoundTripper
-	MaxRetries int
 	MinBackoff time.Duration
 	MaxBackoff time.Duration
 }
@@ -104,7 +106,7 @@ func (rt *RetryTransport) RoundTrip(req *http.Request) (*http.Response, error) {
 		tflog.Debug(ctx, "Retrying after getting a 429 response")
 
 		// Calculate the backoff time using exponential backoff with jitter.
-		backoff := rt.MinBackoff * time.Duration(math.Pow(2, float64(i)))
+		backoff := rt.MinBackoff * time.Duration(math.Pow(PowerOfTwo, float64(i)))
 		jitter := time.Duration(rand.Int63n(int64(rt.MinBackoff)))
 		sleepDuration := backoff + jitter
 
@@ -121,7 +123,7 @@ func (rt *RetryTransport) RoundTrip(req *http.Request) (*http.Response, error) {
 		time.Sleep(sleepDuration)
 	}
 
-	return resp, fmt.Errorf("after %d attempts, last status: %s", rt.MaxRetries, strconv.Itoa(resp.StatusCode))
+	return resp, fmt.Errorf("after many attempts, last status: %s", strconv.Itoa(resp.StatusCode))
 }
 
 func (c *JupiterOneClientConfig) getRegion(ctx context.Context) string {
@@ -165,9 +167,8 @@ func (c *JupiterOneClientConfig) Qlient(ctx context.Context) graphql.Client {
 
 	httpClient.Transport = &RetryTransport{
 		Transport:  httpClient.Transport,
-		MaxRetries: 50,
-		MinBackoff: 15 * time.Second, // Initial backoff duration
-		MaxBackoff: 60 * time.Second, // Maximum backoff duration
+		MinBackoff: MinBackoff,
+		MaxBackoff: MaxBackoff,
 	}
 
 	client := genql.NewClient(endpoint, httpClient)
