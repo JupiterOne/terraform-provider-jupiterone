@@ -12,6 +12,7 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+	"sync"
 	"time"
 
 	"github.com/Khan/genqlient/graphql"
@@ -22,6 +23,17 @@ import (
 )
 
 const DefaultRegion string = "us"
+
+var (
+    lastNon429Response time.Time
+    timestampMutex  sync.Mutex
+)
+
+func updateLastNon429Response() {
+    timestampMutex.Lock()
+    defer timestampMutex.Unlock()
+    lastNon429Response = time.Now()
+}
 
 type JupiterOneClientConfig struct {
 	APIKey    string
@@ -67,27 +79,44 @@ func (rt *RetryTransport) RoundTrip(req *http.Request) (*http.Response, error) {
 		}
 	}
 
-	for i := 0; i < rt.MaxRetries; i++ {
+	for i := 0; i >= 0; i++ {
 		// Setting the body for the request
 		req.Body = io.NopCloser(bytes.NewBuffer(bodyBytes))
 
 		resp, _ = rt.Transport.RoundTrip(req)
 
 		if resp.StatusCode != http.StatusTooManyRequests {
+			updateLastNon429Response()
 			return resp, nil
 		}
 
-		tflog.Info(ctx, "Retrying after getting a 429 response")
+		// If this is not the first try, and the lastNon429Response
+		// was more than 90 seconds ago, we should break out of the loop
+		// and return the last response.
+		timestampMutex.Lock()
+		if i > 0 && time.Since(lastNon429Response) > 90*time.Second {
+			timestampMutex.Unlock()
+			tflog.Warn(ctx, "Not going to retry, we haven't got a non 429 in a while")
+			return resp, nil
+		}
+		timestampMutex.Unlock()
+
+		tflog.Debug(ctx, "Retrying after getting a 429 response")
 
 		// Calculate the backoff time using exponential backoff with jitter.
 		backoff := rt.MinBackoff * time.Duration(math.Pow(2, float64(i)))
 		jitter := time.Duration(rand.Int63n(int64(rt.MinBackoff)))
 		sleepDuration := backoff + jitter
-
+		
 		// Ensure we do not exceed the maximum backoff time.
 		if sleepDuration > rt.MaxBackoff {
 			sleepDuration = rt.MaxBackoff
 		}
+
+		// Convert duration to seconds
+		var backoffSeconds = int(sleepDuration.Seconds())
+
+		tflog.Debug(ctx, "Backoff info", map[string]interface{}{"sleepDurationSeconds": backoffSeconds, "retryCount": i})
 
 		time.Sleep(sleepDuration)
 	}
@@ -136,8 +165,8 @@ func (c *JupiterOneClientConfig) Qlient(ctx context.Context) graphql.Client {
 
 	httpClient.Transport = &RetryTransport{
 		Transport:  httpClient.Transport,
-		MaxRetries: 5,
-		MinBackoff: 10 * time.Second, // Initial backoff duration
+		MaxRetries: 50,
+		MinBackoff: 15 * time.Second, // Initial backoff duration
 		MaxBackoff: 60 * time.Second, // Maximum backoff duration
 	}
 
