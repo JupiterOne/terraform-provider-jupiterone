@@ -136,7 +136,7 @@ func (c *JupiterOneClientConfig) Qlient(ctx context.Context) graphql.Client {
 
 	httpClient.Transport = &RetryTransport{
 		Transport:  httpClient.Transport,
-		MaxRetries: 3,
+		MaxRetries: 5,
 		MinBackoff: 10 * time.Second, // Initial backoff duration
 		MaxBackoff: 60 * time.Second, // Maximum backoff duration
 	}
