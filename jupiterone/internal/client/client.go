@@ -25,14 +25,14 @@ import (
 const DefaultRegion string = "us"
 
 var (
-    lastNon429Response time.Time
-    timestampMutex  sync.Mutex
+	lastNon429Response time.Time
+	timestampMutex     sync.Mutex
 )
 
 func updateLastNon429Response() {
-    timestampMutex.Lock()
-    defer timestampMutex.Unlock()
-    lastNon429Response = time.Now()
+	timestampMutex.Lock()
+	defer timestampMutex.Unlock()
+	lastNon429Response = time.Now()
 }
 
 type JupiterOneClientConfig struct {
@@ -107,7 +107,7 @@ func (rt *RetryTransport) RoundTrip(req *http.Request) (*http.Response, error) {
 		backoff := rt.MinBackoff * time.Duration(math.Pow(2, float64(i)))
 		jitter := time.Duration(rand.Int63n(int64(rt.MinBackoff)))
 		sleepDuration := backoff + jitter
-		
+
 		// Ensure we do not exceed the maximum backoff time.
 		if sleepDuration > rt.MaxBackoff {
 			sleepDuration = rt.MaxBackoff
