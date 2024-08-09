@@ -3,9 +3,16 @@ package client
 //go:generate go run github.com/Khan/genqlient
 
 import (
+	"bytes"
 	"context"
+	"fmt"
+	"io"
+	"math"
+	"math/rand"
 	"net/http"
 	"os"
+	"strconv"
+	"time"
 
 	"github.com/Khan/genqlient/graphql"
 	genql "github.com/Khan/genqlient/graphql"
@@ -35,6 +42,57 @@ func (t *jupiterOneTransport) RoundTrip(req *http.Request) (*http.Response, erro
 	req.Header.Set("Cache-Control", "no-cache")
 	req.Header.Set("Authorization", "Bearer "+t.apiKey)
 	return t.base.RoundTrip(req)
+}
+
+// RetryTransport is a custom RoundTripper that adds retry logic with backoff.
+type RetryTransport struct {
+	Transport  http.RoundTripper
+	MaxRetries int
+	MinBackoff time.Duration
+	MaxBackoff time.Duration
+}
+
+func (rt *RetryTransport) RoundTrip(req *http.Request) (*http.Response, error) {
+	var resp *http.Response
+	var err error
+
+	ctx := req.Context()
+
+	// We need to keep a copy of the body because each request it gets consumed
+	var bodyBytes []byte
+	if req.Body != nil {
+		bodyBytes, err = io.ReadAll(req.Body)
+		if err != nil {
+			return nil, fmt.Errorf("failed to read request body: %v", err)
+		}
+	}
+
+	for i := 0; i < rt.MaxRetries; i++ {
+		// Setting the body for the request
+		req.Body = io.NopCloser(bytes.NewBuffer(bodyBytes))
+
+		resp, _ = rt.Transport.RoundTrip(req)
+
+		if resp.StatusCode != http.StatusTooManyRequests {
+			return resp, nil
+		}
+
+		tflog.Info(ctx, "Retrying after getting a 429 response")
+
+		// Calculate the backoff time using exponential backoff with jitter.
+		backoff := rt.MinBackoff * time.Duration(math.Pow(2, float64(i)))
+		jitter := time.Duration(rand.Int63n(int64(rt.MinBackoff)))
+		sleepDuration := backoff + jitter
+
+		// Ensure we do not exceed the maximum backoff time.
+		if sleepDuration > rt.MaxBackoff {
+			sleepDuration = rt.MaxBackoff
+		}
+
+		time.Sleep(sleepDuration)
+	}
+
+	return resp, fmt.Errorf("after %d attempts, last status: %s", rt.MaxRetries, strconv.Itoa(resp.StatusCode))
 }
 
 func (c *JupiterOneClientConfig) getRegion(ctx context.Context) string {
@@ -75,6 +133,13 @@ func (c *JupiterOneClientConfig) Qlient(ctx context.Context) graphql.Client {
 
 	httpClient.Transport = &jupiterOneTransport{apiKey: c.APIKey, accountID: c.AccountID, base: httpClient.Transport}
 	httpClient.Transport = logging.NewLoggingHTTPTransport(httpClient.Transport)
+
+	httpClient.Transport = &RetryTransport{
+		Transport:  httpClient.Transport,
+		MaxRetries: 3,
+		MinBackoff: 10 * time.Second, // Initial backoff duration
+		MaxBackoff: 60 * time.Second, // Maximum backoff duration
+	}
 
 	client := genql.NewClient(endpoint, httpClient)
 
