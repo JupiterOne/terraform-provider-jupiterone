@@ -325,6 +325,10 @@ func (*QuestionRuleResource) ConfigValidators(context.Context) []resource.Config
 			path.MatchRoot("question"),
 			path.MatchRoot("question_id"),
 		),
+		resourcevalidator.Conflicting(
+			path.MatchRoot("trigger_on_new_only"),
+			path.MatchRoot("ignore_previous_results"),
+		),
 	}
 }
 
