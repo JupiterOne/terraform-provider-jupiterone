@@ -12,6 +12,7 @@ query GetQuestionRuleInstance($id: ID!) {
     templates
     notifyOnFailure
     triggerActionsOnNewEntitiesOnly
+    ignorePreviousResults
     questionId
     question {
       queries {

@@ -358,6 +358,7 @@ type CreateInlineQuestionRuleInstanceInput struct {
 	PollingInterval                 SchedulerPollingInterval `json:"pollingInterval"`
 	NotifyOnFailure                 bool                     `json:"notifyOnFailure"`
 	TriggerActionsOnNewEntitiesOnly bool                     `json:"triggerActionsOnNewEntitiesOnly"`
+	IgnorePreviousResults           bool                     `json:"ignorePreviousResults"`
 	RemediationSteps                string                   `json:"remediationSteps"`
 	J1Internal                      bool                     `json:"j1Internal"`
 }
@@ -403,6 +404,11 @@ func (v *CreateInlineQuestionRuleInstanceInput) GetNotifyOnFailure() bool { retu
 // GetTriggerActionsOnNewEntitiesOnly returns CreateInlineQuestionRuleInstanceInput.TriggerActionsOnNewEntitiesOnly, and is useful for accessing the field via an interface.
 func (v *CreateInlineQuestionRuleInstanceInput) GetTriggerActionsOnNewEntitiesOnly() bool {
 	return v.TriggerActionsOnNewEntitiesOnly
+}
+
+// GetIgnorePreviousResults returns CreateInlineQuestionRuleInstanceInput.IgnorePreviousResults, and is useful for accessing the field via an interface.
+func (v *CreateInlineQuestionRuleInstanceInput) GetIgnorePreviousResults() bool {
+	return v.IgnorePreviousResults
 }
 
 // GetRemediationSteps returns CreateInlineQuestionRuleInstanceInput.RemediationSteps, and is useful for accessing the field via an interface.
@@ -704,6 +710,7 @@ type CreateReferencedQuestionRuleInstanceInput struct {
 	PollingInterval                 SchedulerPollingInterval `json:"pollingInterval"`
 	NotifyOnFailure                 bool                     `json:"notifyOnFailure"`
 	TriggerActionsOnNewEntitiesOnly bool                     `json:"triggerActionsOnNewEntitiesOnly"`
+	IgnorePreviousResults           bool                     `json:"ignorePreviousResults"`
 	RemediationSteps                string                   `json:"remediationSteps"`
 }
 
@@ -748,6 +755,11 @@ func (v *CreateReferencedQuestionRuleInstanceInput) GetNotifyOnFailure() bool {
 // GetTriggerActionsOnNewEntitiesOnly returns CreateReferencedQuestionRuleInstanceInput.TriggerActionsOnNewEntitiesOnly, and is useful for accessing the field via an interface.
 func (v *CreateReferencedQuestionRuleInstanceInput) GetTriggerActionsOnNewEntitiesOnly() bool {
 	return v.TriggerActionsOnNewEntitiesOnly
+}
+
+// GetIgnorePreviousResults returns CreateReferencedQuestionRuleInstanceInput.IgnorePreviousResults, and is useful for accessing the field via an interface.
+func (v *CreateReferencedQuestionRuleInstanceInput) GetIgnorePreviousResults() bool {
+	return v.IgnorePreviousResults
 }
 
 // GetRemediationSteps returns CreateReferencedQuestionRuleInstanceInput.RemediationSteps, and is useful for accessing the field via an interface.
@@ -1412,6 +1424,7 @@ type GetQuestionRuleInstanceQuestionRuleInstance struct {
 	Templates                       map[string]interface{}                                                 `json:"templates"`
 	NotifyOnFailure                 bool                                                                   `json:"notifyOnFailure"`
 	TriggerActionsOnNewEntitiesOnly bool                                                                   `json:"triggerActionsOnNewEntitiesOnly"`
+	IgnorePreviousResults           bool                                                                   `json:"ignorePreviousResults"`
 	QuestionId                      string                                                                 `json:"questionId"`
 	Question                        GetQuestionRuleInstanceQuestionRuleInstanceQuestionRuleQuestionDetails `json:"question"`
 	Operations                      []RuleOperationOutput                                                  `json:"operations"`
@@ -1461,6 +1474,11 @@ func (v *GetQuestionRuleInstanceQuestionRuleInstance) GetNotifyOnFailure() bool 
 // GetTriggerActionsOnNewEntitiesOnly returns GetQuestionRuleInstanceQuestionRuleInstance.TriggerActionsOnNewEntitiesOnly, and is useful for accessing the field via an interface.
 func (v *GetQuestionRuleInstanceQuestionRuleInstance) GetTriggerActionsOnNewEntitiesOnly() bool {
 	return v.TriggerActionsOnNewEntitiesOnly
+}
+
+// GetIgnorePreviousResults returns GetQuestionRuleInstanceQuestionRuleInstance.IgnorePreviousResults, and is useful for accessing the field via an interface.
+func (v *GetQuestionRuleInstanceQuestionRuleInstance) GetIgnorePreviousResults() bool {
+	return v.IgnorePreviousResults
 }
 
 // GetQuestionId returns GetQuestionRuleInstanceQuestionRuleInstance.QuestionId, and is useful for accessing the field via an interface.
@@ -2285,6 +2303,7 @@ type UpdateInlineQuestionRuleInstanceInput struct {
 	PollingInterval                 SchedulerPollingInterval `json:"pollingInterval"`
 	NotifyOnFailure                 bool                     `json:"notifyOnFailure"`
 	TriggerActionsOnNewEntitiesOnly bool                     `json:"triggerActionsOnNewEntitiesOnly"`
+	IgnorePreviousResults           bool                     `json:"ignorePreviousResults"`
 	RemediationSteps                string                   `json:"remediationSteps,omitempty"`
 }
 
@@ -2341,6 +2360,11 @@ func (v *UpdateInlineQuestionRuleInstanceInput) GetNotifyOnFailure() bool { retu
 // GetTriggerActionsOnNewEntitiesOnly returns UpdateInlineQuestionRuleInstanceInput.TriggerActionsOnNewEntitiesOnly, and is useful for accessing the field via an interface.
 func (v *UpdateInlineQuestionRuleInstanceInput) GetTriggerActionsOnNewEntitiesOnly() bool {
 	return v.TriggerActionsOnNewEntitiesOnly
+}
+
+// GetIgnorePreviousResults returns UpdateInlineQuestionRuleInstanceInput.IgnorePreviousResults, and is useful for accessing the field via an interface.
+func (v *UpdateInlineQuestionRuleInstanceInput) GetIgnorePreviousResults() bool {
+	return v.IgnorePreviousResults
 }
 
 // GetRemediationSteps returns UpdateInlineQuestionRuleInstanceInput.RemediationSteps, and is useful for accessing the field via an interface.
@@ -2414,6 +2438,7 @@ type UpdateReferencedQuestionRuleInstanceInput struct {
 	PollingInterval                 SchedulerPollingInterval `json:"pollingInterval"`
 	NotifyOnFailure                 bool                     `json:"notifyOnFailure"`
 	TriggerActionsOnNewEntitiesOnly bool                     `json:"triggerActionsOnNewEntitiesOnly"`
+	IgnorePreviousResults           bool                     `json:"ignorePreviousResults"`
 	RemediationSteps                string                   `json:"remediationSteps"`
 }
 
@@ -2470,6 +2495,11 @@ func (v *UpdateReferencedQuestionRuleInstanceInput) GetNotifyOnFailure() bool {
 // GetTriggerActionsOnNewEntitiesOnly returns UpdateReferencedQuestionRuleInstanceInput.TriggerActionsOnNewEntitiesOnly, and is useful for accessing the field via an interface.
 func (v *UpdateReferencedQuestionRuleInstanceInput) GetTriggerActionsOnNewEntitiesOnly() bool {
 	return v.TriggerActionsOnNewEntitiesOnly
+}
+
+// GetIgnorePreviousResults returns UpdateReferencedQuestionRuleInstanceInput.IgnorePreviousResults, and is useful for accessing the field via an interface.
+func (v *UpdateReferencedQuestionRuleInstanceInput) GetIgnorePreviousResults() bool {
+	return v.IgnorePreviousResults
 }
 
 // GetRemediationSteps returns UpdateReferencedQuestionRuleInstanceInput.RemediationSteps, and is useful for accessing the field via an interface.
@@ -4021,6 +4051,7 @@ query GetQuestionRuleInstance ($id: ID!) {
 		templates
 		notifyOnFailure
 		triggerActionsOnNewEntitiesOnly
+		ignorePreviousResults
 		questionId
 		question {
 			queries {

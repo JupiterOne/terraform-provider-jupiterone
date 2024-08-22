@@ -202,6 +202,10 @@ func TestRuleInstance_Config_Errors(t *testing.T) {
 				Config:      testRuleInstanceBasicConfigWithPollingInterval(rName, "INVALID_POLLING_INTERVAL"),
 				ExpectError: regexp.MustCompile(`Attribute polling_interval value must be one of:`),
 			},
+			{
+				Config:      testRuleInstanceInvalidConfig(rName),
+				ExpectError: regexp.MustCompile(`Error: Invalid Attribute Combination`),
+			},
 		},
 	})
 }
@@ -424,6 +428,7 @@ func testRuleInstanceBasicConfigWithPollingInterval(rName string, pollingInterva
 			spec_version = 1
 			polling_interval = %q
 			notify_on_failure = false
+			ignore_previous_results = true
 
 			tags = ["tf_acc:1","tf_acc:2"]
 
@@ -443,4 +448,37 @@ func testRuleInstanceBasicConfigWithPollingInterval(rName string, pollingInterva
 			operations = %s
 		}
 	`, rName, pollingInterval, getValidOperations())
+}
+
+func testRuleInstanceInvalidConfig(rName string) string {
+	return fmt.Sprintf(`
+		provider "jupiterone" {}
+
+		resource "jupiterone_rule" "test" {
+			name = %q
+			description = "Test"
+			spec_version = 1
+			polling_interval = "ONE_WEEK"
+			notify_on_failure = false
+			ignore_previous_results = true
+			trigger_on_new_only = true
+
+			tags = ["tf_acc:1","tf_acc:2"]
+
+			question {
+				queries {
+					name = "query0"
+					query = "Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true"
+					version = "v1"
+				}
+			}
+
+			outputs = [
+				"queries.query0.total",
+				"alertLevel"
+			]
+
+			operations = %s
+		}
+	`, rName, getValidOperations())
 }

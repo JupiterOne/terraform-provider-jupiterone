@@ -115,11 +115,12 @@ type RuleModel struct {
 	QuestionId      types.String      `json:"questionId,omitempty" tfsdk:"question_id"`
 	// Operations TODO: breaking change for new version to do more in the
 	// HCL and/or make better use of things like jsonencode
-	Operations       []RuleOperation `json:"operations" tfsdk:"operations"`
-	Outputs          []string        `json:"outputs" tfsdk:"outputs"`
-	Tags             []string        `json:"tags" tfsdk:"tags"`
-	NotifyOnFailure  types.Bool      `json:"notify_on_failure" tfsdk:"notify_on_failure"`
-	TriggerOnNewOnly types.Bool      `json:"trigger_on_new_only" tfsdk:"trigger_on_new_only"`
+	Operations            []RuleOperation `json:"operations" tfsdk:"operations"`
+	Outputs               []string        `json:"outputs" tfsdk:"outputs"`
+	Tags                  []string        `json:"tags" tfsdk:"tags"`
+	NotifyOnFailure       types.Bool      `json:"notify_on_failure" tfsdk:"notify_on_failure"`
+	TriggerOnNewOnly      types.Bool      `json:"trigger_on_new_only" tfsdk:"trigger_on_new_only"`
+	IgnorePreviousResults types.Bool      `json:"ignore_previous_results" tfsdk:"ignore_previous_results"`
 }
 
 func NewQuestionRuleResource() resource.Resource {
@@ -257,6 +258,11 @@ func (*QuestionRuleResource) Schema(ctx context.Context, req resource.SchemaRequ
 				Computed: true,
 				Default:  booldefault.StaticBool(false),
 			},
+			"ignore_previous_results": schema.BoolAttribute{
+				Optional: true,
+				Computed: true,
+				Default:  booldefault.StaticBool(false),
+			},
 		},
 		// TODO: Deprecate the use of blocks following new framework guidance:
 		// https://developer.hashicorp.com/terraform/plugin/framework/handling-data/blocks
@@ -318,6 +324,10 @@ func (*QuestionRuleResource) ConfigValidators(context.Context) []resource.Config
 		resourcevalidator.AtLeastOneOf(
 			path.MatchRoot("question"),
 			path.MatchRoot("question_id"),
+		),
+		resourcevalidator.Conflicting(
+			path.MatchRoot("trigger_on_new_only"),
+			path.MatchRoot("ignore_previous_results"),
 		),
 	}
 }
@@ -455,16 +465,17 @@ func (r *QuestionRuleResource) Read(ctx context.Context, req resource.ReadReques
 	rule := getResp.QuestionRuleInstance
 
 	data := RuleModel{
-		Id:               types.StringValue(rule.Id),
-		Name:             types.StringValue(rule.Name),
-		Description:      types.StringValue(rule.Description),
-		Version:          types.Int64Value(int64(rule.Version)),
-		SpecVersion:      types.Int64Value(int64(rule.SpecVersion)),
-		PollingInterval:  types.StringValue(string(rule.PollingInterval)),
-		Outputs:          rule.Outputs,
-		Tags:             rule.Tags,
-		NotifyOnFailure:  types.BoolValue(rule.NotifyOnFailure),
-		TriggerOnNewOnly: types.BoolValue(rule.TriggerActionsOnNewEntitiesOnly),
+		Id:                    types.StringValue(rule.Id),
+		Name:                  types.StringValue(rule.Name),
+		Description:           types.StringValue(rule.Description),
+		Version:               types.Int64Value(int64(rule.Version)),
+		SpecVersion:           types.Int64Value(int64(rule.SpecVersion)),
+		PollingInterval:       types.StringValue(string(rule.PollingInterval)),
+		Outputs:               rule.Outputs,
+		Tags:                  rule.Tags,
+		NotifyOnFailure:       types.BoolValue(rule.NotifyOnFailure),
+		TriggerOnNewOnly:      types.BoolValue(rule.TriggerActionsOnNewEntitiesOnly),
+		IgnorePreviousResults: types.BoolValue(rule.IgnorePreviousResults),
 	}
 
 	// FIXME: handling of these JSON fields (map[string]interface{}) is not DRY
@@ -613,6 +624,7 @@ func (r *RuleModel) BuildCreateReferencedQuestionRuleInstanceInput() (client.Cre
 		PollingInterval:                 client.SchedulerPollingInterval(r.PollingInterval.ValueString()),
 		NotifyOnFailure:                 r.NotifyOnFailure.ValueBool(),
 		TriggerActionsOnNewEntitiesOnly: r.TriggerOnNewOnly.ValueBool(),
+		IgnorePreviousResults:           r.IgnorePreviousResults.ValueBool(),
 	}
 
 	var err error
@@ -648,6 +660,7 @@ func (r *RuleModel) BuildUpdateReferencedQuestionRuleInstanceInput() (client.Upd
 		Tags:                            r.Tags,
 		NotifyOnFailure:                 r.NotifyOnFailure.ValueBool(),
 		TriggerActionsOnNewEntitiesOnly: r.TriggerOnNewOnly.ValueBool(),
+		IgnorePreviousResults:           r.IgnorePreviousResults.ValueBool(),
 	}
 
 	var err error
@@ -685,6 +698,7 @@ func (r *RuleModel) BuildCreateInlineQuestionRuleInstanceInput() (client.CreateI
 		PollingInterval:                 client.SchedulerPollingInterval(r.PollingInterval.ValueString()),
 		NotifyOnFailure:                 r.NotifyOnFailure.ValueBool(),
 		TriggerActionsOnNewEntitiesOnly: r.TriggerOnNewOnly.ValueBool(),
+		IgnorePreviousResults:           r.IgnorePreviousResults.ValueBool(),
 	}
 
 	var err error
@@ -735,6 +749,7 @@ func (r *RuleModel) BuildUpdateInlineQuestionRuleInstanceInput() (client.UpdateI
 		PollingInterval:                 client.SchedulerPollingInterval(r.PollingInterval.ValueString()),
 		NotifyOnFailure:                 r.NotifyOnFailure.ValueBool(),
 		TriggerActionsOnNewEntitiesOnly: r.TriggerOnNewOnly.ValueBool(),
+		IgnorePreviousResults:           r.IgnorePreviousResults.ValueBool(),
 	}
 
 	var err error
