@@ -116,8 +116,9 @@ resource "jupiterone_rule" "users_without_mfa" {
 - `question_id` (String) Specifies the ID of a question to be used in rule evaluation.
 - `spec_version` (Number) Rule evaluation specification version in the case of breaking changes.
 - `tags` (List of String) Comma separated list of tags to apply to the rule.
-- `templates` (Map of String) Optional key/value pairs of template name to template
-- `trigger_on_new_only` (Boolean)
+- `templates` (Map of String) Optional key/value pairs of template name to template.
+- `trigger_on_new_only` (Boolean) Only triggers the action when new items have appeared in the query results.
+- `ignore_previous_results` (Boolean) Disables comparing the current results of the query(ies) to the previous one and will trigger actions every run.
 
 ### Read-Only
 
