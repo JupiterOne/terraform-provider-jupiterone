@@ -175,12 +175,10 @@ func (r *ComplianceLibraryItemResource) Read(ctx context.Context, req resource.R
 
 	var i client.GetComplianceLibraryItemByIdComplianceLibraryItem
 	if r, err := client.GetComplianceLibraryItemById(ctx, r.qlient, data.Id.ValueString()); err != nil {
-		if err != nil {
-			if strings.Contains(err.Error(), "Could not find") {
-				resp.State.RemoveResource(ctx)
-			} else {
-				resp.Diagnostics.AddError("failed to find library item", err.Error())
-			}
+		if strings.Contains(err.Error(), "Could not find") {
+			resp.State.RemoveResource(ctx)
+		} else {
+			resp.Diagnostics.AddError("failed to find library item", err.Error())
 		}
 		return
 	} else {

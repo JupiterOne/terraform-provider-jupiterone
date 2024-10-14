@@ -98,7 +98,7 @@ func testAccCheckLibraryItemExists(ctx context.Context, qlient graphql.Client) r
 					return nil
 				}
 
-				if err != nil && strings.Contains(err.Error(), "Could not find compliance library item with id") {
+				if strings.Contains(err.Error(), "Could not find compliance library item with id") {
 					return retry.RetryableError(fmt.Errorf("LibraryItem does not exist (id=%q)", id))
 				}
 
@@ -133,7 +133,7 @@ func testAccCheckLibraryItemDestroy(ctx context.Context, qlient graphql.Client) 
 					return retry.RetryableError(fmt.Errorf("LibraryItem still exists (id=%q)", id))
 				}
 
-				if err != nil && strings.Contains(err.Error(), "Could not find compliance library item with id") {
+				if strings.Contains(err.Error(), "Could not find compliance library item with id") {
 					return nil
 				}
 

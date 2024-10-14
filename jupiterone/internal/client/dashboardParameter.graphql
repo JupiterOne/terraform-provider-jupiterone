@@ -1,0 +1,55 @@
+mutation CreateDashboardParameter($input: CreateDashboardParameterInput!) {
+  createDashboardParameter(input: $input) {
+    dashboardId
+    accountId
+    id
+    label
+    name
+    options
+    valueType
+    type
+    default
+    disableCustomInput
+    requireValue
+  }
+}
+
+mutation PatchDashboardParameter($input: PatchDashboardParameterInput!) {
+  patchDashboardParameter(input: $input) {
+    dashboardId
+    accountId
+    id
+    label
+    name
+    options
+    valueType
+    type
+    default
+    disableCustomInput
+    requireValue
+  }
+}
+
+mutation DeleteDashboardParameter($id: ID!) {
+  deleteDashboardParameter(id: $id) {
+    success
+  }
+}
+
+query DashboardParameter($id: ID!) {
+    dashboardParameter(id: $id) {
+        dashboardId
+        accountId
+        id
+        label
+        name
+        options
+        valueType
+        type
+        default
+        disableCustomInput
+        requireValue
+    }
+}
+
+

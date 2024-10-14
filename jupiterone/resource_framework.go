@@ -221,12 +221,10 @@ func (r *ComplianceFrameworkResource) Read(ctx context.Context, req resource.Rea
 
 	var f client.GetComplianceFrameworkByIdComplianceFramework
 	if r, err := client.GetComplianceFrameworkById(ctx, r.qlient, data.Id.ValueString()); err != nil {
-		if err != nil {
-			if strings.Contains(err.Error(), "Could not find") {
-				resp.State.RemoveResource(ctx)
-			} else {
-				resp.Diagnostics.AddError("failed to find framework", err.Error())
-			}
+		if strings.Contains(err.Error(), "Could not find") {
+			resp.State.RemoveResource(ctx)
+		} else {
+			resp.Diagnostics.AddError("failed to find framework", err.Error())
 		}
 		return
 	} else {
