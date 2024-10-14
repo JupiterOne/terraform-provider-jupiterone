@@ -112,7 +112,7 @@ func dashboardExistsHelper(ctx context.Context, s *terraform.State, qlient graph
 				return nil
 			}
 
-			if err != nil && strings.Contains(err.Error(), "Dashboard string does not exist") {
+			if strings.Contains(err.Error(), "Dashboard string does not exist") {
 				return retry.RetryableError(fmt.Errorf("Dashboard does not exist (id=%q)", id))
 			}
 
