@@ -109,6 +109,7 @@ resource "jupiterone_rule" "users_without_mfa" {
 
 ### Optional
 
+- `ignore_previous_results` (Boolean)
 - `notify_on_failure` (Boolean)
 - `outputs` (List of String) Names of properties that can be used throughout the rule evaluation process and will be included in each record of a rule evaluation. (e.g. queries.query0.total)
 - `polling_interval` (String) Frequency of automated rule evaluation. Defaults to ONE_DAY.
@@ -116,9 +117,8 @@ resource "jupiterone_rule" "users_without_mfa" {
 - `question_id` (String) Specifies the ID of a question to be used in rule evaluation.
 - `spec_version` (Number) Rule evaluation specification version in the case of breaking changes.
 - `tags` (List of String) Comma separated list of tags to apply to the rule.
-- `templates` (Map of String) Optional key/value pairs of template name to template.
-- `trigger_on_new_only` (Boolean) Only triggers the action when new items have appeared in the query results.
-- `ignore_previous_results` (Boolean) Disables comparing the current results of the query(ies) to the previous one and will trigger actions every run.
+- `templates` (Map of String) Optional key/value pairs of template name to template
+- `trigger_on_new_only` (Boolean)
 
 ### Read-Only
 
