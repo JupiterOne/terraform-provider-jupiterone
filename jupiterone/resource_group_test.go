@@ -103,7 +103,7 @@ func testAccCheckGroupExists(ctx context.Context, qlient graphql.Client) resourc
 					return nil
 				}
 
-				if err != nil && strings.Contains(err.Error(), "Could not find compliance framework with id") {
+				if strings.Contains(err.Error(), "Could not find compliance framework with id") {
 					return retry.RetryableError(fmt.Errorf("Group does not exist (id=%q)", id))
 				}
 
@@ -142,7 +142,7 @@ func testAccCheckGroupDestroy(ctx context.Context, qlient graphql.Client) resour
 					return retry.RetryableError(fmt.Errorf("Group still exists (id=%q)", id))
 				}
 
-				if err != nil && strings.Contains(err.Error(), "Could not find compliance framework with id") {
+				if strings.Contains(err.Error(), "Could not find compliance framework with id") {
 					return nil
 				}
 

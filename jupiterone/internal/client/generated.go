@@ -250,6 +250,115 @@ func (v *CreateDashboardCreateDashboardInsightsDashboard) GetName() string { ret
 // GetId returns CreateDashboardCreateDashboardInsightsDashboard.Id, and is useful for accessing the field via an interface.
 func (v *CreateDashboardCreateDashboardInsightsDashboard) GetId() string { return v.Id }
 
+// CreateDashboardParameterCreateDashboardParameter includes the requested fields of the GraphQL type DashboardParameter.
+type CreateDashboardParameterCreateDashboardParameter struct {
+	DashboardId        string                      `json:"dashboardId"`
+	AccountId          string                      `json:"accountId"`
+	Id                 string                      `json:"id"`
+	Label              string                      `json:"label"`
+	Name               string                      `json:"name"`
+	Options            []string                    `json:"options"`
+	ValueType          DashboardParameterValueType `json:"valueType"`
+	Type               DashboardParameterType      `json:"type"`
+	Default            string                      `json:"default"`
+	DisableCustomInput bool                        `json:"disableCustomInput"`
+	RequireValue       bool                        `json:"requireValue"`
+}
+
+// GetDashboardId returns CreateDashboardParameterCreateDashboardParameter.DashboardId, and is useful for accessing the field via an interface.
+func (v *CreateDashboardParameterCreateDashboardParameter) GetDashboardId() string {
+	return v.DashboardId
+}
+
+// GetAccountId returns CreateDashboardParameterCreateDashboardParameter.AccountId, and is useful for accessing the field via an interface.
+func (v *CreateDashboardParameterCreateDashboardParameter) GetAccountId() string { return v.AccountId }
+
+// GetId returns CreateDashboardParameterCreateDashboardParameter.Id, and is useful for accessing the field via an interface.
+func (v *CreateDashboardParameterCreateDashboardParameter) GetId() string { return v.Id }
+
+// GetLabel returns CreateDashboardParameterCreateDashboardParameter.Label, and is useful for accessing the field via an interface.
+func (v *CreateDashboardParameterCreateDashboardParameter) GetLabel() string { return v.Label }
+
+// GetName returns CreateDashboardParameterCreateDashboardParameter.Name, and is useful for accessing the field via an interface.
+func (v *CreateDashboardParameterCreateDashboardParameter) GetName() string { return v.Name }
+
+// GetOptions returns CreateDashboardParameterCreateDashboardParameter.Options, and is useful for accessing the field via an interface.
+func (v *CreateDashboardParameterCreateDashboardParameter) GetOptions() []string { return v.Options }
+
+// GetValueType returns CreateDashboardParameterCreateDashboardParameter.ValueType, and is useful for accessing the field via an interface.
+func (v *CreateDashboardParameterCreateDashboardParameter) GetValueType() DashboardParameterValueType {
+	return v.ValueType
+}
+
+// GetType returns CreateDashboardParameterCreateDashboardParameter.Type, and is useful for accessing the field via an interface.
+func (v *CreateDashboardParameterCreateDashboardParameter) GetType() DashboardParameterType {
+	return v.Type
+}
+
+// GetDefault returns CreateDashboardParameterCreateDashboardParameter.Default, and is useful for accessing the field via an interface.
+func (v *CreateDashboardParameterCreateDashboardParameter) GetDefault() string { return v.Default }
+
+// GetDisableCustomInput returns CreateDashboardParameterCreateDashboardParameter.DisableCustomInput, and is useful for accessing the field via an interface.
+func (v *CreateDashboardParameterCreateDashboardParameter) GetDisableCustomInput() bool {
+	return v.DisableCustomInput
+}
+
+// GetRequireValue returns CreateDashboardParameterCreateDashboardParameter.RequireValue, and is useful for accessing the field via an interface.
+func (v *CreateDashboardParameterCreateDashboardParameter) GetRequireValue() bool {
+	return v.RequireValue
+}
+
+type CreateDashboardParameterInput struct {
+	DashboardId        string                      `json:"dashboardId"`
+	Label              string                      `json:"label"`
+	Name               string                      `json:"name"`
+	ValueType          DashboardParameterValueType `json:"valueType"`
+	Options            []string                    `json:"options"`
+	Type               DashboardParameterType      `json:"type"`
+	Default            string                      `json:"default"`
+	DisableCustomInput bool                        `json:"disableCustomInput"`
+	RequireValue       bool                        `json:"requireValue"`
+}
+
+// GetDashboardId returns CreateDashboardParameterInput.DashboardId, and is useful for accessing the field via an interface.
+func (v *CreateDashboardParameterInput) GetDashboardId() string { return v.DashboardId }
+
+// GetLabel returns CreateDashboardParameterInput.Label, and is useful for accessing the field via an interface.
+func (v *CreateDashboardParameterInput) GetLabel() string { return v.Label }
+
+// GetName returns CreateDashboardParameterInput.Name, and is useful for accessing the field via an interface.
+func (v *CreateDashboardParameterInput) GetName() string { return v.Name }
+
+// GetValueType returns CreateDashboardParameterInput.ValueType, and is useful for accessing the field via an interface.
+func (v *CreateDashboardParameterInput) GetValueType() DashboardParameterValueType {
+	return v.ValueType
+}
+
+// GetOptions returns CreateDashboardParameterInput.Options, and is useful for accessing the field via an interface.
+func (v *CreateDashboardParameterInput) GetOptions() []string { return v.Options }
+
+// GetType returns CreateDashboardParameterInput.Type, and is useful for accessing the field via an interface.
+func (v *CreateDashboardParameterInput) GetType() DashboardParameterType { return v.Type }
+
+// GetDefault returns CreateDashboardParameterInput.Default, and is useful for accessing the field via an interface.
+func (v *CreateDashboardParameterInput) GetDefault() string { return v.Default }
+
+// GetDisableCustomInput returns CreateDashboardParameterInput.DisableCustomInput, and is useful for accessing the field via an interface.
+func (v *CreateDashboardParameterInput) GetDisableCustomInput() bool { return v.DisableCustomInput }
+
+// GetRequireValue returns CreateDashboardParameterInput.RequireValue, and is useful for accessing the field via an interface.
+func (v *CreateDashboardParameterInput) GetRequireValue() bool { return v.RequireValue }
+
+// CreateDashboardParameterResponse is returned by CreateDashboardParameter on success.
+type CreateDashboardParameterResponse struct {
+	CreateDashboardParameter CreateDashboardParameterCreateDashboardParameter `json:"createDashboardParameter"`
+}
+
+// GetCreateDashboardParameter returns CreateDashboardParameterResponse.CreateDashboardParameter, and is useful for accessing the field via an interface.
+func (v *CreateDashboardParameterResponse) GetCreateDashboardParameter() CreateDashboardParameterCreateDashboardParameter {
+	return v.CreateDashboardParameter
+}
+
 // CreateDashboardResponse is returned by CreateDashboard on success.
 type CreateDashboardResponse struct {
 	CreateDashboard CreateDashboardCreateDashboardInsightsDashboard `json:"createDashboard"`
@@ -350,6 +459,7 @@ type CreateInlineQuestionRuleInstanceInput struct {
 	Question                        RuleQuestionDetailsInput `json:"question"`
 	Templates                       map[string]interface{}   `json:"templates"`
 	Tags                            []string                 `json:"tags"`
+	Labels                          []RuleInstanceLabelInput `json:"labels"`
 	Name                            string                   `json:"name"`
 	Description                     string                   `json:"description"`
 	SpecVersion                     int                      `json:"specVersion"`
@@ -375,6 +485,9 @@ func (v *CreateInlineQuestionRuleInstanceInput) GetTemplates() map[string]interf
 
 // GetTags returns CreateInlineQuestionRuleInstanceInput.Tags, and is useful for accessing the field via an interface.
 func (v *CreateInlineQuestionRuleInstanceInput) GetTags() []string { return v.Tags }
+
+// GetLabels returns CreateInlineQuestionRuleInstanceInput.Labels, and is useful for accessing the field via an interface.
+func (v *CreateInlineQuestionRuleInstanceInput) GetLabels() []RuleInstanceLabelInput { return v.Labels }
 
 // GetName returns CreateInlineQuestionRuleInstanceInput.Name, and is useful for accessing the field via an interface.
 func (v *CreateInlineQuestionRuleInstanceInput) GetName() string { return v.Name }
@@ -843,6 +956,83 @@ func (v *CreateWidgetResponse) GetCreateWidget() CreateWidgetCreateWidgetInsight
 	return v.CreateWidget
 }
 
+// DashboardParameterDashboardParameter includes the requested fields of the GraphQL type DashboardParameter.
+type DashboardParameterDashboardParameter struct {
+	DashboardId        string                      `json:"dashboardId"`
+	AccountId          string                      `json:"accountId"`
+	Id                 string                      `json:"id"`
+	Label              string                      `json:"label"`
+	Name               string                      `json:"name"`
+	Options            []string                    `json:"options"`
+	ValueType          DashboardParameterValueType `json:"valueType"`
+	Type               DashboardParameterType      `json:"type"`
+	Default            string                      `json:"default"`
+	DisableCustomInput bool                        `json:"disableCustomInput"`
+	RequireValue       bool                        `json:"requireValue"`
+}
+
+// GetDashboardId returns DashboardParameterDashboardParameter.DashboardId, and is useful for accessing the field via an interface.
+func (v *DashboardParameterDashboardParameter) GetDashboardId() string { return v.DashboardId }
+
+// GetAccountId returns DashboardParameterDashboardParameter.AccountId, and is useful for accessing the field via an interface.
+func (v *DashboardParameterDashboardParameter) GetAccountId() string { return v.AccountId }
+
+// GetId returns DashboardParameterDashboardParameter.Id, and is useful for accessing the field via an interface.
+func (v *DashboardParameterDashboardParameter) GetId() string { return v.Id }
+
+// GetLabel returns DashboardParameterDashboardParameter.Label, and is useful for accessing the field via an interface.
+func (v *DashboardParameterDashboardParameter) GetLabel() string { return v.Label }
+
+// GetName returns DashboardParameterDashboardParameter.Name, and is useful for accessing the field via an interface.
+func (v *DashboardParameterDashboardParameter) GetName() string { return v.Name }
+
+// GetOptions returns DashboardParameterDashboardParameter.Options, and is useful for accessing the field via an interface.
+func (v *DashboardParameterDashboardParameter) GetOptions() []string { return v.Options }
+
+// GetValueType returns DashboardParameterDashboardParameter.ValueType, and is useful for accessing the field via an interface.
+func (v *DashboardParameterDashboardParameter) GetValueType() DashboardParameterValueType {
+	return v.ValueType
+}
+
+// GetType returns DashboardParameterDashboardParameter.Type, and is useful for accessing the field via an interface.
+func (v *DashboardParameterDashboardParameter) GetType() DashboardParameterType { return v.Type }
+
+// GetDefault returns DashboardParameterDashboardParameter.Default, and is useful for accessing the field via an interface.
+func (v *DashboardParameterDashboardParameter) GetDefault() string { return v.Default }
+
+// GetDisableCustomInput returns DashboardParameterDashboardParameter.DisableCustomInput, and is useful for accessing the field via an interface.
+func (v *DashboardParameterDashboardParameter) GetDisableCustomInput() bool {
+	return v.DisableCustomInput
+}
+
+// GetRequireValue returns DashboardParameterDashboardParameter.RequireValue, and is useful for accessing the field via an interface.
+func (v *DashboardParameterDashboardParameter) GetRequireValue() bool { return v.RequireValue }
+
+// DashboardParameterResponse is returned by DashboardParameter on success.
+type DashboardParameterResponse struct {
+	DashboardParameter DashboardParameterDashboardParameter `json:"dashboardParameter"`
+}
+
+// GetDashboardParameter returns DashboardParameterResponse.DashboardParameter, and is useful for accessing the field via an interface.
+func (v *DashboardParameterResponse) GetDashboardParameter() DashboardParameterDashboardParameter {
+	return v.DashboardParameter
+}
+
+type DashboardParameterType string
+
+const (
+	DashboardParameterTypeQueryVariable DashboardParameterType = "QUERY_VARIABLE"
+	DashboardParameterTypeScopeFilter   DashboardParameterType = "SCOPE_FILTER"
+)
+
+type DashboardParameterValueType string
+
+const (
+	DashboardParameterValueTypeString  DashboardParameterValueType = "string"
+	DashboardParameterValueTypeNumber  DashboardParameterValueType = "number"
+	DashboardParameterValueTypeBoolean DashboardParameterValueType = "boolean"
+)
+
 type DeleteComplianceFrameworkInput struct {
 	Id string `json:"id"`
 }
@@ -897,6 +1087,26 @@ type DeleteDashboardDeleteDashboardDeleteResult struct {
 
 // GetSuccess returns DeleteDashboardDeleteDashboardDeleteResult.Success, and is useful for accessing the field via an interface.
 func (v *DeleteDashboardDeleteDashboardDeleteResult) GetSuccess() bool { return v.Success }
+
+// DeleteDashboardParameterDeleteDashboardParameterDeleteResult includes the requested fields of the GraphQL type DeleteResult.
+type DeleteDashboardParameterDeleteDashboardParameterDeleteResult struct {
+	Success bool `json:"success"`
+}
+
+// GetSuccess returns DeleteDashboardParameterDeleteDashboardParameterDeleteResult.Success, and is useful for accessing the field via an interface.
+func (v *DeleteDashboardParameterDeleteDashboardParameterDeleteResult) GetSuccess() bool {
+	return v.Success
+}
+
+// DeleteDashboardParameterResponse is returned by DeleteDashboardParameter on success.
+type DeleteDashboardParameterResponse struct {
+	DeleteDashboardParameter DeleteDashboardParameterDeleteDashboardParameterDeleteResult `json:"deleteDashboardParameter"`
+}
+
+// GetDeleteDashboardParameter returns DeleteDashboardParameterResponse.DeleteDashboardParameter, and is useful for accessing the field via an interface.
+func (v *DeleteDashboardParameterResponse) GetDeleteDashboardParameter() DeleteDashboardParameterDeleteDashboardParameterDeleteResult {
+	return v.DeleteDashboardParameter
+}
 
 // DeleteDashboardResponse is returned by DeleteDashboard on success.
 type DeleteDashboardResponse struct {
@@ -1763,6 +1973,109 @@ func (v *J1QueryInput) GetVersion() string { return v.Version }
 // GetIncludeDeleted returns J1QueryInput.IncludeDeleted, and is useful for accessing the field via an interface.
 func (v *J1QueryInput) GetIncludeDeleted() bool { return v.IncludeDeleted }
 
+type PatchDashboardParameterInput struct {
+	Id                 string                      `json:"id"`
+	Label              string                      `json:"label"`
+	ValueType          DashboardParameterValueType `json:"valueType"`
+	Options            []string                    `json:"options"`
+	Type               DashboardParameterType      `json:"type"`
+	Default            string                      `json:"default"`
+	DisableCustomInput bool                        `json:"disableCustomInput"`
+	RequireValue       bool                        `json:"requireValue"`
+}
+
+// GetId returns PatchDashboardParameterInput.Id, and is useful for accessing the field via an interface.
+func (v *PatchDashboardParameterInput) GetId() string { return v.Id }
+
+// GetLabel returns PatchDashboardParameterInput.Label, and is useful for accessing the field via an interface.
+func (v *PatchDashboardParameterInput) GetLabel() string { return v.Label }
+
+// GetValueType returns PatchDashboardParameterInput.ValueType, and is useful for accessing the field via an interface.
+func (v *PatchDashboardParameterInput) GetValueType() DashboardParameterValueType { return v.ValueType }
+
+// GetOptions returns PatchDashboardParameterInput.Options, and is useful for accessing the field via an interface.
+func (v *PatchDashboardParameterInput) GetOptions() []string { return v.Options }
+
+// GetType returns PatchDashboardParameterInput.Type, and is useful for accessing the field via an interface.
+func (v *PatchDashboardParameterInput) GetType() DashboardParameterType { return v.Type }
+
+// GetDefault returns PatchDashboardParameterInput.Default, and is useful for accessing the field via an interface.
+func (v *PatchDashboardParameterInput) GetDefault() string { return v.Default }
+
+// GetDisableCustomInput returns PatchDashboardParameterInput.DisableCustomInput, and is useful for accessing the field via an interface.
+func (v *PatchDashboardParameterInput) GetDisableCustomInput() bool { return v.DisableCustomInput }
+
+// GetRequireValue returns PatchDashboardParameterInput.RequireValue, and is useful for accessing the field via an interface.
+func (v *PatchDashboardParameterInput) GetRequireValue() bool { return v.RequireValue }
+
+// PatchDashboardParameterPatchDashboardParameter includes the requested fields of the GraphQL type DashboardParameter.
+type PatchDashboardParameterPatchDashboardParameter struct {
+	DashboardId        string                      `json:"dashboardId"`
+	AccountId          string                      `json:"accountId"`
+	Id                 string                      `json:"id"`
+	Label              string                      `json:"label"`
+	Name               string                      `json:"name"`
+	Options            []string                    `json:"options"`
+	ValueType          DashboardParameterValueType `json:"valueType"`
+	Type               DashboardParameterType      `json:"type"`
+	Default            string                      `json:"default"`
+	DisableCustomInput bool                        `json:"disableCustomInput"`
+	RequireValue       bool                        `json:"requireValue"`
+}
+
+// GetDashboardId returns PatchDashboardParameterPatchDashboardParameter.DashboardId, and is useful for accessing the field via an interface.
+func (v *PatchDashboardParameterPatchDashboardParameter) GetDashboardId() string {
+	return v.DashboardId
+}
+
+// GetAccountId returns PatchDashboardParameterPatchDashboardParameter.AccountId, and is useful for accessing the field via an interface.
+func (v *PatchDashboardParameterPatchDashboardParameter) GetAccountId() string { return v.AccountId }
+
+// GetId returns PatchDashboardParameterPatchDashboardParameter.Id, and is useful for accessing the field via an interface.
+func (v *PatchDashboardParameterPatchDashboardParameter) GetId() string { return v.Id }
+
+// GetLabel returns PatchDashboardParameterPatchDashboardParameter.Label, and is useful for accessing the field via an interface.
+func (v *PatchDashboardParameterPatchDashboardParameter) GetLabel() string { return v.Label }
+
+// GetName returns PatchDashboardParameterPatchDashboardParameter.Name, and is useful for accessing the field via an interface.
+func (v *PatchDashboardParameterPatchDashboardParameter) GetName() string { return v.Name }
+
+// GetOptions returns PatchDashboardParameterPatchDashboardParameter.Options, and is useful for accessing the field via an interface.
+func (v *PatchDashboardParameterPatchDashboardParameter) GetOptions() []string { return v.Options }
+
+// GetValueType returns PatchDashboardParameterPatchDashboardParameter.ValueType, and is useful for accessing the field via an interface.
+func (v *PatchDashboardParameterPatchDashboardParameter) GetValueType() DashboardParameterValueType {
+	return v.ValueType
+}
+
+// GetType returns PatchDashboardParameterPatchDashboardParameter.Type, and is useful for accessing the field via an interface.
+func (v *PatchDashboardParameterPatchDashboardParameter) GetType() DashboardParameterType {
+	return v.Type
+}
+
+// GetDefault returns PatchDashboardParameterPatchDashboardParameter.Default, and is useful for accessing the field via an interface.
+func (v *PatchDashboardParameterPatchDashboardParameter) GetDefault() string { return v.Default }
+
+// GetDisableCustomInput returns PatchDashboardParameterPatchDashboardParameter.DisableCustomInput, and is useful for accessing the field via an interface.
+func (v *PatchDashboardParameterPatchDashboardParameter) GetDisableCustomInput() bool {
+	return v.DisableCustomInput
+}
+
+// GetRequireValue returns PatchDashboardParameterPatchDashboardParameter.RequireValue, and is useful for accessing the field via an interface.
+func (v *PatchDashboardParameterPatchDashboardParameter) GetRequireValue() bool {
+	return v.RequireValue
+}
+
+// PatchDashboardParameterResponse is returned by PatchDashboardParameter on success.
+type PatchDashboardParameterResponse struct {
+	PatchDashboardParameter PatchDashboardParameterPatchDashboardParameter `json:"patchDashboardParameter"`
+}
+
+// GetPatchDashboardParameter returns PatchDashboardParameterResponse.PatchDashboardParameter, and is useful for accessing the field via an interface.
+func (v *PatchDashboardParameterResponse) GetPatchDashboardParameter() PatchDashboardParameterPatchDashboardParameter {
+	return v.PatchDashboardParameter
+}
+
 type PatchInsightsDashboardInput struct {
 	DashboardId         string                               `json:"dashboardId"`
 	Name                string                               `json:"name"`
@@ -1984,6 +2297,17 @@ func (v *RevokeInvitationUpdateInvitationIamInvitation) GetId() string { return 
 
 // GetStatus returns RevokeInvitationUpdateInvitationIamInvitation.Status, and is useful for accessing the field via an interface.
 func (v *RevokeInvitationUpdateInvitationIamInvitation) GetStatus() string { return v.Status }
+
+type RuleInstanceLabelInput struct {
+	LabelName  string                 `json:"labelName"`
+	LabelValue map[string]interface{} `json:"labelValue"`
+}
+
+// GetLabelName returns RuleInstanceLabelInput.LabelName, and is useful for accessing the field via an interface.
+func (v *RuleInstanceLabelInput) GetLabelName() string { return v.LabelName }
+
+// GetLabelValue returns RuleInstanceLabelInput.LabelValue, and is useful for accessing the field via an interface.
+func (v *RuleInstanceLabelInput) GetLabelValue() map[string]interface{} { return v.LabelValue }
 
 type RuleInstanceType string
 
@@ -2295,6 +2619,7 @@ type UpdateInlineQuestionRuleInstanceInput struct {
 	LatestAlertId                   string                   `json:"latestAlertId,omitempty"`
 	Templates                       map[string]interface{}   `json:"templates"`
 	Tags                            []string                 `json:"tags"`
+	Labels                          []RuleInstanceLabelInput `json:"labels"`
 	Name                            string                   `json:"name"`
 	Description                     string                   `json:"description"`
 	SpecVersion                     int                      `json:"specVersion"`
@@ -2331,6 +2656,9 @@ func (v *UpdateInlineQuestionRuleInstanceInput) GetTemplates() map[string]interf
 
 // GetTags returns UpdateInlineQuestionRuleInstanceInput.Tags, and is useful for accessing the field via an interface.
 func (v *UpdateInlineQuestionRuleInstanceInput) GetTags() []string { return v.Tags }
+
+// GetLabels returns UpdateInlineQuestionRuleInstanceInput.Labels, and is useful for accessing the field via an interface.
+func (v *UpdateInlineQuestionRuleInstanceInput) GetLabels() []RuleInstanceLabelInput { return v.Labels }
 
 // GetName returns UpdateInlineQuestionRuleInstanceInput.Name, and is useful for accessing the field via an interface.
 func (v *UpdateInlineQuestionRuleInstanceInput) GetName() string { return v.Name }
@@ -2430,6 +2758,7 @@ type UpdateReferencedQuestionRuleInstanceInput struct {
 	LatestAlertId                   string                   `json:"latestAlertId,omitempty"`
 	Templates                       map[string]interface{}   `json:"templates"`
 	Tags                            []string                 `json:"tags"`
+	Labels                          []RuleInstanceLabelInput `json:"labels"`
 	Name                            string                   `json:"name"`
 	Description                     string                   `json:"description"`
 	SpecVersion                     int                      `json:"specVersion"`
@@ -2464,6 +2793,11 @@ func (v *UpdateReferencedQuestionRuleInstanceInput) GetTemplates() map[string]in
 
 // GetTags returns UpdateReferencedQuestionRuleInstanceInput.Tags, and is useful for accessing the field via an interface.
 func (v *UpdateReferencedQuestionRuleInstanceInput) GetTags() []string { return v.Tags }
+
+// GetLabels returns UpdateReferencedQuestionRuleInstanceInput.Labels, and is useful for accessing the field via an interface.
+func (v *UpdateReferencedQuestionRuleInstanceInput) GetLabels() []RuleInstanceLabelInput {
+	return v.Labels
+}
 
 // GetName returns UpdateReferencedQuestionRuleInstanceInput.Name, and is useful for accessing the field via an interface.
 func (v *UpdateReferencedQuestionRuleInstanceInput) GetName() string { return v.Name }
@@ -2684,6 +3018,14 @@ type __CreateDashboardInput struct {
 // GetInput returns __CreateDashboardInput.Input, and is useful for accessing the field via an interface.
 func (v *__CreateDashboardInput) GetInput() CreateInsightsDashboardInput { return v.Input }
 
+// __CreateDashboardParameterInput is used internally by genqlient
+type __CreateDashboardParameterInput struct {
+	Input CreateDashboardParameterInput `json:"input"`
+}
+
+// GetInput returns __CreateDashboardParameterInput.Input, and is useful for accessing the field via an interface.
+func (v *__CreateDashboardParameterInput) GetInput() CreateDashboardParameterInput { return v.Input }
+
 // __CreateInlineQuestionRuleInstanceInput is used internally by genqlient
 type __CreateInlineQuestionRuleInstanceInput struct {
 	Instance CreateInlineQuestionRuleInstanceInput `json:"instance"`
@@ -2744,6 +3086,14 @@ func (v *__CreateWidgetInput) GetDashboardId() string { return v.DashboardId }
 // GetInput returns __CreateWidgetInput.Input, and is useful for accessing the field via an interface.
 func (v *__CreateWidgetInput) GetInput() CreateInsightsWidgetInput { return v.Input }
 
+// __DashboardParameterInput is used internally by genqlient
+type __DashboardParameterInput struct {
+	Id string `json:"id"`
+}
+
+// GetId returns __DashboardParameterInput.Id, and is useful for accessing the field via an interface.
+func (v *__DashboardParameterInput) GetId() string { return v.Id }
+
 // __DeleteComplianceFrameworkInput is used internally by genqlient
 type __DeleteComplianceFrameworkInput struct {
 	Input DeleteComplianceFrameworkInput `json:"input"`
@@ -2783,6 +3133,14 @@ type __DeleteDashboardInput struct {
 
 // GetDashboardId returns __DeleteDashboardInput.DashboardId, and is useful for accessing the field via an interface.
 func (v *__DeleteDashboardInput) GetDashboardId() string { return v.DashboardId }
+
+// __DeleteDashboardParameterInput is used internally by genqlient
+type __DeleteDashboardParameterInput struct {
+	Id string `json:"id"`
+}
+
+// GetId returns __DeleteDashboardParameterInput.Id, and is useful for accessing the field via an interface.
+func (v *__DeleteDashboardParameterInput) GetId() string { return v.Id }
 
 // __DeleteQuestionInput is used internally by genqlient
 type __DeleteQuestionInput struct {
@@ -2927,6 +3285,14 @@ func (v *__InviteUserInput) GetEmail() string { return v.Email }
 
 // GetGroupId returns __InviteUserInput.GroupId, and is useful for accessing the field via an interface.
 func (v *__InviteUserInput) GetGroupId() string { return v.GroupId }
+
+// __PatchDashboardParameterInput is used internally by genqlient
+type __PatchDashboardParameterInput struct {
+	Input PatchDashboardParameterInput `json:"input"`
+}
+
+// GetInput returns __PatchDashboardParameterInput.Input, and is useful for accessing the field via an interface.
+func (v *__PatchDashboardParameterInput) GetInput() PatchDashboardParameterInput { return v.Input }
 
 // __RemoveUserFromGroupInput is used internally by genqlient
 type __RemoveUserFromGroupInput struct {
@@ -3225,6 +3591,48 @@ mutation CreateDashboard ($input: CreateInsightsDashboardInput!) {
 	return &data, err
 }
 
+func CreateDashboardParameter(
+	ctx context.Context,
+	client graphql.Client,
+	input CreateDashboardParameterInput,
+) (*CreateDashboardParameterResponse, error) {
+	req := &graphql.Request{
+		OpName: "CreateDashboardParameter",
+		Query: `
+mutation CreateDashboardParameter ($input: CreateDashboardParameterInput!) {
+	createDashboardParameter(input: $input) {
+		dashboardId
+		accountId
+		id
+		label
+		name
+		options
+		valueType
+		type
+		default
+		disableCustomInput
+		requireValue
+	}
+}
+`,
+		Variables: &__CreateDashboardParameterInput{
+			Input: input,
+		},
+	}
+	var err error
+
+	var data CreateDashboardParameterResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
 func CreateInlineQuestionRuleInstance(
 	ctx context.Context,
 	client graphql.Client,
@@ -3420,6 +3828,48 @@ mutation CreateWidget ($dashboardId: String!, $input: CreateInsightsWidgetInput!
 	return &data, err
 }
 
+func DashboardParameter(
+	ctx context.Context,
+	client graphql.Client,
+	id string,
+) (*DashboardParameterResponse, error) {
+	req := &graphql.Request{
+		OpName: "DashboardParameter",
+		Query: `
+query DashboardParameter ($id: ID!) {
+	dashboardParameter(id: $id) {
+		dashboardId
+		accountId
+		id
+		label
+		name
+		options
+		valueType
+		type
+		default
+		disableCustomInput
+		requireValue
+	}
+}
+`,
+		Variables: &__DashboardParameterInput{
+			Id: id,
+		},
+	}
+	var err error
+
+	var data DashboardParameterResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
 func DeleteComplianceFramework(
 	ctx context.Context,
 	client graphql.Client,
@@ -3561,6 +4011,38 @@ mutation DeleteDashboard ($dashboardId: String!) {
 	var err error
 
 	var data DeleteDashboardResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func DeleteDashboardParameter(
+	ctx context.Context,
+	client graphql.Client,
+	id string,
+) (*DeleteDashboardParameterResponse, error) {
+	req := &graphql.Request{
+		OpName: "DeleteDashboardParameter",
+		Query: `
+mutation DeleteDashboardParameter ($id: ID!) {
+	deleteDashboardParameter(id: $id) {
+		success
+	}
+}
+`,
+		Variables: &__DeleteDashboardParameterInput{
+			Id: id,
+		},
+	}
+	var err error
+
+	var data DeleteDashboardParameterResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(
@@ -4235,6 +4717,48 @@ mutation InviteUser ($email: String!, $groupId: String!) {
 	var err error
 
 	var data InviteUserResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func PatchDashboardParameter(
+	ctx context.Context,
+	client graphql.Client,
+	input PatchDashboardParameterInput,
+) (*PatchDashboardParameterResponse, error) {
+	req := &graphql.Request{
+		OpName: "PatchDashboardParameter",
+		Query: `
+mutation PatchDashboardParameter ($input: PatchDashboardParameterInput!) {
+	patchDashboardParameter(input: $input) {
+		dashboardId
+		accountId
+		id
+		label
+		name
+		options
+		valueType
+		type
+		default
+		disableCustomInput
+		requireValue
+	}
+}
+`,
+		Variables: &__PatchDashboardParameterInput{
+			Input: input,
+		},
+	}
+	var err error
+
+	var data PatchDashboardParameterResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(

@@ -109,7 +109,7 @@ func testAccCheckFrameworkExists(ctx context.Context, qlient graphql.Client) res
 					return nil
 				}
 
-				if err != nil && strings.Contains(err.Error(), "Could not find compliance framework with id") {
+				if strings.Contains(err.Error(), "Could not find compliance framework with id") {
 					return retry.RetryableError(fmt.Errorf("Framework does not exist (id=%q)", id))
 				}
 
@@ -141,7 +141,7 @@ func testAccCheckFrameworkDestroy(ctx context.Context, qlient graphql.Client) re
 					return retry.RetryableError(fmt.Errorf("Framework still exists (id=%q)", id))
 				}
 
-				if err != nil && strings.Contains(err.Error(), "Could not find compliance framework with id") {
+				if strings.Contains(err.Error(), "Could not find compliance framework with id") {
 					return nil
 				}
 

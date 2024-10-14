@@ -262,7 +262,7 @@ func ruleExistsHelper(ctx context.Context, id string, qlient graphql.Client) err
 			return nil
 		}
 
-		if err != nil && strings.Contains(err.Error(), "Rule instance does not exist.") {
+		if strings.Contains(err.Error(), "Rule instance does not exist.") {
 			return retry.RetryableError(fmt.Errorf("Rule instance does not exist (id=%q)", id))
 		}
 
@@ -301,7 +301,7 @@ func ruleInstanceDestroyHelper(ctx context.Context, id string, qlient graphql.Cl
 			return retry.RetryableError(fmt.Errorf("Rule instance still exists (id=%q)", id))
 		}
 
-		if err != nil && strings.Contains(err.Error(), "Rule instance does not exist.") {
+		if strings.Contains(err.Error(), "Rule instance does not exist.") {
 			return nil
 		}
 

@@ -171,7 +171,7 @@ func questionExistsHelper(ctx context.Context, s *terraform.State, qlient graphq
 				return nil
 			}
 
-			if err != nil && strings.Contains(err.Error(), "Cannot fetch question that does not exist") {
+			if strings.Contains(err.Error(), "Cannot fetch question that does not exist") {
 				return retry.RetryableError(fmt.Errorf("Question does not exist (id=%q)", id))
 			}
 
@@ -210,7 +210,7 @@ func questionDestroyHelper(ctx context.Context, s *terraform.State, qlient graph
 				return retry.RetryableError(fmt.Errorf("Question still exists (id=%q)", id))
 			}
 
-			if err != nil && strings.Contains(err.Error(), "Cannot fetch question that does not exist") {
+			if strings.Contains(err.Error(), "Cannot fetch question that does not exist") {
 				return nil
 			}
 

@@ -117,7 +117,7 @@ func widgetExistsHelper(ctx context.Context, s *terraform.State, qlient graphql.
 					return nil
 				}
 
-				if err != nil && strings.Contains(err.Error(), "Resource not found") {
+				if strings.Contains(err.Error(), "Resource not found") {
 					return retry.RetryableError(fmt.Errorf("Widget does not exist (id=%q)", id))
 				}
 
