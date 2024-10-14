@@ -13,13 +13,13 @@ A JupiterOne insights dashboard.
 ## Example Usage
 
 ```terraform
-resource "jupiterone_dashboard" "compliance_dashboard" {
+resource "jupiterone_dashboard" "compliance" {
   name          = "Compliance Dashboard"
   type          = "Account"
 }
 
 resource "jupiterone_dashboard_parameter" "controlname" {
-  dashboard_id         = jupiterone_dashboard.test.id
+  dashboard_id         = jupiterone_dashboard.compliance.id
   label                = "Control Name"
   name                 = "controlName"
   value_type           = "string"
@@ -30,7 +30,7 @@ resource "jupiterone_dashboard_parameter" "controlname" {
 
 resource "jupiterone_widget" "compliant-controls" {
   title        = "Number of compliant controls"
-  dashboard_id = jupiterone_dashboard.test.id
+  dashboard_id = jupiterone_dashboard.compliance.id
   description  = "Count of all controls that are compliant across all frameworks."
   type         = "number"
 
