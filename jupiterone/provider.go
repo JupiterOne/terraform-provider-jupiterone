@@ -142,6 +142,7 @@ func (*JupiterOneProvider) Resources(context.Context) []func() resource.Resource
 		NewDashboardResource,
 		NewWidgetResource,
 		NewDashboardParameterResource,
+		NewIntegrationResource,
 	}
 }
 

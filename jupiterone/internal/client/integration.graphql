@@ -1,0 +1,40 @@
+query GetIntegrationInstance($id: String!) {
+  integrationInstance(id: $id) {
+    id
+    name
+    pollingInterval
+    integrationDefinitionId
+    description
+    config
+  }
+}
+
+mutation CreateIntegrationInstance($instance: CreateIntegrationInstanceInput!) {
+  createIntegrationInstance(instance: $instance) {
+    id
+    name
+    pollingInterval
+    integrationDefinitionId
+    description
+    config
+  }
+}
+
+mutation UpdateIntegrationInstance($id: String!, $update: UpdateIntegrationInstanceInput!) {
+  updateIntegrationInstance(id: $id, update: $update) {
+    id
+    name
+    pollingInterval
+    integrationDefinitionId
+    description
+    config
+  }
+}
+
+mutation DeleteIntegrationInstance($id: String!) {
+  deleteIntegrationInstance(id: $id) {
+    success
+  }
+}
+
+
