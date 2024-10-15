@@ -10,6 +10,7 @@ operations:
   - dashboard.graphql
   - widget.graphql
   - dashboardParameter.graphql
+  - integration.graphql
 generated: generated.go
 
 bindings:
