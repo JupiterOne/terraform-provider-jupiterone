@@ -459,7 +459,6 @@ type CreateInlineQuestionRuleInstanceInput struct {
 	Question                        RuleQuestionDetailsInput `json:"question"`
 	Templates                       map[string]interface{}   `json:"templates"`
 	Tags                            []string                 `json:"tags"`
-	Labels                          []RuleInstanceLabelInput `json:"labels"`
 	Name                            string                   `json:"name"`
 	Description                     string                   `json:"description"`
 	SpecVersion                     int                      `json:"specVersion"`
@@ -470,6 +469,8 @@ type CreateInlineQuestionRuleInstanceInput struct {
 	TriggerActionsOnNewEntitiesOnly bool                     `json:"triggerActionsOnNewEntitiesOnly"`
 	IgnorePreviousResults           bool                     `json:"ignorePreviousResults"`
 	RemediationSteps                string                   `json:"remediationSteps"`
+	CollectionId                    string                   `json:"collectionId"`
+	Labels                          []RuleInstanceLabelInput `json:"labels"`
 	J1Internal                      bool                     `json:"j1Internal"`
 }
 
@@ -485,9 +486,6 @@ func (v *CreateInlineQuestionRuleInstanceInput) GetTemplates() map[string]interf
 
 // GetTags returns CreateInlineQuestionRuleInstanceInput.Tags, and is useful for accessing the field via an interface.
 func (v *CreateInlineQuestionRuleInstanceInput) GetTags() []string { return v.Tags }
-
-// GetLabels returns CreateInlineQuestionRuleInstanceInput.Labels, and is useful for accessing the field via an interface.
-func (v *CreateInlineQuestionRuleInstanceInput) GetLabels() []RuleInstanceLabelInput { return v.Labels }
 
 // GetName returns CreateInlineQuestionRuleInstanceInput.Name, and is useful for accessing the field via an interface.
 func (v *CreateInlineQuestionRuleInstanceInput) GetName() string { return v.Name }
@@ -528,6 +526,12 @@ func (v *CreateInlineQuestionRuleInstanceInput) GetIgnorePreviousResults() bool 
 func (v *CreateInlineQuestionRuleInstanceInput) GetRemediationSteps() string {
 	return v.RemediationSteps
 }
+
+// GetCollectionId returns CreateInlineQuestionRuleInstanceInput.CollectionId, and is useful for accessing the field via an interface.
+func (v *CreateInlineQuestionRuleInstanceInput) GetCollectionId() string { return v.CollectionId }
+
+// GetLabels returns CreateInlineQuestionRuleInstanceInput.Labels, and is useful for accessing the field via an interface.
+func (v *CreateInlineQuestionRuleInstanceInput) GetLabels() []RuleInstanceLabelInput { return v.Labels }
 
 // GetJ1Internal returns CreateInlineQuestionRuleInstanceInput.J1Internal, and is useful for accessing the field via an interface.
 func (v *CreateInlineQuestionRuleInstanceInput) GetJ1Internal() bool { return v.J1Internal }
@@ -726,17 +730,12 @@ func (v *CreateInsightsWidgetInput) GetConfig() CreateInsightsWidgetConfigInput 
 
 // CreateIntegrationInstanceCreateIntegrationInstance includes the requested fields of the GraphQL type IntegrationInstance.
 type CreateIntegrationInstanceCreateIntegrationInstance struct {
-	Id                          string                          `json:"id"`
-	Name                        string                          `json:"name"`
-	AccountId                   string                          `json:"accountId"`
-	SourceIntegrationInstanceId string                          `json:"sourceIntegrationInstanceId"`
-	PollingInterval             IntegrationPollingInterval      `json:"pollingInterval"`
-	IntegrationDefinitionId     string                          `json:"integrationDefinitionId"`
-	Description                 string                          `json:"description"`
-	Config                      map[string]interface{}          `json:"config"`
-	OffsiteComplete             bool                            `json:"offsiteComplete"`
-	InstanceRelationship        IntegrationInstanceRelationship `json:"instanceRelationship"`
-	CollectorPoolId             string                          `json:"collectorPoolId"`
+	Id                      string                     `json:"id"`
+	Name                    string                     `json:"name"`
+	PollingInterval         IntegrationPollingInterval `json:"pollingInterval"`
+	IntegrationDefinitionId string                     `json:"integrationDefinitionId"`
+	Description             string                     `json:"description"`
+	Config                  map[string]interface{}     `json:"config"`
 }
 
 // GetId returns CreateIntegrationInstanceCreateIntegrationInstance.Id, and is useful for accessing the field via an interface.
@@ -744,16 +743,6 @@ func (v *CreateIntegrationInstanceCreateIntegrationInstance) GetId() string { re
 
 // GetName returns CreateIntegrationInstanceCreateIntegrationInstance.Name, and is useful for accessing the field via an interface.
 func (v *CreateIntegrationInstanceCreateIntegrationInstance) GetName() string { return v.Name }
-
-// GetAccountId returns CreateIntegrationInstanceCreateIntegrationInstance.AccountId, and is useful for accessing the field via an interface.
-func (v *CreateIntegrationInstanceCreateIntegrationInstance) GetAccountId() string {
-	return v.AccountId
-}
-
-// GetSourceIntegrationInstanceId returns CreateIntegrationInstanceCreateIntegrationInstance.SourceIntegrationInstanceId, and is useful for accessing the field via an interface.
-func (v *CreateIntegrationInstanceCreateIntegrationInstance) GetSourceIntegrationInstanceId() string {
-	return v.SourceIntegrationInstanceId
-}
 
 // GetPollingInterval returns CreateIntegrationInstanceCreateIntegrationInstance.PollingInterval, and is useful for accessing the field via an interface.
 func (v *CreateIntegrationInstanceCreateIntegrationInstance) GetPollingInterval() IntegrationPollingInterval {
@@ -773,21 +762,6 @@ func (v *CreateIntegrationInstanceCreateIntegrationInstance) GetDescription() st
 // GetConfig returns CreateIntegrationInstanceCreateIntegrationInstance.Config, and is useful for accessing the field via an interface.
 func (v *CreateIntegrationInstanceCreateIntegrationInstance) GetConfig() map[string]interface{} {
 	return v.Config
-}
-
-// GetOffsiteComplete returns CreateIntegrationInstanceCreateIntegrationInstance.OffsiteComplete, and is useful for accessing the field via an interface.
-func (v *CreateIntegrationInstanceCreateIntegrationInstance) GetOffsiteComplete() bool {
-	return v.OffsiteComplete
-}
-
-// GetInstanceRelationship returns CreateIntegrationInstanceCreateIntegrationInstance.InstanceRelationship, and is useful for accessing the field via an interface.
-func (v *CreateIntegrationInstanceCreateIntegrationInstance) GetInstanceRelationship() IntegrationInstanceRelationship {
-	return v.InstanceRelationship
-}
-
-// GetCollectorPoolId returns CreateIntegrationInstanceCreateIntegrationInstance.CollectorPoolId, and is useful for accessing the field via an interface.
-func (v *CreateIntegrationInstanceCreateIntegrationInstance) GetCollectorPoolId() string {
-	return v.CollectorPoolId
 }
 
 type CreateIntegrationInstanceInput struct {
@@ -954,6 +928,8 @@ type CreateReferencedQuestionRuleInstanceInput struct {
 	TriggerActionsOnNewEntitiesOnly bool                     `json:"triggerActionsOnNewEntitiesOnly"`
 	IgnorePreviousResults           bool                     `json:"ignorePreviousResults"`
 	RemediationSteps                string                   `json:"remediationSteps"`
+	CollectionId                    string                   `json:"collectionId"`
+	Labels                          []RuleInstanceLabelInput `json:"labels"`
 }
 
 // GetQuestionId returns CreateReferencedQuestionRuleInstanceInput.QuestionId, and is useful for accessing the field via an interface.
@@ -1007,6 +983,14 @@ func (v *CreateReferencedQuestionRuleInstanceInput) GetIgnorePreviousResults() b
 // GetRemediationSteps returns CreateReferencedQuestionRuleInstanceInput.RemediationSteps, and is useful for accessing the field via an interface.
 func (v *CreateReferencedQuestionRuleInstanceInput) GetRemediationSteps() string {
 	return v.RemediationSteps
+}
+
+// GetCollectionId returns CreateReferencedQuestionRuleInstanceInput.CollectionId, and is useful for accessing the field via an interface.
+func (v *CreateReferencedQuestionRuleInstanceInput) GetCollectionId() string { return v.CollectionId }
+
+// GetLabels returns CreateReferencedQuestionRuleInstanceInput.Labels, and is useful for accessing the field via an interface.
+func (v *CreateReferencedQuestionRuleInstanceInput) GetLabels() []RuleInstanceLabelInput {
+	return v.Labels
 }
 
 // CreateReferencedQuestionRuleInstanceResponse is returned by CreateReferencedQuestionRuleInstance on success.
@@ -1647,17 +1631,12 @@ func (v *GetGroupsByNameResponse) GetIamGetGroupList() GetGroupsByNameIamGetGrou
 
 // GetIntegrationInstanceIntegrationInstance includes the requested fields of the GraphQL type IntegrationInstance.
 type GetIntegrationInstanceIntegrationInstance struct {
-	Id                          string                          `json:"id"`
-	Name                        string                          `json:"name"`
-	AccountId                   string                          `json:"accountId"`
-	SourceIntegrationInstanceId string                          `json:"sourceIntegrationInstanceId"`
-	PollingInterval             IntegrationPollingInterval      `json:"pollingInterval"`
-	IntegrationDefinitionId     string                          `json:"integrationDefinitionId"`
-	Description                 string                          `json:"description"`
-	Config                      map[string]interface{}          `json:"config"`
-	OffsiteComplete             bool                            `json:"offsiteComplete"`
-	InstanceRelationship        IntegrationInstanceRelationship `json:"instanceRelationship"`
-	CollectorPoolId             string                          `json:"collectorPoolId"`
+	Id                      string                     `json:"id"`
+	Name                    string                     `json:"name"`
+	PollingInterval         IntegrationPollingInterval `json:"pollingInterval"`
+	IntegrationDefinitionId string                     `json:"integrationDefinitionId"`
+	Description             string                     `json:"description"`
+	Config                  map[string]interface{}     `json:"config"`
 }
 
 // GetId returns GetIntegrationInstanceIntegrationInstance.Id, and is useful for accessing the field via an interface.
@@ -1665,14 +1644,6 @@ func (v *GetIntegrationInstanceIntegrationInstance) GetId() string { return v.Id
 
 // GetName returns GetIntegrationInstanceIntegrationInstance.Name, and is useful for accessing the field via an interface.
 func (v *GetIntegrationInstanceIntegrationInstance) GetName() string { return v.Name }
-
-// GetAccountId returns GetIntegrationInstanceIntegrationInstance.AccountId, and is useful for accessing the field via an interface.
-func (v *GetIntegrationInstanceIntegrationInstance) GetAccountId() string { return v.AccountId }
-
-// GetSourceIntegrationInstanceId returns GetIntegrationInstanceIntegrationInstance.SourceIntegrationInstanceId, and is useful for accessing the field via an interface.
-func (v *GetIntegrationInstanceIntegrationInstance) GetSourceIntegrationInstanceId() string {
-	return v.SourceIntegrationInstanceId
-}
 
 // GetPollingInterval returns GetIntegrationInstanceIntegrationInstance.PollingInterval, and is useful for accessing the field via an interface.
 func (v *GetIntegrationInstanceIntegrationInstance) GetPollingInterval() IntegrationPollingInterval {
@@ -1690,21 +1661,6 @@ func (v *GetIntegrationInstanceIntegrationInstance) GetDescription() string { re
 // GetConfig returns GetIntegrationInstanceIntegrationInstance.Config, and is useful for accessing the field via an interface.
 func (v *GetIntegrationInstanceIntegrationInstance) GetConfig() map[string]interface{} {
 	return v.Config
-}
-
-// GetOffsiteComplete returns GetIntegrationInstanceIntegrationInstance.OffsiteComplete, and is useful for accessing the field via an interface.
-func (v *GetIntegrationInstanceIntegrationInstance) GetOffsiteComplete() bool {
-	return v.OffsiteComplete
-}
-
-// GetInstanceRelationship returns GetIntegrationInstanceIntegrationInstance.InstanceRelationship, and is useful for accessing the field via an interface.
-func (v *GetIntegrationInstanceIntegrationInstance) GetInstanceRelationship() IntegrationInstanceRelationship {
-	return v.InstanceRelationship
-}
-
-// GetCollectorPoolId returns GetIntegrationInstanceIntegrationInstance.CollectorPoolId, and is useful for accessing the field via an interface.
-func (v *GetIntegrationInstanceIntegrationInstance) GetCollectorPoolId() string {
-	return v.CollectorPoolId
 }
 
 // GetIntegrationInstanceResponse is returned by GetIntegrationInstance on success.
@@ -1856,6 +1812,7 @@ type GetQuestionRuleInstanceQuestionRuleInstance struct {
 	NotifyOnFailure                 bool                                                                   `json:"notifyOnFailure"`
 	TriggerActionsOnNewEntitiesOnly bool                                                                   `json:"triggerActionsOnNewEntitiesOnly"`
 	IgnorePreviousResults           bool                                                                   `json:"ignorePreviousResults"`
+	Labels                          []GetQuestionRuleInstanceQuestionRuleInstanceLabelsRuleInstanceLabel   `json:"labels"`
 	QuestionId                      string                                                                 `json:"questionId"`
 	Question                        GetQuestionRuleInstanceQuestionRuleInstanceQuestionRuleQuestionDetails `json:"question"`
 	Operations                      []RuleOperationOutput                                                  `json:"operations"`
@@ -1912,6 +1869,11 @@ func (v *GetQuestionRuleInstanceQuestionRuleInstance) GetIgnorePreviousResults()
 	return v.IgnorePreviousResults
 }
 
+// GetLabels returns GetQuestionRuleInstanceQuestionRuleInstance.Labels, and is useful for accessing the field via an interface.
+func (v *GetQuestionRuleInstanceQuestionRuleInstance) GetLabels() []GetQuestionRuleInstanceQuestionRuleInstanceLabelsRuleInstanceLabel {
+	return v.Labels
+}
+
 // GetQuestionId returns GetQuestionRuleInstanceQuestionRuleInstance.QuestionId, and is useful for accessing the field via an interface.
 func (v *GetQuestionRuleInstanceQuestionRuleInstance) GetQuestionId() string { return v.QuestionId }
 
@@ -1930,6 +1892,22 @@ func (v *GetQuestionRuleInstanceQuestionRuleInstance) GetOutputs() []string { re
 
 // GetTags returns GetQuestionRuleInstanceQuestionRuleInstance.Tags, and is useful for accessing the field via an interface.
 func (v *GetQuestionRuleInstanceQuestionRuleInstance) GetTags() []string { return v.Tags }
+
+// GetQuestionRuleInstanceQuestionRuleInstanceLabelsRuleInstanceLabel includes the requested fields of the GraphQL type RuleInstanceLabel.
+type GetQuestionRuleInstanceQuestionRuleInstanceLabelsRuleInstanceLabel struct {
+	LabelName  string                 `json:"labelName"`
+	LabelValue map[string]interface{} `json:"labelValue"`
+}
+
+// GetLabelName returns GetQuestionRuleInstanceQuestionRuleInstanceLabelsRuleInstanceLabel.LabelName, and is useful for accessing the field via an interface.
+func (v *GetQuestionRuleInstanceQuestionRuleInstanceLabelsRuleInstanceLabel) GetLabelName() string {
+	return v.LabelName
+}
+
+// GetLabelValue returns GetQuestionRuleInstanceQuestionRuleInstanceLabelsRuleInstanceLabel.LabelValue, and is useful for accessing the field via an interface.
+func (v *GetQuestionRuleInstanceQuestionRuleInstanceLabelsRuleInstanceLabel) GetLabelValue() map[string]interface{} {
+	return v.LabelValue
+}
 
 // GetQuestionRuleInstanceQuestionRuleInstanceQuestionRuleQuestionDetails includes the requested fields of the GraphQL type RuleQuestionDetails.
 type GetQuestionRuleInstanceQuestionRuleInstanceQuestionRuleQuestionDetails struct {
@@ -2169,14 +2147,6 @@ func (v *IngestionSourcesOverridesInput) GetIngestionSourceId() string { return 
 
 // GetEnabled returns IngestionSourcesOverridesInput.Enabled, and is useful for accessing the field via an interface.
 func (v *IngestionSourcesOverridesInput) GetEnabled() bool { return v.Enabled }
-
-type IntegrationInstanceRelationship string
-
-const (
-	IntegrationInstanceRelationshipParent     IntegrationInstanceRelationship = "PARENT"
-	IntegrationInstanceRelationshipChild      IntegrationInstanceRelationship = "CHILD"
-	IntegrationInstanceRelationshipStandalone IntegrationInstanceRelationship = "STANDALONE"
-)
 
 type IntegrationPollingInterval string
 
@@ -2883,7 +2853,6 @@ type UpdateInlineQuestionRuleInstanceInput struct {
 	LatestAlertId                   string                   `json:"latestAlertId,omitempty"`
 	Templates                       map[string]interface{}   `json:"templates"`
 	Tags                            []string                 `json:"tags"`
-	Labels                          []RuleInstanceLabelInput `json:"labels"`
 	Name                            string                   `json:"name"`
 	Description                     string                   `json:"description"`
 	SpecVersion                     int                      `json:"specVersion"`
@@ -2894,6 +2863,8 @@ type UpdateInlineQuestionRuleInstanceInput struct {
 	TriggerActionsOnNewEntitiesOnly bool                     `json:"triggerActionsOnNewEntitiesOnly"`
 	IgnorePreviousResults           bool                     `json:"ignorePreviousResults"`
 	RemediationSteps                string                   `json:"remediationSteps,omitempty"`
+	CollectionId                    string                   `json:"collectionId"`
+	Labels                          []RuleInstanceLabelInput `json:"labels"`
 }
 
 // GetQuestion returns UpdateInlineQuestionRuleInstanceInput.Question, and is useful for accessing the field via an interface.
@@ -2920,9 +2891,6 @@ func (v *UpdateInlineQuestionRuleInstanceInput) GetTemplates() map[string]interf
 
 // GetTags returns UpdateInlineQuestionRuleInstanceInput.Tags, and is useful for accessing the field via an interface.
 func (v *UpdateInlineQuestionRuleInstanceInput) GetTags() []string { return v.Tags }
-
-// GetLabels returns UpdateInlineQuestionRuleInstanceInput.Labels, and is useful for accessing the field via an interface.
-func (v *UpdateInlineQuestionRuleInstanceInput) GetLabels() []RuleInstanceLabelInput { return v.Labels }
 
 // GetName returns UpdateInlineQuestionRuleInstanceInput.Name, and is useful for accessing the field via an interface.
 func (v *UpdateInlineQuestionRuleInstanceInput) GetName() string { return v.Name }
@@ -2963,6 +2931,12 @@ func (v *UpdateInlineQuestionRuleInstanceInput) GetIgnorePreviousResults() bool 
 func (v *UpdateInlineQuestionRuleInstanceInput) GetRemediationSteps() string {
 	return v.RemediationSteps
 }
+
+// GetCollectionId returns UpdateInlineQuestionRuleInstanceInput.CollectionId, and is useful for accessing the field via an interface.
+func (v *UpdateInlineQuestionRuleInstanceInput) GetCollectionId() string { return v.CollectionId }
+
+// GetLabels returns UpdateInlineQuestionRuleInstanceInput.Labels, and is useful for accessing the field via an interface.
+func (v *UpdateInlineQuestionRuleInstanceInput) GetLabels() []RuleInstanceLabelInput { return v.Labels }
 
 // UpdateInlineQuestionRuleInstanceResponse is returned by UpdateInlineQuestionRuleInstance on success.
 type UpdateInlineQuestionRuleInstanceResponse struct {
@@ -3055,17 +3029,12 @@ func (v *UpdateIntegrationInstanceResponse) GetUpdateIntegrationInstance() Updat
 
 // UpdateIntegrationInstanceUpdateIntegrationInstance includes the requested fields of the GraphQL type IntegrationInstance.
 type UpdateIntegrationInstanceUpdateIntegrationInstance struct {
-	Id                          string                          `json:"id"`
-	Name                        string                          `json:"name"`
-	AccountId                   string                          `json:"accountId"`
-	SourceIntegrationInstanceId string                          `json:"sourceIntegrationInstanceId"`
-	PollingInterval             IntegrationPollingInterval      `json:"pollingInterval"`
-	IntegrationDefinitionId     string                          `json:"integrationDefinitionId"`
-	Description                 string                          `json:"description"`
-	Config                      map[string]interface{}          `json:"config"`
-	OffsiteComplete             bool                            `json:"offsiteComplete"`
-	InstanceRelationship        IntegrationInstanceRelationship `json:"instanceRelationship"`
-	CollectorPoolId             string                          `json:"collectorPoolId"`
+	Id                      string                     `json:"id"`
+	Name                    string                     `json:"name"`
+	PollingInterval         IntegrationPollingInterval `json:"pollingInterval"`
+	IntegrationDefinitionId string                     `json:"integrationDefinitionId"`
+	Description             string                     `json:"description"`
+	Config                  map[string]interface{}     `json:"config"`
 }
 
 // GetId returns UpdateIntegrationInstanceUpdateIntegrationInstance.Id, and is useful for accessing the field via an interface.
@@ -3073,16 +3042,6 @@ func (v *UpdateIntegrationInstanceUpdateIntegrationInstance) GetId() string { re
 
 // GetName returns UpdateIntegrationInstanceUpdateIntegrationInstance.Name, and is useful for accessing the field via an interface.
 func (v *UpdateIntegrationInstanceUpdateIntegrationInstance) GetName() string { return v.Name }
-
-// GetAccountId returns UpdateIntegrationInstanceUpdateIntegrationInstance.AccountId, and is useful for accessing the field via an interface.
-func (v *UpdateIntegrationInstanceUpdateIntegrationInstance) GetAccountId() string {
-	return v.AccountId
-}
-
-// GetSourceIntegrationInstanceId returns UpdateIntegrationInstanceUpdateIntegrationInstance.SourceIntegrationInstanceId, and is useful for accessing the field via an interface.
-func (v *UpdateIntegrationInstanceUpdateIntegrationInstance) GetSourceIntegrationInstanceId() string {
-	return v.SourceIntegrationInstanceId
-}
 
 // GetPollingInterval returns UpdateIntegrationInstanceUpdateIntegrationInstance.PollingInterval, and is useful for accessing the field via an interface.
 func (v *UpdateIntegrationInstanceUpdateIntegrationInstance) GetPollingInterval() IntegrationPollingInterval {
@@ -3102,21 +3061,6 @@ func (v *UpdateIntegrationInstanceUpdateIntegrationInstance) GetDescription() st
 // GetConfig returns UpdateIntegrationInstanceUpdateIntegrationInstance.Config, and is useful for accessing the field via an interface.
 func (v *UpdateIntegrationInstanceUpdateIntegrationInstance) GetConfig() map[string]interface{} {
 	return v.Config
-}
-
-// GetOffsiteComplete returns UpdateIntegrationInstanceUpdateIntegrationInstance.OffsiteComplete, and is useful for accessing the field via an interface.
-func (v *UpdateIntegrationInstanceUpdateIntegrationInstance) GetOffsiteComplete() bool {
-	return v.OffsiteComplete
-}
-
-// GetInstanceRelationship returns UpdateIntegrationInstanceUpdateIntegrationInstance.InstanceRelationship, and is useful for accessing the field via an interface.
-func (v *UpdateIntegrationInstanceUpdateIntegrationInstance) GetInstanceRelationship() IntegrationInstanceRelationship {
-	return v.InstanceRelationship
-}
-
-// GetCollectorPoolId returns UpdateIntegrationInstanceUpdateIntegrationInstance.CollectorPoolId, and is useful for accessing the field via an interface.
-func (v *UpdateIntegrationInstanceUpdateIntegrationInstance) GetCollectorPoolId() string {
-	return v.CollectorPoolId
 }
 
 // UpdateQuestionResponse is returned by UpdateQuestion on success.
@@ -3145,7 +3089,6 @@ type UpdateReferencedQuestionRuleInstanceInput struct {
 	LatestAlertId                   string                   `json:"latestAlertId,omitempty"`
 	Templates                       map[string]interface{}   `json:"templates"`
 	Tags                            []string                 `json:"tags"`
-	Labels                          []RuleInstanceLabelInput `json:"labels"`
 	Name                            string                   `json:"name"`
 	Description                     string                   `json:"description"`
 	SpecVersion                     int                      `json:"specVersion"`
@@ -3156,6 +3099,8 @@ type UpdateReferencedQuestionRuleInstanceInput struct {
 	TriggerActionsOnNewEntitiesOnly bool                     `json:"triggerActionsOnNewEntitiesOnly"`
 	IgnorePreviousResults           bool                     `json:"ignorePreviousResults"`
 	RemediationSteps                string                   `json:"remediationSteps"`
+	CollectionId                    string                   `json:"collectionId"`
+	Labels                          []RuleInstanceLabelInput `json:"labels"`
 }
 
 // GetQuestionId returns UpdateReferencedQuestionRuleInstanceInput.QuestionId, and is useful for accessing the field via an interface.
@@ -3180,11 +3125,6 @@ func (v *UpdateReferencedQuestionRuleInstanceInput) GetTemplates() map[string]in
 
 // GetTags returns UpdateReferencedQuestionRuleInstanceInput.Tags, and is useful for accessing the field via an interface.
 func (v *UpdateReferencedQuestionRuleInstanceInput) GetTags() []string { return v.Tags }
-
-// GetLabels returns UpdateReferencedQuestionRuleInstanceInput.Labels, and is useful for accessing the field via an interface.
-func (v *UpdateReferencedQuestionRuleInstanceInput) GetLabels() []RuleInstanceLabelInput {
-	return v.Labels
-}
 
 // GetName returns UpdateReferencedQuestionRuleInstanceInput.Name, and is useful for accessing the field via an interface.
 func (v *UpdateReferencedQuestionRuleInstanceInput) GetName() string { return v.Name }
@@ -3226,6 +3166,14 @@ func (v *UpdateReferencedQuestionRuleInstanceInput) GetIgnorePreviousResults() b
 // GetRemediationSteps returns UpdateReferencedQuestionRuleInstanceInput.RemediationSteps, and is useful for accessing the field via an interface.
 func (v *UpdateReferencedQuestionRuleInstanceInput) GetRemediationSteps() string {
 	return v.RemediationSteps
+}
+
+// GetCollectionId returns UpdateReferencedQuestionRuleInstanceInput.CollectionId, and is useful for accessing the field via an interface.
+func (v *UpdateReferencedQuestionRuleInstanceInput) GetCollectionId() string { return v.CollectionId }
+
+// GetLabels returns UpdateReferencedQuestionRuleInstanceInput.Labels, and is useful for accessing the field via an interface.
+func (v *UpdateReferencedQuestionRuleInstanceInput) GetLabels() []RuleInstanceLabelInput {
+	return v.Labels
 }
 
 // UpdateReferencedQuestionRuleInstanceResponse is returned by UpdateReferencedQuestionRuleInstance on success.
@@ -4118,15 +4066,10 @@ mutation CreateIntegrationInstance ($instance: CreateIntegrationInstanceInput!) 
 	createIntegrationInstance(instance: $instance) {
 		id
 		name
-		accountId
-		sourceIntegrationInstanceId
 		pollingInterval
 		integrationDefinitionId
 		description
 		config
-		offsiteComplete
-		instanceRelationship
-		collectorPoolId
 	}
 }
 `,
@@ -4936,15 +4879,10 @@ query GetIntegrationInstance ($id: String!) {
 	integrationInstance(id: $id) {
 		id
 		name
-		accountId
-		sourceIntegrationInstanceId
 		pollingInterval
 		integrationDefinitionId
 		description
 		config
-		offsiteComplete
-		instanceRelationship
-		collectorPoolId
 	}
 }
 `,
@@ -5077,6 +5015,10 @@ query GetQuestionRuleInstance ($id: ID!) {
 		notifyOnFailure
 		triggerActionsOnNewEntitiesOnly
 		ignorePreviousResults
+		labels {
+			labelName
+			labelValue
+		}
 		questionId
 		question {
 			queries {
@@ -5594,15 +5536,10 @@ mutation UpdateIntegrationInstance ($id: String!, $update: UpdateIntegrationInst
 	updateIntegrationInstance(id: $id, update: $update) {
 		id
 		name
-		accountId
-		sourceIntegrationInstanceId
 		pollingInterval
 		integrationDefinitionId
 		description
 		config
-		offsiteComplete
-		instanceRelationship
-		collectorPoolId
 	}
 }
 `,
