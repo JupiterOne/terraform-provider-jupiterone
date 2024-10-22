@@ -376,6 +376,7 @@ type CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance struct {
 	SpecVersion int                                                                                   `json:"specVersion"`
 	Question    CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceQuestionRuleQuestionDetails `json:"question"`
 	Operations  []CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceOperationsRuleOperation   `json:"operations"`
+	Labels      []CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceLabelsRuleInstanceLabel   `json:"labels"`
 }
 
 // GetId returns CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance.Id, and is useful for accessing the field via an interface.
@@ -399,6 +400,27 @@ func (v *CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance) GetQuestion
 // GetOperations returns CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance.Operations, and is useful for accessing the field via an interface.
 func (v *CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance) GetOperations() []CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceOperationsRuleOperation {
 	return v.Operations
+}
+
+// GetLabels returns CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance.Labels, and is useful for accessing the field via an interface.
+func (v *CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance) GetLabels() []CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceLabelsRuleInstanceLabel {
+	return v.Labels
+}
+
+// CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceLabelsRuleInstanceLabel includes the requested fields of the GraphQL type RuleInstanceLabel.
+type CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceLabelsRuleInstanceLabel struct {
+	LabelName  string                 `json:"labelName"`
+	LabelValue map[string]interface{} `json:"labelValue"`
+}
+
+// GetLabelName returns CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceLabelsRuleInstanceLabel.LabelName, and is useful for accessing the field via an interface.
+func (v *CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceLabelsRuleInstanceLabel) GetLabelName() string {
+	return v.LabelName
+}
+
+// GetLabelValue returns CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceLabelsRuleInstanceLabel.LabelValue, and is useful for accessing the field via an interface.
+func (v *CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceLabelsRuleInstanceLabel) GetLabelValue() map[string]interface{} {
+	return v.LabelValue
 }
 
 // CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceOperationsRuleOperation includes the requested fields of the GraphQL type RuleOperation.
@@ -4032,6 +4054,10 @@ mutation CreateInlineQuestionRuleInstance ($instance: CreateInlineQuestionRuleIn
 		operations {
 			when
 			actions
+		}
+		labels {
+			labelName
+			labelValue
 		}
 	}
 }

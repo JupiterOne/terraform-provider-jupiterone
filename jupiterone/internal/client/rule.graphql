@@ -59,6 +59,10 @@ mutation CreateInlineQuestionRuleInstance(
       when
       actions
     }
+    labels {
+      labelName
+      labelValue
+    }
   }
 }
 
