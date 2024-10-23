@@ -21,7 +21,3 @@ bindings:
     type: string
   Long:
     type: int64
-  # RuleInstanceLabelInput:
-  #   type: map[string]interface{}
-  # RuleInstanceLabel:
-  #   type: interface{}

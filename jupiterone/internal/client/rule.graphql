@@ -13,10 +13,6 @@ query GetQuestionRuleInstance($id: ID!) {
     notifyOnFailure
     triggerActionsOnNewEntitiesOnly
     ignorePreviousResults
-    labels {
-      labelName
-      labelValue
-    }
     questionId
     question {
       queries {

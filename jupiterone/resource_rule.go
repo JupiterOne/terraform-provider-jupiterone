@@ -280,7 +280,7 @@ func (*QuestionRuleResource) Schema(ctx context.Context, req resource.SchemaRequ
 						},
 						"label_value": schema.StringAttribute{
 							Required:    true,
-							Description: "Value of the label, which is represented in TF as a string but can be a string, number or boolean",
+							Description: "Value of the label, which is represented in TF as a string but will be treated as string, number or boolean in the application",
 						},
 					},
 				},
@@ -498,7 +498,6 @@ func (r *QuestionRuleResource) Read(ctx context.Context, req resource.ReadReques
 		NotifyOnFailure:       types.BoolValue(rule.NotifyOnFailure),
 		TriggerOnNewOnly:      types.BoolValue(rule.TriggerActionsOnNewEntitiesOnly),
 		IgnorePreviousResults: types.BoolValue(rule.IgnorePreviousResults),
-		// TODO: Labels:                rule.Labels,
 	}
 
 	// FIXME: handling of these JSON fields (map[string]interface{}) is not DRY
@@ -656,14 +655,17 @@ func (r *RuleModel) BuildCreateReferencedQuestionRuleInstanceInput() (client.Cre
 		return rule, err
 	}
 
-	// TODO: temp
-	labels, err := json.Marshal(r.Labels)
-	if err != nil {
-		return rule, err
-	}
-	err = json.Unmarshal(labels, &rule.Labels)
-	if err != nil {
-		return rule, err
+	if len(r.Labels) > 0 {
+		labels := make([]client.RuleInstanceLabelInput, len(r.Labels))
+
+		for i, label := range r.Labels {
+			labels[i] = client.RuleInstanceLabelInput{
+				LabelName:  label.LabelName.ValueString(),
+				LabelValue: label.LabelValue.ValueString(),
+			}
+		}
+
+		rule.Labels = labels
 	}
 
 	// FIXME: is roundtripping the best way? does it help with keeping
@@ -700,6 +702,19 @@ func (r *RuleModel) BuildUpdateReferencedQuestionRuleInstanceInput() (client.Upd
 	rule.Operations, err = r.buildOperations()
 	if err != nil {
 		return rule, err
+	}
+
+	if len(r.Labels) > 0 {
+		labels := make([]client.RuleInstanceLabelInput, len(r.Labels))
+
+		for i, label := range r.Labels {
+			labels[i] = client.RuleInstanceLabelInput{
+				LabelName:  label.LabelName.ValueString(),
+				LabelValue: label.LabelValue.ValueString(),
+			}
+		}
+
+		rule.Labels = labels
 	}
 
 	// FIXME: is roundtripping the best way? does it help with keeping
@@ -741,25 +756,18 @@ func (r *RuleModel) BuildCreateInlineQuestionRuleInstanceInput() (client.CreateI
 		return rule, err
 	}
 
-	// Handle labels
-	// if len(r.Labels) > 0 {
-	// 	labels := make([]RuleLabel, len(r.Labels))
+	if len(r.Labels) > 0 {
+		labels := make([]client.RuleInstanceLabelInput, len(r.Labels))
 
-	// 	for i, label := range r.Labels {
-	// 		labels[i] = RuleLabel{
-	// 			LabelName:  label.LabelName,
-	// 			LabelValue: label.LabelValue,
-	// 		}
-	// 	}
+		for i, label := range r.Labels {
+			labels[i] = client.RuleInstanceLabelInput{
+				LabelName:  label.LabelName.ValueString(),
+				LabelValue: label.LabelValue.ValueString(),
+			}
+		}
 
-	// 	// need to convert to correct type
-	// 	interfaceLabels := make([]interface{}, len(labels))
-	// 	for i, label := range labels {
-	// 		interfaceLabels[i] = label
-	// 	}
-
-	// 	rule.Labels = interfaceLabels
-	// }
+		rule.Labels = labels
+	}
 
 	// FIXME: is roundtripping the best way? does it help with keeping
 	// config/state/server responses from being detected as different?
@@ -810,6 +818,19 @@ func (r *RuleModel) BuildUpdateInlineQuestionRuleInstanceInput() (client.UpdateI
 	rule.Operations, err = r.buildOperations()
 	if err != nil {
 		return rule, err
+	}
+
+	if len(r.Labels) > 0 {
+		labels := make([]client.RuleInstanceLabelInput, len(r.Labels))
+
+		for i, label := range r.Labels {
+			labels[i] = client.RuleInstanceLabelInput{
+				LabelName:  label.LabelName.ValueString(),
+				LabelValue: label.LabelValue.ValueString(),
+			}
+		}
+
+		rule.Labels = labels
 	}
 
 	// FIXME: is roundtripping the best way? does it help with keeping

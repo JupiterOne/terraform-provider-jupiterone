@@ -123,7 +123,7 @@ resource "jupiterone_rule" "users_without_mfa" {
 - `question_id` (String) Specifies the ID of a question to be used in rule evaluation.
 - `spec_version` (Number) Rule evaluation specification version in the case of breaking changes.
 - `tags` (List of String) Comma separated list of tags to apply to the jupiterone_rule entity. Value will always be true.
-- `labels` (List of Attributes) Key/value pairs to apply to the jupiterone_rule entity.
+- `labels` (List of Attributes) Key/value pairs to apply to the jupiterone_rule entity. If label_value is a string that represents a boolean or number (i.e. "true", "1"), it will be converted to a boolean or number respectively.
 - `templates` (Map of String) Optional key/value pairs of template name to template
 - `trigger_on_new_only` (Boolean)
 
