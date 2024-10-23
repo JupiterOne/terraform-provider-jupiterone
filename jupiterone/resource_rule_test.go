@@ -133,6 +133,8 @@ func TestInlineRuleInstance_BasicImport(t *testing.T) {
 					resource.TestCheckResourceAttr(testRuleResourceName, "question.0.queries.0.name", "query0"),
 					resource.TestCheckResourceAttr(testRuleResourceName, "question.0.queries.0.version", "v1"),
 					resource.TestCheckResourceAttr(testRuleResourceName, "question.0.queries.0.query", "Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true"),
+					resource.TestCheckResourceAttr(testRuleResourceName, "labels.0.label_name", "label1"),
+					resource.TestCheckResourceAttr(testRuleResourceName, "labels.#", "0"),
 				),
 			},
 		},
@@ -205,6 +207,10 @@ func TestRuleInstance_Config_Errors(t *testing.T) {
 			{
 				Config:      testRuleInstanceInvalidConfig(rName),
 				ExpectError: regexp.MustCompile(`Error: Invalid Attribute Combination`),
+			},
+			{
+				Config:      testRuleInstanceInvalidLabelsConfig(rName),
+				ExpectError: regexp.MustCompile(`Error: Incorrect attribute value type`),
 			},
 		},
 	})
@@ -432,6 +438,10 @@ func testRuleInstanceBasicConfigWithPollingInterval(rName string, pollingInterva
 
 			tags = ["tf_acc:1","tf_acc:2"]
 
+			labels = [
+				{label_name: "label1", label_value: "value1"},
+			]
+
 			question {
 				queries {
 					name = "query0"
@@ -451,6 +461,7 @@ func testRuleInstanceBasicConfigWithPollingInterval(rName string, pollingInterva
 }
 
 func testRuleInstanceInvalidConfig(rName string) string {
+	// can only have one of ignore_previous_results or trigger_on_new_only
 	return fmt.Sprintf(`
 		provider "jupiterone" {}
 
@@ -464,6 +475,41 @@ func testRuleInstanceInvalidConfig(rName string) string {
 			trigger_on_new_only = true
 
 			tags = ["tf_acc:1","tf_acc:2"]
+
+			question {
+				queries {
+					name = "query0"
+					query = "Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true"
+					version = "v1"
+				}
+			}
+
+			outputs = [
+				"queries.query0.total",
+				"alertLevel"
+			]
+
+			operations = %s
+		}
+	`, rName, getValidOperations())
+}
+
+func testRuleInstanceInvalidLabelsConfig(rName string) string {
+	// labels are in the wrong format
+	return fmt.Sprintf(`
+		provider "jupiterone" {}
+
+		resource "jupiterone_rule" "test" {
+			name = %q
+			description = "Test"
+			spec_version = 1
+			polling_interval = "ONE_WEEK"
+			notify_on_failure = false
+			ignore_previous_results = true
+			trigger_on_new_only = true
+
+			tags = ["tf_acc:1","tf_acc:2"]
+			labels = ["tf_acc:1","tf_acc:2"]
 
 			question {
 				queries {

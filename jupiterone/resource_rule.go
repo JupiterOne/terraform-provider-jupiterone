@@ -71,6 +71,11 @@ type RuleOperation struct {
 	Actions []string     `json:"actions" tfsdk:"actions"`
 }
 
+type RuleLabel struct {
+	LabelName  types.String `json:"label_name" tfsdk:"label_name"`
+	LabelValue types.String `json:"label_value" tfsdk:"label_value"`
+}
+
 // newOperationsWithoutId removes any "id" fields before saving into state.
 func newOperationsWithoutId(ops []client.RuleOperationOutput) ([]RuleOperation, error) {
 	l := make([]RuleOperation, 0, len(ops))
@@ -121,6 +126,7 @@ type RuleModel struct {
 	NotifyOnFailure       types.Bool      `json:"notify_on_failure" tfsdk:"notify_on_failure"`
 	TriggerOnNewOnly      types.Bool      `json:"trigger_on_new_only" tfsdk:"trigger_on_new_only"`
 	IgnorePreviousResults types.Bool      `json:"ignore_previous_results" tfsdk:"ignore_previous_results"`
+	Labels                []RuleLabel     `json:"labels" tfsdk:"labels"`
 }
 
 func NewQuestionRuleResource() resource.Resource {
@@ -262,6 +268,22 @@ func (*QuestionRuleResource) Schema(ctx context.Context, req resource.SchemaRequ
 				Optional: true,
 				Computed: true,
 				Default:  booldefault.StaticBool(false),
+			},
+			"labels": schema.ListNestedAttribute{
+				Description: "Comma separated list of labelName/labelValue pairs to apply to the rule.",
+				Optional:    true,
+				NestedObject: schema.NestedAttributeObject{
+					Attributes: map[string]schema.Attribute{
+						"label_name": schema.StringAttribute{
+							Required:    true,
+							Description: "Name of the label",
+						},
+						"label_value": schema.StringAttribute{
+							Required:    true,
+							Description: "Value of the label, which is represented in TF as a string but will be treated as string, number or boolean in the application",
+						},
+					},
+				},
 			},
 		},
 		// TODO: Deprecate the use of blocks following new framework guidance:
@@ -633,6 +655,19 @@ func (r *RuleModel) BuildCreateReferencedQuestionRuleInstanceInput() (client.Cre
 		return rule, err
 	}
 
+	if len(r.Labels) > 0 {
+		labels := make([]client.RuleInstanceLabelInput, len(r.Labels))
+
+		for i, label := range r.Labels {
+			labels[i] = client.RuleInstanceLabelInput{
+				LabelName:  label.LabelName.ValueString(),
+				LabelValue: label.LabelValue.ValueString(),
+			}
+		}
+
+		rule.Labels = labels
+	}
+
 	// FIXME: is roundtripping the best way? does it help with keeping
 	// config/state/server responses from being detected as different?
 	templates, err := json.Marshal(r.Templates)
@@ -669,6 +704,19 @@ func (r *RuleModel) BuildUpdateReferencedQuestionRuleInstanceInput() (client.Upd
 		return rule, err
 	}
 
+	if len(r.Labels) > 0 {
+		labels := make([]client.RuleInstanceLabelInput, len(r.Labels))
+
+		for i, label := range r.Labels {
+			labels[i] = client.RuleInstanceLabelInput{
+				LabelName:  label.LabelName.ValueString(),
+				LabelValue: label.LabelValue.ValueString(),
+			}
+		}
+
+		rule.Labels = labels
+	}
+
 	// FIXME: is roundtripping the best way? does it help with keeping
 	// config/state/server responses from being detected as different?
 	templates, err := json.Marshal(r.Templates)
@@ -699,12 +747,26 @@ func (r *RuleModel) BuildCreateInlineQuestionRuleInstanceInput() (client.CreateI
 		NotifyOnFailure:                 r.NotifyOnFailure.ValueBool(),
 		TriggerActionsOnNewEntitiesOnly: r.TriggerOnNewOnly.ValueBool(),
 		IgnorePreviousResults:           r.IgnorePreviousResults.ValueBool(),
+		// Labels:                          r.Labels,
 	}
 
 	var err error
 	rule.Operations, err = r.buildOperations()
 	if err != nil {
 		return rule, err
+	}
+
+	if len(r.Labels) > 0 {
+		labels := make([]client.RuleInstanceLabelInput, len(r.Labels))
+
+		for i, label := range r.Labels {
+			labels[i] = client.RuleInstanceLabelInput{
+				LabelName:  label.LabelName.ValueString(),
+				LabelValue: label.LabelValue.ValueString(),
+			}
+		}
+
+		rule.Labels = labels
 	}
 
 	// FIXME: is roundtripping the best way? does it help with keeping
@@ -756,6 +818,19 @@ func (r *RuleModel) BuildUpdateInlineQuestionRuleInstanceInput() (client.UpdateI
 	rule.Operations, err = r.buildOperations()
 	if err != nil {
 		return rule, err
+	}
+
+	if len(r.Labels) > 0 {
+		labels := make([]client.RuleInstanceLabelInput, len(r.Labels))
+
+		for i, label := range r.Labels {
+			labels[i] = client.RuleInstanceLabelInput{
+				LabelName:  label.LabelName.ValueString(),
+				LabelValue: label.LabelValue.ValueString(),
+			}
+		}
+
+		rule.Labels = labels
 	}
 
 	// FIXME: is roundtripping the best way? does it help with keeping

@@ -30,7 +30,7 @@ interactions:
         content_length: 74
         uncompressed: false
         body: |
-            {"data":{"createQuestion":{"id":"8fbf10fd-5a37-4c29-b04d-5cea615a7fd9"}}}
+            {"data":{"createQuestion":{"id":"a4a81b66-72f6-4373-8999-9b26c5aa7d02"}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -78,19 +78,19 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 1.103059583s
+        duration: 722.541958ms
     - id: 1
       request:
         proto: HTTP/1.1
         proto_major: 1
         proto_minor: 1
-        content_length: 934
+        content_length: 996
         transfer_encoding: []
         trailer: {}
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nmutation CreateReferencedQuestionRuleInstance ($instance: CreateReferencedQuestionRuleInstanceInput!) {\n\tcreateQuestionRuleInstance: createReferencedQuestionRuleInstance(instance: $instance) {\n\t\tid\n\t\tversion\n\t\tspecVersion\n\t\toperations {\n\t\t\twhen\n\t\t\tactions\n\t\t}\n\t}\n}\n","variables":{"instance":{"questionId":"8fbf10fd-5a37-4c29-b04d-5cea615a7fd9","templates":null,"tags":["tf_acc:1","tf_acc:2"],"name":"tf-provider-test-rule","description":"Test","specVersion":1,"operations":[{"when":{"condition":"{{queries.query0.total != 0}}","specVersion":1,"type":"FILTER"},"actions":[{"targetProperty":"alertLevel","targetValue":"HIGH","type":"SET_PROPERTY"},{"type":"CREATE_ALERT"}]}],"outputs":["queries.query0.total","alertLevel"],"pollingInterval":"ONE_WEEK","notifyOnFailure":false,"triggerActionsOnNewEntitiesOnly":false,"remediationSteps":""}},"operationName":"CreateReferencedQuestionRuleInstance"}'
+        body: '{"query":"\nmutation CreateReferencedQuestionRuleInstance ($instance: CreateReferencedQuestionRuleInstanceInput!) {\n\tcreateQuestionRuleInstance: createReferencedQuestionRuleInstance(instance: $instance) {\n\t\tid\n\t\tversion\n\t\tspecVersion\n\t\toperations {\n\t\t\twhen\n\t\t\tactions\n\t\t}\n\t}\n}\n","variables":{"instance":{"questionId":"a4a81b66-72f6-4373-8999-9b26c5aa7d02","templates":null,"tags":["tf_acc:1","tf_acc:2"],"name":"tf-provider-test-rule","description":"Test","specVersion":1,"operations":[{"when":{"condition":"{{queries.query0.total != 0}}","specVersion":1,"type":"FILTER"},"actions":[{"targetProperty":"alertLevel","targetValue":"HIGH","type":"SET_PROPERTY"},{"type":"CREATE_ALERT"}]}],"outputs":["queries.query0.total","alertLevel"],"pollingInterval":"ONE_WEEK","notifyOnFailure":false,"triggerActionsOnNewEntitiesOnly":false,"ignorePreviousResults":false,"remediationSteps":"","collectionId":"","labels":null}},"operationName":"CreateReferencedQuestionRuleInstance"}'
         form: {}
         headers:
             Cache-Control:
@@ -108,7 +108,7 @@ interactions:
         content_length: 415
         uncompressed: false
         body: |
-            {"data":{"createQuestionRuleInstance":{"id":"1397b823-a6b0-487f-805e-bc2d20de9cf8","version":1,"specVersion":1,"operations":[{"when":{"condition":"{{queries.query0.total != 0}}","specVersion":1,"type":"FILTER"},"actions":[{"targetProperty":"alertLevel","targetValue":"HIGH","type":"SET_PROPERTY","id":"ac2334ac-eb35-4704-84b2-68ab535e1b01"},{"type":"CREATE_ALERT","id":"ff831c5b-601e-4266-b6d9-5cb4f9caa2bc"}]}]}}}
+            {"data":{"createQuestionRuleInstance":{"id":"5101a668-a7d9-463d-9d74-64c91b3f2d10","version":1,"specVersion":1,"operations":[{"when":{"condition":"{{queries.query0.total != 0}}","specVersion":1,"type":"FILTER"},"actions":[{"targetProperty":"alertLevel","targetValue":"HIGH","type":"SET_PROPERTY","id":"6de9cc35-e43d-45eb-899c-a53b134ec596"},{"type":"CREATE_ALERT","id":"1bc23598-5a44-4698-baf0-062d8b7779b5"}]}]}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -156,19 +156,19 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 1.398354959s
+        duration: 966.789792ms
     - id: 2
       request:
         proto: HTTP/1.1
         proto_major: 1
         proto_minor: 1
-        content_length: 419
+        content_length: 434
         transfer_encoding: []
         trailer: {}
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetQuestionById ($id: ID!) {\n\tquestion(id: $id) {\n\t\tid\n\t\ttitle\n\t\tdescription\n\t\tpollingInterval\n\t\tqueries {\n\t\t\tname\n\t\t\tquery\n\t\t\tversion\n\t\t\tincludeDeleted\n\t\t\tresultsAre\n\t\t}\n\t\ttags\n\t\tcompliance {\n\t\t\tstandard\n\t\t\trequirements\n\t\t\tcontrols\n\t\t}\n\t}\n}\n","variables":{"id":"8fbf10fd-5a37-4c29-b04d-5cea615a7fd9"},"operationName":"GetQuestionById"}'
+        body: '{"query":"\nquery GetQuestionById ($id: ID!) {\n\tquestion(id: $id) {\n\t\tid\n\t\ttitle\n\t\tdescription\n\t\tshowTrend\n\t\tpollingInterval\n\t\tqueries {\n\t\t\tname\n\t\t\tquery\n\t\t\tversion\n\t\t\tincludeDeleted\n\t\t\tresultsAre\n\t\t}\n\t\ttags\n\t\tcompliance {\n\t\t\tstandard\n\t\t\trequirements\n\t\t\tcontrols\n\t\t}\n\t}\n}\n","variables":{"id":"a4a81b66-72f6-4373-8999-9b26c5aa7d02"},"operationName":"GetQuestionById"}'
         form: {}
         headers:
             Cache-Control:
@@ -183,15 +183,15 @@ interactions:
         proto_minor: 0
         transfer_encoding: []
         trailer: {}
-        content_length: 418
+        content_length: 436
         uncompressed: false
         body: |
-            {"data":{"question":{"id":"8fbf10fd-5a37-4c29-b04d-5cea615a7fd9","title":"tf-provider-test-rule","description":"Test","pollingInterval":"ONE_DAY","queries":[{"name":"query0","query":"Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true","version":"v1","includeDeleted":false,"resultsAre":"INFORMATIVE"}],"tags":["tf_acc:1","tf_acc:2"],"compliance":[]}}}
+            {"data":{"question":{"id":"a4a81b66-72f6-4373-8999-9b26c5aa7d02","title":"tf-provider-test-rule","description":"Test","showTrend":false,"pollingInterval":"ONE_DAY","queries":[{"name":"query0","query":"Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true","version":"v1","includeDeleted":false,"resultsAre":"INFORMATIVE"}],"tags":["tf_acc:1","tf_acc:2"],"compliance":[]}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
             Content-Length:
-                - "418"
+                - "436"
             Content-Security-Policy:
                 - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
             Content-Type:
@@ -234,19 +234,19 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 393.670209ms
+        duration: 248.231791ms
     - id: 3
       request:
         proto: HTTP/1.1
         proto_major: 1
         proto_minor: 1
-        content_length: 605
+        content_length: 632
         transfer_encoding: []
         trailer: {}
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetQuestionRuleInstance ($id: ID!) {\n\tquestionRuleInstance(id: $id) {\n\t\tid\n\t\tname\n\t\tdescription\n\t\tversion\n\t\tspecVersion\n\t\tlatest\n\t\tpollingInterval\n\t\tdeleted\n\t\ttype\n\t\ttemplates\n\t\tnotifyOnFailure\n\t\ttriggerActionsOnNewEntitiesOnly\n\t\tquestionId\n\t\tquestion {\n\t\t\tqueries {\n\t\t\t\tname\n\t\t\t\tquery\n\t\t\t\tversion\n\t\t\t\tincludeDeleted\n\t\t\t}\n\t\t}\n\t\toperations {\n\t\t\twhen\n\t\t\tactions\n\t\t}\n\t\toutputs\n\t\ttags\n\t}\n}\n","variables":{"id":"1397b823-a6b0-487f-805e-bc2d20de9cf8"},"operationName":"GetQuestionRuleInstance"}'
+        body: '{"query":"\nquery GetQuestionRuleInstance ($id: ID!) {\n\tquestionRuleInstance(id: $id) {\n\t\tid\n\t\tname\n\t\tdescription\n\t\tversion\n\t\tspecVersion\n\t\tlatest\n\t\tpollingInterval\n\t\tdeleted\n\t\ttype\n\t\ttemplates\n\t\tnotifyOnFailure\n\t\ttriggerActionsOnNewEntitiesOnly\n\t\tignorePreviousResults\n\t\tquestionId\n\t\tquestion {\n\t\t\tqueries {\n\t\t\t\tname\n\t\t\t\tquery\n\t\t\t\tversion\n\t\t\t\tincludeDeleted\n\t\t\t}\n\t\t}\n\t\toperations {\n\t\t\twhen\n\t\t\tactions\n\t\t}\n\t\toutputs\n\t\ttags\n\t}\n}\n","variables":{"id":"5101a668-a7d9-463d-9d74-64c91b3f2d10"},"operationName":"GetQuestionRuleInstance"}'
         form: {}
         headers:
             Cache-Control:
@@ -261,15 +261,15 @@ interactions:
         proto_minor: 0
         transfer_encoding: []
         trailer: {}
-        content_length: 766
+        content_length: 796
         uncompressed: false
         body: |
-            {"data":{"questionRuleInstance":{"id":"1397b823-a6b0-487f-805e-bc2d20de9cf8","name":"tf-provider-test-rule","description":"Test","version":1,"specVersion":1,"latest":true,"pollingInterval":"ONE_WEEK","deleted":false,"type":"QUESTION","templates":null,"notifyOnFailure":false,"triggerActionsOnNewEntitiesOnly":false,"questionId":"8fbf10fd-5a37-4c29-b04d-5cea615a7fd9","question":null,"operations":[{"when":{"type":"FILTER","condition":"{{queries.query0.total != 0}}","specVersion":1},"actions":[{"targetValue":"HIGH","id":"ac2334ac-eb35-4704-84b2-68ab535e1b01","type":"SET_PROPERTY","targetProperty":"alertLevel"},{"type":"CREATE_ALERT","id":"ff831c5b-601e-4266-b6d9-5cb4f9caa2bc"}]}],"outputs":["queries.query0.total","alertLevel"],"tags":["tf_acc:1","tf_acc:2"]}}}
+            {"data":{"questionRuleInstance":{"id":"5101a668-a7d9-463d-9d74-64c91b3f2d10","name":"tf-provider-test-rule","description":"Test","version":1,"specVersion":1,"latest":true,"pollingInterval":"ONE_WEEK","deleted":false,"type":"QUESTION","templates":null,"notifyOnFailure":false,"triggerActionsOnNewEntitiesOnly":false,"ignorePreviousResults":false,"questionId":"a4a81b66-72f6-4373-8999-9b26c5aa7d02","question":null,"operations":[{"when":{"type":"FILTER","condition":"{{queries.query0.total != 0}}","specVersion":1},"actions":[{"targetValue":"HIGH","id":"6de9cc35-e43d-45eb-899c-a53b134ec596","type":"SET_PROPERTY","targetProperty":"alertLevel"},{"type":"CREATE_ALERT","id":"1bc23598-5a44-4698-baf0-062d8b7779b5"}]}],"outputs":["queries.query0.total","alertLevel"],"tags":["tf_acc:1","tf_acc:2"]}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
             Content-Length:
-                - "766"
+                - "796"
             Content-Security-Policy:
                 - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
             Content-Type:
@@ -312,19 +312,19 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 350.296375ms
+        duration: 185.999917ms
     - id: 4
       request:
         proto: HTTP/1.1
         proto_major: 1
         proto_minor: 1
-        content_length: 419
+        content_length: 434
         transfer_encoding: []
         trailer: {}
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetQuestionById ($id: ID!) {\n\tquestion(id: $id) {\n\t\tid\n\t\ttitle\n\t\tdescription\n\t\tpollingInterval\n\t\tqueries {\n\t\t\tname\n\t\t\tquery\n\t\t\tversion\n\t\t\tincludeDeleted\n\t\t\tresultsAre\n\t\t}\n\t\ttags\n\t\tcompliance {\n\t\t\tstandard\n\t\t\trequirements\n\t\t\tcontrols\n\t\t}\n\t}\n}\n","variables":{"id":"8fbf10fd-5a37-4c29-b04d-5cea615a7fd9"},"operationName":"GetQuestionById"}'
+        body: '{"query":"\nquery GetQuestionById ($id: ID!) {\n\tquestion(id: $id) {\n\t\tid\n\t\ttitle\n\t\tdescription\n\t\tshowTrend\n\t\tpollingInterval\n\t\tqueries {\n\t\t\tname\n\t\t\tquery\n\t\t\tversion\n\t\t\tincludeDeleted\n\t\t\tresultsAre\n\t\t}\n\t\ttags\n\t\tcompliance {\n\t\t\tstandard\n\t\t\trequirements\n\t\t\tcontrols\n\t\t}\n\t}\n}\n","variables":{"id":"a4a81b66-72f6-4373-8999-9b26c5aa7d02"},"operationName":"GetQuestionById"}'
         form: {}
         headers:
             Cache-Control:
@@ -339,15 +339,15 @@ interactions:
         proto_minor: 0
         transfer_encoding: []
         trailer: {}
-        content_length: 418
+        content_length: 436
         uncompressed: false
         body: |
-            {"data":{"question":{"id":"8fbf10fd-5a37-4c29-b04d-5cea615a7fd9","title":"tf-provider-test-rule","description":"Test","pollingInterval":"ONE_DAY","queries":[{"name":"query0","query":"Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true","version":"v1","includeDeleted":false,"resultsAre":"INFORMATIVE"}],"tags":["tf_acc:1","tf_acc:2"],"compliance":[]}}}
+            {"data":{"question":{"id":"a4a81b66-72f6-4373-8999-9b26c5aa7d02","title":"tf-provider-test-rule","description":"Test","showTrend":false,"pollingInterval":"ONE_DAY","queries":[{"name":"query0","query":"Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true","version":"v1","includeDeleted":false,"resultsAre":"INFORMATIVE"}],"tags":["tf_acc:1","tf_acc:2"],"compliance":[]}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
             Content-Length:
-                - "418"
+                - "436"
             Content-Security-Policy:
                 - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
             Content-Type:
@@ -390,19 +390,19 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 444.921833ms
+        duration: 241.0375ms
     - id: 5
       request:
         proto: HTTP/1.1
         proto_major: 1
         proto_minor: 1
-        content_length: 605
+        content_length: 632
         transfer_encoding: []
         trailer: {}
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetQuestionRuleInstance ($id: ID!) {\n\tquestionRuleInstance(id: $id) {\n\t\tid\n\t\tname\n\t\tdescription\n\t\tversion\n\t\tspecVersion\n\t\tlatest\n\t\tpollingInterval\n\t\tdeleted\n\t\ttype\n\t\ttemplates\n\t\tnotifyOnFailure\n\t\ttriggerActionsOnNewEntitiesOnly\n\t\tquestionId\n\t\tquestion {\n\t\t\tqueries {\n\t\t\t\tname\n\t\t\t\tquery\n\t\t\t\tversion\n\t\t\t\tincludeDeleted\n\t\t\t}\n\t\t}\n\t\toperations {\n\t\t\twhen\n\t\t\tactions\n\t\t}\n\t\toutputs\n\t\ttags\n\t}\n}\n","variables":{"id":"1397b823-a6b0-487f-805e-bc2d20de9cf8"},"operationName":"GetQuestionRuleInstance"}'
+        body: '{"query":"\nquery GetQuestionRuleInstance ($id: ID!) {\n\tquestionRuleInstance(id: $id) {\n\t\tid\n\t\tname\n\t\tdescription\n\t\tversion\n\t\tspecVersion\n\t\tlatest\n\t\tpollingInterval\n\t\tdeleted\n\t\ttype\n\t\ttemplates\n\t\tnotifyOnFailure\n\t\ttriggerActionsOnNewEntitiesOnly\n\t\tignorePreviousResults\n\t\tquestionId\n\t\tquestion {\n\t\t\tqueries {\n\t\t\t\tname\n\t\t\t\tquery\n\t\t\t\tversion\n\t\t\t\tincludeDeleted\n\t\t\t}\n\t\t}\n\t\toperations {\n\t\t\twhen\n\t\t\tactions\n\t\t}\n\t\toutputs\n\t\ttags\n\t}\n}\n","variables":{"id":"5101a668-a7d9-463d-9d74-64c91b3f2d10"},"operationName":"GetQuestionRuleInstance"}'
         form: {}
         headers:
             Cache-Control:
@@ -417,15 +417,15 @@ interactions:
         proto_minor: 0
         transfer_encoding: []
         trailer: {}
-        content_length: 766
+        content_length: 796
         uncompressed: false
         body: |
-            {"data":{"questionRuleInstance":{"id":"1397b823-a6b0-487f-805e-bc2d20de9cf8","name":"tf-provider-test-rule","description":"Test","version":1,"specVersion":1,"latest":true,"pollingInterval":"ONE_WEEK","deleted":false,"type":"QUESTION","templates":null,"notifyOnFailure":false,"triggerActionsOnNewEntitiesOnly":false,"questionId":"8fbf10fd-5a37-4c29-b04d-5cea615a7fd9","question":null,"operations":[{"when":{"type":"FILTER","condition":"{{queries.query0.total != 0}}","specVersion":1},"actions":[{"targetValue":"HIGH","id":"ac2334ac-eb35-4704-84b2-68ab535e1b01","type":"SET_PROPERTY","targetProperty":"alertLevel"},{"type":"CREATE_ALERT","id":"ff831c5b-601e-4266-b6d9-5cb4f9caa2bc"}]}],"outputs":["queries.query0.total","alertLevel"],"tags":["tf_acc:1","tf_acc:2"]}}}
+            {"data":{"questionRuleInstance":{"id":"5101a668-a7d9-463d-9d74-64c91b3f2d10","name":"tf-provider-test-rule","description":"Test","version":1,"specVersion":1,"latest":true,"pollingInterval":"ONE_WEEK","deleted":false,"type":"QUESTION","templates":null,"notifyOnFailure":false,"triggerActionsOnNewEntitiesOnly":false,"ignorePreviousResults":false,"questionId":"a4a81b66-72f6-4373-8999-9b26c5aa7d02","question":null,"operations":[{"when":{"type":"FILTER","condition":"{{queries.query0.total != 0}}","specVersion":1},"actions":[{"targetValue":"HIGH","id":"6de9cc35-e43d-45eb-899c-a53b134ec596","type":"SET_PROPERTY","targetProperty":"alertLevel"},{"type":"CREATE_ALERT","id":"1bc23598-5a44-4698-baf0-062d8b7779b5"}]}],"outputs":["queries.query0.total","alertLevel"],"tags":["tf_acc:1","tf_acc:2"]}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
             Content-Length:
-                - "766"
+                - "796"
             Content-Security-Policy:
                 - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
             Content-Type:
@@ -468,19 +468,19 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 337.51025ms
+        duration: 194.606708ms
     - id: 6
       request:
         proto: HTTP/1.1
         proto_major: 1
         proto_minor: 1
-        content_length: 894
+        content_length: 956
         transfer_encoding: []
         trailer: {}
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nmutation UpdateReferencedQuestionRuleInstance ($instance: UpdateReferencedQuestionRuleInstanceInput!) {\n\tupdateReferencedQuestionRuleInstance(instance: $instance) {\n\t\tversion\n\t\tspecVersion\n\t\toperations {\n\t\t\twhen\n\t\t\tactions\n\t\t}\n\t}\n}\n","variables":{"instance":{"questionId":"8fbf10fd-5a37-4c29-b04d-5cea615a7fd9","id":"1397b823-a6b0-487f-805e-bc2d20de9cf8","version":1,"state":{"actions":null},"templates":null,"tags":["tf_acc:1","tf_acc:2"],"name":"tf-provider-test-rule","description":"Test","specVersion":1,"operations":[{"actions":[{"targetProperty":"alertLevel","targetValue":"HIGH","type":"SET_PROPERTY"},{"type":"CREATE_ALERT"}]}],"outputs":["queries.query0.total","alertLevel"],"pollingInterval":"ONE_WEEK","notifyOnFailure":false,"triggerActionsOnNewEntitiesOnly":false,"remediationSteps":""}},"operationName":"UpdateReferencedQuestionRuleInstance"}'
+        body: '{"query":"\nmutation UpdateReferencedQuestionRuleInstance ($instance: UpdateReferencedQuestionRuleInstanceInput!) {\n\tupdateReferencedQuestionRuleInstance(instance: $instance) {\n\t\tversion\n\t\tspecVersion\n\t\toperations {\n\t\t\twhen\n\t\t\tactions\n\t\t}\n\t}\n}\n","variables":{"instance":{"questionId":"a4a81b66-72f6-4373-8999-9b26c5aa7d02","id":"5101a668-a7d9-463d-9d74-64c91b3f2d10","version":1,"state":{"actions":null},"templates":null,"tags":["tf_acc:1","tf_acc:2"],"name":"tf-provider-test-rule","description":"Test","specVersion":1,"operations":[{"actions":[{"targetProperty":"alertLevel","targetValue":"HIGH","type":"SET_PROPERTY"},{"type":"CREATE_ALERT"}]}],"outputs":["queries.query0.total","alertLevel"],"pollingInterval":"ONE_WEEK","notifyOnFailure":false,"triggerActionsOnNewEntitiesOnly":false,"ignorePreviousResults":false,"remediationSteps":"","collectionId":"","labels":null}},"operationName":"UpdateReferencedQuestionRuleInstance"}'
         form: {}
         headers:
             Cache-Control:
@@ -498,7 +498,7 @@ interactions:
         content_length: 308
         uncompressed: false
         body: |
-            {"data":{"updateReferencedQuestionRuleInstance":{"version":2,"specVersion":1,"operations":[{"when":null,"actions":[{"targetProperty":"alertLevel","targetValue":"HIGH","type":"SET_PROPERTY","id":"f99e6248-85e4-42ec-ba3e-42f331ca5481"},{"type":"CREATE_ALERT","id":"177ffb0b-ca57-408a-9b87-5f89dffcbff9"}]}]}}}
+            {"data":{"updateReferencedQuestionRuleInstance":{"version":2,"specVersion":1,"operations":[{"when":null,"actions":[{"targetProperty":"alertLevel","targetValue":"HIGH","type":"SET_PROPERTY","id":"641f86cf-93f1-498f-ae9c-0c7ed6dd6038"},{"type":"CREATE_ALERT","id":"22afacc5-f05e-4de2-98e7-ebf6c98f50e2"}]}]}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -546,19 +546,19 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 653.461958ms
+        duration: 702.913166ms
     - id: 7
       request:
         proto: HTTP/1.1
         proto_major: 1
         proto_minor: 1
-        content_length: 419
+        content_length: 434
         transfer_encoding: []
         trailer: {}
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetQuestionById ($id: ID!) {\n\tquestion(id: $id) {\n\t\tid\n\t\ttitle\n\t\tdescription\n\t\tpollingInterval\n\t\tqueries {\n\t\t\tname\n\t\t\tquery\n\t\t\tversion\n\t\t\tincludeDeleted\n\t\t\tresultsAre\n\t\t}\n\t\ttags\n\t\tcompliance {\n\t\t\tstandard\n\t\t\trequirements\n\t\t\tcontrols\n\t\t}\n\t}\n}\n","variables":{"id":"8fbf10fd-5a37-4c29-b04d-5cea615a7fd9"},"operationName":"GetQuestionById"}'
+        body: '{"query":"\nquery GetQuestionById ($id: ID!) {\n\tquestion(id: $id) {\n\t\tid\n\t\ttitle\n\t\tdescription\n\t\tshowTrend\n\t\tpollingInterval\n\t\tqueries {\n\t\t\tname\n\t\t\tquery\n\t\t\tversion\n\t\t\tincludeDeleted\n\t\t\tresultsAre\n\t\t}\n\t\ttags\n\t\tcompliance {\n\t\t\tstandard\n\t\t\trequirements\n\t\t\tcontrols\n\t\t}\n\t}\n}\n","variables":{"id":"a4a81b66-72f6-4373-8999-9b26c5aa7d02"},"operationName":"GetQuestionById"}'
         form: {}
         headers:
             Cache-Control:
@@ -573,15 +573,15 @@ interactions:
         proto_minor: 0
         transfer_encoding: []
         trailer: {}
-        content_length: 418
+        content_length: 436
         uncompressed: false
         body: |
-            {"data":{"question":{"id":"8fbf10fd-5a37-4c29-b04d-5cea615a7fd9","title":"tf-provider-test-rule","description":"Test","pollingInterval":"ONE_DAY","queries":[{"name":"query0","query":"Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true","version":"v1","includeDeleted":false,"resultsAre":"INFORMATIVE"}],"tags":["tf_acc:1","tf_acc:2"],"compliance":[]}}}
+            {"data":{"question":{"id":"a4a81b66-72f6-4373-8999-9b26c5aa7d02","title":"tf-provider-test-rule","description":"Test","showTrend":false,"pollingInterval":"ONE_DAY","queries":[{"name":"query0","query":"Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true","version":"v1","includeDeleted":false,"resultsAre":"INFORMATIVE"}],"tags":["tf_acc:1","tf_acc:2"],"compliance":[]}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
             Content-Length:
-                - "418"
+                - "436"
             Content-Security-Policy:
                 - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
             Content-Type:
@@ -624,19 +624,19 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 366.425292ms
+        duration: 263.366083ms
     - id: 8
       request:
         proto: HTTP/1.1
         proto_major: 1
         proto_minor: 1
-        content_length: 605
+        content_length: 632
         transfer_encoding: []
         trailer: {}
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetQuestionRuleInstance ($id: ID!) {\n\tquestionRuleInstance(id: $id) {\n\t\tid\n\t\tname\n\t\tdescription\n\t\tversion\n\t\tspecVersion\n\t\tlatest\n\t\tpollingInterval\n\t\tdeleted\n\t\ttype\n\t\ttemplates\n\t\tnotifyOnFailure\n\t\ttriggerActionsOnNewEntitiesOnly\n\t\tquestionId\n\t\tquestion {\n\t\t\tqueries {\n\t\t\t\tname\n\t\t\t\tquery\n\t\t\t\tversion\n\t\t\t\tincludeDeleted\n\t\t\t}\n\t\t}\n\t\toperations {\n\t\t\twhen\n\t\t\tactions\n\t\t}\n\t\toutputs\n\t\ttags\n\t}\n}\n","variables":{"id":"1397b823-a6b0-487f-805e-bc2d20de9cf8"},"operationName":"GetQuestionRuleInstance"}'
+        body: '{"query":"\nquery GetQuestionRuleInstance ($id: ID!) {\n\tquestionRuleInstance(id: $id) {\n\t\tid\n\t\tname\n\t\tdescription\n\t\tversion\n\t\tspecVersion\n\t\tlatest\n\t\tpollingInterval\n\t\tdeleted\n\t\ttype\n\t\ttemplates\n\t\tnotifyOnFailure\n\t\ttriggerActionsOnNewEntitiesOnly\n\t\tignorePreviousResults\n\t\tquestionId\n\t\tquestion {\n\t\t\tqueries {\n\t\t\t\tname\n\t\t\t\tquery\n\t\t\t\tversion\n\t\t\t\tincludeDeleted\n\t\t\t}\n\t\t}\n\t\toperations {\n\t\t\twhen\n\t\t\tactions\n\t\t}\n\t\toutputs\n\t\ttags\n\t}\n}\n","variables":{"id":"5101a668-a7d9-463d-9d74-64c91b3f2d10"},"operationName":"GetQuestionRuleInstance"}'
         form: {}
         headers:
             Cache-Control:
@@ -651,15 +651,15 @@ interactions:
         proto_minor: 0
         transfer_encoding: []
         trailer: {}
-        content_length: 693
+        content_length: 723
         uncompressed: false
         body: |
-            {"data":{"questionRuleInstance":{"id":"1397b823-a6b0-487f-805e-bc2d20de9cf8","name":"tf-provider-test-rule","description":"Test","version":2,"specVersion":1,"latest":true,"pollingInterval":"ONE_WEEK","deleted":false,"type":"QUESTION","templates":null,"notifyOnFailure":false,"triggerActionsOnNewEntitiesOnly":false,"questionId":"8fbf10fd-5a37-4c29-b04d-5cea615a7fd9","question":null,"operations":[{"when":null,"actions":[{"targetValue":"HIGH","id":"f99e6248-85e4-42ec-ba3e-42f331ca5481","type":"SET_PROPERTY","targetProperty":"alertLevel"},{"type":"CREATE_ALERT","id":"177ffb0b-ca57-408a-9b87-5f89dffcbff9"}]}],"outputs":["queries.query0.total","alertLevel"],"tags":["tf_acc:1","tf_acc:2"]}}}
+            {"data":{"questionRuleInstance":{"id":"5101a668-a7d9-463d-9d74-64c91b3f2d10","name":"tf-provider-test-rule","description":"Test","version":2,"specVersion":1,"latest":true,"pollingInterval":"ONE_WEEK","deleted":false,"type":"QUESTION","templates":null,"notifyOnFailure":false,"triggerActionsOnNewEntitiesOnly":false,"ignorePreviousResults":false,"questionId":"a4a81b66-72f6-4373-8999-9b26c5aa7d02","question":null,"operations":[{"when":null,"actions":[{"targetValue":"HIGH","id":"641f86cf-93f1-498f-ae9c-0c7ed6dd6038","type":"SET_PROPERTY","targetProperty":"alertLevel"},{"type":"CREATE_ALERT","id":"22afacc5-f05e-4de2-98e7-ebf6c98f50e2"}]}],"outputs":["queries.query0.total","alertLevel"],"tags":["tf_acc:1","tf_acc:2"]}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
             Content-Length:
-                - "693"
+                - "723"
             Content-Security-Policy:
                 - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
             Content-Type:
@@ -702,7 +702,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 364.13425ms
+        duration: 197.696ms
     - id: 9
       request:
         proto: HTTP/1.1
@@ -714,7 +714,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nmutation DeleteRuleInstance ($id: ID!) {\n\tdeleteRuleInstance(id: $id) {\n\t\tid\n\t}\n}\n","variables":{"id":"1397b823-a6b0-487f-805e-bc2d20de9cf8"},"operationName":"DeleteRuleInstance"}'
+        body: '{"query":"\nmutation DeleteRuleInstance ($id: ID!) {\n\tdeleteRuleInstance(id: $id) {\n\t\tid\n\t}\n}\n","variables":{"id":"5101a668-a7d9-463d-9d74-64c91b3f2d10"},"operationName":"DeleteRuleInstance"}'
         form: {}
         headers:
             Cache-Control:
@@ -732,7 +732,7 @@ interactions:
         content_length: 78
         uncompressed: false
         body: |
-            {"data":{"deleteRuleInstance":{"id":"1397b823-a6b0-487f-805e-bc2d20de9cf8"}}}
+            {"data":{"deleteRuleInstance":{"id":"5101a668-a7d9-463d-9d74-64c91b3f2d10"}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -780,7 +780,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 353.208208ms
+        duration: 314.756333ms
     - id: 10
       request:
         proto: HTTP/1.1
@@ -792,7 +792,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nmutation DeleteQuestion ($id: ID!) {\n\tdeleteQuestion(id: $id) {\n\t\tid\n\t}\n}\n","variables":{"id":"8fbf10fd-5a37-4c29-b04d-5cea615a7fd9"},"operationName":"DeleteQuestion"}'
+        body: '{"query":"\nmutation DeleteQuestion ($id: ID!) {\n\tdeleteQuestion(id: $id) {\n\t\tid\n\t}\n}\n","variables":{"id":"a4a81b66-72f6-4373-8999-9b26c5aa7d02"},"operationName":"DeleteQuestion"}'
         form: {}
         headers:
             Cache-Control:
@@ -810,7 +810,7 @@ interactions:
         content_length: 74
         uncompressed: false
         body: |
-            {"data":{"deleteQuestion":{"id":"8fbf10fd-5a37-4c29-b04d-5cea615a7fd9"}}}
+            {"data":{"deleteQuestion":{"id":"a4a81b66-72f6-4373-8999-9b26c5aa7d02"}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -858,4 +858,4 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 530.450708ms
+        duration: 507.340583ms
