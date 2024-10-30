@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/Khan/genqlient/graphql"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
@@ -27,12 +28,16 @@ type IntegrationResource struct {
 }
 
 type IntegrationModel struct {
-	Id                      types.String `tfsdk:"id"`
-	Name                    types.String `tfsdk:"name"`
-	PollingInterval         types.String `tfsdk:"polling_interval"`
-	IntegrationDefinitionId types.String `tfsdk:"integration_definition_id"`
-	Description             types.String `tfsdk:"description"`
-	Config                  types.String `tfsdk:"config"`
+	Id                            types.String `tfsdk:"id"`
+	Name                          types.String `tfsdk:"name"`
+	PollingInterval               types.String `tfsdk:"polling_interval"`
+	IntegrationDefinitionId       types.String `tfsdk:"integration_definition_id"`
+	Description                   types.String `tfsdk:"description"`
+	Config                        types.String `tfsdk:"config"`
+	SourceIntegrationInstanceId   types.String `tfsdk:"source_integration_instance_id"`
+	CollectorPoolId               types.String `tfsdk:"collector_pool_id"`
+	PollingIntervalCronExpression types.String `tfsdk:"polling_interval_cron_expression"`
+	IngestionSourcesOverrides     types.List   `tfsdk:"ingestion_sources_overrides"`
 }
 
 func NewIntegrationResource() resource.Resource {
@@ -81,6 +86,33 @@ func (r *IntegrationResource) Create(ctx context.Context, req resource.CreateReq
 		Config:                  config,
 	}
 
+	if !data.SourceIntegrationInstanceId.IsNull() {
+		input.SourceIntegrationInstanceId = data.SourceIntegrationInstanceId.ValueString()
+	}
+
+	if !data.CollectorPoolId.IsNull() {
+		input.CollectorPoolId = data.CollectorPoolId.ValueString()
+	}
+
+	if !data.PollingIntervalCronExpression.IsNull() {
+		var cronExpression client.IntegrationPollingIntervalCronExpressionInput
+		if err := json.Unmarshal([]byte(data.PollingIntervalCronExpression.ValueString()), &cronExpression); err != nil {
+			resp.Diagnostics.AddError("Failed to unmarshal polling interval cron expression", err.Error())
+			return
+		}
+		input.PollingIntervalCronExpression = cronExpression
+	}
+
+	if !data.IngestionSourcesOverrides.IsNull() {
+		var overrides []client.IngestionSourcesOverridesInput
+		diags := data.IngestionSourcesOverrides.ElementsAs(ctx, &overrides, false)
+		if diags.HasError() {
+			resp.Diagnostics.Append(diags...)
+			return
+		}
+		input.IngestionSourcesOverrides = overrides
+	}
+
 	created, err := client.CreateIntegrationInstance(ctx, r.qlient, input)
 	if err != nil {
 		resp.Diagnostics.AddError("Failed to create integration instance", err.Error())
@@ -103,13 +135,10 @@ func (r *IntegrationResource) Read(ctx context.Context, req resource.ReadRequest
 
 	response, err := client.GetIntegrationInstance(ctx, r.qlient, data.Id.ValueString())
 	if err != nil {
-		// Check if the error indicates that the resource was not found
 		if strings.Contains(err.Error(), "Integration instance not found") {
-			// If the resource is not found, remove it from state
 			resp.State.RemoveResource(ctx)
 			return
 		}
-		// For other errors, add them to diagnostics
 		resp.Diagnostics.AddError("Failed to read integration instance", err.Error())
 		return
 	}
@@ -119,13 +148,42 @@ func (r *IntegrationResource) Read(ctx context.Context, req resource.ReadRequest
 	data.IntegrationDefinitionId = types.StringValue(response.IntegrationInstance.IntegrationDefinitionId)
 	data.Description = types.StringValue(response.IntegrationInstance.Description)
 
-	// Handle the config
 	configJSON, err := json.Marshal(response.IntegrationInstance.Config)
 	if err != nil {
 		resp.Diagnostics.AddError("Failed to marshal config", err.Error())
 		return
 	}
 	data.Config = types.StringValue(string(configJSON))
+
+	if response.IntegrationInstance.SourceIntegrationInstanceId != "" {
+		data.SourceIntegrationInstanceId = types.StringValue(response.IntegrationInstance.SourceIntegrationInstanceId)
+	}
+
+	if response.IntegrationInstance.CollectorPoolId != "" {
+		data.CollectorPoolId = types.StringValue(response.IntegrationInstance.CollectorPoolId)
+	}
+
+	cronExpression := response.IntegrationInstance.PollingIntervalCronExpression
+	if cronExpression.Hour != 0 || cronExpression.DayOfWeek != 0 {
+		cronExpressionJSON, err := json.Marshal(cronExpression)
+		if err != nil {
+			resp.Diagnostics.AddError("Failed to marshal polling interval cron expression", err.Error())
+			return
+		}
+		data.PollingIntervalCronExpression = types.StringValue(string(cronExpressionJSON))
+	}
+
+	if len(response.IntegrationInstance.IngestionSourcesOverrides) > 0 {
+		overrides, diags := types.ListValueFrom(ctx, types.ObjectType{AttrTypes: map[string]attr.Type{
+			"ingestion_source_id": types.StringType,
+			"enabled":             types.BoolType,
+		}}, response.IntegrationInstance.IngestionSourcesOverrides)
+		if diags.HasError() {
+			resp.Diagnostics.Append(diags...)
+			return
+		}
+		data.IngestionSourcesOverrides = overrides
+	}
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
 }
@@ -150,7 +208,32 @@ func (r *IntegrationResource) Update(ctx context.Context, req resource.UpdateReq
 		Config:          config,
 	}
 
-	// Note: We don't include IntegrationDefinitionId in the update input
+	if !data.SourceIntegrationInstanceId.IsNull() {
+		input.SourceIntegrationInstanceId = data.SourceIntegrationInstanceId.ValueString()
+	}
+
+	if !data.CollectorPoolId.IsNull() {
+		input.CollectorPoolId = data.CollectorPoolId.ValueString()
+	}
+
+	if !data.PollingIntervalCronExpression.IsNull() {
+		var cronExpression client.IntegrationPollingIntervalCronExpressionInput
+		if err := json.Unmarshal([]byte(data.PollingIntervalCronExpression.ValueString()), &cronExpression); err != nil {
+			resp.Diagnostics.AddError("Failed to unmarshal polling interval cron expression", err.Error())
+			return
+		}
+		input.PollingIntervalCronExpression = cronExpression
+	}
+
+	if !data.IngestionSourcesOverrides.IsNull() {
+		var overrides []client.IngestionSourcesOverridesInput
+		diags := data.IngestionSourcesOverrides.ElementsAs(ctx, &overrides, false)
+		if diags.HasError() {
+			resp.Diagnostics.Append(diags...)
+			return
+		}
+		input.IngestionSourcesOverrides = overrides
+	}
 
 	_, err := client.UpdateIntegrationInstance(ctx, r.qlient, data.Id.ValueString(), input)
 	if err != nil {
@@ -216,6 +299,28 @@ func (r *IntegrationResource) Schema(ctx context.Context, req resource.SchemaReq
 			"config": schema.StringAttribute{
 				Required:    true,
 				Description: "The configuration for the integration instance as a JSON string.",
+			},
+			"source_integration_instance_id": schema.StringAttribute{
+				Optional:    true,
+				Description: "The ID of the source integration instance.",
+			},
+			"collector_pool_id": schema.StringAttribute{
+				Optional:    true,
+				Description: "The ID of the collector pool.",
+			},
+			"polling_interval_cron_expression": schema.StringAttribute{
+				Optional:    true,
+				Description: "The cron expression for the polling interval as a JSON string.",
+			},
+			"ingestion_sources_overrides": schema.ListAttribute{
+				Optional:    true,
+				Description: "Overrides for ingestion sources.",
+				ElementType: types.ObjectType{
+					AttrTypes: map[string]attr.Type{
+						"ingestion_source_id": types.StringType,
+						"enabled":             types.BoolType,
+					},
+				},
 			},
 		},
 	}
