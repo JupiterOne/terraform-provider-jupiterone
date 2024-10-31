@@ -2635,15 +2635,15 @@ func (v *RevokeInvitationUpdateInvitationIamInvitation) GetId() string { return 
 func (v *RevokeInvitationUpdateInvitationIamInvitation) GetStatus() string { return v.Status }
 
 type RuleInstanceLabelInput struct {
-	LabelName  string                 `json:"labelName"`
-	LabelValue map[string]interface{} `json:"labelValue"`
+	LabelName  string `json:"labelName"`
+	LabelValue string `json:"labelValue"`
 }
 
 // GetLabelName returns RuleInstanceLabelInput.LabelName, and is useful for accessing the field via an interface.
 func (v *RuleInstanceLabelInput) GetLabelName() string { return v.LabelName }
 
 // GetLabelValue returns RuleInstanceLabelInput.LabelValue, and is useful for accessing the field via an interface.
-func (v *RuleInstanceLabelInput) GetLabelValue() map[string]interface{} { return v.LabelValue }
+func (v *RuleInstanceLabelInput) GetLabelValue() string { return v.LabelValue }
 
 type RuleInstanceType string
 
