@@ -6,10 +6,27 @@ query GetIntegrationInstance($id: String!) {
     integrationDefinitionId
     description
     config
+    ingestionSourcesOverrides {
+      ingestionSourceId
+      enabled
+    }
+    sourceIntegrationInstanceId
+    collectorPoolId
+    pollingIntervalCronExpression {
+      hour
+      dayOfWeek
+    }
+    offsiteComplete
   }
 }
 
-mutation CreateIntegrationInstance($instance: CreateIntegrationInstanceInput!) {
+# @genqlient(for: "CreateIntegrationInstanceInput.sourceIntegrationInstanceId", omitempty: true)
+# @genqlient(for: "CreateIntegrationInstanceInput.collectorPoolId", omitempty: true)
+# @genqlient(for: "CreateIntegrationInstanceInput.pollingIntervalCronExpression", omitempty: true)
+# @genqlient(for: "CreateIntegrationInstanceInput.offsiteComplete", omitempty: true)
+# @genqlient(for: "CreateIntegrationInstanceInput.ingestionSourcesOverrides", omitempty: true)
+mutation CreateIntegrationInstance(
+  $instance: CreateIntegrationInstanceInput!) {
   createIntegrationInstance(instance: $instance) {
     id
     name
@@ -17,10 +34,28 @@ mutation CreateIntegrationInstance($instance: CreateIntegrationInstanceInput!) {
     integrationDefinitionId
     description
     config
+    ingestionSourcesOverrides {
+      ingestionSourceId
+      enabled
+    }
+    sourceIntegrationInstanceId
+    collectorPoolId
+    pollingIntervalCronExpression {
+      hour
+      dayOfWeek
+    }
+    offsiteComplete
   }
 }
 
-mutation UpdateIntegrationInstance($id: String!, $update: UpdateIntegrationInstanceInput!) {
+# @genqlient(for: "UpdateIntegrationInstanceInput.sourceIntegrationInstanceId", omitempty: true)
+# @genqlient(for: "UpdateIntegrationInstanceInput.collectorPoolId", omitempty: true)
+# @genqlient(for: "UpdateIntegrationInstanceInput.pollingIntervalCronExpression", omitempty: true)
+# @genqlient(for: "UpdateIntegrationInstanceInput.offsiteComplete", omitempty: true)
+# @genqlient(for: "UpdateIntegrationInstanceInput.ingestionSourcesOverrides", omitempty: true)
+mutation UpdateIntegrationInstance(
+  $id: String!, 
+  $update: UpdateIntegrationInstanceInput!) {
   updateIntegrationInstance(id: $id, update: $update) {
     id
     name
@@ -28,6 +63,17 @@ mutation UpdateIntegrationInstance($id: String!, $update: UpdateIntegrationInsta
     integrationDefinitionId
     description
     config
+    ingestionSourcesOverrides {
+      ingestionSourceId
+      enabled
+    }
+    sourceIntegrationInstanceId
+    collectorPoolId
+    pollingIntervalCronExpression {
+      hour
+      dayOfWeek
+    }
+    offsiteComplete
   }
 }
 
