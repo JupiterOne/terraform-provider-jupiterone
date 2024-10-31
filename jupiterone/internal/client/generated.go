@@ -376,6 +376,7 @@ type CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance struct {
 	SpecVersion int                                                                                   `json:"specVersion"`
 	Question    CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceQuestionRuleQuestionDetails `json:"question"`
 	Operations  []CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceOperationsRuleOperation   `json:"operations"`
+	Labels      []CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceLabelsRuleInstanceLabel   `json:"labels"`
 }
 
 // GetId returns CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance.Id, and is useful for accessing the field via an interface.
@@ -399,6 +400,27 @@ func (v *CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance) GetQuestion
 // GetOperations returns CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance.Operations, and is useful for accessing the field via an interface.
 func (v *CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance) GetOperations() []CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceOperationsRuleOperation {
 	return v.Operations
+}
+
+// GetLabels returns CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance.Labels, and is useful for accessing the field via an interface.
+func (v *CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance) GetLabels() []CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceLabelsRuleInstanceLabel {
+	return v.Labels
+}
+
+// CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceLabelsRuleInstanceLabel includes the requested fields of the GraphQL type RuleInstanceLabel.
+type CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceLabelsRuleInstanceLabel struct {
+	LabelName  string `json:"labelName"`
+	LabelValue string `json:"labelValue"`
+}
+
+// GetLabelName returns CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceLabelsRuleInstanceLabel.LabelName, and is useful for accessing the field via an interface.
+func (v *CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceLabelsRuleInstanceLabel) GetLabelName() string {
+	return v.LabelName
+}
+
+// GetLabelValue returns CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceLabelsRuleInstanceLabel.LabelValue, and is useful for accessing the field via an interface.
+func (v *CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceLabelsRuleInstanceLabel) GetLabelValue() string {
+	return v.LabelValue
 }
 
 // CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceOperationsRuleOperation includes the requested fields of the GraphQL type RuleOperation.
@@ -471,6 +493,8 @@ type CreateInlineQuestionRuleInstanceInput struct {
 	RemediationSteps                string                   `json:"remediationSteps"`
 	CollectionId                    string                   `json:"collectionId"`
 	Labels                          []RuleInstanceLabelInput `json:"labels"`
+	CollectionId                    string                   `json:"collectionId"`
+	Labels                          []RuleInstanceLabelInput `json:"labels"`
 	J1Internal                      bool                     `json:"j1Internal"`
 }
 
@@ -526,6 +550,12 @@ func (v *CreateInlineQuestionRuleInstanceInput) GetIgnorePreviousResults() bool 
 func (v *CreateInlineQuestionRuleInstanceInput) GetRemediationSteps() string {
 	return v.RemediationSteps
 }
+
+// GetCollectionId returns CreateInlineQuestionRuleInstanceInput.CollectionId, and is useful for accessing the field via an interface.
+func (v *CreateInlineQuestionRuleInstanceInput) GetCollectionId() string { return v.CollectionId }
+
+// GetLabels returns CreateInlineQuestionRuleInstanceInput.Labels, and is useful for accessing the field via an interface.
+func (v *CreateInlineQuestionRuleInstanceInput) GetLabels() []RuleInstanceLabelInput { return v.Labels }
 
 // GetCollectionId returns CreateInlineQuestionRuleInstanceInput.CollectionId, and is useful for accessing the field via an interface.
 func (v *CreateInlineQuestionRuleInstanceInput) GetCollectionId() string { return v.CollectionId }
@@ -992,6 +1022,8 @@ type CreateReferencedQuestionRuleInstanceInput struct {
 	RemediationSteps                string                   `json:"remediationSteps"`
 	CollectionId                    string                   `json:"collectionId"`
 	Labels                          []RuleInstanceLabelInput `json:"labels"`
+	CollectionId                    string                   `json:"collectionId"`
+	Labels                          []RuleInstanceLabelInput `json:"labels"`
 }
 
 // GetQuestionId returns CreateReferencedQuestionRuleInstanceInput.QuestionId, and is useful for accessing the field via an interface.
@@ -1045,6 +1077,14 @@ func (v *CreateReferencedQuestionRuleInstanceInput) GetIgnorePreviousResults() b
 // GetRemediationSteps returns CreateReferencedQuestionRuleInstanceInput.RemediationSteps, and is useful for accessing the field via an interface.
 func (v *CreateReferencedQuestionRuleInstanceInput) GetRemediationSteps() string {
 	return v.RemediationSteps
+}
+
+// GetCollectionId returns CreateReferencedQuestionRuleInstanceInput.CollectionId, and is useful for accessing the field via an interface.
+func (v *CreateReferencedQuestionRuleInstanceInput) GetCollectionId() string { return v.CollectionId }
+
+// GetLabels returns CreateReferencedQuestionRuleInstanceInput.Labels, and is useful for accessing the field via an interface.
+func (v *CreateReferencedQuestionRuleInstanceInput) GetLabels() []RuleInstanceLabelInput {
+	return v.Labels
 }
 
 // GetCollectionId returns CreateReferencedQuestionRuleInstanceInput.CollectionId, and is useful for accessing the field via an interface.
@@ -2637,12 +2677,15 @@ func (v *RevokeInvitationUpdateInvitationIamInvitation) GetStatus() string { ret
 type RuleInstanceLabelInput struct {
 	LabelName  string `json:"labelName"`
 	LabelValue string `json:"labelValue"`
+	LabelName  string `json:"labelName"`
+	LabelValue string `json:"labelValue"`
 }
 
 // GetLabelName returns RuleInstanceLabelInput.LabelName, and is useful for accessing the field via an interface.
 func (v *RuleInstanceLabelInput) GetLabelName() string { return v.LabelName }
 
 // GetLabelValue returns RuleInstanceLabelInput.LabelValue, and is useful for accessing the field via an interface.
+func (v *RuleInstanceLabelInput) GetLabelValue() string { return v.LabelValue }
 func (v *RuleInstanceLabelInput) GetLabelValue() string { return v.LabelValue }
 
 type RuleInstanceType string
@@ -2967,6 +3010,8 @@ type UpdateInlineQuestionRuleInstanceInput struct {
 	RemediationSteps                string                   `json:"remediationSteps,omitempty"`
 	CollectionId                    string                   `json:"collectionId"`
 	Labels                          []RuleInstanceLabelInput `json:"labels"`
+	CollectionId                    string                   `json:"collectionId"`
+	Labels                          []RuleInstanceLabelInput `json:"labels"`
 }
 
 // GetQuestion returns UpdateInlineQuestionRuleInstanceInput.Question, and is useful for accessing the field via an interface.
@@ -3033,6 +3078,12 @@ func (v *UpdateInlineQuestionRuleInstanceInput) GetIgnorePreviousResults() bool 
 func (v *UpdateInlineQuestionRuleInstanceInput) GetRemediationSteps() string {
 	return v.RemediationSteps
 }
+
+// GetCollectionId returns UpdateInlineQuestionRuleInstanceInput.CollectionId, and is useful for accessing the field via an interface.
+func (v *UpdateInlineQuestionRuleInstanceInput) GetCollectionId() string { return v.CollectionId }
+
+// GetLabels returns UpdateInlineQuestionRuleInstanceInput.Labels, and is useful for accessing the field via an interface.
+func (v *UpdateInlineQuestionRuleInstanceInput) GetLabels() []RuleInstanceLabelInput { return v.Labels }
 
 // GetCollectionId returns UpdateInlineQuestionRuleInstanceInput.CollectionId, and is useful for accessing the field via an interface.
 func (v *UpdateInlineQuestionRuleInstanceInput) GetCollectionId() string { return v.CollectionId }
@@ -3265,6 +3316,8 @@ type UpdateReferencedQuestionRuleInstanceInput struct {
 	RemediationSteps                string                   `json:"remediationSteps"`
 	CollectionId                    string                   `json:"collectionId"`
 	Labels                          []RuleInstanceLabelInput `json:"labels"`
+	CollectionId                    string                   `json:"collectionId"`
+	Labels                          []RuleInstanceLabelInput `json:"labels"`
 }
 
 // GetQuestionId returns UpdateReferencedQuestionRuleInstanceInput.QuestionId, and is useful for accessing the field via an interface.
@@ -3330,6 +3383,14 @@ func (v *UpdateReferencedQuestionRuleInstanceInput) GetIgnorePreviousResults() b
 // GetRemediationSteps returns UpdateReferencedQuestionRuleInstanceInput.RemediationSteps, and is useful for accessing the field via an interface.
 func (v *UpdateReferencedQuestionRuleInstanceInput) GetRemediationSteps() string {
 	return v.RemediationSteps
+}
+
+// GetCollectionId returns UpdateReferencedQuestionRuleInstanceInput.CollectionId, and is useful for accessing the field via an interface.
+func (v *UpdateReferencedQuestionRuleInstanceInput) GetCollectionId() string { return v.CollectionId }
+
+// GetLabels returns UpdateReferencedQuestionRuleInstanceInput.Labels, and is useful for accessing the field via an interface.
+func (v *UpdateReferencedQuestionRuleInstanceInput) GetLabels() []RuleInstanceLabelInput {
+	return v.Labels
 }
 
 // GetCollectionId returns UpdateReferencedQuestionRuleInstanceInput.CollectionId, and is useful for accessing the field via an interface.
@@ -4196,6 +4257,10 @@ mutation CreateInlineQuestionRuleInstance ($instance: CreateInlineQuestionRuleIn
 		operations {
 			when
 			actions
+		}
+		labels {
+			labelName
+			labelValue
 		}
 	}
 }
