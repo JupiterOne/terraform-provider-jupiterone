@@ -1947,6 +1947,7 @@ func (v *GetQuestionByIdResponse) GetQuestion() GetQuestionByIdQuestion { return
 type GetQuestionRuleInstanceQuestionRuleInstance struct {
 	Id                              string                                                                 `json:"id"`
 	Name                            string                                                                 `json:"name"`
+	CollectionId                    string                                                                 `json:"collectionId"`
 	Description                     string                                                                 `json:"description"`
 	Version                         int                                                                    `json:"version"`
 	SpecVersion                     int                                                                    `json:"specVersion"`
@@ -1970,6 +1971,9 @@ func (v *GetQuestionRuleInstanceQuestionRuleInstance) GetId() string { return v.
 
 // GetName returns GetQuestionRuleInstanceQuestionRuleInstance.Name, and is useful for accessing the field via an interface.
 func (v *GetQuestionRuleInstanceQuestionRuleInstance) GetName() string { return v.Name }
+
+// GetCollectionId returns GetQuestionRuleInstanceQuestionRuleInstance.CollectionId, and is useful for accessing the field via an interface.
+func (v *GetQuestionRuleInstanceQuestionRuleInstance) GetCollectionId() string { return v.CollectionId }
 
 // GetDescription returns GetQuestionRuleInstanceQuestionRuleInstance.Description, and is useful for accessing the field via an interface.
 func (v *GetQuestionRuleInstanceQuestionRuleInstance) GetDescription() string { return v.Description }
@@ -5216,6 +5220,7 @@ query GetQuestionRuleInstance ($id: ID!) {
 	questionRuleInstance(id: $id) {
 		id
 		name
+		collectionId
 		description
 		version
 		specVersion

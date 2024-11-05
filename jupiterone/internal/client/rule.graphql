@@ -2,6 +2,7 @@ query GetQuestionRuleInstance($id: ID!) {
   questionRuleInstance(id: $id) {
     id
     name
+    collectionId
     description
     version
     specVersion
