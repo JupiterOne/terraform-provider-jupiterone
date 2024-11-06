@@ -1353,6 +1353,49 @@ func (v *DeleteQuestionResponse) GetDeleteQuestion() DeleteQuestionDeleteQuestio
 	return v.DeleteQuestion
 }
 
+// DeleteResourcePermissionDeleteResourcePermissionDeleteInfo includes the requested fields of the GraphQL type DeleteInfo.
+type DeleteResourcePermissionDeleteResourcePermissionDeleteInfo struct {
+	Success bool `json:"success"`
+}
+
+// GetSuccess returns DeleteResourcePermissionDeleteResourcePermissionDeleteInfo.Success, and is useful for accessing the field via an interface.
+func (v *DeleteResourcePermissionDeleteResourcePermissionDeleteInfo) GetSuccess() bool {
+	return v.Success
+}
+
+type DeleteResourcePermissionInput struct {
+	SubjectType  string `json:"subjectType"`
+	SubjectId    string `json:"subjectId"`
+	ResourceArea string `json:"resourceArea"`
+	ResourceType string `json:"resourceType"`
+	ResourceId   string `json:"resourceId"`
+}
+
+// GetSubjectType returns DeleteResourcePermissionInput.SubjectType, and is useful for accessing the field via an interface.
+func (v *DeleteResourcePermissionInput) GetSubjectType() string { return v.SubjectType }
+
+// GetSubjectId returns DeleteResourcePermissionInput.SubjectId, and is useful for accessing the field via an interface.
+func (v *DeleteResourcePermissionInput) GetSubjectId() string { return v.SubjectId }
+
+// GetResourceArea returns DeleteResourcePermissionInput.ResourceArea, and is useful for accessing the field via an interface.
+func (v *DeleteResourcePermissionInput) GetResourceArea() string { return v.ResourceArea }
+
+// GetResourceType returns DeleteResourcePermissionInput.ResourceType, and is useful for accessing the field via an interface.
+func (v *DeleteResourcePermissionInput) GetResourceType() string { return v.ResourceType }
+
+// GetResourceId returns DeleteResourcePermissionInput.ResourceId, and is useful for accessing the field via an interface.
+func (v *DeleteResourcePermissionInput) GetResourceId() string { return v.ResourceId }
+
+// DeleteResourcePermissionResponse is returned by DeleteResourcePermission on success.
+type DeleteResourcePermissionResponse struct {
+	DeleteResourcePermission DeleteResourcePermissionDeleteResourcePermissionDeleteInfo `json:"deleteResourcePermission"`
+}
+
+// GetDeleteResourcePermission returns DeleteResourcePermissionResponse.DeleteResourcePermission, and is useful for accessing the field via an interface.
+func (v *DeleteResourcePermissionResponse) GetDeleteResourcePermission() DeleteResourcePermissionDeleteResourcePermissionDeleteInfo {
+	return v.DeleteResourcePermission
+}
+
 // DeleteRuleInstanceDeleteRuleInstanceDeleteRuleInstanceResult includes the requested fields of the GraphQL type DeleteRuleInstanceResult.
 type DeleteRuleInstanceDeleteRuleInstanceDeleteRuleInstanceResult struct {
 	Id string `json:"id"`
@@ -2085,6 +2128,97 @@ func (v *GetQuestionRuleInstanceResponse) GetQuestionRuleInstance() GetQuestionR
 	return v.QuestionRuleInstance
 }
 
+// GetResourcePermissionGetResourcePermissionsIamResourcePermission includes the requested fields of the GraphQL type IamResourcePermission.
+type GetResourcePermissionGetResourcePermissionsIamResourcePermission struct {
+	CanCreate    bool   `json:"canCreate"`
+	CanDelete    bool   `json:"canDelete"`
+	CanRead      bool   `json:"canRead"`
+	CanUpdate    bool   `json:"canUpdate"`
+	ResourceArea string `json:"resourceArea"`
+	ResourceId   string `json:"resourceId"`
+	ResourceType string `json:"resourceType"`
+	SubjectId    string `json:"subjectId"`
+	SubjectType  string `json:"subjectType"`
+}
+
+// GetCanCreate returns GetResourcePermissionGetResourcePermissionsIamResourcePermission.CanCreate, and is useful for accessing the field via an interface.
+func (v *GetResourcePermissionGetResourcePermissionsIamResourcePermission) GetCanCreate() bool {
+	return v.CanCreate
+}
+
+// GetCanDelete returns GetResourcePermissionGetResourcePermissionsIamResourcePermission.CanDelete, and is useful for accessing the field via an interface.
+func (v *GetResourcePermissionGetResourcePermissionsIamResourcePermission) GetCanDelete() bool {
+	return v.CanDelete
+}
+
+// GetCanRead returns GetResourcePermissionGetResourcePermissionsIamResourcePermission.CanRead, and is useful for accessing the field via an interface.
+func (v *GetResourcePermissionGetResourcePermissionsIamResourcePermission) GetCanRead() bool {
+	return v.CanRead
+}
+
+// GetCanUpdate returns GetResourcePermissionGetResourcePermissionsIamResourcePermission.CanUpdate, and is useful for accessing the field via an interface.
+func (v *GetResourcePermissionGetResourcePermissionsIamResourcePermission) GetCanUpdate() bool {
+	return v.CanUpdate
+}
+
+// GetResourceArea returns GetResourcePermissionGetResourcePermissionsIamResourcePermission.ResourceArea, and is useful for accessing the field via an interface.
+func (v *GetResourcePermissionGetResourcePermissionsIamResourcePermission) GetResourceArea() string {
+	return v.ResourceArea
+}
+
+// GetResourceId returns GetResourcePermissionGetResourcePermissionsIamResourcePermission.ResourceId, and is useful for accessing the field via an interface.
+func (v *GetResourcePermissionGetResourcePermissionsIamResourcePermission) GetResourceId() string {
+	return v.ResourceId
+}
+
+// GetResourceType returns GetResourcePermissionGetResourcePermissionsIamResourcePermission.ResourceType, and is useful for accessing the field via an interface.
+func (v *GetResourcePermissionGetResourcePermissionsIamResourcePermission) GetResourceType() string {
+	return v.ResourceType
+}
+
+// GetSubjectId returns GetResourcePermissionGetResourcePermissionsIamResourcePermission.SubjectId, and is useful for accessing the field via an interface.
+func (v *GetResourcePermissionGetResourcePermissionsIamResourcePermission) GetSubjectId() string {
+	return v.SubjectId
+}
+
+// GetSubjectType returns GetResourcePermissionGetResourcePermissionsIamResourcePermission.SubjectType, and is useful for accessing the field via an interface.
+func (v *GetResourcePermissionGetResourcePermissionsIamResourcePermission) GetSubjectType() string {
+	return v.SubjectType
+}
+
+// GetResourcePermissionResponse is returned by GetResourcePermission on success.
+type GetResourcePermissionResponse struct {
+	GetResourcePermissions []GetResourcePermissionGetResourcePermissionsIamResourcePermission `json:"getResourcePermissions"`
+}
+
+// GetGetResourcePermissions returns GetResourcePermissionResponse.GetResourcePermissions, and is useful for accessing the field via an interface.
+func (v *GetResourcePermissionResponse) GetGetResourcePermissions() []GetResourcePermissionGetResourcePermissionsIamResourcePermission {
+	return v.GetResourcePermissions
+}
+
+type GetResourcePermissionsFilter struct {
+	SubjectType  string `json:"subjectType"`
+	SubjectId    string `json:"subjectId"`
+	ResourceArea string `json:"resourceArea"`
+	ResourceType string `json:"resourceType"`
+	ResourceId   string `json:"resourceId"`
+}
+
+// GetSubjectType returns GetResourcePermissionsFilter.SubjectType, and is useful for accessing the field via an interface.
+func (v *GetResourcePermissionsFilter) GetSubjectType() string { return v.SubjectType }
+
+// GetSubjectId returns GetResourcePermissionsFilter.SubjectId, and is useful for accessing the field via an interface.
+func (v *GetResourcePermissionsFilter) GetSubjectId() string { return v.SubjectId }
+
+// GetResourceArea returns GetResourcePermissionsFilter.ResourceArea, and is useful for accessing the field via an interface.
+func (v *GetResourcePermissionsFilter) GetResourceArea() string { return v.ResourceArea }
+
+// GetResourceType returns GetResourcePermissionsFilter.ResourceType, and is useful for accessing the field via an interface.
+func (v *GetResourcePermissionsFilter) GetResourceType() string { return v.ResourceType }
+
+// GetResourceId returns GetResourcePermissionsFilter.ResourceId, and is useful for accessing the field via an interface.
+func (v *GetResourcePermissionsFilter) GetResourceId() string { return v.ResourceId }
+
 // GetUserGroupIamGetGroupIamGroup includes the requested fields of the GraphQL type IamGroup.
 type GetUserGroupIamGetGroupIamGroup struct {
 	Id                  string                                                              `json:"id"`
@@ -2728,6 +2862,113 @@ const (
 	SchedulerPollingIntervalOneDay         SchedulerPollingInterval = "ONE_DAY"
 	SchedulerPollingIntervalOneWeek        SchedulerPollingInterval = "ONE_WEEK"
 )
+
+type SetResourcePermissionInput struct {
+	SubjectType  string `json:"subjectType"`
+	SubjectId    string `json:"subjectId"`
+	ResourceArea string `json:"resourceArea"`
+	ResourceType string `json:"resourceType"`
+	ResourceId   string `json:"resourceId"`
+	CanCreate    bool   `json:"canCreate"`
+	CanRead      bool   `json:"canRead"`
+	CanUpdate    bool   `json:"canUpdate"`
+	CanDelete    bool   `json:"canDelete"`
+}
+
+// GetSubjectType returns SetResourcePermissionInput.SubjectType, and is useful for accessing the field via an interface.
+func (v *SetResourcePermissionInput) GetSubjectType() string { return v.SubjectType }
+
+// GetSubjectId returns SetResourcePermissionInput.SubjectId, and is useful for accessing the field via an interface.
+func (v *SetResourcePermissionInput) GetSubjectId() string { return v.SubjectId }
+
+// GetResourceArea returns SetResourcePermissionInput.ResourceArea, and is useful for accessing the field via an interface.
+func (v *SetResourcePermissionInput) GetResourceArea() string { return v.ResourceArea }
+
+// GetResourceType returns SetResourcePermissionInput.ResourceType, and is useful for accessing the field via an interface.
+func (v *SetResourcePermissionInput) GetResourceType() string { return v.ResourceType }
+
+// GetResourceId returns SetResourcePermissionInput.ResourceId, and is useful for accessing the field via an interface.
+func (v *SetResourcePermissionInput) GetResourceId() string { return v.ResourceId }
+
+// GetCanCreate returns SetResourcePermissionInput.CanCreate, and is useful for accessing the field via an interface.
+func (v *SetResourcePermissionInput) GetCanCreate() bool { return v.CanCreate }
+
+// GetCanRead returns SetResourcePermissionInput.CanRead, and is useful for accessing the field via an interface.
+func (v *SetResourcePermissionInput) GetCanRead() bool { return v.CanRead }
+
+// GetCanUpdate returns SetResourcePermissionInput.CanUpdate, and is useful for accessing the field via an interface.
+func (v *SetResourcePermissionInput) GetCanUpdate() bool { return v.CanUpdate }
+
+// GetCanDelete returns SetResourcePermissionInput.CanDelete, and is useful for accessing the field via an interface.
+func (v *SetResourcePermissionInput) GetCanDelete() bool { return v.CanDelete }
+
+// SetResourcePermissionResponse is returned by SetResourcePermission on success.
+type SetResourcePermissionResponse struct {
+	SetResourcePermission SetResourcePermissionSetResourcePermissionIamResourcePermission `json:"setResourcePermission"`
+}
+
+// GetSetResourcePermission returns SetResourcePermissionResponse.SetResourcePermission, and is useful for accessing the field via an interface.
+func (v *SetResourcePermissionResponse) GetSetResourcePermission() SetResourcePermissionSetResourcePermissionIamResourcePermission {
+	return v.SetResourcePermission
+}
+
+// SetResourcePermissionSetResourcePermissionIamResourcePermission includes the requested fields of the GraphQL type IamResourcePermission.
+type SetResourcePermissionSetResourcePermissionIamResourcePermission struct {
+	CanCreate    bool   `json:"canCreate"`
+	CanDelete    bool   `json:"canDelete"`
+	CanRead      bool   `json:"canRead"`
+	CanUpdate    bool   `json:"canUpdate"`
+	ResourceArea string `json:"resourceArea"`
+	ResourceId   string `json:"resourceId"`
+	ResourceType string `json:"resourceType"`
+	SubjectId    string `json:"subjectId"`
+	SubjectType  string `json:"subjectType"`
+}
+
+// GetCanCreate returns SetResourcePermissionSetResourcePermissionIamResourcePermission.CanCreate, and is useful for accessing the field via an interface.
+func (v *SetResourcePermissionSetResourcePermissionIamResourcePermission) GetCanCreate() bool {
+	return v.CanCreate
+}
+
+// GetCanDelete returns SetResourcePermissionSetResourcePermissionIamResourcePermission.CanDelete, and is useful for accessing the field via an interface.
+func (v *SetResourcePermissionSetResourcePermissionIamResourcePermission) GetCanDelete() bool {
+	return v.CanDelete
+}
+
+// GetCanRead returns SetResourcePermissionSetResourcePermissionIamResourcePermission.CanRead, and is useful for accessing the field via an interface.
+func (v *SetResourcePermissionSetResourcePermissionIamResourcePermission) GetCanRead() bool {
+	return v.CanRead
+}
+
+// GetCanUpdate returns SetResourcePermissionSetResourcePermissionIamResourcePermission.CanUpdate, and is useful for accessing the field via an interface.
+func (v *SetResourcePermissionSetResourcePermissionIamResourcePermission) GetCanUpdate() bool {
+	return v.CanUpdate
+}
+
+// GetResourceArea returns SetResourcePermissionSetResourcePermissionIamResourcePermission.ResourceArea, and is useful for accessing the field via an interface.
+func (v *SetResourcePermissionSetResourcePermissionIamResourcePermission) GetResourceArea() string {
+	return v.ResourceArea
+}
+
+// GetResourceId returns SetResourcePermissionSetResourcePermissionIamResourcePermission.ResourceId, and is useful for accessing the field via an interface.
+func (v *SetResourcePermissionSetResourcePermissionIamResourcePermission) GetResourceId() string {
+	return v.ResourceId
+}
+
+// GetResourceType returns SetResourcePermissionSetResourcePermissionIamResourcePermission.ResourceType, and is useful for accessing the field via an interface.
+func (v *SetResourcePermissionSetResourcePermissionIamResourcePermission) GetResourceType() string {
+	return v.ResourceType
+}
+
+// GetSubjectId returns SetResourcePermissionSetResourcePermissionIamResourcePermission.SubjectId, and is useful for accessing the field via an interface.
+func (v *SetResourcePermissionSetResourcePermissionIamResourcePermission) GetSubjectId() string {
+	return v.SubjectId
+}
+
+// GetSubjectType returns SetResourcePermissionSetResourcePermissionIamResourcePermission.SubjectType, and is useful for accessing the field via an interface.
+func (v *SetResourcePermissionSetResourcePermissionIamResourcePermission) GetSubjectType() string {
+	return v.SubjectType
+}
 
 type UpdateComplianceFrameworkFields struct {
 	Name         string                   `json:"name"`
@@ -3693,6 +3934,14 @@ type __DeleteQuestionInput struct {
 // GetId returns __DeleteQuestionInput.Id, and is useful for accessing the field via an interface.
 func (v *__DeleteQuestionInput) GetId() string { return v.Id }
 
+// __DeleteResourcePermissionInput is used internally by genqlient
+type __DeleteResourcePermissionInput struct {
+	Input DeleteResourcePermissionInput `json:"input"`
+}
+
+// GetInput returns __DeleteResourcePermissionInput.Input, and is useful for accessing the field via an interface.
+func (v *__DeleteResourcePermissionInput) GetInput() DeleteResourcePermissionInput { return v.Input }
+
 // __DeleteRuleInstanceInput is used internally by genqlient
 type __DeleteRuleInstanceInput struct {
 	Id string `json:"id"`
@@ -3793,6 +4042,22 @@ type __GetQuestionRuleInstanceInput struct {
 // GetId returns __GetQuestionRuleInstanceInput.Id, and is useful for accessing the field via an interface.
 func (v *__GetQuestionRuleInstanceInput) GetId() string { return v.Id }
 
+// __GetResourcePermissionInput is used internally by genqlient
+type __GetResourcePermissionInput struct {
+	Filter GetResourcePermissionsFilter `json:"filter"`
+	Cursor string                       `json:"cursor"`
+	Limit  int                          `json:"limit"`
+}
+
+// GetFilter returns __GetResourcePermissionInput.Filter, and is useful for accessing the field via an interface.
+func (v *__GetResourcePermissionInput) GetFilter() GetResourcePermissionsFilter { return v.Filter }
+
+// GetCursor returns __GetResourcePermissionInput.Cursor, and is useful for accessing the field via an interface.
+func (v *__GetResourcePermissionInput) GetCursor() string { return v.Cursor }
+
+// GetLimit returns __GetResourcePermissionInput.Limit, and is useful for accessing the field via an interface.
+func (v *__GetResourcePermissionInput) GetLimit() int { return v.Limit }
+
 // __GetUserGroupInput is used internally by genqlient
 type __GetUserGroupInput struct {
 	Id string `json:"id"`
@@ -3864,6 +4129,14 @@ type __RevokeInvitationInput struct {
 
 // GetId returns __RevokeInvitationInput.Id, and is useful for accessing the field via an interface.
 func (v *__RevokeInvitationInput) GetId() string { return v.Id }
+
+// __SetResourcePermissionInput is used internally by genqlient
+type __SetResourcePermissionInput struct {
+	Input SetResourcePermissionInput `json:"input"`
+}
+
+// GetInput returns __SetResourcePermissionInput.Input, and is useful for accessing the field via an interface.
+func (v *__SetResourcePermissionInput) GetInput() SetResourcePermissionInput { return v.Input }
 
 // __UpdateComplianceFrameworkInput is used internally by genqlient
 type __UpdateComplianceFrameworkInput struct {
@@ -4735,6 +5008,38 @@ mutation DeleteQuestion ($id: ID!) {
 	return &data, err
 }
 
+func DeleteResourcePermission(
+	ctx context.Context,
+	client graphql.Client,
+	input DeleteResourcePermissionInput,
+) (*DeleteResourcePermissionResponse, error) {
+	req := &graphql.Request{
+		OpName: "DeleteResourcePermission",
+		Query: `
+mutation DeleteResourcePermission ($input: DeleteResourcePermissionInput!) {
+	deleteResourcePermission(input: $input) {
+		success
+	}
+}
+`,
+		Variables: &__DeleteResourcePermissionInput{
+			Input: input,
+		},
+	}
+	var err error
+
+	var data DeleteResourcePermissionResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
 func DeleteRuleInstance(
 	ctx context.Context,
 	client graphql.Client,
@@ -5268,6 +5573,50 @@ query GetQuestionRuleInstance ($id: ID!) {
 	return &data, err
 }
 
+func GetResourcePermission(
+	ctx context.Context,
+	client graphql.Client,
+	filter GetResourcePermissionsFilter,
+	cursor string,
+	limit int,
+) (*GetResourcePermissionResponse, error) {
+	req := &graphql.Request{
+		OpName: "GetResourcePermission",
+		Query: `
+query GetResourcePermission ($filter: GetResourcePermissionsFilter!, $cursor: String, $limit: Int) {
+	getResourcePermissions(filter: $filter, cursor: $cursor, limit: $limit) {
+		canCreate
+		canDelete
+		canRead
+		canUpdate
+		resourceArea
+		resourceId
+		resourceType
+		subjectId
+		subjectType
+	}
+}
+`,
+		Variables: &__GetResourcePermissionInput{
+			Filter: filter,
+			Cursor: cursor,
+			Limit:  limit,
+		},
+	}
+	var err error
+
+	var data GetResourcePermissionResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
 func GetUserGroup(
 	ctx context.Context,
 	client graphql.Client,
@@ -5524,6 +5873,46 @@ mutation RevokeInvitation ($id: ID!) {
 	var err error
 
 	var data RevokeInvitationResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func SetResourcePermission(
+	ctx context.Context,
+	client graphql.Client,
+	input SetResourcePermissionInput,
+) (*SetResourcePermissionResponse, error) {
+	req := &graphql.Request{
+		OpName: "SetResourcePermission",
+		Query: `
+mutation SetResourcePermission ($input: SetResourcePermissionInput!) {
+	setResourcePermission(input: $input) {
+		canCreate
+		canDelete
+		canRead
+		canUpdate
+		resourceArea
+		resourceId
+		resourceType
+		subjectId
+		subjectType
+	}
+}
+`,
+		Variables: &__SetResourcePermissionInput{
+			Input: input,
+		},
+	}
+	var err error
+
+	var data SetResourcePermissionResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(
