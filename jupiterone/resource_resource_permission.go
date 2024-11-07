@@ -19,6 +19,7 @@ type ResourcePermissionResource struct {
 }
 
 type ResourcePermissionModel struct {
+	ID           types.String `tfsdk:"id"`
 	SubjectType  types.String `json:"subjectType" tfsdk:"subject_type"`
 	SubjectId    types.String `json:"subjectId" tfsdk:"subject_id"`
 	ResourceArea types.String `json:"resourceArea" tfsdk:"resource_area"`
@@ -63,6 +64,9 @@ func (*ResourcePermissionResource) Schema(ctx context.Context, req resource.Sche
 	resp.Schema = schema.Schema{
 		Description: "JupiterOne Resource Based Permission",
 		Attributes: map[string]schema.Attribute{
+			"id": schema.StringAttribute{
+				Computed: true,
+			},
 			"subject_type": schema.StringAttribute{
 				Required:    true,
 				Description: "The type of the subject that the resource permissions will be applied to (e.g. group).",
@@ -142,6 +146,8 @@ func (r *ResourcePermissionResource) Create(ctx context.Context, req resource.Cr
 		return
 	}
 
+	data.ID = types.StringValue(fmt.Sprintf("%s-%s-%s-%s-%s", data.SubjectType.ValueString(), data.SubjectId.ValueString(), data.ResourceArea.ValueString(), data.ResourceType.ValueString(), data.ResourceId.ValueString()))
+
 	tflog.Trace(ctx, "Set resource permission",
 		map[string]interface{}{"resourceArea": created.SetResourcePermission.ResourceArea})
 
@@ -175,6 +181,8 @@ func (r *ResourcePermissionResource) Update(ctx context.Context, req resource.Up
 
 	tflog.Trace(ctx, "Set resource permission",
 		map[string]interface{}{"resourceArea": created.SetResourcePermission.ResourceArea})
+
+	data.ID = types.StringValue(fmt.Sprintf("%s-%s-%s-%s-%s", data.SubjectType.ValueString(), data.SubjectId.ValueString(), data.ResourceArea.ValueString(), data.ResourceType.ValueString(), data.ResourceId.ValueString()))
 
 	// Save updated data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
