@@ -503,7 +503,6 @@ func (r *QuestionRuleResource) Read(ctx context.Context, req resource.ReadReques
 		NotifyOnFailure:       types.BoolValue(rule.NotifyOnFailure),
 		TriggerOnNewOnly:      types.BoolValue(rule.TriggerActionsOnNewEntitiesOnly),
 		IgnorePreviousResults: types.BoolValue(rule.IgnorePreviousResults),
-		CollectionId:          types.StringValue(rule.CollectionId),
 	}
 
 	// FIXME: handling of these JSON fields (map[string]interface{}) is not DRY
@@ -514,6 +513,12 @@ func (r *QuestionRuleResource) Read(ctx context.Context, req resource.ReadReques
 	err = json.Unmarshal(templates, &data.Templates)
 	if err != nil {
 		resp.Diagnostics.AddError("error unmarshaling templates from response", err.Error())
+	}
+
+	if rule.CollectionId != "" {
+		data.CollectionId = types.StringValue(rule.CollectionId)
+	} else {
+		data.CollectionId = types.StringNull()
 	}
 
 	if rule.QuestionId != "" {

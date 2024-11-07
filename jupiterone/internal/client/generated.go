@@ -491,7 +491,7 @@ type CreateInlineQuestionRuleInstanceInput struct {
 	TriggerActionsOnNewEntitiesOnly bool                     `json:"triggerActionsOnNewEntitiesOnly"`
 	IgnorePreviousResults           bool                     `json:"ignorePreviousResults"`
 	RemediationSteps                string                   `json:"remediationSteps"`
-	CollectionId                    string                   `json:"collectionId"`
+	CollectionId                    string                   `json:"collectionId,omitempty"`
 	Labels                          []RuleInstanceLabelInput `json:"labels"`
 	J1Internal                      bool                     `json:"j1Internal"`
 }
@@ -1012,7 +1012,7 @@ type CreateReferencedQuestionRuleInstanceInput struct {
 	TriggerActionsOnNewEntitiesOnly bool                     `json:"triggerActionsOnNewEntitiesOnly"`
 	IgnorePreviousResults           bool                     `json:"ignorePreviousResults"`
 	RemediationSteps                string                   `json:"remediationSteps"`
-	CollectionId                    string                   `json:"collectionId"`
+	CollectionId                    string                   `json:"collectionId,omitempty"`
 	Labels                          []RuleInstanceLabelInput `json:"labels"`
 }
 
@@ -3232,7 +3232,7 @@ type UpdateInlineQuestionRuleInstanceInput struct {
 	TriggerActionsOnNewEntitiesOnly bool                     `json:"triggerActionsOnNewEntitiesOnly"`
 	IgnorePreviousResults           bool                     `json:"ignorePreviousResults"`
 	RemediationSteps                string                   `json:"remediationSteps,omitempty"`
-	CollectionId                    string                   `json:"collectionId"`
+	CollectionId                    string                   `json:"collectionId,omitempty"`
 	Labels                          []RuleInstanceLabelInput `json:"labels"`
 }
 
@@ -3530,7 +3530,7 @@ type UpdateReferencedQuestionRuleInstanceInput struct {
 	TriggerActionsOnNewEntitiesOnly bool                     `json:"triggerActionsOnNewEntitiesOnly"`
 	IgnorePreviousResults           bool                     `json:"ignorePreviousResults"`
 	RemediationSteps                string                   `json:"remediationSteps"`
-	CollectionId                    string                   `json:"collectionId"`
+	CollectionId                    string                   `json:"collectionId,omitempty"`
 	Labels                          []RuleInstanceLabelInput `json:"labels"`
 }
 
