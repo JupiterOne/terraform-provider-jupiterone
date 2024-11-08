@@ -72,6 +72,7 @@ type RuleOperation struct {
 }
 
 type RuleLabel struct {
+	Id         types.String `json:"id" tfsdk:"id"`
 	LabelName  types.String `json:"label_name" tfsdk:"label_name"`
 	LabelValue types.String `json:"label_value" tfsdk:"label_value"`
 }
@@ -274,6 +275,9 @@ func (*QuestionRuleResource) Schema(ctx context.Context, req resource.SchemaRequ
 				Optional:    true,
 				NestedObject: schema.NestedAttributeObject{
 					Attributes: map[string]schema.Attribute{
+						"id": schema.StringAttribute{
+							Computed: true,
+						},
 						"label_name": schema.StringAttribute{
 							Required:    true,
 							Description: "Name of the label",
@@ -442,6 +446,18 @@ func (r *QuestionRuleResource) Create(ctx context.Context, req resource.CreateRe
 	data.Id = types.StringValue(c.GetId())
 	data.Version = types.Int64Value(int64(c.GetVersion()))
 
+	if len(data.Labels) > 0 {
+		labelsWithId := make([]RuleLabel, len(data.Labels))
+		for i, label := range data.Labels {
+			labelsWithId[i] = RuleLabel{
+				Id:         types.StringValue(fmt.Sprintf("%s-%s", label.LabelName, label.LabelValue)),
+				LabelName:  label.LabelName,
+				LabelValue: label.LabelValue,
+			}
+		}
+		data.Labels = labelsWithId
+	}
+
 	tflog.Trace(ctx, "Created rule",
 		map[string]interface{}{"title": data.Name, "id": data.Id})
 
@@ -539,6 +555,23 @@ func (r *QuestionRuleResource) Read(ctx context.Context, req resource.ReadReques
 		resp.Diagnostics.AddError("error unmarshaling templates from response", err.Error())
 	}
 
+	if len(data.Labels) > 0 {
+		labelsWithId := make([]RuleLabel, len(data.Labels))
+		for i, label := range data.Labels {
+			if label.Id.IsNull() {
+				labelsWithId[i] = RuleLabel{
+					Id:         types.StringValue(fmt.Sprintf("%s-%s", label.LabelName, label.LabelValue)), // Generate a unique ID based on labelName and labelValue
+					LabelName:  label.LabelName,
+					LabelValue: label.LabelValue,
+				}
+			} else {
+				// If the label already has an ID, keep it
+				labelsWithId[i] = label
+			}
+		}
+		data.Labels = labelsWithId
+	}
+
 	// Save updated data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
 }
@@ -600,6 +633,23 @@ func (r *QuestionRuleResource) Update(ctx context.Context, req resource.UpdateRe
 	}
 
 	data.Version = types.Int64Value(int64(update.GetVersion()))
+
+	if len(data.Labels) > 0 {
+		labelsWithId := make([]RuleLabel, len(data.Labels))
+		for i, label := range data.Labels {
+			if label.Id.IsNull() {
+				labelsWithId[i] = RuleLabel{
+					Id:         types.StringValue(fmt.Sprintf("%s-%s", label.LabelName, label.LabelValue)), // Generate a unique ID based on labelName and labelValue
+					LabelName:  label.LabelName,
+					LabelValue: label.LabelValue,
+				}
+			} else {
+				// If the label already has an ID, keep it
+				labelsWithId[i] = label
+			}
+		}
+		data.Labels = labelsWithId
+	}
 
 	tflog.Trace(ctx, "Updated rule",
 		map[string]interface{}{"title": data.Name, "id": data.Id})
@@ -747,7 +797,6 @@ func (r *RuleModel) BuildCreateInlineQuestionRuleInstanceInput() (client.CreateI
 		NotifyOnFailure:                 r.NotifyOnFailure.ValueBool(),
 		TriggerActionsOnNewEntitiesOnly: r.TriggerOnNewOnly.ValueBool(),
 		IgnorePreviousResults:           r.IgnorePreviousResults.ValueBool(),
-		// Labels:                          r.Labels,
 	}
 
 	var err error
