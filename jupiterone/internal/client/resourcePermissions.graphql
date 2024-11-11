@@ -1,0 +1,37 @@
+mutation SetResourcePermission($input: SetResourcePermissionInput!) {
+  setResourcePermission(input: $input) {
+    canCreate
+    canDelete
+    canRead
+    canUpdate
+    resourceArea
+    resourceId
+    resourceType
+    subjectId
+    subjectType
+  }
+}
+
+mutation DeleteResourcePermission($input: DeleteResourcePermissionInput!) {
+  deleteResourcePermission(input: $input) {
+    success
+  }
+}
+
+query GetResourcePermission(
+  $filter: GetResourcePermissionsFilter!
+  $cursor: String
+  $limit: Int
+) {
+  getResourcePermissions(filter: $filter, cursor: $cursor, limit: $limit) {
+    canCreate
+    canDelete
+    canRead
+    canUpdate
+    resourceArea
+    resourceId
+    resourceType
+    subjectId
+    subjectType
+  }
+}

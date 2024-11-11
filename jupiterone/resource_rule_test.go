@@ -135,6 +135,7 @@ func TestInlineRuleInstance_BasicImport(t *testing.T) {
 					resource.TestCheckResourceAttr(testRuleResourceName, "question.0.queries.0.query", "Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true"),
 					resource.TestCheckResourceAttr(testRuleResourceName, "labels.0.label_name", "label1"),
 					resource.TestCheckResourceAttr(testRuleResourceName, "labels.#", "0"),
+					resource.TestCheckResourceAttr(testRuleResourceName, "collection_id", "null"),
 				),
 			},
 		},

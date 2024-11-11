@@ -167,6 +167,8 @@ This function is used to create the actual resource. It parses out the J1EntityM
 
 Follow this general structure for your create function and look at other resource.go files to get an idea of what you may need here.
 
+Note that if the resource you are creating does not return an `id` from the API, you will need to assign a unique id to the `data.Id` field. This is used by terraform to track the resource. The `user_group_membership` resource is one where this is necessary and can be used as an example.
+
 ```go
 func (r *J1EntityResource) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
 	var data J1EntityModel
