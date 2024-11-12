@@ -2,7 +2,7 @@ query GetQuestionRuleInstance($id: ID!) {
   questionRuleInstance(id: $id) {
     id
     name
-    collectionId
+    resourceGroupId
     description
     version
     specVersion
@@ -34,7 +34,7 @@ query GetQuestionRuleInstance($id: ID!) {
 }
 
 # @genqlient(for: "RuleOperationInput.when", omitempty: true)
-# @genqlient(for: "CreateInlineQuestionRuleInstanceInput.collectionId", omitempty: true)
+# @genqlient(for: "CreateInlineQuestionRuleInstanceInput.resourceGroupId", omitempty: true)
 mutation CreateInlineQuestionRuleInstance(
   $instance: CreateInlineQuestionRuleInstanceInput!
 ) {
@@ -65,7 +65,7 @@ mutation CreateInlineQuestionRuleInstance(
 }
 
 # @genqlient(for: "RuleOperationInput.when", omitempty: true)
-# @genqlient(for: "CreateReferencedQuestionRuleInstanceInput.collectionId", omitempty: true)
+# @genqlient(for: "CreateReferencedQuestionRuleInstanceInput.resourceGroupId", omitempty: true)
 mutation CreateReferencedQuestionRuleInstance(
   $instance: CreateReferencedQuestionRuleInstanceInput!
 ) {
@@ -91,7 +91,7 @@ mutation CreateReferencedQuestionRuleInstance(
 # @genqlient(for: "UpdateInlineQuestionRuleInstanceInput.outputs", omitempty: true)
 # @genqlient(for: "UpdateInlineQuestionRuleInstanceInput.state", omitempty: true)
 # @genqlient(for: "UpdateInlineQuestionRuleInstanceInput.remediationSteps", omitempty: true)
-# @genqlient(for: "UpdateInlineQuestionRuleInstanceInput.collectionId", omitempty: true)
+# @genqlient(for: "UpdateInlineQuestionRuleInstanceInput.resourceGroupId", omitempty: true)
 mutation UpdateInlineQuestionRuleInstance(
   $instance: UpdateInlineQuestionRuleInstanceInput!
 ) {
@@ -112,7 +112,7 @@ mutation UpdateInlineQuestionRuleInstance(
 # @genqlient(for: "UpdateReferencedQuestionRuleInstanceInput.outputs", omitempty: true)
 # @genqlient(for: "UpdateReferencedQuestionRuleInstanceInput.latestAlertId", omitempty: true)
 # @genqlient(for: "UpdateReferencedQuestionRuleInstanceInput.state", omitempty: true)
-# @genqlient(for: "UpdateReferencedQuestionRuleInstanceInput.collectionId", omitempty: true)
+# @genqlient(for: "UpdateReferencedQuestionRuleInstanceInput.resourceGroupId", omitempty: true)
 mutation UpdateReferencedQuestionRuleInstance(
   $instance: UpdateReferencedQuestionRuleInstanceInput!
 ) {

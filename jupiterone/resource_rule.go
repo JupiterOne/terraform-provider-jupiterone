@@ -127,7 +127,7 @@ type RuleModel struct {
 	TriggerOnNewOnly      types.Bool      `json:"trigger_on_new_only" tfsdk:"trigger_on_new_only"`
 	IgnorePreviousResults types.Bool      `json:"ignore_previous_results" tfsdk:"ignore_previous_results"`
 	Labels                []RuleLabel     `json:"labels" tfsdk:"labels"`
-	CollectionId          types.String    `json:"collection_id,omitempty" tfsdk:"collection_id"`
+	ResourceGroupId       types.String    `json:"resource_group_id,omitempty" tfsdk:"resource_group_id"`
 }
 
 func NewQuestionRuleResource() resource.Resource {
@@ -286,9 +286,9 @@ func (*QuestionRuleResource) Schema(ctx context.Context, req resource.SchemaRequ
 					},
 				},
 			},
-			"collection_id": schema.StringAttribute{
+			"resource_group_id": schema.StringAttribute{
 				Optional:    true,
-				Description: "Specifies the ID of a collection for the rule to be added to",
+				Description: "Specifies the ID of a resource group for the rule to be added to",
 			},
 		},
 		// TODO: Deprecate the use of blocks following new framework guidance:
@@ -515,10 +515,10 @@ func (r *QuestionRuleResource) Read(ctx context.Context, req resource.ReadReques
 		resp.Diagnostics.AddError("error unmarshaling templates from response", err.Error())
 	}
 
-	if rule.CollectionId != "" {
-		data.CollectionId = types.StringValue(rule.CollectionId)
+	if rule.ResourceGroupId != "" {
+		data.ResourceGroupId = types.StringValue(rule.ResourceGroupId)
 	} else {
-		data.CollectionId = types.StringNull()
+		data.ResourceGroupId = types.StringNull()
 	}
 
 	if rule.QuestionId != "" {
@@ -658,7 +658,7 @@ func (r *RuleModel) BuildCreateReferencedQuestionRuleInstanceInput() (client.Cre
 		NotifyOnFailure:                 r.NotifyOnFailure.ValueBool(),
 		TriggerActionsOnNewEntitiesOnly: r.TriggerOnNewOnly.ValueBool(),
 		IgnorePreviousResults:           r.IgnorePreviousResults.ValueBool(),
-		CollectionId:                    r.CollectionId.ValueString(),
+		ResourceGroupId:                 r.ResourceGroupId.ValueString(),
 	}
 
 	var err error
@@ -708,7 +708,7 @@ func (r *RuleModel) BuildUpdateReferencedQuestionRuleInstanceInput() (client.Upd
 		NotifyOnFailure:                 r.NotifyOnFailure.ValueBool(),
 		TriggerActionsOnNewEntitiesOnly: r.TriggerOnNewOnly.ValueBool(),
 		IgnorePreviousResults:           r.IgnorePreviousResults.ValueBool(),
-		CollectionId:                    r.CollectionId.ValueString(),
+		ResourceGroupId:                 r.ResourceGroupId.ValueString(),
 	}
 
 	var err error
@@ -760,7 +760,7 @@ func (r *RuleModel) BuildCreateInlineQuestionRuleInstanceInput() (client.CreateI
 		NotifyOnFailure:                 r.NotifyOnFailure.ValueBool(),
 		TriggerActionsOnNewEntitiesOnly: r.TriggerOnNewOnly.ValueBool(),
 		IgnorePreviousResults:           r.IgnorePreviousResults.ValueBool(),
-		CollectionId:                    r.CollectionId.ValueString(),
+		ResourceGroupId:                 r.ResourceGroupId.ValueString(),
 	}
 
 	var err error
@@ -825,7 +825,7 @@ func (r *RuleModel) BuildUpdateInlineQuestionRuleInstanceInput() (client.UpdateI
 		NotifyOnFailure:                 r.NotifyOnFailure.ValueBool(),
 		TriggerActionsOnNewEntitiesOnly: r.TriggerOnNewOnly.ValueBool(),
 		IgnorePreviousResults:           r.IgnorePreviousResults.ValueBool(),
-		CollectionId:                    r.CollectionId.ValueString(),
+		ResourceGroupId:                 r.ResourceGroupId.ValueString(),
 	}
 
 	var err error

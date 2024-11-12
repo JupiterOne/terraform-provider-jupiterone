@@ -126,7 +126,7 @@ resource "jupiterone_rule" "users_without_mfa" {
 - `labels` (List of Attributes) Key/value pairs to apply to the jupiterone_rule entity. If label_value is a string that represents a boolean or number (i.e. "true", "1"), it will be converted to a boolean or number respectively.
 - `templates` (Map of String) Optional key/value pairs of template name to template
 - `trigger_on_new_only` (Boolean)
-- `collection_id` (String) Optional ID of a collection to associate with the rule.
+- `resource_group_id` (String) Optional ID of a resource group to associate with the rule.
 
 ### Read-Only
 
