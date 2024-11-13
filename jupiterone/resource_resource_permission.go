@@ -8,6 +8,8 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
 	"github.com/jupiterone/terraform-provider-jupiterone/jupiterone/internal/client"
@@ -66,6 +68,9 @@ func (*ResourcePermissionResource) Schema(ctx context.Context, req resource.Sche
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed: true,
+				PlanModifiers: []planmodifier.String{
+					stringplanmodifier.UseStateForUnknown(),
+				},
 			},
 			"subject_type": schema.StringAttribute{
 				Required:    true,
@@ -155,7 +160,6 @@ func (r *ResourcePermissionResource) Create(ctx context.Context, req resource.Cr
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
 }
 
-// Update and create are the same for this resource - just "set" the permission. But an update function is required for the resource interface.
 func (r *ResourcePermissionResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
 	var data *ResourcePermissionModel
 
@@ -172,15 +176,15 @@ func (r *ResourcePermissionResource) Update(ctx context.Context, req resource.Up
 		return
 	}
 
-	created, err := client.SetResourcePermission(ctx, r.qlient, permissionResource)
+	updated, err := client.SetResourcePermission(ctx, r.qlient, permissionResource)
 
 	if err != nil {
-		resp.Diagnostics.AddError("failed to create resource permission", err.Error())
+		resp.Diagnostics.AddError("failed to update resource permission", err.Error())
 		return
 	}
 
 	tflog.Trace(ctx, "Set resource permission",
-		map[string]interface{}{"resourceArea": created.SetResourcePermission.ResourceArea})
+		map[string]interface{}{"resourceArea": updated.SetResourcePermission.ResourceArea})
 
 	data.ID = types.StringValue(fmt.Sprintf("%s-%s-%s-%s-%s", data.SubjectType.ValueString(), data.SubjectId.ValueString(), data.ResourceArea.ValueString(), data.ResourceType.ValueString(), data.ResourceId.ValueString()))
 
