@@ -1,0 +1,29 @@
+fragment ResourceGroup on IamResourceGroup {
+  id
+  name
+  createdBy
+}
+
+query GetResourceGroups {
+  resourceGroups {
+    ...ResourceGroup
+  }
+}
+
+mutation UpdateResourceGroup($input: UpdateIamResourceGroupInput!) {
+  updateResourceGroup(input: $input) {
+    ...ResourceGroup
+  }
+}
+
+mutation CreateResourceGroup($input: CreateIamResourceGroupInput!) {
+  createResourceGroup(input: $input) {
+    ...ResourceGroup
+  }
+}
+
+mutation DeleteResourceGroup($id: ID!) {
+  deleteResourceGroup(input: { id: $id }) {
+    success
+  }
+}

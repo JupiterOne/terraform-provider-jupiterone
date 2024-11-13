@@ -4,6 +4,7 @@ package client
 
 import (
 	"context"
+	"encoding/json"
 
 	"github.com/Khan/genqlient/graphql"
 )
@@ -369,6 +370,13 @@ func (v *CreateDashboardResponse) GetCreateDashboard() CreateDashboardCreateDash
 	return v.CreateDashboard
 }
 
+type CreateIamResourceGroupInput struct {
+	Name string `json:"name"`
+}
+
+// GetName returns CreateIamResourceGroupInput.Name, and is useful for accessing the field via an interface.
+func (v *CreateIamResourceGroupInput) GetName() string { return v.Name }
+
 // CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance includes the requested fields of the GraphQL type QuestionRuleInstance.
 type CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance struct {
 	Id          string                                                                                `json:"id"`
@@ -492,6 +500,7 @@ type CreateInlineQuestionRuleInstanceInput struct {
 	IgnorePreviousResults           bool                     `json:"ignorePreviousResults"`
 	RemediationSteps                string                   `json:"remediationSteps"`
 	CollectionId                    string                   `json:"collectionId,omitempty"`
+	ResourceGroupId                 string                   `json:"resourceGroupId"`
 	Labels                          []RuleInstanceLabelInput `json:"labels"`
 	J1Internal                      bool                     `json:"j1Internal"`
 }
@@ -551,6 +560,9 @@ func (v *CreateInlineQuestionRuleInstanceInput) GetRemediationSteps() string {
 
 // GetCollectionId returns CreateInlineQuestionRuleInstanceInput.CollectionId, and is useful for accessing the field via an interface.
 func (v *CreateInlineQuestionRuleInstanceInput) GetCollectionId() string { return v.CollectionId }
+
+// GetResourceGroupId returns CreateInlineQuestionRuleInstanceInput.ResourceGroupId, and is useful for accessing the field via an interface.
+func (v *CreateInlineQuestionRuleInstanceInput) GetResourceGroupId() string { return v.ResourceGroupId }
 
 // GetLabels returns CreateInlineQuestionRuleInstanceInput.Labels, and is useful for accessing the field via an interface.
 func (v *CreateInlineQuestionRuleInstanceInput) GetLabels() []RuleInstanceLabelInput { return v.Labels }
@@ -1013,6 +1025,7 @@ type CreateReferencedQuestionRuleInstanceInput struct {
 	IgnorePreviousResults           bool                     `json:"ignorePreviousResults"`
 	RemediationSteps                string                   `json:"remediationSteps"`
 	CollectionId                    string                   `json:"collectionId,omitempty"`
+	ResourceGroupId                 string                   `json:"resourceGroupId"`
 	Labels                          []RuleInstanceLabelInput `json:"labels"`
 }
 
@@ -1072,6 +1085,11 @@ func (v *CreateReferencedQuestionRuleInstanceInput) GetRemediationSteps() string
 // GetCollectionId returns CreateReferencedQuestionRuleInstanceInput.CollectionId, and is useful for accessing the field via an interface.
 func (v *CreateReferencedQuestionRuleInstanceInput) GetCollectionId() string { return v.CollectionId }
 
+// GetResourceGroupId returns CreateReferencedQuestionRuleInstanceInput.ResourceGroupId, and is useful for accessing the field via an interface.
+func (v *CreateReferencedQuestionRuleInstanceInput) GetResourceGroupId() string {
+	return v.ResourceGroupId
+}
+
 // GetLabels returns CreateReferencedQuestionRuleInstanceInput.Labels, and is useful for accessing the field via an interface.
 func (v *CreateReferencedQuestionRuleInstanceInput) GetLabels() []RuleInstanceLabelInput {
 	return v.Labels
@@ -1085,6 +1103,86 @@ type CreateReferencedQuestionRuleInstanceResponse struct {
 // GetCreateQuestionRuleInstance returns CreateReferencedQuestionRuleInstanceResponse.CreateQuestionRuleInstance, and is useful for accessing the field via an interface.
 func (v *CreateReferencedQuestionRuleInstanceResponse) GetCreateQuestionRuleInstance() CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance {
 	return v.CreateQuestionRuleInstance
+}
+
+// CreateResourceGroupCreateResourceGroupIamResourceGroup includes the requested fields of the GraphQL type IamResourceGroup.
+type CreateResourceGroupCreateResourceGroupIamResourceGroup struct {
+	ResourceGroup `json:"-"`
+}
+
+// GetId returns CreateResourceGroupCreateResourceGroupIamResourceGroup.Id, and is useful for accessing the field via an interface.
+func (v *CreateResourceGroupCreateResourceGroupIamResourceGroup) GetId() string {
+	return v.ResourceGroup.Id
+}
+
+// GetName returns CreateResourceGroupCreateResourceGroupIamResourceGroup.Name, and is useful for accessing the field via an interface.
+func (v *CreateResourceGroupCreateResourceGroupIamResourceGroup) GetName() string {
+	return v.ResourceGroup.Name
+}
+
+// GetCreatedBy returns CreateResourceGroupCreateResourceGroupIamResourceGroup.CreatedBy, and is useful for accessing the field via an interface.
+func (v *CreateResourceGroupCreateResourceGroupIamResourceGroup) GetCreatedBy() string {
+	return v.ResourceGroup.CreatedBy
+}
+
+func (v *CreateResourceGroupCreateResourceGroupIamResourceGroup) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*CreateResourceGroupCreateResourceGroupIamResourceGroup
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.CreateResourceGroupCreateResourceGroupIamResourceGroup = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.ResourceGroup)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalCreateResourceGroupCreateResourceGroupIamResourceGroup struct {
+	Id string `json:"id"`
+
+	Name string `json:"name"`
+
+	CreatedBy string `json:"createdBy"`
+}
+
+func (v *CreateResourceGroupCreateResourceGroupIamResourceGroup) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *CreateResourceGroupCreateResourceGroupIamResourceGroup) __premarshalJSON() (*__premarshalCreateResourceGroupCreateResourceGroupIamResourceGroup, error) {
+	var retval __premarshalCreateResourceGroupCreateResourceGroupIamResourceGroup
+
+	retval.Id = v.ResourceGroup.Id
+	retval.Name = v.ResourceGroup.Name
+	retval.CreatedBy = v.ResourceGroup.CreatedBy
+	return &retval, nil
+}
+
+// CreateResourceGroupResponse is returned by CreateResourceGroup on success.
+type CreateResourceGroupResponse struct {
+	CreateResourceGroup CreateResourceGroupCreateResourceGroupIamResourceGroup `json:"createResourceGroup"`
+}
+
+// GetCreateResourceGroup returns CreateResourceGroupResponse.CreateResourceGroup, and is useful for accessing the field via an interface.
+func (v *CreateResourceGroupResponse) GetCreateResourceGroup() CreateResourceGroupCreateResourceGroupIamResourceGroup {
+	return v.CreateResourceGroup
 }
 
 // CreateUserGroupCreateIamGroupV1Group includes the requested fields of the GraphQL type V1Group.
@@ -1351,6 +1449,26 @@ type DeleteQuestionResponse struct {
 // GetDeleteQuestion returns DeleteQuestionResponse.DeleteQuestion, and is useful for accessing the field via an interface.
 func (v *DeleteQuestionResponse) GetDeleteQuestion() DeleteQuestionDeleteQuestion {
 	return v.DeleteQuestion
+}
+
+// DeleteResourceGroupDeleteResourceGroupDeleteIamResourceGroupResult includes the requested fields of the GraphQL type DeleteIamResourceGroupResult.
+type DeleteResourceGroupDeleteResourceGroupDeleteIamResourceGroupResult struct {
+	Success bool `json:"success"`
+}
+
+// GetSuccess returns DeleteResourceGroupDeleteResourceGroupDeleteIamResourceGroupResult.Success, and is useful for accessing the field via an interface.
+func (v *DeleteResourceGroupDeleteResourceGroupDeleteIamResourceGroupResult) GetSuccess() bool {
+	return v.Success
+}
+
+// DeleteResourceGroupResponse is returned by DeleteResourceGroup on success.
+type DeleteResourceGroupResponse struct {
+	DeleteResourceGroup DeleteResourceGroupDeleteResourceGroupDeleteIamResourceGroupResult `json:"deleteResourceGroup"`
+}
+
+// GetDeleteResourceGroup returns DeleteResourceGroupResponse.DeleteResourceGroup, and is useful for accessing the field via an interface.
+func (v *DeleteResourceGroupResponse) GetDeleteResourceGroup() DeleteResourceGroupDeleteResourceGroupDeleteIamResourceGroupResult {
+	return v.DeleteResourceGroup
 }
 
 // DeleteResourcePermissionDeleteResourcePermissionDeleteInfo includes the requested fields of the GraphQL type DeleteInfo.
@@ -2128,6 +2246,84 @@ func (v *GetQuestionRuleInstanceResponse) GetQuestionRuleInstance() GetQuestionR
 	return v.QuestionRuleInstance
 }
 
+// GetResourceGroupsResourceGroupsIamResourceGroup includes the requested fields of the GraphQL type IamResourceGroup.
+type GetResourceGroupsResourceGroupsIamResourceGroup struct {
+	ResourceGroup `json:"-"`
+}
+
+// GetId returns GetResourceGroupsResourceGroupsIamResourceGroup.Id, and is useful for accessing the field via an interface.
+func (v *GetResourceGroupsResourceGroupsIamResourceGroup) GetId() string { return v.ResourceGroup.Id }
+
+// GetName returns GetResourceGroupsResourceGroupsIamResourceGroup.Name, and is useful for accessing the field via an interface.
+func (v *GetResourceGroupsResourceGroupsIamResourceGroup) GetName() string {
+	return v.ResourceGroup.Name
+}
+
+// GetCreatedBy returns GetResourceGroupsResourceGroupsIamResourceGroup.CreatedBy, and is useful for accessing the field via an interface.
+func (v *GetResourceGroupsResourceGroupsIamResourceGroup) GetCreatedBy() string {
+	return v.ResourceGroup.CreatedBy
+}
+
+func (v *GetResourceGroupsResourceGroupsIamResourceGroup) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*GetResourceGroupsResourceGroupsIamResourceGroup
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.GetResourceGroupsResourceGroupsIamResourceGroup = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.ResourceGroup)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalGetResourceGroupsResourceGroupsIamResourceGroup struct {
+	Id string `json:"id"`
+
+	Name string `json:"name"`
+
+	CreatedBy string `json:"createdBy"`
+}
+
+func (v *GetResourceGroupsResourceGroupsIamResourceGroup) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *GetResourceGroupsResourceGroupsIamResourceGroup) __premarshalJSON() (*__premarshalGetResourceGroupsResourceGroupsIamResourceGroup, error) {
+	var retval __premarshalGetResourceGroupsResourceGroupsIamResourceGroup
+
+	retval.Id = v.ResourceGroup.Id
+	retval.Name = v.ResourceGroup.Name
+	retval.CreatedBy = v.ResourceGroup.CreatedBy
+	return &retval, nil
+}
+
+// GetResourceGroupsResponse is returned by GetResourceGroups on success.
+type GetResourceGroupsResponse struct {
+	ResourceGroups []GetResourceGroupsResourceGroupsIamResourceGroup `json:"resourceGroups"`
+}
+
+// GetResourceGroups returns GetResourceGroupsResponse.ResourceGroups, and is useful for accessing the field via an interface.
+func (v *GetResourceGroupsResponse) GetResourceGroups() []GetResourceGroupsResourceGroupsIamResourceGroup {
+	return v.ResourceGroups
+}
+
 // GetResourcePermissionGetResourcePermissionsIamResourcePermission includes the requested fields of the GraphQL type IamResourcePermission.
 type GetResourcePermissionGetResourcePermissionsIamResourcePermission struct {
 	CanCreate    bool   `json:"canCreate"`
@@ -2772,6 +2968,22 @@ func (v *RemoveUserFromGroupResponse) GetIamDeleteGroupUsers() RemoveUserFromGro
 	return v.IamDeleteGroupUsers
 }
 
+// ResourceGroup includes the GraphQL fields of IamResourceGroup requested by the fragment ResourceGroup.
+type ResourceGroup struct {
+	Id        string `json:"id"`
+	Name      string `json:"name"`
+	CreatedBy string `json:"createdBy"`
+}
+
+// GetId returns ResourceGroup.Id, and is useful for accessing the field via an interface.
+func (v *ResourceGroup) GetId() string { return v.Id }
+
+// GetName returns ResourceGroup.Name, and is useful for accessing the field via an interface.
+func (v *ResourceGroup) GetName() string { return v.Name }
+
+// GetCreatedBy returns ResourceGroup.CreatedBy, and is useful for accessing the field via an interface.
+func (v *ResourceGroup) GetCreatedBy() string { return v.CreatedBy }
+
 // RevokeInvitationResponse is returned by RevokeInvitation on success.
 type RevokeInvitationResponse struct {
 	UpdateInvitation RevokeInvitationUpdateInvitationIamInvitation `json:"updateInvitation"`
@@ -3214,6 +3426,17 @@ func (v *UpdateDashboardResponse) GetPatchDashboard() UpdateDashboardPatchDashbo
 	return v.PatchDashboard
 }
 
+type UpdateIamResourceGroupInput struct {
+	Id   string `json:"id"`
+	Name string `json:"name"`
+}
+
+// GetId returns UpdateIamResourceGroupInput.Id, and is useful for accessing the field via an interface.
+func (v *UpdateIamResourceGroupInput) GetId() string { return v.Id }
+
+// GetName returns UpdateIamResourceGroupInput.Name, and is useful for accessing the field via an interface.
+func (v *UpdateIamResourceGroupInput) GetName() string { return v.Name }
+
 type UpdateInlineQuestionRuleInstanceInput struct {
 	Question                        RuleQuestionDetailsInput `json:"question"`
 	Id                              string                   `json:"id"`
@@ -3233,6 +3456,7 @@ type UpdateInlineQuestionRuleInstanceInput struct {
 	IgnorePreviousResults           bool                     `json:"ignorePreviousResults"`
 	RemediationSteps                string                   `json:"remediationSteps,omitempty"`
 	CollectionId                    string                   `json:"collectionId,omitempty"`
+	ResourceGroupId                 string                   `json:"resourceGroupId"`
 	Labels                          []RuleInstanceLabelInput `json:"labels"`
 }
 
@@ -3303,6 +3527,9 @@ func (v *UpdateInlineQuestionRuleInstanceInput) GetRemediationSteps() string {
 
 // GetCollectionId returns UpdateInlineQuestionRuleInstanceInput.CollectionId, and is useful for accessing the field via an interface.
 func (v *UpdateInlineQuestionRuleInstanceInput) GetCollectionId() string { return v.CollectionId }
+
+// GetResourceGroupId returns UpdateInlineQuestionRuleInstanceInput.ResourceGroupId, and is useful for accessing the field via an interface.
+func (v *UpdateInlineQuestionRuleInstanceInput) GetResourceGroupId() string { return v.ResourceGroupId }
 
 // GetLabels returns UpdateInlineQuestionRuleInstanceInput.Labels, and is useful for accessing the field via an interface.
 func (v *UpdateInlineQuestionRuleInstanceInput) GetLabels() []RuleInstanceLabelInput { return v.Labels }
@@ -3531,6 +3758,7 @@ type UpdateReferencedQuestionRuleInstanceInput struct {
 	IgnorePreviousResults           bool                     `json:"ignorePreviousResults"`
 	RemediationSteps                string                   `json:"remediationSteps"`
 	CollectionId                    string                   `json:"collectionId,omitempty"`
+	ResourceGroupId                 string                   `json:"resourceGroupId"`
 	Labels                          []RuleInstanceLabelInput `json:"labels"`
 }
 
@@ -3602,6 +3830,11 @@ func (v *UpdateReferencedQuestionRuleInstanceInput) GetRemediationSteps() string
 // GetCollectionId returns UpdateReferencedQuestionRuleInstanceInput.CollectionId, and is useful for accessing the field via an interface.
 func (v *UpdateReferencedQuestionRuleInstanceInput) GetCollectionId() string { return v.CollectionId }
 
+// GetResourceGroupId returns UpdateReferencedQuestionRuleInstanceInput.ResourceGroupId, and is useful for accessing the field via an interface.
+func (v *UpdateReferencedQuestionRuleInstanceInput) GetResourceGroupId() string {
+	return v.ResourceGroupId
+}
+
 // GetLabels returns UpdateReferencedQuestionRuleInstanceInput.Labels, and is useful for accessing the field via an interface.
 func (v *UpdateReferencedQuestionRuleInstanceInput) GetLabels() []RuleInstanceLabelInput {
 	return v.Labels
@@ -3637,6 +3870,86 @@ func (v *UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstanc
 // GetOperations returns UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstance.Operations, and is useful for accessing the field via an interface.
 func (v *UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstance) GetOperations() []RuleOperationOutput {
 	return v.Operations
+}
+
+// UpdateResourceGroupResponse is returned by UpdateResourceGroup on success.
+type UpdateResourceGroupResponse struct {
+	UpdateResourceGroup UpdateResourceGroupUpdateResourceGroupIamResourceGroup `json:"updateResourceGroup"`
+}
+
+// GetUpdateResourceGroup returns UpdateResourceGroupResponse.UpdateResourceGroup, and is useful for accessing the field via an interface.
+func (v *UpdateResourceGroupResponse) GetUpdateResourceGroup() UpdateResourceGroupUpdateResourceGroupIamResourceGroup {
+	return v.UpdateResourceGroup
+}
+
+// UpdateResourceGroupUpdateResourceGroupIamResourceGroup includes the requested fields of the GraphQL type IamResourceGroup.
+type UpdateResourceGroupUpdateResourceGroupIamResourceGroup struct {
+	ResourceGroup `json:"-"`
+}
+
+// GetId returns UpdateResourceGroupUpdateResourceGroupIamResourceGroup.Id, and is useful for accessing the field via an interface.
+func (v *UpdateResourceGroupUpdateResourceGroupIamResourceGroup) GetId() string {
+	return v.ResourceGroup.Id
+}
+
+// GetName returns UpdateResourceGroupUpdateResourceGroupIamResourceGroup.Name, and is useful for accessing the field via an interface.
+func (v *UpdateResourceGroupUpdateResourceGroupIamResourceGroup) GetName() string {
+	return v.ResourceGroup.Name
+}
+
+// GetCreatedBy returns UpdateResourceGroupUpdateResourceGroupIamResourceGroup.CreatedBy, and is useful for accessing the field via an interface.
+func (v *UpdateResourceGroupUpdateResourceGroupIamResourceGroup) GetCreatedBy() string {
+	return v.ResourceGroup.CreatedBy
+}
+
+func (v *UpdateResourceGroupUpdateResourceGroupIamResourceGroup) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*UpdateResourceGroupUpdateResourceGroupIamResourceGroup
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.UpdateResourceGroupUpdateResourceGroupIamResourceGroup = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.ResourceGroup)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalUpdateResourceGroupUpdateResourceGroupIamResourceGroup struct {
+	Id string `json:"id"`
+
+	Name string `json:"name"`
+
+	CreatedBy string `json:"createdBy"`
+}
+
+func (v *UpdateResourceGroupUpdateResourceGroupIamResourceGroup) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *UpdateResourceGroupUpdateResourceGroupIamResourceGroup) __premarshalJSON() (*__premarshalUpdateResourceGroupUpdateResourceGroupIamResourceGroup, error) {
+	var retval __premarshalUpdateResourceGroupUpdateResourceGroupIamResourceGroup
+
+	retval.Id = v.ResourceGroup.Id
+	retval.Name = v.ResourceGroup.Name
+	retval.CreatedBy = v.ResourceGroup.CreatedBy
+	return &retval, nil
 }
 
 // UpdateUserGroupResponse is returned by UpdateUserGroup on success.
@@ -3830,6 +4143,14 @@ func (v *__CreateReferencedQuestionRuleInstanceInput) GetInstance() CreateRefere
 	return v.Instance
 }
 
+// __CreateResourceGroupInput is used internally by genqlient
+type __CreateResourceGroupInput struct {
+	Input CreateIamResourceGroupInput `json:"input"`
+}
+
+// GetInput returns __CreateResourceGroupInput.Input, and is useful for accessing the field via an interface.
+func (v *__CreateResourceGroupInput) GetInput() CreateIamResourceGroupInput { return v.Input }
+
 // __CreateUserGroupInput is used internally by genqlient
 type __CreateUserGroupInput struct {
 	Name            string                   `json:"name"`
@@ -3933,6 +4254,14 @@ type __DeleteQuestionInput struct {
 
 // GetId returns __DeleteQuestionInput.Id, and is useful for accessing the field via an interface.
 func (v *__DeleteQuestionInput) GetId() string { return v.Id }
+
+// __DeleteResourceGroupInput is used internally by genqlient
+type __DeleteResourceGroupInput struct {
+	Id string `json:"id"`
+}
+
+// GetId returns __DeleteResourceGroupInput.Id, and is useful for accessing the field via an interface.
+func (v *__DeleteResourceGroupInput) GetId() string { return v.Id }
 
 // __DeleteResourcePermissionInput is used internally by genqlient
 type __DeleteResourcePermissionInput struct {
@@ -4227,6 +4556,14 @@ type __UpdateReferencedQuestionRuleInstanceInput struct {
 func (v *__UpdateReferencedQuestionRuleInstanceInput) GetInstance() UpdateReferencedQuestionRuleInstanceInput {
 	return v.Instance
 }
+
+// __UpdateResourceGroupInput is used internally by genqlient
+type __UpdateResourceGroupInput struct {
+	Input UpdateIamResourceGroupInput `json:"input"`
+}
+
+// GetInput returns __UpdateResourceGroupInput.Input, and is useful for accessing the field via an interface.
+func (v *__UpdateResourceGroupInput) GetInput() UpdateIamResourceGroupInput { return v.Input }
 
 // __UpdateUserGroupInput is used internally by genqlient
 type __UpdateUserGroupInput struct {
@@ -4639,6 +4976,43 @@ mutation CreateReferencedQuestionRuleInstance ($instance: CreateReferencedQuesti
 	return &data, err
 }
 
+func CreateResourceGroup(
+	ctx context.Context,
+	client graphql.Client,
+	input CreateIamResourceGroupInput,
+) (*CreateResourceGroupResponse, error) {
+	req := &graphql.Request{
+		OpName: "CreateResourceGroup",
+		Query: `
+mutation CreateResourceGroup ($input: CreateIamResourceGroupInput!) {
+	createResourceGroup(input: $input) {
+		... ResourceGroup
+	}
+}
+fragment ResourceGroup on IamResourceGroup {
+	id
+	name
+	createdBy
+}
+`,
+		Variables: &__CreateResourceGroupInput{
+			Input: input,
+		},
+	}
+	var err error
+
+	var data CreateResourceGroupResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
 func CreateUserGroup(
 	ctx context.Context,
 	client graphql.Client,
@@ -4997,6 +5371,38 @@ mutation DeleteQuestion ($id: ID!) {
 	var err error
 
 	var data DeleteQuestionResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func DeleteResourceGroup(
+	ctx context.Context,
+	client graphql.Client,
+	id string,
+) (*DeleteResourceGroupResponse, error) {
+	req := &graphql.Request{
+		OpName: "DeleteResourceGroup",
+		Query: `
+mutation DeleteResourceGroup ($id: ID!) {
+	deleteResourceGroup(input: {id:$id}) {
+		success
+	}
+}
+`,
+		Variables: &__DeleteResourceGroupInput{
+			Id: id,
+		},
+	}
+	var err error
+
+	var data DeleteResourceGroupResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(
@@ -5562,6 +5968,39 @@ query GetQuestionRuleInstance ($id: ID!) {
 	var err error
 
 	var data GetQuestionRuleInstanceResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func GetResourceGroups(
+	ctx context.Context,
+	client graphql.Client,
+) (*GetResourceGroupsResponse, error) {
+	req := &graphql.Request{
+		OpName: "GetResourceGroups",
+		Query: `
+query GetResourceGroups {
+	resourceGroups {
+		... ResourceGroup
+	}
+}
+fragment ResourceGroup on IamResourceGroup {
+	id
+	name
+	createdBy
+}
+`,
+	}
+	var err error
+
+	var data GetResourceGroupsResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(
@@ -6235,6 +6674,43 @@ mutation UpdateReferencedQuestionRuleInstance ($instance: UpdateReferencedQuesti
 	var err error
 
 	var data UpdateReferencedQuestionRuleInstanceResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func UpdateResourceGroup(
+	ctx context.Context,
+	client graphql.Client,
+	input UpdateIamResourceGroupInput,
+) (*UpdateResourceGroupResponse, error) {
+	req := &graphql.Request{
+		OpName: "UpdateResourceGroup",
+		Query: `
+mutation UpdateResourceGroup ($input: UpdateIamResourceGroupInput!) {
+	updateResourceGroup(input: $input) {
+		... ResourceGroup
+	}
+}
+fragment ResourceGroup on IamResourceGroup {
+	id
+	name
+	createdBy
+}
+`,
+		Variables: &__UpdateResourceGroupInput{
+			Input: input,
+		},
+	}
+	var err error
+
+	var data UpdateResourceGroupResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(
