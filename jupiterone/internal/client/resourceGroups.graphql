@@ -1,11 +1,16 @@
 fragment ResourceGroup on IamResourceGroup {
   id
   name
-  createdBy
 }
 
 query GetResourceGroups {
   resourceGroups {
+    ...ResourceGroup
+  }
+}
+
+query GetResourceGroup($id: ID!) {
+  resourceGroup(id: $id) {
     ...ResourceGroup
   }
 }
@@ -22,8 +27,8 @@ mutation CreateResourceGroup($input: CreateIamResourceGroupInput!) {
   }
 }
 
-mutation DeleteResourceGroup($id: ID!) {
-  deleteResourceGroup(input: { id: $id }) {
+mutation DeleteResourceGroup($input: DeleteIamResourceGroupInput!) {
+  deleteResourceGroup(input: $input) {
     success
   }
 }
