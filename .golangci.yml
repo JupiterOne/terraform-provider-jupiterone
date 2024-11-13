@@ -10,7 +10,7 @@ linters:
   enable:
     - errcheck
     - gofmt
-    - gomnd
+    - mnd
     - gosimple
     - ineffassign
     - makezero
