@@ -269,6 +269,7 @@ func (r *ResourcePermissionResource) Read(ctx context.Context, req resource.Read
 		return
 	}
 
+	const maxResults = 10
 	// Check if this resource exists
 	resourcePermission, err := client.GetResourcePermissions(ctx, r.qlient, client.GetResourcePermissionsFilter{
 		SubjectId:    data.SubjectId.ValueString(),
@@ -276,7 +277,7 @@ func (r *ResourcePermissionResource) Read(ctx context.Context, req resource.Read
 		ResourceArea: data.ResourceArea.ValueString(),
 		ResourceType: data.ResourceType.ValueString(),
 		ResourceId:   data.ResourceId.ValueString(),
-	}, "", 10)
+	}, "", maxResults)
 
 	if err != nil {
 		resp.Diagnostics.AddError("failed to get resource permission", err.Error())
