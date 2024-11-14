@@ -9,7 +9,7 @@ interactions:
         content_length: 601
         transfer_encoding: []
         trailer: {}
-        host: graphql.dev.jupiterone.io
+        host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
         body: '{"query":"\nmutation CreateQuestion ($question: CreateQuestionInput!) {\n\tcreateQuestion(question: $question) {\n\t\tid\n\t}\n}\n","variables":{"question":{"title":"tf-provider-test-rule","name":"","tags":["tf_acc:1","tf_acc:2"],"description":"Test","showTrend":false,"pollingInterval":"ONE_DAY","widgetId":"","queries":[{"query":"Find DataStore with classification=(''critical'' or ''sensitive'' or ''confidential'' or ''restricted'') and encrypted!=true","version":"v1","name":"query0","resultsAre":"INFORMATIVE","includeDeleted":false}],"compliance":[],"variables":null}},"operationName":"CreateQuestion"}'
@@ -19,7 +19,7 @@ interactions:
                 - no-cache
             Content-Type:
                 - application/json
-        url: https://graphql.dev.jupiterone.io/
+        url: https://graphql.us.jupiterone.io/
         method: POST
       response:
         proto: HTTP/2.0
@@ -30,7 +30,7 @@ interactions:
         content_length: 74
         uncompressed: false
         body: |
-            {"data":{"createQuestion":{"id":"b07a2f3e-50f7-4a7e-b65c-92959ac9b9fe"}}}
+            {"data":{"createQuestion":{"id":"a3d09bda-b208-44a6-a4c4-9d0e3ea6e7eb"}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -78,26 +78,26 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 2.421468417s
+        duration: 705.3565ms
     - id: 1
       request:
         proto: HTTP/1.1
         proto_major: 1
         proto_minor: 1
-        content_length: 996
+        content_length: 978
         transfer_encoding: []
         trailer: {}
-        host: graphql.dev.jupiterone.io
+        host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nmutation CreateReferencedQuestionRuleInstance ($instance: CreateReferencedQuestionRuleInstanceInput!) {\n\tcreateQuestionRuleInstance: createReferencedQuestionRuleInstance(instance: $instance) {\n\t\tid\n\t\tversion\n\t\tspecVersion\n\t\toperations {\n\t\t\twhen\n\t\t\tactions\n\t\t}\n\t}\n}\n","variables":{"instance":{"questionId":"b07a2f3e-50f7-4a7e-b65c-92959ac9b9fe","templates":null,"tags":["tf_acc:1","tf_acc:2"],"name":"tf-provider-test-rule","description":"Test","specVersion":1,"operations":[{"when":{"condition":"{{queries.query0.total != 0}}","specVersion":1,"type":"FILTER"},"actions":[{"targetProperty":"alertLevel","targetValue":"HIGH","type":"SET_PROPERTY"},{"type":"CREATE_ALERT"}]}],"outputs":["queries.query0.total","alertLevel"],"pollingInterval":"ONE_WEEK","notifyOnFailure":false,"triggerActionsOnNewEntitiesOnly":false,"ignorePreviousResults":false,"remediationSteps":"","collectionId":"","labels":null}},"operationName":"CreateReferencedQuestionRuleInstance"}'
+        body: '{"query":"\nmutation CreateReferencedQuestionRuleInstance ($instance: CreateReferencedQuestionRuleInstanceInput!) {\n\tcreateQuestionRuleInstance: createReferencedQuestionRuleInstance(instance: $instance) {\n\t\tid\n\t\tversion\n\t\tspecVersion\n\t\toperations {\n\t\t\twhen\n\t\t\tactions\n\t\t}\n\t}\n}\n","variables":{"instance":{"questionId":"a3d09bda-b208-44a6-a4c4-9d0e3ea6e7eb","templates":null,"tags":["tf_acc:1","tf_acc:2"],"name":"tf-provider-test-rule","description":"Test","specVersion":1,"operations":[{"when":{"condition":"{{queries.query0.total != 0}}","specVersion":1,"type":"FILTER"},"actions":[{"targetProperty":"alertLevel","targetValue":"HIGH","type":"SET_PROPERTY"},{"type":"CREATE_ALERT"}]}],"outputs":["queries.query0.total","alertLevel"],"pollingInterval":"ONE_WEEK","notifyOnFailure":false,"triggerActionsOnNewEntitiesOnly":false,"ignorePreviousResults":false,"remediationSteps":"","labels":null}},"operationName":"CreateReferencedQuestionRuleInstance"}'
         form: {}
         headers:
             Cache-Control:
                 - no-cache
             Content-Type:
                 - application/json
-        url: https://graphql.dev.jupiterone.io/
+        url: https://graphql.us.jupiterone.io/
         method: POST
       response:
         proto: HTTP/2.0
@@ -108,7 +108,7 @@ interactions:
         content_length: 415
         uncompressed: false
         body: |
-            {"data":{"createQuestionRuleInstance":{"id":"429574a6-687e-4fd1-aff8-ce7248d396e3","version":1,"specVersion":1,"operations":[{"when":{"condition":"{{queries.query0.total != 0}}","specVersion":1,"type":"FILTER"},"actions":[{"targetProperty":"alertLevel","targetValue":"HIGH","type":"SET_PROPERTY","id":"1c35d201-6cfe-40cf-8a40-85572d260f4a"},{"type":"CREATE_ALERT","id":"94ad2b7a-44a0-402d-86df-61490517a28f"}]}]}}}
+            {"data":{"createQuestionRuleInstance":{"id":"c1c17486-366a-41cd-bb80-17557b54ee5a","version":1,"specVersion":1,"operations":[{"when":{"condition":"{{queries.query0.total != 0}}","specVersion":1,"type":"FILTER"},"actions":[{"targetProperty":"alertLevel","targetValue":"HIGH","type":"SET_PROPERTY","id":"07d2af99-05fa-4285-a37b-13c41f7320b6"},{"type":"CREATE_ALERT","id":"798089e7-20c6-4f40-bfe2-4a81a75e02cd"}]}]}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -156,7 +156,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 1.455695417s
+        duration: 872.043583ms
     - id: 2
       request:
         proto: HTTP/1.1
@@ -165,17 +165,17 @@ interactions:
         content_length: 434
         transfer_encoding: []
         trailer: {}
-        host: graphql.dev.jupiterone.io
+        host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetQuestionById ($id: ID!) {\n\tquestion(id: $id) {\n\t\tid\n\t\ttitle\n\t\tdescription\n\t\tshowTrend\n\t\tpollingInterval\n\t\tqueries {\n\t\t\tname\n\t\t\tquery\n\t\t\tversion\n\t\t\tincludeDeleted\n\t\t\tresultsAre\n\t\t}\n\t\ttags\n\t\tcompliance {\n\t\t\tstandard\n\t\t\trequirements\n\t\t\tcontrols\n\t\t}\n\t}\n}\n","variables":{"id":"b07a2f3e-50f7-4a7e-b65c-92959ac9b9fe"},"operationName":"GetQuestionById"}'
+        body: '{"query":"\nquery GetQuestionById ($id: ID!) {\n\tquestion(id: $id) {\n\t\tid\n\t\ttitle\n\t\tdescription\n\t\tshowTrend\n\t\tpollingInterval\n\t\tqueries {\n\t\t\tname\n\t\t\tquery\n\t\t\tversion\n\t\t\tincludeDeleted\n\t\t\tresultsAre\n\t\t}\n\t\ttags\n\t\tcompliance {\n\t\t\tstandard\n\t\t\trequirements\n\t\t\tcontrols\n\t\t}\n\t}\n}\n","variables":{"id":"a3d09bda-b208-44a6-a4c4-9d0e3ea6e7eb"},"operationName":"GetQuestionById"}'
         form: {}
         headers:
             Cache-Control:
                 - no-cache
             Content-Type:
                 - application/json
-        url: https://graphql.dev.jupiterone.io/
+        url: https://graphql.us.jupiterone.io/
         method: POST
       response:
         proto: HTTP/2.0
@@ -186,7 +186,7 @@ interactions:
         content_length: 436
         uncompressed: false
         body: |
-            {"data":{"question":{"id":"b07a2f3e-50f7-4a7e-b65c-92959ac9b9fe","title":"tf-provider-test-rule","description":"Test","showTrend":false,"pollingInterval":"ONE_DAY","queries":[{"name":"query0","query":"Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true","version":"v1","includeDeleted":false,"resultsAre":"INFORMATIVE"}],"tags":["tf_acc:1","tf_acc:2"],"compliance":[]}}}
+            {"data":{"question":{"id":"a3d09bda-b208-44a6-a4c4-9d0e3ea6e7eb","title":"tf-provider-test-rule","description":"Test","showTrend":false,"pollingInterval":"ONE_DAY","queries":[{"name":"query0","query":"Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true","version":"v1","includeDeleted":false,"resultsAre":"INFORMATIVE"}],"tags":["tf_acc:1","tf_acc:2"],"compliance":[]}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -234,7 +234,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 221.946583ms
+        duration: 223.450042ms
     - id: 3
       request:
         proto: HTTP/1.1
@@ -243,17 +243,17 @@ interactions:
         content_length: 653
         transfer_encoding: []
         trailer: {}
-        host: graphql.dev.jupiterone.io
+        host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetQuestionRuleInstance ($id: ID!) {\n\tquestionRuleInstance(id: $id) {\n\t\tid\n\t\tname\n\t\tresourceGroupId\n\t\tdescription\n\t\tversion\n\t\tspecVersion\n\t\tlatest\n\t\tpollingInterval\n\t\tdeleted\n\t\ttype\n\t\ttemplates\n\t\tnotifyOnFailure\n\t\ttriggerActionsOnNewEntitiesOnly\n\t\tignorePreviousResults\n\t\tquestionId\n\t\tquestion {\n\t\t\tqueries {\n\t\t\t\tname\n\t\t\t\tquery\n\t\t\t\tversion\n\t\t\t\tincludeDeleted\n\t\t\t}\n\t\t}\n\t\toperations {\n\t\t\twhen\n\t\t\tactions\n\t\t}\n\t\toutputs\n\t\ttags\n\t}\n}\n","variables":{"id":"429574a6-687e-4fd1-aff8-ce7248d396e3"},"operationName":"GetQuestionRuleInstance"}'
+        body: '{"query":"\nquery GetQuestionRuleInstance ($id: ID!) {\n\tquestionRuleInstance(id: $id) {\n\t\tid\n\t\tname\n\t\tresourceGroupId\n\t\tdescription\n\t\tversion\n\t\tspecVersion\n\t\tlatest\n\t\tpollingInterval\n\t\tdeleted\n\t\ttype\n\t\ttemplates\n\t\tnotifyOnFailure\n\t\ttriggerActionsOnNewEntitiesOnly\n\t\tignorePreviousResults\n\t\tquestionId\n\t\tquestion {\n\t\t\tqueries {\n\t\t\t\tname\n\t\t\t\tquery\n\t\t\t\tversion\n\t\t\t\tincludeDeleted\n\t\t\t}\n\t\t}\n\t\toperations {\n\t\t\twhen\n\t\t\tactions\n\t\t}\n\t\toutputs\n\t\ttags\n\t}\n}\n","variables":{"id":"c1c17486-366a-41cd-bb80-17557b54ee5a"},"operationName":"GetQuestionRuleInstance"}'
         form: {}
         headers:
             Cache-Control:
                 - no-cache
             Content-Type:
                 - application/json
-        url: https://graphql.dev.jupiterone.io/
+        url: https://graphql.us.jupiterone.io/
         method: POST
       response:
         proto: HTTP/2.0
@@ -264,7 +264,7 @@ interactions:
         content_length: 819
         uncompressed: false
         body: |
-            {"data":{"questionRuleInstance":{"id":"429574a6-687e-4fd1-aff8-ce7248d396e3","name":"tf-provider-test-rule","resourceGroupId":null,"description":"Test","version":1,"specVersion":1,"latest":true,"pollingInterval":"ONE_WEEK","deleted":false,"type":"QUESTION","templates":null,"notifyOnFailure":false,"triggerActionsOnNewEntitiesOnly":false,"ignorePreviousResults":false,"questionId":"b07a2f3e-50f7-4a7e-b65c-92959ac9b9fe","question":null,"operations":[{"when":{"type":"FILTER","condition":"{{queries.query0.total != 0}}","specVersion":1},"actions":[{"targetValue":"HIGH","id":"1c35d201-6cfe-40cf-8a40-85572d260f4a","type":"SET_PROPERTY","targetProperty":"alertLevel"},{"type":"CREATE_ALERT","id":"94ad2b7a-44a0-402d-86df-61490517a28f"}]}],"outputs":["queries.query0.total","alertLevel"],"tags":["tf_acc:1","tf_acc:2"]}}}
+            {"data":{"questionRuleInstance":{"id":"c1c17486-366a-41cd-bb80-17557b54ee5a","name":"tf-provider-test-rule","resourceGroupId":null,"description":"Test","version":1,"specVersion":1,"latest":true,"pollingInterval":"ONE_WEEK","deleted":false,"type":"QUESTION","templates":null,"notifyOnFailure":false,"triggerActionsOnNewEntitiesOnly":false,"ignorePreviousResults":false,"questionId":"a3d09bda-b208-44a6-a4c4-9d0e3ea6e7eb","question":null,"operations":[{"when":{"type":"FILTER","condition":"{{queries.query0.total != 0}}","specVersion":1},"actions":[{"targetValue":"HIGH","id":"07d2af99-05fa-4285-a37b-13c41f7320b6","type":"SET_PROPERTY","targetProperty":"alertLevel"},{"type":"CREATE_ALERT","id":"798089e7-20c6-4f40-bfe2-4a81a75e02cd"}]}],"outputs":["queries.query0.total","alertLevel"],"tags":["tf_acc:1","tf_acc:2"]}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -312,7 +312,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 158.445834ms
+        duration: 181.849917ms
     - id: 4
       request:
         proto: HTTP/1.1
@@ -321,17 +321,17 @@ interactions:
         content_length: 434
         transfer_encoding: []
         trailer: {}
-        host: graphql.dev.jupiterone.io
+        host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetQuestionById ($id: ID!) {\n\tquestion(id: $id) {\n\t\tid\n\t\ttitle\n\t\tdescription\n\t\tshowTrend\n\t\tpollingInterval\n\t\tqueries {\n\t\t\tname\n\t\t\tquery\n\t\t\tversion\n\t\t\tincludeDeleted\n\t\t\tresultsAre\n\t\t}\n\t\ttags\n\t\tcompliance {\n\t\t\tstandard\n\t\t\trequirements\n\t\t\tcontrols\n\t\t}\n\t}\n}\n","variables":{"id":"b07a2f3e-50f7-4a7e-b65c-92959ac9b9fe"},"operationName":"GetQuestionById"}'
+        body: '{"query":"\nquery GetQuestionById ($id: ID!) {\n\tquestion(id: $id) {\n\t\tid\n\t\ttitle\n\t\tdescription\n\t\tshowTrend\n\t\tpollingInterval\n\t\tqueries {\n\t\t\tname\n\t\t\tquery\n\t\t\tversion\n\t\t\tincludeDeleted\n\t\t\tresultsAre\n\t\t}\n\t\ttags\n\t\tcompliance {\n\t\t\tstandard\n\t\t\trequirements\n\t\t\tcontrols\n\t\t}\n\t}\n}\n","variables":{"id":"a3d09bda-b208-44a6-a4c4-9d0e3ea6e7eb"},"operationName":"GetQuestionById"}'
         form: {}
         headers:
             Cache-Control:
                 - no-cache
             Content-Type:
                 - application/json
-        url: https://graphql.dev.jupiterone.io/
+        url: https://graphql.us.jupiterone.io/
         method: POST
       response:
         proto: HTTP/2.0
@@ -342,7 +342,7 @@ interactions:
         content_length: 436
         uncompressed: false
         body: |
-            {"data":{"question":{"id":"b07a2f3e-50f7-4a7e-b65c-92959ac9b9fe","title":"tf-provider-test-rule","description":"Test","showTrend":false,"pollingInterval":"ONE_DAY","queries":[{"name":"query0","query":"Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true","version":"v1","includeDeleted":false,"resultsAre":"INFORMATIVE"}],"tags":["tf_acc:1","tf_acc:2"],"compliance":[]}}}
+            {"data":{"question":{"id":"a3d09bda-b208-44a6-a4c4-9d0e3ea6e7eb","title":"tf-provider-test-rule","description":"Test","showTrend":false,"pollingInterval":"ONE_DAY","queries":[{"name":"query0","query":"Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true","version":"v1","includeDeleted":false,"resultsAre":"INFORMATIVE"}],"tags":["tf_acc:1","tf_acc:2"],"compliance":[]}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -390,7 +390,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 213.585459ms
+        duration: 225.234833ms
     - id: 5
       request:
         proto: HTTP/1.1
@@ -399,17 +399,17 @@ interactions:
         content_length: 653
         transfer_encoding: []
         trailer: {}
-        host: graphql.dev.jupiterone.io
+        host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetQuestionRuleInstance ($id: ID!) {\n\tquestionRuleInstance(id: $id) {\n\t\tid\n\t\tname\n\t\tresourceGroupId\n\t\tdescription\n\t\tversion\n\t\tspecVersion\n\t\tlatest\n\t\tpollingInterval\n\t\tdeleted\n\t\ttype\n\t\ttemplates\n\t\tnotifyOnFailure\n\t\ttriggerActionsOnNewEntitiesOnly\n\t\tignorePreviousResults\n\t\tquestionId\n\t\tquestion {\n\t\t\tqueries {\n\t\t\t\tname\n\t\t\t\tquery\n\t\t\t\tversion\n\t\t\t\tincludeDeleted\n\t\t\t}\n\t\t}\n\t\toperations {\n\t\t\twhen\n\t\t\tactions\n\t\t}\n\t\toutputs\n\t\ttags\n\t}\n}\n","variables":{"id":"429574a6-687e-4fd1-aff8-ce7248d396e3"},"operationName":"GetQuestionRuleInstance"}'
+        body: '{"query":"\nquery GetQuestionRuleInstance ($id: ID!) {\n\tquestionRuleInstance(id: $id) {\n\t\tid\n\t\tname\n\t\tresourceGroupId\n\t\tdescription\n\t\tversion\n\t\tspecVersion\n\t\tlatest\n\t\tpollingInterval\n\t\tdeleted\n\t\ttype\n\t\ttemplates\n\t\tnotifyOnFailure\n\t\ttriggerActionsOnNewEntitiesOnly\n\t\tignorePreviousResults\n\t\tquestionId\n\t\tquestion {\n\t\t\tqueries {\n\t\t\t\tname\n\t\t\t\tquery\n\t\t\t\tversion\n\t\t\t\tincludeDeleted\n\t\t\t}\n\t\t}\n\t\toperations {\n\t\t\twhen\n\t\t\tactions\n\t\t}\n\t\toutputs\n\t\ttags\n\t}\n}\n","variables":{"id":"c1c17486-366a-41cd-bb80-17557b54ee5a"},"operationName":"GetQuestionRuleInstance"}'
         form: {}
         headers:
             Cache-Control:
                 - no-cache
             Content-Type:
                 - application/json
-        url: https://graphql.dev.jupiterone.io/
+        url: https://graphql.us.jupiterone.io/
         method: POST
       response:
         proto: HTTP/2.0
@@ -420,7 +420,7 @@ interactions:
         content_length: 819
         uncompressed: false
         body: |
-            {"data":{"questionRuleInstance":{"id":"429574a6-687e-4fd1-aff8-ce7248d396e3","name":"tf-provider-test-rule","resourceGroupId":null,"description":"Test","version":1,"specVersion":1,"latest":true,"pollingInterval":"ONE_WEEK","deleted":false,"type":"QUESTION","templates":null,"notifyOnFailure":false,"triggerActionsOnNewEntitiesOnly":false,"ignorePreviousResults":false,"questionId":"b07a2f3e-50f7-4a7e-b65c-92959ac9b9fe","question":null,"operations":[{"when":{"type":"FILTER","condition":"{{queries.query0.total != 0}}","specVersion":1},"actions":[{"targetValue":"HIGH","id":"1c35d201-6cfe-40cf-8a40-85572d260f4a","type":"SET_PROPERTY","targetProperty":"alertLevel"},{"type":"CREATE_ALERT","id":"94ad2b7a-44a0-402d-86df-61490517a28f"}]}],"outputs":["queries.query0.total","alertLevel"],"tags":["tf_acc:1","tf_acc:2"]}}}
+            {"data":{"questionRuleInstance":{"id":"c1c17486-366a-41cd-bb80-17557b54ee5a","name":"tf-provider-test-rule","resourceGroupId":null,"description":"Test","version":1,"specVersion":1,"latest":true,"pollingInterval":"ONE_WEEK","deleted":false,"type":"QUESTION","templates":null,"notifyOnFailure":false,"triggerActionsOnNewEntitiesOnly":false,"ignorePreviousResults":false,"questionId":"a3d09bda-b208-44a6-a4c4-9d0e3ea6e7eb","question":null,"operations":[{"when":{"type":"FILTER","condition":"{{queries.query0.total != 0}}","specVersion":1},"actions":[{"targetValue":"HIGH","id":"07d2af99-05fa-4285-a37b-13c41f7320b6","type":"SET_PROPERTY","targetProperty":"alertLevel"},{"type":"CREATE_ALERT","id":"798089e7-20c6-4f40-bfe2-4a81a75e02cd"}]}],"outputs":["queries.query0.total","alertLevel"],"tags":["tf_acc:1","tf_acc:2"]}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -468,26 +468,26 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 158.629458ms
+        duration: 186.030458ms
     - id: 6
       request:
         proto: HTTP/1.1
         proto_major: 1
         proto_minor: 1
-        content_length: 956
+        content_length: 938
         transfer_encoding: []
         trailer: {}
-        host: graphql.dev.jupiterone.io
+        host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nmutation UpdateReferencedQuestionRuleInstance ($instance: UpdateReferencedQuestionRuleInstanceInput!) {\n\tupdateReferencedQuestionRuleInstance(instance: $instance) {\n\t\tversion\n\t\tspecVersion\n\t\toperations {\n\t\t\twhen\n\t\t\tactions\n\t\t}\n\t}\n}\n","variables":{"instance":{"questionId":"b07a2f3e-50f7-4a7e-b65c-92959ac9b9fe","id":"429574a6-687e-4fd1-aff8-ce7248d396e3","version":1,"state":{"actions":null},"templates":null,"tags":["tf_acc:1","tf_acc:2"],"name":"tf-provider-test-rule","description":"Test","specVersion":1,"operations":[{"actions":[{"targetProperty":"alertLevel","targetValue":"HIGH","type":"SET_PROPERTY"},{"type":"CREATE_ALERT"}]}],"outputs":["queries.query0.total","alertLevel"],"pollingInterval":"ONE_WEEK","notifyOnFailure":false,"triggerActionsOnNewEntitiesOnly":false,"ignorePreviousResults":false,"remediationSteps":"","collectionId":"","labels":null}},"operationName":"UpdateReferencedQuestionRuleInstance"}'
+        body: '{"query":"\nmutation UpdateReferencedQuestionRuleInstance ($instance: UpdateReferencedQuestionRuleInstanceInput!) {\n\tupdateReferencedQuestionRuleInstance(instance: $instance) {\n\t\tversion\n\t\tspecVersion\n\t\toperations {\n\t\t\twhen\n\t\t\tactions\n\t\t}\n\t}\n}\n","variables":{"instance":{"questionId":"a3d09bda-b208-44a6-a4c4-9d0e3ea6e7eb","id":"c1c17486-366a-41cd-bb80-17557b54ee5a","version":1,"state":{"actions":null},"templates":null,"tags":["tf_acc:1","tf_acc:2"],"name":"tf-provider-test-rule","description":"Test","specVersion":1,"operations":[{"actions":[{"targetProperty":"alertLevel","targetValue":"HIGH","type":"SET_PROPERTY"},{"type":"CREATE_ALERT"}]}],"outputs":["queries.query0.total","alertLevel"],"pollingInterval":"ONE_WEEK","notifyOnFailure":false,"triggerActionsOnNewEntitiesOnly":false,"ignorePreviousResults":false,"remediationSteps":"","labels":null}},"operationName":"UpdateReferencedQuestionRuleInstance"}'
         form: {}
         headers:
             Cache-Control:
                 - no-cache
             Content-Type:
                 - application/json
-        url: https://graphql.dev.jupiterone.io/
+        url: https://graphql.us.jupiterone.io/
         method: POST
       response:
         proto: HTTP/2.0
@@ -498,7 +498,7 @@ interactions:
         content_length: 308
         uncompressed: false
         body: |
-            {"data":{"updateReferencedQuestionRuleInstance":{"version":2,"specVersion":1,"operations":[{"when":null,"actions":[{"targetProperty":"alertLevel","targetValue":"HIGH","type":"SET_PROPERTY","id":"fcf33883-ac59-4de6-af47-efcb50f8ec56"},{"type":"CREATE_ALERT","id":"9c8393e9-abcd-431e-be99-b7dd831d52b3"}]}]}}}
+            {"data":{"updateReferencedQuestionRuleInstance":{"version":2,"specVersion":1,"operations":[{"when":null,"actions":[{"targetProperty":"alertLevel","targetValue":"HIGH","type":"SET_PROPERTY","id":"b9365810-3d95-4561-8869-97c0faf82299"},{"type":"CREATE_ALERT","id":"0be6318a-13c9-4d5f-90a3-729ce384e330"}]}]}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -546,7 +546,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 611.525084ms
+        duration: 528.586792ms
     - id: 7
       request:
         proto: HTTP/1.1
@@ -555,17 +555,17 @@ interactions:
         content_length: 434
         transfer_encoding: []
         trailer: {}
-        host: graphql.dev.jupiterone.io
+        host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetQuestionById ($id: ID!) {\n\tquestion(id: $id) {\n\t\tid\n\t\ttitle\n\t\tdescription\n\t\tshowTrend\n\t\tpollingInterval\n\t\tqueries {\n\t\t\tname\n\t\t\tquery\n\t\t\tversion\n\t\t\tincludeDeleted\n\t\t\tresultsAre\n\t\t}\n\t\ttags\n\t\tcompliance {\n\t\t\tstandard\n\t\t\trequirements\n\t\t\tcontrols\n\t\t}\n\t}\n}\n","variables":{"id":"b07a2f3e-50f7-4a7e-b65c-92959ac9b9fe"},"operationName":"GetQuestionById"}'
+        body: '{"query":"\nquery GetQuestionById ($id: ID!) {\n\tquestion(id: $id) {\n\t\tid\n\t\ttitle\n\t\tdescription\n\t\tshowTrend\n\t\tpollingInterval\n\t\tqueries {\n\t\t\tname\n\t\t\tquery\n\t\t\tversion\n\t\t\tincludeDeleted\n\t\t\tresultsAre\n\t\t}\n\t\ttags\n\t\tcompliance {\n\t\t\tstandard\n\t\t\trequirements\n\t\t\tcontrols\n\t\t}\n\t}\n}\n","variables":{"id":"a3d09bda-b208-44a6-a4c4-9d0e3ea6e7eb"},"operationName":"GetQuestionById"}'
         form: {}
         headers:
             Cache-Control:
                 - no-cache
             Content-Type:
                 - application/json
-        url: https://graphql.dev.jupiterone.io/
+        url: https://graphql.us.jupiterone.io/
         method: POST
       response:
         proto: HTTP/2.0
@@ -576,7 +576,7 @@ interactions:
         content_length: 436
         uncompressed: false
         body: |
-            {"data":{"question":{"id":"b07a2f3e-50f7-4a7e-b65c-92959ac9b9fe","title":"tf-provider-test-rule","description":"Test","showTrend":false,"pollingInterval":"ONE_DAY","queries":[{"name":"query0","query":"Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true","version":"v1","includeDeleted":false,"resultsAre":"INFORMATIVE"}],"tags":["tf_acc:1","tf_acc:2"],"compliance":[]}}}
+            {"data":{"question":{"id":"a3d09bda-b208-44a6-a4c4-9d0e3ea6e7eb","title":"tf-provider-test-rule","description":"Test","showTrend":false,"pollingInterval":"ONE_DAY","queries":[{"name":"query0","query":"Find DataStore with classification=('critical' or 'sensitive' or 'confidential' or 'restricted') and encrypted!=true","version":"v1","includeDeleted":false,"resultsAre":"INFORMATIVE"}],"tags":["tf_acc:1","tf_acc:2"],"compliance":[]}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -624,7 +624,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 224.390792ms
+        duration: 214.118ms
     - id: 8
       request:
         proto: HTTP/1.1
@@ -633,17 +633,17 @@ interactions:
         content_length: 653
         transfer_encoding: []
         trailer: {}
-        host: graphql.dev.jupiterone.io
+        host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetQuestionRuleInstance ($id: ID!) {\n\tquestionRuleInstance(id: $id) {\n\t\tid\n\t\tname\n\t\tresourceGroupId\n\t\tdescription\n\t\tversion\n\t\tspecVersion\n\t\tlatest\n\t\tpollingInterval\n\t\tdeleted\n\t\ttype\n\t\ttemplates\n\t\tnotifyOnFailure\n\t\ttriggerActionsOnNewEntitiesOnly\n\t\tignorePreviousResults\n\t\tquestionId\n\t\tquestion {\n\t\t\tqueries {\n\t\t\t\tname\n\t\t\t\tquery\n\t\t\t\tversion\n\t\t\t\tincludeDeleted\n\t\t\t}\n\t\t}\n\t\toperations {\n\t\t\twhen\n\t\t\tactions\n\t\t}\n\t\toutputs\n\t\ttags\n\t}\n}\n","variables":{"id":"429574a6-687e-4fd1-aff8-ce7248d396e3"},"operationName":"GetQuestionRuleInstance"}'
+        body: '{"query":"\nquery GetQuestionRuleInstance ($id: ID!) {\n\tquestionRuleInstance(id: $id) {\n\t\tid\n\t\tname\n\t\tresourceGroupId\n\t\tdescription\n\t\tversion\n\t\tspecVersion\n\t\tlatest\n\t\tpollingInterval\n\t\tdeleted\n\t\ttype\n\t\ttemplates\n\t\tnotifyOnFailure\n\t\ttriggerActionsOnNewEntitiesOnly\n\t\tignorePreviousResults\n\t\tquestionId\n\t\tquestion {\n\t\t\tqueries {\n\t\t\t\tname\n\t\t\t\tquery\n\t\t\t\tversion\n\t\t\t\tincludeDeleted\n\t\t\t}\n\t\t}\n\t\toperations {\n\t\t\twhen\n\t\t\tactions\n\t\t}\n\t\toutputs\n\t\ttags\n\t}\n}\n","variables":{"id":"c1c17486-366a-41cd-bb80-17557b54ee5a"},"operationName":"GetQuestionRuleInstance"}'
         form: {}
         headers:
             Cache-Control:
                 - no-cache
             Content-Type:
                 - application/json
-        url: https://graphql.dev.jupiterone.io/
+        url: https://graphql.us.jupiterone.io/
         method: POST
       response:
         proto: HTTP/2.0
@@ -654,7 +654,7 @@ interactions:
         content_length: 746
         uncompressed: false
         body: |
-            {"data":{"questionRuleInstance":{"id":"429574a6-687e-4fd1-aff8-ce7248d396e3","name":"tf-provider-test-rule","resourceGroupId":null,"description":"Test","version":2,"specVersion":1,"latest":true,"pollingInterval":"ONE_WEEK","deleted":false,"type":"QUESTION","templates":null,"notifyOnFailure":false,"triggerActionsOnNewEntitiesOnly":false,"ignorePreviousResults":false,"questionId":"b07a2f3e-50f7-4a7e-b65c-92959ac9b9fe","question":null,"operations":[{"when":null,"actions":[{"targetValue":"HIGH","id":"fcf33883-ac59-4de6-af47-efcb50f8ec56","type":"SET_PROPERTY","targetProperty":"alertLevel"},{"type":"CREATE_ALERT","id":"9c8393e9-abcd-431e-be99-b7dd831d52b3"}]}],"outputs":["queries.query0.total","alertLevel"],"tags":["tf_acc:1","tf_acc:2"]}}}
+            {"data":{"questionRuleInstance":{"id":"c1c17486-366a-41cd-bb80-17557b54ee5a","name":"tf-provider-test-rule","resourceGroupId":null,"description":"Test","version":2,"specVersion":1,"latest":true,"pollingInterval":"ONE_WEEK","deleted":false,"type":"QUESTION","templates":null,"notifyOnFailure":false,"triggerActionsOnNewEntitiesOnly":false,"ignorePreviousResults":false,"questionId":"a3d09bda-b208-44a6-a4c4-9d0e3ea6e7eb","question":null,"operations":[{"when":null,"actions":[{"targetValue":"HIGH","id":"b9365810-3d95-4561-8869-97c0faf82299","type":"SET_PROPERTY","targetProperty":"alertLevel"},{"type":"CREATE_ALERT","id":"0be6318a-13c9-4d5f-90a3-729ce384e330"}]}],"outputs":["queries.query0.total","alertLevel"],"tags":["tf_acc:1","tf_acc:2"]}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -702,7 +702,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 153.776334ms
+        duration: 183.338583ms
     - id: 9
       request:
         proto: HTTP/1.1
@@ -711,17 +711,17 @@ interactions:
         content_length: 200
         transfer_encoding: []
         trailer: {}
-        host: graphql.dev.jupiterone.io
+        host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nmutation DeleteRuleInstance ($id: ID!) {\n\tdeleteRuleInstance(id: $id) {\n\t\tid\n\t}\n}\n","variables":{"id":"429574a6-687e-4fd1-aff8-ce7248d396e3"},"operationName":"DeleteRuleInstance"}'
+        body: '{"query":"\nmutation DeleteRuleInstance ($id: ID!) {\n\tdeleteRuleInstance(id: $id) {\n\t\tid\n\t}\n}\n","variables":{"id":"c1c17486-366a-41cd-bb80-17557b54ee5a"},"operationName":"DeleteRuleInstance"}'
         form: {}
         headers:
             Cache-Control:
                 - no-cache
             Content-Type:
                 - application/json
-        url: https://graphql.dev.jupiterone.io/
+        url: https://graphql.us.jupiterone.io/
         method: POST
       response:
         proto: HTTP/2.0
@@ -732,7 +732,7 @@ interactions:
         content_length: 78
         uncompressed: false
         body: |
-            {"data":{"deleteRuleInstance":{"id":"429574a6-687e-4fd1-aff8-ce7248d396e3"}}}
+            {"data":{"deleteRuleInstance":{"id":"c1c17486-366a-41cd-bb80-17557b54ee5a"}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -780,7 +780,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 301.521625ms
+        duration: 324.022042ms
     - id: 10
       request:
         proto: HTTP/1.1
@@ -789,17 +789,17 @@ interactions:
         content_length: 188
         transfer_encoding: []
         trailer: {}
-        host: graphql.dev.jupiterone.io
+        host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nmutation DeleteQuestion ($id: ID!) {\n\tdeleteQuestion(id: $id) {\n\t\tid\n\t}\n}\n","variables":{"id":"b07a2f3e-50f7-4a7e-b65c-92959ac9b9fe"},"operationName":"DeleteQuestion"}'
+        body: '{"query":"\nmutation DeleteQuestion ($id: ID!) {\n\tdeleteQuestion(id: $id) {\n\t\tid\n\t}\n}\n","variables":{"id":"a3d09bda-b208-44a6-a4c4-9d0e3ea6e7eb"},"operationName":"DeleteQuestion"}'
         form: {}
         headers:
             Cache-Control:
                 - no-cache
             Content-Type:
                 - application/json
-        url: https://graphql.dev.jupiterone.io/
+        url: https://graphql.us.jupiterone.io/
         method: POST
       response:
         proto: HTTP/2.0
@@ -810,7 +810,7 @@ interactions:
         content_length: 74
         uncompressed: false
         body: |
-            {"data":{"deleteQuestion":{"id":"b07a2f3e-50f7-4a7e-b65c-92959ac9b9fe"}}}
+            {"data":{"deleteQuestion":{"id":"a3d09bda-b208-44a6-a4c4-9d0e3ea6e7eb"}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -858,4 +858,4 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 486.108625ms
+        duration: 381.381125ms

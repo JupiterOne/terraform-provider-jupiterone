@@ -37,7 +37,7 @@ resource "jupiterone_integration" "example_custom_file_transfer" {
     "entities" = [
       {
         "id" = "Test",
-        "uniqueIdentified" = "758ba675-ff35-46aa-ae88-fd2d421a3c1f",
+        "uniqueIdentifier" = "758ba675-ff35-46aa-ae88-fd2d421a3c1f",
         "_class" = "ThreatIntel",
         "_keyField" = "test",
         "_type" = "test"
@@ -72,10 +72,22 @@ resource "jupiterone_integration" "example_custom_integration" {
 
 ### Optional
 
+- `collector_pool_id` (String) The ID of the collector pool.
 - `description` (String) The description of the integration instance.
+- `ingestion_sources_overrides` (List of Object) Overrides for ingestion sources. (see [below for nested schema](#nestedatt--ingestion_sources_overrides))
+- `polling_interval_cron_expression` (String) The cron expression for the polling interval as a JSON string.
+- `source_integration_instance_id` (String) The ID of the source integration instance.
 
 ### Read-Only
 
 - `id` (String) The unique identifier of the integration instance.
+
+<a id="nestedatt--ingestion_sources_overrides"></a>
+### Nested Schema for `ingestion_sources_overrides`
+
+Optional:
+
+- `enabled` (Boolean)
+- `ingestion_source_id` (String)
 
 

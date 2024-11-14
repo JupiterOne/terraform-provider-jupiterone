@@ -119,6 +119,7 @@ func (p *JupiterOneProvider) Configure(ctx context.Context, req provider.Configu
 func (*JupiterOneProvider) DataSources(context.Context) []func() datasource.DataSource {
 	return []func() datasource.DataSource{
 		NewUserGroupDataSource,
+		NewResourceGroupDataSource,
 	}
 }
 
@@ -144,6 +145,7 @@ func (*JupiterOneProvider) Resources(context.Context) []func() resource.Resource
 		NewDashboardParameterResource,
 		NewIntegrationResource,
 		NewResourcePermissionResource,
+		NewResourceGroupResource,
 	}
 }
 

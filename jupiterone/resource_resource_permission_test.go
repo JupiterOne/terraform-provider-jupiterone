@@ -63,8 +63,8 @@ func resourcePermissionExistsHelper(ctx context.Context, qlient graphql.Client) 
 	}
 
 	duration := 10 * time.Second
-	err2 := retry.RetryContext(ctx, duration, func() *retry.RetryError {
-		_, err := client.GetResourcePermission(ctx, qlient, client.GetResourcePermissionsFilter{SubjectId: "example-group-id", SubjectType: "group", ResourceArea: "rule", ResourceType: "*", ResourceId: "*"}, "", 10)
+	err := retry.RetryContext(ctx, duration, func() *retry.RetryError {
+		_, err := client.GetResourcePermissions(ctx, qlient, client.GetResourcePermissionsFilter{SubjectId: "example-group-id", SubjectType: "group", ResourceArea: "rule", ResourceType: "*", ResourceId: "*"}, "", 10)
 
 		if err == nil {
 			return nil
@@ -77,8 +77,8 @@ func resourcePermissionExistsHelper(ctx context.Context, qlient graphql.Client) 
 		return retry.NonRetryableError(err)
 	})
 
-	if err2 != nil {
-		return err2
+	if err != nil {
+		return err
 	}
 
 	return nil
@@ -103,13 +103,13 @@ func resourcePermissionDestroyHelper(ctx context.Context, qlient graphql.Client)
 
 	duration := 10 * time.Second
 	err := retry.RetryContext(ctx, duration, func() *retry.RetryError {
-		_, err := client.GetResourcePermission(ctx, qlient, client.GetResourcePermissionsFilter{SubjectId: "example-group-id", SubjectType: "group", ResourceArea: "rule", ResourceType: "*", ResourceId: "*"}, "", 10)
+		_, err := client.GetResourcePermissions(ctx, qlient, client.GetResourcePermissionsFilter{SubjectId: "example-group-id", SubjectType: "group", ResourceArea: "rule", ResourceType: "*", ResourceId: "*"}, "", 10)
 
 		if err == nil {
 			return retry.RetryableError(fmt.Errorf("Permission set still exists"))
 		}
 
-		if strings.Contains(err.Error(), "Rule instance does not exist.") {
+		if strings.Contains(err.Error(), "Permission set does not exist.") {
 			return nil
 		}
 

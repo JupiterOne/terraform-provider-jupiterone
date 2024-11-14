@@ -12,6 +12,7 @@ operations:
   - dashboardParameter.graphql
   - integration.graphql
   - resourcePermissions.graphql
+  - resourceGroups.graphql
 generated: generated.go
 
 bindings:
