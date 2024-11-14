@@ -5,11 +5,10 @@ import (
 	"fmt"
 
 	"github.com/Khan/genqlient/graphql"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
 	"github.com/jupiterone/terraform-provider-jupiterone/jupiterone/internal/client"
@@ -21,7 +20,7 @@ type ResourcePermissionResource struct {
 }
 
 type ResourcePermissionModel struct {
-	ID           types.String `tfsdk:"id"`
+	ID           types.String `json:"id,omitempty" tfsdk:"id"`
 	SubjectType  types.String `json:"subjectType" tfsdk:"subject_type"`
 	SubjectId    types.String `json:"subjectId" tfsdk:"subject_id"`
 	ResourceArea types.String `json:"resourceArea" tfsdk:"resource_area"`
@@ -68,9 +67,6 @@ func (*ResourcePermissionResource) Schema(ctx context.Context, req resource.Sche
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed: true,
-				PlanModifiers: []planmodifier.String{
-					stringplanmodifier.UseStateForUnknown(),
-				},
 			},
 			"subject_type": schema.StringAttribute{
 				Required:    true,
@@ -129,7 +125,7 @@ func (r *ResourcePermissionModel) BuildSetResourcePermissionInput() (client.SetR
 }
 
 func (r *ResourcePermissionResource) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
-	var data *ResourcePermissionModel
+	var data ResourcePermissionModel
 
 	// Read Terraform plan data into the model
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &data)...)
@@ -151,7 +147,12 @@ func (r *ResourcePermissionResource) Create(ctx context.Context, req resource.Cr
 		return
 	}
 
-	data.ID = types.StringValue(fmt.Sprintf("%s-%s-%s-%s-%s", data.SubjectType.ValueString(), data.SubjectId.ValueString(), data.ResourceArea.ValueString(), data.ResourceType.ValueString(), data.ResourceId.ValueString()))
+	data.ID = types.StringValue(fmt.Sprintf("%s-%s-%s-%s-%s",
+		data.SubjectType.ValueString(),
+		data.SubjectId.ValueString(),
+		data.ResourceArea.ValueString(),
+		data.ResourceType.ValueString(),
+		data.ResourceId.ValueString()))
 
 	tflog.Trace(ctx, "Set resource permission",
 		map[string]interface{}{"resourceArea": created.SetResourcePermission.ResourceArea})
@@ -161,14 +162,52 @@ func (r *ResourcePermissionResource) Create(ctx context.Context, req resource.Cr
 }
 
 func (r *ResourcePermissionResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
-	var data *ResourcePermissionModel
+	var data ResourcePermissionModel
+	var state ResourcePermissionModel
 
 	// Read Terraform plan data into the model
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &data)...)
+
+	// Read current state into the model
+	resp.Diagnostics.Append(req.State.Get(ctx, &state)...)
 	if resp.Diagnostics.HasError() {
 		return
 	}
 
+	// A change in any of these fields should trigger a deletion of the old resource and a creation of a new one
+	shouldCreateNewPermissionSetFields := []struct {
+		newVal, oldVal attr.Value
+		name           string
+	}{
+		{data.SubjectId, state.SubjectId, "subject_id"},
+		{data.SubjectType, state.SubjectType, "subject_type"},
+		{data.ResourceArea, state.ResourceArea, "resource_area"},
+		{data.ResourceType, state.ResourceType, "resource_type"},
+		{data.ResourceId, state.ResourceId, "resource_id"},
+	}
+
+	for _, field := range shouldCreateNewPermissionSetFields {
+		if !field.newVal.Equal(field.oldVal) {
+
+			tflog.Trace(ctx, "Resource permission fields changed, deleting old permission")
+
+			_, err := client.DeleteResourcePermission(ctx, r.qlient, client.DeleteResourcePermissionInput{
+				SubjectId:    state.SubjectId.ValueString(),
+				SubjectType:  state.SubjectType.ValueString(),
+				ResourceArea: state.ResourceArea.ValueString(),
+				ResourceType: state.ResourceType.ValueString(),
+				ResourceId:   state.ResourceId.ValueString()})
+
+			if err != nil {
+				resp.Diagnostics.AddError("Failed to delete resource permission", err.Error())
+				return
+			}
+
+			break
+		}
+	}
+
+	// Can now continue with creating or updating the resource permission
 	permissionResource, err := data.BuildSetResourcePermissionInput()
 
 	if err != nil {
@@ -186,7 +225,12 @@ func (r *ResourcePermissionResource) Update(ctx context.Context, req resource.Up
 	tflog.Trace(ctx, "Set resource permission",
 		map[string]interface{}{"resourceArea": updated.SetResourcePermission.ResourceArea})
 
-	data.ID = types.StringValue(fmt.Sprintf("%s-%s-%s-%s-%s", data.SubjectType.ValueString(), data.SubjectId.ValueString(), data.ResourceArea.ValueString(), data.ResourceType.ValueString(), data.ResourceId.ValueString()))
+	data.ID = types.StringValue(fmt.Sprintf("%s-%s-%s-%s-%s",
+		data.SubjectType.ValueString(),
+		data.SubjectId.ValueString(),
+		data.ResourceArea.ValueString(),
+		data.ResourceType.ValueString(),
+		data.ResourceId.ValueString()))
 
 	// Save updated data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
@@ -217,11 +261,31 @@ func (r *ResourcePermissionResource) Delete(ctx context.Context, req resource.De
 }
 
 func (r *ResourcePermissionResource) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
-	var data *ResourcePermissionModel
+	var data ResourcePermissionModel
 
 	// Read Terraform state into the model
 	resp.Diagnostics.Append(req.State.Get(ctx, &data)...)
 	if resp.Diagnostics.HasError() {
+		return
+	}
+
+	// Check if this resource exists
+	resourcePermission, err := client.GetResourcePermissions(ctx, r.qlient, client.GetResourcePermissionsFilter{
+		SubjectId:    data.SubjectId.ValueString(),
+		SubjectType:  data.SubjectType.ValueString(),
+		ResourceArea: data.ResourceArea.ValueString(),
+		ResourceType: data.ResourceType.ValueString(),
+		ResourceId:   data.ResourceId.ValueString(),
+	}, "", 10)
+
+	if err != nil {
+		resp.Diagnostics.AddError("failed to get resource permission", err.Error())
+		return
+	}
+
+	// If the resource no longer exists (we may have deleted it as part of the Update action), remove it from the state
+	if len(resourcePermission.GetGetResourcePermissions()) == 0 {
+		resp.State.RemoveResource(ctx)
 		return
 	}
 }

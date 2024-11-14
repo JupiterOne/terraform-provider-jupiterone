@@ -18,7 +18,7 @@ mutation DeleteResourcePermission($input: DeleteResourcePermissionInput!) {
   }
 }
 
-query GetResourcePermission(
+query GetResourcePermissions(
   $filter: GetResourcePermissionsFilter!
   $cursor: String
   $limit: Int
