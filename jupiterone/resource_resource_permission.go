@@ -82,11 +82,11 @@ func (*ResourcePermissionResource) Schema(ctx context.Context, req resource.Sche
 			},
 			"resource_type": schema.StringAttribute{
 				Required:    true,
-				Description: "The resource type that these permissions will be applied to (e.g. rule, rule_collection, *).",
+				Description: "The resource type that these permissions will be applied to (e.g. rule, resource_group, *).",
 			},
 			"resource_id": schema.StringAttribute{
 				Required:    true,
-				Description: "The ID of the resource that these permissions will be applied to (e.g. rule ID, rule collection ID, *).",
+				Description: "The ID of the resource that these permissions will be applied to (e.g. rule ID, resource group ID, *).",
 			},
 			"can_read": schema.BoolAttribute{
 				Required:    true,

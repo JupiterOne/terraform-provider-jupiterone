@@ -39,8 +39,8 @@ resource "jupiterone_resource_permission" "administrator_permissions" {
 - `subject_id` (String) The ID of the subject that the resource permissions will be applied to (e.g. group ID).
 - `subject_type` (String) The type of the subject that the resource permissions will be applied to (e.g. group).
 - `resource_area` (String) The resource area that these permissions will be applied to (e.g. rule).
-- `resource_type` (String) The resource type that these permissions will be applied to (e.g. rule, rule_collection, \*).
-- `resource_id` (String) The resource ID that these permissions will be applied to (e.g. rule ID, rule_collection ID, \*).
+- `resource_type` (String) The resource type that these permissions will be applied to (e.g. rule, resource_group, \*).
+- `resource_id` (String) The resource ID that these permissions will be applied to (e.g. rule ID, resource_group ID, \*).
 - `can_read` (Boolean) Whether the subject can read the resource.
 - `can_create` (Boolean) Whether the subject can create the resource.
 - `can_update` (Boolean) Whether the subject can update the resource.

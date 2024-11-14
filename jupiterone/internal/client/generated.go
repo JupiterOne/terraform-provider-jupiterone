@@ -499,8 +499,8 @@ type CreateInlineQuestionRuleInstanceInput struct {
 	TriggerActionsOnNewEntitiesOnly bool                     `json:"triggerActionsOnNewEntitiesOnly"`
 	IgnorePreviousResults           bool                     `json:"ignorePreviousResults"`
 	RemediationSteps                string                   `json:"remediationSteps"`
-	CollectionId                    string                   `json:"collectionId,omitempty"`
-	ResourceGroupId                 string                   `json:"resourceGroupId"`
+	CollectionId                    string                   `json:"collectionId"`
+	ResourceGroupId                 string                   `json:"resourceGroupId,omitempty"`
 	Labels                          []RuleInstanceLabelInput `json:"labels"`
 	J1Internal                      bool                     `json:"j1Internal"`
 }
@@ -1024,8 +1024,8 @@ type CreateReferencedQuestionRuleInstanceInput struct {
 	TriggerActionsOnNewEntitiesOnly bool                     `json:"triggerActionsOnNewEntitiesOnly"`
 	IgnorePreviousResults           bool                     `json:"ignorePreviousResults"`
 	RemediationSteps                string                   `json:"remediationSteps"`
-	CollectionId                    string                   `json:"collectionId,omitempty"`
-	ResourceGroupId                 string                   `json:"resourceGroupId"`
+	CollectionId                    string                   `json:"collectionId"`
+	ResourceGroupId                 string                   `json:"resourceGroupId,omitempty"`
 	Labels                          []RuleInstanceLabelInput `json:"labels"`
 }
 
@@ -2107,7 +2107,7 @@ func (v *GetQuestionByIdResponse) GetQuestion() GetQuestionByIdQuestion { return
 type GetQuestionRuleInstanceQuestionRuleInstance struct {
 	Id                              string                                                                 `json:"id"`
 	Name                            string                                                                 `json:"name"`
-	CollectionId                    string                                                                 `json:"collectionId"`
+	ResourceGroupId                 string                                                                 `json:"resourceGroupId"`
 	Description                     string                                                                 `json:"description"`
 	Version                         int                                                                    `json:"version"`
 	SpecVersion                     int                                                                    `json:"specVersion"`
@@ -2132,8 +2132,10 @@ func (v *GetQuestionRuleInstanceQuestionRuleInstance) GetId() string { return v.
 // GetName returns GetQuestionRuleInstanceQuestionRuleInstance.Name, and is useful for accessing the field via an interface.
 func (v *GetQuestionRuleInstanceQuestionRuleInstance) GetName() string { return v.Name }
 
-// GetCollectionId returns GetQuestionRuleInstanceQuestionRuleInstance.CollectionId, and is useful for accessing the field via an interface.
-func (v *GetQuestionRuleInstanceQuestionRuleInstance) GetCollectionId() string { return v.CollectionId }
+// GetResourceGroupId returns GetQuestionRuleInstanceQuestionRuleInstance.ResourceGroupId, and is useful for accessing the field via an interface.
+func (v *GetQuestionRuleInstanceQuestionRuleInstance) GetResourceGroupId() string {
+	return v.ResourceGroupId
+}
 
 // GetDescription returns GetQuestionRuleInstanceQuestionRuleInstance.Description, and is useful for accessing the field via an interface.
 func (v *GetQuestionRuleInstanceQuestionRuleInstance) GetDescription() string { return v.Description }
@@ -3510,8 +3512,8 @@ type UpdateInlineQuestionRuleInstanceInput struct {
 	TriggerActionsOnNewEntitiesOnly bool                     `json:"triggerActionsOnNewEntitiesOnly"`
 	IgnorePreviousResults           bool                     `json:"ignorePreviousResults"`
 	RemediationSteps                string                   `json:"remediationSteps,omitempty"`
-	CollectionId                    string                   `json:"collectionId,omitempty"`
-	ResourceGroupId                 string                   `json:"resourceGroupId"`
+	CollectionId                    string                   `json:"collectionId"`
+	ResourceGroupId                 string                   `json:"resourceGroupId,omitempty"`
 	Labels                          []RuleInstanceLabelInput `json:"labels"`
 }
 
@@ -3812,8 +3814,8 @@ type UpdateReferencedQuestionRuleInstanceInput struct {
 	TriggerActionsOnNewEntitiesOnly bool                     `json:"triggerActionsOnNewEntitiesOnly"`
 	IgnorePreviousResults           bool                     `json:"ignorePreviousResults"`
 	RemediationSteps                string                   `json:"remediationSteps"`
-	CollectionId                    string                   `json:"collectionId,omitempty"`
-	ResourceGroupId                 string                   `json:"resourceGroupId"`
+	CollectionId                    string                   `json:"collectionId"`
+	ResourceGroupId                 string                   `json:"resourceGroupId,omitempty"`
 	Labels                          []RuleInstanceLabelInput `json:"labels"`
 }
 
@@ -5985,7 +5987,7 @@ query GetQuestionRuleInstance ($id: ID!) {
 	questionRuleInstance(id: $id) {
 		id
 		name
-		collectionId
+		resourceGroupId
 		description
 		version
 		specVersion
