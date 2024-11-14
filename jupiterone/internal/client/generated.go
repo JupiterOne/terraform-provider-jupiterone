@@ -499,7 +499,6 @@ type CreateInlineQuestionRuleInstanceInput struct {
 	TriggerActionsOnNewEntitiesOnly bool                     `json:"triggerActionsOnNewEntitiesOnly"`
 	IgnorePreviousResults           bool                     `json:"ignorePreviousResults"`
 	RemediationSteps                string                   `json:"remediationSteps"`
-	CollectionId                    string                   `json:"collectionId"`
 	ResourceGroupId                 string                   `json:"resourceGroupId,omitempty"`
 	Labels                          []RuleInstanceLabelInput `json:"labels"`
 	J1Internal                      bool                     `json:"j1Internal"`
@@ -557,9 +556,6 @@ func (v *CreateInlineQuestionRuleInstanceInput) GetIgnorePreviousResults() bool 
 func (v *CreateInlineQuestionRuleInstanceInput) GetRemediationSteps() string {
 	return v.RemediationSteps
 }
-
-// GetCollectionId returns CreateInlineQuestionRuleInstanceInput.CollectionId, and is useful for accessing the field via an interface.
-func (v *CreateInlineQuestionRuleInstanceInput) GetCollectionId() string { return v.CollectionId }
 
 // GetResourceGroupId returns CreateInlineQuestionRuleInstanceInput.ResourceGroupId, and is useful for accessing the field via an interface.
 func (v *CreateInlineQuestionRuleInstanceInput) GetResourceGroupId() string { return v.ResourceGroupId }
@@ -1024,7 +1020,6 @@ type CreateReferencedQuestionRuleInstanceInput struct {
 	TriggerActionsOnNewEntitiesOnly bool                     `json:"triggerActionsOnNewEntitiesOnly"`
 	IgnorePreviousResults           bool                     `json:"ignorePreviousResults"`
 	RemediationSteps                string                   `json:"remediationSteps"`
-	CollectionId                    string                   `json:"collectionId"`
 	ResourceGroupId                 string                   `json:"resourceGroupId,omitempty"`
 	Labels                          []RuleInstanceLabelInput `json:"labels"`
 }
@@ -1081,9 +1076,6 @@ func (v *CreateReferencedQuestionRuleInstanceInput) GetIgnorePreviousResults() b
 func (v *CreateReferencedQuestionRuleInstanceInput) GetRemediationSteps() string {
 	return v.RemediationSteps
 }
-
-// GetCollectionId returns CreateReferencedQuestionRuleInstanceInput.CollectionId, and is useful for accessing the field via an interface.
-func (v *CreateReferencedQuestionRuleInstanceInput) GetCollectionId() string { return v.CollectionId }
 
 // GetResourceGroupId returns CreateReferencedQuestionRuleInstanceInput.ResourceGroupId, and is useful for accessing the field via an interface.
 func (v *CreateReferencedQuestionRuleInstanceInput) GetResourceGroupId() string {
@@ -3512,7 +3504,6 @@ type UpdateInlineQuestionRuleInstanceInput struct {
 	TriggerActionsOnNewEntitiesOnly bool                     `json:"triggerActionsOnNewEntitiesOnly"`
 	IgnorePreviousResults           bool                     `json:"ignorePreviousResults"`
 	RemediationSteps                string                   `json:"remediationSteps,omitempty"`
-	CollectionId                    string                   `json:"collectionId"`
 	ResourceGroupId                 string                   `json:"resourceGroupId,omitempty"`
 	Labels                          []RuleInstanceLabelInput `json:"labels"`
 }
@@ -3581,9 +3572,6 @@ func (v *UpdateInlineQuestionRuleInstanceInput) GetIgnorePreviousResults() bool 
 func (v *UpdateInlineQuestionRuleInstanceInput) GetRemediationSteps() string {
 	return v.RemediationSteps
 }
-
-// GetCollectionId returns UpdateInlineQuestionRuleInstanceInput.CollectionId, and is useful for accessing the field via an interface.
-func (v *UpdateInlineQuestionRuleInstanceInput) GetCollectionId() string { return v.CollectionId }
 
 // GetResourceGroupId returns UpdateInlineQuestionRuleInstanceInput.ResourceGroupId, and is useful for accessing the field via an interface.
 func (v *UpdateInlineQuestionRuleInstanceInput) GetResourceGroupId() string { return v.ResourceGroupId }
@@ -3814,7 +3802,6 @@ type UpdateReferencedQuestionRuleInstanceInput struct {
 	TriggerActionsOnNewEntitiesOnly bool                     `json:"triggerActionsOnNewEntitiesOnly"`
 	IgnorePreviousResults           bool                     `json:"ignorePreviousResults"`
 	RemediationSteps                string                   `json:"remediationSteps"`
-	CollectionId                    string                   `json:"collectionId"`
 	ResourceGroupId                 string                   `json:"resourceGroupId,omitempty"`
 	Labels                          []RuleInstanceLabelInput `json:"labels"`
 }
@@ -3883,9 +3870,6 @@ func (v *UpdateReferencedQuestionRuleInstanceInput) GetIgnorePreviousResults() b
 func (v *UpdateReferencedQuestionRuleInstanceInput) GetRemediationSteps() string {
 	return v.RemediationSteps
 }
-
-// GetCollectionId returns UpdateReferencedQuestionRuleInstanceInput.CollectionId, and is useful for accessing the field via an interface.
-func (v *UpdateReferencedQuestionRuleInstanceInput) GetCollectionId() string { return v.CollectionId }
 
 // GetResourceGroupId returns UpdateReferencedQuestionRuleInstanceInput.ResourceGroupId, and is useful for accessing the field via an interface.
 func (v *UpdateReferencedQuestionRuleInstanceInput) GetResourceGroupId() string {
