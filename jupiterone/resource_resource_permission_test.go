@@ -64,7 +64,7 @@ func resourcePermissionExistsHelper(ctx context.Context, qlient graphql.Client) 
 
 	duration := 10 * time.Second
 	err := retry.RetryContext(ctx, duration, func() *retry.RetryError {
-		_, err := client.GetResourcePermission(ctx, qlient, client.GetResourcePermissionsFilter{SubjectId: "example-group-id", SubjectType: "group", ResourceArea: "rule", ResourceType: "*", ResourceId: "*"}, "", 10)
+		_, err := client.GetResourcePermissions(ctx, qlient, client.GetResourcePermissionsFilter{SubjectId: "example-group-id", SubjectType: "group", ResourceArea: "rule", ResourceType: "*", ResourceId: "*"}, "", 10)
 
 		if err == nil {
 			return nil
@@ -103,7 +103,7 @@ func resourcePermissionDestroyHelper(ctx context.Context, qlient graphql.Client)
 
 	duration := 10 * time.Second
 	err := retry.RetryContext(ctx, duration, func() *retry.RetryError {
-		_, err := client.GetResourcePermission(ctx, qlient, client.GetResourcePermissionsFilter{SubjectId: "example-group-id", SubjectType: "group", ResourceArea: "rule", ResourceType: "*", ResourceId: "*"}, "", 10)
+		_, err := client.GetResourcePermissions(ctx, qlient, client.GetResourcePermissionsFilter{SubjectId: "example-group-id", SubjectType: "group", ResourceArea: "rule", ResourceType: "*", ResourceId: "*"}, "", 10)
 
 		if err == nil {
 			return retry.RetryableError(fmt.Errorf("Permission set still exists"))
