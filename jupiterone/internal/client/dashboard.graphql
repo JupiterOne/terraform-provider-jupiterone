@@ -2,21 +2,21 @@ query GetDashboard($dashboardId: String!) {
   getDashboard(dashboardId: $dashboardId) {
     id
     name
+    resourceGroupId
   }
 }
 
 # @genqlient(for: "CreateInsightsDashboardInput.layouts", omitempty: true, pointer:true)
 # @genqlient(for: "CreateInsightsDashboardInput.category", omitempty: true)
 # @genqlient(for: "CreateInsightsDashboardInput.dashboardId", omitempty: true)
+# @genqlient(for: "CreateInsightsDashboardInput.resourceGroupId", omitempty: true)
 mutation CreateDashboard(
-    $input: CreateInsightsDashboardInput!
-) {
-    createDashboard(
-        input: $input
-    ) {
-        name
-        id
-    }
+  $input: CreateInsightsDashboardInput!
+  ) {
+  createDashboard(input: $input) {
+    name
+    id
+  }
 }
 
 mutation DeleteDashboard($dashboardId: String!) {
@@ -27,9 +27,10 @@ mutation DeleteDashboard($dashboardId: String!) {
 
 # @genqlient(for: "PatchInsightsDashboardInput.layouts", omitempty: true, pointer:true)
 # @genqlient(for: "PatchInsightsDashboardInput.category", omitempty: true)
+# @genqlient(for: "PatchInsightsDashboardInput.resourceGroupId", omitempty: true)
 mutation UpdateDashboard(
-    $input: PatchInsightsDashboardInput!
-) {
+  $input: PatchInsightsDashboardInput!
+  ) {
   patchDashboard(input: $input) {
     id
     name
