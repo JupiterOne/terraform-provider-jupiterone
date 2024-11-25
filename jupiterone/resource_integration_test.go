@@ -40,6 +40,7 @@ func TestIntegration_Basic(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "description", "Test integration"),
 					resource.TestCheckResourceAttr(resourceName, "config.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "config.key", "value"),
+					resource.TestCheckResourceAttr(resourceName, "resource_group_id", "rg-123456"),
 				),
 			},
 			// Add a second step to check if the resource is stable after refresh
@@ -109,6 +110,8 @@ resource "jupiterone_integration" "test" {
   config = {
     key = "value"
   }
+
+  resource_group_id = "rg-123456"
 }
 `, name, integrationDefinitionId)
 }
