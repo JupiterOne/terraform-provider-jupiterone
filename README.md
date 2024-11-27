@@ -339,6 +339,10 @@ scripts/get_current_schema.bash
 make generate-client
 ```
 
+**NOTE**: If you are getting errors like this: `for is only applicable to operations and arguments`, check whether formatting has changed in the gql file in question. If the formatting has changed, you may be running into the issue documented in this thread: https://github.com/Khan/genqlient/issues/149#issuecomment-958150171
+
+---
+
 ### Testing
 
 In order to test the provider, you can simply run `make testacc`. Pre-recorded

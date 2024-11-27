@@ -38,6 +38,7 @@ type IntegrationModel struct {
 	CollectorPoolId               types.String `tfsdk:"collector_pool_id"`
 	PollingIntervalCronExpression types.String `tfsdk:"polling_interval_cron_expression"`
 	IngestionSourcesOverrides     types.List   `tfsdk:"ingestion_sources_overrides"`
+	ResourceGroupId               types.String `tfsdk:"resource_group_id"`
 }
 
 func NewIntegrationResource() resource.Resource {
@@ -113,6 +114,10 @@ func (r *IntegrationResource) Create(ctx context.Context, req resource.CreateReq
 		input.IngestionSourcesOverrides = overrides
 	}
 
+	if !data.ResourceGroupId.IsNull() {
+		input.ResourceGroupId = data.ResourceGroupId.ValueString()
+	}
+
 	created, err := client.CreateIntegrationInstance(ctx, r.qlient, input)
 	if err != nil {
 		resp.Diagnostics.AddError("Failed to create integration instance", err.Error())
@@ -147,6 +152,7 @@ func (r *IntegrationResource) Read(ctx context.Context, req resource.ReadRequest
 	data.PollingInterval = types.StringValue(string(response.IntegrationInstance.PollingInterval))
 	data.IntegrationDefinitionId = types.StringValue(response.IntegrationInstance.IntegrationDefinitionId)
 	data.Description = types.StringValue(response.IntegrationInstance.Description)
+	data.ResourceGroupId = types.StringValue(response.IntegrationInstance.ResourceGroupId)
 
 	configJSON, err := json.Marshal(response.IntegrationInstance.Config)
 	if err != nil {
@@ -235,6 +241,10 @@ func (r *IntegrationResource) Update(ctx context.Context, req resource.UpdateReq
 		input.IngestionSourcesOverrides = overrides
 	}
 
+	if !data.ResourceGroupId.IsNull() {
+		input.ResourceGroupId = data.ResourceGroupId.ValueString()
+	}
+
 	_, err := client.UpdateIntegrationInstance(ctx, r.qlient, data.Id.ValueString(), input)
 	if err != nil {
 		resp.Diagnostics.AddError("Failed to update integration instance", err.Error())
@@ -321,6 +331,10 @@ func (r *IntegrationResource) Schema(ctx context.Context, req resource.SchemaReq
 						"enabled":             types.BoolType,
 					},
 				},
+			},
+			"resource_group_id": schema.StringAttribute{
+				Optional:    true,
+				Description: "The ID of the resource group to which the integration instance belongs.",
 			},
 		},
 	}

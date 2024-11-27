@@ -589,6 +589,7 @@ type CreateInsightsDashboardInput struct {
 	PublishedToUserIds  []string                             `json:"publishedToUserIds"`
 	PublishedToGroupIds []string                             `json:"publishedToGroupIds"`
 	Ttd                 int64                                `json:"ttd"`
+	ResourceGroupId     string                               `json:"resourceGroupId,omitempty"`
 }
 
 // GetDashboardId returns CreateInsightsDashboardInput.DashboardId, and is useful for accessing the field via an interface.
@@ -630,6 +631,9 @@ func (v *CreateInsightsDashboardInput) GetPublishedToGroupIds() []string {
 
 // GetTtd returns CreateInsightsDashboardInput.Ttd, and is useful for accessing the field via an interface.
 func (v *CreateInsightsDashboardInput) GetTtd() int64 { return v.Ttd }
+
+// GetResourceGroupId returns CreateInsightsDashboardInput.ResourceGroupId, and is useful for accessing the field via an interface.
+func (v *CreateInsightsDashboardInput) GetResourceGroupId() string { return v.ResourceGroupId }
 
 type CreateInsightsDashboardLayoutConfig struct {
 	Xs []CreateInsightsDashboardLayoutItem `json:"xs"`
@@ -867,6 +871,7 @@ type CreateIntegrationInstanceInput struct {
 	OffsiteComplete               bool                                          `json:"offsiteComplete,omitempty"`
 	IngestionSourcesOverrides     []IngestionSourcesOverridesInput              `json:"ingestionSourcesOverrides,omitempty"`
 	CollectorPoolId               string                                        `json:"collectorPoolId,omitempty"`
+	ResourceGroupId               string                                        `json:"resourceGroupId"`
 }
 
 // GetName returns CreateIntegrationInstanceInput.Name, and is useful for accessing the field via an interface.
@@ -908,6 +913,9 @@ func (v *CreateIntegrationInstanceInput) GetIngestionSourcesOverrides() []Ingest
 
 // GetCollectorPoolId returns CreateIntegrationInstanceInput.CollectorPoolId, and is useful for accessing the field via an interface.
 func (v *CreateIntegrationInstanceInput) GetCollectorPoolId() string { return v.CollectorPoolId }
+
+// GetResourceGroupId returns CreateIntegrationInstanceInput.ResourceGroupId, and is useful for accessing the field via an interface.
+func (v *CreateIntegrationInstanceInput) GetResourceGroupId() string { return v.ResourceGroupId }
 
 // CreateIntegrationInstanceResponse is returned by CreateIntegrationInstance on success.
 type CreateIntegrationInstanceResponse struct {
@@ -1747,8 +1755,9 @@ func (v *GetComplianceLibraryItemByIdResponse) GetComplianceLibraryItem() GetCom
 
 // GetDashboardGetDashboardInsightsDashboard includes the requested fields of the GraphQL type InsightsDashboard.
 type GetDashboardGetDashboardInsightsDashboard struct {
-	Id   string `json:"id"`
-	Name string `json:"name"`
+	Id              string `json:"id"`
+	Name            string `json:"name"`
+	ResourceGroupId string `json:"resourceGroupId"`
 }
 
 // GetId returns GetDashboardGetDashboardInsightsDashboard.Id, and is useful for accessing the field via an interface.
@@ -1756,6 +1765,11 @@ func (v *GetDashboardGetDashboardInsightsDashboard) GetId() string { return v.Id
 
 // GetName returns GetDashboardGetDashboardInsightsDashboard.Name, and is useful for accessing the field via an interface.
 func (v *GetDashboardGetDashboardInsightsDashboard) GetName() string { return v.Name }
+
+// GetResourceGroupId returns GetDashboardGetDashboardInsightsDashboard.ResourceGroupId, and is useful for accessing the field via an interface.
+func (v *GetDashboardGetDashboardInsightsDashboard) GetResourceGroupId() string {
+	return v.ResourceGroupId
+}
 
 // GetDashboardResponse is returned by GetDashboard on success.
 type GetDashboardResponse struct {
@@ -1876,6 +1890,7 @@ type GetIntegrationInstanceIntegrationInstance struct {
 	IngestionSourcesOverrides     []GetIntegrationInstanceIntegrationInstanceIngestionSourcesOverrides                                           `json:"ingestionSourcesOverrides"`
 	SourceIntegrationInstanceId   string                                                                                                         `json:"sourceIntegrationInstanceId"`
 	CollectorPoolId               string                                                                                                         `json:"collectorPoolId"`
+	ResourceGroupId               string                                                                                                         `json:"resourceGroupId"`
 	PollingIntervalCronExpression GetIntegrationInstanceIntegrationInstancePollingIntervalCronExpressionIntegrationPollingIntervalCronExpression `json:"pollingIntervalCronExpression"`
 	OffsiteComplete               bool                                                                                                           `json:"offsiteComplete"`
 }
@@ -1917,6 +1932,11 @@ func (v *GetIntegrationInstanceIntegrationInstance) GetSourceIntegrationInstance
 // GetCollectorPoolId returns GetIntegrationInstanceIntegrationInstance.CollectorPoolId, and is useful for accessing the field via an interface.
 func (v *GetIntegrationInstanceIntegrationInstance) GetCollectorPoolId() string {
 	return v.CollectorPoolId
+}
+
+// GetResourceGroupId returns GetIntegrationInstanceIntegrationInstance.ResourceGroupId, and is useful for accessing the field via an interface.
+func (v *GetIntegrationInstanceIntegrationInstance) GetResourceGroupId() string {
+	return v.ResourceGroupId
 }
 
 // GetPollingIntervalCronExpression returns GetIntegrationInstanceIntegrationInstance.PollingIntervalCronExpression, and is useful for accessing the field via an interface.
@@ -2832,6 +2852,7 @@ type PatchInsightsDashboardInput struct {
 	Published           bool                                 `json:"published"`
 	PublishedToUserIds  []string                             `json:"publishedToUserIds"`
 	PublishedToGroupIds []string                             `json:"publishedToGroupIds"`
+	ResourceGroupId     string                               `json:"resourceGroupId"`
 }
 
 // GetDashboardId returns PatchInsightsDashboardInput.DashboardId, and is useful for accessing the field via an interface.
@@ -2865,6 +2886,9 @@ func (v *PatchInsightsDashboardInput) GetPublishedToUserIds() []string { return 
 
 // GetPublishedToGroupIds returns PatchInsightsDashboardInput.PublishedToGroupIds, and is useful for accessing the field via an interface.
 func (v *PatchInsightsDashboardInput) GetPublishedToGroupIds() []string { return v.PublishedToGroupIds }
+
+// GetResourceGroupId returns PatchInsightsDashboardInput.ResourceGroupId, and is useful for accessing the field via an interface.
+func (v *PatchInsightsDashboardInput) GetResourceGroupId() string { return v.ResourceGroupId }
 
 type QueryResultsAre string
 
@@ -3621,6 +3645,7 @@ type UpdateIntegrationInstanceInput struct {
 	OffsiteComplete               bool                                          `json:"offsiteComplete,omitempty"`
 	CollectorPoolId               string                                        `json:"collectorPoolId,omitempty"`
 	IngestionSourcesOverrides     []IngestionSourcesOverridesInput              `json:"ingestionSourcesOverrides,omitempty"`
+	ResourceGroupId               string                                        `json:"resourceGroupId"`
 }
 
 // GetName returns UpdateIntegrationInstanceInput.Name, and is useful for accessing the field via an interface.
@@ -3657,6 +3682,9 @@ func (v *UpdateIntegrationInstanceInput) GetCollectorPoolId() string { return v.
 func (v *UpdateIntegrationInstanceInput) GetIngestionSourcesOverrides() []IngestionSourcesOverridesInput {
 	return v.IngestionSourcesOverrides
 }
+
+// GetResourceGroupId returns UpdateIntegrationInstanceInput.ResourceGroupId, and is useful for accessing the field via an interface.
+func (v *UpdateIntegrationInstanceInput) GetResourceGroupId() string { return v.ResourceGroupId }
 
 // UpdateIntegrationInstanceResponse is returned by UpdateIntegrationInstance on success.
 type UpdateIntegrationInstanceResponse struct {
@@ -5755,6 +5783,7 @@ query GetDashboard ($dashboardId: String!) {
 	getDashboard(dashboardId: $dashboardId) {
 		id
 		name
+		resourceGroupId
 	}
 }
 `,
@@ -5845,6 +5874,7 @@ query GetIntegrationInstance ($id: String!) {
 		}
 		sourceIntegrationInstanceId
 		collectorPoolId
+		resourceGroupId
 		pollingIntervalCronExpression {
 			hour
 			dayOfWeek

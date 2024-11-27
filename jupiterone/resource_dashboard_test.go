@@ -66,6 +66,7 @@ func TestDashboard_BasicImport(t *testing.T) {
 					resource.TestCheckResourceAttrSet(resourceName, "id"),
 					resource.TestCheckResourceAttr(resourceName, "name", dashboardName),
 					resource.TestCheckResourceAttr(resourceName, "type", string(dashboardType)),
+					resource.TestCheckResourceAttr(resourceName, "resource_group_id", "rg-123456"),
 				),
 			},
 		},
@@ -172,6 +173,7 @@ func testDashboardBasicConfig(rName string) string {
 		resource "jupiterone_dashboard" "test" {
 			name = %q
 			type = "Account"
+			resource_group_id = "rg-123456"
 		}
 	`, rName)
 }

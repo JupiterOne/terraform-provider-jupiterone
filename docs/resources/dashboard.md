@@ -95,6 +95,10 @@ resource "jupiterone_widget" "plot-compliance-per-control" {
 - `name` (String) The name of the dashboard.
 - `type` (String) The type of the dashboard.
 
+### Optional
+
+- `resource_group_id` (String) The ID of the resource group that the dashboard belongs to.
+
 ### Read-Only
 
 - `id` (String) The ID of this resource.

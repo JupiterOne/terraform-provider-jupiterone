@@ -76,6 +76,7 @@ resource "jupiterone_integration" "example_custom_integration" {
 - `description` (String) The description of the integration instance.
 - `ingestion_sources_overrides` (List of Object) Overrides for ingestion sources. (see [below for nested schema](#nestedatt--ingestion_sources_overrides))
 - `polling_interval_cron_expression` (String) The cron expression for the polling interval as a JSON string.
+- `resource_group_id` (String) The ID of the resource group to which the integration instance belongs.
 - `source_integration_instance_id` (String) The ID of the source integration instance.
 
 ### Read-Only

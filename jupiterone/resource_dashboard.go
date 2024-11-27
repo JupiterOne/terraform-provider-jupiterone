@@ -35,9 +35,10 @@ func NewDashboard() resource.Resource {
 }
 
 type DashboardModel struct {
-	Id   types.String `json:"id,omitempty" tfsdk:"id"`
-	Name types.String `json:"name,omitempty" tfsdk:"name"`
-	Type types.String `json:"type,omitempty" tfsdk:"type"`
+	Id              types.String `json:"id,omitempty" tfsdk:"id"`
+	Name            types.String `json:"name,omitempty" tfsdk:"name"`
+	Type            types.String `json:"type,omitempty" tfsdk:"type"`
+	ResourceGroupId types.String `json:"resource_group_id" tfsdk:"resource_group_id"`
 }
 
 func NewDashboardResource() resource.Resource {
@@ -176,6 +177,10 @@ func (*DashboardResource) Schema(ctx context.Context, req resource.SchemaRequest
 					stringvalidator.OneOf(DashboardTypes...),
 				},
 			},
+			"resource_group_id": schema.StringAttribute{
+				Optional:    true,
+				Description: "The ID of the resource group that the dashboard belongs to.",
+			},
 		},
 	}
 }
@@ -216,8 +221,9 @@ func (r *DashboardResource) Update(ctx context.Context, req resource.UpdateReque
 
 func (r *DashboardModel) BuildCreateInsightsDashboardInput() (client.CreateInsightsDashboardInput, error) {
 	dashboard := client.CreateInsightsDashboardInput{
-		Name: r.Name.ValueString(),
-		Type: client.BoardType(r.Type.ValueString()),
+		Name:            r.Name.ValueString(),
+		Type:            client.BoardType(r.Type.ValueString()),
+		ResourceGroupId: r.ResourceGroupId.ValueString(),
 	}
 
 	return dashboard, nil
@@ -225,8 +231,9 @@ func (r *DashboardModel) BuildCreateInsightsDashboardInput() (client.CreateInsig
 
 func (r *DashboardModel) BuildPatchInsightsDashboardInput() (client.PatchInsightsDashboardInput, error) {
 	dashboard := client.PatchInsightsDashboardInput{
-		Name:        r.Name.ValueString(),
-		DashboardId: r.Id.ValueString(),
+		Name:            r.Name.ValueString(),
+		DashboardId:     r.Id.ValueString(),
+		ResourceGroupId: r.ResourceGroupId.ValueString(),
 	}
 
 	return dashboard, nil

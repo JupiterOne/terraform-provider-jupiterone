@@ -12,6 +12,7 @@ query GetIntegrationInstance($id: String!) {
     }
     sourceIntegrationInstanceId
     collectorPoolId
+    resourceGroupId
     pollingIntervalCronExpression {
       hour
       dayOfWeek
@@ -26,7 +27,8 @@ query GetIntegrationInstance($id: String!) {
 # @genqlient(for: "CreateIntegrationInstanceInput.offsiteComplete", omitempty: true)
 # @genqlient(for: "CreateIntegrationInstanceInput.ingestionSourcesOverrides", omitempty: true)
 mutation CreateIntegrationInstance(
-  $instance: CreateIntegrationInstanceInput!) {
+  $instance: CreateIntegrationInstanceInput!
+  ) {
   createIntegrationInstance(instance: $instance) {
     id
     name
@@ -54,8 +56,9 @@ mutation CreateIntegrationInstance(
 # @genqlient(for: "UpdateIntegrationInstanceInput.offsiteComplete", omitempty: true)
 # @genqlient(for: "UpdateIntegrationInstanceInput.ingestionSourcesOverrides", omitempty: true)
 mutation UpdateIntegrationInstance(
-  $id: String!, 
-  $update: UpdateIntegrationInstanceInput!) {
+  $id: String!
+  $update: UpdateIntegrationInstanceInput!
+) {
   updateIntegrationInstance(id: $id, update: $update) {
     id
     name
@@ -82,5 +85,3 @@ mutation DeleteIntegrationInstance($id: String!) {
     success
   }
 }
-
-
