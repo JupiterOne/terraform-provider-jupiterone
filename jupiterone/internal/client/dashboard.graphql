@@ -27,7 +27,6 @@ mutation DeleteDashboard($dashboardId: String!) {
 
 # @genqlient(for: "PatchInsightsDashboardInput.layouts", omitempty: true, pointer:true)
 # @genqlient(for: "PatchInsightsDashboardInput.category", omitempty: true)
-# @genqlient(for: "PatchInsightsDashboardInput.resourceGroupId", omitempty: true)
 mutation UpdateDashboard(
   $input: PatchInsightsDashboardInput!
   ) {

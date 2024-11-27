@@ -2852,7 +2852,7 @@ type PatchInsightsDashboardInput struct {
 	Published           bool                                 `json:"published"`
 	PublishedToUserIds  []string                             `json:"publishedToUserIds"`
 	PublishedToGroupIds []string                             `json:"publishedToGroupIds"`
-	ResourceGroupId     string                               `json:"resourceGroupId,omitempty"`
+	ResourceGroupId     string                               `json:"resourceGroupId"`
 }
 
 // GetDashboardId returns PatchInsightsDashboardInput.DashboardId, and is useful for accessing the field via an interface.
