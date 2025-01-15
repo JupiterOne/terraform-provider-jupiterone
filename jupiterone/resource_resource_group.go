@@ -164,12 +164,8 @@ func (r *ResourceGroupResource) Read(ctx context.Context, req resource.ReadReque
 		if strings.Contains(err.Error(), "Item not found") {
 			resp.State.RemoveResource(ctx)
 		} else {
-			resp.Diagnostics.AddError("failed to get user group", err.Error())
+			resp.Diagnostics.AddError("failed to get resource group", err.Error())
 		}
-		return
-	}
-	if err != nil {
-		resp.Diagnostics.AddError("failed to get resource group", err.Error())
 		return
 	}
 

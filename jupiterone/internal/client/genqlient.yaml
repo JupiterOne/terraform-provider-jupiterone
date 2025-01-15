@@ -13,6 +13,7 @@ operations:
   - integration.graphql
   - resourcePermissions.graphql
   - resourceGroups.graphql
+  - smartClasses.graphql
 generated: generated.go
 
 bindings:

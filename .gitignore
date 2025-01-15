@@ -19,6 +19,7 @@ website/node_modules
 .terraform/
 *.log
 *.bak
+.env
 *~
 .*.swp
 .idea

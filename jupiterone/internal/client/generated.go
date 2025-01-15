@@ -1177,6 +1177,137 @@ func (v *CreateResourceGroupResponse) GetCreateResourceGroup() CreateResourceGro
 	return v.CreateResourceGroup
 }
 
+// CreateSmartClassCreateSmartClass includes the requested fields of the GraphQL type SmartClass.
+type CreateSmartClassCreateSmartClass struct {
+	Id          string `json:"id"`
+	TagName     string `json:"tagName"`
+	Description string `json:"description"`
+}
+
+// GetId returns CreateSmartClassCreateSmartClass.Id, and is useful for accessing the field via an interface.
+func (v *CreateSmartClassCreateSmartClass) GetId() string { return v.Id }
+
+// GetTagName returns CreateSmartClassCreateSmartClass.TagName, and is useful for accessing the field via an interface.
+func (v *CreateSmartClassCreateSmartClass) GetTagName() string { return v.TagName }
+
+// GetDescription returns CreateSmartClassCreateSmartClass.Description, and is useful for accessing the field via an interface.
+func (v *CreateSmartClassCreateSmartClass) GetDescription() string { return v.Description }
+
+type CreateSmartClassInput struct {
+	TagName     string `json:"tagName"`
+	Description string `json:"description"`
+}
+
+// GetTagName returns CreateSmartClassInput.TagName, and is useful for accessing the field via an interface.
+func (v *CreateSmartClassInput) GetTagName() string { return v.TagName }
+
+// GetDescription returns CreateSmartClassInput.Description, and is useful for accessing the field via an interface.
+func (v *CreateSmartClassInput) GetDescription() string { return v.Description }
+
+// CreateSmartClassQueryCreateSmartClassQuery includes the requested fields of the GraphQL type SmartClassQuery.
+type CreateSmartClassQueryCreateSmartClassQuery struct {
+	Id           string `json:"id"`
+	Query        string `json:"query"`
+	SmartClassId string `json:"smartClassId"`
+	Description  string `json:"description"`
+}
+
+// GetId returns CreateSmartClassQueryCreateSmartClassQuery.Id, and is useful for accessing the field via an interface.
+func (v *CreateSmartClassQueryCreateSmartClassQuery) GetId() string { return v.Id }
+
+// GetQuery returns CreateSmartClassQueryCreateSmartClassQuery.Query, and is useful for accessing the field via an interface.
+func (v *CreateSmartClassQueryCreateSmartClassQuery) GetQuery() string { return v.Query }
+
+// GetSmartClassId returns CreateSmartClassQueryCreateSmartClassQuery.SmartClassId, and is useful for accessing the field via an interface.
+func (v *CreateSmartClassQueryCreateSmartClassQuery) GetSmartClassId() string { return v.SmartClassId }
+
+// GetDescription returns CreateSmartClassQueryCreateSmartClassQuery.Description, and is useful for accessing the field via an interface.
+func (v *CreateSmartClassQueryCreateSmartClassQuery) GetDescription() string { return v.Description }
+
+type CreateSmartClassQueryInput struct {
+	SmartClassId string `json:"smartClassId"`
+	Description  string `json:"description"`
+	Query        string `json:"query"`
+}
+
+// GetSmartClassId returns CreateSmartClassQueryInput.SmartClassId, and is useful for accessing the field via an interface.
+func (v *CreateSmartClassQueryInput) GetSmartClassId() string { return v.SmartClassId }
+
+// GetDescription returns CreateSmartClassQueryInput.Description, and is useful for accessing the field via an interface.
+func (v *CreateSmartClassQueryInput) GetDescription() string { return v.Description }
+
+// GetQuery returns CreateSmartClassQueryInput.Query, and is useful for accessing the field via an interface.
+func (v *CreateSmartClassQueryInput) GetQuery() string { return v.Query }
+
+// CreateSmartClassQueryResponse is returned by CreateSmartClassQuery on success.
+type CreateSmartClassQueryResponse struct {
+	CreateSmartClassQuery CreateSmartClassQueryCreateSmartClassQuery `json:"createSmartClassQuery"`
+}
+
+// GetCreateSmartClassQuery returns CreateSmartClassQueryResponse.CreateSmartClassQuery, and is useful for accessing the field via an interface.
+func (v *CreateSmartClassQueryResponse) GetCreateSmartClassQuery() CreateSmartClassQueryCreateSmartClassQuery {
+	return v.CreateSmartClassQuery
+}
+
+// CreateSmartClassResponse is returned by CreateSmartClass on success.
+type CreateSmartClassResponse struct {
+	CreateSmartClass CreateSmartClassCreateSmartClass `json:"createSmartClass"`
+}
+
+// GetCreateSmartClass returns CreateSmartClassResponse.CreateSmartClass, and is useful for accessing the field via an interface.
+func (v *CreateSmartClassResponse) GetCreateSmartClass() CreateSmartClassCreateSmartClass {
+	return v.CreateSmartClass
+}
+
+// CreateSmartClassTagCreateSmartClassTag includes the requested fields of the GraphQL type SmartClassTag.
+type CreateSmartClassTagCreateSmartClassTag struct {
+	Id    string            `json:"id"`
+	Name  string            `json:"name"`
+	Type  SmartClassTagType `json:"type"`
+	Value string            `json:"value"`
+}
+
+// GetId returns CreateSmartClassTagCreateSmartClassTag.Id, and is useful for accessing the field via an interface.
+func (v *CreateSmartClassTagCreateSmartClassTag) GetId() string { return v.Id }
+
+// GetName returns CreateSmartClassTagCreateSmartClassTag.Name, and is useful for accessing the field via an interface.
+func (v *CreateSmartClassTagCreateSmartClassTag) GetName() string { return v.Name }
+
+// GetType returns CreateSmartClassTagCreateSmartClassTag.Type, and is useful for accessing the field via an interface.
+func (v *CreateSmartClassTagCreateSmartClassTag) GetType() SmartClassTagType { return v.Type }
+
+// GetValue returns CreateSmartClassTagCreateSmartClassTag.Value, and is useful for accessing the field via an interface.
+func (v *CreateSmartClassTagCreateSmartClassTag) GetValue() string { return v.Value }
+
+type CreateSmartClassTagInput struct {
+	SmartClassId string            `json:"smartClassId"`
+	Name         string            `json:"name"`
+	Type         SmartClassTagType `json:"type"`
+	Value        string            `json:"value"`
+}
+
+// GetSmartClassId returns CreateSmartClassTagInput.SmartClassId, and is useful for accessing the field via an interface.
+func (v *CreateSmartClassTagInput) GetSmartClassId() string { return v.SmartClassId }
+
+// GetName returns CreateSmartClassTagInput.Name, and is useful for accessing the field via an interface.
+func (v *CreateSmartClassTagInput) GetName() string { return v.Name }
+
+// GetType returns CreateSmartClassTagInput.Type, and is useful for accessing the field via an interface.
+func (v *CreateSmartClassTagInput) GetType() SmartClassTagType { return v.Type }
+
+// GetValue returns CreateSmartClassTagInput.Value, and is useful for accessing the field via an interface.
+func (v *CreateSmartClassTagInput) GetValue() string { return v.Value }
+
+// CreateSmartClassTagResponse is returned by CreateSmartClassTag on success.
+type CreateSmartClassTagResponse struct {
+	CreateSmartClassTag CreateSmartClassTagCreateSmartClassTag `json:"createSmartClassTag"`
+}
+
+// GetCreateSmartClassTag returns CreateSmartClassTagResponse.CreateSmartClassTag, and is useful for accessing the field via an interface.
+func (v *CreateSmartClassTagResponse) GetCreateSmartClassTag() CreateSmartClassTagCreateSmartClassTag {
+	return v.CreateSmartClassTag
+}
+
 // CreateUserGroupCreateIamGroupV1Group includes the requested fields of the GraphQL type V1Group.
 type CreateUserGroupCreateIamGroupV1Group struct {
 	Id string `json:"id"`
@@ -1529,6 +1660,62 @@ type DeleteRuleInstanceResponse struct {
 // GetDeleteRuleInstance returns DeleteRuleInstanceResponse.DeleteRuleInstance, and is useful for accessing the field via an interface.
 func (v *DeleteRuleInstanceResponse) GetDeleteRuleInstance() DeleteRuleInstanceDeleteRuleInstanceDeleteRuleInstanceResult {
 	return v.DeleteRuleInstance
+}
+
+// DeleteSmartClassDeleteSmartClassDeleteResponse includes the requested fields of the GraphQL type DeleteResponse.
+type DeleteSmartClassDeleteSmartClassDeleteResponse struct {
+	Success bool `json:"success"`
+}
+
+// GetSuccess returns DeleteSmartClassDeleteSmartClassDeleteResponse.Success, and is useful for accessing the field via an interface.
+func (v *DeleteSmartClassDeleteSmartClassDeleteResponse) GetSuccess() bool { return v.Success }
+
+// DeleteSmartClassQueryDeleteSmartClassQueryDeleteResponse includes the requested fields of the GraphQL type DeleteResponse.
+type DeleteSmartClassQueryDeleteSmartClassQueryDeleteResponse struct {
+	Success bool `json:"success"`
+}
+
+// GetSuccess returns DeleteSmartClassQueryDeleteSmartClassQueryDeleteResponse.Success, and is useful for accessing the field via an interface.
+func (v *DeleteSmartClassQueryDeleteSmartClassQueryDeleteResponse) GetSuccess() bool {
+	return v.Success
+}
+
+// DeleteSmartClassQueryResponse is returned by DeleteSmartClassQuery on success.
+type DeleteSmartClassQueryResponse struct {
+	DeleteSmartClassQuery DeleteSmartClassQueryDeleteSmartClassQueryDeleteResponse `json:"deleteSmartClassQuery"`
+}
+
+// GetDeleteSmartClassQuery returns DeleteSmartClassQueryResponse.DeleteSmartClassQuery, and is useful for accessing the field via an interface.
+func (v *DeleteSmartClassQueryResponse) GetDeleteSmartClassQuery() DeleteSmartClassQueryDeleteSmartClassQueryDeleteResponse {
+	return v.DeleteSmartClassQuery
+}
+
+// DeleteSmartClassResponse is returned by DeleteSmartClass on success.
+type DeleteSmartClassResponse struct {
+	DeleteSmartClass DeleteSmartClassDeleteSmartClassDeleteResponse `json:"deleteSmartClass"`
+}
+
+// GetDeleteSmartClass returns DeleteSmartClassResponse.DeleteSmartClass, and is useful for accessing the field via an interface.
+func (v *DeleteSmartClassResponse) GetDeleteSmartClass() DeleteSmartClassDeleteSmartClassDeleteResponse {
+	return v.DeleteSmartClass
+}
+
+// DeleteSmartClassTagDeleteSmartClassTagDeleteResponse includes the requested fields of the GraphQL type DeleteResponse.
+type DeleteSmartClassTagDeleteSmartClassTagDeleteResponse struct {
+	Success bool `json:"success"`
+}
+
+// GetSuccess returns DeleteSmartClassTagDeleteSmartClassTagDeleteResponse.Success, and is useful for accessing the field via an interface.
+func (v *DeleteSmartClassTagDeleteSmartClassTagDeleteResponse) GetSuccess() bool { return v.Success }
+
+// DeleteSmartClassTagResponse is returned by DeleteSmartClassTag on success.
+type DeleteSmartClassTagResponse struct {
+	DeleteSmartClassTag DeleteSmartClassTagDeleteSmartClassTagDeleteResponse `json:"deleteSmartClassTag"`
+}
+
+// GetDeleteSmartClassTag returns DeleteSmartClassTagResponse.DeleteSmartClassTag, and is useful for accessing the field via an interface.
+func (v *DeleteSmartClassTagResponse) GetDeleteSmartClassTag() DeleteSmartClassTagDeleteSmartClassTagDeleteResponse {
+	return v.DeleteSmartClassTag
 }
 
 // DeleteUserGroupDeleteIamGroupSuccessStatusResult includes the requested fields of the GraphQL type SuccessStatusResult.
@@ -2488,6 +2675,84 @@ func (v *GetResourcePermissionsResponse) GetGetResourcePermissions() []GetResour
 	return v.GetResourcePermissions
 }
 
+// GetSmartClassQueryResponse is returned by GetSmartClassQuery on success.
+type GetSmartClassQueryResponse struct {
+	SmartClassQuery GetSmartClassQuerySmartClassQuery `json:"smartClassQuery"`
+}
+
+// GetSmartClassQuery returns GetSmartClassQueryResponse.SmartClassQuery, and is useful for accessing the field via an interface.
+func (v *GetSmartClassQueryResponse) GetSmartClassQuery() GetSmartClassQuerySmartClassQuery {
+	return v.SmartClassQuery
+}
+
+// GetSmartClassQuerySmartClassQuery includes the requested fields of the GraphQL type SmartClassQuery.
+type GetSmartClassQuerySmartClassQuery struct {
+	Id           string `json:"id"`
+	Query        string `json:"query"`
+	SmartClassId string `json:"smartClassId"`
+	Description  string `json:"description"`
+}
+
+// GetId returns GetSmartClassQuerySmartClassQuery.Id, and is useful for accessing the field via an interface.
+func (v *GetSmartClassQuerySmartClassQuery) GetId() string { return v.Id }
+
+// GetQuery returns GetSmartClassQuerySmartClassQuery.Query, and is useful for accessing the field via an interface.
+func (v *GetSmartClassQuerySmartClassQuery) GetQuery() string { return v.Query }
+
+// GetSmartClassId returns GetSmartClassQuerySmartClassQuery.SmartClassId, and is useful for accessing the field via an interface.
+func (v *GetSmartClassQuerySmartClassQuery) GetSmartClassId() string { return v.SmartClassId }
+
+// GetDescription returns GetSmartClassQuerySmartClassQuery.Description, and is useful for accessing the field via an interface.
+func (v *GetSmartClassQuerySmartClassQuery) GetDescription() string { return v.Description }
+
+// GetSmartClassResponse is returned by GetSmartClass on success.
+type GetSmartClassResponse struct {
+	SmartClass GetSmartClassSmartClass `json:"smartClass"`
+}
+
+// GetSmartClass returns GetSmartClassResponse.SmartClass, and is useful for accessing the field via an interface.
+func (v *GetSmartClassResponse) GetSmartClass() GetSmartClassSmartClass { return v.SmartClass }
+
+// GetSmartClassSmartClass includes the requested fields of the GraphQL type SmartClass.
+type GetSmartClassSmartClass struct {
+	Id          string                                     `json:"id"`
+	TagName     string                                     `json:"tagName"`
+	Description string                                     `json:"description"`
+	Tags        []GetSmartClassSmartClassTagsSmartClassTag `json:"tags"`
+}
+
+// GetId returns GetSmartClassSmartClass.Id, and is useful for accessing the field via an interface.
+func (v *GetSmartClassSmartClass) GetId() string { return v.Id }
+
+// GetTagName returns GetSmartClassSmartClass.TagName, and is useful for accessing the field via an interface.
+func (v *GetSmartClassSmartClass) GetTagName() string { return v.TagName }
+
+// GetDescription returns GetSmartClassSmartClass.Description, and is useful for accessing the field via an interface.
+func (v *GetSmartClassSmartClass) GetDescription() string { return v.Description }
+
+// GetTags returns GetSmartClassSmartClass.Tags, and is useful for accessing the field via an interface.
+func (v *GetSmartClassSmartClass) GetTags() []GetSmartClassSmartClassTagsSmartClassTag { return v.Tags }
+
+// GetSmartClassSmartClassTagsSmartClassTag includes the requested fields of the GraphQL type SmartClassTag.
+type GetSmartClassSmartClassTagsSmartClassTag struct {
+	Id    string            `json:"id"`
+	Name  string            `json:"name"`
+	Type  SmartClassTagType `json:"type"`
+	Value string            `json:"value"`
+}
+
+// GetId returns GetSmartClassSmartClassTagsSmartClassTag.Id, and is useful for accessing the field via an interface.
+func (v *GetSmartClassSmartClassTagsSmartClassTag) GetId() string { return v.Id }
+
+// GetName returns GetSmartClassSmartClassTagsSmartClassTag.Name, and is useful for accessing the field via an interface.
+func (v *GetSmartClassSmartClassTagsSmartClassTag) GetName() string { return v.Name }
+
+// GetType returns GetSmartClassSmartClassTagsSmartClassTag.Type, and is useful for accessing the field via an interface.
+func (v *GetSmartClassSmartClassTagsSmartClassTag) GetType() SmartClassTagType { return v.Type }
+
+// GetValue returns GetSmartClassSmartClassTagsSmartClassTag.Value, and is useful for accessing the field via an interface.
+func (v *GetSmartClassSmartClassTagsSmartClassTag) GetValue() string { return v.Value }
+
 // GetUserGroupIamGetGroupIamGroup includes the requested fields of the GraphQL type IamGroup.
 type GetUserGroupIamGetGroupIamGroup struct {
 	Id                  string                                                              `json:"id"`
@@ -2890,6 +3155,51 @@ func (v *PatchInsightsDashboardInput) GetPublishedToGroupIds() []string { return
 // GetResourceGroupId returns PatchInsightsDashboardInput.ResourceGroupId, and is useful for accessing the field via an interface.
 func (v *PatchInsightsDashboardInput) GetResourceGroupId() string { return v.ResourceGroupId }
 
+type PatchSmartClassInput struct {
+	Id          string `json:"id"`
+	Description string `json:"description"`
+}
+
+// GetId returns PatchSmartClassInput.Id, and is useful for accessing the field via an interface.
+func (v *PatchSmartClassInput) GetId() string { return v.Id }
+
+// GetDescription returns PatchSmartClassInput.Description, and is useful for accessing the field via an interface.
+func (v *PatchSmartClassInput) GetDescription() string { return v.Description }
+
+type PatchSmartClassQueryInput struct {
+	Id          string `json:"id"`
+	Description string `json:"description"`
+	Query       string `json:"query"`
+}
+
+// GetId returns PatchSmartClassQueryInput.Id, and is useful for accessing the field via an interface.
+func (v *PatchSmartClassQueryInput) GetId() string { return v.Id }
+
+// GetDescription returns PatchSmartClassQueryInput.Description, and is useful for accessing the field via an interface.
+func (v *PatchSmartClassQueryInput) GetDescription() string { return v.Description }
+
+// GetQuery returns PatchSmartClassQueryInput.Query, and is useful for accessing the field via an interface.
+func (v *PatchSmartClassQueryInput) GetQuery() string { return v.Query }
+
+type PatchSmartClassTagInput struct {
+	Id    string            `json:"id"`
+	Name  string            `json:"name"`
+	Type  SmartClassTagType `json:"type"`
+	Value string            `json:"value"`
+}
+
+// GetId returns PatchSmartClassTagInput.Id, and is useful for accessing the field via an interface.
+func (v *PatchSmartClassTagInput) GetId() string { return v.Id }
+
+// GetName returns PatchSmartClassTagInput.Name, and is useful for accessing the field via an interface.
+func (v *PatchSmartClassTagInput) GetName() string { return v.Name }
+
+// GetType returns PatchSmartClassTagInput.Type, and is useful for accessing the field via an interface.
+func (v *PatchSmartClassTagInput) GetType() SmartClassTagType { return v.Type }
+
+// GetValue returns PatchSmartClassTagInput.Value, and is useful for accessing the field via an interface.
+func (v *PatchSmartClassTagInput) GetValue() string { return v.Value }
+
 type QueryResultsAre string
 
 const (
@@ -3254,6 +3564,14 @@ func (v *SetResourcePermissionSetResourcePermissionIamResourcePermission) GetSub
 func (v *SetResourcePermissionSetResourcePermissionIamResourcePermission) GetSubjectType() string {
 	return v.SubjectType
 }
+
+type SmartClassTagType string
+
+const (
+	SmartClassTagTypeString  SmartClassTagType = "string"
+	SmartClassTagTypeBoolean SmartClassTagType = "boolean"
+	SmartClassTagTypeNumber  SmartClassTagType = "number"
+)
 
 type UpdateComplianceFrameworkFields struct {
 	Name         string                   `json:"name"`
@@ -4013,6 +4331,88 @@ func (v *UpdateResourceGroupUpdateResourceGroupIamResourceGroup) __premarshalJSO
 	return &retval, nil
 }
 
+// UpdateSmartClassPatchSmartClass includes the requested fields of the GraphQL type SmartClass.
+type UpdateSmartClassPatchSmartClass struct {
+	Id          string `json:"id"`
+	Description string `json:"description"`
+}
+
+// GetId returns UpdateSmartClassPatchSmartClass.Id, and is useful for accessing the field via an interface.
+func (v *UpdateSmartClassPatchSmartClass) GetId() string { return v.Id }
+
+// GetDescription returns UpdateSmartClassPatchSmartClass.Description, and is useful for accessing the field via an interface.
+func (v *UpdateSmartClassPatchSmartClass) GetDescription() string { return v.Description }
+
+// UpdateSmartClassQueryPatchSmartClassQuery includes the requested fields of the GraphQL type SmartClassQuery.
+type UpdateSmartClassQueryPatchSmartClassQuery struct {
+	Id           string `json:"id"`
+	Query        string `json:"query"`
+	SmartClassId string `json:"smartClassId"`
+	Description  string `json:"description"`
+}
+
+// GetId returns UpdateSmartClassQueryPatchSmartClassQuery.Id, and is useful for accessing the field via an interface.
+func (v *UpdateSmartClassQueryPatchSmartClassQuery) GetId() string { return v.Id }
+
+// GetQuery returns UpdateSmartClassQueryPatchSmartClassQuery.Query, and is useful for accessing the field via an interface.
+func (v *UpdateSmartClassQueryPatchSmartClassQuery) GetQuery() string { return v.Query }
+
+// GetSmartClassId returns UpdateSmartClassQueryPatchSmartClassQuery.SmartClassId, and is useful for accessing the field via an interface.
+func (v *UpdateSmartClassQueryPatchSmartClassQuery) GetSmartClassId() string { return v.SmartClassId }
+
+// GetDescription returns UpdateSmartClassQueryPatchSmartClassQuery.Description, and is useful for accessing the field via an interface.
+func (v *UpdateSmartClassQueryPatchSmartClassQuery) GetDescription() string { return v.Description }
+
+// UpdateSmartClassQueryResponse is returned by UpdateSmartClassQuery on success.
+type UpdateSmartClassQueryResponse struct {
+	PatchSmartClassQuery UpdateSmartClassQueryPatchSmartClassQuery `json:"patchSmartClassQuery"`
+}
+
+// GetPatchSmartClassQuery returns UpdateSmartClassQueryResponse.PatchSmartClassQuery, and is useful for accessing the field via an interface.
+func (v *UpdateSmartClassQueryResponse) GetPatchSmartClassQuery() UpdateSmartClassQueryPatchSmartClassQuery {
+	return v.PatchSmartClassQuery
+}
+
+// UpdateSmartClassResponse is returned by UpdateSmartClass on success.
+type UpdateSmartClassResponse struct {
+	PatchSmartClass UpdateSmartClassPatchSmartClass `json:"patchSmartClass"`
+}
+
+// GetPatchSmartClass returns UpdateSmartClassResponse.PatchSmartClass, and is useful for accessing the field via an interface.
+func (v *UpdateSmartClassResponse) GetPatchSmartClass() UpdateSmartClassPatchSmartClass {
+	return v.PatchSmartClass
+}
+
+// UpdateSmartClassTagPatchSmartClassTag includes the requested fields of the GraphQL type SmartClassTag.
+type UpdateSmartClassTagPatchSmartClassTag struct {
+	Id    string            `json:"id"`
+	Name  string            `json:"name"`
+	Type  SmartClassTagType `json:"type"`
+	Value string            `json:"value"`
+}
+
+// GetId returns UpdateSmartClassTagPatchSmartClassTag.Id, and is useful for accessing the field via an interface.
+func (v *UpdateSmartClassTagPatchSmartClassTag) GetId() string { return v.Id }
+
+// GetName returns UpdateSmartClassTagPatchSmartClassTag.Name, and is useful for accessing the field via an interface.
+func (v *UpdateSmartClassTagPatchSmartClassTag) GetName() string { return v.Name }
+
+// GetType returns UpdateSmartClassTagPatchSmartClassTag.Type, and is useful for accessing the field via an interface.
+func (v *UpdateSmartClassTagPatchSmartClassTag) GetType() SmartClassTagType { return v.Type }
+
+// GetValue returns UpdateSmartClassTagPatchSmartClassTag.Value, and is useful for accessing the field via an interface.
+func (v *UpdateSmartClassTagPatchSmartClassTag) GetValue() string { return v.Value }
+
+// UpdateSmartClassTagResponse is returned by UpdateSmartClassTag on success.
+type UpdateSmartClassTagResponse struct {
+	PatchSmartClassTag UpdateSmartClassTagPatchSmartClassTag `json:"patchSmartClassTag"`
+}
+
+// GetPatchSmartClassTag returns UpdateSmartClassTagResponse.PatchSmartClassTag, and is useful for accessing the field via an interface.
+func (v *UpdateSmartClassTagResponse) GetPatchSmartClassTag() UpdateSmartClassTagPatchSmartClassTag {
+	return v.PatchSmartClassTag
+}
+
 // UpdateUserGroupResponse is returned by UpdateUserGroup on success.
 type UpdateUserGroupResponse struct {
 	UpdateIamGroup UpdateUserGroupUpdateIamGroupV1Group `json:"updateIamGroup"`
@@ -4212,6 +4612,30 @@ type __CreateResourceGroupInput struct {
 // GetInput returns __CreateResourceGroupInput.Input, and is useful for accessing the field via an interface.
 func (v *__CreateResourceGroupInput) GetInput() CreateIamResourceGroupInput { return v.Input }
 
+// __CreateSmartClassInput is used internally by genqlient
+type __CreateSmartClassInput struct {
+	Input CreateSmartClassInput `json:"input"`
+}
+
+// GetInput returns __CreateSmartClassInput.Input, and is useful for accessing the field via an interface.
+func (v *__CreateSmartClassInput) GetInput() CreateSmartClassInput { return v.Input }
+
+// __CreateSmartClassQueryInput is used internally by genqlient
+type __CreateSmartClassQueryInput struct {
+	Input CreateSmartClassQueryInput `json:"input"`
+}
+
+// GetInput returns __CreateSmartClassQueryInput.Input, and is useful for accessing the field via an interface.
+func (v *__CreateSmartClassQueryInput) GetInput() CreateSmartClassQueryInput { return v.Input }
+
+// __CreateSmartClassTagInput is used internally by genqlient
+type __CreateSmartClassTagInput struct {
+	Input CreateSmartClassTagInput `json:"input"`
+}
+
+// GetInput returns __CreateSmartClassTagInput.Input, and is useful for accessing the field via an interface.
+func (v *__CreateSmartClassTagInput) GetInput() CreateSmartClassTagInput { return v.Input }
+
 // __CreateUserGroupInput is used internally by genqlient
 type __CreateUserGroupInput struct {
 	Name            string                   `json:"name"`
@@ -4340,6 +4764,30 @@ type __DeleteRuleInstanceInput struct {
 // GetId returns __DeleteRuleInstanceInput.Id, and is useful for accessing the field via an interface.
 func (v *__DeleteRuleInstanceInput) GetId() string { return v.Id }
 
+// __DeleteSmartClassInput is used internally by genqlient
+type __DeleteSmartClassInput struct {
+	SmartClassId string `json:"smartClassId"`
+}
+
+// GetSmartClassId returns __DeleteSmartClassInput.SmartClassId, and is useful for accessing the field via an interface.
+func (v *__DeleteSmartClassInput) GetSmartClassId() string { return v.SmartClassId }
+
+// __DeleteSmartClassQueryInput is used internally by genqlient
+type __DeleteSmartClassQueryInput struct {
+	SmartClassQueryId string `json:"smartClassQueryId"`
+}
+
+// GetSmartClassQueryId returns __DeleteSmartClassQueryInput.SmartClassQueryId, and is useful for accessing the field via an interface.
+func (v *__DeleteSmartClassQueryInput) GetSmartClassQueryId() string { return v.SmartClassQueryId }
+
+// __DeleteSmartClassTagInput is used internally by genqlient
+type __DeleteSmartClassTagInput struct {
+	SmartClassTagId string `json:"smartClassTagId"`
+}
+
+// GetSmartClassTagId returns __DeleteSmartClassTagInput.SmartClassTagId, and is useful for accessing the field via an interface.
+func (v *__DeleteSmartClassTagInput) GetSmartClassTagId() string { return v.SmartClassTagId }
+
 // __DeleteUserGroupInput is used internally by genqlient
 type __DeleteUserGroupInput struct {
 	Name string `json:"name"`
@@ -4455,6 +4903,22 @@ func (v *__GetResourcePermissionsInput) GetCursor() string { return v.Cursor }
 
 // GetLimit returns __GetResourcePermissionsInput.Limit, and is useful for accessing the field via an interface.
 func (v *__GetResourcePermissionsInput) GetLimit() int { return v.Limit }
+
+// __GetSmartClassInput is used internally by genqlient
+type __GetSmartClassInput struct {
+	SmartClassId string `json:"smartClassId"`
+}
+
+// GetSmartClassId returns __GetSmartClassInput.SmartClassId, and is useful for accessing the field via an interface.
+func (v *__GetSmartClassInput) GetSmartClassId() string { return v.SmartClassId }
+
+// __GetSmartClassQueryInput is used internally by genqlient
+type __GetSmartClassQueryInput struct {
+	SmartClassQueryId string `json:"smartClassQueryId"`
+}
+
+// GetSmartClassQueryId returns __GetSmartClassQueryInput.SmartClassQueryId, and is useful for accessing the field via an interface.
+func (v *__GetSmartClassQueryInput) GetSmartClassQueryId() string { return v.SmartClassQueryId }
 
 // __GetUserGroupInput is used internally by genqlient
 type __GetUserGroupInput struct {
@@ -4633,6 +5097,30 @@ type __UpdateResourceGroupInput struct {
 
 // GetInput returns __UpdateResourceGroupInput.Input, and is useful for accessing the field via an interface.
 func (v *__UpdateResourceGroupInput) GetInput() UpdateIamResourceGroupInput { return v.Input }
+
+// __UpdateSmartClassInput is used internally by genqlient
+type __UpdateSmartClassInput struct {
+	Input PatchSmartClassInput `json:"input"`
+}
+
+// GetInput returns __UpdateSmartClassInput.Input, and is useful for accessing the field via an interface.
+func (v *__UpdateSmartClassInput) GetInput() PatchSmartClassInput { return v.Input }
+
+// __UpdateSmartClassQueryInput is used internally by genqlient
+type __UpdateSmartClassQueryInput struct {
+	Input PatchSmartClassQueryInput `json:"input"`
+}
+
+// GetInput returns __UpdateSmartClassQueryInput.Input, and is useful for accessing the field via an interface.
+func (v *__UpdateSmartClassQueryInput) GetInput() PatchSmartClassQueryInput { return v.Input }
+
+// __UpdateSmartClassTagInput is used internally by genqlient
+type __UpdateSmartClassTagInput struct {
+	Input PatchSmartClassTagInput `json:"input"`
+}
+
+// GetInput returns __UpdateSmartClassTagInput.Input, and is useful for accessing the field via an interface.
+func (v *__UpdateSmartClassTagInput) GetInput() PatchSmartClassTagInput { return v.Input }
 
 // __UpdateUserGroupInput is used internally by genqlient
 type __UpdateUserGroupInput struct {
@@ -5070,6 +5558,110 @@ fragment ResourceGroup on IamResourceGroup {
 	var err error
 
 	var data CreateResourceGroupResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func CreateSmartClass(
+	ctx context.Context,
+	client graphql.Client,
+	input CreateSmartClassInput,
+) (*CreateSmartClassResponse, error) {
+	req := &graphql.Request{
+		OpName: "CreateSmartClass",
+		Query: `
+mutation CreateSmartClass ($input: CreateSmartClassInput!) {
+	createSmartClass(input: $input) {
+		id
+		tagName
+		description
+	}
+}
+`,
+		Variables: &__CreateSmartClassInput{
+			Input: input,
+		},
+	}
+	var err error
+
+	var data CreateSmartClassResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func CreateSmartClassQuery(
+	ctx context.Context,
+	client graphql.Client,
+	input CreateSmartClassQueryInput,
+) (*CreateSmartClassQueryResponse, error) {
+	req := &graphql.Request{
+		OpName: "CreateSmartClassQuery",
+		Query: `
+mutation CreateSmartClassQuery ($input: CreateSmartClassQueryInput!) {
+	createSmartClassQuery(input: $input) {
+		id
+		query
+		smartClassId
+		description
+	}
+}
+`,
+		Variables: &__CreateSmartClassQueryInput{
+			Input: input,
+		},
+	}
+	var err error
+
+	var data CreateSmartClassQueryResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func CreateSmartClassTag(
+	ctx context.Context,
+	client graphql.Client,
+	input CreateSmartClassTagInput,
+) (*CreateSmartClassTagResponse, error) {
+	req := &graphql.Request{
+		OpName: "CreateSmartClassTag",
+		Query: `
+mutation CreateSmartClassTag ($input: CreateSmartClassTagInput!) {
+	createSmartClassTag(input: $input) {
+		id
+		name
+		type
+		value
+	}
+}
+`,
+		Variables: &__CreateSmartClassTagInput{
+			Input: input,
+		},
+	}
+	var err error
+
+	var data CreateSmartClassTagResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(
@@ -5535,6 +6127,102 @@ mutation DeleteRuleInstance ($id: ID!) {
 	var err error
 
 	var data DeleteRuleInstanceResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func DeleteSmartClass(
+	ctx context.Context,
+	client graphql.Client,
+	smartClassId string,
+) (*DeleteSmartClassResponse, error) {
+	req := &graphql.Request{
+		OpName: "DeleteSmartClass",
+		Query: `
+mutation DeleteSmartClass ($smartClassId: ID!) {
+	deleteSmartClass(id: $smartClassId) {
+		success
+	}
+}
+`,
+		Variables: &__DeleteSmartClassInput{
+			SmartClassId: smartClassId,
+		},
+	}
+	var err error
+
+	var data DeleteSmartClassResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func DeleteSmartClassQuery(
+	ctx context.Context,
+	client graphql.Client,
+	smartClassQueryId string,
+) (*DeleteSmartClassQueryResponse, error) {
+	req := &graphql.Request{
+		OpName: "DeleteSmartClassQuery",
+		Query: `
+mutation DeleteSmartClassQuery ($smartClassQueryId: ID!) {
+	deleteSmartClassQuery(id: $smartClassQueryId) {
+		success
+	}
+}
+`,
+		Variables: &__DeleteSmartClassQueryInput{
+			SmartClassQueryId: smartClassQueryId,
+		},
+	}
+	var err error
+
+	var data DeleteSmartClassQueryResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func DeleteSmartClassTag(
+	ctx context.Context,
+	client graphql.Client,
+	smartClassTagId string,
+) (*DeleteSmartClassTagResponse, error) {
+	req := &graphql.Request{
+		OpName: "DeleteSmartClassTag",
+		Query: `
+mutation DeleteSmartClassTag ($smartClassTagId: ID!) {
+	deleteSmartClassTag(id: $smartClassTagId) {
+		success
+	}
+}
+`,
+		Variables: &__DeleteSmartClassTagInput{
+			SmartClassTagId: smartClassTagId,
+		},
+	}
+	var err error
+
+	var data DeleteSmartClassTagResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(
@@ -6150,6 +6838,81 @@ query GetResourcePermissions ($filter: GetResourcePermissionsFilter!, $cursor: S
 	var err error
 
 	var data GetResourcePermissionsResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func GetSmartClass(
+	ctx context.Context,
+	client graphql.Client,
+	smartClassId string,
+) (*GetSmartClassResponse, error) {
+	req := &graphql.Request{
+		OpName: "GetSmartClass",
+		Query: `
+query GetSmartClass ($smartClassId: ID!) {
+	smartClass(id: $smartClassId) {
+		id
+		tagName
+		description
+		tags {
+			id
+			name
+			type
+			value
+		}
+	}
+}
+`,
+		Variables: &__GetSmartClassInput{
+			SmartClassId: smartClassId,
+		},
+	}
+	var err error
+
+	var data GetSmartClassResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func GetSmartClassQuery(
+	ctx context.Context,
+	client graphql.Client,
+	smartClassQueryId string,
+) (*GetSmartClassQueryResponse, error) {
+	req := &graphql.Request{
+		OpName: "GetSmartClassQuery",
+		Query: `
+query GetSmartClassQuery ($smartClassQueryId: ID!) {
+	smartClassQuery(id: $smartClassQueryId) {
+		id
+		query
+		smartClassId
+		description
+	}
+}
+`,
+		Variables: &__GetSmartClassQueryInput{
+			SmartClassQueryId: smartClassQueryId,
+		},
+	}
+	var err error
+
+	var data GetSmartClassQueryResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(
@@ -6815,6 +7578,109 @@ fragment ResourceGroup on IamResourceGroup {
 	var err error
 
 	var data UpdateResourceGroupResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func UpdateSmartClass(
+	ctx context.Context,
+	client graphql.Client,
+	input PatchSmartClassInput,
+) (*UpdateSmartClassResponse, error) {
+	req := &graphql.Request{
+		OpName: "UpdateSmartClass",
+		Query: `
+mutation UpdateSmartClass ($input: PatchSmartClassInput!) {
+	patchSmartClass(input: $input) {
+		id
+		description
+	}
+}
+`,
+		Variables: &__UpdateSmartClassInput{
+			Input: input,
+		},
+	}
+	var err error
+
+	var data UpdateSmartClassResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func UpdateSmartClassQuery(
+	ctx context.Context,
+	client graphql.Client,
+	input PatchSmartClassQueryInput,
+) (*UpdateSmartClassQueryResponse, error) {
+	req := &graphql.Request{
+		OpName: "UpdateSmartClassQuery",
+		Query: `
+mutation UpdateSmartClassQuery ($input: PatchSmartClassQueryInput!) {
+	patchSmartClassQuery(input: $input) {
+		id
+		query
+		smartClassId
+		description
+	}
+}
+`,
+		Variables: &__UpdateSmartClassQueryInput{
+			Input: input,
+		},
+	}
+	var err error
+
+	var data UpdateSmartClassQueryResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func UpdateSmartClassTag(
+	ctx context.Context,
+	client graphql.Client,
+	input PatchSmartClassTagInput,
+) (*UpdateSmartClassTagResponse, error) {
+	req := &graphql.Request{
+		OpName: "UpdateSmartClassTag",
+		Query: `
+mutation UpdateSmartClassTag ($input: PatchSmartClassTagInput!) {
+	patchSmartClassTag(input: $input) {
+		id
+		name
+		type
+		value
+	}
+}
+`,
+		Variables: &__UpdateSmartClassTagInput{
+			Input: input,
+		},
+	}
+	var err error
+
+	var data UpdateSmartClassTagResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(

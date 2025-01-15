@@ -321,7 +321,7 @@ If you create a new one, be sure to add the file to the [genqlient.yaml](jupiter
 You should always generate the gql client from the production api so that you do not include any in-progress work from dev. Set these environment variables before running the next commands.
 
 ```shell
-export JUPITERONE_ACCOUNT=:your_account_id
+export JUPITERONE_ACCOUNT_ID=:your_account_id
 export JUPITERONE_API_KEY=:your_api_key
 export JUPITERONE_REGION=us
 ```
