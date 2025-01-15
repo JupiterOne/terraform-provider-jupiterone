@@ -38,6 +38,7 @@ func (r *SmartClassQueryResource) Metadata(_ context.Context, req resource.Metad
 
 func (r *SmartClassQueryResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
+		Description: "A smart class query is a J1QL query that finds entities to associate with a smart class",
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed: true,

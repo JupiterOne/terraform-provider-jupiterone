@@ -41,6 +41,7 @@ func (r *SmartClassTagResource) Metadata(_ context.Context, req resource.Metadat
 
 func (r *SmartClassTagResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
+		Description: "A smart class tag is another tag applied to entities found by a smart class query",
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed: true,
