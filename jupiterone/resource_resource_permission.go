@@ -70,7 +70,7 @@ func (*ResourcePermissionResource) Schema(ctx context.Context, req resource.Sche
 			},
 			"subject_type": schema.StringAttribute{
 				Required:    true,
-				Description: "The type of the subject that the resource permissions will be applied to (e.g. group).",
+				Description: "The type of the subject that the resource permissions will be applied to. Possible values: group, token.",
 			},
 			"subject_id": schema.StringAttribute{
 				Required:    true,
@@ -78,11 +78,11 @@ func (*ResourcePermissionResource) Schema(ctx context.Context, req resource.Sche
 			},
 			"resource_area": schema.StringAttribute{
 				Required:    true,
-				Description: "The resource area that these permissions will be applied to (e.g. rule).",
+				Description: "The resource area that these permissions will be applied to. Possible values: rule, dashboard, integration, collector.",
 			},
 			"resource_type": schema.StringAttribute{
 				Required:    true,
-				Description: "The resource type that these permissions will be applied to (e.g. rule, resource_group, *).",
+				Description: "The resource type that these permissions will be applied to. Possible values: resource_group, *, rule, dashboard, integration, collector.",
 			},
 			"resource_id": schema.StringAttribute{
 				Required:    true,
