@@ -85,7 +85,10 @@ func (rt *RetryTransport) RoundTrip(req *http.Request) (*http.Response, error) {
 		// Setting the body for the request
 		req.Body = io.NopCloser(bytes.NewBuffer(bodyBytes))
 
-		resp, _ = rt.Transport.RoundTrip(req)
+		resp, err = rt.Transport.RoundTrip(req)
+		if err != nil {
+			return nil, err
+		}
 
 		if resp.StatusCode != http.StatusTooManyRequests {
 			updateLastNon429Response()
