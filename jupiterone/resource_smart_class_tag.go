@@ -49,6 +49,13 @@ func (r *SmartClassTagResource) Schema(_ context.Context, _ resource.SchemaReque
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
+			"smart_class_id": schema.StringAttribute{
+				Required:    true,
+				Description: "The ID of the smart class to associate the tag with",
+				PlanModifiers: []planmodifier.String{
+					stringplanmodifier.RequiresReplace(),
+				},
+			},
 			"name": schema.StringAttribute{
 				Required:    true,
 				Description: "The name (key) of the tag",

@@ -53,6 +53,9 @@ func (r *SmartClassQueryResource) Schema(_ context.Context, _ resource.SchemaReq
 			"smart_class_id": schema.StringAttribute{
 				Required:    true,
 				Description: "The ID of the smart class to associate the query with",
+				PlanModifiers: []planmodifier.String{
+					stringplanmodifier.RequiresReplace(),
+				},
 			},
 			"description": schema.StringAttribute{
 				Required:    true,

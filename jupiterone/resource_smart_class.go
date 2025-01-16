@@ -160,6 +160,9 @@ func (r *SmartClassResource) Schema(ctx context.Context, req resource.SchemaRequ
 			"tag_name": schema.StringAttribute{
 				Required:    true,
 				Description: "The tag name of the smart class.",
+				PlanModifiers: []planmodifier.String{
+					stringplanmodifier.RequiresReplace(),
+				},
 			},
 			"description": schema.StringAttribute{
 				Optional:    true,
