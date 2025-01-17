@@ -14,7 +14,7 @@ JupiterOne Smart Class
 
 ```terraform
 resource "jupiterone_smart_class" "example" {
-  tag_name    = "example"
+  tag_name    = "Example"
   description = "Example smart class"
 }
 

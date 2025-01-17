@@ -41,6 +41,7 @@ resource "jupiterone_smart_class_tag" "tag3" {
 ### Required
 
 - `name` (String) The name (key) of the tag
+- `smart_class_id` (String) The ID of the smart class to associate the tag with
 - `type` (String) The type of the tag, one of 'string', 'boolean', or 'number'
 - `value` (String) The value of the tag as a string
 
