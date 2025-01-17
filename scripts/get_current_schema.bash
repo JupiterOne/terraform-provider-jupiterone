@@ -20,7 +20,7 @@ if [ -f "introspection_result.json" ]; then
     echo "Using already downloaded results, delete introspection_result.json to force a fetch"
 else
     curl --fail --location --request POST "${JUPITERONE_URL}" \
-    --header "LifeOmic-Account: ${JUPITERONE_ACCOUNT}" \
+    --header "LifeOmic-Account: ${JUPITERONE_ACCOUNT_ID}" \
     --header "Authorization: Bearer ${JUPITERONE_API_KEY}" \
     --header 'Content-Type: application/json' \
     --output introspection_result.json \

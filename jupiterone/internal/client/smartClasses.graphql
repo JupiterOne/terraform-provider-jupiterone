@@ -1,0 +1,91 @@
+query GetSmartClass($smartClassId: ID!) {
+  smartClass(id: $smartClassId) {
+    id
+    tagName
+    description
+    tags {
+      id
+      name
+      type
+      value
+    }
+  }
+}
+
+mutation CreateSmartClass($input: CreateSmartClassInput!) {
+  createSmartClass(input: $input) {
+    id
+    tagName
+    description
+  }
+}
+
+mutation DeleteSmartClass($smartClassId: ID!) {
+  deleteSmartClass(id: $smartClassId) {
+    success
+  }
+}
+
+mutation UpdateSmartClass($input: PatchSmartClassInput!) {
+  patchSmartClass(input: $input) {
+    id
+    description
+  }
+}
+
+query GetSmartClassQuery($smartClassQueryId: ID!) {
+  smartClassQuery(id: $smartClassQueryId) {
+    id
+    query
+    smartClassId
+    description
+  }
+}
+
+mutation CreateSmartClassQuery($input: CreateSmartClassQueryInput!) {
+  createSmartClassQuery(input: $input) {
+    id
+    query
+    smartClassId
+    description
+  }
+}
+
+mutation DeleteSmartClassQuery($smartClassQueryId: ID!) {
+  deleteSmartClassQuery(id: $smartClassQueryId) {
+    success
+  }
+}
+
+mutation UpdateSmartClassQuery($input: PatchSmartClassQueryInput!) {
+  patchSmartClassQuery(input: $input) {
+    id
+    query
+    smartClassId
+    description
+  }
+}
+
+mutation CreateSmartClassTag($input: CreateSmartClassTagInput!) {
+  createSmartClassTag(input: $input) {
+    id
+    name
+    type
+    value
+  }
+}
+
+mutation DeleteSmartClassTag($smartClassTagId: ID!) {
+  deleteSmartClassTag(id: $smartClassTagId) {
+    success
+  }
+}
+
+mutation UpdateSmartClassTag($input: PatchSmartClassTagInput!) {
+  patchSmartClassTag(input: $input) {
+    id
+    name
+    type
+    value
+  }
+}
