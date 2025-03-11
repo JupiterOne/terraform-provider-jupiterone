@@ -1,0 +1,23 @@
+query GetAccountParameter($name: String!) {
+  parameter(name: $name) {
+    name
+    value
+    secret
+  }
+}
+
+mutation SetAccountParameter(
+  $name: String!
+  $value: ParameterValue!
+  $secret: Boolean
+) {
+  setParameter(name: $name, value: $value, secret: $secret) {
+    success
+  }
+}
+
+mutation DeleteAccountParameter($name: String!) {
+  deleteParameter(name: $name) {
+    success
+  }
+}
