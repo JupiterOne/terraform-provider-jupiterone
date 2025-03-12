@@ -50,7 +50,7 @@ resource "jupiterone_account_parameter" "account_active" {
 
 ### Optional
 
-- `secret` (Boolean) Wether or not the value is secret. Defaults to false. If it is secret then it cannot be retrieved through the API and will show as changed for every terraform plan.
+- `secret` (Boolean) Whether or not the value can be retrieved from the api. Defaults to false. If it is secret then it cannot be retrieved through the API and will show as changed for every terraform plan.
 
 ### Read-Only
 
