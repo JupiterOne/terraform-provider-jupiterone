@@ -28,11 +28,11 @@ type AccountParameterResource struct {
 
 // AccountParameterModel is the terraform HCL representation of an account parameter.
 type AccountParameterModel struct {
-	Id     			types.String `json:"id,omitempty" tfsdk:"id"`
-	Name   			types.String `json:"name,omitempty" tfsdk:"name"`
-	Value  			types.String `json:"value,omitempty" tfsdk:"value"`
-	ValueType  	types.String `json:"valueType,omitempty" tfsdk:"value_type"`
-	Secret 			types.Bool   `json:"secret,omitempty" tfsdk:"secret"`
+	Id        types.String `json:"id,omitempty" tfsdk:"id"`
+	Name      types.String `json:"name,omitempty" tfsdk:"name"`
+	Value     types.String `json:"value,omitempty" tfsdk:"value"`
+	ValueType types.String `json:"valueType,omitempty" tfsdk:"value_type"`
+	Secret    types.Bool   `json:"secret,omitempty" tfsdk:"secret"`
 }
 
 func NewAccountParameterResource() resource.Resource {
@@ -174,7 +174,7 @@ func (r *AccountParameterResource) Read(ctx context.Context, req resource.ReadRe
 	log.Println("Read account parameter:", parameterResp.GetParameter().Name == "")
 
 	if err != nil {
-		if strings.Contains(err.Error(), "does not exist")  {
+		if strings.Contains(err.Error(), "does not exist") {
 			resp.State.RemoveResource(ctx)
 		} else {
 			resp.Diagnostics.AddError("failed to get account parameter", err.Error())
@@ -246,7 +246,7 @@ func parseValue(valueType string, value string) (interface{}, error) {
 		return boolValue, nil
 	}
 
-	if (valueType == "number") {
+	if valueType == "number" {
 		numValue, err := strconv.ParseFloat(value, 64)
 		if err != nil {
 			return nil, err
@@ -287,4 +287,3 @@ func determineValueType(value interface{}) string {
 		return "string" // default to string if type is unknown
 	}
 }
-
