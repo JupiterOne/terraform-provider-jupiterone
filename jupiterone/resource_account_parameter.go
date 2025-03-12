@@ -57,7 +57,7 @@ func (*AccountParameterResource) Schema(ctx context.Context, req resource.Schema
 			},
 			"name": schema.StringAttribute{
 				Required:    true,
-				Description: "The name of the account parameter. Must be unique",
+				Description: "The name of the account parameter. Must be unique. Must contain no spaces, just alphanumeric characters, and underscores.",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.RequiresReplace(),
 				},
