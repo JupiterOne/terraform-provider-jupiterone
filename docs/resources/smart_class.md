@@ -37,7 +37,7 @@ resource "jupiterone_smart_class_tag" "tag2" {
 
 ### Required
 
-- `tag_name` (String) The tag name of the smart class.
+- `tag_name` (String) The name of the smart class and the name of the tag that will be added to each entity returned from this class's queries. Must start with a capital letter, be alphanumeric, and contain no spaces.
 
 ### Optional
 

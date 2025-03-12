@@ -700,8 +700,10 @@ func (v *CreateInsightsDashboardLayoutItem) GetY() int64 { return v.Y }
 func (v *CreateInsightsDashboardLayoutItem) GetI() string { return v.I }
 
 type CreateInsightsWidgetConfigInput struct {
-	Queries  []CreateInsightsWidgetConfigQueryInput `json:"queries"`
-	Settings map[string]interface{}                 `json:"settings"`
+	Queries                   []CreateInsightsWidgetConfigQueryInput `json:"queries"`
+	Settings                  map[string]interface{}                 `json:"settings"`
+	PostQueryFilters          []string                               `json:"postQueryFilters"`
+	DisableQueryPolicyFilters bool                                   `json:"disableQueryPolicyFilters"`
 }
 
 // GetQueries returns CreateInsightsWidgetConfigInput.Queries, and is useful for accessing the field via an interface.
@@ -711,6 +713,14 @@ func (v *CreateInsightsWidgetConfigInput) GetQueries() []CreateInsightsWidgetCon
 
 // GetSettings returns CreateInsightsWidgetConfigInput.Settings, and is useful for accessing the field via an interface.
 func (v *CreateInsightsWidgetConfigInput) GetSettings() map[string]interface{} { return v.Settings }
+
+// GetPostQueryFilters returns CreateInsightsWidgetConfigInput.PostQueryFilters, and is useful for accessing the field via an interface.
+func (v *CreateInsightsWidgetConfigInput) GetPostQueryFilters() []string { return v.PostQueryFilters }
+
+// GetDisableQueryPolicyFilters returns CreateInsightsWidgetConfigInput.DisableQueryPolicyFilters, and is useful for accessing the field via an interface.
+func (v *CreateInsightsWidgetConfigInput) GetDisableQueryPolicyFilters() bool {
+	return v.DisableQueryPolicyFilters
+}
 
 type CreateInsightsWidgetConfigQueryInput struct {
 	Id    string `json:"id"`
@@ -1451,6 +1461,26 @@ const (
 	DashboardParameterValueTypeBoolean DashboardParameterValueType = "boolean"
 )
 
+// DeleteAccountParameterDeleteParameterParameterMutationResult includes the requested fields of the GraphQL type ParameterMutationResult.
+type DeleteAccountParameterDeleteParameterParameterMutationResult struct {
+	Success bool `json:"success"`
+}
+
+// GetSuccess returns DeleteAccountParameterDeleteParameterParameterMutationResult.Success, and is useful for accessing the field via an interface.
+func (v *DeleteAccountParameterDeleteParameterParameterMutationResult) GetSuccess() bool {
+	return v.Success
+}
+
+// DeleteAccountParameterResponse is returned by DeleteAccountParameter on success.
+type DeleteAccountParameterResponse struct {
+	DeleteParameter DeleteAccountParameterDeleteParameterParameterMutationResult `json:"deleteParameter"`
+}
+
+// GetDeleteParameter returns DeleteAccountParameterResponse.DeleteParameter, and is useful for accessing the field via an interface.
+func (v *DeleteAccountParameterResponse) GetDeleteParameter() DeleteAccountParameterDeleteParameterParameterMutationResult {
+	return v.DeleteParameter
+}
+
 type DeleteComplianceFrameworkInput struct {
 	Id string `json:"id"`
 }
@@ -1752,6 +1782,32 @@ type DeleteWidgetResponse struct {
 // GetDeleteWidget returns DeleteWidgetResponse.DeleteWidget, and is useful for accessing the field via an interface.
 func (v *DeleteWidgetResponse) GetDeleteWidget() DeleteWidgetDeleteWidgetDeleteResult {
 	return v.DeleteWidget
+}
+
+// GetAccountParameterParameterParameterResponse includes the requested fields of the GraphQL type ParameterResponse.
+type GetAccountParameterParameterParameterResponse struct {
+	Name   string      `json:"name"`
+	Value  interface{} `json:"value"`
+	Secret bool        `json:"secret"`
+}
+
+// GetName returns GetAccountParameterParameterParameterResponse.Name, and is useful for accessing the field via an interface.
+func (v *GetAccountParameterParameterParameterResponse) GetName() string { return v.Name }
+
+// GetValue returns GetAccountParameterParameterParameterResponse.Value, and is useful for accessing the field via an interface.
+func (v *GetAccountParameterParameterParameterResponse) GetValue() interface{} { return v.Value }
+
+// GetSecret returns GetAccountParameterParameterParameterResponse.Secret, and is useful for accessing the field via an interface.
+func (v *GetAccountParameterParameterParameterResponse) GetSecret() bool { return v.Secret }
+
+// GetAccountParameterResponse is returned by GetAccountParameter on success.
+type GetAccountParameterResponse struct {
+	Parameter GetAccountParameterParameterParameterResponse `json:"parameter"`
+}
+
+// GetParameter returns GetAccountParameterResponse.Parameter, and is useful for accessing the field via an interface.
+func (v *GetAccountParameterResponse) GetParameter() GetAccountParameterParameterParameterResponse {
+	return v.Parameter
 }
 
 // GetComplianceFrameworkByIdComplianceFramework includes the requested fields of the GraphQL type ComplianceFramework.
@@ -3458,6 +3514,24 @@ const (
 	SchedulerPollingIntervalOneWeek        SchedulerPollingInterval = "ONE_WEEK"
 )
 
+// SetAccountParameterResponse is returned by SetAccountParameter on success.
+type SetAccountParameterResponse struct {
+	SetParameter SetAccountParameterSetParameterParameterMutationResult `json:"setParameter"`
+}
+
+// GetSetParameter returns SetAccountParameterResponse.SetParameter, and is useful for accessing the field via an interface.
+func (v *SetAccountParameterResponse) GetSetParameter() SetAccountParameterSetParameterParameterMutationResult {
+	return v.SetParameter
+}
+
+// SetAccountParameterSetParameterParameterMutationResult includes the requested fields of the GraphQL type ParameterMutationResult.
+type SetAccountParameterSetParameterParameterMutationResult struct {
+	Success bool `json:"success"`
+}
+
+// GetSuccess returns SetAccountParameterSetParameterParameterMutationResult.Success, and is useful for accessing the field via an interface.
+func (v *SetAccountParameterSetParameterParameterMutationResult) GetSuccess() bool { return v.Success }
+
 type SetResourcePermissionInput struct {
 	SubjectType  string `json:"subjectType"`
 	SubjectId    string `json:"subjectId"`
@@ -3964,6 +4038,7 @@ type UpdateIntegrationInstanceInput struct {
 	CollectorPoolId               string                                        `json:"collectorPoolId,omitempty"`
 	IngestionSourcesOverrides     []IngestionSourcesOverridesInput              `json:"ingestionSourcesOverrides,omitempty"`
 	ResourceGroupId               string                                        `json:"resourceGroupId"`
+	UpdateChildResourceGroup      bool                                          `json:"updateChildResourceGroup"`
 }
 
 // GetName returns UpdateIntegrationInstanceInput.Name, and is useful for accessing the field via an interface.
@@ -4003,6 +4078,11 @@ func (v *UpdateIntegrationInstanceInput) GetIngestionSourcesOverrides() []Ingest
 
 // GetResourceGroupId returns UpdateIntegrationInstanceInput.ResourceGroupId, and is useful for accessing the field via an interface.
 func (v *UpdateIntegrationInstanceInput) GetResourceGroupId() string { return v.ResourceGroupId }
+
+// GetUpdateChildResourceGroup returns UpdateIntegrationInstanceInput.UpdateChildResourceGroup, and is useful for accessing the field via an interface.
+func (v *UpdateIntegrationInstanceInput) GetUpdateChildResourceGroup() bool {
+	return v.UpdateChildResourceGroup
+}
 
 // UpdateIntegrationInstanceResponse is returned by UpdateIntegrationInstance on success.
 type UpdateIntegrationInstanceResponse struct {
@@ -4487,8 +4567,10 @@ func (v *Widget) GetNoResultMessage() string { return v.NoResultMessage }
 func (v *Widget) GetIncludeDeleted() bool { return v.IncludeDeleted }
 
 type WidgetConfig struct {
-	Queries  []WidgetQuery          `json:"queries"`
-	Settings map[string]interface{} `json:"settings"`
+	Queries                   []WidgetQuery          `json:"queries"`
+	Settings                  map[string]interface{} `json:"settings"`
+	PostQueryFilters          []string               `json:"postQueryFilters"`
+	DisableQueryPolicyFilters bool                   `json:"disableQueryPolicyFilters"`
 }
 
 // GetQueries returns WidgetConfig.Queries, and is useful for accessing the field via an interface.
@@ -4496,6 +4578,12 @@ func (v *WidgetConfig) GetQueries() []WidgetQuery { return v.Queries }
 
 // GetSettings returns WidgetConfig.Settings, and is useful for accessing the field via an interface.
 func (v *WidgetConfig) GetSettings() map[string]interface{} { return v.Settings }
+
+// GetPostQueryFilters returns WidgetConfig.PostQueryFilters, and is useful for accessing the field via an interface.
+func (v *WidgetConfig) GetPostQueryFilters() []string { return v.PostQueryFilters }
+
+// GetDisableQueryPolicyFilters returns WidgetConfig.DisableQueryPolicyFilters, and is useful for accessing the field via an interface.
+func (v *WidgetConfig) GetDisableQueryPolicyFilters() bool { return v.DisableQueryPolicyFilters }
 
 type WidgetQuery struct {
 	Id    string `json:"id"`
@@ -4676,6 +4764,14 @@ type __DashboardParameterInput struct {
 // GetId returns __DashboardParameterInput.Id, and is useful for accessing the field via an interface.
 func (v *__DashboardParameterInput) GetId() string { return v.Id }
 
+// __DeleteAccountParameterInput is used internally by genqlient
+type __DeleteAccountParameterInput struct {
+	Name string `json:"name"`
+}
+
+// GetName returns __DeleteAccountParameterInput.Name, and is useful for accessing the field via an interface.
+func (v *__DeleteAccountParameterInput) GetName() string { return v.Name }
+
 // __DeleteComplianceFrameworkInput is used internally by genqlient
 type __DeleteComplianceFrameworkInput struct {
 	Input DeleteComplianceFrameworkInput `json:"input"`
@@ -4807,6 +4903,14 @@ func (v *__DeleteWidgetInput) GetDashboardId() string { return v.DashboardId }
 
 // GetWidgetId returns __DeleteWidgetInput.WidgetId, and is useful for accessing the field via an interface.
 func (v *__DeleteWidgetInput) GetWidgetId() string { return v.WidgetId }
+
+// __GetAccountParameterInput is used internally by genqlient
+type __GetAccountParameterInput struct {
+	Name string `json:"name"`
+}
+
+// GetName returns __GetAccountParameterInput.Name, and is useful for accessing the field via an interface.
+func (v *__GetAccountParameterInput) GetName() string { return v.Name }
 
 // __GetComplianceFrameworkByIdInput is used internally by genqlient
 type __GetComplianceFrameworkByIdInput struct {
@@ -4991,6 +5095,22 @@ type __RevokeInvitationInput struct {
 
 // GetId returns __RevokeInvitationInput.Id, and is useful for accessing the field via an interface.
 func (v *__RevokeInvitationInput) GetId() string { return v.Id }
+
+// __SetAccountParameterInput is used internally by genqlient
+type __SetAccountParameterInput struct {
+	Name   string      `json:"name"`
+	Value  interface{} `json:"value"`
+	Secret bool        `json:"secret"`
+}
+
+// GetName returns __SetAccountParameterInput.Name, and is useful for accessing the field via an interface.
+func (v *__SetAccountParameterInput) GetName() string { return v.Name }
+
+// GetValue returns __SetAccountParameterInput.Value, and is useful for accessing the field via an interface.
+func (v *__SetAccountParameterInput) GetValue() interface{} { return v.Value }
+
+// GetSecret returns __SetAccountParameterInput.Secret, and is useful for accessing the field via an interface.
+func (v *__SetAccountParameterInput) GetSecret() bool { return v.Secret }
 
 // __SetResourcePermissionInput is used internally by genqlient
 type __SetResourcePermissionInput struct {
@@ -5794,6 +5914,38 @@ query DashboardParameter ($id: ID!) {
 	return &data, err
 }
 
+func DeleteAccountParameter(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+) (*DeleteAccountParameterResponse, error) {
+	req := &graphql.Request{
+		OpName: "DeleteAccountParameter",
+		Query: `
+mutation DeleteAccountParameter ($name: String!) {
+	deleteParameter(name: $name) {
+		success
+	}
+}
+`,
+		Variables: &__DeleteAccountParameterInput{
+			Name: name,
+		},
+	}
+	var err error
+
+	var data DeleteAccountParameterResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
 func DeleteComplianceFramework(
 	ctx context.Context,
 	client graphql.Client,
@@ -6289,6 +6441,40 @@ mutation DeleteWidget ($dashboardId: String!, $widgetId: String!) {
 	var err error
 
 	var data DeleteWidgetResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func GetAccountParameter(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+) (*GetAccountParameterResponse, error) {
+	req := &graphql.Request{
+		OpName: "GetAccountParameter",
+		Query: `
+query GetAccountParameter ($name: String!) {
+	parameter(name: $name) {
+		name
+		value
+		secret
+	}
+}
+`,
+		Variables: &__GetAccountParameterInput{
+			Name: name,
+		},
+	}
+	var err error
+
+	var data GetAccountParameterResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(
@@ -7180,6 +7366,42 @@ mutation RevokeInvitation ($id: ID!) {
 	var err error
 
 	var data RevokeInvitationResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func SetAccountParameter(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+	value interface{},
+	secret bool,
+) (*SetAccountParameterResponse, error) {
+	req := &graphql.Request{
+		OpName: "SetAccountParameter",
+		Query: `
+mutation SetAccountParameter ($name: String!, $value: ParameterValue!, $secret: Boolean) {
+	setParameter(name: $name, value: $value, secret: $secret) {
+		success
+	}
+}
+`,
+		Variables: &__SetAccountParameterInput{
+			Name:   name,
+			Value:  value,
+			Secret: secret,
+		},
+	}
+	var err error
+
+	var data SetAccountParameterResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(

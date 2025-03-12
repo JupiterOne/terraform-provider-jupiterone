@@ -14,6 +14,7 @@ operations:
   - resourcePermissions.graphql
   - resourceGroups.graphql
   - smartClasses.graphql
+  - accountParameter.graphql
 generated: generated.go
 
 bindings:
@@ -24,3 +25,5 @@ bindings:
     type: string
   Long:
     type: int64
+  ParameterValue:
+    type: interface{}
