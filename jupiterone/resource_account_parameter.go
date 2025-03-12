@@ -68,7 +68,7 @@ func (*AccountParameterResource) Schema(ctx context.Context, req resource.Schema
 			},
 			"value_type": schema.StringAttribute{
 				Required:    true,
-				Description: "The type of the value.",
+				Description: "The type of the value. Possible values: string, number, boolean.",
 				Validators: []validator.String{
 					stringvalidator.OneOf("string", "number", "boolean"),
 				},

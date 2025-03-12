@@ -46,7 +46,7 @@ resource "jupiterone_account_parameter" "account_active" {
 
 - `name` (String) The name of the account parameter. Must be unique. Must contain no spaces, just alphanumeric characters, and underscores.
 - `value` (String) The value of the account parameter. This string value gets parsed based on the value_type.
-- `value_type` (String) The type of the value.
+- `value_type` (String) The type of the value. Possible values: string, number, boolean.
 
 ### Optional
 
