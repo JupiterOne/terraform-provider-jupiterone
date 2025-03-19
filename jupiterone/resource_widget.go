@@ -212,7 +212,11 @@ func (r *WidgetResource) Read(ctx context.Context, req resource.ReadRequest, res
 	// Map the widgetMap to WidgetModel
 	data.Id = types.StringValue(widgetMap["id"].(string))
 	data.Title = types.StringValue(widgetMap["title"].(string))
-	data.Description = types.StringValue(widgetMap["description"].(string))
+	if description, ok := widgetMap["description"].(string); ok && description != "" {
+		data.Description = types.StringValue(description)
+	} else {
+		data.Description = types.StringNull() // Always set to an empty string if null or empty
+	}
 	data.Type = types.StringValue(widgetMap["type"].(string))
 	data.Config = widgetConfig
 

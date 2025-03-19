@@ -36,7 +36,7 @@ See the [examples](./examples) directory
 1. Install [Go](https://go.dev/doc/install) and `make`
 1. Clone the repository
 1. Enter the repository directory
-1. Build the provider with `make build` or invoke `go install` directly.
+1. Build the provider with `make build` and then `go install. `
 1. Install the provider locally as referenced [here](#using-development-environment-provider-locally)
 
 ## Adding Dependencies
