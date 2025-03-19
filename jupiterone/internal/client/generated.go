@@ -72,11 +72,11 @@ type CreateComplianceFrameworkCreateComplianceFramework struct {
 func (v *CreateComplianceFrameworkCreateComplianceFramework) GetId() string { return v.Id }
 
 type CreateComplianceFrameworkInput struct {
-	Name          string                   `json:"name"`
-	Version       string                   `json:"version"`
-	FrameworkType ComplianceFrameworkType  `json:"frameworkType"`
-	WebLink       string                   `json:"webLink"`
-	ScopeFilters  []map[string]interface{} `json:"scopeFilters"`
+	Name          string                  `json:"name"`
+	Version       string                  `json:"version"`
+	FrameworkType ComplianceFrameworkType `json:"frameworkType"`
+	WebLink       string                  `json:"webLink"`
+	ScopeFilters  []interface{}           `json:"scopeFilters"`
 }
 
 // GetName returns CreateComplianceFrameworkInput.Name, and is useful for accessing the field via an interface.
@@ -94,9 +94,7 @@ func (v *CreateComplianceFrameworkInput) GetFrameworkType() ComplianceFrameworkT
 func (v *CreateComplianceFrameworkInput) GetWebLink() string { return v.WebLink }
 
 // GetScopeFilters returns CreateComplianceFrameworkInput.ScopeFilters, and is useful for accessing the field via an interface.
-func (v *CreateComplianceFrameworkInput) GetScopeFilters() []map[string]interface{} {
-	return v.ScopeFilters
-}
+func (v *CreateComplianceFrameworkInput) GetScopeFilters() []interface{} { return v.ScopeFilters }
 
 // CreateComplianceFrameworkItemCreateComplianceFrameworkItem includes the requested fields of the GraphQL type ComplianceFrameworkItem.
 type CreateComplianceFrameworkItemCreateComplianceFrameworkItem struct {
@@ -433,17 +431,17 @@ func (v *CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceLabelsRuleIns
 
 // CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceOperationsRuleOperation includes the requested fields of the GraphQL type RuleOperation.
 type CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceOperationsRuleOperation struct {
-	When    map[string]interface{}   `json:"when"`
-	Actions []map[string]interface{} `json:"actions"`
+	When    interface{}   `json:"when"`
+	Actions []interface{} `json:"actions"`
 }
 
 // GetWhen returns CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceOperationsRuleOperation.When, and is useful for accessing the field via an interface.
-func (v *CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceOperationsRuleOperation) GetWhen() map[string]interface{} {
+func (v *CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceOperationsRuleOperation) GetWhen() interface{} {
 	return v.When
 }
 
 // GetActions returns CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceOperationsRuleOperation.Actions, and is useful for accessing the field via an interface.
-func (v *CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceOperationsRuleOperation) GetActions() []map[string]interface{} {
+func (v *CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceOperationsRuleOperation) GetActions() []interface{} {
 	return v.Actions
 }
 
@@ -487,7 +485,7 @@ func (v *CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceQuestionRuleQ
 
 type CreateInlineQuestionRuleInstanceInput struct {
 	Question                        RuleQuestionDetailsInput `json:"question"`
-	Templates                       map[string]interface{}   `json:"templates"`
+	Templates                       interface{}              `json:"templates"`
 	Tags                            []string                 `json:"tags"`
 	Name                            string                   `json:"name"`
 	Description                     string                   `json:"description"`
@@ -510,9 +508,7 @@ func (v *CreateInlineQuestionRuleInstanceInput) GetQuestion() RuleQuestionDetail
 }
 
 // GetTemplates returns CreateInlineQuestionRuleInstanceInput.Templates, and is useful for accessing the field via an interface.
-func (v *CreateInlineQuestionRuleInstanceInput) GetTemplates() map[string]interface{} {
-	return v.Templates
-}
+func (v *CreateInlineQuestionRuleInstanceInput) GetTemplates() interface{} { return v.Templates }
 
 // GetTags returns CreateInlineQuestionRuleInstanceInput.Tags, and is useful for accessing the field via an interface.
 func (v *CreateInlineQuestionRuleInstanceInput) GetTags() []string { return v.Tags }
@@ -701,7 +697,7 @@ func (v *CreateInsightsDashboardLayoutItem) GetI() string { return v.I }
 
 type CreateInsightsWidgetConfigInput struct {
 	Queries                   []CreateInsightsWidgetConfigQueryInput `json:"queries"`
-	Settings                  map[string]interface{}                 `json:"settings"`
+	Settings                  interface{}                            `json:"settings"`
 	PostQueryFilters          []string                               `json:"postQueryFilters"`
 	DisableQueryPolicyFilters bool                                   `json:"disableQueryPolicyFilters"`
 }
@@ -712,7 +708,7 @@ func (v *CreateInsightsWidgetConfigInput) GetQueries() []CreateInsightsWidgetCon
 }
 
 // GetSettings returns CreateInsightsWidgetConfigInput.Settings, and is useful for accessing the field via an interface.
-func (v *CreateInsightsWidgetConfigInput) GetSettings() map[string]interface{} { return v.Settings }
+func (v *CreateInsightsWidgetConfigInput) GetSettings() interface{} { return v.Settings }
 
 // GetPostQueryFilters returns CreateInsightsWidgetConfigInput.PostQueryFilters, and is useful for accessing the field via an interface.
 func (v *CreateInsightsWidgetConfigInput) GetPostQueryFilters() []string { return v.PostQueryFilters }
@@ -779,7 +775,7 @@ type CreateIntegrationInstanceCreateIntegrationInstance struct {
 	PollingInterval               IntegrationPollingInterval                                                                                              `json:"pollingInterval"`
 	IntegrationDefinitionId       string                                                                                                                  `json:"integrationDefinitionId"`
 	Description                   string                                                                                                                  `json:"description"`
-	Config                        map[string]interface{}                                                                                                  `json:"config"`
+	Config                        interface{}                                                                                                             `json:"config"`
 	IngestionSourcesOverrides     []CreateIntegrationInstanceCreateIntegrationInstanceIngestionSourcesOverrides                                           `json:"ingestionSourcesOverrides"`
 	SourceIntegrationInstanceId   string                                                                                                                  `json:"sourceIntegrationInstanceId"`
 	CollectorPoolId               string                                                                                                                  `json:"collectorPoolId"`
@@ -809,9 +805,7 @@ func (v *CreateIntegrationInstanceCreateIntegrationInstance) GetDescription() st
 }
 
 // GetConfig returns CreateIntegrationInstanceCreateIntegrationInstance.Config, and is useful for accessing the field via an interface.
-func (v *CreateIntegrationInstanceCreateIntegrationInstance) GetConfig() map[string]interface{} {
-	return v.Config
-}
+func (v *CreateIntegrationInstanceCreateIntegrationInstance) GetConfig() interface{} { return v.Config }
 
 // GetIngestionSourcesOverrides returns CreateIntegrationInstanceCreateIntegrationInstance.IngestionSourcesOverrides, and is useful for accessing the field via an interface.
 func (v *CreateIntegrationInstanceCreateIntegrationInstance) GetIngestionSourcesOverrides() []CreateIntegrationInstanceCreateIntegrationInstanceIngestionSourcesOverrides {
@@ -877,7 +871,7 @@ type CreateIntegrationInstanceInput struct {
 	PollingIntervalCronExpression IntegrationPollingIntervalCronExpressionInput `json:"pollingIntervalCronExpression,omitempty"`
 	IntegrationDefinitionId       string                                        `json:"integrationDefinitionId"`
 	Description                   string                                        `json:"description"`
-	Config                        map[string]interface{}                        `json:"config"`
+	Config                        interface{}                                   `json:"config"`
 	OffsiteComplete               bool                                          `json:"offsiteComplete,omitempty"`
 	IngestionSourcesOverrides     []IngestionSourcesOverridesInput              `json:"ingestionSourcesOverrides,omitempty"`
 	CollectorPoolId               string                                        `json:"collectorPoolId,omitempty"`
@@ -911,7 +905,7 @@ func (v *CreateIntegrationInstanceInput) GetIntegrationDefinitionId() string {
 func (v *CreateIntegrationInstanceInput) GetDescription() string { return v.Description }
 
 // GetConfig returns CreateIntegrationInstanceInput.Config, and is useful for accessing the field via an interface.
-func (v *CreateIntegrationInstanceInput) GetConfig() map[string]interface{} { return v.Config }
+func (v *CreateIntegrationInstanceInput) GetConfig() interface{} { return v.Config }
 
 // GetOffsiteComplete returns CreateIntegrationInstanceInput.OffsiteComplete, and is useful for accessing the field via an interface.
 func (v *CreateIntegrationInstanceInput) GetOffsiteComplete() bool { return v.OffsiteComplete }
@@ -1026,7 +1020,7 @@ func (v *CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance) GetOper
 
 type CreateReferencedQuestionRuleInstanceInput struct {
 	QuestionId                      string                   `json:"questionId"`
-	Templates                       map[string]interface{}   `json:"templates"`
+	Templates                       interface{}              `json:"templates"`
 	Tags                            []string                 `json:"tags"`
 	Name                            string                   `json:"name"`
 	Description                     string                   `json:"description"`
@@ -1046,9 +1040,7 @@ type CreateReferencedQuestionRuleInstanceInput struct {
 func (v *CreateReferencedQuestionRuleInstanceInput) GetQuestionId() string { return v.QuestionId }
 
 // GetTemplates returns CreateReferencedQuestionRuleInstanceInput.Templates, and is useful for accessing the field via an interface.
-func (v *CreateReferencedQuestionRuleInstanceInput) GetTemplates() map[string]interface{} {
-	return v.Templates
-}
+func (v *CreateReferencedQuestionRuleInstanceInput) GetTemplates() interface{} { return v.Templates }
 
 // GetTags returns CreateReferencedQuestionRuleInstanceInput.Tags, and is useful for accessing the field via an interface.
 func (v *CreateReferencedQuestionRuleInstanceInput) GetTags() []string { return v.Tags }
@@ -1784,6 +1776,42 @@ func (v *DeleteWidgetResponse) GetDeleteWidget() DeleteWidgetDeleteWidgetDeleteR
 	return v.DeleteWidget
 }
 
+// ExecuteQueryQueryV1QueryV1Response includes the requested fields of the GraphQL type QueryV1Response.
+type ExecuteQueryQueryV1QueryV1Response struct {
+	Type          string      `json:"type"`
+	Data          interface{} `json:"data"`
+	Url           string      `json:"url"`
+	TotalCount    int64       `json:"totalCount"`
+	Cursor        string      `json:"cursor"`
+	CorrelationId string      `json:"correlationId"`
+}
+
+// GetType returns ExecuteQueryQueryV1QueryV1Response.Type, and is useful for accessing the field via an interface.
+func (v *ExecuteQueryQueryV1QueryV1Response) GetType() string { return v.Type }
+
+// GetData returns ExecuteQueryQueryV1QueryV1Response.Data, and is useful for accessing the field via an interface.
+func (v *ExecuteQueryQueryV1QueryV1Response) GetData() interface{} { return v.Data }
+
+// GetUrl returns ExecuteQueryQueryV1QueryV1Response.Url, and is useful for accessing the field via an interface.
+func (v *ExecuteQueryQueryV1QueryV1Response) GetUrl() string { return v.Url }
+
+// GetTotalCount returns ExecuteQueryQueryV1QueryV1Response.TotalCount, and is useful for accessing the field via an interface.
+func (v *ExecuteQueryQueryV1QueryV1Response) GetTotalCount() int64 { return v.TotalCount }
+
+// GetCursor returns ExecuteQueryQueryV1QueryV1Response.Cursor, and is useful for accessing the field via an interface.
+func (v *ExecuteQueryQueryV1QueryV1Response) GetCursor() string { return v.Cursor }
+
+// GetCorrelationId returns ExecuteQueryQueryV1QueryV1Response.CorrelationId, and is useful for accessing the field via an interface.
+func (v *ExecuteQueryQueryV1QueryV1Response) GetCorrelationId() string { return v.CorrelationId }
+
+// ExecuteQueryResponse is returned by ExecuteQuery on success.
+type ExecuteQueryResponse struct {
+	QueryV1 ExecuteQueryQueryV1QueryV1Response `json:"queryV1"`
+}
+
+// GetQueryV1 returns ExecuteQueryResponse.QueryV1, and is useful for accessing the field via an interface.
+func (v *ExecuteQueryResponse) GetQueryV1() ExecuteQueryQueryV1QueryV1Response { return v.QueryV1 }
+
 // GetAccountParameterParameterParameterResponse includes the requested fields of the GraphQL type ParameterResponse.
 type GetAccountParameterParameterParameterResponse struct {
 	Name   string      `json:"name"`
@@ -1817,7 +1845,7 @@ type GetComplianceFrameworkByIdComplianceFramework struct {
 	Version       string                                                     `json:"version"`
 	FrameworkType ComplianceFrameworkType                                    `json:"frameworkType"`
 	WebLink       string                                                     `json:"webLink"`
-	ScopeFilters  []map[string]interface{}                                   `json:"scopeFilters"`
+	ScopeFilters  []interface{}                                              `json:"scopeFilters"`
 	SummaryConfig GetComplianceFrameworkByIdComplianceFrameworkSummaryConfig `json:"summaryConfig"`
 }
 
@@ -1839,7 +1867,7 @@ func (v *GetComplianceFrameworkByIdComplianceFramework) GetFrameworkType() Compl
 func (v *GetComplianceFrameworkByIdComplianceFramework) GetWebLink() string { return v.WebLink }
 
 // GetScopeFilters returns GetComplianceFrameworkByIdComplianceFramework.ScopeFilters, and is useful for accessing the field via an interface.
-func (v *GetComplianceFrameworkByIdComplianceFramework) GetScopeFilters() []map[string]interface{} {
+func (v *GetComplianceFrameworkByIdComplianceFramework) GetScopeFilters() []interface{} {
 	return v.ScopeFilters
 }
 
@@ -2088,11 +2116,11 @@ func (v *GetGroupsByNameIamGetGroupListIamGroupPageItemsIamGroupGroupAbacPermiss
 
 // GetGroupsByNameIamGetGroupListIamGroupPageItemsIamGroupGroupQueryPolicyIamQueryPolicy includes the requested fields of the GraphQL type IamQueryPolicy.
 type GetGroupsByNameIamGetGroupListIamGroupPageItemsIamGroupGroupQueryPolicyIamQueryPolicy struct {
-	Statement []map[string]interface{} `json:"statement"`
+	Statement []interface{} `json:"statement"`
 }
 
 // GetStatement returns GetGroupsByNameIamGetGroupListIamGroupPageItemsIamGroupGroupQueryPolicyIamQueryPolicy.Statement, and is useful for accessing the field via an interface.
-func (v *GetGroupsByNameIamGetGroupListIamGroupPageItemsIamGroupGroupQueryPolicyIamQueryPolicy) GetStatement() []map[string]interface{} {
+func (v *GetGroupsByNameIamGetGroupListIamGroupPageItemsIamGroupGroupQueryPolicyIamQueryPolicy) GetStatement() []interface{} {
 	return v.Statement
 }
 
@@ -2129,7 +2157,7 @@ type GetIntegrationInstanceIntegrationInstance struct {
 	PollingInterval               IntegrationPollingInterval                                                                                     `json:"pollingInterval"`
 	IntegrationDefinitionId       string                                                                                                         `json:"integrationDefinitionId"`
 	Description                   string                                                                                                         `json:"description"`
-	Config                        map[string]interface{}                                                                                         `json:"config"`
+	Config                        interface{}                                                                                                    `json:"config"`
 	IngestionSourcesOverrides     []GetIntegrationInstanceIntegrationInstanceIngestionSourcesOverrides                                           `json:"ingestionSourcesOverrides"`
 	SourceIntegrationInstanceId   string                                                                                                         `json:"sourceIntegrationInstanceId"`
 	CollectorPoolId               string                                                                                                         `json:"collectorPoolId"`
@@ -2158,9 +2186,7 @@ func (v *GetIntegrationInstanceIntegrationInstance) GetIntegrationDefinitionId()
 func (v *GetIntegrationInstanceIntegrationInstance) GetDescription() string { return v.Description }
 
 // GetConfig returns GetIntegrationInstanceIntegrationInstance.Config, and is useful for accessing the field via an interface.
-func (v *GetIntegrationInstanceIntegrationInstance) GetConfig() map[string]interface{} {
-	return v.Config
-}
+func (v *GetIntegrationInstanceIntegrationInstance) GetConfig() interface{} { return v.Config }
 
 // GetIngestionSourcesOverrides returns GetIntegrationInstanceIntegrationInstance.IngestionSourcesOverrides, and is useful for accessing the field via an interface.
 func (v *GetIntegrationInstanceIntegrationInstance) GetIngestionSourcesOverrides() []GetIntegrationInstanceIntegrationInstanceIngestionSourcesOverrides {
@@ -2370,7 +2396,7 @@ type GetQuestionRuleInstanceQuestionRuleInstance struct {
 	PollingInterval                 SchedulerPollingInterval                                               `json:"pollingInterval"`
 	Deleted                         bool                                                                   `json:"deleted"`
 	Type                            RuleInstanceType                                                       `json:"type"`
-	Templates                       map[string]interface{}                                                 `json:"templates"`
+	Templates                       interface{}                                                            `json:"templates"`
 	NotifyOnFailure                 bool                                                                   `json:"notifyOnFailure"`
 	TriggerActionsOnNewEntitiesOnly bool                                                                   `json:"triggerActionsOnNewEntitiesOnly"`
 	IgnorePreviousResults           bool                                                                   `json:"ignorePreviousResults"`
@@ -2416,9 +2442,7 @@ func (v *GetQuestionRuleInstanceQuestionRuleInstance) GetDeleted() bool { return
 func (v *GetQuestionRuleInstanceQuestionRuleInstance) GetType() RuleInstanceType { return v.Type }
 
 // GetTemplates returns GetQuestionRuleInstanceQuestionRuleInstance.Templates, and is useful for accessing the field via an interface.
-func (v *GetQuestionRuleInstanceQuestionRuleInstance) GetTemplates() map[string]interface{} {
-	return v.Templates
-}
+func (v *GetQuestionRuleInstanceQuestionRuleInstance) GetTemplates() interface{} { return v.Templates }
 
 // GetNotifyOnFailure returns GetQuestionRuleInstanceQuestionRuleInstance.NotifyOnFailure, and is useful for accessing the field via an interface.
 func (v *GetQuestionRuleInstanceQuestionRuleInstance) GetNotifyOnFailure() bool {
@@ -2849,11 +2873,11 @@ func (v *GetUserGroupIamGetGroupIamGroupGroupAbacPermissionIamAbacPermission) Ge
 
 // GetUserGroupIamGetGroupIamGroupGroupQueryPolicyIamQueryPolicy includes the requested fields of the GraphQL type IamQueryPolicy.
 type GetUserGroupIamGetGroupIamGroupGroupQueryPolicyIamQueryPolicy struct {
-	Statement []map[string]interface{} `json:"statement"`
+	Statement []interface{} `json:"statement"`
 }
 
 // GetStatement returns GetUserGroupIamGetGroupIamGroupGroupQueryPolicyIamQueryPolicy.Statement, and is useful for accessing the field via an interface.
-func (v *GetUserGroupIamGetGroupIamGroupGroupQueryPolicyIamQueryPolicy) GetStatement() []map[string]interface{} {
+func (v *GetUserGroupIamGetGroupIamGroupGroupQueryPolicyIamQueryPolicy) GetStatement() []interface{} {
 	return v.Statement
 }
 
@@ -2975,11 +2999,11 @@ func (v *GetUsersByEmailResponse) GetIamGetUserList() GetUsersByEmailIamGetUserL
 
 // GetWidgetGetWidgetGetWidgetResult includes the requested fields of the GraphQL type GetWidgetResult.
 type GetWidgetGetWidgetGetWidgetResult struct {
-	Widget map[string]interface{} `json:"widget"`
+	Widget interface{} `json:"widget"`
 }
 
 // GetWidget returns GetWidgetGetWidgetGetWidgetResult.Widget, and is useful for accessing the field via an interface.
-func (v *GetWidgetGetWidgetGetWidgetResult) GetWidget() map[string]interface{} { return v.Widget }
+func (v *GetWidgetGetWidgetGetWidgetResult) GetWidget() interface{} { return v.Widget }
 
 // GetWidgetResponse is returned by GetWidget on success.
 type GetWidgetResponse struct {
@@ -3464,27 +3488,27 @@ const (
 )
 
 type RuleOperationInput struct {
-	When    map[string]interface{}   `json:"when,omitempty"`
-	Actions []map[string]interface{} `json:"actions"`
+	When    interface{}   `json:"when,omitempty"`
+	Actions []interface{} `json:"actions"`
 }
 
 // GetWhen returns RuleOperationInput.When, and is useful for accessing the field via an interface.
-func (v *RuleOperationInput) GetWhen() map[string]interface{} { return v.When }
+func (v *RuleOperationInput) GetWhen() interface{} { return v.When }
 
 // GetActions returns RuleOperationInput.Actions, and is useful for accessing the field via an interface.
-func (v *RuleOperationInput) GetActions() []map[string]interface{} { return v.Actions }
+func (v *RuleOperationInput) GetActions() []interface{} { return v.Actions }
 
 // RuleOperationOutput includes the requested fields of the GraphQL type RuleOperation.
 type RuleOperationOutput struct {
-	When    map[string]interface{}   `json:"when"`
-	Actions []map[string]interface{} `json:"actions"`
+	When    interface{}   `json:"when"`
+	Actions []interface{} `json:"actions"`
 }
 
 // GetWhen returns RuleOperationOutput.When, and is useful for accessing the field via an interface.
-func (v *RuleOperationOutput) GetWhen() map[string]interface{} { return v.When }
+func (v *RuleOperationOutput) GetWhen() interface{} { return v.When }
 
 // GetActions returns RuleOperationOutput.Actions, and is useful for accessing the field via an interface.
-func (v *RuleOperationOutput) GetActions() []map[string]interface{} { return v.Actions }
+func (v *RuleOperationOutput) GetActions() []interface{} { return v.Actions }
 
 type RuleQuestionDetailsInput struct {
 	Queries []J1QueryInput `json:"queries"`
@@ -3494,11 +3518,11 @@ type RuleQuestionDetailsInput struct {
 func (v *RuleQuestionDetailsInput) GetQueries() []J1QueryInput { return v.Queries }
 
 type RuleStateInput struct {
-	Actions map[string]interface{} `json:"actions"`
+	Actions interface{} `json:"actions"`
 }
 
 // GetActions returns RuleStateInput.Actions, and is useful for accessing the field via an interface.
-func (v *RuleStateInput) GetActions() map[string]interface{} { return v.Actions }
+func (v *RuleStateInput) GetActions() interface{} { return v.Actions }
 
 type SchedulerPollingInterval string
 
@@ -3648,9 +3672,9 @@ const (
 )
 
 type UpdateComplianceFrameworkFields struct {
-	Name         string                   `json:"name"`
-	WebLink      string                   `json:"webLink"`
-	ScopeFilters []map[string]interface{} `json:"scopeFilters"`
+	Name         string        `json:"name"`
+	WebLink      string        `json:"webLink"`
+	ScopeFilters []interface{} `json:"scopeFilters"`
 }
 
 // GetName returns UpdateComplianceFrameworkFields.Name, and is useful for accessing the field via an interface.
@@ -3660,9 +3684,7 @@ func (v *UpdateComplianceFrameworkFields) GetName() string { return v.Name }
 func (v *UpdateComplianceFrameworkFields) GetWebLink() string { return v.WebLink }
 
 // GetScopeFilters returns UpdateComplianceFrameworkFields.ScopeFilters, and is useful for accessing the field via an interface.
-func (v *UpdateComplianceFrameworkFields) GetScopeFilters() []map[string]interface{} {
-	return v.ScopeFilters
-}
+func (v *UpdateComplianceFrameworkFields) GetScopeFilters() []interface{} { return v.ScopeFilters }
 
 type UpdateComplianceFrameworkInput struct {
 	Id      string                          `json:"id"`
@@ -3908,7 +3930,7 @@ type UpdateInlineQuestionRuleInstanceInput struct {
 	Version                         int                      `json:"version"`
 	State                           RuleStateInput           `json:"state,omitempty"`
 	LatestAlertId                   string                   `json:"latestAlertId,omitempty"`
-	Templates                       map[string]interface{}   `json:"templates"`
+	Templates                       interface{}              `json:"templates"`
 	Tags                            []string                 `json:"tags"`
 	Name                            string                   `json:"name"`
 	Description                     string                   `json:"description"`
@@ -3942,9 +3964,7 @@ func (v *UpdateInlineQuestionRuleInstanceInput) GetState() RuleStateInput { retu
 func (v *UpdateInlineQuestionRuleInstanceInput) GetLatestAlertId() string { return v.LatestAlertId }
 
 // GetTemplates returns UpdateInlineQuestionRuleInstanceInput.Templates, and is useful for accessing the field via an interface.
-func (v *UpdateInlineQuestionRuleInstanceInput) GetTemplates() map[string]interface{} {
-	return v.Templates
-}
+func (v *UpdateInlineQuestionRuleInstanceInput) GetTemplates() interface{} { return v.Templates }
 
 // GetTags returns UpdateInlineQuestionRuleInstanceInput.Tags, and is useful for accessing the field via an interface.
 func (v *UpdateInlineQuestionRuleInstanceInput) GetTags() []string { return v.Tags }
@@ -4033,7 +4053,7 @@ type UpdateIntegrationInstanceInput struct {
 	PollingInterval               IntegrationPollingInterval                    `json:"pollingInterval"`
 	PollingIntervalCronExpression IntegrationPollingIntervalCronExpressionInput `json:"pollingIntervalCronExpression,omitempty"`
 	Description                   string                                        `json:"description"`
-	Config                        map[string]interface{}                        `json:"config"`
+	Config                        interface{}                                   `json:"config"`
 	OffsiteComplete               bool                                          `json:"offsiteComplete,omitempty"`
 	CollectorPoolId               string                                        `json:"collectorPoolId,omitempty"`
 	IngestionSourcesOverrides     []IngestionSourcesOverridesInput              `json:"ingestionSourcesOverrides,omitempty"`
@@ -4063,7 +4083,7 @@ func (v *UpdateIntegrationInstanceInput) GetPollingIntervalCronExpression() Inte
 func (v *UpdateIntegrationInstanceInput) GetDescription() string { return v.Description }
 
 // GetConfig returns UpdateIntegrationInstanceInput.Config, and is useful for accessing the field via an interface.
-func (v *UpdateIntegrationInstanceInput) GetConfig() map[string]interface{} { return v.Config }
+func (v *UpdateIntegrationInstanceInput) GetConfig() interface{} { return v.Config }
 
 // GetOffsiteComplete returns UpdateIntegrationInstanceInput.OffsiteComplete, and is useful for accessing the field via an interface.
 func (v *UpdateIntegrationInstanceInput) GetOffsiteComplete() bool { return v.OffsiteComplete }
@@ -4101,7 +4121,7 @@ type UpdateIntegrationInstanceUpdateIntegrationInstance struct {
 	PollingInterval               IntegrationPollingInterval                                                                                              `json:"pollingInterval"`
 	IntegrationDefinitionId       string                                                                                                                  `json:"integrationDefinitionId"`
 	Description                   string                                                                                                                  `json:"description"`
-	Config                        map[string]interface{}                                                                                                  `json:"config"`
+	Config                        interface{}                                                                                                             `json:"config"`
 	IngestionSourcesOverrides     []UpdateIntegrationInstanceUpdateIntegrationInstanceIngestionSourcesOverrides                                           `json:"ingestionSourcesOverrides"`
 	SourceIntegrationInstanceId   string                                                                                                                  `json:"sourceIntegrationInstanceId"`
 	CollectorPoolId               string                                                                                                                  `json:"collectorPoolId"`
@@ -4131,9 +4151,7 @@ func (v *UpdateIntegrationInstanceUpdateIntegrationInstance) GetDescription() st
 }
 
 // GetConfig returns UpdateIntegrationInstanceUpdateIntegrationInstance.Config, and is useful for accessing the field via an interface.
-func (v *UpdateIntegrationInstanceUpdateIntegrationInstance) GetConfig() map[string]interface{} {
-	return v.Config
-}
+func (v *UpdateIntegrationInstanceUpdateIntegrationInstance) GetConfig() interface{} { return v.Config }
 
 // GetIngestionSourcesOverrides returns UpdateIntegrationInstanceUpdateIntegrationInstance.IngestionSourcesOverrides, and is useful for accessing the field via an interface.
 func (v *UpdateIntegrationInstanceUpdateIntegrationInstance) GetIngestionSourcesOverrides() []UpdateIntegrationInstanceUpdateIntegrationInstanceIngestionSourcesOverrides {
@@ -4216,7 +4234,7 @@ type UpdateReferencedQuestionRuleInstanceInput struct {
 	Version                         int                      `json:"version"`
 	State                           RuleStateInput           `json:"state,omitempty"`
 	LatestAlertId                   string                   `json:"latestAlertId,omitempty"`
-	Templates                       map[string]interface{}   `json:"templates"`
+	Templates                       interface{}              `json:"templates"`
 	Tags                            []string                 `json:"tags"`
 	Name                            string                   `json:"name"`
 	Description                     string                   `json:"description"`
@@ -4248,9 +4266,7 @@ func (v *UpdateReferencedQuestionRuleInstanceInput) GetState() RuleStateInput { 
 func (v *UpdateReferencedQuestionRuleInstanceInput) GetLatestAlertId() string { return v.LatestAlertId }
 
 // GetTemplates returns UpdateReferencedQuestionRuleInstanceInput.Templates, and is useful for accessing the field via an interface.
-func (v *UpdateReferencedQuestionRuleInstanceInput) GetTemplates() map[string]interface{} {
-	return v.Templates
-}
+func (v *UpdateReferencedQuestionRuleInstanceInput) GetTemplates() interface{} { return v.Templates }
 
 // GetTags returns UpdateReferencedQuestionRuleInstanceInput.Tags, and is useful for accessing the field via an interface.
 func (v *UpdateReferencedQuestionRuleInstanceInput) GetTags() []string { return v.Tags }
@@ -4567,17 +4583,17 @@ func (v *Widget) GetNoResultMessage() string { return v.NoResultMessage }
 func (v *Widget) GetIncludeDeleted() bool { return v.IncludeDeleted }
 
 type WidgetConfig struct {
-	Queries                   []WidgetQuery          `json:"queries"`
-	Settings                  map[string]interface{} `json:"settings"`
-	PostQueryFilters          []string               `json:"postQueryFilters"`
-	DisableQueryPolicyFilters bool                   `json:"disableQueryPolicyFilters"`
+	Queries                   []WidgetQuery `json:"queries"`
+	Settings                  interface{}   `json:"settings"`
+	PostQueryFilters          []string      `json:"postQueryFilters"`
+	DisableQueryPolicyFilters bool          `json:"disableQueryPolicyFilters"`
 }
 
 // GetQueries returns WidgetConfig.Queries, and is useful for accessing the field via an interface.
 func (v *WidgetConfig) GetQueries() []WidgetQuery { return v.Queries }
 
 // GetSettings returns WidgetConfig.Settings, and is useful for accessing the field via an interface.
-func (v *WidgetConfig) GetSettings() map[string]interface{} { return v.Settings }
+func (v *WidgetConfig) GetSettings() interface{} { return v.Settings }
 
 // GetPostQueryFilters returns WidgetConfig.PostQueryFilters, and is useful for accessing the field via an interface.
 func (v *WidgetConfig) GetPostQueryFilters() []string { return v.PostQueryFilters }
@@ -4726,10 +4742,10 @@ func (v *__CreateSmartClassTagInput) GetInput() CreateSmartClassTagInput { retur
 
 // __CreateUserGroupInput is used internally by genqlient
 type __CreateUserGroupInput struct {
-	Name            string                   `json:"name"`
-	Description     string                   `json:"description"`
-	QueryPolicy     []map[string]interface{} `json:"queryPolicy"`
-	AbacPermissions []string                 `json:"abacPermissions"`
+	Name            string        `json:"name"`
+	Description     string        `json:"description"`
+	QueryPolicy     []interface{} `json:"queryPolicy"`
+	AbacPermissions []string      `json:"abacPermissions"`
 }
 
 // GetName returns __CreateUserGroupInput.Name, and is useful for accessing the field via an interface.
@@ -4739,7 +4755,7 @@ func (v *__CreateUserGroupInput) GetName() string { return v.Name }
 func (v *__CreateUserGroupInput) GetDescription() string { return v.Description }
 
 // GetQueryPolicy returns __CreateUserGroupInput.QueryPolicy, and is useful for accessing the field via an interface.
-func (v *__CreateUserGroupInput) GetQueryPolicy() []map[string]interface{} { return v.QueryPolicy }
+func (v *__CreateUserGroupInput) GetQueryPolicy() []interface{} { return v.QueryPolicy }
 
 // GetAbacPermissions returns __CreateUserGroupInput.AbacPermissions, and is useful for accessing the field via an interface.
 func (v *__CreateUserGroupInput) GetAbacPermissions() []string { return v.AbacPermissions }
@@ -4903,6 +4919,18 @@ func (v *__DeleteWidgetInput) GetDashboardId() string { return v.DashboardId }
 
 // GetWidgetId returns __DeleteWidgetInput.WidgetId, and is useful for accessing the field via an interface.
 func (v *__DeleteWidgetInput) GetWidgetId() string { return v.WidgetId }
+
+// __ExecuteQueryInput is used internally by genqlient
+type __ExecuteQueryInput struct {
+	Query          string `json:"query"`
+	IncludeDeleted bool   `json:"includeDeleted"`
+}
+
+// GetQuery returns __ExecuteQueryInput.Query, and is useful for accessing the field via an interface.
+func (v *__ExecuteQueryInput) GetQuery() string { return v.Query }
+
+// GetIncludeDeleted returns __ExecuteQueryInput.IncludeDeleted, and is useful for accessing the field via an interface.
+func (v *__ExecuteQueryInput) GetIncludeDeleted() bool { return v.IncludeDeleted }
 
 // __GetAccountParameterInput is used internally by genqlient
 type __GetAccountParameterInput struct {
@@ -5244,11 +5272,11 @@ func (v *__UpdateSmartClassTagInput) GetInput() PatchSmartClassTagInput { return
 
 // __UpdateUserGroupInput is used internally by genqlient
 type __UpdateUserGroupInput struct {
-	Id              string                   `json:"id"`
-	Name            string                   `json:"name"`
-	Description     string                   `json:"description"`
-	QueryPolicy     []map[string]interface{} `json:"queryPolicy"`
-	AbacPermissions []string                 `json:"abacPermissions"`
+	Id              string        `json:"id"`
+	Name            string        `json:"name"`
+	Description     string        `json:"description"`
+	QueryPolicy     []interface{} `json:"queryPolicy"`
+	AbacPermissions []string      `json:"abacPermissions"`
 }
 
 // GetId returns __UpdateUserGroupInput.Id, and is useful for accessing the field via an interface.
@@ -5261,7 +5289,7 @@ func (v *__UpdateUserGroupInput) GetName() string { return v.Name }
 func (v *__UpdateUserGroupInput) GetDescription() string { return v.Description }
 
 // GetQueryPolicy returns __UpdateUserGroupInput.QueryPolicy, and is useful for accessing the field via an interface.
-func (v *__UpdateUserGroupInput) GetQueryPolicy() []map[string]interface{} { return v.QueryPolicy }
+func (v *__UpdateUserGroupInput) GetQueryPolicy() []interface{} { return v.QueryPolicy }
 
 // GetAbacPermissions returns __UpdateUserGroupInput.AbacPermissions, and is useful for accessing the field via an interface.
 func (v *__UpdateUserGroupInput) GetAbacPermissions() []string { return v.AbacPermissions }
@@ -5798,7 +5826,7 @@ func CreateUserGroup(
 	client graphql.Client,
 	name string,
 	description string,
-	queryPolicy []map[string]interface{},
+	queryPolicy []interface{},
 	abacPermissions []string,
 ) (*CreateUserGroupResponse, error) {
 	req := &graphql.Request{
@@ -6441,6 +6469,45 @@ mutation DeleteWidget ($dashboardId: String!, $widgetId: String!) {
 	var err error
 
 	var data DeleteWidgetResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func ExecuteQuery(
+	ctx context.Context,
+	client graphql.Client,
+	query string,
+	includeDeleted bool,
+) (*ExecuteQueryResponse, error) {
+	req := &graphql.Request{
+		OpName: "ExecuteQuery",
+		Query: `
+query ExecuteQuery ($query: String!, $includeDeleted: Boolean) {
+	queryV1(query: $query, deferredResponse: DISABLED, includeDeleted: $includeDeleted) {
+		type
+		data
+		url
+		totalCount
+		cursor
+		correlationId
+	}
+}
+`,
+		Variables: &__ExecuteQueryInput{
+			Query:          query,
+			IncludeDeleted: includeDeleted,
+		},
+	}
+	var err error
+
+	var data ExecuteQueryResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(
@@ -7920,7 +7987,7 @@ func UpdateUserGroup(
 	id string,
 	name string,
 	description string,
-	queryPolicy []map[string]interface{},
+	queryPolicy []interface{},
 	abacPermissions []string,
 ) (*UpdateUserGroupResponse, error) {
 	req := &graphql.Request{

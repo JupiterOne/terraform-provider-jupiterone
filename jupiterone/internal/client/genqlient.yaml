@@ -15,12 +15,13 @@ operations:
   - resourceGroups.graphql
   - smartClasses.graphql
   - accountParameter.graphql
+  - queryV1.graphql
 generated: generated.go
 
 bindings:
   # TODO: implement a custom type and marshalling for JSON strings
   JSON:
-    type: map[string]interface{}
+    type: interface{}
   Primitive:
     type: string
   Long:
