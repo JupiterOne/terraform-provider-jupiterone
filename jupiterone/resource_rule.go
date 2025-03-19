@@ -94,9 +94,7 @@ func newOperationsWithoutId(ops []client.RuleOperationOutput) ([]RuleOperation, 
 		}
 
 		for _, action := range o.Actions {
-			fmt.Printf("Checking action")
 			if actionMap, ok := action.(map[string]interface{}); ok {
-				fmt.Printf("Deleting id")
 				delete(actionMap, "id")
 			}
 

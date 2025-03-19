@@ -2,8 +2,8 @@ package jupiterone
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
-	"log"
 	"strconv"
 
 	"github.com/Khan/genqlient/graphql"
@@ -11,7 +11,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/datasource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 	"github.com/jupiterone/terraform-provider-jupiterone/jupiterone/internal/client"
 )
 
@@ -21,10 +20,10 @@ type QueryModel struct {
 }
 
 type J1QLResultModel struct {
-	Id    types.String        `json:"id,omitempty" tfsdk:"id"`
-	Query QueryModel          `json:"query,omitempty" tfsdk:"query"`
-	Type  types.String        `json:"type,omitempty" tfsdk:"type"`
-	Data  []map[string]string `json:"data,omitempty" tfsdk:"data"`
+	Id       types.String `json:"id,omitempty" tfsdk:"id"`
+	Query    QueryModel   `json:"query,omitempty" tfsdk:"query"`
+	Type     types.String `json:"type,omitempty" tfsdk:"type"`
+	DataJson types.String `json:"data,omitempty" tfsdk:"data_json"`
 }
 
 // NewJ1QLDataSource is a helper function to simplify the provider implementation.
@@ -69,12 +68,9 @@ func (*j1qlResultDataSource) Schema(ctx context.Context, req datasource.SchemaRe
 				Computed:    true,
 				Description: "The return type of the query. Possible values are: list, table.",
 			},
-			"data": schema.ListAttribute{
-				Description: "The returned data from the query. All values are converted into strings to adhere to the the strict schema.",
+			"data_json": schema.StringAttribute{
+				Description: "The json stringified data that was returned for the query.",
 				Computed:    true,
-				ElementType: types.MapType{
-					ElemType: types.StringType,
-				},
 			},
 		},
 	}
@@ -97,14 +93,19 @@ func (d *j1qlResultDataSource) Read(ctx context.Context, req datasource.ReadRequ
 		return
 	}
 
+	fmt.Sprintf("The length of the data %d", len(getFormattedData(executeResponse.QueryV1.Data)))
+
+	stringifiedData, err := json.Marshal(executeResponse.QueryV1.Data)
+	fmt.Printf("Stringified data id" + string(stringifiedData))
+
+	if err != nil {
+		resp.Diagnostics.AddError("failed to marshal query data", err.Error())
+		return
+	}
+
 	data.Id = types.StringValue(uuid.New().String())
 	data.Type = types.StringValue(executeResponse.QueryV1.Type)
-	data.Data = getFormattedData(executeResponse.QueryV1.Data)
-
-	tflog.Trace(ctx, "Collected query results",
-		map[string]interface{}{"length": len(data.Data), "type": data.Type, "resultsUrl": executeResponse.QueryV1.Url})
-
-	log.Printf("The length of the data is: %s", fmt.Sprintf("%d", len(data.Data)))
+	data.DataJson = types.StringValue(string(stringifiedData))
 
 	// Save updated data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
