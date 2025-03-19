@@ -37,6 +37,7 @@ resource "jupiterone_rule" "unencrypted_critical_data_stores" {
     {
       when = jsonencode({
         "type" : "FILTER",
+        "specVersion" : 1,
         "condition" : [
           "AND",
           [
@@ -79,6 +80,7 @@ resource "jupiterone_rule" "users_without_mfa" {
     {
       when = jsonencode({
         "type" : "FILTER",
+        "specVersion" : 1,
         "condition" : "{{queries.query0.total != 0}}"
       }),
       actions = [

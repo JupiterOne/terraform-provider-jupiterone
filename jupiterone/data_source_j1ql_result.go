@@ -52,11 +52,11 @@ func (*j1qlResultDataSource) Schema(ctx context.Context, req datasource.SchemaRe
 			},
 			"query": schema.SingleNestedAttribute{
 				Required:    true,
-				Description: "The query to execute.",
+				Description: "The query object to execute.",
 				Attributes: map[string]schema.Attribute{
 					"query": schema.StringAttribute{
 						Required:    true,
-						Description: "The j1ql query to execute.",
+						Description: "The j1ql query string.",
 					},
 					"include_deleted": schema.BoolAttribute{
 						Optional:    true,
@@ -66,7 +66,7 @@ func (*j1qlResultDataSource) Schema(ctx context.Context, req datasource.SchemaRe
 			},
 			"type": schema.StringAttribute{
 				Computed:    true,
-				Description: "The return type of the query. Possible values are: list, table.",
+				Description: "The return type of the query. Possible values are: list, table and tree.",
 			},
 			"data_json": schema.StringAttribute{
 				Description: "The json stringified data that was returned for the query.",
