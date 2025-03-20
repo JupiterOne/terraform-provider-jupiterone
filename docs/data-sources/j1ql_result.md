@@ -40,6 +40,10 @@ resource "jupiterone_user_group_membership" "admin_memberships" {
 
 - `query` (Attributes) The query object to execute. (see [below for nested schema](#nestedatt--query))
 
+### Optional
+
+- `max_pages` (Number) The maximum number of pages to fetch for table and list results. Default value is 1. Tree results will only retrieve one page.
+
 ### Read-Only
 
 - `data_json` (String) The json stringified data that was returned for the query.

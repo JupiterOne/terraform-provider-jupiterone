@@ -75,7 +75,7 @@ func (*j1qlResultDataSource) Schema(ctx context.Context, req datasource.SchemaRe
 			},
 			"max_pages": schema.Int64Attribute{
 				Optional:    true,
-				Description: "The maximum number of pages to fetch for table and list results. Default value is 1. Tree results do not paginate",
+				Description: "The maximum number of pages to fetch for table and list results. Default value is 1. Tree results will only retrieve one page.",
 			},
 		},
 	}
