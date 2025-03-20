@@ -4,13 +4,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"strconv"
 
 	"github.com/Khan/genqlient/graphql"
 	"github.com/google/uuid"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/datasource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 	"github.com/jupiterone/terraform-provider-jupiterone/jupiterone/internal/client"
 )
 
@@ -24,6 +24,7 @@ type J1QLResultModel struct {
 	Query    QueryModel   `json:"query,omitempty" tfsdk:"query"`
 	Type     types.String `json:"type,omitempty" tfsdk:"type"`
 	DataJson types.String `json:"data,omitempty" tfsdk:"data_json"`
+	MaxPages types.Int64  `json:"maxPages,omitempty" tfsdk:"max_pages"`
 }
 
 // NewJ1QLDataSource is a helper function to simplify the provider implementation.
@@ -72,6 +73,10 @@ func (*j1qlResultDataSource) Schema(ctx context.Context, req datasource.SchemaRe
 				Description: "The json stringified data that was returned for the query.",
 				Computed:    true,
 			},
+			"max_pages": schema.Int64Attribute{
+				Optional:    true,
+				Description: "The maximum number of pages to fetch for table and list results. Default value is 1. Tree results do not paginate",
+			},
 		},
 	}
 }
@@ -87,15 +92,45 @@ func (d *j1qlResultDataSource) Read(ctx context.Context, req datasource.ReadRequ
 		return
 	}
 
-	executeResponse, err := client.ExecuteQuery(ctx, d.qlient, data.Query.Query.ValueString(), data.Query.IncludeDeleted.ValueBool())
-	if err != nil {
-		resp.Diagnostics.AddError("failed to execute queryquery", err.Error())
-		return
+	var endResults interface{}
+	var allArrayResults []interface{}
+	var cursor string
+	var resultType string
+	var numberOfPagesQueried int = 0
+
+	for {
+		numberOfPagesQueried++
+		executeResponse, err := client.ExecuteQuery(ctx, d.qlient, data.Query.Query.ValueString(), data.Query.IncludeDeleted.ValueBool(), cursor)
+		if err != nil {
+			resp.Diagnostics.AddError("failed to execute query", err.Error())
+			return
+		}
+
+		tflog.Trace(ctx, "Got a page of results", map[string]interface{}{"url": executeResponse.QueryV1.Url})
+
+		// We don't paginate tree results
+		if executeResponse.QueryV1.Type == "tree" {
+			endResults = executeResponse.QueryV1.Data
+			break
+		}
+
+		// Table and list results are arrays and can be appended to allArrayResults
+		if dataArray, ok := executeResponse.QueryV1.Data.([]interface{}); ok {
+			allArrayResults = append(allArrayResults, dataArray...)
+		}
+
+		cursor = executeResponse.QueryV1.Cursor
+		resultType = executeResponse.QueryV1.Type
+
+		if cursor == "" || numberOfPagesQueried >= int(data.MaxPages.ValueInt64()) {
+			tflog.Trace(ctx, "Stopping pagination",
+				map[string]interface{}{"cursor": cursor, "maxPages": int(data.MaxPages.ValueInt64()), "numberOfPagesQueried": numberOfPagesQueried})
+			endResults = allArrayResults
+			break
+		}
 	}
 
-	fmt.Sprintf("The length of the data %d", len(getFormattedData(executeResponse.QueryV1.Data)))
-
-	stringifiedData, err := json.Marshal(executeResponse.QueryV1.Data)
+	stringifiedData, err := json.Marshal(endResults)
 	fmt.Printf("Stringified data id" + string(stringifiedData))
 
 	if err != nil {
@@ -104,7 +139,7 @@ func (d *j1qlResultDataSource) Read(ctx context.Context, req datasource.ReadRequ
 	}
 
 	data.Id = types.StringValue(uuid.New().String())
-	data.Type = types.StringValue(executeResponse.QueryV1.Type)
+	data.Type = types.StringValue(resultType)
 	data.DataJson = types.StringValue(string(stringifiedData))
 
 	// Save updated data into Terraform state
@@ -131,34 +166,4 @@ func (r *j1qlResultDataSource) Configure(ctx context.Context, req datasource.Con
 
 	r.version = p.version
 	r.qlient = p.Qlient
-}
-
-func getFormattedData(data interface{}) []map[string]string {
-	if dataArray, ok := data.([]interface{}); ok {
-		result := make([]map[string]string, len(dataArray))
-
-		for i, item := range dataArray {
-			if itemMap, ok := item.(map[string]interface{}); ok {
-				result[i] = make(map[string]string)
-				for key, value := range itemMap {
-					// result[i][key] = fmt.Sprintf("%v", value)
-					switch v := value.(type) {
-					case bool:
-						result[i][key] = strconv.FormatBool(v)
-					case float64:
-						result[i][key] = strconv.FormatFloat(v, 'f', -1, 64)
-					case int16, int32, int64:
-						result[i][key] = fmt.Sprintf("%d", v)
-					case string:
-						result[i][key] = v
-					default:
-						result[i][key] = "Redacted: Not a string or boolean or number"
-					}
-				}
-			}
-		}
-		return result
-	}
-
-	return []map[string]string{}
 }

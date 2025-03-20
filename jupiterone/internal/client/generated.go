@@ -4924,6 +4924,7 @@ func (v *__DeleteWidgetInput) GetWidgetId() string { return v.WidgetId }
 type __ExecuteQueryInput struct {
 	Query          string `json:"query"`
 	IncludeDeleted bool   `json:"includeDeleted"`
+	Cursor         string `json:"cursor"`
 }
 
 // GetQuery returns __ExecuteQueryInput.Query, and is useful for accessing the field via an interface.
@@ -4931,6 +4932,9 @@ func (v *__ExecuteQueryInput) GetQuery() string { return v.Query }
 
 // GetIncludeDeleted returns __ExecuteQueryInput.IncludeDeleted, and is useful for accessing the field via an interface.
 func (v *__ExecuteQueryInput) GetIncludeDeleted() bool { return v.IncludeDeleted }
+
+// GetCursor returns __ExecuteQueryInput.Cursor, and is useful for accessing the field via an interface.
+func (v *__ExecuteQueryInput) GetCursor() string { return v.Cursor }
 
 // __GetAccountParameterInput is used internally by genqlient
 type __GetAccountParameterInput struct {
@@ -6485,12 +6489,13 @@ func ExecuteQuery(
 	client graphql.Client,
 	query string,
 	includeDeleted bool,
+	cursor string,
 ) (*ExecuteQueryResponse, error) {
 	req := &graphql.Request{
 		OpName: "ExecuteQuery",
 		Query: `
-query ExecuteQuery ($query: String!, $includeDeleted: Boolean) {
-	queryV1(query: $query, deferredResponse: DISABLED, includeDeleted: $includeDeleted) {
+query ExecuteQuery ($query: String!, $includeDeleted: Boolean, $cursor: String) {
+	queryV1(query: $query, deferredResponse: DISABLED, includeDeleted: $includeDeleted, cursor: $cursor) {
 		type
 		data
 		url
@@ -6503,6 +6508,7 @@ query ExecuteQuery ($query: String!, $includeDeleted: Boolean) {
 		Variables: &__ExecuteQueryInput{
 			Query:          query,
 			IncludeDeleted: includeDeleted,
+			Cursor:         cursor,
 		},
 	}
 	var err error
