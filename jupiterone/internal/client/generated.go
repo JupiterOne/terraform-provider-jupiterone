@@ -696,16 +696,10 @@ func (v *CreateInsightsDashboardLayoutItem) GetY() int64 { return v.Y }
 func (v *CreateInsightsDashboardLayoutItem) GetI() string { return v.I }
 
 type CreateInsightsWidgetConfigInput struct {
-<<<<<<< HEAD
 	Queries                   []CreateInsightsWidgetConfigQueryInput `json:"queries"`
 	Settings                  interface{}                            `json:"settings"`
 	PostQueryFilters          []string                               `json:"postQueryFilters"`
 	DisableQueryPolicyFilters bool                                   `json:"disableQueryPolicyFilters"`
-=======
-	Queries          []CreateInsightsWidgetConfigQueryInput `json:"queries"`
-	Settings         map[string]interface{}                 `json:"settings"`
-	PostQueryFilters []string                               `json:"postQueryFilters"`
->>>>>>> main
 }
 
 // GetQueries returns CreateInsightsWidgetConfigInput.Queries, and is useful for accessing the field via an interface.
@@ -718,6 +712,11 @@ func (v *CreateInsightsWidgetConfigInput) GetSettings() interface{} { return v.S
 
 // GetPostQueryFilters returns CreateInsightsWidgetConfigInput.PostQueryFilters, and is useful for accessing the field via an interface.
 func (v *CreateInsightsWidgetConfigInput) GetPostQueryFilters() []string { return v.PostQueryFilters }
+
+// GetDisableQueryPolicyFilters returns CreateInsightsWidgetConfigInput.DisableQueryPolicyFilters, and is useful for accessing the field via an interface.
+func (v *CreateInsightsWidgetConfigInput) GetDisableQueryPolicyFilters() bool {
+	return v.DisableQueryPolicyFilters
+}
 
 type CreateInsightsWidgetConfigQueryInput struct {
 	Id    string `json:"id"`
@@ -4584,16 +4583,10 @@ func (v *Widget) GetNoResultMessage() string { return v.NoResultMessage }
 func (v *Widget) GetIncludeDeleted() bool { return v.IncludeDeleted }
 
 type WidgetConfig struct {
-<<<<<<< HEAD
 	Queries                   []WidgetQuery `json:"queries"`
 	Settings                  interface{}   `json:"settings"`
 	PostQueryFilters          []string      `json:"postQueryFilters"`
 	DisableQueryPolicyFilters bool          `json:"disableQueryPolicyFilters"`
-=======
-	Queries          []WidgetQuery          `json:"queries"`
-	Settings         map[string]interface{} `json:"settings"`
-	PostQueryFilters []string               `json:"postQueryFilters"`
->>>>>>> main
 }
 
 // GetQueries returns WidgetConfig.Queries, and is useful for accessing the field via an interface.
@@ -4604,6 +4597,9 @@ func (v *WidgetConfig) GetSettings() interface{} { return v.Settings }
 
 // GetPostQueryFilters returns WidgetConfig.PostQueryFilters, and is useful for accessing the field via an interface.
 func (v *WidgetConfig) GetPostQueryFilters() []string { return v.PostQueryFilters }
+
+// GetDisableQueryPolicyFilters returns WidgetConfig.DisableQueryPolicyFilters, and is useful for accessing the field via an interface.
+func (v *WidgetConfig) GetDisableQueryPolicyFilters() bool { return v.DisableQueryPolicyFilters }
 
 type WidgetQuery struct {
 	Id    string `json:"id"`
