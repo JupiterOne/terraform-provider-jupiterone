@@ -1,0 +1,15 @@
+query ExecuteQuery($query: String!, $includeDeleted: Boolean, $cursor: String) {
+  queryV1(
+    query: $query
+    deferredResponse: DISABLED
+    includeDeleted: $includeDeleted
+    cursor: $cursor
+  ) {
+    type
+    data
+    url
+    totalCount
+    cursor
+    correlationId
+  }
+}

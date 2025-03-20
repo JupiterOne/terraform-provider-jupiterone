@@ -109,7 +109,7 @@ func (r *UserGroupResource) Create(ctx context.Context, req resource.CreateReque
 		return
 	}
 
-	var queryPolicy []map[string]interface{}
+	var queryPolicy []interface{}
 
 	for _, statementData := range data.QueryPolicy {
 		var queryPolicyStatement = make(map[string]interface{})
@@ -184,31 +184,33 @@ func (r *UserGroupResource) Read(ctx context.Context, req resource.ReadRequest, 
 	data.Description = types.StringValue(group.IamGetGroup.GroupDescription)
 	data.Permissions = group.IamGetGroup.GroupAbacPermission.Statement
 
-	// Convert from []map[string]interface{} to []map[string][]string
+	// Convert from []interface{} to []map[string][]string
 	var queryPolicy []map[string][]string
 
 	for _, statementData := range group.IamGetGroup.GroupQueryPolicy.Statement {
 		var queryPolicyStatement = make(map[string][]string) // Initialize the map
 
-		for key, value := range statementData {
-			// Was unable to parse the []string from the JSON response in any other way.
-			// So we convert the value to a string and then unmarshal it into a []string.
-			stringValue, stringifyError := json.Marshal(value)
+		if statementDataMap, ok := statementData.(map[string]interface{}); ok {
+			for key, value := range statementDataMap {
+				// Was unable to parse the []string from the JSON response in any other way.
+				// So we convert the value to a string and then unmarshal it into a []string.
+				stringValue, stringifyError := json.Marshal(value)
 
-			if stringifyError != nil {
-				resp.Diagnostics.AddError("failed to parse query policy", stringifyError.Error())
-				return
+				if stringifyError != nil {
+					resp.Diagnostics.AddError("failed to parse query policy", stringifyError.Error())
+					return
+				}
+
+				var arrayValue []string
+				parseError := json.Unmarshal(stringValue, &arrayValue)
+
+				if parseError != nil {
+					resp.Diagnostics.AddError("failed to parse query policy", parseError.Error())
+					return
+				}
+
+				queryPolicyStatement[key] = arrayValue
 			}
-
-			var arrayValue []string
-			parseError := json.Unmarshal(stringValue, &arrayValue)
-
-			if parseError != nil {
-				resp.Diagnostics.AddError("failed to parse query policy", parseError.Error())
-				return
-			}
-
-			queryPolicyStatement[key] = arrayValue
 		}
 
 		queryPolicy = append(queryPolicy, queryPolicyStatement)
@@ -236,8 +238,8 @@ func (r *UserGroupResource) Update(ctx context.Context, req resource.UpdateReque
 		return
 	}
 
-	// Convert from  []map[string][]string to []map[string]interface{}
-	var queryPolicy []map[string]interface{}
+	// Convert from  []map[string][]string to []interface{}
+	var queryPolicy []interface{}
 
 	for _, statementData := range data.QueryPolicy {
 		var queryPolicyStatement = make(map[string]interface{}) // Initialize the map

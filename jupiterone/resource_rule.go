@@ -94,7 +94,10 @@ func newOperationsWithoutId(ops []client.RuleOperationOutput) ([]RuleOperation, 
 		}
 
 		for _, action := range o.Actions {
-			delete(action, "id")
+			if actionMap, ok := action.(map[string]interface{}); ok {
+				delete(actionMap, "id")
+			}
+
 			a, err := json.Marshal(action)
 			if err != nil {
 				return nil, err

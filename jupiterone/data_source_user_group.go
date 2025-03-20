@@ -109,25 +109,27 @@ func (d *userGroupDataSource) Read(ctx context.Context, req datasource.ReadReque
 	for _, statementData := range group.GroupQueryPolicy.Statement {
 		var queryPolicyStatement = make(map[string][]string)
 
-		for key, value := range statementData {
-			// Was unable to parse the []string from the JSON response in any other way.
-			// So we convert the value to a string and then unmarshal it into a []string.
-			stringValue, stringifyError := json.Marshal(value)
+		if statementDataMap, ok := statementData.(map[string]interface{}); ok {
+			for key, value := range statementDataMap {
+				// Was unable to parse the []string from the JSON response in any other way.
+				// So we convert the value to a string and then unmarshal it into a []string.
+				stringValue, stringifyError := json.Marshal(value)
 
-			if stringifyError != nil {
-				resp.Diagnostics.AddError("failed to parse query policy", stringifyError.Error())
-				return
+				if stringifyError != nil {
+					resp.Diagnostics.AddError("failed to parse query policy", stringifyError.Error())
+					return
+				}
+
+				var arrayValue []string
+				parseError := json.Unmarshal(stringValue, &arrayValue)
+
+				if parseError != nil {
+					resp.Diagnostics.AddError("failed to parse query policy", parseError.Error())
+					return
+				}
+
+				queryPolicyStatement[key] = arrayValue
 			}
-
-			var arrayValue []string
-			parseError := json.Unmarshal(stringValue, &arrayValue)
-
-			if parseError != nil {
-				resp.Diagnostics.AddError("failed to parse query policy", parseError.Error())
-				return
-			}
-
-			queryPolicyStatement[key] = arrayValue
 		}
 
 		queryPolicy = append(queryPolicy, queryPolicyStatement)

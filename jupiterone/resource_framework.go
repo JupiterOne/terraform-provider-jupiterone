@@ -39,13 +39,13 @@ type ComplianceFrameworkModel struct {
 
 // BuildScopeFilters builds the data model that is accepted by the J1 API
 // for its `JSON` types
-func (c *ComplianceFrameworkModel) BuildScopeFilters(ctx context.Context) ([]map[string]interface{}, diag.Diagnostics) {
+func (c *ComplianceFrameworkModel) BuildScopeFilters(ctx context.Context) ([]interface{}, diag.Diagnostics) {
 	var elements []types.String
 	diag := c.ScopeFilters.ElementsAs(ctx, &elements, false)
 	if diag.HasError() {
 		return nil, diag
 	}
-	scopeFilters := make([]map[string]interface{}, len(c.ScopeFilters.Elements()))
+	scopeFilters := make([]interface{}, len(c.ScopeFilters.Elements()))
 	for i, f := range elements {
 		err := json.Unmarshal([]byte(f.ValueString()), &scopeFilters[i])
 		if err != nil {

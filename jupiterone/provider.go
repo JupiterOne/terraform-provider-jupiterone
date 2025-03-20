@@ -120,6 +120,7 @@ func (*JupiterOneProvider) DataSources(context.Context) []func() datasource.Data
 	return []func() datasource.DataSource{
 		NewUserGroupDataSource,
 		NewResourceGroupDataSource,
+		NewJ1QLResultDataSource,
 	}
 }
 
