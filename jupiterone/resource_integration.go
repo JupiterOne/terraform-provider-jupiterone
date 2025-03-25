@@ -27,18 +27,23 @@ type IntegrationResource struct {
 	qlient graphql.Client
 }
 
+type IngestionSourceOverride struct {
+	IngestionSourceId string `tfsdk:"ingestion_source_id"`
+	Enabled           bool   `tfsdk:"enabled"`
+}
+
 type IntegrationModel struct {
-	Id                            types.String `tfsdk:"id"`
-	Name                          types.String `tfsdk:"name"`
-	PollingInterval               types.String `tfsdk:"polling_interval"`
-	IntegrationDefinitionId       types.String `tfsdk:"integration_definition_id"`
-	Description                   types.String `tfsdk:"description"`
-	Config                        types.String `tfsdk:"config"`
-	SourceIntegrationInstanceId   types.String `tfsdk:"source_integration_instance_id"`
-	CollectorPoolId               types.String `tfsdk:"collector_pool_id"`
-	PollingIntervalCronExpression types.String `tfsdk:"polling_interval_cron_expression"`
-	IngestionSourcesOverrides     types.List   `tfsdk:"ingestion_sources_overrides"`
-	ResourceGroupId               types.String `tfsdk:"resource_group_id"`
+	Id                            types.String               `tfsdk:"id"`
+	Name                          types.String               `tfsdk:"name"`
+	PollingInterval               types.String               `tfsdk:"polling_interval"`
+	IntegrationDefinitionId       types.String               `tfsdk:"integration_definition_id"`
+	Description                   types.String               `tfsdk:"description"`
+	Config                        types.String               `tfsdk:"config"`
+	SourceIntegrationInstanceId   types.String               `tfsdk:"source_integration_instance_id"`
+	CollectorPoolId               types.String               `tfsdk:"collector_pool_id"`
+	PollingIntervalCronExpression types.String               `tfsdk:"polling_interval_cron_expression"`
+	IngestionSourcesOverrides     *[]IngestionSourceOverride `tfsdk:"ingestion_sources_overrides"`
+	ResourceGroupId               types.String               `tfsdk:"resource_group_id"`
 }
 
 func NewIntegrationResource() resource.Resource {
@@ -104,15 +109,14 @@ func (r *IntegrationResource) Create(ctx context.Context, req resource.CreateReq
 		input.PollingIntervalCronExpression = cronExpression
 	}
 
-	if !data.IngestionSourcesOverrides.IsNull() {
-		var overrides []client.IngestionSourcesOverridesInput
-		diags := data.IngestionSourcesOverrides.ElementsAs(ctx, &overrides, false)
-		if diags.HasError() {
-			resp.Diagnostics.Append(diags...)
-			return
+	converted := make([]client.IngestionSourcesOverridesInput, len(*data.IngestionSourcesOverrides))
+	for i, v := range *data.IngestionSourcesOverrides {
+		converted[i] = client.IngestionSourcesOverridesInput{
+			IngestionSourceId: v.IngestionSourceId,
+			Enabled:           v.Enabled,
 		}
-		input.IngestionSourcesOverrides = overrides
 	}
+	input.IngestionSourcesOverrides = converted
 
 	if !data.ResourceGroupId.IsNull() {
 		input.ResourceGroupId = data.ResourceGroupId.ValueString()
@@ -179,17 +183,14 @@ func (r *IntegrationResource) Read(ctx context.Context, req resource.ReadRequest
 		data.PollingIntervalCronExpression = types.StringValue(string(cronExpressionJSON))
 	}
 
-	if len(response.IntegrationInstance.IngestionSourcesOverrides) > 0 {
-		overrides, diags := types.ListValueFrom(ctx, types.ObjectType{AttrTypes: map[string]attr.Type{
-			"ingestion_source_id": types.StringType,
-			"enabled":             types.BoolType,
-		}}, response.IntegrationInstance.IngestionSourcesOverrides)
-		if diags.HasError() {
-			resp.Diagnostics.Append(diags...)
-			return
+	converted := make([]IngestionSourceOverride, len(response.IntegrationInstance.IngestionSourcesOverrides))
+	for i, v := range response.IntegrationInstance.IngestionSourcesOverrides {
+		converted[i] = IngestionSourceOverride{
+			IngestionSourceId: v.IngestionSourceId,
+			Enabled:           v.Enabled,
 		}
-		data.IngestionSourcesOverrides = overrides
 	}
+	data.IngestionSourcesOverrides = &converted
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
 }
@@ -206,6 +207,9 @@ func (r *IntegrationResource) Update(ctx context.Context, req resource.UpdateReq
 		resp.Diagnostics.AddError("Failed to unmarshal config", err.Error())
 		return
 	}
+
+	// Cannot pass externalId to the API, so remove it from the config
+	delete(config, "externalId")
 
 	input := client.UpdateIntegrationInstanceInput{
 		Name:            data.Name.ValueString(),
@@ -231,15 +235,14 @@ func (r *IntegrationResource) Update(ctx context.Context, req resource.UpdateReq
 		input.PollingIntervalCronExpression = cronExpression
 	}
 
-	if !data.IngestionSourcesOverrides.IsNull() {
-		var overrides []client.IngestionSourcesOverridesInput
-		diags := data.IngestionSourcesOverrides.ElementsAs(ctx, &overrides, false)
-		if diags.HasError() {
-			resp.Diagnostics.Append(diags...)
-			return
+	converted := make([]client.IngestionSourcesOverridesInput, len(*data.IngestionSourcesOverrides))
+	for i, v := range *data.IngestionSourcesOverrides {
+		converted[i] = client.IngestionSourcesOverridesInput{
+			IngestionSourceId: v.IngestionSourceId,
+			Enabled:           v.Enabled,
 		}
-		input.IngestionSourcesOverrides = overrides
 	}
+	input.IngestionSourcesOverrides = converted
 
 	if !data.ResourceGroupId.IsNull() {
 		input.ResourceGroupId = data.ResourceGroupId.ValueString()
