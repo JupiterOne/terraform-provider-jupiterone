@@ -16,6 +16,7 @@ operations:
   - smartClasses.graphql
   - accountParameter.graphql
   - queryV1.graphql
+  - generateIntegrationExternalId.graphql
 generated: generated.go
 
 bindings:

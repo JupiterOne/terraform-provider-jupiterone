@@ -121,6 +121,7 @@ func (*JupiterOneProvider) DataSources(context.Context) []func() datasource.Data
 		NewUserGroupDataSource,
 		NewResourceGroupDataSource,
 		NewJ1QLResultDataSource,
+		NewIntegrationExternalIdDataSource,
 	}
 }
 
