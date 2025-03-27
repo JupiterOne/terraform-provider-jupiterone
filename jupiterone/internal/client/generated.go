@@ -2052,6 +2052,14 @@ func (v *GetDashboardResponse) GetGetDashboard() GetDashboardGetDashboardInsight
 	return v.GetDashboard
 }
 
+// GetExternalIdResponse is returned by GetExternalId on success.
+type GetExternalIdResponse struct {
+	GenerateExternalId string `json:"generateExternalId"`
+}
+
+// GetGenerateExternalId returns GetExternalIdResponse.GenerateExternalId, and is useful for accessing the field via an interface.
+func (v *GetExternalIdResponse) GetGenerateExternalId() string { return v.GenerateExternalId }
+
 // GetGroupsByNameIamGetGroupListIamGroupPage includes the requested fields of the GraphQL type IamGroupPage.
 type GetGroupsByNameIamGetGroupListIamGroupPage struct {
 	Items    []GetGroupsByNameIamGetGroupListIamGroupPageItemsIamGroup `json:"items"`
@@ -6741,6 +6749,32 @@ query GetDashboard ($dashboardId: String!) {
 	var err error
 
 	var data GetDashboardResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func GetExternalId(
+	ctx context.Context,
+	client graphql.Client,
+) (*GetExternalIdResponse, error) {
+	req := &graphql.Request{
+		OpName: "GetExternalId",
+		Query: `
+mutation GetExternalId {
+	generateExternalId
+}
+`,
+	}
+	var err error
+
+	var data GetExternalIdResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(
