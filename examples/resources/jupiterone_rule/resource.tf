@@ -80,3 +80,58 @@ resource "jupiterone_rule" "users_without_mfa" {
   ]
 }
 
+resource "jupiterone_rule" "users_without_mfa_jira" {
+  name             = "users-without-mfa-jira"
+  description      = "Create Jira when users do not have mfa enabled."
+  polling_interval = "ONE_DAY"
+
+  question_id = jupiterone_question.users_without_mfa.id
+
+  tags = ["critical"]
+
+  outputs = [
+    "queries.query0.total",
+    "alertLevel"
+  ]
+
+  operations = [
+    {
+      when = jsonencode({
+        "type" : "FILTER",
+        "condition" : "{{queries.query0.total != 0}}"
+      }),
+      actions = actions = [
+        jsonencode({
+          "additionalFields": {
+            "description": {
+              "type": "doc",
+              "version": 1,
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "{{alertWebLink}}\n\n**Affected Items:**\n\n* {{queries.query0.data|mapProperty('displayName')|join('\n* ')}}\n* {{queries.query0.data|mapProperty('tag.AccountName')|join('\n* ')}}"
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          "type" : "CREATE_JIRA_TICKET",
+          "targetProperty" : "alertLevel",
+          "resolvedStatus" : "Done",
+          "updateContentOnChanges" : true,
+          "autoResolve": "true",
+          "integrationInstanceId": "a886f8a1-a433-41b9-8adf-9b2386b0147f",
+          "entityClass" : "Test",
+          "issueType": "Task",
+          "project" : "DEV",
+          "summary": "You have some findings"
+        }),
+      ]
+    }
+  ]
+}
+
