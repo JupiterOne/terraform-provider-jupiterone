@@ -3,14 +3,17 @@ package jupiterone
 import (
 	"context"
 	"fmt"
+	"regexp"
 	"strings"
 
 	"github.com/Khan/genqlient/graphql"
+	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
 	"github.com/jupiterone/terraform-provider-jupiterone/jupiterone/internal/client"
@@ -57,6 +60,9 @@ func (*CustomIntegrationDefinitionResource) Schema(ctx context.Context, req reso
 			"name": schema.StringAttribute{
 				Required:    true,
 				Description: "Name of the custom integration definition",
+				PlanModifiers: []planmodifier.String{
+					stringplanmodifier.RequiresReplace(),
+				},
 			},
 			"description": schema.StringAttribute{
 				Required:    true,
@@ -64,7 +70,13 @@ func (*CustomIntegrationDefinitionResource) Schema(ctx context.Context, req reso
 			},
 			"integration_type": schema.StringAttribute{
 				Required:    true,
-				Description: "Type of integration. Should be unique across JupiterOne. Should also be a hyphenated string of the integration name, e.g. 'jupiterone-example-integration'",
+				Description: "Type of integration. Should be unique across JupiterOne. Should be a kebab-case string (lowercase with hyphens), e.g. 'jupiterone-example-integration'",
+				Validators: []validator.String{
+					stringvalidator.RegexMatches(
+						regexp.MustCompile(`^[a-z0-9]+(?:-[a-z0-9]+)*$`),
+						"Integration type must be in kebab-case format (lowercase letters, numbers, and hyphens only)",
+					),
+				},
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.RequiresReplace(),
 				},
@@ -84,7 +96,13 @@ func (*CustomIntegrationDefinitionResource) Schema(ctx context.Context, req reso
 			},
 			"custom_definition_type": schema.StringAttribute{
 				Required:    true,
-				Description: "Type of custom definition",
+				Description: "Type of custom definition. Must be either 'custom' or 'cft'",
+				Validators: []validator.String{
+					stringvalidator.OneOf(
+						"custom",
+						"cft",
+					),
+				},
 			},
 		},
 	}
