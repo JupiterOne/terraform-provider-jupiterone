@@ -122,6 +122,7 @@ func (*JupiterOneProvider) DataSources(context.Context) []func() datasource.Data
 		NewResourceGroupDataSource,
 		NewJ1QLResultDataSource,
 		NewIntegrationExternalIdDataSource,
+		NewCustomIntegrationDefinitionDataSource,
 	}
 }
 
@@ -152,6 +153,7 @@ func (*JupiterOneProvider) Resources(context.Context) []func() resource.Resource
 		NewSmartClassQueryResource,
 		NewSmartClassTagResource,
 		NewAccountParameterResource,
+		NewCustomIntegrationDefinitionResource,
 	}
 }
 

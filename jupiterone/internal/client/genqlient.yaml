@@ -17,6 +17,7 @@ operations:
   - accountParameter.graphql
   - queryV1.graphql
   - generateIntegrationExternalId.graphql
+  - customIntegrationDefinition.graphql
 generated: generated.go
 
 bindings:

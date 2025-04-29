@@ -1,0 +1,85 @@
+mutation CreateCustomIntegrationDefinition(
+  $customIntegrationDefinition: CreateCustomIntegrationDefinitionInput
+) {
+  createCustomIntegrationDefinition(
+    customIntegrationDefinition: $customIntegrationDefinition
+  ) {
+    accountId
+    createdOn
+    description
+    docsWebLink
+    fileFormat
+    icon
+    id
+    integrationCategory
+    integrationClass
+    integrationType
+    name
+    provisioningType
+    title
+    updatedOn
+    customDefinitionType
+  }
+}
+
+query GetCustomIntegrationDefinition($definitionType: String!) {
+  customIntegrationDefinition(type: $definitionType) {
+    accountId
+    createdOn
+    description
+    docsWebLink
+    fileFormat
+    icon
+    id
+    integrationCategory
+    integrationClass
+    integrationType
+    name
+    provisioningType
+    integrationPlatformFeatures {
+      supportsChildInstances
+      supportsIngestionSourcesConfig
+      supportsCollectors
+      supportsAgentConfigurations
+    }
+    title
+    updatedOn
+  }
+}
+
+mutation UpdateCustomIntegrationDefinition(
+  $id: String!
+  $customIntegrationDefinition: UpdateCustomIntegrationDefinitionInput!
+) {
+  updateCustomIntegrationDefinition(
+    id: $id
+    customIntegrationDefinition: $customIntegrationDefinition
+  ) {
+    accountId
+    createdOn
+    description
+    docsWebLink
+    fileFormat
+    icon
+    id
+    integrationCategory
+    integrationClass
+    integrationType
+    name
+    provisioningType
+    integrationPlatformFeatures {
+      supportsChildInstances
+      supportsIngestionSourcesConfig
+      supportsCollectors
+      supportsAgentConfigurations
+    }
+    title
+    updatedOn
+  }
+}
+
+mutation ArchiveCustomIntegrationDefinition($id: String!) {
+  archiveCustomIntegrationDefinition(id: $id) {
+    success
+  }
+}
