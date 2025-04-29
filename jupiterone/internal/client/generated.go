@@ -9,6 +9,26 @@ import (
 	"github.com/Khan/genqlient/graphql"
 )
 
+// ArchiveCustomIntegrationDefinitionArchiveCustomIntegrationDefinitionArchiveCustomIntegrationDefinitionResult includes the requested fields of the GraphQL type ArchiveCustomIntegrationDefinitionResult.
+type ArchiveCustomIntegrationDefinitionArchiveCustomIntegrationDefinitionArchiveCustomIntegrationDefinitionResult struct {
+	Success bool `json:"success"`
+}
+
+// GetSuccess returns ArchiveCustomIntegrationDefinitionArchiveCustomIntegrationDefinitionArchiveCustomIntegrationDefinitionResult.Success, and is useful for accessing the field via an interface.
+func (v *ArchiveCustomIntegrationDefinitionArchiveCustomIntegrationDefinitionArchiveCustomIntegrationDefinitionResult) GetSuccess() bool {
+	return v.Success
+}
+
+// ArchiveCustomIntegrationDefinitionResponse is returned by ArchiveCustomIntegrationDefinition on success.
+type ArchiveCustomIntegrationDefinitionResponse struct {
+	ArchiveCustomIntegrationDefinition ArchiveCustomIntegrationDefinitionArchiveCustomIntegrationDefinitionArchiveCustomIntegrationDefinitionResult `json:"archiveCustomIntegrationDefinition"`
+}
+
+// GetArchiveCustomIntegrationDefinition returns ArchiveCustomIntegrationDefinitionResponse.ArchiveCustomIntegrationDefinition, and is useful for accessing the field via an interface.
+func (v *ArchiveCustomIntegrationDefinitionResponse) GetArchiveCustomIntegrationDefinition() ArchiveCustomIntegrationDefinitionArchiveCustomIntegrationDefinitionArchiveCustomIntegrationDefinitionResult {
+	return v.ArchiveCustomIntegrationDefinition
+}
+
 type BoardType string
 
 const (
@@ -237,6 +257,147 @@ func (v *CreateComplianceLibraryItemResponse) GetCreateComplianceLibraryItem() C
 	return v.CreateComplianceLibraryItem
 }
 
+// CreateCustomIntegrationDefinitionCreateCustomIntegrationDefinition includes the requested fields of the GraphQL type CustomIntegrationDefinition.
+type CreateCustomIntegrationDefinitionCreateCustomIntegrationDefinition struct {
+	AccountId            string   `json:"accountId"`
+	CreatedOn            int64    `json:"createdOn"`
+	Description          string   `json:"description"`
+	DocsWebLink          string   `json:"docsWebLink"`
+	FileFormat           string   `json:"fileFormat"`
+	Icon                 string   `json:"icon"`
+	Id                   string   `json:"id"`
+	IntegrationCategory  []string `json:"integrationCategory"`
+	IntegrationClass     []string `json:"integrationClass"`
+	IntegrationType      string   `json:"integrationType"`
+	Name                 string   `json:"name"`
+	ProvisioningType     string   `json:"provisioningType"`
+	Title                string   `json:"title"`
+	UpdatedOn            int64    `json:"updatedOn"`
+	CustomDefinitionType string   `json:"customDefinitionType"`
+}
+
+// GetAccountId returns CreateCustomIntegrationDefinitionCreateCustomIntegrationDefinition.AccountId, and is useful for accessing the field via an interface.
+func (v *CreateCustomIntegrationDefinitionCreateCustomIntegrationDefinition) GetAccountId() string {
+	return v.AccountId
+}
+
+// GetCreatedOn returns CreateCustomIntegrationDefinitionCreateCustomIntegrationDefinition.CreatedOn, and is useful for accessing the field via an interface.
+func (v *CreateCustomIntegrationDefinitionCreateCustomIntegrationDefinition) GetCreatedOn() int64 {
+	return v.CreatedOn
+}
+
+// GetDescription returns CreateCustomIntegrationDefinitionCreateCustomIntegrationDefinition.Description, and is useful for accessing the field via an interface.
+func (v *CreateCustomIntegrationDefinitionCreateCustomIntegrationDefinition) GetDescription() string {
+	return v.Description
+}
+
+// GetDocsWebLink returns CreateCustomIntegrationDefinitionCreateCustomIntegrationDefinition.DocsWebLink, and is useful for accessing the field via an interface.
+func (v *CreateCustomIntegrationDefinitionCreateCustomIntegrationDefinition) GetDocsWebLink() string {
+	return v.DocsWebLink
+}
+
+// GetFileFormat returns CreateCustomIntegrationDefinitionCreateCustomIntegrationDefinition.FileFormat, and is useful for accessing the field via an interface.
+func (v *CreateCustomIntegrationDefinitionCreateCustomIntegrationDefinition) GetFileFormat() string {
+	return v.FileFormat
+}
+
+// GetIcon returns CreateCustomIntegrationDefinitionCreateCustomIntegrationDefinition.Icon, and is useful for accessing the field via an interface.
+func (v *CreateCustomIntegrationDefinitionCreateCustomIntegrationDefinition) GetIcon() string {
+	return v.Icon
+}
+
+// GetId returns CreateCustomIntegrationDefinitionCreateCustomIntegrationDefinition.Id, and is useful for accessing the field via an interface.
+func (v *CreateCustomIntegrationDefinitionCreateCustomIntegrationDefinition) GetId() string {
+	return v.Id
+}
+
+// GetIntegrationCategory returns CreateCustomIntegrationDefinitionCreateCustomIntegrationDefinition.IntegrationCategory, and is useful for accessing the field via an interface.
+func (v *CreateCustomIntegrationDefinitionCreateCustomIntegrationDefinition) GetIntegrationCategory() []string {
+	return v.IntegrationCategory
+}
+
+// GetIntegrationClass returns CreateCustomIntegrationDefinitionCreateCustomIntegrationDefinition.IntegrationClass, and is useful for accessing the field via an interface.
+func (v *CreateCustomIntegrationDefinitionCreateCustomIntegrationDefinition) GetIntegrationClass() []string {
+	return v.IntegrationClass
+}
+
+// GetIntegrationType returns CreateCustomIntegrationDefinitionCreateCustomIntegrationDefinition.IntegrationType, and is useful for accessing the field via an interface.
+func (v *CreateCustomIntegrationDefinitionCreateCustomIntegrationDefinition) GetIntegrationType() string {
+	return v.IntegrationType
+}
+
+// GetName returns CreateCustomIntegrationDefinitionCreateCustomIntegrationDefinition.Name, and is useful for accessing the field via an interface.
+func (v *CreateCustomIntegrationDefinitionCreateCustomIntegrationDefinition) GetName() string {
+	return v.Name
+}
+
+// GetProvisioningType returns CreateCustomIntegrationDefinitionCreateCustomIntegrationDefinition.ProvisioningType, and is useful for accessing the field via an interface.
+func (v *CreateCustomIntegrationDefinitionCreateCustomIntegrationDefinition) GetProvisioningType() string {
+	return v.ProvisioningType
+}
+
+// GetTitle returns CreateCustomIntegrationDefinitionCreateCustomIntegrationDefinition.Title, and is useful for accessing the field via an interface.
+func (v *CreateCustomIntegrationDefinitionCreateCustomIntegrationDefinition) GetTitle() string {
+	return v.Title
+}
+
+// GetUpdatedOn returns CreateCustomIntegrationDefinitionCreateCustomIntegrationDefinition.UpdatedOn, and is useful for accessing the field via an interface.
+func (v *CreateCustomIntegrationDefinitionCreateCustomIntegrationDefinition) GetUpdatedOn() int64 {
+	return v.UpdatedOn
+}
+
+// GetCustomDefinitionType returns CreateCustomIntegrationDefinitionCreateCustomIntegrationDefinition.CustomDefinitionType, and is useful for accessing the field via an interface.
+func (v *CreateCustomIntegrationDefinitionCreateCustomIntegrationDefinition) GetCustomDefinitionType() string {
+	return v.CustomDefinitionType
+}
+
+type CreateCustomIntegrationDefinitionInput struct {
+	Icon                 string   `json:"icon"`
+	Name                 string   `json:"name"`
+	IntegrationType      string   `json:"integrationType"`
+	DocsWebLink          string   `json:"docsWebLink"`
+	Description          string   `json:"description"`
+	IntegrationCategory  []string `json:"integrationCategory"`
+	CustomDefinitionType string   `json:"customDefinitionType"`
+}
+
+// GetIcon returns CreateCustomIntegrationDefinitionInput.Icon, and is useful for accessing the field via an interface.
+func (v *CreateCustomIntegrationDefinitionInput) GetIcon() string { return v.Icon }
+
+// GetName returns CreateCustomIntegrationDefinitionInput.Name, and is useful for accessing the field via an interface.
+func (v *CreateCustomIntegrationDefinitionInput) GetName() string { return v.Name }
+
+// GetIntegrationType returns CreateCustomIntegrationDefinitionInput.IntegrationType, and is useful for accessing the field via an interface.
+func (v *CreateCustomIntegrationDefinitionInput) GetIntegrationType() string {
+	return v.IntegrationType
+}
+
+// GetDocsWebLink returns CreateCustomIntegrationDefinitionInput.DocsWebLink, and is useful for accessing the field via an interface.
+func (v *CreateCustomIntegrationDefinitionInput) GetDocsWebLink() string { return v.DocsWebLink }
+
+// GetDescription returns CreateCustomIntegrationDefinitionInput.Description, and is useful for accessing the field via an interface.
+func (v *CreateCustomIntegrationDefinitionInput) GetDescription() string { return v.Description }
+
+// GetIntegrationCategory returns CreateCustomIntegrationDefinitionInput.IntegrationCategory, and is useful for accessing the field via an interface.
+func (v *CreateCustomIntegrationDefinitionInput) GetIntegrationCategory() []string {
+	return v.IntegrationCategory
+}
+
+// GetCustomDefinitionType returns CreateCustomIntegrationDefinitionInput.CustomDefinitionType, and is useful for accessing the field via an interface.
+func (v *CreateCustomIntegrationDefinitionInput) GetCustomDefinitionType() string {
+	return v.CustomDefinitionType
+}
+
+// CreateCustomIntegrationDefinitionResponse is returned by CreateCustomIntegrationDefinition on success.
+type CreateCustomIntegrationDefinitionResponse struct {
+	CreateCustomIntegrationDefinition CreateCustomIntegrationDefinitionCreateCustomIntegrationDefinition `json:"createCustomIntegrationDefinition"`
+}
+
+// GetCreateCustomIntegrationDefinition returns CreateCustomIntegrationDefinitionResponse.CreateCustomIntegrationDefinition, and is useful for accessing the field via an interface.
+func (v *CreateCustomIntegrationDefinitionResponse) GetCreateCustomIntegrationDefinition() CreateCustomIntegrationDefinitionCreateCustomIntegrationDefinition {
+	return v.CreateCustomIntegrationDefinition
+}
+
 // CreateDashboardCreateDashboardInsightsDashboard includes the requested fields of the GraphQL type InsightsDashboard.
 type CreateDashboardCreateDashboardInsightsDashboard struct {
 	Name string `json:"name"`
@@ -381,7 +542,7 @@ type CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance struct {
 	Version     int                                                                                   `json:"version"`
 	SpecVersion int                                                                                   `json:"specVersion"`
 	Question    CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceQuestionRuleQuestionDetails `json:"question"`
-	Operations  []CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceOperationsRuleOperation   `json:"operations"`
+	Operations  []RuleOperationOutput                                                                 `json:"operations"`
 	Labels      []CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceLabelsRuleInstanceLabel   `json:"labels"`
 }
 
@@ -404,7 +565,7 @@ func (v *CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance) GetQuestion
 }
 
 // GetOperations returns CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance.Operations, and is useful for accessing the field via an interface.
-func (v *CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance) GetOperations() []CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceOperationsRuleOperation {
+func (v *CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance) GetOperations() []RuleOperationOutput {
 	return v.Operations
 }
 
@@ -427,22 +588,6 @@ func (v *CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceLabelsRuleIns
 // GetLabelValue returns CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceLabelsRuleInstanceLabel.LabelValue, and is useful for accessing the field via an interface.
 func (v *CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceLabelsRuleInstanceLabel) GetLabelValue() string {
 	return v.LabelValue
-}
-
-// CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceOperationsRuleOperation includes the requested fields of the GraphQL type RuleOperation.
-type CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceOperationsRuleOperation struct {
-	When    interface{}   `json:"when"`
-	Actions []interface{} `json:"actions"`
-}
-
-// GetWhen returns CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceOperationsRuleOperation.When, and is useful for accessing the field via an interface.
-func (v *CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceOperationsRuleOperation) GetWhen() interface{} {
-	return v.When
-}
-
-// GetActions returns CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceOperationsRuleOperation.Actions, and is useful for accessing the field via an interface.
-func (v *CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceOperationsRuleOperation) GetActions() []interface{} {
-	return v.Actions
 }
 
 // CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceQuestionRuleQuestionDetails includes the requested fields of the GraphQL type RuleQuestionDetails.
@@ -2022,6 +2167,130 @@ type GetComplianceLibraryItemByIdResponse struct {
 // GetComplianceLibraryItem returns GetComplianceLibraryItemByIdResponse.ComplianceLibraryItem, and is useful for accessing the field via an interface.
 func (v *GetComplianceLibraryItemByIdResponse) GetComplianceLibraryItem() GetComplianceLibraryItemByIdComplianceLibraryItem {
 	return v.ComplianceLibraryItem
+}
+
+// GetCustomIntegrationDefinitionCustomIntegrationDefinition includes the requested fields of the GraphQL type CustomIntegrationDefinition.
+type GetCustomIntegrationDefinitionCustomIntegrationDefinition struct {
+	AccountId                   string                                                                               `json:"accountId"`
+	CreatedOn                   int64                                                                                `json:"createdOn"`
+	Description                 string                                                                               `json:"description"`
+	DocsWebLink                 string                                                                               `json:"docsWebLink"`
+	FileFormat                  string                                                                               `json:"fileFormat"`
+	Icon                        string                                                                               `json:"icon"`
+	Id                          string                                                                               `json:"id"`
+	IntegrationCategory         []string                                                                             `json:"integrationCategory"`
+	IntegrationClass            []string                                                                             `json:"integrationClass"`
+	IntegrationType             string                                                                               `json:"integrationType"`
+	Name                        string                                                                               `json:"name"`
+	ProvisioningType            string                                                                               `json:"provisioningType"`
+	IntegrationPlatformFeatures GetCustomIntegrationDefinitionCustomIntegrationDefinitionIntegrationPlatformFeatures `json:"integrationPlatformFeatures"`
+	Title                       string                                                                               `json:"title"`
+	UpdatedOn                   int64                                                                                `json:"updatedOn"`
+}
+
+// GetAccountId returns GetCustomIntegrationDefinitionCustomIntegrationDefinition.AccountId, and is useful for accessing the field via an interface.
+func (v *GetCustomIntegrationDefinitionCustomIntegrationDefinition) GetAccountId() string {
+	return v.AccountId
+}
+
+// GetCreatedOn returns GetCustomIntegrationDefinitionCustomIntegrationDefinition.CreatedOn, and is useful for accessing the field via an interface.
+func (v *GetCustomIntegrationDefinitionCustomIntegrationDefinition) GetCreatedOn() int64 {
+	return v.CreatedOn
+}
+
+// GetDescription returns GetCustomIntegrationDefinitionCustomIntegrationDefinition.Description, and is useful for accessing the field via an interface.
+func (v *GetCustomIntegrationDefinitionCustomIntegrationDefinition) GetDescription() string {
+	return v.Description
+}
+
+// GetDocsWebLink returns GetCustomIntegrationDefinitionCustomIntegrationDefinition.DocsWebLink, and is useful for accessing the field via an interface.
+func (v *GetCustomIntegrationDefinitionCustomIntegrationDefinition) GetDocsWebLink() string {
+	return v.DocsWebLink
+}
+
+// GetFileFormat returns GetCustomIntegrationDefinitionCustomIntegrationDefinition.FileFormat, and is useful for accessing the field via an interface.
+func (v *GetCustomIntegrationDefinitionCustomIntegrationDefinition) GetFileFormat() string {
+	return v.FileFormat
+}
+
+// GetIcon returns GetCustomIntegrationDefinitionCustomIntegrationDefinition.Icon, and is useful for accessing the field via an interface.
+func (v *GetCustomIntegrationDefinitionCustomIntegrationDefinition) GetIcon() string { return v.Icon }
+
+// GetId returns GetCustomIntegrationDefinitionCustomIntegrationDefinition.Id, and is useful for accessing the field via an interface.
+func (v *GetCustomIntegrationDefinitionCustomIntegrationDefinition) GetId() string { return v.Id }
+
+// GetIntegrationCategory returns GetCustomIntegrationDefinitionCustomIntegrationDefinition.IntegrationCategory, and is useful for accessing the field via an interface.
+func (v *GetCustomIntegrationDefinitionCustomIntegrationDefinition) GetIntegrationCategory() []string {
+	return v.IntegrationCategory
+}
+
+// GetIntegrationClass returns GetCustomIntegrationDefinitionCustomIntegrationDefinition.IntegrationClass, and is useful for accessing the field via an interface.
+func (v *GetCustomIntegrationDefinitionCustomIntegrationDefinition) GetIntegrationClass() []string {
+	return v.IntegrationClass
+}
+
+// GetIntegrationType returns GetCustomIntegrationDefinitionCustomIntegrationDefinition.IntegrationType, and is useful for accessing the field via an interface.
+func (v *GetCustomIntegrationDefinitionCustomIntegrationDefinition) GetIntegrationType() string {
+	return v.IntegrationType
+}
+
+// GetName returns GetCustomIntegrationDefinitionCustomIntegrationDefinition.Name, and is useful for accessing the field via an interface.
+func (v *GetCustomIntegrationDefinitionCustomIntegrationDefinition) GetName() string { return v.Name }
+
+// GetProvisioningType returns GetCustomIntegrationDefinitionCustomIntegrationDefinition.ProvisioningType, and is useful for accessing the field via an interface.
+func (v *GetCustomIntegrationDefinitionCustomIntegrationDefinition) GetProvisioningType() string {
+	return v.ProvisioningType
+}
+
+// GetIntegrationPlatformFeatures returns GetCustomIntegrationDefinitionCustomIntegrationDefinition.IntegrationPlatformFeatures, and is useful for accessing the field via an interface.
+func (v *GetCustomIntegrationDefinitionCustomIntegrationDefinition) GetIntegrationPlatformFeatures() GetCustomIntegrationDefinitionCustomIntegrationDefinitionIntegrationPlatformFeatures {
+	return v.IntegrationPlatformFeatures
+}
+
+// GetTitle returns GetCustomIntegrationDefinitionCustomIntegrationDefinition.Title, and is useful for accessing the field via an interface.
+func (v *GetCustomIntegrationDefinitionCustomIntegrationDefinition) GetTitle() string { return v.Title }
+
+// GetUpdatedOn returns GetCustomIntegrationDefinitionCustomIntegrationDefinition.UpdatedOn, and is useful for accessing the field via an interface.
+func (v *GetCustomIntegrationDefinitionCustomIntegrationDefinition) GetUpdatedOn() int64 {
+	return v.UpdatedOn
+}
+
+// GetCustomIntegrationDefinitionCustomIntegrationDefinitionIntegrationPlatformFeatures includes the requested fields of the GraphQL type IntegrationPlatformFeatures.
+type GetCustomIntegrationDefinitionCustomIntegrationDefinitionIntegrationPlatformFeatures struct {
+	SupportsChildInstances         bool `json:"supportsChildInstances"`
+	SupportsIngestionSourcesConfig bool `json:"supportsIngestionSourcesConfig"`
+	SupportsCollectors             bool `json:"supportsCollectors"`
+	SupportsAgentConfigurations    bool `json:"supportsAgentConfigurations"`
+}
+
+// GetSupportsChildInstances returns GetCustomIntegrationDefinitionCustomIntegrationDefinitionIntegrationPlatformFeatures.SupportsChildInstances, and is useful for accessing the field via an interface.
+func (v *GetCustomIntegrationDefinitionCustomIntegrationDefinitionIntegrationPlatformFeatures) GetSupportsChildInstances() bool {
+	return v.SupportsChildInstances
+}
+
+// GetSupportsIngestionSourcesConfig returns GetCustomIntegrationDefinitionCustomIntegrationDefinitionIntegrationPlatformFeatures.SupportsIngestionSourcesConfig, and is useful for accessing the field via an interface.
+func (v *GetCustomIntegrationDefinitionCustomIntegrationDefinitionIntegrationPlatformFeatures) GetSupportsIngestionSourcesConfig() bool {
+	return v.SupportsIngestionSourcesConfig
+}
+
+// GetSupportsCollectors returns GetCustomIntegrationDefinitionCustomIntegrationDefinitionIntegrationPlatformFeatures.SupportsCollectors, and is useful for accessing the field via an interface.
+func (v *GetCustomIntegrationDefinitionCustomIntegrationDefinitionIntegrationPlatformFeatures) GetSupportsCollectors() bool {
+	return v.SupportsCollectors
+}
+
+// GetSupportsAgentConfigurations returns GetCustomIntegrationDefinitionCustomIntegrationDefinitionIntegrationPlatformFeatures.SupportsAgentConfigurations, and is useful for accessing the field via an interface.
+func (v *GetCustomIntegrationDefinitionCustomIntegrationDefinitionIntegrationPlatformFeatures) GetSupportsAgentConfigurations() bool {
+	return v.SupportsAgentConfigurations
+}
+
+// GetCustomIntegrationDefinitionResponse is returned by GetCustomIntegrationDefinition on success.
+type GetCustomIntegrationDefinitionResponse struct {
+	CustomIntegrationDefinition GetCustomIntegrationDefinitionCustomIntegrationDefinition `json:"customIntegrationDefinition"`
+}
+
+// GetCustomIntegrationDefinition returns GetCustomIntegrationDefinitionResponse.CustomIntegrationDefinition, and is useful for accessing the field via an interface.
+func (v *GetCustomIntegrationDefinitionResponse) GetCustomIntegrationDefinition() GetCustomIntegrationDefinitionCustomIntegrationDefinition {
+	return v.CustomIntegrationDefinition
 }
 
 // GetDashboardGetDashboardInsightsDashboard includes the requested fields of the GraphQL type InsightsDashboard.
@@ -3899,6 +4168,169 @@ type UpdateComplianceLibraryItemUpdateComplianceLibraryItem struct {
 // GetId returns UpdateComplianceLibraryItemUpdateComplianceLibraryItem.Id, and is useful for accessing the field via an interface.
 func (v *UpdateComplianceLibraryItemUpdateComplianceLibraryItem) GetId() string { return v.Id }
 
+type UpdateCustomIntegrationDefinitionInput struct {
+	Icon                 string   `json:"icon"`
+	Name                 string   `json:"name"`
+	DocsWebLink          string   `json:"docsWebLink"`
+	Description          string   `json:"description"`
+	IntegrationCategory  []string `json:"integrationCategory"`
+	CustomDefinitionType string   `json:"customDefinitionType"`
+}
+
+// GetIcon returns UpdateCustomIntegrationDefinitionInput.Icon, and is useful for accessing the field via an interface.
+func (v *UpdateCustomIntegrationDefinitionInput) GetIcon() string { return v.Icon }
+
+// GetName returns UpdateCustomIntegrationDefinitionInput.Name, and is useful for accessing the field via an interface.
+func (v *UpdateCustomIntegrationDefinitionInput) GetName() string { return v.Name }
+
+// GetDocsWebLink returns UpdateCustomIntegrationDefinitionInput.DocsWebLink, and is useful for accessing the field via an interface.
+func (v *UpdateCustomIntegrationDefinitionInput) GetDocsWebLink() string { return v.DocsWebLink }
+
+// GetDescription returns UpdateCustomIntegrationDefinitionInput.Description, and is useful for accessing the field via an interface.
+func (v *UpdateCustomIntegrationDefinitionInput) GetDescription() string { return v.Description }
+
+// GetIntegrationCategory returns UpdateCustomIntegrationDefinitionInput.IntegrationCategory, and is useful for accessing the field via an interface.
+func (v *UpdateCustomIntegrationDefinitionInput) GetIntegrationCategory() []string {
+	return v.IntegrationCategory
+}
+
+// GetCustomDefinitionType returns UpdateCustomIntegrationDefinitionInput.CustomDefinitionType, and is useful for accessing the field via an interface.
+func (v *UpdateCustomIntegrationDefinitionInput) GetCustomDefinitionType() string {
+	return v.CustomDefinitionType
+}
+
+// UpdateCustomIntegrationDefinitionResponse is returned by UpdateCustomIntegrationDefinition on success.
+type UpdateCustomIntegrationDefinitionResponse struct {
+	UpdateCustomIntegrationDefinition UpdateCustomIntegrationDefinitionUpdateCustomIntegrationDefinition `json:"updateCustomIntegrationDefinition"`
+}
+
+// GetUpdateCustomIntegrationDefinition returns UpdateCustomIntegrationDefinitionResponse.UpdateCustomIntegrationDefinition, and is useful for accessing the field via an interface.
+func (v *UpdateCustomIntegrationDefinitionResponse) GetUpdateCustomIntegrationDefinition() UpdateCustomIntegrationDefinitionUpdateCustomIntegrationDefinition {
+	return v.UpdateCustomIntegrationDefinition
+}
+
+// UpdateCustomIntegrationDefinitionUpdateCustomIntegrationDefinition includes the requested fields of the GraphQL type CustomIntegrationDefinition.
+type UpdateCustomIntegrationDefinitionUpdateCustomIntegrationDefinition struct {
+	AccountId                   string                                                                                        `json:"accountId"`
+	CreatedOn                   int64                                                                                         `json:"createdOn"`
+	Description                 string                                                                                        `json:"description"`
+	DocsWebLink                 string                                                                                        `json:"docsWebLink"`
+	FileFormat                  string                                                                                        `json:"fileFormat"`
+	Icon                        string                                                                                        `json:"icon"`
+	Id                          string                                                                                        `json:"id"`
+	IntegrationCategory         []string                                                                                      `json:"integrationCategory"`
+	IntegrationClass            []string                                                                                      `json:"integrationClass"`
+	IntegrationType             string                                                                                        `json:"integrationType"`
+	Name                        string                                                                                        `json:"name"`
+	ProvisioningType            string                                                                                        `json:"provisioningType"`
+	IntegrationPlatformFeatures UpdateCustomIntegrationDefinitionUpdateCustomIntegrationDefinitionIntegrationPlatformFeatures `json:"integrationPlatformFeatures"`
+	Title                       string                                                                                        `json:"title"`
+	UpdatedOn                   int64                                                                                         `json:"updatedOn"`
+}
+
+// GetAccountId returns UpdateCustomIntegrationDefinitionUpdateCustomIntegrationDefinition.AccountId, and is useful for accessing the field via an interface.
+func (v *UpdateCustomIntegrationDefinitionUpdateCustomIntegrationDefinition) GetAccountId() string {
+	return v.AccountId
+}
+
+// GetCreatedOn returns UpdateCustomIntegrationDefinitionUpdateCustomIntegrationDefinition.CreatedOn, and is useful for accessing the field via an interface.
+func (v *UpdateCustomIntegrationDefinitionUpdateCustomIntegrationDefinition) GetCreatedOn() int64 {
+	return v.CreatedOn
+}
+
+// GetDescription returns UpdateCustomIntegrationDefinitionUpdateCustomIntegrationDefinition.Description, and is useful for accessing the field via an interface.
+func (v *UpdateCustomIntegrationDefinitionUpdateCustomIntegrationDefinition) GetDescription() string {
+	return v.Description
+}
+
+// GetDocsWebLink returns UpdateCustomIntegrationDefinitionUpdateCustomIntegrationDefinition.DocsWebLink, and is useful for accessing the field via an interface.
+func (v *UpdateCustomIntegrationDefinitionUpdateCustomIntegrationDefinition) GetDocsWebLink() string {
+	return v.DocsWebLink
+}
+
+// GetFileFormat returns UpdateCustomIntegrationDefinitionUpdateCustomIntegrationDefinition.FileFormat, and is useful for accessing the field via an interface.
+func (v *UpdateCustomIntegrationDefinitionUpdateCustomIntegrationDefinition) GetFileFormat() string {
+	return v.FileFormat
+}
+
+// GetIcon returns UpdateCustomIntegrationDefinitionUpdateCustomIntegrationDefinition.Icon, and is useful for accessing the field via an interface.
+func (v *UpdateCustomIntegrationDefinitionUpdateCustomIntegrationDefinition) GetIcon() string {
+	return v.Icon
+}
+
+// GetId returns UpdateCustomIntegrationDefinitionUpdateCustomIntegrationDefinition.Id, and is useful for accessing the field via an interface.
+func (v *UpdateCustomIntegrationDefinitionUpdateCustomIntegrationDefinition) GetId() string {
+	return v.Id
+}
+
+// GetIntegrationCategory returns UpdateCustomIntegrationDefinitionUpdateCustomIntegrationDefinition.IntegrationCategory, and is useful for accessing the field via an interface.
+func (v *UpdateCustomIntegrationDefinitionUpdateCustomIntegrationDefinition) GetIntegrationCategory() []string {
+	return v.IntegrationCategory
+}
+
+// GetIntegrationClass returns UpdateCustomIntegrationDefinitionUpdateCustomIntegrationDefinition.IntegrationClass, and is useful for accessing the field via an interface.
+func (v *UpdateCustomIntegrationDefinitionUpdateCustomIntegrationDefinition) GetIntegrationClass() []string {
+	return v.IntegrationClass
+}
+
+// GetIntegrationType returns UpdateCustomIntegrationDefinitionUpdateCustomIntegrationDefinition.IntegrationType, and is useful for accessing the field via an interface.
+func (v *UpdateCustomIntegrationDefinitionUpdateCustomIntegrationDefinition) GetIntegrationType() string {
+	return v.IntegrationType
+}
+
+// GetName returns UpdateCustomIntegrationDefinitionUpdateCustomIntegrationDefinition.Name, and is useful for accessing the field via an interface.
+func (v *UpdateCustomIntegrationDefinitionUpdateCustomIntegrationDefinition) GetName() string {
+	return v.Name
+}
+
+// GetProvisioningType returns UpdateCustomIntegrationDefinitionUpdateCustomIntegrationDefinition.ProvisioningType, and is useful for accessing the field via an interface.
+func (v *UpdateCustomIntegrationDefinitionUpdateCustomIntegrationDefinition) GetProvisioningType() string {
+	return v.ProvisioningType
+}
+
+// GetIntegrationPlatformFeatures returns UpdateCustomIntegrationDefinitionUpdateCustomIntegrationDefinition.IntegrationPlatformFeatures, and is useful for accessing the field via an interface.
+func (v *UpdateCustomIntegrationDefinitionUpdateCustomIntegrationDefinition) GetIntegrationPlatformFeatures() UpdateCustomIntegrationDefinitionUpdateCustomIntegrationDefinitionIntegrationPlatformFeatures {
+	return v.IntegrationPlatformFeatures
+}
+
+// GetTitle returns UpdateCustomIntegrationDefinitionUpdateCustomIntegrationDefinition.Title, and is useful for accessing the field via an interface.
+func (v *UpdateCustomIntegrationDefinitionUpdateCustomIntegrationDefinition) GetTitle() string {
+	return v.Title
+}
+
+// GetUpdatedOn returns UpdateCustomIntegrationDefinitionUpdateCustomIntegrationDefinition.UpdatedOn, and is useful for accessing the field via an interface.
+func (v *UpdateCustomIntegrationDefinitionUpdateCustomIntegrationDefinition) GetUpdatedOn() int64 {
+	return v.UpdatedOn
+}
+
+// UpdateCustomIntegrationDefinitionUpdateCustomIntegrationDefinitionIntegrationPlatformFeatures includes the requested fields of the GraphQL type IntegrationPlatformFeatures.
+type UpdateCustomIntegrationDefinitionUpdateCustomIntegrationDefinitionIntegrationPlatformFeatures struct {
+	SupportsChildInstances         bool `json:"supportsChildInstances"`
+	SupportsIngestionSourcesConfig bool `json:"supportsIngestionSourcesConfig"`
+	SupportsCollectors             bool `json:"supportsCollectors"`
+	SupportsAgentConfigurations    bool `json:"supportsAgentConfigurations"`
+}
+
+// GetSupportsChildInstances returns UpdateCustomIntegrationDefinitionUpdateCustomIntegrationDefinitionIntegrationPlatformFeatures.SupportsChildInstances, and is useful for accessing the field via an interface.
+func (v *UpdateCustomIntegrationDefinitionUpdateCustomIntegrationDefinitionIntegrationPlatformFeatures) GetSupportsChildInstances() bool {
+	return v.SupportsChildInstances
+}
+
+// GetSupportsIngestionSourcesConfig returns UpdateCustomIntegrationDefinitionUpdateCustomIntegrationDefinitionIntegrationPlatformFeatures.SupportsIngestionSourcesConfig, and is useful for accessing the field via an interface.
+func (v *UpdateCustomIntegrationDefinitionUpdateCustomIntegrationDefinitionIntegrationPlatformFeatures) GetSupportsIngestionSourcesConfig() bool {
+	return v.SupportsIngestionSourcesConfig
+}
+
+// GetSupportsCollectors returns UpdateCustomIntegrationDefinitionUpdateCustomIntegrationDefinitionIntegrationPlatformFeatures.SupportsCollectors, and is useful for accessing the field via an interface.
+func (v *UpdateCustomIntegrationDefinitionUpdateCustomIntegrationDefinitionIntegrationPlatformFeatures) GetSupportsCollectors() bool {
+	return v.SupportsCollectors
+}
+
+// GetSupportsAgentConfigurations returns UpdateCustomIntegrationDefinitionUpdateCustomIntegrationDefinitionIntegrationPlatformFeatures.SupportsAgentConfigurations, and is useful for accessing the field via an interface.
+func (v *UpdateCustomIntegrationDefinitionUpdateCustomIntegrationDefinitionIntegrationPlatformFeatures) GetSupportsAgentConfigurations() bool {
+	return v.SupportsAgentConfigurations
+}
+
 // UpdateDashboardPatchDashboardInsightsDashboard includes the requested fields of the GraphQL type InsightsDashboard.
 type UpdateDashboardPatchDashboardInsightsDashboard struct {
 	Id   string `json:"id"`
@@ -4624,6 +5056,14 @@ func (v *WidgetQuery) GetName() string { return v.Name }
 // GetQuery returns WidgetQuery.Query, and is useful for accessing the field via an interface.
 func (v *WidgetQuery) GetQuery() string { return v.Query }
 
+// __ArchiveCustomIntegrationDefinitionInput is used internally by genqlient
+type __ArchiveCustomIntegrationDefinitionInput struct {
+	Id string `json:"id"`
+}
+
+// GetId returns __ArchiveCustomIntegrationDefinitionInput.Id, and is useful for accessing the field via an interface.
+func (v *__ArchiveCustomIntegrationDefinitionInput) GetId() string { return v.Id }
+
 // __CreateComplianceFrameworkInput is used internally by genqlient
 type __CreateComplianceFrameworkInput struct {
 	Framework CreateComplianceFrameworkInput `json:"framework"`
@@ -4660,6 +5100,16 @@ type __CreateComplianceLibraryItemInput struct {
 // GetInput returns __CreateComplianceLibraryItemInput.Input, and is useful for accessing the field via an interface.
 func (v *__CreateComplianceLibraryItemInput) GetInput() CreateComplianceLibraryItemInput {
 	return v.Input
+}
+
+// __CreateCustomIntegrationDefinitionInput is used internally by genqlient
+type __CreateCustomIntegrationDefinitionInput struct {
+	CustomIntegrationDefinition CreateCustomIntegrationDefinitionInput `json:"customIntegrationDefinition"`
+}
+
+// GetCustomIntegrationDefinition returns __CreateCustomIntegrationDefinitionInput.CustomIntegrationDefinition, and is useful for accessing the field via an interface.
+func (v *__CreateCustomIntegrationDefinitionInput) GetCustomIntegrationDefinition() CreateCustomIntegrationDefinitionInput {
+	return v.CustomIntegrationDefinition
 }
 
 // __CreateDashboardInput is used internally by genqlient
@@ -4984,6 +5434,14 @@ type __GetComplianceLibraryItemByIdInput struct {
 // GetId returns __GetComplianceLibraryItemByIdInput.Id, and is useful for accessing the field via an interface.
 func (v *__GetComplianceLibraryItemByIdInput) GetId() string { return v.Id }
 
+// __GetCustomIntegrationDefinitionInput is used internally by genqlient
+type __GetCustomIntegrationDefinitionInput struct {
+	DefinitionType string `json:"definitionType"`
+}
+
+// GetDefinitionType returns __GetCustomIntegrationDefinitionInput.DefinitionType, and is useful for accessing the field via an interface.
+func (v *__GetCustomIntegrationDefinitionInput) GetDefinitionType() string { return v.DefinitionType }
+
 // __GetDashboardInput is used internally by genqlient
 type __GetDashboardInput struct {
 	DashboardId string `json:"dashboardId"`
@@ -5196,6 +5654,20 @@ func (v *__UpdateComplianceLibraryItemInput) GetInput() UpdateComplianceLibraryI
 	return v.Input
 }
 
+// __UpdateCustomIntegrationDefinitionInput is used internally by genqlient
+type __UpdateCustomIntegrationDefinitionInput struct {
+	Id                          string                                 `json:"id"`
+	CustomIntegrationDefinition UpdateCustomIntegrationDefinitionInput `json:"customIntegrationDefinition"`
+}
+
+// GetId returns __UpdateCustomIntegrationDefinitionInput.Id, and is useful for accessing the field via an interface.
+func (v *__UpdateCustomIntegrationDefinitionInput) GetId() string { return v.Id }
+
+// GetCustomIntegrationDefinition returns __UpdateCustomIntegrationDefinitionInput.CustomIntegrationDefinition, and is useful for accessing the field via an interface.
+func (v *__UpdateCustomIntegrationDefinitionInput) GetCustomIntegrationDefinition() UpdateCustomIntegrationDefinitionInput {
+	return v.CustomIntegrationDefinition
+}
+
 // __UpdateDashboardInput is used internally by genqlient
 type __UpdateDashboardInput struct {
 	Input PatchInsightsDashboardInput `json:"input"`
@@ -5322,6 +5794,38 @@ func (v *__UpdateWidgetInput) GetBoardType() string { return v.BoardType }
 // GetNewWidget returns __UpdateWidgetInput.NewWidget, and is useful for accessing the field via an interface.
 func (v *__UpdateWidgetInput) GetNewWidget() Widget { return v.NewWidget }
 
+func ArchiveCustomIntegrationDefinition(
+	ctx context.Context,
+	client graphql.Client,
+	id string,
+) (*ArchiveCustomIntegrationDefinitionResponse, error) {
+	req := &graphql.Request{
+		OpName: "ArchiveCustomIntegrationDefinition",
+		Query: `
+mutation ArchiveCustomIntegrationDefinition ($id: String!) {
+	archiveCustomIntegrationDefinition(id: $id) {
+		success
+	}
+}
+`,
+		Variables: &__ArchiveCustomIntegrationDefinitionInput{
+			Id: id,
+		},
+	}
+	var err error
+
+	var data ArchiveCustomIntegrationDefinitionResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
 func CreateComplianceFramework(
 	ctx context.Context,
 	client graphql.Client,
@@ -5439,6 +5943,52 @@ mutation CreateComplianceLibraryItem ($input: CreateComplianceLibraryItemInput!)
 	var err error
 
 	var data CreateComplianceLibraryItemResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func CreateCustomIntegrationDefinition(
+	ctx context.Context,
+	client graphql.Client,
+	customIntegrationDefinition CreateCustomIntegrationDefinitionInput,
+) (*CreateCustomIntegrationDefinitionResponse, error) {
+	req := &graphql.Request{
+		OpName: "CreateCustomIntegrationDefinition",
+		Query: `
+mutation CreateCustomIntegrationDefinition ($customIntegrationDefinition: CreateCustomIntegrationDefinitionInput) {
+	createCustomIntegrationDefinition(customIntegrationDefinition: $customIntegrationDefinition) {
+		accountId
+		createdOn
+		description
+		docsWebLink
+		fileFormat
+		icon
+		id
+		integrationCategory
+		integrationClass
+		integrationType
+		name
+		provisioningType
+		title
+		updatedOn
+		customDefinitionType
+	}
+}
+`,
+		Variables: &__CreateCustomIntegrationDefinitionInput{
+			CustomIntegrationDefinition: customIntegrationDefinition,
+		},
+	}
+	var err error
+
+	var data CreateCustomIntegrationDefinitionResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(
@@ -6726,6 +7276,57 @@ query GetComplianceLibraryItemById ($id: ID!) {
 	return &data, err
 }
 
+func GetCustomIntegrationDefinition(
+	ctx context.Context,
+	client graphql.Client,
+	definitionType string,
+) (*GetCustomIntegrationDefinitionResponse, error) {
+	req := &graphql.Request{
+		OpName: "GetCustomIntegrationDefinition",
+		Query: `
+query GetCustomIntegrationDefinition ($definitionType: String!) {
+	customIntegrationDefinition(type: $definitionType) {
+		accountId
+		createdOn
+		description
+		docsWebLink
+		fileFormat
+		icon
+		id
+		integrationCategory
+		integrationClass
+		integrationType
+		name
+		provisioningType
+		integrationPlatformFeatures {
+			supportsChildInstances
+			supportsIngestionSourcesConfig
+			supportsCollectors
+			supportsAgentConfigurations
+		}
+		title
+		updatedOn
+	}
+}
+`,
+		Variables: &__GetCustomIntegrationDefinitionInput{
+			DefinitionType: definitionType,
+		},
+	}
+	var err error
+
+	var data GetCustomIntegrationDefinitionResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
 func GetDashboard(
 	ctx context.Context,
 	client graphql.Client,
@@ -7677,6 +8278,59 @@ mutation UpdateComplianceLibraryItem ($input: UpdateComplianceLibraryItemInput!)
 	var err error
 
 	var data UpdateComplianceLibraryItemResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func UpdateCustomIntegrationDefinition(
+	ctx context.Context,
+	client graphql.Client,
+	id string,
+	customIntegrationDefinition UpdateCustomIntegrationDefinitionInput,
+) (*UpdateCustomIntegrationDefinitionResponse, error) {
+	req := &graphql.Request{
+		OpName: "UpdateCustomIntegrationDefinition",
+		Query: `
+mutation UpdateCustomIntegrationDefinition ($id: String!, $customIntegrationDefinition: UpdateCustomIntegrationDefinitionInput!) {
+	updateCustomIntegrationDefinition(id: $id, customIntegrationDefinition: $customIntegrationDefinition) {
+		accountId
+		createdOn
+		description
+		docsWebLink
+		fileFormat
+		icon
+		id
+		integrationCategory
+		integrationClass
+		integrationType
+		name
+		provisioningType
+		integrationPlatformFeatures {
+			supportsChildInstances
+			supportsIngestionSourcesConfig
+			supportsCollectors
+			supportsAgentConfigurations
+		}
+		title
+		updatedOn
+	}
+}
+`,
+		Variables: &__UpdateCustomIntegrationDefinitionInput{
+			Id:                          id,
+			CustomIntegrationDefinition: customIntegrationDefinition,
+		},
+	}
+	var err error
+
+	var data UpdateCustomIntegrationDefinitionResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(

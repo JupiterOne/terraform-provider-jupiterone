@@ -152,6 +152,7 @@ func (*JupiterOneProvider) Resources(context.Context) []func() resource.Resource
 		NewSmartClassQueryResource,
 		NewSmartClassTagResource,
 		NewAccountParameterResource,
+		NewCustomIntegrationDefinitionResource,
 	}
 }
 
