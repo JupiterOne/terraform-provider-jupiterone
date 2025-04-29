@@ -88,7 +88,7 @@ func (*CustomIntegrationDefinitionResource) Schema(ctx context.Context, req reso
 			},
 			"icon": schema.StringAttribute{
 				Required:    true,
-				Description: "Icon for the integration",
+				Description: "Icon for the integration. Must be one of the preloaded icon names like 'custom_earth', 'custom_jupiter', etc. See custom integration definition UI for a full list of icons.",
 			},
 			"docs_web_link": schema.StringAttribute{
 				Required:    true,
