@@ -185,7 +185,7 @@ func (r *IntegrationResource) Read(ctx context.Context, req resource.ReadRequest
 		data.PollingIntervalCronExpression = types.StringValue(string(cronExpressionJSON))
 	}
 
-	if len(response.IntegrationInstance.IngestionSourcesOverrides) > 0 {
+	if response.IntegrationInstance.IngestionSourcesOverrides != nil && len(response.IntegrationInstance.IngestionSourcesOverrides) > 0 {
 		converted := make([]IngestionSourceOverride, len(response.IntegrationInstance.IngestionSourcesOverrides))
 		for i, v := range response.IntegrationInstance.IngestionSourcesOverrides {
 			converted[i] = IngestionSourceOverride{
@@ -241,7 +241,7 @@ func (r *IntegrationResource) Update(ctx context.Context, req resource.UpdateReq
 		input.PollingIntervalCronExpression = cronExpression
 	}
 
-	if len(*data.IngestionSourcesOverrides) > 0 {
+	if data.IngestionSourcesOverrides != nil && len(*data.IngestionSourcesOverrides) > 0 {
 		converted := make([]client.IngestionSourcesOverridesInput, len(*data.IngestionSourcesOverrides))
 		for i, v := range *data.IngestionSourcesOverrides {
 			converted[i] = client.IngestionSourcesOverridesInput{
