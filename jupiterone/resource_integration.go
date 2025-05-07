@@ -185,7 +185,7 @@ func (r *IntegrationResource) Read(ctx context.Context, req resource.ReadRequest
 		data.PollingIntervalCronExpression = types.StringValue(string(cronExpressionJSON))
 	}
 
-	if response.IntegrationInstance.IngestionSourcesOverrides != nil && len(response.IntegrationInstance.IngestionSourcesOverrides) > 0 {
+	if len(response.IntegrationInstance.IngestionSourcesOverrides) > 0 {
 		converted := make([]IngestionSourceOverride, len(response.IntegrationInstance.IngestionSourcesOverrides))
 		for i, v := range response.IntegrationInstance.IngestionSourcesOverrides {
 			converted[i] = IngestionSourceOverride{
