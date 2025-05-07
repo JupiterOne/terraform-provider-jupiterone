@@ -54,7 +54,6 @@ mutation CreateIntegrationInstance(
 # @genqlient(for: "UpdateIntegrationInstanceInput.collectorPoolId", omitempty: true)
 # @genqlient(for: "UpdateIntegrationInstanceInput.pollingIntervalCronExpression", omitempty: true)
 # @genqlient(for: "UpdateIntegrationInstanceInput.offsiteComplete", omitempty: true)
-# @genqlient(for: "UpdateIntegrationInstanceInput.ingestionSourcesOverrides", omitempty: true)
 mutation UpdateIntegrationInstance(
   $id: String!
   $update: UpdateIntegrationInstanceInput!

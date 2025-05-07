@@ -109,14 +109,16 @@ func (r *IntegrationResource) Create(ctx context.Context, req resource.CreateReq
 		input.PollingIntervalCronExpression = cronExpression
 	}
 
-	converted := make([]client.IngestionSourcesOverridesInput, len(*data.IngestionSourcesOverrides))
-	for i, v := range *data.IngestionSourcesOverrides {
-		converted[i] = client.IngestionSourcesOverridesInput{
-			IngestionSourceId: v.IngestionSourceId,
-			Enabled:           v.Enabled,
+	if data.IngestionSourcesOverrides != nil {
+		converted := make([]client.IngestionSourcesOverridesInput, len(*data.IngestionSourcesOverrides))
+		for i, v := range *data.IngestionSourcesOverrides {
+			converted[i] = client.IngestionSourcesOverridesInput{
+				IngestionSourceId: v.IngestionSourceId,
+				Enabled:           v.Enabled,
+			}
 		}
+		input.IngestionSourcesOverrides = converted
 	}
-	input.IngestionSourcesOverrides = converted
 
 	if !data.ResourceGroupId.IsNull() {
 		input.ResourceGroupId = data.ResourceGroupId.ValueString()
@@ -183,14 +185,18 @@ func (r *IntegrationResource) Read(ctx context.Context, req resource.ReadRequest
 		data.PollingIntervalCronExpression = types.StringValue(string(cronExpressionJSON))
 	}
 
-	converted := make([]IngestionSourceOverride, len(response.IntegrationInstance.IngestionSourcesOverrides))
-	for i, v := range response.IntegrationInstance.IngestionSourcesOverrides {
-		converted[i] = IngestionSourceOverride{
-			IngestionSourceId: v.IngestionSourceId,
-			Enabled:           v.Enabled,
+	if len(response.IntegrationInstance.IngestionSourcesOverrides) > 0 {
+		converted := make([]IngestionSourceOverride, len(response.IntegrationInstance.IngestionSourcesOverrides))
+		for i, v := range response.IntegrationInstance.IngestionSourcesOverrides {
+			converted[i] = IngestionSourceOverride{
+				IngestionSourceId: v.IngestionSourceId,
+				Enabled:           v.Enabled,
+			}
 		}
+		data.IngestionSourcesOverrides = &converted
+	} else {
+		data.IngestionSourcesOverrides = nil
 	}
-	data.IngestionSourcesOverrides = &converted
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
 }
@@ -235,14 +241,18 @@ func (r *IntegrationResource) Update(ctx context.Context, req resource.UpdateReq
 		input.PollingIntervalCronExpression = cronExpression
 	}
 
-	converted := make([]client.IngestionSourcesOverridesInput, len(*data.IngestionSourcesOverrides))
-	for i, v := range *data.IngestionSourcesOverrides {
-		converted[i] = client.IngestionSourcesOverridesInput{
-			IngestionSourceId: v.IngestionSourceId,
-			Enabled:           v.Enabled,
+	if data.IngestionSourcesOverrides != nil && len(*data.IngestionSourcesOverrides) > 0 {
+		converted := make([]client.IngestionSourcesOverridesInput, len(*data.IngestionSourcesOverrides))
+		for i, v := range *data.IngestionSourcesOverrides {
+			converted[i] = client.IngestionSourcesOverridesInput{
+				IngestionSourceId: v.IngestionSourceId,
+				Enabled:           v.Enabled,
+			}
 		}
+		input.IngestionSourcesOverrides = converted
+	} else {
+		input.IngestionSourcesOverrides = []client.IngestionSourcesOverridesInput{}
 	}
-	input.IngestionSourcesOverrides = converted
 
 	if !data.ResourceGroupId.IsNull() {
 		input.ResourceGroupId = data.ResourceGroupId.ValueString()
