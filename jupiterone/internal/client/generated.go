@@ -542,7 +542,7 @@ type CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance struct {
 	Version     int                                                                                   `json:"version"`
 	SpecVersion int                                                                                   `json:"specVersion"`
 	Question    CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceQuestionRuleQuestionDetails `json:"question"`
-	Operations  []RuleOperationOutput                                                                 `json:"operations"`
+	Operations  []CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceOperationsRuleOperation   `json:"operations"`
 	Labels      []CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceLabelsRuleInstanceLabel   `json:"labels"`
 }
 
@@ -565,7 +565,7 @@ func (v *CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance) GetQuestion
 }
 
 // GetOperations returns CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance.Operations, and is useful for accessing the field via an interface.
-func (v *CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance) GetOperations() []RuleOperationOutput {
+func (v *CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance) GetOperations() []CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceOperationsRuleOperation {
 	return v.Operations
 }
 
@@ -588,6 +588,22 @@ func (v *CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceLabelsRuleIns
 // GetLabelValue returns CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceLabelsRuleInstanceLabel.LabelValue, and is useful for accessing the field via an interface.
 func (v *CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceLabelsRuleInstanceLabel) GetLabelValue() string {
 	return v.LabelValue
+}
+
+// CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceOperationsRuleOperation includes the requested fields of the GraphQL type RuleOperation.
+type CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceOperationsRuleOperation struct {
+	When    interface{}   `json:"when"`
+	Actions []interface{} `json:"actions"`
+}
+
+// GetWhen returns CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceOperationsRuleOperation.When, and is useful for accessing the field via an interface.
+func (v *CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceOperationsRuleOperation) GetWhen() interface{} {
+	return v.When
+}
+
+// GetActions returns CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceOperationsRuleOperation.Actions, and is useful for accessing the field via an interface.
+func (v *CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceOperationsRuleOperation) GetActions() []interface{} {
+	return v.Actions
 }
 
 // CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceQuestionRuleQuestionDetails includes the requested fields of the GraphQL type RuleQuestionDetails.
@@ -4496,7 +4512,7 @@ type UpdateIntegrationInstanceInput struct {
 	Config                        interface{}                                   `json:"config"`
 	OffsiteComplete               bool                                          `json:"offsiteComplete,omitempty"`
 	CollectorPoolId               string                                        `json:"collectorPoolId,omitempty"`
-	IngestionSourcesOverrides     []IngestionSourcesOverridesInput              `json:"ingestionSourcesOverrides,omitempty"`
+	IngestionSourcesOverrides     []IngestionSourcesOverridesInput              `json:"ingestionSourcesOverrides"`
 	ResourceGroupId               string                                        `json:"resourceGroupId"`
 	UpdateChildResourceGroup      bool                                          `json:"updateChildResourceGroup"`
 }

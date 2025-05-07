@@ -52,3 +52,5 @@ schema.graphql
 # Terrform lock files from testing
 .terraform*
 !.terraform-registry
+
+supportLogs/
