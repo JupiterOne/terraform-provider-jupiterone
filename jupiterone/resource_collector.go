@@ -136,10 +136,6 @@ func (r *CollectorResource) Read(ctx context.Context, req resource.ReadRequest, 
 
 	out, err := client.GetCollector(ctx, r.qlient, data.Id.ValueString())
 	if err != nil {
-		// If API indicates not found, remove from state
-		if err.Error() != "" { // simplistic; provider typically inspects error text
-			// Best effort: if not found string present, drop from state
-		}
 		resp.Diagnostics.AddError("failed to get collector", err.Error())
 		return
 	}
