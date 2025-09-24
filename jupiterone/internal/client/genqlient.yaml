@@ -18,6 +18,7 @@ operations:
   - queryV1.graphql
   - generateIntegrationExternalId.graphql
   - customIntegrationDefinition.graphql
+  - collector.graphql
 generated: generated.go
 
 bindings:

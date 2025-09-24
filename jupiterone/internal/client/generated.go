@@ -83,6 +83,88 @@ func (v *ComplianceGroup) GetDisplayCategory() string { return v.DisplayCategory
 // GetWebLink returns ComplianceGroup.WebLink, and is useful for accessing the field via an interface.
 func (v *ComplianceGroup) GetWebLink() string { return v.WebLink }
 
+// CreateCollectorCreateCollectorCreateCollectorResponse includes the requested fields of the GraphQL type CreateCollectorResponse.
+type CreateCollectorCreateCollectorCreateCollectorResponse struct {
+	Collector CreateCollectorCreateCollectorCreateCollectorResponseCollector `json:"collector"`
+	AuthToken string                                                         `json:"authToken"`
+}
+
+// GetCollector returns CreateCollectorCreateCollectorCreateCollectorResponse.Collector, and is useful for accessing the field via an interface.
+func (v *CreateCollectorCreateCollectorCreateCollectorResponse) GetCollector() CreateCollectorCreateCollectorCreateCollectorResponseCollector {
+	return v.Collector
+}
+
+// GetAuthToken returns CreateCollectorCreateCollectorCreateCollectorResponse.AuthToken, and is useful for accessing the field via an interface.
+func (v *CreateCollectorCreateCollectorCreateCollectorResponse) GetAuthToken() string {
+	return v.AuthToken
+}
+
+// CreateCollectorCreateCollectorCreateCollectorResponseCollector includes the requested fields of the GraphQL type Collector.
+type CreateCollectorCreateCollectorCreateCollectorResponseCollector struct {
+	Id                       string `json:"id"`
+	AccountId                string `json:"accountId"`
+	Name                     string `json:"name"`
+	CreatedAt                int64  `json:"createdAt"`
+	UpdatedAt                int64  `json:"updatedAt"`
+	CollectorPoolId          string `json:"collectorPoolId"`
+	State                    string `json:"state"`
+	IntegrationInstanceCount int64  `json:"integrationInstanceCount"`
+	LastHeartbeatAt          int64  `json:"lastHeartbeatAt"`
+}
+
+// GetId returns CreateCollectorCreateCollectorCreateCollectorResponseCollector.Id, and is useful for accessing the field via an interface.
+func (v *CreateCollectorCreateCollectorCreateCollectorResponseCollector) GetId() string { return v.Id }
+
+// GetAccountId returns CreateCollectorCreateCollectorCreateCollectorResponseCollector.AccountId, and is useful for accessing the field via an interface.
+func (v *CreateCollectorCreateCollectorCreateCollectorResponseCollector) GetAccountId() string {
+	return v.AccountId
+}
+
+// GetName returns CreateCollectorCreateCollectorCreateCollectorResponseCollector.Name, and is useful for accessing the field via an interface.
+func (v *CreateCollectorCreateCollectorCreateCollectorResponseCollector) GetName() string {
+	return v.Name
+}
+
+// GetCreatedAt returns CreateCollectorCreateCollectorCreateCollectorResponseCollector.CreatedAt, and is useful for accessing the field via an interface.
+func (v *CreateCollectorCreateCollectorCreateCollectorResponseCollector) GetCreatedAt() int64 {
+	return v.CreatedAt
+}
+
+// GetUpdatedAt returns CreateCollectorCreateCollectorCreateCollectorResponseCollector.UpdatedAt, and is useful for accessing the field via an interface.
+func (v *CreateCollectorCreateCollectorCreateCollectorResponseCollector) GetUpdatedAt() int64 {
+	return v.UpdatedAt
+}
+
+// GetCollectorPoolId returns CreateCollectorCreateCollectorCreateCollectorResponseCollector.CollectorPoolId, and is useful for accessing the field via an interface.
+func (v *CreateCollectorCreateCollectorCreateCollectorResponseCollector) GetCollectorPoolId() string {
+	return v.CollectorPoolId
+}
+
+// GetState returns CreateCollectorCreateCollectorCreateCollectorResponseCollector.State, and is useful for accessing the field via an interface.
+func (v *CreateCollectorCreateCollectorCreateCollectorResponseCollector) GetState() string {
+	return v.State
+}
+
+// GetIntegrationInstanceCount returns CreateCollectorCreateCollectorCreateCollectorResponseCollector.IntegrationInstanceCount, and is useful for accessing the field via an interface.
+func (v *CreateCollectorCreateCollectorCreateCollectorResponseCollector) GetIntegrationInstanceCount() int64 {
+	return v.IntegrationInstanceCount
+}
+
+// GetLastHeartbeatAt returns CreateCollectorCreateCollectorCreateCollectorResponseCollector.LastHeartbeatAt, and is useful for accessing the field via an interface.
+func (v *CreateCollectorCreateCollectorCreateCollectorResponseCollector) GetLastHeartbeatAt() int64 {
+	return v.LastHeartbeatAt
+}
+
+// CreateCollectorResponse is returned by CreateCollector on success.
+type CreateCollectorResponse struct {
+	CreateCollector CreateCollectorCreateCollectorCreateCollectorResponse `json:"createCollector"`
+}
+
+// GetCreateCollector returns CreateCollectorResponse.CreateCollector, and is useful for accessing the field via an interface.
+func (v *CreateCollectorResponse) GetCreateCollector() CreateCollectorCreateCollectorCreateCollectorResponse {
+	return v.CreateCollector
+}
+
 // CreateComplianceFrameworkCreateComplianceFramework includes the requested fields of the GraphQL type ComplianceFramework.
 type CreateComplianceFrameworkCreateComplianceFramework struct {
 	Id string `json:"id"`
@@ -1634,6 +1716,24 @@ func (v *DeleteAccountParameterResponse) GetDeleteParameter() DeleteAccountParam
 	return v.DeleteParameter
 }
 
+// DeleteCollectorDeleteCollectorDeleteInfo includes the requested fields of the GraphQL type DeleteInfo.
+type DeleteCollectorDeleteCollectorDeleteInfo struct {
+	Success bool `json:"success"`
+}
+
+// GetSuccess returns DeleteCollectorDeleteCollectorDeleteInfo.Success, and is useful for accessing the field via an interface.
+func (v *DeleteCollectorDeleteCollectorDeleteInfo) GetSuccess() bool { return v.Success }
+
+// DeleteCollectorResponse is returned by DeleteCollector on success.
+type DeleteCollectorResponse struct {
+	DeleteCollector DeleteCollectorDeleteCollectorDeleteInfo `json:"deleteCollector"`
+}
+
+// GetDeleteCollector returns DeleteCollectorResponse.DeleteCollector, and is useful for accessing the field via an interface.
+func (v *DeleteCollectorResponse) GetDeleteCollector() DeleteCollectorDeleteCollectorDeleteInfo {
+	return v.DeleteCollector
+}
+
 type DeleteComplianceFrameworkInput struct {
 	Id string `json:"id"`
 }
@@ -1998,6 +2098,56 @@ type GetAccountParameterResponse struct {
 func (v *GetAccountParameterResponse) GetParameter() GetAccountParameterParameterParameterResponse {
 	return v.Parameter
 }
+
+// GetCollectorCollector includes the requested fields of the GraphQL type Collector.
+type GetCollectorCollector struct {
+	Id                       string `json:"id"`
+	AccountId                string `json:"accountId"`
+	Name                     string `json:"name"`
+	CreatedAt                int64  `json:"createdAt"`
+	UpdatedAt                int64  `json:"updatedAt"`
+	CollectorPoolId          string `json:"collectorPoolId"`
+	State                    string `json:"state"`
+	IntegrationInstanceCount int64  `json:"integrationInstanceCount"`
+	LastHeartbeatAt          int64  `json:"lastHeartbeatAt"`
+}
+
+// GetId returns GetCollectorCollector.Id, and is useful for accessing the field via an interface.
+func (v *GetCollectorCollector) GetId() string { return v.Id }
+
+// GetAccountId returns GetCollectorCollector.AccountId, and is useful for accessing the field via an interface.
+func (v *GetCollectorCollector) GetAccountId() string { return v.AccountId }
+
+// GetName returns GetCollectorCollector.Name, and is useful for accessing the field via an interface.
+func (v *GetCollectorCollector) GetName() string { return v.Name }
+
+// GetCreatedAt returns GetCollectorCollector.CreatedAt, and is useful for accessing the field via an interface.
+func (v *GetCollectorCollector) GetCreatedAt() int64 { return v.CreatedAt }
+
+// GetUpdatedAt returns GetCollectorCollector.UpdatedAt, and is useful for accessing the field via an interface.
+func (v *GetCollectorCollector) GetUpdatedAt() int64 { return v.UpdatedAt }
+
+// GetCollectorPoolId returns GetCollectorCollector.CollectorPoolId, and is useful for accessing the field via an interface.
+func (v *GetCollectorCollector) GetCollectorPoolId() string { return v.CollectorPoolId }
+
+// GetState returns GetCollectorCollector.State, and is useful for accessing the field via an interface.
+func (v *GetCollectorCollector) GetState() string { return v.State }
+
+// GetIntegrationInstanceCount returns GetCollectorCollector.IntegrationInstanceCount, and is useful for accessing the field via an interface.
+func (v *GetCollectorCollector) GetIntegrationInstanceCount() int64 {
+	return v.IntegrationInstanceCount
+}
+
+// GetLastHeartbeatAt returns GetCollectorCollector.LastHeartbeatAt, and is useful for accessing the field via an interface.
+func (v *GetCollectorCollector) GetLastHeartbeatAt() int64 { return v.LastHeartbeatAt }
+
+// GetCollectorResponse is returned by GetCollector on success.
+type GetCollectorResponse struct {
+	Collector GetCollectorCollector `json:"collector"`
+}
+
+// GetCollector returns GetCollectorResponse.Collector, and is useful for accessing the field via an interface.
+func (v *GetCollectorResponse) GetCollector() GetCollectorCollector { return v.Collector }
 
 // GetComplianceFrameworkByIdComplianceFramework includes the requested fields of the GraphQL type ComplianceFramework.
 type GetComplianceFrameworkByIdComplianceFramework struct {
@@ -3964,6 +4114,58 @@ const (
 	SmartClassTagTypeNumber  SmartClassTagType = "number"
 )
 
+// UpdateCollectorResponse is returned by UpdateCollector on success.
+type UpdateCollectorResponse struct {
+	UpdateCollector UpdateCollectorUpdateCollector `json:"updateCollector"`
+}
+
+// GetUpdateCollector returns UpdateCollectorResponse.UpdateCollector, and is useful for accessing the field via an interface.
+func (v *UpdateCollectorResponse) GetUpdateCollector() UpdateCollectorUpdateCollector {
+	return v.UpdateCollector
+}
+
+// UpdateCollectorUpdateCollector includes the requested fields of the GraphQL type Collector.
+type UpdateCollectorUpdateCollector struct {
+	Id                       string `json:"id"`
+	AccountId                string `json:"accountId"`
+	Name                     string `json:"name"`
+	CreatedAt                int64  `json:"createdAt"`
+	UpdatedAt                int64  `json:"updatedAt"`
+	CollectorPoolId          string `json:"collectorPoolId"`
+	State                    string `json:"state"`
+	IntegrationInstanceCount int64  `json:"integrationInstanceCount"`
+	LastHeartbeatAt          int64  `json:"lastHeartbeatAt"`
+}
+
+// GetId returns UpdateCollectorUpdateCollector.Id, and is useful for accessing the field via an interface.
+func (v *UpdateCollectorUpdateCollector) GetId() string { return v.Id }
+
+// GetAccountId returns UpdateCollectorUpdateCollector.AccountId, and is useful for accessing the field via an interface.
+func (v *UpdateCollectorUpdateCollector) GetAccountId() string { return v.AccountId }
+
+// GetName returns UpdateCollectorUpdateCollector.Name, and is useful for accessing the field via an interface.
+func (v *UpdateCollectorUpdateCollector) GetName() string { return v.Name }
+
+// GetCreatedAt returns UpdateCollectorUpdateCollector.CreatedAt, and is useful for accessing the field via an interface.
+func (v *UpdateCollectorUpdateCollector) GetCreatedAt() int64 { return v.CreatedAt }
+
+// GetUpdatedAt returns UpdateCollectorUpdateCollector.UpdatedAt, and is useful for accessing the field via an interface.
+func (v *UpdateCollectorUpdateCollector) GetUpdatedAt() int64 { return v.UpdatedAt }
+
+// GetCollectorPoolId returns UpdateCollectorUpdateCollector.CollectorPoolId, and is useful for accessing the field via an interface.
+func (v *UpdateCollectorUpdateCollector) GetCollectorPoolId() string { return v.CollectorPoolId }
+
+// GetState returns UpdateCollectorUpdateCollector.State, and is useful for accessing the field via an interface.
+func (v *UpdateCollectorUpdateCollector) GetState() string { return v.State }
+
+// GetIntegrationInstanceCount returns UpdateCollectorUpdateCollector.IntegrationInstanceCount, and is useful for accessing the field via an interface.
+func (v *UpdateCollectorUpdateCollector) GetIntegrationInstanceCount() int64 {
+	return v.IntegrationInstanceCount
+}
+
+// GetLastHeartbeatAt returns UpdateCollectorUpdateCollector.LastHeartbeatAt, and is useful for accessing the field via an interface.
+func (v *UpdateCollectorUpdateCollector) GetLastHeartbeatAt() int64 { return v.LastHeartbeatAt }
+
 type UpdateComplianceFrameworkFields struct {
 	Name         string        `json:"name"`
 	WebLink      string        `json:"webLink"`
@@ -5080,6 +5282,14 @@ type __ArchiveCustomIntegrationDefinitionInput struct {
 // GetId returns __ArchiveCustomIntegrationDefinitionInput.Id, and is useful for accessing the field via an interface.
 func (v *__ArchiveCustomIntegrationDefinitionInput) GetId() string { return v.Id }
 
+// __CreateCollectorInput is used internally by genqlient
+type __CreateCollectorInput struct {
+	Name string `json:"name"`
+}
+
+// GetName returns __CreateCollectorInput.Name, and is useful for accessing the field via an interface.
+func (v *__CreateCollectorInput) GetName() string { return v.Name }
+
 // __CreateComplianceFrameworkInput is used internally by genqlient
 type __CreateComplianceFrameworkInput struct {
 	Framework CreateComplianceFrameworkInput `json:"framework"`
@@ -5262,6 +5472,14 @@ type __DeleteAccountParameterInput struct {
 // GetName returns __DeleteAccountParameterInput.Name, and is useful for accessing the field via an interface.
 func (v *__DeleteAccountParameterInput) GetName() string { return v.Name }
 
+// __DeleteCollectorInput is used internally by genqlient
+type __DeleteCollectorInput struct {
+	Id string `json:"id"`
+}
+
+// GetId returns __DeleteCollectorInput.Id, and is useful for accessing the field via an interface.
+func (v *__DeleteCollectorInput) GetId() string { return v.Id }
+
 // __DeleteComplianceFrameworkInput is used internally by genqlient
 type __DeleteComplianceFrameworkInput struct {
 	Input DeleteComplianceFrameworkInput `json:"input"`
@@ -5417,6 +5635,14 @@ type __GetAccountParameterInput struct {
 
 // GetName returns __GetAccountParameterInput.Name, and is useful for accessing the field via an interface.
 func (v *__GetAccountParameterInput) GetName() string { return v.Name }
+
+// __GetCollectorInput is used internally by genqlient
+type __GetCollectorInput struct {
+	Id string `json:"id"`
+}
+
+// GetId returns __GetCollectorInput.Id, and is useful for accessing the field via an interface.
+func (v *__GetCollectorInput) GetId() string { return v.Id }
 
 // __GetComplianceFrameworkByIdInput is used internally by genqlient
 type __GetComplianceFrameworkByIdInput struct {
@@ -5634,6 +5860,18 @@ type __SetResourcePermissionInput struct {
 // GetInput returns __SetResourcePermissionInput.Input, and is useful for accessing the field via an interface.
 func (v *__SetResourcePermissionInput) GetInput() SetResourcePermissionInput { return v.Input }
 
+// __UpdateCollectorInput is used internally by genqlient
+type __UpdateCollectorInput struct {
+	Id   string `json:"id"`
+	Name string `json:"name"`
+}
+
+// GetId returns __UpdateCollectorInput.Id, and is useful for accessing the field via an interface.
+func (v *__UpdateCollectorInput) GetId() string { return v.Id }
+
+// GetName returns __UpdateCollectorInput.Name, and is useful for accessing the field via an interface.
+func (v *__UpdateCollectorInput) GetName() string { return v.Name }
+
 // __UpdateComplianceFrameworkInput is used internally by genqlient
 type __UpdateComplianceFrameworkInput struct {
 	Input UpdateComplianceFrameworkInput `json:"input"`
@@ -5831,6 +6069,49 @@ mutation ArchiveCustomIntegrationDefinition ($id: String!) {
 	var err error
 
 	var data ArchiveCustomIntegrationDefinitionResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func CreateCollector(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+) (*CreateCollectorResponse, error) {
+	req := &graphql.Request{
+		OpName: "CreateCollector",
+		Query: `
+mutation CreateCollector ($name: String!) {
+	createCollector(input: {name:$name}) {
+		collector {
+			id
+			accountId
+			name
+			createdAt
+			updatedAt
+			collectorPoolId
+			state
+			integrationInstanceCount
+			lastHeartbeatAt
+		}
+		authToken
+	}
+}
+`,
+		Variables: &__CreateCollectorInput{
+			Name: name,
+		},
+	}
+	var err error
+
+	var data CreateCollectorResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(
@@ -6552,6 +6833,38 @@ mutation DeleteAccountParameter ($name: String!) {
 	return &data, err
 }
 
+func DeleteCollector(
+	ctx context.Context,
+	client graphql.Client,
+	id string,
+) (*DeleteCollectorResponse, error) {
+	req := &graphql.Request{
+		OpName: "DeleteCollector",
+		Query: `
+mutation DeleteCollector ($id: String!) {
+	deleteCollector(input: {id:$id}) {
+		success
+	}
+}
+`,
+		Variables: &__DeleteCollectorInput{
+			Id: id,
+		},
+	}
+	var err error
+
+	var data DeleteCollectorResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
 func DeleteComplianceFramework(
 	ctx context.Context,
 	client graphql.Client,
@@ -7122,6 +7435,46 @@ query GetAccountParameter ($name: String!) {
 	var err error
 
 	var data GetAccountParameterResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func GetCollector(
+	ctx context.Context,
+	client graphql.Client,
+	id string,
+) (*GetCollectorResponse, error) {
+	req := &graphql.Request{
+		OpName: "GetCollector",
+		Query: `
+query GetCollector ($id: String!) {
+	collector(input: {id:$id}) {
+		id
+		accountId
+		name
+		createdAt
+		updatedAt
+		collectorPoolId
+		state
+		integrationInstanceCount
+		lastHeartbeatAt
+	}
+}
+`,
+		Variables: &__GetCollectorInput{
+			Id: id,
+		},
+	}
+	var err error
+
+	var data GetCollectorResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(
@@ -8166,6 +8519,48 @@ mutation SetResourcePermission ($input: SetResourcePermissionInput!) {
 	var err error
 
 	var data SetResourcePermissionResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func UpdateCollector(
+	ctx context.Context,
+	client graphql.Client,
+	id string,
+	name string,
+) (*UpdateCollectorResponse, error) {
+	req := &graphql.Request{
+		OpName: "UpdateCollector",
+		Query: `
+mutation UpdateCollector ($id: String!, $name: String!) {
+	updateCollector(input: {id:$id,name:$name}) {
+		id
+		accountId
+		name
+		createdAt
+		updatedAt
+		collectorPoolId
+		state
+		integrationInstanceCount
+		lastHeartbeatAt
+	}
+}
+`,
+		Variables: &__UpdateCollectorInput{
+			Id:   id,
+			Name: name,
+		},
+	}
+	var err error
+
+	var data UpdateCollectorResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(

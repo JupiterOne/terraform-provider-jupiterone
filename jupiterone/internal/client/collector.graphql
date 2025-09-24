@@ -1,0 +1,50 @@
+mutation CreateCollector($name: String!) {
+  createCollector(input: { name: $name }) {
+    collector {
+      id
+      accountId
+      name
+      createdAt
+      updatedAt
+      collectorPoolId
+      state
+      integrationInstanceCount
+      lastHeartbeatAt
+    }
+    authToken
+  }
+}
+
+mutation UpdateCollector($id: String!, $name: String!) {
+  updateCollector(input: { id: $id, name: $name }) {
+    id
+    accountId
+    name
+    createdAt
+    updatedAt
+    collectorPoolId
+    state
+    integrationInstanceCount
+    lastHeartbeatAt
+  }
+}
+
+mutation DeleteCollector($id: String!) {
+  deleteCollector(input: { id: $id }) {
+    success
+  }
+}
+
+query GetCollector($id: String!) {
+  collector(input: { id: $id }) {
+    id
+    accountId
+    name
+    createdAt
+    updatedAt
+    collectorPoolId
+    state
+    integrationInstanceCount
+    lastHeartbeatAt
+  }
+}
