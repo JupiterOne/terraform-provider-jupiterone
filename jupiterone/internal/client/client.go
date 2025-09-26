@@ -16,6 +16,7 @@ import (
 	"time"
 
 	"github.com/Khan/genqlient/graphql"
+	genql "github.com/Khan/genqlient/graphql"
 	"github.com/hashicorp/go-cleanhttp"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/logging"
@@ -173,7 +174,7 @@ func (c *JupiterOneClientConfig) Qlient(ctx context.Context) graphql.Client {
 		MaxBackoff: MaxBackoff,
 	}
 
-	client := graphql.NewClient(endpoint, httpClient)
+	client := genql.NewClient(endpoint, httpClient)
 
 	return client
 }

@@ -96,7 +96,7 @@ func (d *j1qlResultDataSource) Read(ctx context.Context, req datasource.ReadRequ
 	var allArrayResults []interface{}
 	var cursor string
 	var resultType string
-	var numberOfPagesQueried = 0
+	var numberOfPagesQueried int = 0
 
 	for {
 		numberOfPagesQueried++

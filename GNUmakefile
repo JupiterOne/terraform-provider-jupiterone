@@ -35,12 +35,12 @@ fmtcheck:
 
 lint:
 	@echo "==> Checking source code against linters..."
-	@golangci-lint run --no-config ./$(PKG_NAME)/...
+	@golangci-lint run ./$(PKG_NAME)/...
 
 tools:
 	@echo "==> installing required tooling..."
 	go install github.com/client9/misspell/cmd/misspell
-	go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.46.2
+	go install github.com/golangci/golangci-lint/cmd/golangci-lint
 
 test-compile:
 	@if [ "$(TEST)" = "./..." ]; then \

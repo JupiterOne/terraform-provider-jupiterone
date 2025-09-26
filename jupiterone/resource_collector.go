@@ -106,7 +106,7 @@ func (r *CollectorResource) Create(ctx context.Context, req resource.CreateReque
 	data.UpdatedAt = types.Int64Value(c.UpdatedAt)
 	data.CollectorPoolId = types.StringValue(c.CollectorPoolId)
 	data.State = types.StringValue(c.State)
-	data.IntegrationInstanceCount = types.Int64Value(int64(c.IntegrationInstanceCount))
+	data.IntegrationInstanceCount = types.Int64Value(c.IntegrationInstanceCount)
 	data.LastHeartbeatAt = types.Int64Value(c.LastHeartbeatAt)
 
 	tflog.Trace(ctx, "Created collector", map[string]interface{}{"id": data.Id})
@@ -148,7 +148,7 @@ func (r *CollectorResource) Read(ctx context.Context, req resource.ReadRequest, 
 	data.UpdatedAt = types.Int64Value(c.UpdatedAt)
 	data.CollectorPoolId = types.StringValue(c.CollectorPoolId)
 	data.State = types.StringValue(c.State)
-	data.IntegrationInstanceCount = types.Int64Value(int64(c.IntegrationInstanceCount))
+	data.IntegrationInstanceCount = types.Int64Value(c.IntegrationInstanceCount)
 	data.LastHeartbeatAt = types.Int64Value(c.LastHeartbeatAt)
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
@@ -181,7 +181,7 @@ func (r *CollectorResource) Update(ctx context.Context, req resource.UpdateReque
 	data.UpdatedAt = types.Int64Value(c.UpdatedAt)
 	data.CollectorPoolId = types.StringValue(c.CollectorPoolId)
 	data.State = types.StringValue(c.State)
-	data.IntegrationInstanceCount = types.Int64Value(int64(c.IntegrationInstanceCount))
+	data.IntegrationInstanceCount = types.Int64Value(c.IntegrationInstanceCount)
 	data.LastHeartbeatAt = types.Int64Value(c.LastHeartbeatAt)
 
 	tflog.Trace(ctx, "Updated collector", map[string]interface{}{"id": data.Id})
