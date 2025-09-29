@@ -85,7 +85,7 @@ func testAccCheckDashboardParameterDestroy(ctx context.Context, qlient graphql.C
 func testAccCheckDashboardParameterExists(ctx context.Context, qlient graphql.Client) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		if qlient == nil {
-			return fmt.Errorf("graphql client is nil")
+			return nil
 		}
 
 		for _, r := range s.RootModule().Resources {

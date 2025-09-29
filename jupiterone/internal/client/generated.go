@@ -2848,6 +2848,7 @@ type GetQuestionRuleInstanceQuestionRuleInstance struct {
 	Operations                      []RuleOperationOutput                                                  `json:"operations"`
 	Outputs                         []string                                                               `json:"outputs"`
 	Tags                            []string                                                               `json:"tags"`
+	Labels                          []GetQuestionRuleInstanceQuestionRuleInstanceLabelsRuleInstanceLabel   `json:"labels"`
 }
 
 // GetId returns GetQuestionRuleInstanceQuestionRuleInstance.Id, and is useful for accessing the field via an interface.
@@ -2920,6 +2921,27 @@ func (v *GetQuestionRuleInstanceQuestionRuleInstance) GetOutputs() []string { re
 
 // GetTags returns GetQuestionRuleInstanceQuestionRuleInstance.Tags, and is useful for accessing the field via an interface.
 func (v *GetQuestionRuleInstanceQuestionRuleInstance) GetTags() []string { return v.Tags }
+
+// GetLabels returns GetQuestionRuleInstanceQuestionRuleInstance.Labels, and is useful for accessing the field via an interface.
+func (v *GetQuestionRuleInstanceQuestionRuleInstance) GetLabels() []GetQuestionRuleInstanceQuestionRuleInstanceLabelsRuleInstanceLabel {
+	return v.Labels
+}
+
+// GetQuestionRuleInstanceQuestionRuleInstanceLabelsRuleInstanceLabel includes the requested fields of the GraphQL type RuleInstanceLabel.
+type GetQuestionRuleInstanceQuestionRuleInstanceLabelsRuleInstanceLabel struct {
+	LabelName  string `json:"labelName"`
+	LabelValue string `json:"labelValue"`
+}
+
+// GetLabelName returns GetQuestionRuleInstanceQuestionRuleInstanceLabelsRuleInstanceLabel.LabelName, and is useful for accessing the field via an interface.
+func (v *GetQuestionRuleInstanceQuestionRuleInstanceLabelsRuleInstanceLabel) GetLabelName() string {
+	return v.LabelName
+}
+
+// GetLabelValue returns GetQuestionRuleInstanceQuestionRuleInstanceLabelsRuleInstanceLabel.LabelValue, and is useful for accessing the field via an interface.
+func (v *GetQuestionRuleInstanceQuestionRuleInstanceLabelsRuleInstanceLabel) GetLabelValue() string {
+	return v.LabelValue
+}
 
 // GetQuestionRuleInstanceQuestionRuleInstanceQuestionRuleQuestionDetails includes the requested fields of the GraphQL type RuleQuestionDetails.
 type GetQuestionRuleInstanceQuestionRuleInstanceQuestionRuleQuestionDetails struct {
@@ -7979,6 +8001,10 @@ query GetQuestionRuleInstance ($id: ID!) {
 		}
 		outputs
 		tags
+		labels {
+			labelName
+			labelValue
+		}
 	}
 }
 `,

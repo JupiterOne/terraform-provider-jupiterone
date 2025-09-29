@@ -257,6 +257,7 @@ func (*QuestionRuleResource) Schema(ctx context.Context, req resource.SchemaRequ
 				Description: "Comma separated list of tags to apply to the rule.",
 				ElementType: types.StringType,
 				Optional:    true,
+				Computed:    true,
 			},
 			"notify_on_failure": schema.BoolAttribute{
 				Optional: true,
@@ -494,6 +495,16 @@ func (r *QuestionRuleResource) Read(ctx context.Context, req resource.ReadReques
 	}
 	rule := getResp.QuestionRuleInstance
 
+	// Normalize nil slices to empty slices to prevent spurious diffs
+	outputs := rule.Outputs
+	if outputs == nil {
+		outputs = []string{}
+	}
+	tags := rule.Tags
+	if tags == nil {
+		tags = []string{}
+	}
+
 	data := RuleModel{
 		Id:                    types.StringValue(rule.Id),
 		Name:                  types.StringValue(rule.Name),
@@ -501,8 +512,8 @@ func (r *QuestionRuleResource) Read(ctx context.Context, req resource.ReadReques
 		Version:               types.Int64Value(int64(rule.Version)),
 		SpecVersion:           types.Int64Value(int64(rule.SpecVersion)),
 		PollingInterval:       types.StringValue(string(rule.PollingInterval)),
-		Outputs:               rule.Outputs,
-		Tags:                  rule.Tags,
+		Outputs:               outputs,
+		Tags:                  tags,
 		NotifyOnFailure:       types.BoolValue(rule.NotifyOnFailure),
 		TriggerOnNewOnly:      types.BoolValue(rule.TriggerActionsOnNewEntitiesOnly),
 		IgnorePreviousResults: types.BoolValue(rule.IgnorePreviousResults),
@@ -551,6 +562,19 @@ func (r *QuestionRuleResource) Read(ctx context.Context, req resource.ReadReques
 	data.Operations, err = newOperationsWithoutId(rule.Operations)
 	if err != nil {
 		resp.Diagnostics.AddError("error unmarshaling templates from response", err.Error())
+	}
+
+	if len(rule.Labels) > 0 {
+		labels := make([]RuleLabel, len(rule.Labels))
+		for i, label := range rule.Labels {
+			labels[i] = RuleLabel{
+				LabelName:  types.StringValue(label.LabelName),
+				LabelValue: types.StringValue(label.LabelValue),
+			}
+		}
+		data.Labels = labels
+	} else {
+		data.Labels = nil
 	}
 
 	// Save updated data into Terraform state

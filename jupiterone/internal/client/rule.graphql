@@ -30,6 +30,10 @@ query GetQuestionRuleInstance($id: ID!) {
     }
     outputs
     tags
+    labels {
+      labelName
+      labelValue
+    }
   }
 }
 
