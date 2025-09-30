@@ -165,7 +165,12 @@ func (r *IntegrationResource) Read(ctx context.Context, req resource.ReadRequest
 		resp.Diagnostics.AddError("Failed to marshal config", err.Error())
 		return
 	}
-	data.Config = types.StringValue(string(configJSON))
+
+	// Only update config if it doesn't contain masked values
+	// If it does, preserve the existing state value to avoid false diffs
+	if !strings.Contains(string(configJSON), "***masked***") {
+		data.Config = types.StringValue(string(configJSON))
+	}
 
 	if response.IntegrationInstance.SourceIntegrationInstanceId != "" {
 		data.SourceIntegrationInstanceId = types.StringValue(response.IntegrationInstance.SourceIntegrationInstanceId)

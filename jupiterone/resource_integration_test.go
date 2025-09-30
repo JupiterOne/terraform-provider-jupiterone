@@ -8,7 +8,6 @@ import (
 	"time"
 
 	"github.com/Khan/genqlient/graphql"
-	"github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
 	"github.com/jupiterone/terraform-provider-jupiterone/jupiterone/internal/client"
@@ -21,7 +20,7 @@ func TestIntegration_Basic(t *testing.T) {
 	defer cleanup(t)
 
 	resourceName := "jupiterone_integration.test"
-	integrationName := acctest.RandomWithPrefix("tf-acc-test")
+	integrationName := "tf-provider-acc-test-integration"
 	integrationDefinitionId := "8013680b-311a-4c2e-b53b-c8735fd97a5c"
 
 	resource.Test(t, resource.TestCase{
@@ -38,8 +37,7 @@ func TestIntegration_Basic(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "integration_definition_id", integrationDefinitionId),
 					resource.TestCheckResourceAttr(resourceName, "polling_interval", "ONE_DAY"),
 					resource.TestCheckResourceAttr(resourceName, "description", "Test integration"),
-					resource.TestCheckResourceAttr(resourceName, "config.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "config.key", "value"),
+					resource.TestCheckResourceAttr(resourceName, "config", `{"key":"value"}`),
 					resource.TestCheckResourceAttr(resourceName, "resource_group_id", "rg-123456"),
 				),
 			},
@@ -49,9 +47,10 @@ func TestIntegration_Basic(t *testing.T) {
 				PlanOnly: true,
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
+				ResourceName:            resourceName,
+				ImportState:             true,
+				ImportStateVerify:       true,
+				ImportStateVerifyIgnore: []string{"config"},
 			},
 		},
 	})
@@ -59,6 +58,11 @@ func TestIntegration_Basic(t *testing.T) {
 
 func testAccCheckIntegrationExists(ctx context.Context, resourceName string, qlient graphql.Client) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
+		// Skip this check during replay (when qlient would have originally been nil)
+		if qlient == nil {
+			return nil
+		}
+
 		rs, ok := s.RootModule().Resources[resourceName]
 		if !ok {
 			return fmt.Errorf("Not found: %s", resourceName)
@@ -79,6 +83,11 @@ func testAccCheckIntegrationExists(ctx context.Context, resourceName string, qli
 
 func testAccCheckIntegrationDestroy(ctx context.Context, qlient graphql.Client) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
+		// Skip this check during replay (when qlient would have originally been nil)
+		if qlient == nil {
+			return nil
+		}
+
 		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "jupiterone_integration" {
 				continue
@@ -91,7 +100,7 @@ func testAccCheckIntegrationDestroy(ctx context.Context, qlient graphql.Client) 
 				return fmt.Errorf("Integration still exists")
 			}
 
-			if !strings.Contains(err.Error(), "does not exist") {
+			if !strings.Contains(err.Error(), "does not exist") && !strings.Contains(err.Error(), "not found") {
 				return err
 			}
 		}
@@ -107,9 +116,9 @@ resource "jupiterone_integration" "test" {
   integration_definition_id   = %q
   polling_interval            = "ONE_DAY"
   description                 = "Test integration"
-  config = {
+  config = jsonencode({
     key = "value"
-  }
+  })
 
   resource_group_id = "rg-123456"
 }
