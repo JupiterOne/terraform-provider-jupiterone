@@ -7,6 +7,7 @@ import (
 	"reflect"
 
 	"github.com/hashicorp/terraform-plugin-framework-validators/helpers/validatordiag"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
@@ -14,6 +15,7 @@ import (
 var _ planmodifier.String = (*jsonIgnoreDiff)(nil)
 var _ planmodifier.List = (*jsonIgnoreDiff)(nil)
 var _ planmodifier.Map = (*jsonIgnoreDiff)(nil)
+var _ planmodifier.List = (*useEmptyListForNullPlanModifier)(nil)
 
 func jsonIgnoreDiffPlanModifier() planmodifier.String {
 	return jsonIgnoreDiff{}
@@ -193,4 +195,38 @@ func (jsonIgnoreDiff) PlanModifyMap(ctx context.Context, req planmodifier.MapReq
 	}
 
 	resp.PlanValue = req.StateValue
+}
+
+// useEmptyListForNullPlanModifier is a plan modifier that sets the plan value to an empty list
+// when the config value is null. This is used for optional+computed nested list attributes
+// where we want to treat null as equivalent to an empty list.
+type useEmptyListForNullPlanModifier struct {
+	attrTypes map[string]attr.Type
+}
+
+func useEmptyListForNullWithType(attrTypes map[string]attr.Type) planmodifier.List {
+	return useEmptyListForNullPlanModifier{attrTypes: attrTypes}
+}
+
+func (m useEmptyListForNullPlanModifier) Description(context.Context) string {
+	return "Sets the plan value to an empty list when the config value is null"
+}
+
+func (m useEmptyListForNullPlanModifier) MarkdownDescription(ctx context.Context) string {
+	return m.Description(ctx)
+}
+
+func (m useEmptyListForNullPlanModifier) PlanModifyList(ctx context.Context, req planmodifier.ListRequest, resp *planmodifier.ListResponse) {
+	// If the config value is null and the plan value is unknown, set it to empty list
+	if req.ConfigValue.IsNull() && req.PlanValue.IsUnknown() {
+		emptyList, diags := types.ListValue(
+			types.ObjectType{AttrTypes: m.attrTypes},
+			[]attr.Value{},
+		)
+		resp.Diagnostics.Append(diags...)
+		if resp.Diagnostics.HasError() {
+			return
+		}
+		resp.PlanValue = emptyList
+	}
 }

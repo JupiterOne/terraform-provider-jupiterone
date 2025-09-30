@@ -18,6 +18,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64default"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listdefault"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringdefault"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
@@ -145,14 +146,13 @@ func outputsToStringSlice(outputsList types.List) []string {
 
 func labelsToClientLabels(labelsList types.List) []client.RuleInstanceLabelInput {
 	if labelsList.IsNull() || labelsList.IsUnknown() {
-		// Return nil to send null to the API, which clears labels
-		return nil
+		return []client.RuleInstanceLabelInput{}
 	}
 
 	elements := labelsList.Elements()
 	// Return nil if the list is empty to clear labels via null value
 	if len(elements) == 0 {
-		return nil
+		return []client.RuleInstanceLabelInput{}
 	}
 
 	labels := make([]client.RuleInstanceLabelInput, 0, len(elements))
@@ -318,11 +318,15 @@ func (*QuestionRuleResource) Schema(ctx context.Context, req resource.SchemaRequ
 				Description: "Names of properties that can be used throughout the rule evaluation process and will be included in each record of a rule evaluation. (e.g. queries.query0.total)",
 				ElementType: types.StringType,
 				Optional:    true,
+				Computed:    true,
+				Default:     listdefault.StaticValue(types.ListValueMust(types.StringType, []attr.Value{})),
 			},
 			"tags": schema.ListAttribute{
 				Description: "Comma separated list of tags to apply to the rule.",
 				ElementType: types.StringType,
 				Optional:    true,
+				Computed:    true,
+				Default:     listdefault.StaticValue(types.ListValueMust(types.StringType, []attr.Value{})),
 			},
 			"notify_on_failure": schema.BoolAttribute{
 				Optional: true,
@@ -343,6 +347,12 @@ func (*QuestionRuleResource) Schema(ctx context.Context, req resource.SchemaRequ
 				Description: "Comma separated list of labelName/labelValue pairs to apply to the rule.",
 				Optional:    true,
 				Computed:    true,
+				PlanModifiers: []planmodifier.List{
+					useEmptyListForNullWithType(map[string]attr.Type{
+						"label_name":  types.StringType,
+						"label_value": types.StringType,
+					}),
+				},
 				NestedObject: schema.NestedAttributeObject{
 					Attributes: map[string]schema.Attribute{
 						"label_name": schema.StringAttribute{
@@ -517,18 +527,8 @@ func (r *QuestionRuleResource) Create(ctx context.Context, req resource.CreateRe
 	data.Id = types.StringValue(c.GetId())
 	data.Version = types.Int64Value(int64(c.GetVersion()))
 
-	// Set computed Outputs field if it's unknown
-	if data.Outputs.IsUnknown() {
-		emptyOutputsList, diags := types.ListValue(types.StringType, []attr.Value{})
-		if diags.HasError() {
-			resp.Diagnostics.Append(diags...)
-			return
-		}
-		data.Outputs = emptyOutputsList
-	}
-
-	// Set computed Labels field if it's unknown
-	if data.Labels.IsUnknown() {
+	// Set computed Labels field if it's unknown or null
+	if data.Labels.IsUnknown() || data.Labels.IsNull() {
 		emptyLabelsList, diags := types.ListValue(types.ObjectType{
 			AttrTypes: map[string]attr.Type{
 				"label_name":  types.StringType,
@@ -586,7 +586,6 @@ func (r *QuestionRuleResource) Read(ctx context.Context, req resource.ReadReques
 	}
 	rule := getResp.QuestionRuleInstance
 
-	// Normalize nil slices to empty slices to prevent spurious diffs
 	outputs := rule.Outputs
 	if outputs == nil {
 		outputs = []string{}
@@ -605,9 +604,6 @@ func (r *QuestionRuleResource) Read(ctx context.Context, req resource.ReadReques
 
 	// Convert tags to types.List
 	tags := rule.Tags
-	if tags == nil {
-		tags = []string{}
-	}
 	tagValues := make([]attr.Value, len(tags))
 	for i, tag := range tags {
 		tagValues[i] = types.StringValue(tag)
@@ -617,6 +613,9 @@ func (r *QuestionRuleResource) Read(ctx context.Context, req resource.ReadReques
 		resp.Diagnostics.Append(diags...)
 		return
 	}
+
+	// Log a debug message with the rule labels
+	tflog.Debug(ctx, "Rule tags", map[string]interface{}{"tags": rule.Tags})
 
 	data := RuleModel{
 		Id:                    types.StringValue(rule.Id),
@@ -760,18 +759,6 @@ func (r *QuestionRuleResource) Update(ctx context.Context, req resource.UpdateRe
 			return
 		}
 
-		if len(rule.Tags) == 0 {
-			rule.Tags = []string{}
-		}
-
-		if len(rule.Labels) == 0 {
-			rule.Labels = []client.RuleInstanceLabelInput{}
-		}
-
-		if len(rule.Outputs) == 0 {
-			rule.Outputs = []string{}
-		}
-
 		updated, err := client.UpdateInlineQuestionRuleInstance(ctx, r.qlient, rule)
 		if err != nil {
 			resp.Diagnostics.AddError("failed to update inline question rule", err.Error())
@@ -795,18 +782,8 @@ func (r *QuestionRuleResource) Update(ctx context.Context, req resource.UpdateRe
 
 	data.Version = types.Int64Value(int64(update.GetVersion()))
 
-	// Set Outputs field if it's unknown (leave null as-is when not specified in config)
-	if data.Outputs.IsUnknown() {
-		emptyOutputsList, diags := types.ListValue(types.StringType, []attr.Value{})
-		if diags.HasError() {
-			resp.Diagnostics.Append(diags...)
-			return
-		}
-		data.Outputs = emptyOutputsList
-	}
-
-	// Set computed Labels field if it's unknown
-	if data.Labels.IsUnknown() {
+	// Set computed Labels field if it's unknown or null
+	if data.Labels.IsUnknown() || data.Labels.IsNull() {
 		emptyLabelsList, diags := types.ListValue(types.ObjectType{
 			AttrTypes: map[string]attr.Type{
 				"label_name":  types.StringType,

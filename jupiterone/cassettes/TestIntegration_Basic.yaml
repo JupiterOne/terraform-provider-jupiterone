@@ -30,7 +30,7 @@ interactions:
         content_length: 456
         uncompressed: false
         body: |
-            {"data":{"createIntegrationInstance":{"id":"52ec3e04-61a4-4b21-ab9f-49de00bc9e3b","name":"tf-provider-acc-test-integration","pollingInterval":"ONE_DAY","integrationDefinitionId":"8013680b-311a-4c2e-b53b-c8735fd97a5c","description":"Test integration","config":{"key":"***masked***"},"ingestionSourcesOverrides":null,"sourceIntegrationInstanceId":null,"collectorPoolId":null,"pollingIntervalCronExpression":{"hour":0,"dayOfWeek":0},"offsiteComplete":null}}}
+            {"data":{"createIntegrationInstance":{"id":"a1d39f2b-d7b0-4526-92bf-964e338b838b","name":"tf-provider-acc-test-integration","pollingInterval":"ONE_DAY","integrationDefinitionId":"8013680b-311a-4c2e-b53b-c8735fd97a5c","description":"Test integration","config":{"key":"***masked***"},"ingestionSourcesOverrides":null,"sourceIntegrationInstanceId":null,"collectorPoolId":null,"pollingIntervalCronExpression":{"hour":0,"dayOfWeek":0},"offsiteComplete":null}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -78,7 +78,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 1.038652834s
+        duration: 1.149660125s
     - id: 1
       request:
         proto: HTTP/1.1
@@ -90,7 +90,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetIntegrationInstance ($id: String!) {\n\tintegrationInstance(id: $id) {\n\t\tid\n\t\tname\n\t\tpollingInterval\n\t\tintegrationDefinitionId\n\t\tdescription\n\t\tconfig\n\t\tingestionSourcesOverrides {\n\t\t\tingestionSourceId\n\t\t\tenabled\n\t\t}\n\t\tsourceIntegrationInstanceId\n\t\tcollectorPoolId\n\t\tresourceGroupId\n\t\tpollingIntervalCronExpression {\n\t\t\thour\n\t\t\tdayOfWeek\n\t\t}\n\t\toffsiteComplete\n\t}\n}\n","variables":{"id":"52ec3e04-61a4-4b21-ab9f-49de00bc9e3b"},"operationName":"GetIntegrationInstance"}'
+        body: '{"query":"\nquery GetIntegrationInstance ($id: String!) {\n\tintegrationInstance(id: $id) {\n\t\tid\n\t\tname\n\t\tpollingInterval\n\t\tintegrationDefinitionId\n\t\tdescription\n\t\tconfig\n\t\tingestionSourcesOverrides {\n\t\t\tingestionSourceId\n\t\t\tenabled\n\t\t}\n\t\tsourceIntegrationInstanceId\n\t\tcollectorPoolId\n\t\tresourceGroupId\n\t\tpollingIntervalCronExpression {\n\t\t\thour\n\t\t\tdayOfWeek\n\t\t}\n\t\toffsiteComplete\n\t}\n}\n","variables":{"id":"a1d39f2b-d7b0-4526-92bf-964e338b838b"},"operationName":"GetIntegrationInstance"}'
         form: {}
         headers:
             Cache-Control:
@@ -108,7 +108,7 @@ interactions:
         content_length: 480
         uncompressed: false
         body: |
-            {"data":{"integrationInstance":{"id":"52ec3e04-61a4-4b21-ab9f-49de00bc9e3b","name":"tf-provider-acc-test-integration","pollingInterval":"ONE_DAY","integrationDefinitionId":"8013680b-311a-4c2e-b53b-c8735fd97a5c","description":"Test integration","config":{"key":"***masked***"},"ingestionSourcesOverrides":null,"sourceIntegrationInstanceId":null,"collectorPoolId":null,"resourceGroupId":"rg-123456","pollingIntervalCronExpression":{"hour":0,"dayOfWeek":0},"offsiteComplete":null}}}
+            {"data":{"integrationInstance":{"id":"a1d39f2b-d7b0-4526-92bf-964e338b838b","name":"tf-provider-acc-test-integration","pollingInterval":"ONE_DAY","integrationDefinitionId":"8013680b-311a-4c2e-b53b-c8735fd97a5c","description":"Test integration","config":{"key":"***masked***"},"ingestionSourcesOverrides":null,"sourceIntegrationInstanceId":null,"collectorPoolId":null,"resourceGroupId":"rg-123456","pollingIntervalCronExpression":{"hour":0,"dayOfWeek":0},"offsiteComplete":null}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -156,7 +156,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 195.026541ms
+        duration: 187.482625ms
     - id: 2
       request:
         proto: HTTP/1.1
@@ -168,7 +168,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetIntegrationInstance ($id: String!) {\n\tintegrationInstance(id: $id) {\n\t\tid\n\t\tname\n\t\tpollingInterval\n\t\tintegrationDefinitionId\n\t\tdescription\n\t\tconfig\n\t\tingestionSourcesOverrides {\n\t\t\tingestionSourceId\n\t\t\tenabled\n\t\t}\n\t\tsourceIntegrationInstanceId\n\t\tcollectorPoolId\n\t\tresourceGroupId\n\t\tpollingIntervalCronExpression {\n\t\t\thour\n\t\t\tdayOfWeek\n\t\t}\n\t\toffsiteComplete\n\t}\n}\n","variables":{"id":"52ec3e04-61a4-4b21-ab9f-49de00bc9e3b"},"operationName":"GetIntegrationInstance"}'
+        body: '{"query":"\nquery GetIntegrationInstance ($id: String!) {\n\tintegrationInstance(id: $id) {\n\t\tid\n\t\tname\n\t\tpollingInterval\n\t\tintegrationDefinitionId\n\t\tdescription\n\t\tconfig\n\t\tingestionSourcesOverrides {\n\t\t\tingestionSourceId\n\t\t\tenabled\n\t\t}\n\t\tsourceIntegrationInstanceId\n\t\tcollectorPoolId\n\t\tresourceGroupId\n\t\tpollingIntervalCronExpression {\n\t\t\thour\n\t\t\tdayOfWeek\n\t\t}\n\t\toffsiteComplete\n\t}\n}\n","variables":{"id":"a1d39f2b-d7b0-4526-92bf-964e338b838b"},"operationName":"GetIntegrationInstance"}'
         form: {}
         headers:
             Cache-Control:
@@ -186,7 +186,7 @@ interactions:
         content_length: 480
         uncompressed: false
         body: |
-            {"data":{"integrationInstance":{"id":"52ec3e04-61a4-4b21-ab9f-49de00bc9e3b","name":"tf-provider-acc-test-integration","pollingInterval":"ONE_DAY","integrationDefinitionId":"8013680b-311a-4c2e-b53b-c8735fd97a5c","description":"Test integration","config":{"key":"***masked***"},"ingestionSourcesOverrides":null,"sourceIntegrationInstanceId":null,"collectorPoolId":null,"resourceGroupId":"rg-123456","pollingIntervalCronExpression":{"hour":0,"dayOfWeek":0},"offsiteComplete":null}}}
+            {"data":{"integrationInstance":{"id":"a1d39f2b-d7b0-4526-92bf-964e338b838b","name":"tf-provider-acc-test-integration","pollingInterval":"ONE_DAY","integrationDefinitionId":"8013680b-311a-4c2e-b53b-c8735fd97a5c","description":"Test integration","config":{"key":"***masked***"},"ingestionSourcesOverrides":null,"sourceIntegrationInstanceId":null,"collectorPoolId":null,"resourceGroupId":"rg-123456","pollingIntervalCronExpression":{"hour":0,"dayOfWeek":0},"offsiteComplete":null}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -234,7 +234,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 208.538708ms
+        duration: 193.252833ms
     - id: 3
       request:
         proto: HTTP/1.1
@@ -246,7 +246,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetIntegrationInstance ($id: String!) {\n\tintegrationInstance(id: $id) {\n\t\tid\n\t\tname\n\t\tpollingInterval\n\t\tintegrationDefinitionId\n\t\tdescription\n\t\tconfig\n\t\tingestionSourcesOverrides {\n\t\t\tingestionSourceId\n\t\t\tenabled\n\t\t}\n\t\tsourceIntegrationInstanceId\n\t\tcollectorPoolId\n\t\tresourceGroupId\n\t\tpollingIntervalCronExpression {\n\t\t\thour\n\t\t\tdayOfWeek\n\t\t}\n\t\toffsiteComplete\n\t}\n}\n","variables":{"id":"52ec3e04-61a4-4b21-ab9f-49de00bc9e3b"},"operationName":"GetIntegrationInstance"}'
+        body: '{"query":"\nquery GetIntegrationInstance ($id: String!) {\n\tintegrationInstance(id: $id) {\n\t\tid\n\t\tname\n\t\tpollingInterval\n\t\tintegrationDefinitionId\n\t\tdescription\n\t\tconfig\n\t\tingestionSourcesOverrides {\n\t\t\tingestionSourceId\n\t\t\tenabled\n\t\t}\n\t\tsourceIntegrationInstanceId\n\t\tcollectorPoolId\n\t\tresourceGroupId\n\t\tpollingIntervalCronExpression {\n\t\t\thour\n\t\t\tdayOfWeek\n\t\t}\n\t\toffsiteComplete\n\t}\n}\n","variables":{"id":"a1d39f2b-d7b0-4526-92bf-964e338b838b"},"operationName":"GetIntegrationInstance"}'
         form: {}
         headers:
             Cache-Control:
@@ -264,7 +264,7 @@ interactions:
         content_length: 480
         uncompressed: false
         body: |
-            {"data":{"integrationInstance":{"id":"52ec3e04-61a4-4b21-ab9f-49de00bc9e3b","name":"tf-provider-acc-test-integration","pollingInterval":"ONE_DAY","integrationDefinitionId":"8013680b-311a-4c2e-b53b-c8735fd97a5c","description":"Test integration","config":{"key":"***masked***"},"ingestionSourcesOverrides":null,"sourceIntegrationInstanceId":null,"collectorPoolId":null,"resourceGroupId":"rg-123456","pollingIntervalCronExpression":{"hour":0,"dayOfWeek":0},"offsiteComplete":null}}}
+            {"data":{"integrationInstance":{"id":"a1d39f2b-d7b0-4526-92bf-964e338b838b","name":"tf-provider-acc-test-integration","pollingInterval":"ONE_DAY","integrationDefinitionId":"8013680b-311a-4c2e-b53b-c8735fd97a5c","description":"Test integration","config":{"key":"***masked***"},"ingestionSourcesOverrides":null,"sourceIntegrationInstanceId":null,"collectorPoolId":null,"resourceGroupId":"rg-123456","pollingIntervalCronExpression":{"hour":0,"dayOfWeek":0},"offsiteComplete":null}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -312,7 +312,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 184.414084ms
+        duration: 190.989083ms
     - id: 4
       request:
         proto: HTTP/1.1
@@ -324,7 +324,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetIntegrationInstance ($id: String!) {\n\tintegrationInstance(id: $id) {\n\t\tid\n\t\tname\n\t\tpollingInterval\n\t\tintegrationDefinitionId\n\t\tdescription\n\t\tconfig\n\t\tingestionSourcesOverrides {\n\t\t\tingestionSourceId\n\t\t\tenabled\n\t\t}\n\t\tsourceIntegrationInstanceId\n\t\tcollectorPoolId\n\t\tresourceGroupId\n\t\tpollingIntervalCronExpression {\n\t\t\thour\n\t\t\tdayOfWeek\n\t\t}\n\t\toffsiteComplete\n\t}\n}\n","variables":{"id":"52ec3e04-61a4-4b21-ab9f-49de00bc9e3b"},"operationName":"GetIntegrationInstance"}'
+        body: '{"query":"\nquery GetIntegrationInstance ($id: String!) {\n\tintegrationInstance(id: $id) {\n\t\tid\n\t\tname\n\t\tpollingInterval\n\t\tintegrationDefinitionId\n\t\tdescription\n\t\tconfig\n\t\tingestionSourcesOverrides {\n\t\t\tingestionSourceId\n\t\t\tenabled\n\t\t}\n\t\tsourceIntegrationInstanceId\n\t\tcollectorPoolId\n\t\tresourceGroupId\n\t\tpollingIntervalCronExpression {\n\t\t\thour\n\t\t\tdayOfWeek\n\t\t}\n\t\toffsiteComplete\n\t}\n}\n","variables":{"id":"a1d39f2b-d7b0-4526-92bf-964e338b838b"},"operationName":"GetIntegrationInstance"}'
         form: {}
         headers:
             Cache-Control:
@@ -342,7 +342,7 @@ interactions:
         content_length: 480
         uncompressed: false
         body: |
-            {"data":{"integrationInstance":{"id":"52ec3e04-61a4-4b21-ab9f-49de00bc9e3b","name":"tf-provider-acc-test-integration","pollingInterval":"ONE_DAY","integrationDefinitionId":"8013680b-311a-4c2e-b53b-c8735fd97a5c","description":"Test integration","config":{"key":"***masked***"},"ingestionSourcesOverrides":null,"sourceIntegrationInstanceId":null,"collectorPoolId":null,"resourceGroupId":"rg-123456","pollingIntervalCronExpression":{"hour":0,"dayOfWeek":0},"offsiteComplete":null}}}
+            {"data":{"integrationInstance":{"id":"a1d39f2b-d7b0-4526-92bf-964e338b838b","name":"tf-provider-acc-test-integration","pollingInterval":"ONE_DAY","integrationDefinitionId":"8013680b-311a-4c2e-b53b-c8735fd97a5c","description":"Test integration","config":{"key":"***masked***"},"ingestionSourcesOverrides":null,"sourceIntegrationInstanceId":null,"collectorPoolId":null,"resourceGroupId":"rg-123456","pollingIntervalCronExpression":{"hour":0,"dayOfWeek":0},"offsiteComplete":null}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -390,7 +390,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 193.551375ms
+        duration: 184.459ms
     - id: 5
       request:
         proto: HTTP/1.1
@@ -402,7 +402,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nmutation DeleteIntegrationInstance ($id: String!) {\n\tdeleteIntegrationInstance(id: $id) {\n\t\tsuccess\n\t}\n}\n","variables":{"id":"52ec3e04-61a4-4b21-ab9f-49de00bc9e3b"},"operationName":"DeleteIntegrationInstance"}'
+        body: '{"query":"\nmutation DeleteIntegrationInstance ($id: String!) {\n\tdeleteIntegrationInstance(id: $id) {\n\t\tsuccess\n\t}\n}\n","variables":{"id":"a1d39f2b-d7b0-4526-92bf-964e338b838b"},"operationName":"DeleteIntegrationInstance"}'
         form: {}
         headers:
             Cache-Control:
@@ -468,4 +468,4 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 430.643583ms
+        duration: 453.711125ms
