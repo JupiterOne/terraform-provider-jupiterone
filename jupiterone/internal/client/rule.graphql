@@ -46,8 +46,33 @@ mutation CreateInlineQuestionRuleInstance(
     instance: $instance
   ) {
     id
+    accountId
+    name
+    description
     version
     specVersion
+    latest
+    deleted
+    type
+    notifyOnFailure
+    triggerActionsOnNewEntitiesOnly
+    outputs
+    pollingInterval
+    latestAlertId
+    latestAlertIsActive
+    lastEvaluationEndOn
+    lastEvaluationStartOn
+    lastSuccessfulEvaluationEndOn
+    lastFailedEvaluationEndOn
+    updatedOn
+    evaluationStep
+    remediationSteps
+    tags
+    ignorePreviousResults
+    resourceGroupId
+    questionId
+    questionName
+    templates
     question {
       queries {
         name
@@ -77,12 +102,41 @@ mutation CreateReferencedQuestionRuleInstance(
     instance: $instance
   ) {
     id
+    accountId
+    name
+    description
     version
     specVersion
+    latest
+    deleted
+    type
+    notifyOnFailure
+    triggerActionsOnNewEntitiesOnly
+    outputs
+    pollingInterval
+    latestAlertId
+    latestAlertIsActive
+    lastEvaluationEndOn
+    lastEvaluationStartOn
+    lastSuccessfulEvaluationEndOn
+    lastFailedEvaluationEndOn
+    updatedOn
+    evaluationStep
+    remediationSteps
+    tags
+    ignorePreviousResults
+    resourceGroupId
+    questionId
+    questionName
+    templates
     # @genqlient(typename: RuleOperationOutput)
     operations {
       when
       actions
+    }
+    labels {
+      labelName
+      labelValue
     }
   }
 }
@@ -92,7 +146,6 @@ mutation CreateReferencedQuestionRuleInstance(
 # `templates: null` will not when include in the request.
 # @genqlient(for: "RuleOperationInput.when", omitempty: true)
 # @genqlient(for: "UpdateInlineQuestionRuleInstanceInput.latestAlertId", omitempty: true)
-# @genqlient(for: "UpdateInlineQuestionRuleInstanceInput.outputs", omitempty: true)
 # @genqlient(for: "UpdateInlineQuestionRuleInstanceInput.state", omitempty: true)
 # @genqlient(for: "UpdateInlineQuestionRuleInstanceInput.remediationSteps", omitempty: true)
 # @genqlient(for: "UpdateInlineQuestionRuleInstanceInput.resourceGroupId", omitempty: true)
@@ -102,18 +155,55 @@ mutation UpdateInlineQuestionRuleInstance(
   updateInlineQuestionRuleInstance: updateInlineQuestionRuleInstance(
     instance: $instance
   ) {
+    id
+    accountId
+    name
+    description
     version
     specVersion
+    latest
+    deleted
+    type
+    notifyOnFailure
+    triggerActionsOnNewEntitiesOnly
+    outputs
+    pollingInterval
+    latestAlertId
+    latestAlertIsActive
+    lastEvaluationEndOn
+    lastEvaluationStartOn
+    lastSuccessfulEvaluationEndOn
+    lastFailedEvaluationEndOn
+    updatedOn
+    evaluationStep
+    remediationSteps
+    tags
+    ignorePreviousResults
+    resourceGroupId
+    questionId
+    questionName
+    templates
+    question {
+      queries {
+        name
+        query
+        version
+        includeDeleted
+      }
+    }
     # @genqlient(typename: RuleOperationOutput)
     operations {
       when
       actions
     }
+    labels {
+      labelName
+      labelValue
+    }
   }
 }
 
 # @genqlient(for: "RuleOperationInput.when", omitempty: true)
-# @genqlient(for: "UpdateReferencedQuestionRuleInstanceInput.outputs", omitempty: true)
 # @genqlient(for: "UpdateReferencedQuestionRuleInstanceInput.latestAlertId", omitempty: true)
 # @genqlient(for: "UpdateReferencedQuestionRuleInstanceInput.state", omitempty: true)
 # @genqlient(for: "UpdateReferencedQuestionRuleInstanceInput.resourceGroupId", omitempty: true)
@@ -123,12 +213,42 @@ mutation UpdateReferencedQuestionRuleInstance(
   updateReferencedQuestionRuleInstance: updateReferencedQuestionRuleInstance(
     instance: $instance
   ) {
+    id
+    accountId
+    name
+    description
     version
     specVersion
+    latest
+    deleted
+    type
+    notifyOnFailure
+    triggerActionsOnNewEntitiesOnly
+    outputs
+    pollingInterval
+    latestAlertId
+    latestAlertIsActive
+    lastEvaluationEndOn
+    lastEvaluationStartOn
+    lastSuccessfulEvaluationEndOn
+    lastFailedEvaluationEndOn
+    updatedOn
+    evaluationStep
+    remediationSteps
+    tags
+    ignorePreviousResults
+    resourceGroupId
+    questionId
+    questionName
+    templates
     # @genqlient(typename: RuleOperationOutput)
     operations {
       when
       actions
+    }
+    labels {
+      labelName
+      labelValue
     }
   }
 }

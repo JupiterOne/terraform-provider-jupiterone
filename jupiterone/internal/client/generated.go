@@ -620,16 +620,54 @@ func (v *CreateIamResourceGroupInput) GetName() string { return v.Name }
 
 // CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance includes the requested fields of the GraphQL type QuestionRuleInstance.
 type CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance struct {
-	Id          string                                                                                `json:"id"`
-	Version     int                                                                                   `json:"version"`
-	SpecVersion int                                                                                   `json:"specVersion"`
-	Question    CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceQuestionRuleQuestionDetails `json:"question"`
-	Operations  []CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceOperationsRuleOperation   `json:"operations"`
-	Labels      []CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceLabelsRuleInstanceLabel   `json:"labels"`
+	Id                              string                                                                                `json:"id"`
+	AccountId                       string                                                                                `json:"accountId"`
+	Name                            string                                                                                `json:"name"`
+	Description                     string                                                                                `json:"description"`
+	Version                         int                                                                                   `json:"version"`
+	SpecVersion                     int                                                                                   `json:"specVersion"`
+	Latest                          bool                                                                                  `json:"latest"`
+	Deleted                         bool                                                                                  `json:"deleted"`
+	Type                            RuleInstanceType                                                                      `json:"type"`
+	NotifyOnFailure                 bool                                                                                  `json:"notifyOnFailure"`
+	TriggerActionsOnNewEntitiesOnly bool                                                                                  `json:"triggerActionsOnNewEntitiesOnly"`
+	Outputs                         []string                                                                              `json:"outputs"`
+	PollingInterval                 SchedulerPollingInterval                                                              `json:"pollingInterval"`
+	LatestAlertId                   string                                                                                `json:"latestAlertId"`
+	LatestAlertIsActive             bool                                                                                  `json:"latestAlertIsActive"`
+	LastEvaluationEndOn             int64                                                                                 `json:"lastEvaluationEndOn"`
+	LastEvaluationStartOn           int64                                                                                 `json:"lastEvaluationStartOn"`
+	LastSuccessfulEvaluationEndOn   int64                                                                                 `json:"lastSuccessfulEvaluationEndOn"`
+	LastFailedEvaluationEndOn       int64                                                                                 `json:"lastFailedEvaluationEndOn"`
+	UpdatedOn                       int64                                                                                 `json:"updatedOn"`
+	EvaluationStep                  RuleEvaluationStep                                                                    `json:"evaluationStep"`
+	RemediationSteps                string                                                                                `json:"remediationSteps"`
+	Tags                            []string                                                                              `json:"tags"`
+	IgnorePreviousResults           bool                                                                                  `json:"ignorePreviousResults"`
+	ResourceGroupId                 string                                                                                `json:"resourceGroupId"`
+	QuestionId                      string                                                                                `json:"questionId"`
+	QuestionName                    string                                                                                `json:"questionName"`
+	Templates                       interface{}                                                                           `json:"templates"`
+	Question                        CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceQuestionRuleQuestionDetails `json:"question"`
+	Operations                      []CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceOperationsRuleOperation   `json:"operations"`
+	Labels                          []CreateInlineQuestionRuleInstanceCreateQuestionRuleInstanceLabelsRuleInstanceLabel   `json:"labels"`
 }
 
 // GetId returns CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance.Id, and is useful for accessing the field via an interface.
 func (v *CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance) GetId() string { return v.Id }
+
+// GetAccountId returns CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance.AccountId, and is useful for accessing the field via an interface.
+func (v *CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance) GetAccountId() string {
+	return v.AccountId
+}
+
+// GetName returns CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance.Name, and is useful for accessing the field via an interface.
+func (v *CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance) GetName() string { return v.Name }
+
+// GetDescription returns CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance.Description, and is useful for accessing the field via an interface.
+func (v *CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance) GetDescription() string {
+	return v.Description
+}
 
 // GetVersion returns CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance.Version, and is useful for accessing the field via an interface.
 func (v *CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance) GetVersion() int {
@@ -639,6 +677,116 @@ func (v *CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance) GetVersion(
 // GetSpecVersion returns CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance.SpecVersion, and is useful for accessing the field via an interface.
 func (v *CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance) GetSpecVersion() int {
 	return v.SpecVersion
+}
+
+// GetLatest returns CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance.Latest, and is useful for accessing the field via an interface.
+func (v *CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance) GetLatest() bool {
+	return v.Latest
+}
+
+// GetDeleted returns CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance.Deleted, and is useful for accessing the field via an interface.
+func (v *CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance) GetDeleted() bool {
+	return v.Deleted
+}
+
+// GetType returns CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance.Type, and is useful for accessing the field via an interface.
+func (v *CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance) GetType() RuleInstanceType {
+	return v.Type
+}
+
+// GetNotifyOnFailure returns CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance.NotifyOnFailure, and is useful for accessing the field via an interface.
+func (v *CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance) GetNotifyOnFailure() bool {
+	return v.NotifyOnFailure
+}
+
+// GetTriggerActionsOnNewEntitiesOnly returns CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance.TriggerActionsOnNewEntitiesOnly, and is useful for accessing the field via an interface.
+func (v *CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance) GetTriggerActionsOnNewEntitiesOnly() bool {
+	return v.TriggerActionsOnNewEntitiesOnly
+}
+
+// GetOutputs returns CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance.Outputs, and is useful for accessing the field via an interface.
+func (v *CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance) GetOutputs() []string {
+	return v.Outputs
+}
+
+// GetPollingInterval returns CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance.PollingInterval, and is useful for accessing the field via an interface.
+func (v *CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance) GetPollingInterval() SchedulerPollingInterval {
+	return v.PollingInterval
+}
+
+// GetLatestAlertId returns CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance.LatestAlertId, and is useful for accessing the field via an interface.
+func (v *CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance) GetLatestAlertId() string {
+	return v.LatestAlertId
+}
+
+// GetLatestAlertIsActive returns CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance.LatestAlertIsActive, and is useful for accessing the field via an interface.
+func (v *CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance) GetLatestAlertIsActive() bool {
+	return v.LatestAlertIsActive
+}
+
+// GetLastEvaluationEndOn returns CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance.LastEvaluationEndOn, and is useful for accessing the field via an interface.
+func (v *CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance) GetLastEvaluationEndOn() int64 {
+	return v.LastEvaluationEndOn
+}
+
+// GetLastEvaluationStartOn returns CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance.LastEvaluationStartOn, and is useful for accessing the field via an interface.
+func (v *CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance) GetLastEvaluationStartOn() int64 {
+	return v.LastEvaluationStartOn
+}
+
+// GetLastSuccessfulEvaluationEndOn returns CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance.LastSuccessfulEvaluationEndOn, and is useful for accessing the field via an interface.
+func (v *CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance) GetLastSuccessfulEvaluationEndOn() int64 {
+	return v.LastSuccessfulEvaluationEndOn
+}
+
+// GetLastFailedEvaluationEndOn returns CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance.LastFailedEvaluationEndOn, and is useful for accessing the field via an interface.
+func (v *CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance) GetLastFailedEvaluationEndOn() int64 {
+	return v.LastFailedEvaluationEndOn
+}
+
+// GetUpdatedOn returns CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance.UpdatedOn, and is useful for accessing the field via an interface.
+func (v *CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance) GetUpdatedOn() int64 {
+	return v.UpdatedOn
+}
+
+// GetEvaluationStep returns CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance.EvaluationStep, and is useful for accessing the field via an interface.
+func (v *CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance) GetEvaluationStep() RuleEvaluationStep {
+	return v.EvaluationStep
+}
+
+// GetRemediationSteps returns CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance.RemediationSteps, and is useful for accessing the field via an interface.
+func (v *CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance) GetRemediationSteps() string {
+	return v.RemediationSteps
+}
+
+// GetTags returns CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance.Tags, and is useful for accessing the field via an interface.
+func (v *CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance) GetTags() []string {
+	return v.Tags
+}
+
+// GetIgnorePreviousResults returns CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance.IgnorePreviousResults, and is useful for accessing the field via an interface.
+func (v *CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance) GetIgnorePreviousResults() bool {
+	return v.IgnorePreviousResults
+}
+
+// GetResourceGroupId returns CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance.ResourceGroupId, and is useful for accessing the field via an interface.
+func (v *CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance) GetResourceGroupId() string {
+	return v.ResourceGroupId
+}
+
+// GetQuestionId returns CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance.QuestionId, and is useful for accessing the field via an interface.
+func (v *CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance) GetQuestionId() string {
+	return v.QuestionId
+}
+
+// GetQuestionName returns CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance.QuestionName, and is useful for accessing the field via an interface.
+func (v *CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance) GetQuestionName() string {
+	return v.QuestionName
+}
+
+// GetTemplates returns CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance.Templates, and is useful for accessing the field via an interface.
+func (v *CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance) GetTemplates() interface{} {
+	return v.Templates
 }
 
 // GetQuestion returns CreateInlineQuestionRuleInstanceCreateQuestionRuleInstance.Question, and is useful for accessing the field via an interface.
@@ -1237,14 +1385,55 @@ func (v *CreateQuestionResponse) GetCreateQuestion() CreateQuestionCreateQuestio
 
 // CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance includes the requested fields of the GraphQL type QuestionRuleInstance.
 type CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance struct {
-	Id          string                `json:"id"`
-	Version     int                   `json:"version"`
-	SpecVersion int                   `json:"specVersion"`
-	Operations  []RuleOperationOutput `json:"operations"`
+	Id                              string                                                                                  `json:"id"`
+	AccountId                       string                                                                                  `json:"accountId"`
+	Name                            string                                                                                  `json:"name"`
+	Description                     string                                                                                  `json:"description"`
+	Version                         int                                                                                     `json:"version"`
+	SpecVersion                     int                                                                                     `json:"specVersion"`
+	Latest                          bool                                                                                    `json:"latest"`
+	Deleted                         bool                                                                                    `json:"deleted"`
+	Type                            RuleInstanceType                                                                        `json:"type"`
+	NotifyOnFailure                 bool                                                                                    `json:"notifyOnFailure"`
+	TriggerActionsOnNewEntitiesOnly bool                                                                                    `json:"triggerActionsOnNewEntitiesOnly"`
+	Outputs                         []string                                                                                `json:"outputs"`
+	PollingInterval                 SchedulerPollingInterval                                                                `json:"pollingInterval"`
+	LatestAlertId                   string                                                                                  `json:"latestAlertId"`
+	LatestAlertIsActive             bool                                                                                    `json:"latestAlertIsActive"`
+	LastEvaluationEndOn             int64                                                                                   `json:"lastEvaluationEndOn"`
+	LastEvaluationStartOn           int64                                                                                   `json:"lastEvaluationStartOn"`
+	LastSuccessfulEvaluationEndOn   int64                                                                                   `json:"lastSuccessfulEvaluationEndOn"`
+	LastFailedEvaluationEndOn       int64                                                                                   `json:"lastFailedEvaluationEndOn"`
+	UpdatedOn                       int64                                                                                   `json:"updatedOn"`
+	EvaluationStep                  RuleEvaluationStep                                                                      `json:"evaluationStep"`
+	RemediationSteps                string                                                                                  `json:"remediationSteps"`
+	Tags                            []string                                                                                `json:"tags"`
+	IgnorePreviousResults           bool                                                                                    `json:"ignorePreviousResults"`
+	ResourceGroupId                 string                                                                                  `json:"resourceGroupId"`
+	QuestionId                      string                                                                                  `json:"questionId"`
+	QuestionName                    string                                                                                  `json:"questionName"`
+	Templates                       interface{}                                                                             `json:"templates"`
+	Operations                      []RuleOperationOutput                                                                   `json:"operations"`
+	Labels                          []CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstanceLabelsRuleInstanceLabel `json:"labels"`
 }
 
 // GetId returns CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance.Id, and is useful for accessing the field via an interface.
 func (v *CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance) GetId() string { return v.Id }
+
+// GetAccountId returns CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance.AccountId, and is useful for accessing the field via an interface.
+func (v *CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance) GetAccountId() string {
+	return v.AccountId
+}
+
+// GetName returns CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance.Name, and is useful for accessing the field via an interface.
+func (v *CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance) GetName() string {
+	return v.Name
+}
+
+// GetDescription returns CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance.Description, and is useful for accessing the field via an interface.
+func (v *CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance) GetDescription() string {
+	return v.Description
+}
 
 // GetVersion returns CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance.Version, and is useful for accessing the field via an interface.
 func (v *CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance) GetVersion() int {
@@ -1256,9 +1445,140 @@ func (v *CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance) GetSpec
 	return v.SpecVersion
 }
 
+// GetLatest returns CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance.Latest, and is useful for accessing the field via an interface.
+func (v *CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance) GetLatest() bool {
+	return v.Latest
+}
+
+// GetDeleted returns CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance.Deleted, and is useful for accessing the field via an interface.
+func (v *CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance) GetDeleted() bool {
+	return v.Deleted
+}
+
+// GetType returns CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance.Type, and is useful for accessing the field via an interface.
+func (v *CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance) GetType() RuleInstanceType {
+	return v.Type
+}
+
+// GetNotifyOnFailure returns CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance.NotifyOnFailure, and is useful for accessing the field via an interface.
+func (v *CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance) GetNotifyOnFailure() bool {
+	return v.NotifyOnFailure
+}
+
+// GetTriggerActionsOnNewEntitiesOnly returns CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance.TriggerActionsOnNewEntitiesOnly, and is useful for accessing the field via an interface.
+func (v *CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance) GetTriggerActionsOnNewEntitiesOnly() bool {
+	return v.TriggerActionsOnNewEntitiesOnly
+}
+
+// GetOutputs returns CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance.Outputs, and is useful for accessing the field via an interface.
+func (v *CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance) GetOutputs() []string {
+	return v.Outputs
+}
+
+// GetPollingInterval returns CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance.PollingInterval, and is useful for accessing the field via an interface.
+func (v *CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance) GetPollingInterval() SchedulerPollingInterval {
+	return v.PollingInterval
+}
+
+// GetLatestAlertId returns CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance.LatestAlertId, and is useful for accessing the field via an interface.
+func (v *CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance) GetLatestAlertId() string {
+	return v.LatestAlertId
+}
+
+// GetLatestAlertIsActive returns CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance.LatestAlertIsActive, and is useful for accessing the field via an interface.
+func (v *CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance) GetLatestAlertIsActive() bool {
+	return v.LatestAlertIsActive
+}
+
+// GetLastEvaluationEndOn returns CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance.LastEvaluationEndOn, and is useful for accessing the field via an interface.
+func (v *CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance) GetLastEvaluationEndOn() int64 {
+	return v.LastEvaluationEndOn
+}
+
+// GetLastEvaluationStartOn returns CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance.LastEvaluationStartOn, and is useful for accessing the field via an interface.
+func (v *CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance) GetLastEvaluationStartOn() int64 {
+	return v.LastEvaluationStartOn
+}
+
+// GetLastSuccessfulEvaluationEndOn returns CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance.LastSuccessfulEvaluationEndOn, and is useful for accessing the field via an interface.
+func (v *CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance) GetLastSuccessfulEvaluationEndOn() int64 {
+	return v.LastSuccessfulEvaluationEndOn
+}
+
+// GetLastFailedEvaluationEndOn returns CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance.LastFailedEvaluationEndOn, and is useful for accessing the field via an interface.
+func (v *CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance) GetLastFailedEvaluationEndOn() int64 {
+	return v.LastFailedEvaluationEndOn
+}
+
+// GetUpdatedOn returns CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance.UpdatedOn, and is useful for accessing the field via an interface.
+func (v *CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance) GetUpdatedOn() int64 {
+	return v.UpdatedOn
+}
+
+// GetEvaluationStep returns CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance.EvaluationStep, and is useful for accessing the field via an interface.
+func (v *CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance) GetEvaluationStep() RuleEvaluationStep {
+	return v.EvaluationStep
+}
+
+// GetRemediationSteps returns CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance.RemediationSteps, and is useful for accessing the field via an interface.
+func (v *CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance) GetRemediationSteps() string {
+	return v.RemediationSteps
+}
+
+// GetTags returns CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance.Tags, and is useful for accessing the field via an interface.
+func (v *CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance) GetTags() []string {
+	return v.Tags
+}
+
+// GetIgnorePreviousResults returns CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance.IgnorePreviousResults, and is useful for accessing the field via an interface.
+func (v *CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance) GetIgnorePreviousResults() bool {
+	return v.IgnorePreviousResults
+}
+
+// GetResourceGroupId returns CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance.ResourceGroupId, and is useful for accessing the field via an interface.
+func (v *CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance) GetResourceGroupId() string {
+	return v.ResourceGroupId
+}
+
+// GetQuestionId returns CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance.QuestionId, and is useful for accessing the field via an interface.
+func (v *CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance) GetQuestionId() string {
+	return v.QuestionId
+}
+
+// GetQuestionName returns CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance.QuestionName, and is useful for accessing the field via an interface.
+func (v *CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance) GetQuestionName() string {
+	return v.QuestionName
+}
+
+// GetTemplates returns CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance.Templates, and is useful for accessing the field via an interface.
+func (v *CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance) GetTemplates() interface{} {
+	return v.Templates
+}
+
 // GetOperations returns CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance.Operations, and is useful for accessing the field via an interface.
 func (v *CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance) GetOperations() []RuleOperationOutput {
 	return v.Operations
+}
+
+// GetLabels returns CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance.Labels, and is useful for accessing the field via an interface.
+func (v *CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstance) GetLabels() []CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstanceLabelsRuleInstanceLabel {
+	return v.Labels
+}
+
+// CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstanceLabelsRuleInstanceLabel includes the requested fields of the GraphQL type RuleInstanceLabel.
+type CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstanceLabelsRuleInstanceLabel struct {
+	LabelName  string `json:"labelName"`
+	LabelValue string `json:"labelValue"`
+}
+
+// GetLabelName returns CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstanceLabelsRuleInstanceLabel.LabelName, and is useful for accessing the field via an interface.
+func (v *CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstanceLabelsRuleInstanceLabel) GetLabelName() string {
+	return v.LabelName
+}
+
+// GetLabelValue returns CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstanceLabelsRuleInstanceLabel.LabelValue, and is useful for accessing the field via an interface.
+func (v *CreateReferencedQuestionRuleInstanceCreateQuestionRuleInstanceLabelsRuleInstanceLabel) GetLabelValue() string {
+	return v.LabelValue
 }
 
 type CreateReferencedQuestionRuleInstanceInput struct {
@@ -3934,6 +4254,28 @@ func (v *RevokeInvitationUpdateInvitationIamInvitation) GetId() string { return 
 // GetStatus returns RevokeInvitationUpdateInvitationIamInvitation.Status, and is useful for accessing the field via an interface.
 func (v *RevokeInvitationUpdateInvitationIamInvitation) GetStatus() string { return v.Status }
 
+type RuleEvaluationStep string
+
+const (
+	RuleEvaluationStepPreflightCheck             RuleEvaluationStep = "PREFLIGHT_CHECK"
+	RuleEvaluationStepValidate                   RuleEvaluationStep = "VALIDATE"
+	RuleEvaluationStepInitialize                 RuleEvaluationStep = "INITIALIZE"
+	RuleEvaluationStepReportRule                 RuleEvaluationStep = "REPORT_RULE"
+	RuleEvaluationStepQuestionEvaluation         RuleEvaluationStep = "QUESTION_EVALUATION"
+	RuleEvaluationStepQuestionEvaluationDeferred RuleEvaluationStep = "QUESTION_EVALUATION_DEFERRED"
+	RuleEvaluationStepCanceled                   RuleEvaluationStep = "CANCELED"
+	RuleEvaluationStepResumed                    RuleEvaluationStep = "RESUMED"
+	RuleEvaluationStepActionsPreflightCheck      RuleEvaluationStep = "ACTIONS_PREFLIGHT_CHECK"
+	RuleEvaluationStepBuildActionsContext        RuleEvaluationStep = "BUILD_ACTIONS_CONTEXT"
+	RuleEvaluationStepInitializeActions          RuleEvaluationStep = "INITIALIZE_ACTIONS"
+	RuleEvaluationStepRunActions                 RuleEvaluationStep = "RUN_ACTIONS"
+	RuleEvaluationStepSyncOutputs                RuleEvaluationStep = "SYNC_OUTPUTS"
+	RuleEvaluationStepFinalizeResults            RuleEvaluationStep = "FINALIZE_RESULTS"
+	RuleEvaluationStepFailed                     RuleEvaluationStep = "FAILED"
+	RuleEvaluationStepDone                       RuleEvaluationStep = "DONE"
+	RuleEvaluationStepDisabledBySystem           RuleEvaluationStep = "DISABLED_BY_SYSTEM"
+)
+
 type RuleInstanceLabelInput struct {
 	LabelName  string `json:"labelName"`
 	LabelValue string `json:"labelValue"`
@@ -4616,7 +4958,7 @@ type UpdateInlineQuestionRuleInstanceInput struct {
 	Description                     string                   `json:"description"`
 	SpecVersion                     int                      `json:"specVersion"`
 	Operations                      []RuleOperationInput     `json:"operations"`
-	Outputs                         []string                 `json:"outputs,omitempty"`
+	Outputs                         []string                 `json:"outputs"`
 	PollingInterval                 SchedulerPollingInterval `json:"pollingInterval"`
 	NotifyOnFailure                 bool                     `json:"notifyOnFailure"`
 	TriggerActionsOnNewEntitiesOnly bool                     `json:"triggerActionsOnNewEntitiesOnly"`
@@ -4707,9 +5049,57 @@ func (v *UpdateInlineQuestionRuleInstanceResponse) GetUpdateInlineQuestionRuleIn
 
 // UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance includes the requested fields of the GraphQL type QuestionRuleInstance.
 type UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance struct {
-	Version     int                   `json:"version"`
-	SpecVersion int                   `json:"specVersion"`
-	Operations  []RuleOperationOutput `json:"operations"`
+	Id                              string                                                                                      `json:"id"`
+	AccountId                       string                                                                                      `json:"accountId"`
+	Name                            string                                                                                      `json:"name"`
+	Description                     string                                                                                      `json:"description"`
+	Version                         int                                                                                         `json:"version"`
+	SpecVersion                     int                                                                                         `json:"specVersion"`
+	Latest                          bool                                                                                        `json:"latest"`
+	Deleted                         bool                                                                                        `json:"deleted"`
+	Type                            RuleInstanceType                                                                            `json:"type"`
+	NotifyOnFailure                 bool                                                                                        `json:"notifyOnFailure"`
+	TriggerActionsOnNewEntitiesOnly bool                                                                                        `json:"triggerActionsOnNewEntitiesOnly"`
+	Outputs                         []string                                                                                    `json:"outputs"`
+	PollingInterval                 SchedulerPollingInterval                                                                    `json:"pollingInterval"`
+	LatestAlertId                   string                                                                                      `json:"latestAlertId"`
+	LatestAlertIsActive             bool                                                                                        `json:"latestAlertIsActive"`
+	LastEvaluationEndOn             int64                                                                                       `json:"lastEvaluationEndOn"`
+	LastEvaluationStartOn           int64                                                                                       `json:"lastEvaluationStartOn"`
+	LastSuccessfulEvaluationEndOn   int64                                                                                       `json:"lastSuccessfulEvaluationEndOn"`
+	LastFailedEvaluationEndOn       int64                                                                                       `json:"lastFailedEvaluationEndOn"`
+	UpdatedOn                       int64                                                                                       `json:"updatedOn"`
+	EvaluationStep                  RuleEvaluationStep                                                                          `json:"evaluationStep"`
+	RemediationSteps                string                                                                                      `json:"remediationSteps"`
+	Tags                            []string                                                                                    `json:"tags"`
+	IgnorePreviousResults           bool                                                                                        `json:"ignorePreviousResults"`
+	ResourceGroupId                 string                                                                                      `json:"resourceGroupId"`
+	QuestionId                      string                                                                                      `json:"questionId"`
+	QuestionName                    string                                                                                      `json:"questionName"`
+	Templates                       interface{}                                                                                 `json:"templates"`
+	Question                        UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstanceQuestionRuleQuestionDetails `json:"question"`
+	Operations                      []RuleOperationOutput                                                                       `json:"operations"`
+	Labels                          []UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstanceLabelsRuleInstanceLabel   `json:"labels"`
+}
+
+// GetId returns UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance.Id, and is useful for accessing the field via an interface.
+func (v *UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance) GetId() string {
+	return v.Id
+}
+
+// GetAccountId returns UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance.AccountId, and is useful for accessing the field via an interface.
+func (v *UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance) GetAccountId() string {
+	return v.AccountId
+}
+
+// GetName returns UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance.Name, and is useful for accessing the field via an interface.
+func (v *UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance) GetName() string {
+	return v.Name
+}
+
+// GetDescription returns UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance.Description, and is useful for accessing the field via an interface.
+func (v *UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance) GetDescription() string {
+	return v.Description
 }
 
 // GetVersion returns UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance.Version, and is useful for accessing the field via an interface.
@@ -4722,9 +5112,183 @@ func (v *UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance) GetSp
 	return v.SpecVersion
 }
 
+// GetLatest returns UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance.Latest, and is useful for accessing the field via an interface.
+func (v *UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance) GetLatest() bool {
+	return v.Latest
+}
+
+// GetDeleted returns UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance.Deleted, and is useful for accessing the field via an interface.
+func (v *UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance) GetDeleted() bool {
+	return v.Deleted
+}
+
+// GetType returns UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance.Type, and is useful for accessing the field via an interface.
+func (v *UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance) GetType() RuleInstanceType {
+	return v.Type
+}
+
+// GetNotifyOnFailure returns UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance.NotifyOnFailure, and is useful for accessing the field via an interface.
+func (v *UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance) GetNotifyOnFailure() bool {
+	return v.NotifyOnFailure
+}
+
+// GetTriggerActionsOnNewEntitiesOnly returns UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance.TriggerActionsOnNewEntitiesOnly, and is useful for accessing the field via an interface.
+func (v *UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance) GetTriggerActionsOnNewEntitiesOnly() bool {
+	return v.TriggerActionsOnNewEntitiesOnly
+}
+
+// GetOutputs returns UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance.Outputs, and is useful for accessing the field via an interface.
+func (v *UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance) GetOutputs() []string {
+	return v.Outputs
+}
+
+// GetPollingInterval returns UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance.PollingInterval, and is useful for accessing the field via an interface.
+func (v *UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance) GetPollingInterval() SchedulerPollingInterval {
+	return v.PollingInterval
+}
+
+// GetLatestAlertId returns UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance.LatestAlertId, and is useful for accessing the field via an interface.
+func (v *UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance) GetLatestAlertId() string {
+	return v.LatestAlertId
+}
+
+// GetLatestAlertIsActive returns UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance.LatestAlertIsActive, and is useful for accessing the field via an interface.
+func (v *UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance) GetLatestAlertIsActive() bool {
+	return v.LatestAlertIsActive
+}
+
+// GetLastEvaluationEndOn returns UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance.LastEvaluationEndOn, and is useful for accessing the field via an interface.
+func (v *UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance) GetLastEvaluationEndOn() int64 {
+	return v.LastEvaluationEndOn
+}
+
+// GetLastEvaluationStartOn returns UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance.LastEvaluationStartOn, and is useful for accessing the field via an interface.
+func (v *UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance) GetLastEvaluationStartOn() int64 {
+	return v.LastEvaluationStartOn
+}
+
+// GetLastSuccessfulEvaluationEndOn returns UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance.LastSuccessfulEvaluationEndOn, and is useful for accessing the field via an interface.
+func (v *UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance) GetLastSuccessfulEvaluationEndOn() int64 {
+	return v.LastSuccessfulEvaluationEndOn
+}
+
+// GetLastFailedEvaluationEndOn returns UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance.LastFailedEvaluationEndOn, and is useful for accessing the field via an interface.
+func (v *UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance) GetLastFailedEvaluationEndOn() int64 {
+	return v.LastFailedEvaluationEndOn
+}
+
+// GetUpdatedOn returns UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance.UpdatedOn, and is useful for accessing the field via an interface.
+func (v *UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance) GetUpdatedOn() int64 {
+	return v.UpdatedOn
+}
+
+// GetEvaluationStep returns UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance.EvaluationStep, and is useful for accessing the field via an interface.
+func (v *UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance) GetEvaluationStep() RuleEvaluationStep {
+	return v.EvaluationStep
+}
+
+// GetRemediationSteps returns UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance.RemediationSteps, and is useful for accessing the field via an interface.
+func (v *UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance) GetRemediationSteps() string {
+	return v.RemediationSteps
+}
+
+// GetTags returns UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance.Tags, and is useful for accessing the field via an interface.
+func (v *UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance) GetTags() []string {
+	return v.Tags
+}
+
+// GetIgnorePreviousResults returns UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance.IgnorePreviousResults, and is useful for accessing the field via an interface.
+func (v *UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance) GetIgnorePreviousResults() bool {
+	return v.IgnorePreviousResults
+}
+
+// GetResourceGroupId returns UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance.ResourceGroupId, and is useful for accessing the field via an interface.
+func (v *UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance) GetResourceGroupId() string {
+	return v.ResourceGroupId
+}
+
+// GetQuestionId returns UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance.QuestionId, and is useful for accessing the field via an interface.
+func (v *UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance) GetQuestionId() string {
+	return v.QuestionId
+}
+
+// GetQuestionName returns UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance.QuestionName, and is useful for accessing the field via an interface.
+func (v *UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance) GetQuestionName() string {
+	return v.QuestionName
+}
+
+// GetTemplates returns UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance.Templates, and is useful for accessing the field via an interface.
+func (v *UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance) GetTemplates() interface{} {
+	return v.Templates
+}
+
+// GetQuestion returns UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance.Question, and is useful for accessing the field via an interface.
+func (v *UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance) GetQuestion() UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstanceQuestionRuleQuestionDetails {
+	return v.Question
+}
+
 // GetOperations returns UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance.Operations, and is useful for accessing the field via an interface.
 func (v *UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance) GetOperations() []RuleOperationOutput {
 	return v.Operations
+}
+
+// GetLabels returns UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance.Labels, and is useful for accessing the field via an interface.
+func (v *UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstance) GetLabels() []UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstanceLabelsRuleInstanceLabel {
+	return v.Labels
+}
+
+// UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstanceLabelsRuleInstanceLabel includes the requested fields of the GraphQL type RuleInstanceLabel.
+type UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstanceLabelsRuleInstanceLabel struct {
+	LabelName  string `json:"labelName"`
+	LabelValue string `json:"labelValue"`
+}
+
+// GetLabelName returns UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstanceLabelsRuleInstanceLabel.LabelName, and is useful for accessing the field via an interface.
+func (v *UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstanceLabelsRuleInstanceLabel) GetLabelName() string {
+	return v.LabelName
+}
+
+// GetLabelValue returns UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstanceLabelsRuleInstanceLabel.LabelValue, and is useful for accessing the field via an interface.
+func (v *UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstanceLabelsRuleInstanceLabel) GetLabelValue() string {
+	return v.LabelValue
+}
+
+// UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstanceQuestionRuleQuestionDetails includes the requested fields of the GraphQL type RuleQuestionDetails.
+type UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstanceQuestionRuleQuestionDetails struct {
+	Queries []UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstanceQuestionRuleQuestionDetailsQueriesJ1Query `json:"queries"`
+}
+
+// GetQueries returns UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstanceQuestionRuleQuestionDetails.Queries, and is useful for accessing the field via an interface.
+func (v *UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstanceQuestionRuleQuestionDetails) GetQueries() []UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstanceQuestionRuleQuestionDetailsQueriesJ1Query {
+	return v.Queries
+}
+
+// UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstanceQuestionRuleQuestionDetailsQueriesJ1Query includes the requested fields of the GraphQL type J1Query.
+type UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstanceQuestionRuleQuestionDetailsQueriesJ1Query struct {
+	Name           string `json:"name"`
+	Query          string `json:"query"`
+	Version        string `json:"version"`
+	IncludeDeleted bool   `json:"includeDeleted"`
+}
+
+// GetName returns UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstanceQuestionRuleQuestionDetailsQueriesJ1Query.Name, and is useful for accessing the field via an interface.
+func (v *UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstanceQuestionRuleQuestionDetailsQueriesJ1Query) GetName() string {
+	return v.Name
+}
+
+// GetQuery returns UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstanceQuestionRuleQuestionDetailsQueriesJ1Query.Query, and is useful for accessing the field via an interface.
+func (v *UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstanceQuestionRuleQuestionDetailsQueriesJ1Query) GetQuery() string {
+	return v.Query
+}
+
+// GetVersion returns UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstanceQuestionRuleQuestionDetailsQueriesJ1Query.Version, and is useful for accessing the field via an interface.
+func (v *UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstanceQuestionRuleQuestionDetailsQueriesJ1Query) GetVersion() string {
+	return v.Version
+}
+
+// GetIncludeDeleted returns UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstanceQuestionRuleQuestionDetailsQueriesJ1Query.IncludeDeleted, and is useful for accessing the field via an interface.
+func (v *UpdateInlineQuestionRuleInstanceUpdateInlineQuestionRuleInstanceQuestionRuleQuestionDetailsQueriesJ1Query) GetIncludeDeleted() bool {
+	return v.IncludeDeleted
 }
 
 type UpdateIntegrationInstanceInput struct {
@@ -4920,7 +5484,7 @@ type UpdateReferencedQuestionRuleInstanceInput struct {
 	Description                     string                   `json:"description"`
 	SpecVersion                     int                      `json:"specVersion"`
 	Operations                      []RuleOperationInput     `json:"operations"`
-	Outputs                         []string                 `json:"outputs,omitempty"`
+	Outputs                         []string                 `json:"outputs"`
 	PollingInterval                 SchedulerPollingInterval `json:"pollingInterval"`
 	NotifyOnFailure                 bool                     `json:"notifyOnFailure"`
 	TriggerActionsOnNewEntitiesOnly bool                     `json:"triggerActionsOnNewEntitiesOnly"`
@@ -5015,9 +5579,56 @@ func (v *UpdateReferencedQuestionRuleInstanceResponse) GetUpdateReferencedQuesti
 
 // UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstance includes the requested fields of the GraphQL type QuestionRuleInstance.
 type UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstance struct {
-	Version     int                   `json:"version"`
-	SpecVersion int                   `json:"specVersion"`
-	Operations  []RuleOperationOutput `json:"operations"`
+	Id                              string                                                                                            `json:"id"`
+	AccountId                       string                                                                                            `json:"accountId"`
+	Name                            string                                                                                            `json:"name"`
+	Description                     string                                                                                            `json:"description"`
+	Version                         int                                                                                               `json:"version"`
+	SpecVersion                     int                                                                                               `json:"specVersion"`
+	Latest                          bool                                                                                              `json:"latest"`
+	Deleted                         bool                                                                                              `json:"deleted"`
+	Type                            RuleInstanceType                                                                                  `json:"type"`
+	NotifyOnFailure                 bool                                                                                              `json:"notifyOnFailure"`
+	TriggerActionsOnNewEntitiesOnly bool                                                                                              `json:"triggerActionsOnNewEntitiesOnly"`
+	Outputs                         []string                                                                                          `json:"outputs"`
+	PollingInterval                 SchedulerPollingInterval                                                                          `json:"pollingInterval"`
+	LatestAlertId                   string                                                                                            `json:"latestAlertId"`
+	LatestAlertIsActive             bool                                                                                              `json:"latestAlertIsActive"`
+	LastEvaluationEndOn             int64                                                                                             `json:"lastEvaluationEndOn"`
+	LastEvaluationStartOn           int64                                                                                             `json:"lastEvaluationStartOn"`
+	LastSuccessfulEvaluationEndOn   int64                                                                                             `json:"lastSuccessfulEvaluationEndOn"`
+	LastFailedEvaluationEndOn       int64                                                                                             `json:"lastFailedEvaluationEndOn"`
+	UpdatedOn                       int64                                                                                             `json:"updatedOn"`
+	EvaluationStep                  RuleEvaluationStep                                                                                `json:"evaluationStep"`
+	RemediationSteps                string                                                                                            `json:"remediationSteps"`
+	Tags                            []string                                                                                          `json:"tags"`
+	IgnorePreviousResults           bool                                                                                              `json:"ignorePreviousResults"`
+	ResourceGroupId                 string                                                                                            `json:"resourceGroupId"`
+	QuestionId                      string                                                                                            `json:"questionId"`
+	QuestionName                    string                                                                                            `json:"questionName"`
+	Templates                       interface{}                                                                                       `json:"templates"`
+	Operations                      []RuleOperationOutput                                                                             `json:"operations"`
+	Labels                          []UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstanceLabelsRuleInstanceLabel `json:"labels"`
+}
+
+// GetId returns UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstance.Id, and is useful for accessing the field via an interface.
+func (v *UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstance) GetId() string {
+	return v.Id
+}
+
+// GetAccountId returns UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstance.AccountId, and is useful for accessing the field via an interface.
+func (v *UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstance) GetAccountId() string {
+	return v.AccountId
+}
+
+// GetName returns UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstance.Name, and is useful for accessing the field via an interface.
+func (v *UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstance) GetName() string {
+	return v.Name
+}
+
+// GetDescription returns UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstance.Description, and is useful for accessing the field via an interface.
+func (v *UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstance) GetDescription() string {
+	return v.Description
 }
 
 // GetVersion returns UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstance.Version, and is useful for accessing the field via an interface.
@@ -5030,9 +5641,140 @@ func (v *UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstanc
 	return v.SpecVersion
 }
 
+// GetLatest returns UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstance.Latest, and is useful for accessing the field via an interface.
+func (v *UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstance) GetLatest() bool {
+	return v.Latest
+}
+
+// GetDeleted returns UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstance.Deleted, and is useful for accessing the field via an interface.
+func (v *UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstance) GetDeleted() bool {
+	return v.Deleted
+}
+
+// GetType returns UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstance.Type, and is useful for accessing the field via an interface.
+func (v *UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstance) GetType() RuleInstanceType {
+	return v.Type
+}
+
+// GetNotifyOnFailure returns UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstance.NotifyOnFailure, and is useful for accessing the field via an interface.
+func (v *UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstance) GetNotifyOnFailure() bool {
+	return v.NotifyOnFailure
+}
+
+// GetTriggerActionsOnNewEntitiesOnly returns UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstance.TriggerActionsOnNewEntitiesOnly, and is useful for accessing the field via an interface.
+func (v *UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstance) GetTriggerActionsOnNewEntitiesOnly() bool {
+	return v.TriggerActionsOnNewEntitiesOnly
+}
+
+// GetOutputs returns UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstance.Outputs, and is useful for accessing the field via an interface.
+func (v *UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstance) GetOutputs() []string {
+	return v.Outputs
+}
+
+// GetPollingInterval returns UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstance.PollingInterval, and is useful for accessing the field via an interface.
+func (v *UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstance) GetPollingInterval() SchedulerPollingInterval {
+	return v.PollingInterval
+}
+
+// GetLatestAlertId returns UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstance.LatestAlertId, and is useful for accessing the field via an interface.
+func (v *UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstance) GetLatestAlertId() string {
+	return v.LatestAlertId
+}
+
+// GetLatestAlertIsActive returns UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstance.LatestAlertIsActive, and is useful for accessing the field via an interface.
+func (v *UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstance) GetLatestAlertIsActive() bool {
+	return v.LatestAlertIsActive
+}
+
+// GetLastEvaluationEndOn returns UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstance.LastEvaluationEndOn, and is useful for accessing the field via an interface.
+func (v *UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstance) GetLastEvaluationEndOn() int64 {
+	return v.LastEvaluationEndOn
+}
+
+// GetLastEvaluationStartOn returns UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstance.LastEvaluationStartOn, and is useful for accessing the field via an interface.
+func (v *UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstance) GetLastEvaluationStartOn() int64 {
+	return v.LastEvaluationStartOn
+}
+
+// GetLastSuccessfulEvaluationEndOn returns UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstance.LastSuccessfulEvaluationEndOn, and is useful for accessing the field via an interface.
+func (v *UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstance) GetLastSuccessfulEvaluationEndOn() int64 {
+	return v.LastSuccessfulEvaluationEndOn
+}
+
+// GetLastFailedEvaluationEndOn returns UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstance.LastFailedEvaluationEndOn, and is useful for accessing the field via an interface.
+func (v *UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstance) GetLastFailedEvaluationEndOn() int64 {
+	return v.LastFailedEvaluationEndOn
+}
+
+// GetUpdatedOn returns UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstance.UpdatedOn, and is useful for accessing the field via an interface.
+func (v *UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstance) GetUpdatedOn() int64 {
+	return v.UpdatedOn
+}
+
+// GetEvaluationStep returns UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstance.EvaluationStep, and is useful for accessing the field via an interface.
+func (v *UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstance) GetEvaluationStep() RuleEvaluationStep {
+	return v.EvaluationStep
+}
+
+// GetRemediationSteps returns UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstance.RemediationSteps, and is useful for accessing the field via an interface.
+func (v *UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstance) GetRemediationSteps() string {
+	return v.RemediationSteps
+}
+
+// GetTags returns UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstance.Tags, and is useful for accessing the field via an interface.
+func (v *UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstance) GetTags() []string {
+	return v.Tags
+}
+
+// GetIgnorePreviousResults returns UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstance.IgnorePreviousResults, and is useful for accessing the field via an interface.
+func (v *UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstance) GetIgnorePreviousResults() bool {
+	return v.IgnorePreviousResults
+}
+
+// GetResourceGroupId returns UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstance.ResourceGroupId, and is useful for accessing the field via an interface.
+func (v *UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstance) GetResourceGroupId() string {
+	return v.ResourceGroupId
+}
+
+// GetQuestionId returns UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstance.QuestionId, and is useful for accessing the field via an interface.
+func (v *UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstance) GetQuestionId() string {
+	return v.QuestionId
+}
+
+// GetQuestionName returns UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstance.QuestionName, and is useful for accessing the field via an interface.
+func (v *UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstance) GetQuestionName() string {
+	return v.QuestionName
+}
+
+// GetTemplates returns UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstance.Templates, and is useful for accessing the field via an interface.
+func (v *UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstance) GetTemplates() interface{} {
+	return v.Templates
+}
+
 // GetOperations returns UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstance.Operations, and is useful for accessing the field via an interface.
 func (v *UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstance) GetOperations() []RuleOperationOutput {
 	return v.Operations
+}
+
+// GetLabels returns UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstance.Labels, and is useful for accessing the field via an interface.
+func (v *UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstance) GetLabels() []UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstanceLabelsRuleInstanceLabel {
+	return v.Labels
+}
+
+// UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstanceLabelsRuleInstanceLabel includes the requested fields of the GraphQL type RuleInstanceLabel.
+type UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstanceLabelsRuleInstanceLabel struct {
+	LabelName  string `json:"labelName"`
+	LabelValue string `json:"labelValue"`
+}
+
+// GetLabelName returns UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstanceLabelsRuleInstanceLabel.LabelName, and is useful for accessing the field via an interface.
+func (v *UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstanceLabelsRuleInstanceLabel) GetLabelName() string {
+	return v.LabelName
+}
+
+// GetLabelValue returns UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstanceLabelsRuleInstanceLabel.LabelValue, and is useful for accessing the field via an interface.
+func (v *UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstanceLabelsRuleInstanceLabel) GetLabelValue() string {
+	return v.LabelValue
 }
 
 // UpdateResourceGroupResponse is returned by UpdateResourceGroup on success.
@@ -6405,8 +7147,33 @@ func CreateInlineQuestionRuleInstance(
 mutation CreateInlineQuestionRuleInstance ($instance: CreateInlineQuestionRuleInstanceInput!) {
 	createQuestionRuleInstance: createInlineQuestionRuleInstance(instance: $instance) {
 		id
+		accountId
+		name
+		description
 		version
 		specVersion
+		latest
+		deleted
+		type
+		notifyOnFailure
+		triggerActionsOnNewEntitiesOnly
+		outputs
+		pollingInterval
+		latestAlertId
+		latestAlertIsActive
+		lastEvaluationEndOn
+		lastEvaluationStartOn
+		lastSuccessfulEvaluationEndOn
+		lastFailedEvaluationEndOn
+		updatedOn
+		evaluationStep
+		remediationSteps
+		tags
+		ignorePreviousResults
+		resourceGroupId
+		questionId
+		questionName
+		templates
 		question {
 			queries {
 				name
@@ -6535,11 +7302,40 @@ func CreateReferencedQuestionRuleInstance(
 mutation CreateReferencedQuestionRuleInstance ($instance: CreateReferencedQuestionRuleInstanceInput!) {
 	createQuestionRuleInstance: createReferencedQuestionRuleInstance(instance: $instance) {
 		id
+		accountId
+		name
+		description
 		version
 		specVersion
+		latest
+		deleted
+		type
+		notifyOnFailure
+		triggerActionsOnNewEntitiesOnly
+		outputs
+		pollingInterval
+		latestAlertId
+		latestAlertIsActive
+		lastEvaluationEndOn
+		lastEvaluationStartOn
+		lastSuccessfulEvaluationEndOn
+		lastFailedEvaluationEndOn
+		updatedOn
+		evaluationStep
+		remediationSteps
+		tags
+		ignorePreviousResults
+		resourceGroupId
+		questionId
+		questionName
+		templates
 		operations {
 			when
 			actions
+		}
+		labels {
+			labelName
+			labelValue
 		}
 	}
 }
@@ -8825,11 +9621,49 @@ func UpdateInlineQuestionRuleInstance(
 		Query: `
 mutation UpdateInlineQuestionRuleInstance ($instance: UpdateInlineQuestionRuleInstanceInput!) {
 	updateInlineQuestionRuleInstance(instance: $instance) {
+		id
+		accountId
+		name
+		description
 		version
 		specVersion
+		latest
+		deleted
+		type
+		notifyOnFailure
+		triggerActionsOnNewEntitiesOnly
+		outputs
+		pollingInterval
+		latestAlertId
+		latestAlertIsActive
+		lastEvaluationEndOn
+		lastEvaluationStartOn
+		lastSuccessfulEvaluationEndOn
+		lastFailedEvaluationEndOn
+		updatedOn
+		evaluationStep
+		remediationSteps
+		tags
+		ignorePreviousResults
+		resourceGroupId
+		questionId
+		questionName
+		templates
+		question {
+			queries {
+				name
+				query
+				version
+				includeDeleted
+			}
+		}
 		operations {
 			when
 			actions
+		}
+		labels {
+			labelName
+			labelValue
 		}
 	}
 }
@@ -8946,11 +9780,41 @@ func UpdateReferencedQuestionRuleInstance(
 		Query: `
 mutation UpdateReferencedQuestionRuleInstance ($instance: UpdateReferencedQuestionRuleInstanceInput!) {
 	updateReferencedQuestionRuleInstance(instance: $instance) {
+		id
+		accountId
+		name
+		description
 		version
 		specVersion
+		latest
+		deleted
+		type
+		notifyOnFailure
+		triggerActionsOnNewEntitiesOnly
+		outputs
+		pollingInterval
+		latestAlertId
+		latestAlertIsActive
+		lastEvaluationEndOn
+		lastEvaluationStartOn
+		lastSuccessfulEvaluationEndOn
+		lastFailedEvaluationEndOn
+		updatedOn
+		evaluationStep
+		remediationSteps
+		tags
+		ignorePreviousResults
+		resourceGroupId
+		questionId
+		questionName
+		templates
 		operations {
 			when
 			actions
+		}
+		labels {
+			labelName
+			labelValue
 		}
 	}
 }
