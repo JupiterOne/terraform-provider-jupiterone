@@ -72,3 +72,10 @@ jobs:
       - name: Test
         run: |
           make test
+
+      - name: Acceptance Tests
+        run: make testacc
+        env:
+          JUPITERONE_ACCOUNT_ID: ${{ secrets.JUPITERONE_ACCOUNT_ID }}
+          JUPITERONE_API_KEY: ${{ secrets.JUPITERONE_API_KEY }}
+          JUPITERONE_REGION: ${{ secrets.JUPITERONE_REGION }}

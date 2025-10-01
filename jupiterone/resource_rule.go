@@ -131,6 +131,7 @@ func tagsToStringSlice(tagsList types.List) []string {
 // Returns nil if the list is null (field not set) to preserve existing value
 // Returns empty slice if the list is empty (explicitly clearing the field)
 func outputsToStringSlice(outputsList types.List) []string {
+	// Need to explicitly return nil to prevent perpetual diffs and allow the data to be sent as the value - output: null to the graphql api
 	if outputsList.IsNull() || outputsList.IsUnknown() {
 		return nil
 	}
@@ -145,12 +146,13 @@ func outputsToStringSlice(outputsList types.List) []string {
 }
 
 func labelsToClientLabels(labelsList types.List) []client.RuleInstanceLabelInput {
+	// Need to return an empty slice instead of nil to prevent perpetual diffs and allow the data to be sent as an empty list to the graphql api
 	if labelsList.IsNull() || labelsList.IsUnknown() {
 		return []client.RuleInstanceLabelInput{}
 	}
 
 	elements := labelsList.Elements()
-	// Return nil if the list is empty to clear labels via null value
+	// Need to return an empty slice instead of nil to prevent perpetual diffs and allow the data to be sent as an empty list to the graphql api
 	if len(elements) == 0 {
 		return []client.RuleInstanceLabelInput{}
 	}
