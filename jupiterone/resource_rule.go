@@ -12,6 +12,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/resourcevalidator"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
@@ -176,6 +177,72 @@ func labelsToClientLabels(labelsList types.List) []client.RuleInstanceLabelInput
 	}
 
 	return labels
+}
+
+// convertLabelsToTerraformList converts API labels to a Terraform types.List.
+// Returns an error if there were diagnostic errors during conversion.
+func convertLabelsToTerraformList(labels any) (types.List, error) {
+	// Use reflection to handle different label types from generated client
+	labelsSlice := reflect.ValueOf(labels)
+
+	if labelsSlice.Len() > 0 {
+		labelObjects := make([]attr.Value, labelsSlice.Len())
+		for i := 0; i < labelsSlice.Len(); i++ {
+			label := labelsSlice.Index(i)
+			labelName := label.FieldByName("LabelName").String()
+			labelValue := label.FieldByName("LabelValue").String()
+
+			labelMap := map[string]attr.Value{
+				"label_name":  types.StringValue(labelName),
+				"label_value": types.StringValue(labelValue),
+			}
+			labelObj, diags := types.ObjectValue(map[string]attr.Type{
+				"label_name":  types.StringType,
+				"label_value": types.StringType,
+			}, labelMap)
+			if diags.HasError() {
+				return types.List{}, fmt.Errorf("failed to create label object: %v", diags.Errors())
+			}
+			labelObjects[i] = labelObj
+		}
+		labelsListValue, diags := types.ListValue(types.ObjectType{
+			AttrTypes: map[string]attr.Type{
+				"label_name":  types.StringType,
+				"label_value": types.StringType,
+			},
+		}, labelObjects)
+		if diags.HasError() {
+			return types.List{}, fmt.Errorf("failed to create labels list: %v", diags.Errors())
+		}
+		return labelsListValue, nil
+	}
+
+	// Set to empty list instead of nil
+	emptyLabelsList, diags := types.ListValue(types.ObjectType{
+		AttrTypes: map[string]attr.Type{
+			"label_name":  types.StringType,
+			"label_value": types.StringType,
+		},
+	}, []attr.Value{})
+	if diags.HasError() {
+		return types.List{}, fmt.Errorf("failed to create empty labels list: %v", diags.Errors())
+	}
+	return emptyLabelsList, nil
+}
+
+// ensureLabelsInitialized sets the Labels field to an empty list if it's unknown or null.
+// This prevents perpetual diffs when the API returns an empty labels array.
+func ensureLabelsInitialized(labels types.List) (types.List, diag.Diagnostics) {
+	if labels.IsUnknown() || labels.IsNull() {
+		emptyLabelsList, diags := types.ListValue(types.ObjectType{
+			AttrTypes: map[string]attr.Type{
+				"label_name":  types.StringType,
+				"label_value": types.StringType,
+			},
+		}, []attr.Value{})
+		return emptyLabelsList, diags
+	}
+	return labels, nil
 }
 
 // RuleModel represents the terraform representation of the rule
@@ -529,19 +596,11 @@ func (r *QuestionRuleResource) Create(ctx context.Context, req resource.CreateRe
 	data.Id = types.StringValue(c.GetId())
 	data.Version = types.Int64Value(int64(c.GetVersion()))
 
-	// Set computed Labels field if it's unknown or null
-	if data.Labels.IsUnknown() || data.Labels.IsNull() {
-		emptyLabelsList, diags := types.ListValue(types.ObjectType{
-			AttrTypes: map[string]attr.Type{
-				"label_name":  types.StringType,
-				"label_value": types.StringType,
-			},
-		}, []attr.Value{})
-		if diags.HasError() {
-			resp.Diagnostics.Append(diags...)
-			return
-		}
-		data.Labels = emptyLabelsList
+	var diags diag.Diagnostics
+	data.Labels, diags = ensureLabelsInitialized(data.Labels)
+	if diags.HasError() {
+		resp.Diagnostics.Append(diags...)
+		return
 	}
 
 	tflog.Trace(ctx, "Created rule",
@@ -679,48 +738,12 @@ func (r *QuestionRuleResource) Read(ctx context.Context, req resource.ReadReques
 	}
 
 	// Convert labels to types.List
-	if len(rule.Labels) > 0 {
-		labelObjects := make([]attr.Value, len(rule.Labels))
-		for i, label := range rule.Labels {
-			labelMap := map[string]attr.Value{
-				"label_name":  types.StringValue(label.LabelName),
-				"label_value": types.StringValue(label.LabelValue),
-			}
-			labelObj, diags := types.ObjectValue(map[string]attr.Type{
-				"label_name":  types.StringType,
-				"label_value": types.StringType,
-			}, labelMap)
-			if diags.HasError() {
-				resp.Diagnostics.Append(diags...)
-				return
-			}
-			labelObjects[i] = labelObj
-		}
-		labelsListValue, diags := types.ListValue(types.ObjectType{
-			AttrTypes: map[string]attr.Type{
-				"label_name":  types.StringType,
-				"label_value": types.StringType,
-			},
-		}, labelObjects)
-		if diags.HasError() {
-			resp.Diagnostics.Append(diags...)
-			return
-		}
-		data.Labels = labelsListValue
-	} else {
-		// Set to empty list instead of nil
-		emptyLabelsList, diags := types.ListValue(types.ObjectType{
-			AttrTypes: map[string]attr.Type{
-				"label_name":  types.StringType,
-				"label_value": types.StringType,
-			},
-		}, []attr.Value{})
-		if diags.HasError() {
-			resp.Diagnostics.Append(diags...)
-			return
-		}
-		data.Labels = emptyLabelsList
+	labelsListValue, err := convertLabelsToTerraformList(rule.Labels)
+	if err != nil {
+		resp.Diagnostics.AddError("failed to convert labels", err.Error())
+		return
 	}
+	data.Labels = labelsListValue
 
 	// Save updated data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
@@ -784,19 +807,11 @@ func (r *QuestionRuleResource) Update(ctx context.Context, req resource.UpdateRe
 
 	data.Version = types.Int64Value(int64(update.GetVersion()))
 
-	// Set computed Labels field if it's unknown or null
-	if data.Labels.IsUnknown() || data.Labels.IsNull() {
-		emptyLabelsList, diags := types.ListValue(types.ObjectType{
-			AttrTypes: map[string]attr.Type{
-				"label_name":  types.StringType,
-				"label_value": types.StringType,
-			},
-		}, []attr.Value{})
-		if diags.HasError() {
-			resp.Diagnostics.Append(diags...)
-			return
-		}
-		data.Labels = emptyLabelsList
+	var diags diag.Diagnostics
+	data.Labels, diags = ensureLabelsInitialized(data.Labels)
+	if diags.HasError() {
+		resp.Diagnostics.Append(diags...)
+		return
 	}
 
 	tflog.Trace(ctx, "Updated rule",

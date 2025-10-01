@@ -147,7 +147,7 @@ func dashboardDestroyHelper(ctx context.Context, id string, qlient graphql.Clien
 			return retry.RetryableError(fmt.Errorf("Dashboard still exists (id=%q)", id))
 		}
 
-		if strings.Contains(err.Error(), "does not exist") || strings.Contains(err.Error(), "not found") {
+		if strings.Contains(err.Error(), fmt.Sprintf("Dashboard with id %s not found", id)) {
 			return nil
 		}
 

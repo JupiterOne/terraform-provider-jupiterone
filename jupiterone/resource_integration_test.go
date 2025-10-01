@@ -92,7 +92,7 @@ func testAccCheckIntegrationDestroy(ctx context.Context, qlient graphql.Client) 
 				return fmt.Errorf("Integration still exists")
 			}
 
-			if !strings.Contains(err.Error(), "does not exist") && !strings.Contains(err.Error(), "not found") {
+			if !strings.Contains(err.Error(), "Integration instance not found") {
 				return err
 			}
 		}
