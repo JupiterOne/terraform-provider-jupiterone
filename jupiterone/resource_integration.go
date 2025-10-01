@@ -170,6 +170,8 @@ func (r *IntegrationResource) Read(ctx context.Context, req resource.ReadRequest
 	// If it does, preserve the existing state value to avoid false diffs
 	if !strings.Contains(string(configJSON), "***masked***") {
 		data.Config = types.StringValue(string(configJSON))
+	} else {
+		resp.Diagnostics.AddWarning("Config contains masked values", "Config contains masked values, so it will not be updated in terraform state to avoid false diffs.")
 	}
 
 	if response.IntegrationInstance.SourceIntegrationInstanceId != "" {
