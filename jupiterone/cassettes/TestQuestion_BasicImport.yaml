@@ -46,22 +46,10 @@ interactions:
                 - same-origin
             Cross-Origin-Resource-Policy:
                 - same-origin
-            Expect-Ct:
-                - max-age=0
             Origin-Agent-Cluster:
                 - ?1
-            Ratelimit-Limit:
-                - "1000"
-            Ratelimit-Remaining:
-                - "999"
-            Ratelimit-Requested:
-                - "1"
-            Ratelimit-Reset:
-                - "1"
             Referrer-Policy:
                 - no-referrer
-            Strict-Transport-Security:
-                - max-age=15552000; includeSubDomains
             Vary:
                 - Origin
             X-Content-Type-Options:
@@ -124,22 +112,10 @@ interactions:
                 - same-origin
             Cross-Origin-Resource-Policy:
                 - same-origin
-            Expect-Ct:
-                - max-age=0
             Origin-Agent-Cluster:
                 - ?1
-            Ratelimit-Limit:
-                - "1000"
-            Ratelimit-Remaining:
-                - "999"
-            Ratelimit-Requested:
-                - "1"
-            Ratelimit-Reset:
-                - "1"
             Referrer-Policy:
                 - no-referrer
-            Strict-Transport-Security:
-                - max-age=15552000; includeSubDomains
             Vary:
                 - Origin
             X-Content-Type-Options:

@@ -16,8 +16,7 @@ import (
 func TestIntegration_Basic(t *testing.T) {
 	ctx := context.TODO()
 
-	recordingClient, directClient, cleanup := setupTestClients(ctx, t)
-	defer cleanup(t)
+	recordingClient, directClient, cleanup := setupTestClientsWithReplaySupport(ctx, t)
 
 	resourceName := "jupiterone_integration.test"
 	integrationName := "tf-provider-acc-test-integration"
@@ -54,14 +53,11 @@ func TestIntegration_Basic(t *testing.T) {
 			},
 		},
 	})
+	defer cleanup(t)
 }
 
 func testAccCheckIntegrationExists(ctx context.Context, resourceName string, qlient graphql.Client) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		// Skip this check during replay (when qlient would have originally been nil)
-		if qlient == nil {
-			return nil
-		}
 
 		rs, ok := s.RootModule().Resources[resourceName]
 		if !ok {
@@ -83,10 +79,6 @@ func testAccCheckIntegrationExists(ctx context.Context, resourceName string, qli
 
 func testAccCheckIntegrationDestroy(ctx context.Context, qlient graphql.Client) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		// Skip this check during replay (when qlient would have originally been nil)
-		if qlient == nil {
-			return nil
-		}
 
 		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "jupiterone_integration" {

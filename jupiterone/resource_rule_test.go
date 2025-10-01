@@ -23,8 +23,7 @@ var testRuleResourceName = "jupiterone_rule.test"
 func TestInlineRuleInstance_Basic(t *testing.T) {
 	ctx := context.TODO()
 
-	recordingClient, directClient, cleanup := setupTestClients(ctx, t)
-	defer cleanup(t)
+	recordingClient, directClient, cleanup := setupTestClientsWithReplaySupport(ctx, t)
 
 	ruleName := "tf-provider-test-rule"
 	operations := getValidOperations()
@@ -92,13 +91,13 @@ func TestInlineRuleInstance_Basic(t *testing.T) {
 			},
 		},
 	})
+	defer cleanup(t)
 }
 
 func TestInlineRuleInstance_BasicImport(t *testing.T) {
 	ctx := context.TODO()
 
-	recordingClient, directClient, cleanup := setupTestClients(ctx, t)
-	defer cleanup(t)
+	recordingClient, directClient, cleanup := setupTestClientsWithReplaySupport(ctx, t)
 
 	ruleName := "tf-provider-test-rule"
 	resource.Test(t, resource.TestCase{
@@ -110,9 +109,8 @@ func TestInlineRuleInstance_BasicImport(t *testing.T) {
 				ImportState:        true,
 				ImportStatePersist: true, // set to true to do destroy the created rule
 				ResourceName:       testRuleResourceName,
-				// must use recordingClient for createTestRule to return the uuid
-				ImportStateId: createTestRule(ctx, t, recordingClient, ruleName),
-				Config:        testInlineRuleInstanceBasicConfigWithOperations(ruleName, getValidOperationsWithoutFilter()),
+				ImportStateId:      createTestRule(ctx, t, directClient, ruleName),
+				Config:             testInlineRuleInstanceBasicConfigWithOperations(ruleName, getValidOperationsWithoutFilter()),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckRuleExists(ctx, testRuleResourceName, directClient),
 					resource.TestCheckResourceAttrSet(testRuleResourceName, "id"),
@@ -140,13 +138,13 @@ func TestInlineRuleInstance_BasicImport(t *testing.T) {
 			},
 		},
 	})
+	defer cleanup(t)
 }
 
 func TestReferencedQuestionRule_Basic(t *testing.T) {
 	ctx := context.TODO()
 
-	recordingClient, directClient, cleanup := setupTestClients(ctx, t)
-	defer cleanup(t)
+	recordingClient, directClient, cleanup := setupTestClientsWithReplaySupport(ctx, t)
 
 	ruleName := "tf-provider-test-rule"
 	operations := getValidOperations()
@@ -176,13 +174,13 @@ func TestReferencedQuestionRule_Basic(t *testing.T) {
 			},
 		},
 	})
+	defer cleanup(t)
 }
 
 func TestRuleInstance_Config_Errors(t *testing.T) {
 	ctx := context.TODO()
 
-	recordingClient, _, cleanup := setupTestClients(ctx, t)
-	defer cleanup(t)
+	recordingClient, _, cleanup := setupTestClientsWithReplaySupport(ctx, t)
 
 	rName := acctest.RandomWithPrefix("tf-acc-test")
 	resource.ParallelTest(t, resource.TestCase{
@@ -215,6 +213,7 @@ func TestRuleInstance_Config_Errors(t *testing.T) {
 			},
 		},
 	})
+	defer cleanup(t)
 }
 
 // createTestRule directly creates a rule for testing. Because the id must be
@@ -257,9 +256,6 @@ func testAccCheckRuleExists(ctx context.Context, ruleName string, qlient graphql
 }
 
 func ruleExistsHelper(ctx context.Context, id string, qlient graphql.Client) error {
-	if qlient == nil {
-		return nil
-	}
 
 	duration := 10 * time.Second
 	err := retry.RetryContext(ctx, duration, func() *retry.RetryError {
@@ -269,7 +265,7 @@ func ruleExistsHelper(ctx context.Context, id string, qlient graphql.Client) err
 			return nil
 		}
 
-		if strings.Contains(err.Error(), "Rule instance does not exist.") {
+		if strings.Contains(err.Error(), "Rule instance does not exist.") || strings.Contains(err.Error(), "does not exist") || strings.Contains(err.Error(), "not found") {
 			return retry.RetryableError(fmt.Errorf("Rule instance does not exist (id=%q)", id))
 		}
 
@@ -296,9 +292,6 @@ func testAccCheckRuleInstanceDestroy(ctx context.Context, qlient graphql.Client)
 }
 
 func ruleInstanceDestroyHelper(ctx context.Context, id string, qlient graphql.Client) error {
-	if qlient == nil {
-		return nil
-	}
 
 	duration := 10 * time.Second
 	err := retry.RetryContext(ctx, duration, func() *retry.RetryError {
@@ -308,7 +301,7 @@ func ruleInstanceDestroyHelper(ctx context.Context, id string, qlient graphql.Cl
 			return retry.RetryableError(fmt.Errorf("Rule instance still exists (id=%q)", id))
 		}
 
-		if strings.Contains(err.Error(), "Rule instance does not exist.") {
+		if strings.Contains(err.Error(), "Rule instance does not exist") || strings.Contains(err.Error(), "does not exist") {
 			return nil
 		}
 

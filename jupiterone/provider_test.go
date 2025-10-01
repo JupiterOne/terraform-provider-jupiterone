@@ -47,6 +47,12 @@ func stripHeadersFromCassetteInteraction(i *cassette.Interaction) error {
 	i.Response.Headers.Del("X-Amz-Cf-Id")
 	i.Response.Headers.Del("X-Amz-Cf-Pop")
 	i.Response.Headers.Del("X-Cache")
+	i.Response.Headers.Del("Ratelimit-Limit")
+	i.Response.Headers.Del("Ratelimit-Remaining")
+	i.Response.Headers.Del("Ratelimit-Requested")
+	i.Response.Headers.Del("Ratelimit-Reset")
+	i.Response.Headers.Del("Expect-Ct")
+	i.Response.Headers.Del("Strict-Transport-Security")
 
 	return nil
 }
@@ -56,7 +62,7 @@ func setupCassettes(name string) (*recorder.Recorder, func(t *testing.T)) {
 		CassetteName:       fmt.Sprintf("cassettes/%s", name),
 		Mode:               recorder.ModeRecordOnce,
 		RealTransport:      cleanhttp.DefaultTransport(),
-		SkipRequestLatency: true,
+		SkipRequestLatency: false,
 	})
 	if err != nil {
 		log.Fatal(err)
@@ -77,10 +83,9 @@ func setupCassettes(name string) (*recorder.Recorder, func(t *testing.T)) {
 
 // setupTestClients creates clients to be used during tests
 //
-//   - recorderClient: uses a go-vcr recorder for replaying API responses
-//   - directClient: nil when not recording, for sending requests directly J1 for
-//     requests that verify the state during recording, but don't need to be
-//     repeated during replays.
+//   - recordingClient: uses a go-vcr recorder for recording/replaying API responses
+//   - directClient: uses the same recorder during recording/replay to ensure
+//     all test interactions are captured in cassettes
 func setupTestClients(ctx context.Context, t *testing.T) (recordingClient graphql.Client, directClient graphql.Client, cleanup func(t *testing.T)) {
 	var recorder *recorder.Recorder
 
@@ -89,7 +94,26 @@ func setupTestClients(ctx context.Context, t *testing.T) (recordingClient graphq
 	recordingClient = client.NewQlientFromEnv(ctx, recorder)
 
 	if recorder.IsRecording() {
-		directClient = client.NewQlientFromEnv(ctx, nil)
+		directClient = client.NewQlientFromEnv(ctx, recorder)
+		t.Log("Recording cassettes")
+	}
+
+	return
+}
+
+func setupTestClientsWithReplaySupport(ctx context.Context, t *testing.T) (recordingClient graphql.Client, directClient graphql.Client, cleanup func(t *testing.T)) {
+	var recorder *recorder.Recorder
+
+	recorder, cleanup = setupCassettes(t.Name())
+
+	recordingClient = client.NewQlientFromEnv(ctx, recorder)
+
+	if recorder.IsRecording() {
+		directClient = client.NewQlientFromEnv(ctx, recorder)
+		t.Log("Recording cassettes")
+	} else {
+		directClient = recordingClient
+		t.Log("Replaying cassettes")
 	}
 
 	return
