@@ -30,7 +30,7 @@ interactions:
         content_length: 104
         uncompressed: false
         body: |
-            {"data":{"createDashboard":{"name":"TF Test Dashboard 2","id":"054131e9-1b04-42d8-a5a3-56a4d8d5795a"}}}
+            {"data":{"createDashboard":{"name":"TF Test Dashboard 2","id":"0f2bebda-b436-41c3-b913-4d6465f6c085"}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -66,7 +66,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 231.716708ms
+        duration: 295.838875ms
     - id: 1
       request:
         proto: HTTP/1.1
@@ -78,7 +78,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nmutation CreateDashboardParameter ($input: CreateDashboardParameterInput!) {\n\tcreateDashboardParameter(input: $input) {\n\t\tdashboardId\n\t\taccountId\n\t\tid\n\t\tlabel\n\t\tname\n\t\toptions\n\t\tvalueType\n\t\ttype\n\t\tdefault\n\t\tdisableCustomInput\n\t\trequireValue\n\t}\n}\n","variables":{"input":{"dashboardId":"054131e9-1b04-42d8-a5a3-56a4d8d5795a","label":"Test Parameter","name":"testParameter","valueType":"string","options":null,"type":"QUERY_VARIABLE","default":"","disableCustomInput":false,"requireValue":true}},"operationName":"CreateDashboardParameter"}'
+        body: '{"query":"\nmutation CreateDashboardParameter ($input: CreateDashboardParameterInput!) {\n\tcreateDashboardParameter(input: $input) {\n\t\tdashboardId\n\t\taccountId\n\t\tid\n\t\tlabel\n\t\tname\n\t\toptions\n\t\tvalueType\n\t\ttype\n\t\tdefault\n\t\tdisableCustomInput\n\t\trequireValue\n\t}\n}\n","variables":{"input":{"dashboardId":"0f2bebda-b436-41c3-b913-4d6465f6c085","label":"Test Parameter","name":"testParameter","valueType":"string","options":null,"type":"QUERY_VARIABLE","default":"","disableCustomInput":false,"requireValue":true}},"operationName":"CreateDashboardParameter"}'
         form: {}
         headers:
             Cache-Control:
@@ -96,7 +96,7 @@ interactions:
         content_length: 324
         uncompressed: false
         body: |
-            {"data":{"createDashboardParameter":{"dashboardId":"054131e9-1b04-42d8-a5a3-56a4d8d5795a","accountId":"j1","id":"71fd2c2b-2b27-4577-a602-b295e5c9a904","label":"Test Parameter","name":"testParameter","options":null,"valueType":"string","type":"QUERY_VARIABLE","default":null,"disableCustomInput":false,"requireValue":true}}}
+            {"data":{"createDashboardParameter":{"dashboardId":"0f2bebda-b436-41c3-b913-4d6465f6c085","accountId":"j1","id":"0f8d7982-ba46-49aa-ae23-662af8a227e6","label":"Test Parameter","name":"testParameter","options":null,"valueType":"string","type":"QUERY_VARIABLE","default":null,"disableCustomInput":false,"requireValue":true}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -132,7 +132,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 224.501125ms
+        duration: 288.834167ms
     - id: 2
       request:
         proto: HTTP/1.1
@@ -144,7 +144,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery DashboardParameter ($id: ID!) {\n\tdashboardParameter(id: $id) {\n\t\tdashboardId\n\t\taccountId\n\t\tid\n\t\tlabel\n\t\tname\n\t\toptions\n\t\tvalueType\n\t\ttype\n\t\tdefault\n\t\tdisableCustomInput\n\t\trequireValue\n\t}\n}\n","variables":{"id":"71fd2c2b-2b27-4577-a602-b295e5c9a904"},"operationName":"DashboardParameter"}'
+        body: '{"query":"\nquery DashboardParameter ($id: ID!) {\n\tdashboardParameter(id: $id) {\n\t\tdashboardId\n\t\taccountId\n\t\tid\n\t\tlabel\n\t\tname\n\t\toptions\n\t\tvalueType\n\t\ttype\n\t\tdefault\n\t\tdisableCustomInput\n\t\trequireValue\n\t}\n}\n","variables":{"id":"0f8d7982-ba46-49aa-ae23-662af8a227e6"},"operationName":"DashboardParameter"}'
         form: {}
         headers:
             Cache-Control:
@@ -162,7 +162,7 @@ interactions:
         content_length: 318
         uncompressed: false
         body: |
-            {"data":{"dashboardParameter":{"dashboardId":"054131e9-1b04-42d8-a5a3-56a4d8d5795a","accountId":"j1","id":"71fd2c2b-2b27-4577-a602-b295e5c9a904","label":"Test Parameter","name":"testParameter","options":null,"valueType":"string","type":"QUERY_VARIABLE","default":null,"disableCustomInput":false,"requireValue":true}}}
+            {"data":{"dashboardParameter":{"dashboardId":"0f2bebda-b436-41c3-b913-4d6465f6c085","accountId":"j1","id":"0f8d7982-ba46-49aa-ae23-662af8a227e6","label":"Test Parameter","name":"testParameter","options":null,"valueType":"string","type":"QUERY_VARIABLE","default":null,"disableCustomInput":false,"requireValue":true}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -198,7 +198,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 186.93875ms
+        duration: 195.791083ms
     - id: 3
       request:
         proto: HTTP/1.1
@@ -210,7 +210,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetDashboard ($dashboardId: String!) {\n\tgetDashboard(dashboardId: $dashboardId) {\n\t\tid\n\t\tname\n\t\tresourceGroupId\n\t}\n}\n","variables":{"dashboardId":"054131e9-1b04-42d8-a5a3-56a4d8d5795a"},"operationName":"GetDashboard"}'
+        body: '{"query":"\nquery GetDashboard ($dashboardId: String!) {\n\tgetDashboard(dashboardId: $dashboardId) {\n\t\tid\n\t\tname\n\t\tresourceGroupId\n\t}\n}\n","variables":{"dashboardId":"0f2bebda-b436-41c3-b913-4d6465f6c085"},"operationName":"GetDashboard"}'
         form: {}
         headers:
             Cache-Control:
@@ -228,7 +228,7 @@ interactions:
         content_length: 124
         uncompressed: false
         body: |
-            {"data":{"getDashboard":{"id":"054131e9-1b04-42d8-a5a3-56a4d8d5795a","name":"TF Test Dashboard 2","resourceGroupId":null}}}
+            {"data":{"getDashboard":{"id":"0f2bebda-b436-41c3-b913-4d6465f6c085","name":"TF Test Dashboard 2","resourceGroupId":null}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -264,7 +264,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 180.696958ms
+        duration: 187.066667ms
     - id: 4
       request:
         proto: HTTP/1.1
@@ -276,7 +276,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery DashboardParameter ($id: ID!) {\n\tdashboardParameter(id: $id) {\n\t\tdashboardId\n\t\taccountId\n\t\tid\n\t\tlabel\n\t\tname\n\t\toptions\n\t\tvalueType\n\t\ttype\n\t\tdefault\n\t\tdisableCustomInput\n\t\trequireValue\n\t}\n}\n","variables":{"id":"71fd2c2b-2b27-4577-a602-b295e5c9a904"},"operationName":"DashboardParameter"}'
+        body: '{"query":"\nquery DashboardParameter ($id: ID!) {\n\tdashboardParameter(id: $id) {\n\t\tdashboardId\n\t\taccountId\n\t\tid\n\t\tlabel\n\t\tname\n\t\toptions\n\t\tvalueType\n\t\ttype\n\t\tdefault\n\t\tdisableCustomInput\n\t\trequireValue\n\t}\n}\n","variables":{"id":"0f8d7982-ba46-49aa-ae23-662af8a227e6"},"operationName":"DashboardParameter"}'
         form: {}
         headers:
             Cache-Control:
@@ -294,7 +294,7 @@ interactions:
         content_length: 318
         uncompressed: false
         body: |
-            {"data":{"dashboardParameter":{"dashboardId":"054131e9-1b04-42d8-a5a3-56a4d8d5795a","accountId":"j1","id":"71fd2c2b-2b27-4577-a602-b295e5c9a904","label":"Test Parameter","name":"testParameter","options":null,"valueType":"string","type":"QUERY_VARIABLE","default":null,"disableCustomInput":false,"requireValue":true}}}
+            {"data":{"dashboardParameter":{"dashboardId":"0f2bebda-b436-41c3-b913-4d6465f6c085","accountId":"j1","id":"0f8d7982-ba46-49aa-ae23-662af8a227e6","label":"Test Parameter","name":"testParameter","options":null,"valueType":"string","type":"QUERY_VARIABLE","default":null,"disableCustomInput":false,"requireValue":true}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -330,7 +330,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 195.338958ms
+        duration: 186.466ms
     - id: 5
       request:
         proto: HTTP/1.1
@@ -342,7 +342,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetDashboard ($dashboardId: String!) {\n\tgetDashboard(dashboardId: $dashboardId) {\n\t\tid\n\t\tname\n\t\tresourceGroupId\n\t}\n}\n","variables":{"dashboardId":"054131e9-1b04-42d8-a5a3-56a4d8d5795a"},"operationName":"GetDashboard"}'
+        body: '{"query":"\nquery GetDashboard ($dashboardId: String!) {\n\tgetDashboard(dashboardId: $dashboardId) {\n\t\tid\n\t\tname\n\t\tresourceGroupId\n\t}\n}\n","variables":{"dashboardId":"0f2bebda-b436-41c3-b913-4d6465f6c085"},"operationName":"GetDashboard"}'
         form: {}
         headers:
             Cache-Control:
@@ -360,7 +360,7 @@ interactions:
         content_length: 124
         uncompressed: false
         body: |
-            {"data":{"getDashboard":{"id":"054131e9-1b04-42d8-a5a3-56a4d8d5795a","name":"TF Test Dashboard 2","resourceGroupId":null}}}
+            {"data":{"getDashboard":{"id":"0f2bebda-b436-41c3-b913-4d6465f6c085","name":"TF Test Dashboard 2","resourceGroupId":null}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -396,7 +396,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 179.312542ms
+        duration: 180.080625ms
     - id: 6
       request:
         proto: HTTP/1.1
@@ -408,7 +408,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery DashboardParameter ($id: ID!) {\n\tdashboardParameter(id: $id) {\n\t\tdashboardId\n\t\taccountId\n\t\tid\n\t\tlabel\n\t\tname\n\t\toptions\n\t\tvalueType\n\t\ttype\n\t\tdefault\n\t\tdisableCustomInput\n\t\trequireValue\n\t}\n}\n","variables":{"id":"71fd2c2b-2b27-4577-a602-b295e5c9a904"},"operationName":"DashboardParameter"}'
+        body: '{"query":"\nquery DashboardParameter ($id: ID!) {\n\tdashboardParameter(id: $id) {\n\t\tdashboardId\n\t\taccountId\n\t\tid\n\t\tlabel\n\t\tname\n\t\toptions\n\t\tvalueType\n\t\ttype\n\t\tdefault\n\t\tdisableCustomInput\n\t\trequireValue\n\t}\n}\n","variables":{"id":"0f8d7982-ba46-49aa-ae23-662af8a227e6"},"operationName":"DashboardParameter"}'
         form: {}
         headers:
             Cache-Control:
@@ -426,7 +426,7 @@ interactions:
         content_length: 318
         uncompressed: false
         body: |
-            {"data":{"dashboardParameter":{"dashboardId":"054131e9-1b04-42d8-a5a3-56a4d8d5795a","accountId":"j1","id":"71fd2c2b-2b27-4577-a602-b295e5c9a904","label":"Test Parameter","name":"testParameter","options":null,"valueType":"string","type":"QUERY_VARIABLE","default":null,"disableCustomInput":false,"requireValue":true}}}
+            {"data":{"dashboardParameter":{"dashboardId":"0f2bebda-b436-41c3-b913-4d6465f6c085","accountId":"j1","id":"0f8d7982-ba46-49aa-ae23-662af8a227e6","label":"Test Parameter","name":"testParameter","options":null,"valueType":"string","type":"QUERY_VARIABLE","default":null,"disableCustomInput":false,"requireValue":true}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -462,7 +462,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 189.76125ms
+        duration: 183.631459ms
     - id: 7
       request:
         proto: HTTP/1.1
@@ -474,7 +474,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery DashboardParameter ($id: ID!) {\n\tdashboardParameter(id: $id) {\n\t\tdashboardId\n\t\taccountId\n\t\tid\n\t\tlabel\n\t\tname\n\t\toptions\n\t\tvalueType\n\t\ttype\n\t\tdefault\n\t\tdisableCustomInput\n\t\trequireValue\n\t}\n}\n","variables":{"id":"71fd2c2b-2b27-4577-a602-b295e5c9a904"},"operationName":"DashboardParameter"}'
+        body: '{"query":"\nquery DashboardParameter ($id: ID!) {\n\tdashboardParameter(id: $id) {\n\t\tdashboardId\n\t\taccountId\n\t\tid\n\t\tlabel\n\t\tname\n\t\toptions\n\t\tvalueType\n\t\ttype\n\t\tdefault\n\t\tdisableCustomInput\n\t\trequireValue\n\t}\n}\n","variables":{"id":"0f8d7982-ba46-49aa-ae23-662af8a227e6"},"operationName":"DashboardParameter"}'
         form: {}
         headers:
             Cache-Control:
@@ -492,7 +492,7 @@ interactions:
         content_length: 318
         uncompressed: false
         body: |
-            {"data":{"dashboardParameter":{"dashboardId":"054131e9-1b04-42d8-a5a3-56a4d8d5795a","accountId":"j1","id":"71fd2c2b-2b27-4577-a602-b295e5c9a904","label":"Test Parameter","name":"testParameter","options":null,"valueType":"string","type":"QUERY_VARIABLE","default":null,"disableCustomInput":false,"requireValue":true}}}
+            {"data":{"dashboardParameter":{"dashboardId":"0f2bebda-b436-41c3-b913-4d6465f6c085","accountId":"j1","id":"0f8d7982-ba46-49aa-ae23-662af8a227e6","label":"Test Parameter","name":"testParameter","options":null,"valueType":"string","type":"QUERY_VARIABLE","default":null,"disableCustomInput":false,"requireValue":true}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -528,7 +528,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 192.500542ms
+        duration: 193.097542ms
     - id: 8
       request:
         proto: HTTP/1.1
@@ -540,7 +540,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetDashboard ($dashboardId: String!) {\n\tgetDashboard(dashboardId: $dashboardId) {\n\t\tid\n\t\tname\n\t\tresourceGroupId\n\t}\n}\n","variables":{"dashboardId":"054131e9-1b04-42d8-a5a3-56a4d8d5795a"},"operationName":"GetDashboard"}'
+        body: '{"query":"\nquery GetDashboard ($dashboardId: String!) {\n\tgetDashboard(dashboardId: $dashboardId) {\n\t\tid\n\t\tname\n\t\tresourceGroupId\n\t}\n}\n","variables":{"dashboardId":"0f2bebda-b436-41c3-b913-4d6465f6c085"},"operationName":"GetDashboard"}'
         form: {}
         headers:
             Cache-Control:
@@ -558,7 +558,7 @@ interactions:
         content_length: 124
         uncompressed: false
         body: |
-            {"data":{"getDashboard":{"id":"054131e9-1b04-42d8-a5a3-56a4d8d5795a","name":"TF Test Dashboard 2","resourceGroupId":null}}}
+            {"data":{"getDashboard":{"id":"0f2bebda-b436-41c3-b913-4d6465f6c085","name":"TF Test Dashboard 2","resourceGroupId":null}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -594,7 +594,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 199.292041ms
+        duration: 175.868417ms
     - id: 9
       request:
         proto: HTTP/1.1
@@ -606,7 +606,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery DashboardParameter ($id: ID!) {\n\tdashboardParameter(id: $id) {\n\t\tdashboardId\n\t\taccountId\n\t\tid\n\t\tlabel\n\t\tname\n\t\toptions\n\t\tvalueType\n\t\ttype\n\t\tdefault\n\t\tdisableCustomInput\n\t\trequireValue\n\t}\n}\n","variables":{"id":"71fd2c2b-2b27-4577-a602-b295e5c9a904"},"operationName":"DashboardParameter"}'
+        body: '{"query":"\nquery DashboardParameter ($id: ID!) {\n\tdashboardParameter(id: $id) {\n\t\tdashboardId\n\t\taccountId\n\t\tid\n\t\tlabel\n\t\tname\n\t\toptions\n\t\tvalueType\n\t\ttype\n\t\tdefault\n\t\tdisableCustomInput\n\t\trequireValue\n\t}\n}\n","variables":{"id":"0f8d7982-ba46-49aa-ae23-662af8a227e6"},"operationName":"DashboardParameter"}'
         form: {}
         headers:
             Cache-Control:
@@ -624,7 +624,7 @@ interactions:
         content_length: 318
         uncompressed: false
         body: |
-            {"data":{"dashboardParameter":{"dashboardId":"054131e9-1b04-42d8-a5a3-56a4d8d5795a","accountId":"j1","id":"71fd2c2b-2b27-4577-a602-b295e5c9a904","label":"Test Parameter","name":"testParameter","options":null,"valueType":"string","type":"QUERY_VARIABLE","default":null,"disableCustomInput":false,"requireValue":true}}}
+            {"data":{"dashboardParameter":{"dashboardId":"0f2bebda-b436-41c3-b913-4d6465f6c085","accountId":"j1","id":"0f8d7982-ba46-49aa-ae23-662af8a227e6","label":"Test Parameter","name":"testParameter","options":null,"valueType":"string","type":"QUERY_VARIABLE","default":null,"disableCustomInput":false,"requireValue":true}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -660,7 +660,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 182.220875ms
+        duration: 195.0135ms
     - id: 10
       request:
         proto: HTTP/1.1
@@ -672,7 +672,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nmutation DeleteDashboardParameter ($id: ID!) {\n\tdeleteDashboardParameter(id: $id) {\n\t\tsuccess\n\t}\n}\n","variables":{"id":"71fd2c2b-2b27-4577-a602-b295e5c9a904"},"operationName":"DeleteDashboardParameter"}'
+        body: '{"query":"\nmutation DeleteDashboardParameter ($id: ID!) {\n\tdeleteDashboardParameter(id: $id) {\n\t\tsuccess\n\t}\n}\n","variables":{"id":"0f8d7982-ba46-49aa-ae23-662af8a227e6"},"operationName":"DeleteDashboardParameter"}'
         form: {}
         headers:
             Cache-Control:
@@ -726,7 +726,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 223.68875ms
+        duration: 211.748292ms
     - id: 11
       request:
         proto: HTTP/1.1
@@ -738,7 +738,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nmutation DeleteDashboard ($dashboardId: String!) {\n\tdeleteDashboard(dashboardId: $dashboardId) {\n\t\tsuccess\n\t}\n}\n","variables":{"dashboardId":"054131e9-1b04-42d8-a5a3-56a4d8d5795a"},"operationName":"DeleteDashboard"}'
+        body: '{"query":"\nmutation DeleteDashboard ($dashboardId: String!) {\n\tdeleteDashboard(dashboardId: $dashboardId) {\n\t\tsuccess\n\t}\n}\n","variables":{"dashboardId":"0f2bebda-b436-41c3-b913-4d6465f6c085"},"operationName":"DeleteDashboard"}'
         form: {}
         headers:
             Cache-Control:
@@ -792,7 +792,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 214.443917ms
+        duration: 232.891875ms
     - id: 12
       request:
         proto: HTTP/1.1
@@ -804,7 +804,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery DashboardParameter ($id: ID!) {\n\tdashboardParameter(id: $id) {\n\t\tdashboardId\n\t\taccountId\n\t\tid\n\t\tlabel\n\t\tname\n\t\toptions\n\t\tvalueType\n\t\ttype\n\t\tdefault\n\t\tdisableCustomInput\n\t\trequireValue\n\t}\n}\n","variables":{"id":"71fd2c2b-2b27-4577-a602-b295e5c9a904"},"operationName":"DashboardParameter"}'
+        body: '{"query":"\nquery DashboardParameter ($id: ID!) {\n\tdashboardParameter(id: $id) {\n\t\tdashboardId\n\t\taccountId\n\t\tid\n\t\tlabel\n\t\tname\n\t\toptions\n\t\tvalueType\n\t\ttype\n\t\tdefault\n\t\tdisableCustomInput\n\t\trequireValue\n\t}\n}\n","variables":{"id":"0f8d7982-ba46-49aa-ae23-662af8a227e6"},"operationName":"DashboardParameter"}'
         form: {}
         headers:
             Cache-Control:
@@ -822,7 +822,7 @@ interactions:
         content_length: 1043
         uncompressed: false
         body: |
-            {"errors":[{"message":"Dashboard parameter with id 71fd2c2b-2b27-4577-a602-b295e5c9a904 not found","path":["dashboardParameter"],"extensions":{"code":"NOT_FOUND","serviceName":"dashboard","exception":{"message":"Dashboard parameter with id 71fd2c2b-2b27-4577-a602-b295e5c9a904 not found","locations":[{"line":1,"column":49}],"path":["dashboardParameter"],"stacktrace":["GraphQLError: Dashboard parameter with id 71fd2c2b-2b27-4577-a602-b295e5c9a904 not found","    at eOo (/opt/jupiterone/app/server.js:1766:39261)","    at /opt/jupiterone/app/server.js:1766:36598","    at Array.map (<anonymous>)","    at a (/opt/jupiterone/app/server.js:1766:36591)","    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","    at async /opt/jupiterone/app/server.js:1766:35752","    at async qee (/opt/jupiterone/app/server.js:1766:33877)","    at async /opt/jupiterone/app/server.js:1766:31877","    at async /opt/jupiterone/app/server.js:1855:3815","    at async g (/opt/jupiterone/app/server.js:292:40606)"]}}}],"data":null}
+            {"errors":[{"message":"Dashboard parameter with id 0f8d7982-ba46-49aa-ae23-662af8a227e6 not found","path":["dashboardParameter"],"extensions":{"code":"NOT_FOUND","serviceName":"dashboard","exception":{"message":"Dashboard parameter with id 0f8d7982-ba46-49aa-ae23-662af8a227e6 not found","locations":[{"line":1,"column":49}],"path":["dashboardParameter"],"stacktrace":["GraphQLError: Dashboard parameter with id 0f8d7982-ba46-49aa-ae23-662af8a227e6 not found","    at eOo (/opt/jupiterone/app/server.js:1766:39261)","    at /opt/jupiterone/app/server.js:1766:36598","    at Array.map (<anonymous>)","    at a (/opt/jupiterone/app/server.js:1766:36591)","    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","    at async /opt/jupiterone/app/server.js:1766:35752","    at async qee (/opt/jupiterone/app/server.js:1766:33877)","    at async /opt/jupiterone/app/server.js:1766:31877","    at async /opt/jupiterone/app/server.js:1855:3815","    at async g (/opt/jupiterone/app/server.js:292:40606)"]}}}],"data":null}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -858,4 +858,4 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 188.992ms
+        duration: 188.695875ms

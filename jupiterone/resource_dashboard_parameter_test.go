@@ -68,7 +68,7 @@ func testAccCheckDashboardParameterDestroy(ctx context.Context, qlient graphql.C
 					return fmt.Errorf("Dashboard parameter still exists (id=%q)", id)
 				}
 
-				if strings.Contains(err.Error(), "not found") {
+				if strings.Contains(err.Error(), fmt.Sprintf("Dashboard parameter with id %s not found", id)) {
 					return nil
 				}
 
