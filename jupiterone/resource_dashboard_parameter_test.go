@@ -17,6 +17,7 @@ func TestDashboardParameter_Basic(t *testing.T) {
 	ctx := context.TODO()
 
 	recordingClient, directClient, cleanup := setupTestClientsWithReplaySupport(ctx, t)
+	defer cleanup(t)
 
 	resourceName := "jupiterone_dashboard_parameter.test"
 	dashboardResourceName := "jupiterone_dashboard.test"
@@ -52,7 +53,6 @@ func TestDashboardParameter_Basic(t *testing.T) {
 			},
 		},
 	})
-	defer cleanup(t)
 }
 
 func testAccCheckDashboardParameterDestroy(ctx context.Context, qlient graphql.Client) func(*terraform.State) error {

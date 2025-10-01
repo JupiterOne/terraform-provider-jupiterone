@@ -17,6 +17,7 @@ func TestIntegration_Basic(t *testing.T) {
 	ctx := context.TODO()
 
 	recordingClient, directClient, cleanup := setupTestClientsWithReplaySupport(ctx, t)
+	defer cleanup(t)
 
 	resourceName := "jupiterone_integration.test"
 	integrationName := "tf-provider-acc-test-integration"
@@ -53,7 +54,6 @@ func TestIntegration_Basic(t *testing.T) {
 			},
 		},
 	})
-	defer cleanup(t)
 }
 
 func testAccCheckIntegrationExists(ctx context.Context, resourceName string, qlient graphql.Client) resource.TestCheckFunc {

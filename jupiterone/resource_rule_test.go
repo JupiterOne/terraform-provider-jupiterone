@@ -24,6 +24,7 @@ func TestInlineRuleInstance_Basic(t *testing.T) {
 	ctx := context.TODO()
 
 	recordingClient, directClient, cleanup := setupTestClientsWithReplaySupport(ctx, t)
+	defer cleanup(t)
 
 	ruleName := "tf-provider-test-rule"
 	operations := getValidOperations()
@@ -91,13 +92,13 @@ func TestInlineRuleInstance_Basic(t *testing.T) {
 			},
 		},
 	})
-	defer cleanup(t)
 }
 
 func TestInlineRuleInstance_BasicImport(t *testing.T) {
 	ctx := context.TODO()
 
 	recordingClient, directClient, cleanup := setupTestClientsWithReplaySupport(ctx, t)
+	defer cleanup(t)
 
 	ruleName := "tf-provider-test-rule"
 	resource.Test(t, resource.TestCase{
@@ -138,13 +139,13 @@ func TestInlineRuleInstance_BasicImport(t *testing.T) {
 			},
 		},
 	})
-	defer cleanup(t)
 }
 
 func TestReferencedQuestionRule_Basic(t *testing.T) {
 	ctx := context.TODO()
 
 	recordingClient, directClient, cleanup := setupTestClientsWithReplaySupport(ctx, t)
+	defer cleanup(t)
 
 	ruleName := "tf-provider-test-rule"
 	operations := getValidOperations()
@@ -174,13 +175,13 @@ func TestReferencedQuestionRule_Basic(t *testing.T) {
 			},
 		},
 	})
-	defer cleanup(t)
 }
 
 func TestRuleInstance_Config_Errors(t *testing.T) {
 	ctx := context.TODO()
 
 	recordingClient, _, cleanup := setupTestClientsWithReplaySupport(ctx, t)
+	defer cleanup(t)
 
 	rName := acctest.RandomWithPrefix("tf-acc-test")
 	resource.ParallelTest(t, resource.TestCase{
@@ -213,7 +214,6 @@ func TestRuleInstance_Config_Errors(t *testing.T) {
 			},
 		},
 	})
-	defer cleanup(t)
 }
 
 // createTestRule directly creates a rule for testing. Because the id must be

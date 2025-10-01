@@ -22,6 +22,7 @@ func TestDashboard_Basic(t *testing.T) {
 	ctx := context.TODO()
 
 	recordingClient, directClient, cleanup := setupTestClientsWithReplaySupport(ctx, t)
+	defer cleanup(t)
 
 	resourceName := "jupiterone_dashboard.test"
 	dashboardName := "tf-provider-test-dashboard"
@@ -43,13 +44,13 @@ func TestDashboard_Basic(t *testing.T) {
 			},
 		},
 	})
-	defer cleanup(t)
 }
 
 func TestDashboard_BasicImport(t *testing.T) {
 	ctx := context.TODO()
 
 	recordingClient, directClient, cleanup := setupTestClientsWithReplaySupport(ctx, t)
+	defer cleanup(t)
 
 	resourceName := "jupiterone_dashboard.test"
 	dashboardName := "tf-provider-test-dashboard-import"
@@ -74,7 +75,6 @@ func TestDashboard_BasicImport(t *testing.T) {
 			},
 		},
 	})
-	defer cleanup(t)
 }
 
 // createTestDashboard directly calls the client to create a dashboard directly
