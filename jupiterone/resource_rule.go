@@ -854,9 +854,6 @@ func (r *RuleModel) BuildCreateReferencedQuestionRuleInstanceInput() (client.Cre
 	if err != nil {
 		return rule, err
 	}
-
-	// FIXME: is roundtripping the best way? does it help with keeping
-	// config/state/server responses from being detected as different?
 	templates, err := json.Marshal(r.Templates)
 	if err != nil {
 		return rule, err
@@ -892,9 +889,6 @@ func (r *RuleModel) BuildUpdateReferencedQuestionRuleInstanceInput() (client.Upd
 	if err != nil {
 		return rule, err
 	}
-
-	// FIXME: is roundtripping the best way? does it help with keeping
-	// config/state/server responses from being detected as different?
 	templates, err := json.Marshal(r.Templates)
 	if err != nil {
 		return rule, err
@@ -932,9 +926,6 @@ func (r *RuleModel) BuildCreateInlineQuestionRuleInstanceInput() (client.CreateI
 	if err != nil {
 		return rule, err
 	}
-
-	// FIXME: is roundtripping the best way? does it help with keeping
-	// config/state/server responses from being detected as different?
 	templates, err := json.Marshal(r.Templates)
 	if err != nil {
 		return rule, err
@@ -986,8 +977,6 @@ func (r *RuleModel) BuildUpdateInlineQuestionRuleInstanceInput() (client.UpdateI
 		return rule, err
 	}
 
-	// FIXME: is roundtripping the best way? does it help with keeping
-	// config/state/server responses from being detected as different?
 	templates, err := json.Marshal(r.Templates)
 	if err != nil {
 		return rule, err

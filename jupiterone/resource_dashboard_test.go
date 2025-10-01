@@ -15,8 +15,8 @@ import (
 	"github.com/jupiterone/terraform-provider-jupiterone/jupiterone/internal/client"
 )
 
-var testDashboardResourceName = "jupiterone_dashboard.test"
-var testImportDashboardResourceName = "jupiterone_dashboard.test"
+const testDashboardResourceName string = "jupiterone_dashboard.test"
+const testImportDashboardResourceName string = "jupiterone_dashboard.test_dashboard_import"
 
 func TestDashboard_Basic(t *testing.T) {
 	ctx := context.TODO()
@@ -24,7 +24,7 @@ func TestDashboard_Basic(t *testing.T) {
 	recordingClient, directClient, cleanup := setupTestClientsWithReplaySupport(ctx, t)
 	defer cleanup(t)
 
-	resourceName := "jupiterone_dashboard.test"
+	resourceName := testDashboardResourceName
 	dashboardName := "tf-provider-test-dashboard"
 	dashboardType := client.BoardTypeAccount
 
@@ -52,7 +52,7 @@ func TestDashboard_BasicImport(t *testing.T) {
 	recordingClient, directClient, cleanup := setupTestClientsWithReplaySupport(ctx, t)
 	defer cleanup(t)
 
-	resourceName := "jupiterone_dashboard.test"
+	resourceName := testImportDashboardResourceName
 	dashboardName := "tf-provider-test-dashboard-import"
 	dashboardType := client.BoardTypeAccount
 
@@ -64,7 +64,7 @@ func TestDashboard_BasicImport(t *testing.T) {
 				ImportState:   true,
 				ResourceName:  resourceName,
 				ImportStateId: createTestDashboard(ctx, t, directClient, dashboardName),
-				Config:        testDashboardBasicConfig(dashboardName),
+				Config:        testDashboardImportBasicConfig(dashboardName),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckDashboardExists(ctx, testImportDashboardResourceName, directClient),
 					resource.TestCheckResourceAttrSet(resourceName, "id"),
@@ -93,9 +93,9 @@ func createTestDashboard(ctx context.Context, t *testing.T, qlient graphql.Clien
 	return r.CreateDashboard.Id
 }
 
-func testAccCheckDashboardExists(ctx context.Context, dashboardName string, qlient graphql.Client) resource.TestCheckFunc {
+func testAccCheckDashboardExists(ctx context.Context, resourceDashboardName string, qlient graphql.Client) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		resource := s.RootModule().Resources[dashboardName]
+		resource := s.RootModule().Resources[resourceDashboardName]
 
 		return dashboardExistsHelper(ctx, resource.Primary.ID, qlient)
 	}
@@ -166,6 +166,18 @@ func testDashboardBasicConfig(rName string) string {
 		provider "jupiterone" {}
 
 		resource "jupiterone_dashboard" "test" {
+			name = %q
+			type = "Account"
+			resource_group_id = "rg-123456"
+		}
+	`, rName)
+}
+
+func testDashboardImportBasicConfig(rName string) string {
+	return fmt.Sprintf(`
+		provider "jupiterone" {}
+
+		resource "jupiterone_dashboard" "test_dashboard_import" {
 			name = %q
 			type = "Account"
 			resource_group_id = "rg-123456"

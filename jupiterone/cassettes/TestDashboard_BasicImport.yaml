@@ -30,7 +30,7 @@ interactions:
         content_length: 118
         uncompressed: false
         body: |
-            {"data":{"createDashboard":{"name":"tf-provider-test-dashboard-import","id":"e095add3-dbfc-4d46-8430-798d4c22ea8c"}}}
+            {"data":{"createDashboard":{"name":"tf-provider-test-dashboard-import","id":"f5590ce8-3885-40b8-8649-8255bc4f4f3d"}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -66,7 +66,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 217.244208ms
+        duration: 423.194958ms
     - id: 1
       request:
         proto: HTTP/1.1
@@ -78,7 +78,7 @@ interactions:
         host: graphql.us.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetDashboard ($dashboardId: String!) {\n\tgetDashboard(dashboardId: $dashboardId) {\n\t\tid\n\t\tname\n\t\tresourceGroupId\n\t}\n}\n","variables":{"dashboardId":"e095add3-dbfc-4d46-8430-798d4c22ea8c"},"operationName":"GetDashboard"}'
+        body: '{"query":"\nquery GetDashboard ($dashboardId: String!) {\n\tgetDashboard(dashboardId: $dashboardId) {\n\t\tid\n\t\tname\n\t\tresourceGroupId\n\t}\n}\n","variables":{"dashboardId":"f5590ce8-3885-40b8-8649-8255bc4f4f3d"},"operationName":"GetDashboard"}'
         form: {}
         headers:
             Cache-Control:
@@ -96,7 +96,7 @@ interactions:
         content_length: 138
         uncompressed: false
         body: |
-            {"data":{"getDashboard":{"id":"e095add3-dbfc-4d46-8430-798d4c22ea8c","name":"tf-provider-test-dashboard-import","resourceGroupId":null}}}
+            {"data":{"getDashboard":{"id":"f5590ce8-3885-40b8-8649-8255bc4f4f3d","name":"tf-provider-test-dashboard-import","resourceGroupId":null}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
@@ -132,4 +132,4 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 175.103125ms
+        duration: 186.611417ms
