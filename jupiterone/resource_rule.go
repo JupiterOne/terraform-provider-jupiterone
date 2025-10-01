@@ -11,12 +11,15 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/listvalidator"
 	"github.com/hashicorp/terraform-plugin-framework-validators/resourcevalidator"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64default"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listdefault"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringdefault"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
@@ -110,6 +113,138 @@ func newOperationsWithoutId(ops []client.RuleOperationOutput) ([]RuleOperation, 
 	return l, nil
 }
 
+// tagsToStringSlice converts a types.List to []string
+func tagsToStringSlice(tagsList types.List) []string {
+	if tagsList.IsNull() || tagsList.IsUnknown() {
+		return []string{}
+	}
+
+	tags := make([]string, len(tagsList.Elements()))
+	for i, elem := range tagsList.Elements() {
+		if stringVal, ok := elem.(types.String); ok {
+			tags[i] = stringVal.ValueString()
+		}
+	}
+	return tags
+}
+
+// outputsToStringSlice converts a types.List to []string
+// Returns nil if the list is null (field not set) to preserve existing value
+// Returns empty slice if the list is empty (explicitly clearing the field)
+func outputsToStringSlice(outputsList types.List) []string {
+	// Need to explicitly return nil to prevent perpetual diffs and allow the data to be sent as the value - output: null to the graphql api
+	if outputsList.IsNull() || outputsList.IsUnknown() {
+		return nil
+	}
+
+	outputs := make([]string, len(outputsList.Elements()))
+	for i, elem := range outputsList.Elements() {
+		if stringVal, ok := elem.(types.String); ok {
+			outputs[i] = stringVal.ValueString()
+		}
+	}
+	return outputs
+}
+
+func labelsToClientLabels(labelsList types.List) []client.RuleInstanceLabelInput {
+	// Need to return an empty slice instead of nil to prevent perpetual diffs and allow the data to be sent as an empty list to the graphql api
+	if labelsList.IsNull() || labelsList.IsUnknown() {
+		return []client.RuleInstanceLabelInput{}
+	}
+
+	elements := labelsList.Elements()
+	// Need to return an empty slice instead of nil to prevent perpetual diffs and allow the data to be sent as an empty list to the graphql api
+	if len(elements) == 0 {
+		return []client.RuleInstanceLabelInput{}
+	}
+
+	labels := make([]client.RuleInstanceLabelInput, 0, len(elements))
+
+	for _, elem := range elements {
+		if objVal, ok := elem.(types.Object); ok {
+			attrs := objVal.Attributes()
+			label := client.RuleInstanceLabelInput{}
+
+			if labelName, ok := attrs["label_name"].(types.String); ok {
+				label.LabelName = labelName.ValueString()
+			}
+			if labelValue, ok := attrs["label_value"].(types.String); ok {
+				label.LabelValue = labelValue.ValueString()
+			}
+
+			labels = append(labels, label)
+		}
+	}
+
+	return labels
+}
+
+// convertLabelsToTerraformList converts API labels to a Terraform types.List.
+// Returns an error if there were diagnostic errors during conversion.
+func convertLabelsToTerraformList(labels any) (types.List, error) {
+	// Use reflection to handle different label types from generated client
+	labelsSlice := reflect.ValueOf(labels)
+
+	if labelsSlice.Len() > 0 {
+		labelObjects := make([]attr.Value, labelsSlice.Len())
+		for i := 0; i < labelsSlice.Len(); i++ {
+			label := labelsSlice.Index(i)
+			labelName := label.FieldByName("LabelName").String()
+			labelValue := label.FieldByName("LabelValue").String()
+
+			labelMap := map[string]attr.Value{
+				"label_name":  types.StringValue(labelName),
+				"label_value": types.StringValue(labelValue),
+			}
+			labelObj, diags := types.ObjectValue(map[string]attr.Type{
+				"label_name":  types.StringType,
+				"label_value": types.StringType,
+			}, labelMap)
+			if diags.HasError() {
+				return types.List{}, fmt.Errorf("failed to create label object: %v", diags.Errors())
+			}
+			labelObjects[i] = labelObj
+		}
+		labelsListValue, diags := types.ListValue(types.ObjectType{
+			AttrTypes: map[string]attr.Type{
+				"label_name":  types.StringType,
+				"label_value": types.StringType,
+			},
+		}, labelObjects)
+		if diags.HasError() {
+			return types.List{}, fmt.Errorf("failed to create labels list: %v", diags.Errors())
+		}
+		return labelsListValue, nil
+	}
+
+	// Set to empty list instead of nil
+	emptyLabelsList, diags := types.ListValue(types.ObjectType{
+		AttrTypes: map[string]attr.Type{
+			"label_name":  types.StringType,
+			"label_value": types.StringType,
+		},
+	}, []attr.Value{})
+	if diags.HasError() {
+		return types.List{}, fmt.Errorf("failed to create empty labels list: %v", diags.Errors())
+	}
+	return emptyLabelsList, nil
+}
+
+// ensureLabelsInitialized sets the Labels field to an empty list if it's unknown or null.
+// This prevents perpetual diffs when the API returns an empty labels array.
+func ensureLabelsInitialized(labels types.List) (types.List, diag.Diagnostics) {
+	if labels.IsUnknown() || labels.IsNull() {
+		emptyLabelsList, diags := types.ListValue(types.ObjectType{
+			AttrTypes: map[string]attr.Type{
+				"label_name":  types.StringType,
+				"label_value": types.StringType,
+			},
+		}, []attr.Value{})
+		return emptyLabelsList, diags
+	}
+	return labels, nil
+}
+
 // RuleModel represents the terraform representation of the rule
 type RuleModel struct {
 	Id              types.String      `json:"id,omitempty" tfsdk:"id"`
@@ -124,12 +259,12 @@ type RuleModel struct {
 	// Operations TODO: breaking change for new version to do more in the
 	// HCL and/or make better use of things like jsonencode
 	Operations            []RuleOperation `json:"operations" tfsdk:"operations"`
-	Outputs               []string        `json:"outputs" tfsdk:"outputs"`
-	Tags                  []string        `json:"tags" tfsdk:"tags"`
+	Outputs               types.List      `json:"outputs" tfsdk:"outputs"`
+	Tags                  types.List      `json:"tags" tfsdk:"tags"`
 	NotifyOnFailure       types.Bool      `json:"notify_on_failure" tfsdk:"notify_on_failure"`
 	TriggerOnNewOnly      types.Bool      `json:"trigger_on_new_only" tfsdk:"trigger_on_new_only"`
 	IgnorePreviousResults types.Bool      `json:"ignore_previous_results" tfsdk:"ignore_previous_results"`
-	Labels                []RuleLabel     `json:"labels" tfsdk:"labels"`
+	Labels                types.List      `json:"labels" tfsdk:"labels"`
 	ResourceGroupId       types.String    `json:"resource_group_id,omitempty" tfsdk:"resource_group_id"`
 }
 
@@ -252,11 +387,15 @@ func (*QuestionRuleResource) Schema(ctx context.Context, req resource.SchemaRequ
 				Description: "Names of properties that can be used throughout the rule evaluation process and will be included in each record of a rule evaluation. (e.g. queries.query0.total)",
 				ElementType: types.StringType,
 				Optional:    true,
+				Computed:    true,
+				Default:     listdefault.StaticValue(types.ListValueMust(types.StringType, []attr.Value{})),
 			},
 			"tags": schema.ListAttribute{
 				Description: "Comma separated list of tags to apply to the rule.",
 				ElementType: types.StringType,
 				Optional:    true,
+				Computed:    true,
+				Default:     listdefault.StaticValue(types.ListValueMust(types.StringType, []attr.Value{})),
 			},
 			"notify_on_failure": schema.BoolAttribute{
 				Optional: true,
@@ -276,6 +415,13 @@ func (*QuestionRuleResource) Schema(ctx context.Context, req resource.SchemaRequ
 			"labels": schema.ListNestedAttribute{
 				Description: "Comma separated list of labelName/labelValue pairs to apply to the rule.",
 				Optional:    true,
+				Computed:    true,
+				PlanModifiers: []planmodifier.List{
+					useEmptyListForNullWithType(map[string]attr.Type{
+						"label_name":  types.StringType,
+						"label_value": types.StringType,
+					}),
+				},
 				NestedObject: schema.NestedAttributeObject{
 					Attributes: map[string]schema.Attribute{
 						"label_name": schema.StringAttribute{
@@ -450,6 +596,13 @@ func (r *QuestionRuleResource) Create(ctx context.Context, req resource.CreateRe
 	data.Id = types.StringValue(c.GetId())
 	data.Version = types.Int64Value(int64(c.GetVersion()))
 
+	var diags diag.Diagnostics
+	data.Labels, diags = ensureLabelsInitialized(data.Labels)
+	if diags.HasError() {
+		resp.Diagnostics.Append(diags...)
+		return
+	}
+
 	tflog.Trace(ctx, "Created rule",
 		map[string]interface{}{"title": data.Name, "id": data.Id})
 
@@ -494,6 +647,37 @@ func (r *QuestionRuleResource) Read(ctx context.Context, req resource.ReadReques
 	}
 	rule := getResp.QuestionRuleInstance
 
+	outputs := rule.Outputs
+	if outputs == nil {
+		outputs = []string{}
+	}
+
+	// Convert outputs to types.List
+	outputValues := make([]attr.Value, len(outputs))
+	for i, output := range outputs {
+		outputValues[i] = types.StringValue(output)
+	}
+	outputsListValue, diags := types.ListValue(types.StringType, outputValues)
+	if diags.HasError() {
+		resp.Diagnostics.Append(diags...)
+		return
+	}
+
+	// Convert tags to types.List
+	tags := rule.Tags
+	tagValues := make([]attr.Value, len(tags))
+	for i, tag := range tags {
+		tagValues[i] = types.StringValue(tag)
+	}
+	tagsListValue, diags := types.ListValue(types.StringType, tagValues)
+	if diags.HasError() {
+		resp.Diagnostics.Append(diags...)
+		return
+	}
+
+	// Log a debug message with the rule labels
+	tflog.Debug(ctx, "Rule tags", map[string]interface{}{"tags": rule.Tags})
+
 	data := RuleModel{
 		Id:                    types.StringValue(rule.Id),
 		Name:                  types.StringValue(rule.Name),
@@ -501,8 +685,8 @@ func (r *QuestionRuleResource) Read(ctx context.Context, req resource.ReadReques
 		Version:               types.Int64Value(int64(rule.Version)),
 		SpecVersion:           types.Int64Value(int64(rule.SpecVersion)),
 		PollingInterval:       types.StringValue(string(rule.PollingInterval)),
-		Outputs:               rule.Outputs,
-		Tags:                  rule.Tags,
+		Outputs:               outputsListValue,
+		Tags:                  tagsListValue,
 		NotifyOnFailure:       types.BoolValue(rule.NotifyOnFailure),
 		TriggerOnNewOnly:      types.BoolValue(rule.TriggerActionsOnNewEntitiesOnly),
 		IgnorePreviousResults: types.BoolValue(rule.IgnorePreviousResults),
@@ -552,6 +736,14 @@ func (r *QuestionRuleResource) Read(ctx context.Context, req resource.ReadReques
 	if err != nil {
 		resp.Diagnostics.AddError("error unmarshaling templates from response", err.Error())
 	}
+
+	// Convert labels to types.List
+	labelsListValue, err := convertLabelsToTerraformList(rule.Labels)
+	if err != nil {
+		resp.Diagnostics.AddError("failed to convert labels", err.Error())
+		return
+	}
+	data.Labels = labelsListValue
 
 	// Save updated data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
@@ -615,6 +807,13 @@ func (r *QuestionRuleResource) Update(ctx context.Context, req resource.UpdateRe
 
 	data.Version = types.Int64Value(int64(update.GetVersion()))
 
+	var diags diag.Diagnostics
+	data.Labels, diags = ensureLabelsInitialized(data.Labels)
+	if diags.HasError() {
+		resp.Diagnostics.Append(diags...)
+		return
+	}
+
 	tflog.Trace(ctx, "Updated rule",
 		map[string]interface{}{"title": data.Name, "id": data.Id})
 
@@ -652,11 +851,12 @@ func (r *RuleModel) buildOperations() ([]client.RuleOperationInput, error) {
 func (r *RuleModel) BuildCreateReferencedQuestionRuleInstanceInput() (client.CreateReferencedQuestionRuleInstanceInput, error) {
 	rule := client.CreateReferencedQuestionRuleInstanceInput{
 		QuestionId:                      r.QuestionId.ValueString(),
-		Tags:                            r.Tags,
+		Tags:                            tagsToStringSlice(r.Tags),
+		Labels:                          labelsToClientLabels(r.Labels),
 		Name:                            r.Name.ValueString(),
 		Description:                     r.Description.ValueString(),
 		SpecVersion:                     int(r.SpecVersion.ValueInt64()),
-		Outputs:                         r.Outputs,
+		Outputs:                         outputsToStringSlice(r.Outputs),
 		PollingInterval:                 client.SchedulerPollingInterval(r.PollingInterval.ValueString()),
 		NotifyOnFailure:                 r.NotifyOnFailure.ValueBool(),
 		TriggerActionsOnNewEntitiesOnly: r.TriggerOnNewOnly.ValueBool(),
@@ -669,22 +869,6 @@ func (r *RuleModel) BuildCreateReferencedQuestionRuleInstanceInput() (client.Cre
 	if err != nil {
 		return rule, err
 	}
-
-	if len(r.Labels) > 0 {
-		labels := make([]client.RuleInstanceLabelInput, len(r.Labels))
-
-		for i, label := range r.Labels {
-			labels[i] = client.RuleInstanceLabelInput{
-				LabelName:  label.LabelName.ValueString(),
-				LabelValue: label.LabelValue.ValueString(),
-			}
-		}
-
-		rule.Labels = labels
-	}
-
-	// FIXME: is roundtripping the best way? does it help with keeping
-	// config/state/server responses from being detected as different?
 	templates, err := json.Marshal(r.Templates)
 	if err != nil {
 		return rule, err
@@ -706,8 +890,9 @@ func (r *RuleModel) BuildUpdateReferencedQuestionRuleInstanceInput() (client.Upd
 		SpecVersion:                     int(r.SpecVersion.ValueInt64()),
 		QuestionId:                      r.QuestionId.ValueString(),
 		PollingInterval:                 client.SchedulerPollingInterval(r.PollingInterval.ValueString()),
-		Outputs:                         r.Outputs,
-		Tags:                            r.Tags,
+		Outputs:                         outputsToStringSlice(r.Outputs),
+		Tags:                            tagsToStringSlice(r.Tags),
+		Labels:                          labelsToClientLabels(r.Labels),
 		NotifyOnFailure:                 r.NotifyOnFailure.ValueBool(),
 		TriggerActionsOnNewEntitiesOnly: r.TriggerOnNewOnly.ValueBool(),
 		IgnorePreviousResults:           r.IgnorePreviousResults.ValueBool(),
@@ -719,22 +904,6 @@ func (r *RuleModel) BuildUpdateReferencedQuestionRuleInstanceInput() (client.Upd
 	if err != nil {
 		return rule, err
 	}
-
-	if len(r.Labels) > 0 {
-		labels := make([]client.RuleInstanceLabelInput, len(r.Labels))
-
-		for i, label := range r.Labels {
-			labels[i] = client.RuleInstanceLabelInput{
-				LabelName:  label.LabelName.ValueString(),
-				LabelValue: label.LabelValue.ValueString(),
-			}
-		}
-
-		rule.Labels = labels
-	}
-
-	// FIXME: is roundtripping the best way? does it help with keeping
-	// config/state/server responses from being detected as different?
 	templates, err := json.Marshal(r.Templates)
 	if err != nil {
 		return rule, err
@@ -754,11 +923,12 @@ func (r *RuleModel) BuildUpdateReferencedQuestionRuleInstanceInput() (client.Upd
 
 func (r *RuleModel) BuildCreateInlineQuestionRuleInstanceInput() (client.CreateInlineQuestionRuleInstanceInput, error) {
 	rule := client.CreateInlineQuestionRuleInstanceInput{
-		Tags:                            r.Tags,
+		Tags:                            tagsToStringSlice(r.Tags),
+		Labels:                          labelsToClientLabels(r.Labels),
 		Name:                            r.Name.ValueString(),
 		Description:                     r.Description.ValueString(),
 		SpecVersion:                     int(r.SpecVersion.ValueInt64()),
-		Outputs:                         r.Outputs,
+		Outputs:                         outputsToStringSlice(r.Outputs),
 		PollingInterval:                 client.SchedulerPollingInterval(r.PollingInterval.ValueString()),
 		NotifyOnFailure:                 r.NotifyOnFailure.ValueBool(),
 		TriggerActionsOnNewEntitiesOnly: r.TriggerOnNewOnly.ValueBool(),
@@ -771,22 +941,6 @@ func (r *RuleModel) BuildCreateInlineQuestionRuleInstanceInput() (client.CreateI
 	if err != nil {
 		return rule, err
 	}
-
-	if len(r.Labels) > 0 {
-		labels := make([]client.RuleInstanceLabelInput, len(r.Labels))
-
-		for i, label := range r.Labels {
-			labels[i] = client.RuleInstanceLabelInput{
-				LabelName:  label.LabelName.ValueString(),
-				LabelValue: label.LabelValue.ValueString(),
-			}
-		}
-
-		rule.Labels = labels
-	}
-
-	// FIXME: is roundtripping the best way? does it help with keeping
-	// config/state/server responses from being detected as different?
 	templates, err := json.Marshal(r.Templates)
 	if err != nil {
 		return rule, err
@@ -819,11 +973,12 @@ func (r *RuleModel) BuildUpdateInlineQuestionRuleInstanceInput() (client.UpdateI
 		Id:                              r.Id.ValueString(),
 		Version:                         int(r.Version.ValueInt64()),
 		State:                           client.RuleStateInput{},
-		Tags:                            r.Tags,
+		Tags:                            tagsToStringSlice(r.Tags),
+		Labels:                          labelsToClientLabels(r.Labels),
 		Name:                            r.Name.ValueString(),
 		Description:                     r.Description.ValueString(),
 		SpecVersion:                     int(r.SpecVersion.ValueInt64()),
-		Outputs:                         r.Outputs,
+		Outputs:                         outputsToStringSlice(r.Outputs),
 		PollingInterval:                 client.SchedulerPollingInterval(r.PollingInterval.ValueString()),
 		NotifyOnFailure:                 r.NotifyOnFailure.ValueBool(),
 		TriggerActionsOnNewEntitiesOnly: r.TriggerOnNewOnly.ValueBool(),
@@ -837,21 +992,6 @@ func (r *RuleModel) BuildUpdateInlineQuestionRuleInstanceInput() (client.UpdateI
 		return rule, err
 	}
 
-	if len(r.Labels) > 0 {
-		labels := make([]client.RuleInstanceLabelInput, len(r.Labels))
-
-		for i, label := range r.Labels {
-			labels[i] = client.RuleInstanceLabelInput{
-				LabelName:  label.LabelName.ValueString(),
-				LabelValue: label.LabelValue.ValueString(),
-			}
-		}
-
-		rule.Labels = labels
-	}
-
-	// FIXME: is roundtripping the best way? does it help with keeping
-	// config/state/server responses from being detected as different?
 	templates, err := json.Marshal(r.Templates)
 	if err != nil {
 		return rule, err

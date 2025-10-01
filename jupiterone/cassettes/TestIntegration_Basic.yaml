@@ -1,3 +1,531 @@
 ---
 version: 2
-interactions: []
+interactions:
+    - id: 0
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 833
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.us.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nmutation CreateIntegrationInstance ($instance: CreateIntegrationInstanceInput!) {\n\tcreateIntegrationInstance(instance: $instance) {\n\t\tid\n\t\tname\n\t\tpollingInterval\n\t\tintegrationDefinitionId\n\t\tdescription\n\t\tconfig\n\t\tingestionSourcesOverrides {\n\t\t\tingestionSourceId\n\t\t\tenabled\n\t\t}\n\t\tsourceIntegrationInstanceId\n\t\tcollectorPoolId\n\t\tpollingIntervalCronExpression {\n\t\t\thour\n\t\t\tdayOfWeek\n\t\t}\n\t\toffsiteComplete\n\t}\n}\n","variables":{"instance":{"name":"tf-provider-acc-test-integration","pollingInterval":"ONE_DAY","pollingIntervalCronExpression":{"hour":0,"dayOfWeek":0},"integrationDefinitionId":"8013680b-311a-4c2e-b53b-c8735fd97a5c","description":"Test integration","config":{"key":"value"},"resourceGroupId":"rg-123456"}},"operationName":"CreateIntegrationInstance"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.us.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 456
+        uncompressed: false
+        body: |
+            {"data":{"createIntegrationInstance":{"id":"083a91e4-e3b3-4524-bfc3-5c9b165aa0e9","name":"tf-provider-acc-test-integration","pollingInterval":"ONE_DAY","integrationDefinitionId":"8013680b-311a-4c2e-b53b-c8735fd97a5c","description":"Test integration","config":{"key":"***masked***"},"ingestionSourcesOverrides":null,"sourceIntegrationInstanceId":null,"collectorPoolId":null,"pollingIntervalCronExpression":{"hour":0,"dayOfWeek":0},"offsiteComplete":null}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Content-Length:
+                - "456"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json
+            Cross-Origin-Embedder-Policy:
+                - require-corp
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 1.136964458s
+    - id: 1
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 548
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.us.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetIntegrationInstance ($id: String!) {\n\tintegrationInstance(id: $id) {\n\t\tid\n\t\tname\n\t\tpollingInterval\n\t\tintegrationDefinitionId\n\t\tdescription\n\t\tconfig\n\t\tingestionSourcesOverrides {\n\t\t\tingestionSourceId\n\t\t\tenabled\n\t\t}\n\t\tsourceIntegrationInstanceId\n\t\tcollectorPoolId\n\t\tresourceGroupId\n\t\tpollingIntervalCronExpression {\n\t\t\thour\n\t\t\tdayOfWeek\n\t\t}\n\t\toffsiteComplete\n\t}\n}\n","variables":{"id":"083a91e4-e3b3-4524-bfc3-5c9b165aa0e9"},"operationName":"GetIntegrationInstance"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.us.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 480
+        uncompressed: false
+        body: |
+            {"data":{"integrationInstance":{"id":"083a91e4-e3b3-4524-bfc3-5c9b165aa0e9","name":"tf-provider-acc-test-integration","pollingInterval":"ONE_DAY","integrationDefinitionId":"8013680b-311a-4c2e-b53b-c8735fd97a5c","description":"Test integration","config":{"key":"***masked***"},"ingestionSourcesOverrides":null,"sourceIntegrationInstanceId":null,"collectorPoolId":null,"resourceGroupId":"rg-123456","pollingIntervalCronExpression":{"hour":0,"dayOfWeek":0},"offsiteComplete":null}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Content-Length:
+                - "480"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json
+            Cross-Origin-Embedder-Policy:
+                - require-corp
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 196.526292ms
+    - id: 2
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 548
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.us.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetIntegrationInstance ($id: String!) {\n\tintegrationInstance(id: $id) {\n\t\tid\n\t\tname\n\t\tpollingInterval\n\t\tintegrationDefinitionId\n\t\tdescription\n\t\tconfig\n\t\tingestionSourcesOverrides {\n\t\t\tingestionSourceId\n\t\t\tenabled\n\t\t}\n\t\tsourceIntegrationInstanceId\n\t\tcollectorPoolId\n\t\tresourceGroupId\n\t\tpollingIntervalCronExpression {\n\t\t\thour\n\t\t\tdayOfWeek\n\t\t}\n\t\toffsiteComplete\n\t}\n}\n","variables":{"id":"083a91e4-e3b3-4524-bfc3-5c9b165aa0e9"},"operationName":"GetIntegrationInstance"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.us.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 480
+        uncompressed: false
+        body: |
+            {"data":{"integrationInstance":{"id":"083a91e4-e3b3-4524-bfc3-5c9b165aa0e9","name":"tf-provider-acc-test-integration","pollingInterval":"ONE_DAY","integrationDefinitionId":"8013680b-311a-4c2e-b53b-c8735fd97a5c","description":"Test integration","config":{"key":"***masked***"},"ingestionSourcesOverrides":null,"sourceIntegrationInstanceId":null,"collectorPoolId":null,"resourceGroupId":"rg-123456","pollingIntervalCronExpression":{"hour":0,"dayOfWeek":0},"offsiteComplete":null}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Content-Length:
+                - "480"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json
+            Cross-Origin-Embedder-Policy:
+                - require-corp
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 329.63425ms
+    - id: 3
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 548
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.us.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetIntegrationInstance ($id: String!) {\n\tintegrationInstance(id: $id) {\n\t\tid\n\t\tname\n\t\tpollingInterval\n\t\tintegrationDefinitionId\n\t\tdescription\n\t\tconfig\n\t\tingestionSourcesOverrides {\n\t\t\tingestionSourceId\n\t\t\tenabled\n\t\t}\n\t\tsourceIntegrationInstanceId\n\t\tcollectorPoolId\n\t\tresourceGroupId\n\t\tpollingIntervalCronExpression {\n\t\t\thour\n\t\t\tdayOfWeek\n\t\t}\n\t\toffsiteComplete\n\t}\n}\n","variables":{"id":"083a91e4-e3b3-4524-bfc3-5c9b165aa0e9"},"operationName":"GetIntegrationInstance"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.us.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 480
+        uncompressed: false
+        body: |
+            {"data":{"integrationInstance":{"id":"083a91e4-e3b3-4524-bfc3-5c9b165aa0e9","name":"tf-provider-acc-test-integration","pollingInterval":"ONE_DAY","integrationDefinitionId":"8013680b-311a-4c2e-b53b-c8735fd97a5c","description":"Test integration","config":{"key":"***masked***"},"ingestionSourcesOverrides":null,"sourceIntegrationInstanceId":null,"collectorPoolId":null,"resourceGroupId":"rg-123456","pollingIntervalCronExpression":{"hour":0,"dayOfWeek":0},"offsiteComplete":null}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Content-Length:
+                - "480"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json
+            Cross-Origin-Embedder-Policy:
+                - require-corp
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 223.016083ms
+    - id: 4
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 548
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.us.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetIntegrationInstance ($id: String!) {\n\tintegrationInstance(id: $id) {\n\t\tid\n\t\tname\n\t\tpollingInterval\n\t\tintegrationDefinitionId\n\t\tdescription\n\t\tconfig\n\t\tingestionSourcesOverrides {\n\t\t\tingestionSourceId\n\t\t\tenabled\n\t\t}\n\t\tsourceIntegrationInstanceId\n\t\tcollectorPoolId\n\t\tresourceGroupId\n\t\tpollingIntervalCronExpression {\n\t\t\thour\n\t\t\tdayOfWeek\n\t\t}\n\t\toffsiteComplete\n\t}\n}\n","variables":{"id":"083a91e4-e3b3-4524-bfc3-5c9b165aa0e9"},"operationName":"GetIntegrationInstance"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.us.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 480
+        uncompressed: false
+        body: |
+            {"data":{"integrationInstance":{"id":"083a91e4-e3b3-4524-bfc3-5c9b165aa0e9","name":"tf-provider-acc-test-integration","pollingInterval":"ONE_DAY","integrationDefinitionId":"8013680b-311a-4c2e-b53b-c8735fd97a5c","description":"Test integration","config":{"key":"***masked***"},"ingestionSourcesOverrides":null,"sourceIntegrationInstanceId":null,"collectorPoolId":null,"resourceGroupId":"rg-123456","pollingIntervalCronExpression":{"hour":0,"dayOfWeek":0},"offsiteComplete":null}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Content-Length:
+                - "480"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json
+            Cross-Origin-Embedder-Policy:
+                - require-corp
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 212.700709ms
+    - id: 5
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 548
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.us.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetIntegrationInstance ($id: String!) {\n\tintegrationInstance(id: $id) {\n\t\tid\n\t\tname\n\t\tpollingInterval\n\t\tintegrationDefinitionId\n\t\tdescription\n\t\tconfig\n\t\tingestionSourcesOverrides {\n\t\t\tingestionSourceId\n\t\t\tenabled\n\t\t}\n\t\tsourceIntegrationInstanceId\n\t\tcollectorPoolId\n\t\tresourceGroupId\n\t\tpollingIntervalCronExpression {\n\t\t\thour\n\t\t\tdayOfWeek\n\t\t}\n\t\toffsiteComplete\n\t}\n}\n","variables":{"id":"083a91e4-e3b3-4524-bfc3-5c9b165aa0e9"},"operationName":"GetIntegrationInstance"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.us.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 480
+        uncompressed: false
+        body: |
+            {"data":{"integrationInstance":{"id":"083a91e4-e3b3-4524-bfc3-5c9b165aa0e9","name":"tf-provider-acc-test-integration","pollingInterval":"ONE_DAY","integrationDefinitionId":"8013680b-311a-4c2e-b53b-c8735fd97a5c","description":"Test integration","config":{"key":"***masked***"},"ingestionSourcesOverrides":null,"sourceIntegrationInstanceId":null,"collectorPoolId":null,"resourceGroupId":"rg-123456","pollingIntervalCronExpression":{"hour":0,"dayOfWeek":0},"offsiteComplete":null}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Content-Length:
+                - "480"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json
+            Cross-Origin-Embedder-Policy:
+                - require-corp
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 212.982958ms
+    - id: 6
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 230
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.us.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nmutation DeleteIntegrationInstance ($id: String!) {\n\tdeleteIntegrationInstance(id: $id) {\n\t\tsuccess\n\t}\n}\n","variables":{"id":"083a91e4-e3b3-4524-bfc3-5c9b165aa0e9"},"operationName":"DeleteIntegrationInstance"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.us.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 56
+        uncompressed: false
+        body: |
+            {"data":{"deleteIntegrationInstance":{"success":true}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Content-Length:
+                - "56"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json
+            Cross-Origin-Embedder-Policy:
+                - require-corp
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 1.45605725s
+    - id: 7
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 548
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.us.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetIntegrationInstance ($id: String!) {\n\tintegrationInstance(id: $id) {\n\t\tid\n\t\tname\n\t\tpollingInterval\n\t\tintegrationDefinitionId\n\t\tdescription\n\t\tconfig\n\t\tingestionSourcesOverrides {\n\t\t\tingestionSourceId\n\t\t\tenabled\n\t\t}\n\t\tsourceIntegrationInstanceId\n\t\tcollectorPoolId\n\t\tresourceGroupId\n\t\tpollingIntervalCronExpression {\n\t\t\thour\n\t\t\tdayOfWeek\n\t\t}\n\t\toffsiteComplete\n\t}\n}\n","variables":{"id":"083a91e4-e3b3-4524-bfc3-5c9b165aa0e9"},"operationName":"GetIntegrationInstance"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.us.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 529
+        uncompressed: false
+        body: |
+            {"errors":[{"message":"Integration instance not found","path":["integrationInstance"],"extensions":{"code":"BAD_USER_INPUT","exception":{"stacktrace":["UserInputError: Integration instance not found","    at getIntegrationInstance (/var/task/index.js:5803:4885)","    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)"],"message":"Integration instance not found","locations":[{"line":1,"column":60}],"path":["integrationInstance"]},"serviceName":"integrations"}}],"data":{"integrationInstance":null}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Content-Length:
+                - "529"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json
+            Cross-Origin-Embedder-Policy:
+                - require-corp
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 724.2275ms

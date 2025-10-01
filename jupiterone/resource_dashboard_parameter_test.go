@@ -16,7 +16,7 @@ import (
 func TestDashboardParameter_Basic(t *testing.T) {
 	ctx := context.TODO()
 
-	recordingClient, directClient, cleanup := setupTestClients(ctx, t)
+	recordingClient, directClient, cleanup := setupTestClientsWithReplaySupport(ctx, t)
 	defer cleanup(t)
 
 	resourceName := "jupiterone_dashboard_parameter.test"
@@ -57,9 +57,6 @@ func TestDashboardParameter_Basic(t *testing.T) {
 
 func testAccCheckDashboardParameterDestroy(ctx context.Context, qlient graphql.Client) func(*terraform.State) error {
 	return func(s *terraform.State) error {
-		if qlient == nil {
-			return nil
-		}
 
 		for _, r := range s.RootModule().Resources {
 			if r.Type == "jupiterone_dashboard_parameter" {
@@ -71,7 +68,7 @@ func testAccCheckDashboardParameterDestroy(ctx context.Context, qlient graphql.C
 					return fmt.Errorf("Dashboard parameter still exists (id=%q)", id)
 				}
 
-				if strings.Contains(err.Error(), "Dashboard parameter not found") {
+				if strings.Contains(err.Error(), fmt.Sprintf("Dashboard parameter with id %s not found", id)) {
 					return nil
 				}
 
@@ -84,9 +81,6 @@ func testAccCheckDashboardParameterDestroy(ctx context.Context, qlient graphql.C
 
 func testAccCheckDashboardParameterExists(ctx context.Context, qlient graphql.Client) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		if qlient == nil {
-			return fmt.Errorf("graphql client is nil")
-		}
 
 		for _, r := range s.RootModule().Resources {
 			if r.Type == "jupiterone_dashboard_parameter" {

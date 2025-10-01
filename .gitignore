@@ -54,3 +54,9 @@ schema.graphql
 !.terraform-registry
 
 supportLogs/
+.specify/
+
+configure-env.sh
+specs/
+.serena/
+specs/*/tasks.md

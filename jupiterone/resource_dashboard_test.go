@@ -8,31 +8,35 @@ import (
 	"time"
 
 	"github.com/Khan/genqlient/graphql"
+	"github.com/hashicorp/go-hclog"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
 	"github.com/jupiterone/terraform-provider-jupiterone/jupiterone/internal/client"
 )
 
+const testDashboardResourceName string = "jupiterone_dashboard.test"
+const testImportDashboardResourceName string = "jupiterone_dashboard.test_dashboard_import"
+
 func TestDashboard_Basic(t *testing.T) {
 	ctx := context.TODO()
 
-	recordingClient, directClient, cleanup := setupTestClients(ctx, t)
+	recordingClient, directClient, cleanup := setupTestClientsWithReplaySupport(ctx, t)
 	defer cleanup(t)
 
-	resourceName := "jupiterone_dashboard.test"
+	resourceName := testDashboardResourceName
 	dashboardName := "tf-provider-test-dashboard"
 	dashboardType := client.BoardTypeAccount
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:                 func() { testAccPreCheck(t) },
 		ProtoV6ProviderFactories: testAccProtoV6ProviderFactories(recordingClient),
-		CheckDestroy:             testAccCheckDashboardDestroy(ctx, directClient),
+		CheckDestroy:             testAccCheckDashboardDestroy(ctx, testDashboardResourceName, directClient),
 		Steps: []resource.TestStep{
 			{
 				Config: testDashboardBasicConfig(dashboardName),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckDashboardExists(ctx, directClient),
+					testAccCheckDashboardExists(ctx, testDashboardResourceName, directClient),
 					resource.TestCheckResourceAttrSet(resourceName, "id"),
 					resource.TestCheckResourceAttr(resourceName, "name", dashboardName),
 					resource.TestCheckResourceAttr(resourceName, "type", string(dashboardType)),
@@ -45,10 +49,10 @@ func TestDashboard_Basic(t *testing.T) {
 func TestDashboard_BasicImport(t *testing.T) {
 	ctx := context.TODO()
 
-	recordingClient, directClient, cleanup := setupTestClients(ctx, t)
+	recordingClient, directClient, cleanup := setupTestClientsWithReplaySupport(ctx, t)
 	defer cleanup(t)
 
-	resourceName := "jupiterone_dashboard.test"
+	resourceName := testImportDashboardResourceName
 	dashboardName := "tf-provider-test-dashboard-import"
 	dashboardType := client.BoardTypeAccount
 
@@ -59,10 +63,10 @@ func TestDashboard_BasicImport(t *testing.T) {
 			{
 				ImportState:   true,
 				ResourceName:  resourceName,
-				ImportStateId: createTestDashboard(ctx, t, recordingClient, dashboardName),
-				Config:        testDashboardBasicConfig(dashboardName),
+				ImportStateId: createTestDashboard(ctx, t, directClient, dashboardName),
+				Config:        testDashboardImportBasicConfig(dashboardName),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckDashboardExists(ctx, directClient),
+					testAccCheckDashboardExists(ctx, testImportDashboardResourceName, directClient),
 					resource.TestCheckResourceAttrSet(resourceName, "id"),
 					resource.TestCheckResourceAttr(resourceName, "name", dashboardName),
 					resource.TestCheckResourceAttr(resourceName, "type", string(dashboardType)),
@@ -89,80 +93,71 @@ func createTestDashboard(ctx context.Context, t *testing.T, qlient graphql.Clien
 	return r.CreateDashboard.Id
 }
 
-func testAccCheckDashboardExists(ctx context.Context, qlient graphql.Client) resource.TestCheckFunc {
+func testAccCheckDashboardExists(ctx context.Context, resourceDashboardName string, qlient graphql.Client) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		if err := dashboardExistsHelper(ctx, s, qlient); err != nil {
-			return err
-		}
-		return nil
+		resource := s.RootModule().Resources[resourceDashboardName]
+
+		return dashboardExistsHelper(ctx, resource.Primary.ID, qlient)
 	}
 }
 
-func dashboardExistsHelper(ctx context.Context, s *terraform.State, qlient graphql.Client) error {
-	if qlient == nil {
-		return nil
-	}
+func dashboardExistsHelper(ctx context.Context, id string, qlient graphql.Client) error {
 
 	duration := 10 * time.Second
-	for _, r := range s.RootModule().Resources {
-		err := retry.RetryContext(ctx, duration, func() *retry.RetryError {
-			id := r.Primary.ID
-			_, err := client.GetDashboard(ctx, qlient, id)
+	err := retry.RetryContext(ctx, duration, func() *retry.RetryError {
+		_, err := client.GetDashboard(ctx, qlient, id)
 
-			if err == nil {
-				return nil
-			}
-
-			if strings.Contains(err.Error(), "Dashboard string does not exist") {
-				return retry.RetryableError(fmt.Errorf("Dashboard does not exist (id=%q)", id))
-			}
-
-			return retry.NonRetryableError(err)
-		})
-
-		if err != nil {
-			return err
+		if err == nil {
+			return nil
 		}
+
+		if strings.Contains(err.Error(), "Dashboard string does not exist") {
+			return retry.RetryableError(fmt.Errorf("Dashboard does not exist (id=%q)", id))
+		}
+
+		return retry.NonRetryableError(err)
+	})
+
+	if err != nil {
+		return err
 	}
 
 	return nil
 }
 
-func testAccCheckDashboardDestroy(ctx context.Context, qlient graphql.Client) func(*terraform.State) error {
+func testAccCheckDashboardDestroy(ctx context.Context, resourceName string, qlient graphql.Client) func(*terraform.State) error {
 	return func(s *terraform.State) error {
-		if err := dashboardDestroyHelper(ctx, s, qlient); err != nil {
-			return err
+		resource := s.RootModule().Resources[resourceName]
+		if resource == nil {
+			hclog.Default().Debug("No resource found for dashboard", "resource_name", resourceName)
+			return nil
 		}
-		return nil
+		hclog.Default().Debug("Attempting to delete resource for dashboard", "resource_name", resourceName, "resource_id", resource.Primary.ID)
+		return dashboardDestroyHelper(ctx, resource.Primary.ID, qlient)
 	}
 }
 
-func dashboardDestroyHelper(ctx context.Context, s *terraform.State, qlient graphql.Client) error {
-	if qlient == nil {
-		return nil
-	}
+func dashboardDestroyHelper(ctx context.Context, id string, qlient graphql.Client) error {
 
 	duration := 10 * time.Second
-	for _, r := range s.RootModule().Resources {
-		err := retry.RetryContext(ctx, duration, func() *retry.RetryError {
-			id := r.Primary.ID
-			_, err := client.GetDashboard(ctx, qlient, id)
+	err := retry.RetryContext(ctx, duration, func() *retry.RetryError {
+		_, err := client.GetDashboard(ctx, qlient, id)
 
-			if err == nil {
-				return retry.RetryableError(fmt.Errorf("Dashboard still exists (id=%q)", id))
-			}
-
-			if strings.Contains(err.Error(), "does not exist") {
-				return nil
-			}
-
-			return retry.NonRetryableError(err)
-		})
-
-		if err != nil {
-			return err
+		if err == nil {
+			return retry.RetryableError(fmt.Errorf("Dashboard still exists (id=%q)", id))
 		}
+
+		if strings.Contains(err.Error(), fmt.Sprintf("Dashboard with id %s not found", id)) {
+			return nil
+		}
+
+		return retry.NonRetryableError(err)
+	})
+
+	if err != nil {
+		return err
 	}
+
 	return nil
 }
 
@@ -171,6 +166,18 @@ func testDashboardBasicConfig(rName string) string {
 		provider "jupiterone" {}
 
 		resource "jupiterone_dashboard" "test" {
+			name = %q
+			type = "Account"
+			resource_group_id = "rg-123456"
+		}
+	`, rName)
+}
+
+func testDashboardImportBasicConfig(rName string) string {
+	return fmt.Sprintf(`
+		provider "jupiterone" {}
+
+		resource "jupiterone_dashboard" "test_dashboard_import" {
 			name = %q
 			type = "Account"
 			resource_group_id = "rg-123456"

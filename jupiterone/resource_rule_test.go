@@ -23,7 +23,7 @@ var testRuleResourceName = "jupiterone_rule.test"
 func TestInlineRuleInstance_Basic(t *testing.T) {
 	ctx := context.TODO()
 
-	recordingClient, directClient, cleanup := setupTestClients(ctx, t)
+	recordingClient, directClient, cleanup := setupTestClientsWithReplaySupport(ctx, t)
 	defer cleanup(t)
 
 	ruleName := "tf-provider-test-rule"
@@ -97,7 +97,7 @@ func TestInlineRuleInstance_Basic(t *testing.T) {
 func TestInlineRuleInstance_BasicImport(t *testing.T) {
 	ctx := context.TODO()
 
-	recordingClient, directClient, cleanup := setupTestClients(ctx, t)
+	recordingClient, directClient, cleanup := setupTestClientsWithReplaySupport(ctx, t)
 	defer cleanup(t)
 
 	ruleName := "tf-provider-test-rule"
@@ -110,9 +110,8 @@ func TestInlineRuleInstance_BasicImport(t *testing.T) {
 				ImportState:        true,
 				ImportStatePersist: true, // set to true to do destroy the created rule
 				ResourceName:       testRuleResourceName,
-				// must use recordingClient for createTestRule to return the uuid
-				ImportStateId: createTestRule(ctx, t, recordingClient, ruleName),
-				Config:        testInlineRuleInstanceBasicConfigWithOperations(ruleName, getValidOperationsWithoutFilter()),
+				ImportStateId:      createTestRule(ctx, t, directClient, ruleName),
+				Config:             testInlineRuleInstanceBasicConfigWithOperations(ruleName, getValidOperationsWithoutFilter()),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckRuleExists(ctx, testRuleResourceName, directClient),
 					resource.TestCheckResourceAttrSet(testRuleResourceName, "id"),
@@ -145,7 +144,7 @@ func TestInlineRuleInstance_BasicImport(t *testing.T) {
 func TestReferencedQuestionRule_Basic(t *testing.T) {
 	ctx := context.TODO()
 
-	recordingClient, directClient, cleanup := setupTestClients(ctx, t)
+	recordingClient, directClient, cleanup := setupTestClientsWithReplaySupport(ctx, t)
 	defer cleanup(t)
 
 	ruleName := "tf-provider-test-rule"
@@ -181,7 +180,7 @@ func TestReferencedQuestionRule_Basic(t *testing.T) {
 func TestRuleInstance_Config_Errors(t *testing.T) {
 	ctx := context.TODO()
 
-	recordingClient, _, cleanup := setupTestClients(ctx, t)
+	recordingClient, _, cleanup := setupTestClientsWithReplaySupport(ctx, t)
 	defer cleanup(t)
 
 	rName := acctest.RandomWithPrefix("tf-acc-test")
@@ -257,9 +256,6 @@ func testAccCheckRuleExists(ctx context.Context, ruleName string, qlient graphql
 }
 
 func ruleExistsHelper(ctx context.Context, id string, qlient graphql.Client) error {
-	if qlient == nil {
-		return nil
-	}
 
 	duration := 10 * time.Second
 	err := retry.RetryContext(ctx, duration, func() *retry.RetryError {
@@ -296,9 +292,6 @@ func testAccCheckRuleInstanceDestroy(ctx context.Context, qlient graphql.Client)
 }
 
 func ruleInstanceDestroyHelper(ctx context.Context, id string, qlient graphql.Client) error {
-	if qlient == nil {
-		return nil
-	}
 
 	duration := 10 * time.Second
 	err := retry.RetryContext(ctx, duration, func() *retry.RetryError {
@@ -308,7 +301,7 @@ func ruleInstanceDestroyHelper(ctx context.Context, id string, qlient graphql.Cl
 			return retry.RetryableError(fmt.Errorf("Rule instance still exists (id=%q)", id))
 		}
 
-		if strings.Contains(err.Error(), "Rule instance does not exist.") {
+		if strings.Contains(err.Error(), "Rule instance does not exist") {
 			return nil
 		}
 
