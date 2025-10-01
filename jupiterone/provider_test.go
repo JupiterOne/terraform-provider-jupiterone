@@ -81,11 +81,10 @@ func setupCassettes(name string) (*recorder.Recorder, func(t *testing.T)) {
 	return rec, cleanup
 }
 
-// setupTestClients creates clients to be used during tests
-//
-//   - recordingClient: uses a go-vcr recorder for recording/replaying API responses
-//   - directClient: uses the same recorder during recording/replay to ensure
-//     all test interactions are captured in cassettes
+//   - recorderClient: uses a go-vcr recorder for replaying API responses
+//   - directClient: nil when not recording, for sending requests directly J1 for
+//     requests that verify the state during recording, but don't need to be
+//     repeated during replays.
 func setupTestClients(ctx context.Context, t *testing.T) (recordingClient graphql.Client, directClient graphql.Client, cleanup func(t *testing.T)) {
 	var recorder *recorder.Recorder
 
@@ -101,6 +100,9 @@ func setupTestClients(ctx context.Context, t *testing.T) (recordingClient graphq
 	return
 }
 
+//   - recordingClient: uses a go-vcr recorder for recording/replaying API responses
+//   - directClient: uses the same recorder during recording/replay to ensure
+//     all test interactions are captured in cassettes
 func setupTestClientsWithReplaySupport(ctx context.Context, t *testing.T) (recordingClient graphql.Client, directClient graphql.Client, cleanup func(t *testing.T)) {
 	var recorder *recorder.Recorder
 
