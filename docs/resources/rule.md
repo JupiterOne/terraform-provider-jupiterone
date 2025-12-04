@@ -186,7 +186,7 @@ resource "jupiterone_rule" "unencrypted_critical_data_stores_jira" {
 - `spec_version` (Number) Rule evaluation specification version in the case of breaking changes.
 - `tags` (List of String) Comma separated list of tags to apply to the rule.
 - `templates` (Map of String) Optional key/value pairs of template name to template
-- `trigger_on_new_only` (Boolean)
+- `trigger_on_new_only` (Boolean) When enabled, rule actions will only be triggered for new entities that match the rule query. At least one `when` condition must be defined in the rule's operations for this setting to be respected.
 
 ### Read-Only
 
