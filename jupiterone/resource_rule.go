@@ -364,7 +364,8 @@ func (*QuestionRuleResource) Schema(ctx context.Context, req resource.SchemaRequ
 				NestedObject: schema.NestedAttributeObject{
 					Attributes: map[string]schema.Attribute{
 						"when": schema.StringAttribute{
-							Optional: true,
+							Description: "A JSON object that specifies the condition to evaluate before executing the actions. Required when `trigger_on_new_only` is enabled.",
+							Optional:    true,
 							Validators: []validator.String{
 								stringvalidator.LengthAtLeast(MIN_JSON_LENGTH),
 							},

@@ -202,7 +202,7 @@ Required:
 
 Optional:
 
-- `when` (String)
+- `when` (String) A JSON object that specifies the condition to evaluate before executing the actions. Required when `trigger_on_new_only` is enabled.
 
 
 <a id="nestedatt--labels"></a>
