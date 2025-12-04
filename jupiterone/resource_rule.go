@@ -404,9 +404,9 @@ func (*QuestionRuleResource) Schema(ctx context.Context, req resource.SchemaRequ
 			},
 			"trigger_on_new_only": schema.BoolAttribute{
 				Description: "When enabled, rule actions will only be triggered for new entities that match the rule query. At least one `when` condition must be defined in the rule's operations for this setting to be respected.",
-				Optional: true,
-				Computed: true,
-				Default:  booldefault.StaticBool(false),
+				Optional:    true,
+				Computed:    true,
+				Default:     booldefault.StaticBool(false),
 			},
 			"ignore_previous_results": schema.BoolAttribute{
 				Optional: true,
