@@ -5300,7 +5300,7 @@ type UpdateIntegrationInstanceInput struct {
 	Config                        interface{}                                   `json:"config"`
 	OffsiteComplete               bool                                          `json:"offsiteComplete,omitempty"`
 	CollectorPoolId               string                                        `json:"collectorPoolId,omitempty"`
-	IngestionSourcesOverrides     []IngestionSourcesOverridesInput              `json:"ingestionSourcesOverrides"`
+	IngestionSourcesOverrides     []IngestionSourcesOverridesInput              `json:"ingestionSourcesOverrides,omitempty"`
 	ResourceGroupId               string                                        `json:"resourceGroupId"`
 	UpdateChildResourceGroup      bool                                          `json:"updateChildResourceGroup"`
 }
