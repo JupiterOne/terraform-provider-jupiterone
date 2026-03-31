@@ -10051,3 +10051,513 @@ mutation UpdateWidget ($boardId: String!, $boardType: String!, $newWidget: Widge
 
 	return &data, err
 }
+
+// Control Framework and Requirement types and functions
+
+type RequirementPriority string
+
+const (
+	RequirementPriorityCritical RequirementPriority = "CRITICAL"
+	RequirementPriorityHigh     RequirementPriority = "HIGH"
+	RequirementPriorityMedium   RequirementPriority = "MEDIUM"
+	RequirementPriorityLow      RequirementPriority = "LOW"
+)
+
+// CreateFrameworkInput is the input for the createFramework mutation.
+type CreateFrameworkInput struct {
+	Title           string `json:"title"`
+	Description     string `json:"description"`
+	ResourceGroupId string `json:"resourceGroupId"`
+	Owner           string `json:"owner"`
+}
+
+// UpdateFrameworkInput is the input for the updateFramework mutation.
+type UpdateFrameworkInput struct {
+	FrameworkId     string `json:"frameworkId"`
+	Name            string `json:"name"`
+	Description     string `json:"description"`
+	ResourceGroupId string `json:"resourceGroupId"`
+	Owner           string `json:"owner"`
+}
+
+// DeleteFrameworkInput is the input for the deleteFramework mutation.
+type DeleteFrameworkInput struct {
+	Id string `json:"id"`
+}
+
+// GetFrameworkByIdControlFramework includes the requested fields of the GraphQL type ControlFramework.
+type GetFrameworkByIdControlFramework struct {
+	Id              string `json:"id"`
+	Name            string `json:"name"`
+	Description     string `json:"description"`
+	ResourceGroupId string `json:"resourceGroupId"`
+	Owner           string `json:"owner"`
+	Source          string `json:"source"`
+}
+
+// GetFrameworkByIdResponse is returned by GetFrameworkById on success.
+type GetFrameworkByIdResponse struct {
+	ControlFramework GetFrameworkByIdControlFramework `json:"controlFramework"`
+}
+
+// GetControlFramework returns GetFrameworkByIdResponse.ControlFramework, and is useful for accessing the field via an interface.
+func (v *GetFrameworkByIdResponse) GetControlFramework() GetFrameworkByIdControlFramework {
+	return v.ControlFramework
+}
+
+// CreateFrameworkCreateFramework includes the requested fields of the GraphQL type ControlFramework.
+type CreateFrameworkCreateFramework struct {
+	Id              string `json:"id"`
+	Name            string `json:"name"`
+	Description     string `json:"description"`
+	ResourceGroupId string `json:"resourceGroupId"`
+	Owner           string `json:"owner"`
+}
+
+// CreateFrameworkResponse is returned by CreateFramework on success.
+type CreateFrameworkResponse struct {
+	CreateFramework CreateFrameworkCreateFramework `json:"createFramework"`
+}
+
+// GetCreateFramework returns CreateFrameworkResponse.CreateFramework, and is useful for accessing the field via an interface.
+func (v *CreateFrameworkResponse) GetCreateFramework() CreateFrameworkCreateFramework {
+	return v.CreateFramework
+}
+
+// UpdateFrameworkUpdateFramework includes the requested fields of the GraphQL type ControlFramework.
+type UpdateFrameworkUpdateFramework struct {
+	Id              string `json:"id"`
+	Name            string `json:"name"`
+	Description     string `json:"description"`
+	ResourceGroupId string `json:"resourceGroupId"`
+	Owner           string `json:"owner"`
+}
+
+// UpdateFrameworkResponse is returned by UpdateFramework on success.
+type UpdateFrameworkResponse struct {
+	UpdateFramework UpdateFrameworkUpdateFramework `json:"updateFramework"`
+}
+
+// GetUpdateFramework returns UpdateFrameworkResponse.UpdateFramework, and is useful for accessing the field via an interface.
+func (v *UpdateFrameworkResponse) GetUpdateFramework() UpdateFrameworkUpdateFramework {
+	return v.UpdateFramework
+}
+
+// DeleteFrameworkResponse is returned by DeleteFramework on success.
+type DeleteFrameworkResponse struct {
+	DeleteFramework bool `json:"deleteFramework"`
+}
+
+// __CreateFrameworkInput is used internally by genqlient
+type __CreateFrameworkInput struct {
+	Input CreateFrameworkInput `json:"input"`
+}
+
+// __UpdateFrameworkInput is used internally by genqlient
+type __UpdateFrameworkInput struct {
+	Input UpdateFrameworkInput `json:"input"`
+}
+
+// __DeleteFrameworkInput is used internally by genqlient
+type __DeleteFrameworkInput struct {
+	Input DeleteFrameworkInput `json:"input"`
+}
+
+// __GetFrameworkByIdInput is used internally by genqlient
+type __GetFrameworkByIdInput struct {
+	Id string `json:"id"`
+}
+
+func GetFrameworkById(
+	ctx context.Context,
+	client graphql.Client,
+	id string,
+) (*GetFrameworkByIdResponse, error) {
+	req := &graphql.Request{
+		OpName: "GetFrameworkById",
+		Query: `
+query GetFrameworkById ($id: ID!) {
+	controlFramework(id: $id) {
+		id
+		name
+		description
+		resourceGroupId
+		owner
+		source
+	}
+}
+`,
+		Variables: &__GetFrameworkByIdInput{
+			Id: id,
+		},
+	}
+	var err error
+
+	var data GetFrameworkByIdResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func CreateFramework(
+	ctx context.Context,
+	client graphql.Client,
+	input CreateFrameworkInput,
+) (*CreateFrameworkResponse, error) {
+	req := &graphql.Request{
+		OpName: "CreateFramework",
+		Query: `
+mutation CreateFramework ($input: CreateFrameworkInput!) {
+	createFramework(input: $input) {
+		id
+		name
+		description
+		resourceGroupId
+		owner
+	}
+}
+`,
+		Variables: &__CreateFrameworkInput{
+			Input: input,
+		},
+	}
+	var err error
+
+	var data CreateFrameworkResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func UpdateFramework(
+	ctx context.Context,
+	client graphql.Client,
+	input UpdateFrameworkInput,
+) (*UpdateFrameworkResponse, error) {
+	req := &graphql.Request{
+		OpName: "UpdateFramework",
+		Query: `
+mutation UpdateFramework ($input: UpdateFrameworkInput!) {
+	updateFramework(input: $input) {
+		id
+		name
+		description
+		resourceGroupId
+		owner
+	}
+}
+`,
+		Variables: &__UpdateFrameworkInput{
+			Input: input,
+		},
+	}
+	var err error
+
+	var data UpdateFrameworkResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func DeleteFramework(
+	ctx context.Context,
+	client graphql.Client,
+	input DeleteFrameworkInput,
+) (*DeleteFrameworkResponse, error) {
+	req := &graphql.Request{
+		OpName: "DeleteFramework",
+		Query: `
+mutation DeleteFramework ($input: DeleteFrameworkInput!) {
+	deleteFramework(input: $input)
+}
+`,
+		Variables: &__DeleteFrameworkInput{
+			Input: input,
+		},
+	}
+	var err error
+
+	var data DeleteFrameworkResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+// Requirement types and functions
+
+// CreateRequirementInput is the input for the createRequirement mutation.
+type CreateRequirementInput struct {
+	Title       string `json:"title"`
+	FrameworkId string `json:"frameworkId"`
+	Description string `json:"description"`
+	Identifier  string `json:"identifier"`
+	Priority    string `json:"priority"`
+	Section     string `json:"section"`
+}
+
+// UpdateRequirementInput is the input for the updateRequirement mutation.
+type UpdateRequirementInput struct {
+	Id          string `json:"id"`
+	Title       string `json:"title"`
+	Description string `json:"description"`
+	Identifier  string `json:"identifier"`
+	Priority    string `json:"priority"`
+	Section     string `json:"section"`
+}
+
+// DeleteRequirementInput is the input for the deleteRequirement mutation.
+type DeleteRequirementInput struct {
+	Id string `json:"id"`
+}
+
+// GetRequirementByIdRequirement includes the requested fields of the GraphQL type ControlRequirement.
+type GetRequirementByIdRequirement struct {
+	Id           string   `json:"id"`
+	Title        string   `json:"title"`
+	FrameworkIds []string `json:"frameworkIds"`
+	Description  string   `json:"description"`
+	Identifier   string   `json:"identifier"`
+	Priority     string   `json:"priority"`
+	Section      string   `json:"section"`
+}
+
+// GetRequirementByIdResponse is returned by GetRequirementById on success.
+type GetRequirementByIdResponse struct {
+	Requirement GetRequirementByIdRequirement `json:"requirement"`
+}
+
+// GetRequirement returns GetRequirementByIdResponse.Requirement, and is useful for accessing the field via an interface.
+func (v *GetRequirementByIdResponse) GetRequirement() GetRequirementByIdRequirement {
+	return v.Requirement
+}
+
+// CreateRequirementCreateRequirement includes the requested fields of the GraphQL type ControlRequirement.
+type CreateRequirementCreateRequirement struct {
+	Id          string `json:"id"`
+	Title       string `json:"title"`
+	Description string `json:"description"`
+	Identifier  string `json:"identifier"`
+	Priority    string `json:"priority"`
+	Section     string `json:"section"`
+}
+
+// CreateRequirementResponse is returned by CreateRequirement on success.
+type CreateRequirementResponse struct {
+	CreateRequirement CreateRequirementCreateRequirement `json:"createRequirement"`
+}
+
+// GetCreateRequirement returns CreateRequirementResponse.CreateRequirement, and is useful for accessing the field via an interface.
+func (v *CreateRequirementResponse) GetCreateRequirement() CreateRequirementCreateRequirement {
+	return v.CreateRequirement
+}
+
+// UpdateRequirementUpdateRequirement includes the requested fields of the GraphQL type ControlRequirement.
+type UpdateRequirementUpdateRequirement struct {
+	Id          string `json:"id"`
+	Title       string `json:"title"`
+	Description string `json:"description"`
+	Identifier  string `json:"identifier"`
+	Priority    string `json:"priority"`
+	Section     string `json:"section"`
+}
+
+// UpdateRequirementResponse is returned by UpdateRequirement on success.
+type UpdateRequirementResponse struct {
+	UpdateRequirement UpdateRequirementUpdateRequirement `json:"updateRequirement"`
+}
+
+// GetUpdateRequirement returns UpdateRequirementResponse.UpdateRequirement, and is useful for accessing the field via an interface.
+func (v *UpdateRequirementResponse) GetUpdateRequirement() UpdateRequirementUpdateRequirement {
+	return v.UpdateRequirement
+}
+
+// DeleteRequirementResponse is returned by DeleteRequirement on success.
+type DeleteRequirementResponse struct {
+	DeleteRequirement bool `json:"deleteRequirement"`
+}
+
+// __CreateRequirementInput is used internally by genqlient
+type __CreateRequirementInput struct {
+	Input CreateRequirementInput `json:"input"`
+}
+
+// __UpdateRequirementInput is used internally by genqlient
+type __UpdateRequirementInput struct {
+	Input UpdateRequirementInput `json:"input"`
+}
+
+// __DeleteRequirementInput is used internally by genqlient
+type __DeleteRequirementInput struct {
+	Input DeleteRequirementInput `json:"input"`
+}
+
+// __GetRequirementByIdInput is used internally by genqlient
+type __GetRequirementByIdInput struct {
+	Id string `json:"id"`
+}
+
+func GetRequirementById(
+	ctx context.Context,
+	client graphql.Client,
+	id string,
+) (*GetRequirementByIdResponse, error) {
+	req := &graphql.Request{
+		OpName: "GetRequirementById",
+		Query: `
+query GetRequirementById ($id: ID!) {
+	requirement(id: $id) {
+		id
+		title
+		frameworkIds
+		description
+		identifier
+		priority
+		section
+	}
+}
+`,
+		Variables: &__GetRequirementByIdInput{
+			Id: id,
+		},
+	}
+	var err error
+
+	var data GetRequirementByIdResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func CreateRequirement(
+	ctx context.Context,
+	client graphql.Client,
+	input CreateRequirementInput,
+) (*CreateRequirementResponse, error) {
+	req := &graphql.Request{
+		OpName: "CreateRequirement",
+		Query: `
+mutation CreateRequirement ($input: CreateRequirementInput!) {
+	createRequirement(input: $input) {
+		id
+		title
+		description
+		identifier
+		priority
+		section
+	}
+}
+`,
+		Variables: &__CreateRequirementInput{
+			Input: input,
+		},
+	}
+	var err error
+
+	var data CreateRequirementResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func UpdateRequirement(
+	ctx context.Context,
+	client graphql.Client,
+	input UpdateRequirementInput,
+) (*UpdateRequirementResponse, error) {
+	req := &graphql.Request{
+		OpName: "UpdateRequirement",
+		Query: `
+mutation UpdateRequirement ($input: UpdateRequirementInput!) {
+	updateRequirement(input: $input) {
+		id
+		title
+		description
+		identifier
+		priority
+		section
+	}
+}
+`,
+		Variables: &__UpdateRequirementInput{
+			Input: input,
+		},
+	}
+	var err error
+
+	var data UpdateRequirementResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func DeleteRequirement(
+	ctx context.Context,
+	client graphql.Client,
+	input DeleteRequirementInput,
+) (*DeleteRequirementResponse, error) {
+	req := &graphql.Request{
+		OpName: "DeleteRequirement",
+		Query: `
+mutation DeleteRequirement ($input: DeleteRequirementInput!) {
+	deleteRequirement(input: $input)
+}
+`,
+		Variables: &__DeleteRequirementInput{
+			Input: input,
+		},
+	}
+	var err error
+
+	var data DeleteRequirementResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
