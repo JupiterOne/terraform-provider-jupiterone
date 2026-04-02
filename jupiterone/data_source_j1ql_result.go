@@ -131,7 +131,7 @@ func (d *j1qlResultDataSource) Read(ctx context.Context, req datasource.ReadRequ
 	}
 
 	stringifiedData, err := json.Marshal(endResults)
-	fmt.Printf("Stringified data id" + string(stringifiedData))
+	fmt.Printf("Stringified data id%s", string(stringifiedData))
 
 	if err != nil {
 		resp.Diagnostics.AddError("failed to marshal query data", err.Error())
