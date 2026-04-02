@@ -60,7 +60,7 @@ func (d *integrationExternalIdDataSource) Read(ctx context.Context, req datasour
 		return
 	}
 
-	data.Id = types.StringValue(response.GenerateExternalId)
+	data.Id = types.StringValue(response.GenerateExternalIdV2)
 
 	// Save updated data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
