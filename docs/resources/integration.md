@@ -211,5 +211,3 @@ Optional:
 
 - `enabled` (Boolean)
 - `ingestion_source_id` (String)
-
-

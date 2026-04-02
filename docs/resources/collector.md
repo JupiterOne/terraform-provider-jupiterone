@@ -35,5 +35,3 @@ resource "jupiterone_collector" "example" {
 - `last_heartbeat_at` (Number)
 - `state` (String)
 - `updated_at` (Number)
-
-

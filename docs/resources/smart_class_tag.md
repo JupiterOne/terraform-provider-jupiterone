@@ -48,5 +48,3 @@ resource "jupiterone_smart_class_tag" "tag3" {
 ### Read-Only
 
 - `id` (String) The ID of this resource.
-
-

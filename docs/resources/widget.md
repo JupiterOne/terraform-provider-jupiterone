@@ -51,5 +51,3 @@ Required:
 Optional:
 
 - `name` (String) The query name.
-
-

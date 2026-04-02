@@ -55,5 +55,3 @@ resource "jupiterone_account_parameter" "account_active" {
 ### Read-Only
 
 - `id` (String) The ID of this resource.
-
-

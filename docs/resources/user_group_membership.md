@@ -40,5 +40,3 @@ resource "jupiterone_user_group_membership" "new_user_to_admin_group" {
 ### Read-Only
 
 - `id` (String) The ID of this resource.
-
-

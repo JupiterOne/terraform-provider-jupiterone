@@ -28,5 +28,3 @@ resource "jupiterone_resource_group" "resource" {
 ### Read-Only
 
 - `id` (String) The ID of this resource.
-
-

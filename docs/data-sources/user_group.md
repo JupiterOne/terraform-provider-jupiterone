@@ -35,5 +35,3 @@ data "jupiterone_user_group" "standard_users" {
 - `id` (String) The ID of this resource.
 - `permissions` (Set of String) A set of permissions for the user group.
 - `query_policy` (Set of Map of List of String) A set of query policy statements for the user group.
-
-

@@ -55,5 +55,3 @@ resource "jupiterone_integration" "example_custom_integration" {
 ### Read-Only
 
 - `id` (String) The ID of this resource.
-
-

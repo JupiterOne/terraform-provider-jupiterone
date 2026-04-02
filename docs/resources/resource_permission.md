@@ -82,5 +82,3 @@ resource "jupiterone_resource_permission" "engineering_dashboard_key_insights" {
 ### Read-Only
 
 - `id` (String) The ID of this resource.
-
-

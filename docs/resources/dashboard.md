@@ -102,5 +102,3 @@ resource "jupiterone_widget" "plot-compliance-per-control" {
 ### Read-Only
 
 - `id` (String) The ID of this resource.
-
-

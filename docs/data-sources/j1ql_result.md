@@ -60,5 +60,3 @@ Required:
 Optional:
 
 - `include_deleted` (Boolean) Whether to include deleted entities in the results.
-
-

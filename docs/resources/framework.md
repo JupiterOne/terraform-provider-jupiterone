@@ -64,5 +64,3 @@ resource "jupiterone_frameworkitem" "change_control" {
 ### Read-Only
 
 - `id` (String) The ID of this resource.
-
-

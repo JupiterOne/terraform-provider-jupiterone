@@ -42,5 +42,3 @@ resource "jupiterone_custom_integration_definition" "example" {
 ### Read-Only
 
 - `id` (String) Unique identifier for the custom integration definition
-
-

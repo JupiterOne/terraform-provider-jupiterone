@@ -51,7 +51,7 @@ test-compile:
 	go test -c $(TEST) $(TESTARGS)
 
 docs:
-	go run github.com/hashicorp/terraform-plugin-docs/cmd/tfplugindocs
+	go run github.com/hashicorp/terraform-plugin-docs/cmd/tfplugindocs generate --provider-name jupiterone --rendered-provider-name terraform-provider-jupiterone
 
 jupiterone/internal/client/schema.graphql:
 	@scripts/get_current_schema.bash

@@ -28,5 +28,3 @@ Manages a JupiterOne custom integration definition.
 - `id` (String) The unique identifier of the custom integration definition.
 - `integration_category` (List of String) The categories of the integration.
 - `name` (String) The name of the integration.
-
-

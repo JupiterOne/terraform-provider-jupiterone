@@ -32,5 +32,3 @@ Refer to the resource_framework docs for example usage
 ### Read-Only
 
 - `id` (String) The ID of this resource.
-
-

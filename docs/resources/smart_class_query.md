@@ -32,5 +32,3 @@ resource "jupiterone_smart_class_query" "query1" {
 ### Read-Only
 
 - `id` (String) The ID of this resource.
-
-

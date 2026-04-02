@@ -31,5 +31,3 @@ A FrameworkItem (Requirement in the web UI) is a control that is part of a frame
 ### Read-Only
 
 - `id` (String) The ID of this resource.
-
-

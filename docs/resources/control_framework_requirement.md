@@ -40,11 +40,9 @@ resource "jupiterone_control_framework_requirement" "example" {
 
 - `description` (String) Description of the requirement
 - `identifier` (String) A unique identifier for the requirement
-- `priority` (String) Priority of the requirement. Must be one of: `CRITICAL`, `HIGH`, `MEDIUM`, `LOW`
+- `priority` (String) Priority of the requirement
 - `section` (String) The section this requirement belongs to
 
 ### Read-Only
 
 - `id` (String) The ID of this resource.
-
-

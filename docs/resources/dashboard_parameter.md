@@ -61,5 +61,3 @@ resource "jupiterone_dashboard_parameter" "example_parameter" {
 ### Read-Only
 
 - `id` (String) The unique identifier of the dashboard parameter.
-
-

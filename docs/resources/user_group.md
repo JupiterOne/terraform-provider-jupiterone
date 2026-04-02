@@ -46,5 +46,3 @@ resource "jupiterone_user_group" "hr_insights_readonly" {
 ### Read-Only
 
 - `id` (String) The ID of this resource.
-
-
