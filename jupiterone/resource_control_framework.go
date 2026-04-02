@@ -88,7 +88,7 @@ func (*ControlFrameworkResource) Schema(_ context.Context, _ resource.SchemaRequ
 			},
 			"owner": schema.StringAttribute{
 				Optional:    true,
-				Description: "The owner of the framework",
+				Description: "The owner of the framework (must be the email address of an active JupiterOne user)",
 			},
 		},
 	}
