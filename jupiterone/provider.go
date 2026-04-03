@@ -155,6 +155,8 @@ func (*JupiterOneProvider) Resources(context.Context) []func() resource.Resource
 		NewAccountParameterResource,
 		NewCustomIntegrationDefinitionResource,
 		NewCollectorResource,
+		NewControlFrameworkResource,
+		NewControlFrameworkRequirementResource,
 	}
 }
 

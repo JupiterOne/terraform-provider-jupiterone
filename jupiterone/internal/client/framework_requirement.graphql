@@ -1,0 +1,76 @@
+query GetFrameworkById($id: ID!) {
+  controlFramework(id: $id) {
+    id
+    name
+    description
+    resourceGroupId
+    owner
+    source
+  }
+}
+
+mutation CreateFramework($input: CreateFrameworkInput!) {
+  createFramework(input: $input) {
+    id
+    name
+    description
+    resourceGroupId
+    owner
+  }
+}
+
+mutation UpdateFramework($input: UpdateFrameworkInput!) {
+  updateFramework(input: $input) {
+    id
+    name
+    description
+    resourceGroupId
+    owner
+  }
+}
+
+mutation DeleteFramework($input: DeleteFrameworkInput!) {
+  deleteFramework(input: $input) {
+    success
+  }
+}
+
+query GetRequirementById($id: ID!) {
+  requirement(id: $id) {
+    id
+    title
+    frameworkIds
+    description
+    identifier
+    priority
+    section
+  }
+}
+
+mutation CreateRequirement($input: CreateRequirementInput!) {
+  createRequirement(input: $input) {
+    id
+    title
+    description
+    identifier
+    priority
+    section
+  }
+}
+
+mutation UpdateRequirement($input: UpdateRequirementInput!) {
+  updateRequirement(input: $input) {
+    id
+    title
+    description
+    identifier
+    priority
+    section
+  }
+}
+
+mutation DeleteRequirement($input: DeleteRequirementInput!) {
+  deleteRequirement(input: $input) {
+    success
+  }
+}

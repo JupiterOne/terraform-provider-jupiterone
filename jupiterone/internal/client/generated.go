@@ -83,6 +83,15 @@ func (v *ComplianceGroup) GetDisplayCategory() string { return v.DisplayCategory
 // GetWebLink returns ComplianceGroup.WebLink, and is useful for accessing the field via an interface.
 func (v *ComplianceGroup) GetWebLink() string { return v.WebLink }
 
+type ControlFrameworkSource string
+
+const (
+	ControlFrameworkSourceJ1     ControlFrameworkSource = "J1"
+	ControlFrameworkSourceUcf    ControlFrameworkSource = "UCF"
+	ControlFrameworkSourceUpload ControlFrameworkSource = "UPLOAD"
+	ControlFrameworkSourceJson   ControlFrameworkSource = "JSON"
+)
+
 // CreateCollectorCreateCollectorCreateCollectorResponse includes the requested fields of the GraphQL type CreateCollectorResponse.
 type CreateCollectorCreateCollectorCreateCollectorResponse struct {
 	Collector CreateCollectorCreateCollectorCreateCollectorResponseCollector `json:"collector"`
@@ -609,6 +618,63 @@ type CreateDashboardResponse struct {
 // GetCreateDashboard returns CreateDashboardResponse.CreateDashboard, and is useful for accessing the field via an interface.
 func (v *CreateDashboardResponse) GetCreateDashboard() CreateDashboardCreateDashboardInsightsDashboard {
 	return v.CreateDashboard
+}
+
+// CreateFrameworkCreateFrameworkControlFramework includes the requested fields of the GraphQL type ControlFramework.
+type CreateFrameworkCreateFrameworkControlFramework struct {
+	Id              string `json:"id"`
+	Name            string `json:"name"`
+	Description     string `json:"description"`
+	ResourceGroupId string `json:"resourceGroupId"`
+	Owner           string `json:"owner"`
+}
+
+// GetId returns CreateFrameworkCreateFrameworkControlFramework.Id, and is useful for accessing the field via an interface.
+func (v *CreateFrameworkCreateFrameworkControlFramework) GetId() string { return v.Id }
+
+// GetName returns CreateFrameworkCreateFrameworkControlFramework.Name, and is useful for accessing the field via an interface.
+func (v *CreateFrameworkCreateFrameworkControlFramework) GetName() string { return v.Name }
+
+// GetDescription returns CreateFrameworkCreateFrameworkControlFramework.Description, and is useful for accessing the field via an interface.
+func (v *CreateFrameworkCreateFrameworkControlFramework) GetDescription() string {
+	return v.Description
+}
+
+// GetResourceGroupId returns CreateFrameworkCreateFrameworkControlFramework.ResourceGroupId, and is useful for accessing the field via an interface.
+func (v *CreateFrameworkCreateFrameworkControlFramework) GetResourceGroupId() string {
+	return v.ResourceGroupId
+}
+
+// GetOwner returns CreateFrameworkCreateFrameworkControlFramework.Owner, and is useful for accessing the field via an interface.
+func (v *CreateFrameworkCreateFrameworkControlFramework) GetOwner() string { return v.Owner }
+
+type CreateFrameworkInput struct {
+	Title           string `json:"title"`
+	Description     string `json:"description"`
+	ResourceGroupId string `json:"resourceGroupId"`
+	Owner           string `json:"owner"`
+}
+
+// GetTitle returns CreateFrameworkInput.Title, and is useful for accessing the field via an interface.
+func (v *CreateFrameworkInput) GetTitle() string { return v.Title }
+
+// GetDescription returns CreateFrameworkInput.Description, and is useful for accessing the field via an interface.
+func (v *CreateFrameworkInput) GetDescription() string { return v.Description }
+
+// GetResourceGroupId returns CreateFrameworkInput.ResourceGroupId, and is useful for accessing the field via an interface.
+func (v *CreateFrameworkInput) GetResourceGroupId() string { return v.ResourceGroupId }
+
+// GetOwner returns CreateFrameworkInput.Owner, and is useful for accessing the field via an interface.
+func (v *CreateFrameworkInput) GetOwner() string { return v.Owner }
+
+// CreateFrameworkResponse is returned by CreateFramework on success.
+type CreateFrameworkResponse struct {
+	CreateFramework CreateFrameworkCreateFrameworkControlFramework `json:"createFramework"`
+}
+
+// GetCreateFramework returns CreateFrameworkResponse.CreateFramework, and is useful for accessing the field via an interface.
+func (v *CreateFrameworkResponse) GetCreateFramework() CreateFrameworkCreateFrameworkControlFramework {
+	return v.CreateFramework
 }
 
 type CreateIamResourceGroupInput struct {
@@ -1670,6 +1736,77 @@ func (v *CreateReferencedQuestionRuleInstanceResponse) GetCreateQuestionRuleInst
 	return v.CreateQuestionRuleInstance
 }
 
+// CreateRequirementCreateRequirementControlRequirement includes the requested fields of the GraphQL type ControlRequirement.
+type CreateRequirementCreateRequirementControlRequirement struct {
+	Id          string              `json:"id"`
+	Title       string              `json:"title"`
+	Description string              `json:"description"`
+	Identifier  string              `json:"identifier"`
+	Priority    RequirementPriority `json:"priority"`
+	Section     string              `json:"section"`
+}
+
+// GetId returns CreateRequirementCreateRequirementControlRequirement.Id, and is useful for accessing the field via an interface.
+func (v *CreateRequirementCreateRequirementControlRequirement) GetId() string { return v.Id }
+
+// GetTitle returns CreateRequirementCreateRequirementControlRequirement.Title, and is useful for accessing the field via an interface.
+func (v *CreateRequirementCreateRequirementControlRequirement) GetTitle() string { return v.Title }
+
+// GetDescription returns CreateRequirementCreateRequirementControlRequirement.Description, and is useful for accessing the field via an interface.
+func (v *CreateRequirementCreateRequirementControlRequirement) GetDescription() string {
+	return v.Description
+}
+
+// GetIdentifier returns CreateRequirementCreateRequirementControlRequirement.Identifier, and is useful for accessing the field via an interface.
+func (v *CreateRequirementCreateRequirementControlRequirement) GetIdentifier() string {
+	return v.Identifier
+}
+
+// GetPriority returns CreateRequirementCreateRequirementControlRequirement.Priority, and is useful for accessing the field via an interface.
+func (v *CreateRequirementCreateRequirementControlRequirement) GetPriority() RequirementPriority {
+	return v.Priority
+}
+
+// GetSection returns CreateRequirementCreateRequirementControlRequirement.Section, and is useful for accessing the field via an interface.
+func (v *CreateRequirementCreateRequirementControlRequirement) GetSection() string { return v.Section }
+
+type CreateRequirementInput struct {
+	Title       string              `json:"title"`
+	FrameworkId string              `json:"frameworkId"`
+	Description string              `json:"description"`
+	Identifier  string              `json:"identifier"`
+	Priority    RequirementPriority `json:"priority"`
+	Section     string              `json:"section"`
+}
+
+// GetTitle returns CreateRequirementInput.Title, and is useful for accessing the field via an interface.
+func (v *CreateRequirementInput) GetTitle() string { return v.Title }
+
+// GetFrameworkId returns CreateRequirementInput.FrameworkId, and is useful for accessing the field via an interface.
+func (v *CreateRequirementInput) GetFrameworkId() string { return v.FrameworkId }
+
+// GetDescription returns CreateRequirementInput.Description, and is useful for accessing the field via an interface.
+func (v *CreateRequirementInput) GetDescription() string { return v.Description }
+
+// GetIdentifier returns CreateRequirementInput.Identifier, and is useful for accessing the field via an interface.
+func (v *CreateRequirementInput) GetIdentifier() string { return v.Identifier }
+
+// GetPriority returns CreateRequirementInput.Priority, and is useful for accessing the field via an interface.
+func (v *CreateRequirementInput) GetPriority() RequirementPriority { return v.Priority }
+
+// GetSection returns CreateRequirementInput.Section, and is useful for accessing the field via an interface.
+func (v *CreateRequirementInput) GetSection() string { return v.Section }
+
+// CreateRequirementResponse is returned by CreateRequirement on success.
+type CreateRequirementResponse struct {
+	CreateRequirement CreateRequirementCreateRequirementControlRequirement `json:"createRequirement"`
+}
+
+// GetCreateRequirement returns CreateRequirementResponse.CreateRequirement, and is useful for accessing the field via an interface.
+func (v *CreateRequirementResponse) GetCreateRequirement() CreateRequirementCreateRequirementControlRequirement {
+	return v.CreateRequirement
+}
+
 // CreateResourceGroupCreateResourceGroupIamResourceGroup includes the requested fields of the GraphQL type IamResourceGroup.
 type CreateResourceGroupCreateResourceGroupIamResourceGroup struct {
 	ResourceGroup `json:"-"`
@@ -2139,6 +2276,31 @@ func (v *DeleteDashboardResponse) GetDeleteDashboard() DeleteDashboardDeleteDash
 	return v.DeleteDashboard
 }
 
+// DeleteFrameworkDeleteFrameworkDeleteFrameworkResult includes the requested fields of the GraphQL type DeleteFrameworkResult.
+type DeleteFrameworkDeleteFrameworkDeleteFrameworkResult struct {
+	Success bool `json:"success"`
+}
+
+// GetSuccess returns DeleteFrameworkDeleteFrameworkDeleteFrameworkResult.Success, and is useful for accessing the field via an interface.
+func (v *DeleteFrameworkDeleteFrameworkDeleteFrameworkResult) GetSuccess() bool { return v.Success }
+
+type DeleteFrameworkInput struct {
+	Id string `json:"id"`
+}
+
+// GetId returns DeleteFrameworkInput.Id, and is useful for accessing the field via an interface.
+func (v *DeleteFrameworkInput) GetId() string { return v.Id }
+
+// DeleteFrameworkResponse is returned by DeleteFramework on success.
+type DeleteFrameworkResponse struct {
+	DeleteFramework DeleteFrameworkDeleteFrameworkDeleteFrameworkResult `json:"deleteFramework"`
+}
+
+// GetDeleteFramework returns DeleteFrameworkResponse.DeleteFramework, and is useful for accessing the field via an interface.
+func (v *DeleteFrameworkResponse) GetDeleteFramework() DeleteFrameworkDeleteFrameworkDeleteFrameworkResult {
+	return v.DeleteFramework
+}
+
 type DeleteIamResourceGroupInput struct {
 	Id string `json:"id"`
 }
@@ -2182,6 +2344,33 @@ type DeleteQuestionResponse struct {
 // GetDeleteQuestion returns DeleteQuestionResponse.DeleteQuestion, and is useful for accessing the field via an interface.
 func (v *DeleteQuestionResponse) GetDeleteQuestion() DeleteQuestionDeleteQuestion {
 	return v.DeleteQuestion
+}
+
+// DeleteRequirementDeleteRequirementDeleteRequirementResult includes the requested fields of the GraphQL type DeleteRequirementResult.
+type DeleteRequirementDeleteRequirementDeleteRequirementResult struct {
+	Success bool `json:"success"`
+}
+
+// GetSuccess returns DeleteRequirementDeleteRequirementDeleteRequirementResult.Success, and is useful for accessing the field via an interface.
+func (v *DeleteRequirementDeleteRequirementDeleteRequirementResult) GetSuccess() bool {
+	return v.Success
+}
+
+type DeleteRequirementInput struct {
+	Id string `json:"id"`
+}
+
+// GetId returns DeleteRequirementInput.Id, and is useful for accessing the field via an interface.
+func (v *DeleteRequirementInput) GetId() string { return v.Id }
+
+// DeleteRequirementResponse is returned by DeleteRequirement on success.
+type DeleteRequirementResponse struct {
+	DeleteRequirement DeleteRequirementDeleteRequirementDeleteRequirementResult `json:"deleteRequirement"`
+}
+
+// GetDeleteRequirement returns DeleteRequirementResponse.DeleteRequirement, and is useful for accessing the field via an interface.
+func (v *DeleteRequirementResponse) GetDeleteRequirement() DeleteRequirementDeleteRequirementDeleteRequirementResult {
+	return v.DeleteRequirement
 }
 
 // DeleteResourceGroupDeleteResourceGroupDeleteIamResourceGroupResult includes the requested fields of the GraphQL type DeleteIamResourceGroupResult.
@@ -2809,11 +2998,49 @@ func (v *GetDashboardResponse) GetGetDashboard() GetDashboardGetDashboardInsight
 
 // GetExternalIdResponse is returned by GetExternalId on success.
 type GetExternalIdResponse struct {
-	GenerateExternalId string `json:"generateExternalId"`
+	GenerateExternalIdV2 string `json:"generateExternalIdV2"`
 }
 
-// GetGenerateExternalId returns GetExternalIdResponse.GenerateExternalId, and is useful for accessing the field via an interface.
-func (v *GetExternalIdResponse) GetGenerateExternalId() string { return v.GenerateExternalId }
+// GetGenerateExternalIdV2 returns GetExternalIdResponse.GenerateExternalIdV2, and is useful for accessing the field via an interface.
+func (v *GetExternalIdResponse) GetGenerateExternalIdV2() string { return v.GenerateExternalIdV2 }
+
+// GetFrameworkByIdControlFramework includes the requested fields of the GraphQL type ControlFramework.
+type GetFrameworkByIdControlFramework struct {
+	Id              string                 `json:"id"`
+	Name            string                 `json:"name"`
+	Description     string                 `json:"description"`
+	ResourceGroupId string                 `json:"resourceGroupId"`
+	Owner           string                 `json:"owner"`
+	Source          ControlFrameworkSource `json:"source"`
+}
+
+// GetId returns GetFrameworkByIdControlFramework.Id, and is useful for accessing the field via an interface.
+func (v *GetFrameworkByIdControlFramework) GetId() string { return v.Id }
+
+// GetName returns GetFrameworkByIdControlFramework.Name, and is useful for accessing the field via an interface.
+func (v *GetFrameworkByIdControlFramework) GetName() string { return v.Name }
+
+// GetDescription returns GetFrameworkByIdControlFramework.Description, and is useful for accessing the field via an interface.
+func (v *GetFrameworkByIdControlFramework) GetDescription() string { return v.Description }
+
+// GetResourceGroupId returns GetFrameworkByIdControlFramework.ResourceGroupId, and is useful for accessing the field via an interface.
+func (v *GetFrameworkByIdControlFramework) GetResourceGroupId() string { return v.ResourceGroupId }
+
+// GetOwner returns GetFrameworkByIdControlFramework.Owner, and is useful for accessing the field via an interface.
+func (v *GetFrameworkByIdControlFramework) GetOwner() string { return v.Owner }
+
+// GetSource returns GetFrameworkByIdControlFramework.Source, and is useful for accessing the field via an interface.
+func (v *GetFrameworkByIdControlFramework) GetSource() ControlFrameworkSource { return v.Source }
+
+// GetFrameworkByIdResponse is returned by GetFrameworkById on success.
+type GetFrameworkByIdResponse struct {
+	ControlFramework GetFrameworkByIdControlFramework `json:"controlFramework"`
+}
+
+// GetControlFramework returns GetFrameworkByIdResponse.ControlFramework, and is useful for accessing the field via an interface.
+func (v *GetFrameworkByIdResponse) GetControlFramework() GetFrameworkByIdControlFramework {
+	return v.ControlFramework
+}
 
 // GetGroupsByNameIamGetGroupListIamGroupPage includes the requested fields of the GraphQL type IamGroupPage.
 type GetGroupsByNameIamGetGroupListIamGroupPage struct {
@@ -3309,6 +3536,54 @@ type GetQuestionRuleInstanceResponse struct {
 // GetQuestionRuleInstance returns GetQuestionRuleInstanceResponse.QuestionRuleInstance, and is useful for accessing the field via an interface.
 func (v *GetQuestionRuleInstanceResponse) GetQuestionRuleInstance() GetQuestionRuleInstanceQuestionRuleInstance {
 	return v.QuestionRuleInstance
+}
+
+// GetRequirementByIdRequirementControlRequirement includes the requested fields of the GraphQL type ControlRequirement.
+type GetRequirementByIdRequirementControlRequirement struct {
+	Id           string              `json:"id"`
+	Title        string              `json:"title"`
+	FrameworkIds []string            `json:"frameworkIds"`
+	Description  string              `json:"description"`
+	Identifier   string              `json:"identifier"`
+	Priority     RequirementPriority `json:"priority"`
+	Section      string              `json:"section"`
+}
+
+// GetId returns GetRequirementByIdRequirementControlRequirement.Id, and is useful for accessing the field via an interface.
+func (v *GetRequirementByIdRequirementControlRequirement) GetId() string { return v.Id }
+
+// GetTitle returns GetRequirementByIdRequirementControlRequirement.Title, and is useful for accessing the field via an interface.
+func (v *GetRequirementByIdRequirementControlRequirement) GetTitle() string { return v.Title }
+
+// GetFrameworkIds returns GetRequirementByIdRequirementControlRequirement.FrameworkIds, and is useful for accessing the field via an interface.
+func (v *GetRequirementByIdRequirementControlRequirement) GetFrameworkIds() []string {
+	return v.FrameworkIds
+}
+
+// GetDescription returns GetRequirementByIdRequirementControlRequirement.Description, and is useful for accessing the field via an interface.
+func (v *GetRequirementByIdRequirementControlRequirement) GetDescription() string {
+	return v.Description
+}
+
+// GetIdentifier returns GetRequirementByIdRequirementControlRequirement.Identifier, and is useful for accessing the field via an interface.
+func (v *GetRequirementByIdRequirementControlRequirement) GetIdentifier() string { return v.Identifier }
+
+// GetPriority returns GetRequirementByIdRequirementControlRequirement.Priority, and is useful for accessing the field via an interface.
+func (v *GetRequirementByIdRequirementControlRequirement) GetPriority() RequirementPriority {
+	return v.Priority
+}
+
+// GetSection returns GetRequirementByIdRequirementControlRequirement.Section, and is useful for accessing the field via an interface.
+func (v *GetRequirementByIdRequirementControlRequirement) GetSection() string { return v.Section }
+
+// GetRequirementByIdResponse is returned by GetRequirementById on success.
+type GetRequirementByIdResponse struct {
+	Requirement GetRequirementByIdRequirementControlRequirement `json:"requirement"`
+}
+
+// GetRequirement returns GetRequirementByIdResponse.Requirement, and is useful for accessing the field via an interface.
+func (v *GetRequirementByIdResponse) GetRequirement() GetRequirementByIdRequirementControlRequirement {
+	return v.Requirement
 }
 
 // GetResourceGroupResourceGroupIamResourceGroup includes the requested fields of the GraphQL type IamResourceGroup.
@@ -4220,6 +4495,15 @@ func (v *RemoveUserFromGroupResponse) GetIamDeleteGroupUsers() RemoveUserFromGro
 	return v.IamDeleteGroupUsers
 }
 
+type RequirementPriority string
+
+const (
+	RequirementPriorityCritical RequirementPriority = "CRITICAL"
+	RequirementPriorityHigh     RequirementPriority = "HIGH"
+	RequirementPriorityMedium   RequirementPriority = "MEDIUM"
+	RequirementPriorityLow      RequirementPriority = "LOW"
+)
+
 // ResourceGroup includes the GraphQL fields of IamResourceGroup requested by the fragment ResourceGroup.
 type ResourceGroup struct {
 	Id   string `json:"id"`
@@ -4934,6 +5218,67 @@ type UpdateDashboardResponse struct {
 func (v *UpdateDashboardResponse) GetPatchDashboard() UpdateDashboardPatchDashboardInsightsDashboard {
 	return v.PatchDashboard
 }
+
+type UpdateFrameworkInput struct {
+	FrameworkId     string  `json:"frameworkId"`
+	Name            string  `json:"name"`
+	Description     string  `json:"description"`
+	ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+	Owner           string  `json:"owner"`
+}
+
+// GetFrameworkId returns UpdateFrameworkInput.FrameworkId, and is useful for accessing the field via an interface.
+func (v *UpdateFrameworkInput) GetFrameworkId() string { return v.FrameworkId }
+
+// GetName returns UpdateFrameworkInput.Name, and is useful for accessing the field via an interface.
+func (v *UpdateFrameworkInput) GetName() string { return v.Name }
+
+// GetDescription returns UpdateFrameworkInput.Description, and is useful for accessing the field via an interface.
+func (v *UpdateFrameworkInput) GetDescription() string { return v.Description }
+
+// GetResourceGroupId returns UpdateFrameworkInput.ResourceGroupId, and is useful for accessing the field via an interface.
+func (v *UpdateFrameworkInput) GetResourceGroupId() *string { return v.ResourceGroupId }
+
+// GetOwner returns UpdateFrameworkInput.Owner, and is useful for accessing the field via an interface.
+func (v *UpdateFrameworkInput) GetOwner() string { return v.Owner }
+
+// UpdateFrameworkResponse is returned by UpdateFramework on success.
+type UpdateFrameworkResponse struct {
+	UpdateFramework UpdateFrameworkUpdateFrameworkControlFramework `json:"updateFramework"`
+}
+
+// GetUpdateFramework returns UpdateFrameworkResponse.UpdateFramework, and is useful for accessing the field via an interface.
+func (v *UpdateFrameworkResponse) GetUpdateFramework() UpdateFrameworkUpdateFrameworkControlFramework {
+	return v.UpdateFramework
+}
+
+// UpdateFrameworkUpdateFrameworkControlFramework includes the requested fields of the GraphQL type ControlFramework.
+type UpdateFrameworkUpdateFrameworkControlFramework struct {
+	Id              string `json:"id"`
+	Name            string `json:"name"`
+	Description     string `json:"description"`
+	ResourceGroupId string `json:"resourceGroupId"`
+	Owner           string `json:"owner"`
+}
+
+// GetId returns UpdateFrameworkUpdateFrameworkControlFramework.Id, and is useful for accessing the field via an interface.
+func (v *UpdateFrameworkUpdateFrameworkControlFramework) GetId() string { return v.Id }
+
+// GetName returns UpdateFrameworkUpdateFrameworkControlFramework.Name, and is useful for accessing the field via an interface.
+func (v *UpdateFrameworkUpdateFrameworkControlFramework) GetName() string { return v.Name }
+
+// GetDescription returns UpdateFrameworkUpdateFrameworkControlFramework.Description, and is useful for accessing the field via an interface.
+func (v *UpdateFrameworkUpdateFrameworkControlFramework) GetDescription() string {
+	return v.Description
+}
+
+// GetResourceGroupId returns UpdateFrameworkUpdateFrameworkControlFramework.ResourceGroupId, and is useful for accessing the field via an interface.
+func (v *UpdateFrameworkUpdateFrameworkControlFramework) GetResourceGroupId() string {
+	return v.ResourceGroupId
+}
+
+// GetOwner returns UpdateFrameworkUpdateFrameworkControlFramework.Owner, and is useful for accessing the field via an interface.
+func (v *UpdateFrameworkUpdateFrameworkControlFramework) GetOwner() string { return v.Owner }
 
 type UpdateIamResourceGroupInput struct {
 	Id   string `json:"id"`
@@ -5777,6 +6122,77 @@ func (v *UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstanc
 	return v.LabelValue
 }
 
+type UpdateRequirementInput struct {
+	Id          string              `json:"id"`
+	Title       string              `json:"title"`
+	Description string              `json:"description"`
+	Identifier  string              `json:"identifier"`
+	Priority    RequirementPriority `json:"priority"`
+	Section     string              `json:"section"`
+}
+
+// GetId returns UpdateRequirementInput.Id, and is useful for accessing the field via an interface.
+func (v *UpdateRequirementInput) GetId() string { return v.Id }
+
+// GetTitle returns UpdateRequirementInput.Title, and is useful for accessing the field via an interface.
+func (v *UpdateRequirementInput) GetTitle() string { return v.Title }
+
+// GetDescription returns UpdateRequirementInput.Description, and is useful for accessing the field via an interface.
+func (v *UpdateRequirementInput) GetDescription() string { return v.Description }
+
+// GetIdentifier returns UpdateRequirementInput.Identifier, and is useful for accessing the field via an interface.
+func (v *UpdateRequirementInput) GetIdentifier() string { return v.Identifier }
+
+// GetPriority returns UpdateRequirementInput.Priority, and is useful for accessing the field via an interface.
+func (v *UpdateRequirementInput) GetPriority() RequirementPriority { return v.Priority }
+
+// GetSection returns UpdateRequirementInput.Section, and is useful for accessing the field via an interface.
+func (v *UpdateRequirementInput) GetSection() string { return v.Section }
+
+// UpdateRequirementResponse is returned by UpdateRequirement on success.
+type UpdateRequirementResponse struct {
+	UpdateRequirement UpdateRequirementUpdateRequirementControlRequirement `json:"updateRequirement"`
+}
+
+// GetUpdateRequirement returns UpdateRequirementResponse.UpdateRequirement, and is useful for accessing the field via an interface.
+func (v *UpdateRequirementResponse) GetUpdateRequirement() UpdateRequirementUpdateRequirementControlRequirement {
+	return v.UpdateRequirement
+}
+
+// UpdateRequirementUpdateRequirementControlRequirement includes the requested fields of the GraphQL type ControlRequirement.
+type UpdateRequirementUpdateRequirementControlRequirement struct {
+	Id          string              `json:"id"`
+	Title       string              `json:"title"`
+	Description string              `json:"description"`
+	Identifier  string              `json:"identifier"`
+	Priority    RequirementPriority `json:"priority"`
+	Section     string              `json:"section"`
+}
+
+// GetId returns UpdateRequirementUpdateRequirementControlRequirement.Id, and is useful for accessing the field via an interface.
+func (v *UpdateRequirementUpdateRequirementControlRequirement) GetId() string { return v.Id }
+
+// GetTitle returns UpdateRequirementUpdateRequirementControlRequirement.Title, and is useful for accessing the field via an interface.
+func (v *UpdateRequirementUpdateRequirementControlRequirement) GetTitle() string { return v.Title }
+
+// GetDescription returns UpdateRequirementUpdateRequirementControlRequirement.Description, and is useful for accessing the field via an interface.
+func (v *UpdateRequirementUpdateRequirementControlRequirement) GetDescription() string {
+	return v.Description
+}
+
+// GetIdentifier returns UpdateRequirementUpdateRequirementControlRequirement.Identifier, and is useful for accessing the field via an interface.
+func (v *UpdateRequirementUpdateRequirementControlRequirement) GetIdentifier() string {
+	return v.Identifier
+}
+
+// GetPriority returns UpdateRequirementUpdateRequirementControlRequirement.Priority, and is useful for accessing the field via an interface.
+func (v *UpdateRequirementUpdateRequirementControlRequirement) GetPriority() RequirementPriority {
+	return v.Priority
+}
+
+// GetSection returns UpdateRequirementUpdateRequirementControlRequirement.Section, and is useful for accessing the field via an interface.
+func (v *UpdateRequirementUpdateRequirementControlRequirement) GetSection() string { return v.Section }
+
 // UpdateResourceGroupResponse is returned by UpdateResourceGroup on success.
 type UpdateResourceGroupResponse struct {
 	UpdateResourceGroup UpdateResourceGroupUpdateResourceGroupIamResourceGroup `json:"updateResourceGroup"`
@@ -6118,6 +6534,14 @@ type __CreateDashboardParameterInput struct {
 // GetInput returns __CreateDashboardParameterInput.Input, and is useful for accessing the field via an interface.
 func (v *__CreateDashboardParameterInput) GetInput() CreateDashboardParameterInput { return v.Input }
 
+// __CreateFrameworkInput is used internally by genqlient
+type __CreateFrameworkInput struct {
+	Input CreateFrameworkInput `json:"input"`
+}
+
+// GetInput returns __CreateFrameworkInput.Input, and is useful for accessing the field via an interface.
+func (v *__CreateFrameworkInput) GetInput() CreateFrameworkInput { return v.Input }
+
 // __CreateInlineQuestionRuleInstanceInput is used internally by genqlient
 type __CreateInlineQuestionRuleInstanceInput struct {
 	Instance CreateInlineQuestionRuleInstanceInput `json:"instance"`
@@ -6155,6 +6579,14 @@ type __CreateReferencedQuestionRuleInstanceInput struct {
 func (v *__CreateReferencedQuestionRuleInstanceInput) GetInstance() CreateReferencedQuestionRuleInstanceInput {
 	return v.Instance
 }
+
+// __CreateRequirementInput is used internally by genqlient
+type __CreateRequirementInput struct {
+	Input CreateRequirementInput `json:"input"`
+}
+
+// GetInput returns __CreateRequirementInput.Input, and is useful for accessing the field via an interface.
+func (v *__CreateRequirementInput) GetInput() CreateRequirementInput { return v.Input }
 
 // __CreateResourceGroupInput is used internally by genqlient
 type __CreateResourceGroupInput struct {
@@ -6292,6 +6724,14 @@ type __DeleteDashboardParameterInput struct {
 // GetId returns __DeleteDashboardParameterInput.Id, and is useful for accessing the field via an interface.
 func (v *__DeleteDashboardParameterInput) GetId() string { return v.Id }
 
+// __DeleteFrameworkInput is used internally by genqlient
+type __DeleteFrameworkInput struct {
+	Input DeleteFrameworkInput `json:"input"`
+}
+
+// GetInput returns __DeleteFrameworkInput.Input, and is useful for accessing the field via an interface.
+func (v *__DeleteFrameworkInput) GetInput() DeleteFrameworkInput { return v.Input }
+
 // __DeleteIntegrationInstanceInput is used internally by genqlient
 type __DeleteIntegrationInstanceInput struct {
 	Id string `json:"id"`
@@ -6307,6 +6747,14 @@ type __DeleteQuestionInput struct {
 
 // GetId returns __DeleteQuestionInput.Id, and is useful for accessing the field via an interface.
 func (v *__DeleteQuestionInput) GetId() string { return v.Id }
+
+// __DeleteRequirementInput is used internally by genqlient
+type __DeleteRequirementInput struct {
+	Input DeleteRequirementInput `json:"input"`
+}
+
+// GetInput returns __DeleteRequirementInput.Input, and is useful for accessing the field via an interface.
+func (v *__DeleteRequirementInput) GetInput() DeleteRequirementInput { return v.Input }
 
 // __DeleteResourceGroupInput is used internally by genqlient
 type __DeleteResourceGroupInput struct {
@@ -6456,6 +6904,14 @@ type __GetDashboardInput struct {
 // GetDashboardId returns __GetDashboardInput.DashboardId, and is useful for accessing the field via an interface.
 func (v *__GetDashboardInput) GetDashboardId() string { return v.DashboardId }
 
+// __GetFrameworkByIdInput is used internally by genqlient
+type __GetFrameworkByIdInput struct {
+	Id string `json:"id"`
+}
+
+// GetId returns __GetFrameworkByIdInput.Id, and is useful for accessing the field via an interface.
+func (v *__GetFrameworkByIdInput) GetId() string { return v.Id }
+
 // __GetGroupsByNameInput is used internally by genqlient
 type __GetGroupsByNameInput struct {
 	Name string `json:"name"`
@@ -6487,6 +6943,14 @@ type __GetQuestionRuleInstanceInput struct {
 
 // GetId returns __GetQuestionRuleInstanceInput.Id, and is useful for accessing the field via an interface.
 func (v *__GetQuestionRuleInstanceInput) GetId() string { return v.Id }
+
+// __GetRequirementByIdInput is used internally by genqlient
+type __GetRequirementByIdInput struct {
+	Id string `json:"id"`
+}
+
+// GetId returns __GetRequirementByIdInput.Id, and is useful for accessing the field via an interface.
+func (v *__GetRequirementByIdInput) GetId() string { return v.Id }
 
 // __GetResourceGroupInput is used internally by genqlient
 type __GetResourceGroupInput struct {
@@ -6694,6 +7158,14 @@ type __UpdateDashboardInput struct {
 // GetInput returns __UpdateDashboardInput.Input, and is useful for accessing the field via an interface.
 func (v *__UpdateDashboardInput) GetInput() PatchInsightsDashboardInput { return v.Input }
 
+// __UpdateFrameworkInput is used internally by genqlient
+type __UpdateFrameworkInput struct {
+	Input UpdateFrameworkInput `json:"input"`
+}
+
+// GetInput returns __UpdateFrameworkInput.Input, and is useful for accessing the field via an interface.
+func (v *__UpdateFrameworkInput) GetInput() UpdateFrameworkInput { return v.Input }
+
 // __UpdateInlineQuestionRuleInstanceInput is used internally by genqlient
 type __UpdateInlineQuestionRuleInstanceInput struct {
 	Instance UpdateInlineQuestionRuleInstanceInput `json:"instance"`
@@ -6739,6 +7211,14 @@ type __UpdateReferencedQuestionRuleInstanceInput struct {
 func (v *__UpdateReferencedQuestionRuleInstanceInput) GetInstance() UpdateReferencedQuestionRuleInstanceInput {
 	return v.Instance
 }
+
+// __UpdateRequirementInput is used internally by genqlient
+type __UpdateRequirementInput struct {
+	Input UpdateRequirementInput `json:"input"`
+}
+
+// GetInput returns __UpdateRequirementInput.Input, and is useful for accessing the field via an interface.
+func (v *__UpdateRequirementInput) GetInput() UpdateRequirementInput { return v.Input }
 
 // __UpdateResourceGroupInput is used internally by genqlient
 type __UpdateResourceGroupInput struct {
@@ -7136,6 +7616,42 @@ mutation CreateDashboardParameter ($input: CreateDashboardParameterInput!) {
 	return &data, err
 }
 
+func CreateFramework(
+	ctx context.Context,
+	client graphql.Client,
+	input CreateFrameworkInput,
+) (*CreateFrameworkResponse, error) {
+	req := &graphql.Request{
+		OpName: "CreateFramework",
+		Query: `
+mutation CreateFramework ($input: CreateFrameworkInput!) {
+	createFramework(input: $input) {
+		id
+		name
+		description
+		resourceGroupId
+		owner
+	}
+}
+`,
+		Variables: &__CreateFrameworkInput{
+			Input: input,
+		},
+	}
+	var err error
+
+	var data CreateFrameworkResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
 func CreateInlineQuestionRuleInstance(
 	ctx context.Context,
 	client graphql.Client,
@@ -7347,6 +7863,43 @@ mutation CreateReferencedQuestionRuleInstance ($instance: CreateReferencedQuesti
 	var err error
 
 	var data CreateReferencedQuestionRuleInstanceResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func CreateRequirement(
+	ctx context.Context,
+	client graphql.Client,
+	input CreateRequirementInput,
+) (*CreateRequirementResponse, error) {
+	req := &graphql.Request{
+		OpName: "CreateRequirement",
+		Query: `
+mutation CreateRequirement ($input: CreateRequirementInput!) {
+	createRequirement(input: $input) {
+		id
+		title
+		description
+		identifier
+		priority
+		section
+	}
+}
+`,
+		Variables: &__CreateRequirementInput{
+			Input: input,
+		},
+	}
+	var err error
+
+	var data CreateRequirementResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(
@@ -7867,6 +8420,38 @@ mutation DeleteDashboardParameter ($id: ID!) {
 	return &data, err
 }
 
+func DeleteFramework(
+	ctx context.Context,
+	client graphql.Client,
+	input DeleteFrameworkInput,
+) (*DeleteFrameworkResponse, error) {
+	req := &graphql.Request{
+		OpName: "DeleteFramework",
+		Query: `
+mutation DeleteFramework ($input: DeleteFrameworkInput!) {
+	deleteFramework(input: $input) {
+		success
+	}
+}
+`,
+		Variables: &__DeleteFrameworkInput{
+			Input: input,
+		},
+	}
+	var err error
+
+	var data DeleteFrameworkResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
 func DeleteIntegrationInstance(
 	ctx context.Context,
 	client graphql.Client,
@@ -7920,6 +8505,38 @@ mutation DeleteQuestion ($id: ID!) {
 	var err error
 
 	var data DeleteQuestionResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func DeleteRequirement(
+	ctx context.Context,
+	client graphql.Client,
+	input DeleteRequirementInput,
+) (*DeleteRequirementResponse, error) {
+	req := &graphql.Request{
+		OpName: "DeleteRequirement",
+		Query: `
+mutation DeleteRequirement ($input: DeleteRequirementInput!) {
+	deleteRequirement(input: $input) {
+		success
+	}
+}
+`,
+		Variables: &__DeleteRequirementInput{
+			Input: input,
+		},
+	}
+	var err error
+
+	var data DeleteRequirementResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(
@@ -8556,13 +9173,50 @@ func GetExternalId(
 		OpName: "GetExternalId",
 		Query: `
 mutation GetExternalId {
-	generateExternalId
+	generateExternalIdV2
 }
 `,
 	}
 	var err error
 
 	var data GetExternalIdResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func GetFrameworkById(
+	ctx context.Context,
+	client graphql.Client,
+	id string,
+) (*GetFrameworkByIdResponse, error) {
+	req := &graphql.Request{
+		OpName: "GetFrameworkById",
+		Query: `
+query GetFrameworkById ($id: ID!) {
+	controlFramework(id: $id) {
+		id
+		name
+		description
+		resourceGroupId
+		owner
+		source
+	}
+}
+`,
+		Variables: &__GetFrameworkByIdInput{
+			Id: id,
+		},
+	}
+	var err error
+
+	var data GetFrameworkByIdResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(
@@ -8811,6 +9465,44 @@ query GetQuestionRuleInstance ($id: ID!) {
 	var err error
 
 	var data GetQuestionRuleInstanceResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func GetRequirementById(
+	ctx context.Context,
+	client graphql.Client,
+	id string,
+) (*GetRequirementByIdResponse, error) {
+	req := &graphql.Request{
+		OpName: "GetRequirementById",
+		Query: `
+query GetRequirementById ($id: ID!) {
+	requirement(id: $id) {
+		id
+		title
+		frameworkIds
+		description
+		identifier
+		priority
+		section
+	}
+}
+`,
+		Variables: &__GetRequirementByIdInput{
+			Id: id,
+		},
+	}
+	var err error
+
+	var data GetRequirementByIdResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(
@@ -9608,6 +10300,42 @@ mutation UpdateDashboard ($input: PatchInsightsDashboardInput!) {
 	return &data, err
 }
 
+func UpdateFramework(
+	ctx context.Context,
+	client graphql.Client,
+	input UpdateFrameworkInput,
+) (*UpdateFrameworkResponse, error) {
+	req := &graphql.Request{
+		OpName: "UpdateFramework",
+		Query: `
+mutation UpdateFramework ($input: UpdateFrameworkInput!) {
+	updateFramework(input: $input) {
+		id
+		name
+		description
+		resourceGroupId
+		owner
+	}
+}
+`,
+		Variables: &__UpdateFrameworkInput{
+			Input: input,
+		},
+	}
+	var err error
+
+	var data UpdateFrameworkResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
 // The API is inconsistent about empty values, so `omitempty` is required
 // for some of these. For example "when: null," will produce an error, but
 // `templates: null` will not when include in the request.
@@ -9826,6 +10554,43 @@ mutation UpdateReferencedQuestionRuleInstance ($instance: UpdateReferencedQuesti
 	var err error
 
 	var data UpdateReferencedQuestionRuleInstanceResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func UpdateRequirement(
+	ctx context.Context,
+	client graphql.Client,
+	input UpdateRequirementInput,
+) (*UpdateRequirementResponse, error) {
+	req := &graphql.Request{
+		OpName: "UpdateRequirement",
+		Query: `
+mutation UpdateRequirement ($input: UpdateRequirementInput!) {
+	updateRequirement(input: $input) {
+		id
+		title
+		description
+		identifier
+		priority
+		section
+	}
+}
+`,
+		Variables: &__UpdateRequirementInput{
+			Input: input,
+		},
+	}
+	var err error
+
+	var data UpdateRequirementResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(
