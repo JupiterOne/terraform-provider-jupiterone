@@ -99,9 +99,9 @@ func (*ControlResource) Schema(_ context.Context, _ resource.SchemaRequest, resp
 			"state": schema.StringAttribute{
 				Optional:    true,
 				Computed:    true,
-				Description: "The lifecycle state of the control (DRAFT, REVIEW, LIVE, RETIRED). Defaults to LIVE on creation. State transitions use a separate API call.",
+				Description: "The lifecycle state of the control. Must be DRAFT or LIVE on creation; can be transitioned to REVIEW or RETIRED via update.",
 				Validators: []validator.String{
-					stringvalidator.OneOf("DRAFT", "REVIEW", "LIVE", "RETIRED"),
+					stringvalidator.OneOf("DRAFT", "LIVE", "REVIEW", "RETIRED"),
 				},
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
@@ -157,14 +157,12 @@ func (r *ControlResource) Create(ctx context.Context, req resource.CreateRequest
 
 	desiredState := data.State.ValueString()
 
-	// CreateControlInput only accepts DRAFT or LIVE as initial state.
-	// If the desired state is REVIEW or RETIRED, create as DRAFT first then transition.
 	var initialState client.InitialControlState
 	switch desiredState {
-	case "LIVE", "":
-		initialState = client.InitialControlStateLive
-	default:
+	case "DRAFT":
 		initialState = client.InitialControlStateDraft
+	default:
+		initialState = client.InitialControlStateLive
 	}
 
 	requirementIds := make([]string, 0)
@@ -195,19 +193,6 @@ func (r *ControlResource) Create(ctx context.Context, req resource.CreateRequest
 
 	data.Id = types.StringValue(created.CreateControl.Id)
 	data.State = types.StringValue(string(created.CreateControl.State))
-
-	// If the desired state differs from the initial state, transition now.
-	if desiredState != "" && desiredState != string(created.CreateControl.State) {
-		transitioned, err := client.TransitionControlState(ctx, r.qlient, client.TransitionControlStateInput{
-			ControlId:   data.Id.ValueString(),
-			TargetState: client.ControlState(desiredState),
-		})
-		if err != nil {
-			resp.Diagnostics.AddError("failed to transition control state after create", err.Error())
-			return
-		}
-		data.State = types.StringValue(string(transitioned.TransitionControlState.State))
-	}
 
 	tflog.Trace(ctx, "Created control",
 		map[string]interface{}{"name": data.Name, "id": data.Id})
