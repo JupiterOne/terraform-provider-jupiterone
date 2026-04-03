@@ -20,6 +20,8 @@ operations:
   - customIntegrationDefinition.graphql
   - collector.graphql
   - framework_requirement.graphql
+  - control.graphql
+  - control_test.graphql
 generated: generated.go
 
 bindings:

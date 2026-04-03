@@ -190,20 +190,11 @@ func (r *ControlFrameworkResource) Update(ctx context.Context, req resource.Upda
 		return
 	}
 
-	// The API validates resourceGroupId as a UUID and rejects empty strings.
-	// We must send null (omitempty) rather than "" when it is not set, so we
-	// use *string and only populate it when an actual value is present.
-	var resourceGroupId *string
-	if !data.ResourceGroupId.IsNull() && !data.ResourceGroupId.IsUnknown() && data.ResourceGroupId.ValueString() != "" {
-		v := data.ResourceGroupId.ValueString()
-		resourceGroupId = &v
-	}
-
 	_, err := client.UpdateFramework(ctx, r.qlient, client.UpdateFrameworkInput{
 		FrameworkId:     data.Id.ValueString(),
 		Name:            data.Name.ValueString(),
 		Description:     data.Description.ValueString(),
-		ResourceGroupId: resourceGroupId,
+		ResourceGroupId: data.ResourceGroupId.ValueString(),
 		Owner:           data.Owner.ValueString(),
 	})
 

@@ -19,7 +19,10 @@ mutation CreateFramework($input: CreateFrameworkInput!) {
   }
 }
 
-mutation UpdateFramework($input: UpdateFrameworkInput!) {
+# @genqlient(for: "UpdateFrameworkInput.resourceGroupId", omitempty: true)
+mutation UpdateFramework(
+  $input: UpdateFrameworkInput!
+) {
   updateFramework(input: $input) {
     id
     name
