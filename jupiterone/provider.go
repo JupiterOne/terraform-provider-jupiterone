@@ -157,6 +157,8 @@ func (*JupiterOneProvider) Resources(context.Context) []func() resource.Resource
 		NewCollectorResource,
 		NewControlFrameworkResource,
 		NewControlFrameworkRequirementResource,
+		NewControlResource,
+		NewControlTestResource,
 	}
 }
 

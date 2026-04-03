@@ -1,0 +1,55 @@
+query GetControlTestById($id: ID!) {
+  controlTest(id: $id) {
+    id
+    name
+    description
+    controlId
+    queries {
+      name
+      query
+      resultsAre
+    }
+  }
+}
+
+# @genqlient(for: "CreateControlTestInput.description", omitempty: true)
+mutation CreateControlTest(
+  $input: CreateControlTestInput!
+) {
+  createControlTest(input: $input) {
+    id
+    name
+    description
+    controlId
+    queries {
+      name
+      query
+      resultsAre
+    }
+  }
+}
+
+# @genqlient(for: "UpdateControlTestInput.name", omitempty: true)
+# @genqlient(for: "UpdateControlTestInput.description", omitempty: true)
+# @genqlient(for: "UpdateControlTestInput.queries", omitempty: true)
+mutation UpdateControlTest(
+  $input: UpdateControlTestInput!
+) {
+  updateControlTest(input: $input) {
+    id
+    name
+    description
+    controlId
+    queries {
+      name
+      query
+      resultsAre
+    }
+  }
+}
+
+mutation DeleteControlTest($id: ID!) {
+  deleteControlTest(id: $id) {
+    success
+  }
+}

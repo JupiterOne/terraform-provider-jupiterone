@@ -1,0 +1,65 @@
+query GetControlById($id: ID!) {
+  control(id: $id) {
+    id
+    name
+    description
+    resourceGroupId
+    state
+    identifier
+    catalog
+    owner
+    remediation
+    exceptionProcess
+    frameworkIds
+  }
+}
+
+# @genqlient(for: "CreateControlInput.resourceGroupId", omitempty: true)
+# @genqlient(for: "CreateControlInput.requirementIds", omitempty: true)
+mutation CreateControl(
+  $input: CreateControlInput!
+) {
+  createControl(input: $input) {
+    id
+    name
+    description
+    resourceGroupId
+    state
+    identifier
+    catalog
+    owner
+    remediation
+    exceptionProcess
+  }
+}
+
+# @genqlient(for: "UpdateControlInput.resourceGroupId", omitempty: true)
+mutation UpdateControl(
+  $input: UpdateControlInput!
+) {
+  updateControl(input: $input) {
+    id
+    name
+    description
+    resourceGroupId
+    state
+    identifier
+    catalog
+    owner
+    remediation
+    exceptionProcess
+  }
+}
+
+mutation DeleteControl($input: DeleteControlInput!) {
+  deleteControl(input: $input) {
+    success
+  }
+}
+
+mutation TransitionControlState($input: TransitionControlStateInput!) {
+  transitionControlState(input: $input) {
+    id
+    state
+  }
+}
