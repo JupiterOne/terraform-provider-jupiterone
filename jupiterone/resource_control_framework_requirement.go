@@ -176,7 +176,7 @@ func (r *ControlFrameworkRequirementResource) Read(ctx context.Context, req reso
 
 	var item client.GetRequirementByIdRequirementControlRequirement
 	if result, err := client.GetRequirementById(ctx, r.qlient, data.Id.ValueString()); err != nil {
-		if strings.Contains(err.Error(), "Could not find") {
+		if strings.Contains(err.Error(), "Could not find") || strings.Contains(err.Error(), "not found") {
 			resp.State.RemoveResource(ctx)
 		} else {
 			resp.Diagnostics.AddError("failed to find control framework requirement", err.Error())

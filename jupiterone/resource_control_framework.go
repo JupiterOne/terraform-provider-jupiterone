@@ -156,7 +156,7 @@ func (r *ControlFrameworkResource) Read(ctx context.Context, req resource.ReadRe
 
 	var f client.GetFrameworkByIdControlFramework
 	if result, err := client.GetFrameworkById(ctx, r.qlient, data.Id.ValueString()); err != nil {
-		if strings.Contains(err.Error(), "Could not find") {
+		if strings.Contains(err.Error(), "Could not find") || strings.Contains(err.Error(), "not found") {
 			resp.State.RemoveResource(ctx)
 		} else {
 			resp.Diagnostics.AddError("failed to find control framework", err.Error())

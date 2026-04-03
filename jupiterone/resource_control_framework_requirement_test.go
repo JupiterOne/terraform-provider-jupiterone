@@ -20,7 +20,7 @@ const testControlFrameworkRequirementResourceName = "jupiterone_control_framewor
 func TestControlFrameworkRequirement_Basic(t *testing.T) {
 	ctx := context.TODO()
 
-	recordingClient, directClient, cleanup := setupTestClients(ctx, t)
+	recordingClient, directClient, cleanup := setupTestClientsWithReplaySupport(ctx, t)
 	defer cleanup(t)
 
 	updatedTitle := "tf-provider-acc-test updated requirement"
@@ -78,7 +78,7 @@ func testAccCheckControlFrameworkRequirementExists(ctx context.Context, qlient g
 					return nil
 				}
 
-				if strings.Contains(err.Error(), "Could not find") {
+				if strings.Contains(err.Error(), "Could not find") || strings.Contains(err.Error(), "not found") {
 					return retry.RetryableError(fmt.Errorf("ControlFrameworkRequirement does not exist (id=%q)", id))
 				}
 
@@ -113,7 +113,7 @@ func testAccCheckControlFrameworkRequirementDestroy(ctx context.Context, qlient 
 					return retry.RetryableError(fmt.Errorf("ControlFrameworkRequirement still exists (id=%q)", id))
 				}
 
-				if strings.Contains(err.Error(), "Could not find") {
+				if strings.Contains(err.Error(), "Could not find") || strings.Contains(err.Error(), "not found") {
 					return nil
 				}
 
@@ -136,6 +136,7 @@ func testControlFrameworkRequirementFullConfig(title string) string {
 	resource "jupiterone_control_framework" "test" {
 		name        = "tf-provider-acc-test-req-framework"
 		description = "framework for requirement testing"
+		owner       = "test-owner@jupiterone.com"
 	}
 
 	resource "jupiterone_control_framework_requirement" "test" {

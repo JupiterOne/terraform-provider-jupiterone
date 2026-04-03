@@ -20,7 +20,7 @@ const testControlFrameworkResourceName = "jupiterone_control_framework.test"
 func TestControlFramework_Basic(t *testing.T) {
 	ctx := context.TODO()
 
-	recordingClient, directClient, cleanup := setupTestClients(ctx, t)
+	recordingClient, directClient, cleanup := setupTestClientsWithReplaySupport(ctx, t)
 	defer cleanup(t)
 
 	updatedName := "tf-provider-acc-test updated control framework"
@@ -36,7 +36,7 @@ func TestControlFramework_Basic(t *testing.T) {
 					resource.TestCheckResourceAttrSet(testControlFrameworkResourceName, "id"),
 					resource.TestCheckResourceAttr(testControlFrameworkResourceName, "name", testControlFrameworkName),
 					resource.TestCheckResourceAttr(testControlFrameworkResourceName, "description", "acceptance test control framework"),
-					resource.TestCheckResourceAttr(testControlFrameworkResourceName, "owner", "test-owner"),
+					resource.TestCheckResourceAttr(testControlFrameworkResourceName, "owner", "test-owner@jupiterone.com"),
 				),
 			},
 			{
@@ -46,7 +46,7 @@ func TestControlFramework_Basic(t *testing.T) {
 					resource.TestCheckResourceAttrSet(testControlFrameworkResourceName, "id"),
 					resource.TestCheckResourceAttr(testControlFrameworkResourceName, "name", updatedName),
 					resource.TestCheckResourceAttr(testControlFrameworkResourceName, "description", "acceptance test control framework"),
-					resource.TestCheckResourceAttr(testControlFrameworkResourceName, "owner", "test-owner"),
+					resource.TestCheckResourceAttr(testControlFrameworkResourceName, "owner", "test-owner@jupiterone.com"),
 				),
 			},
 		},
@@ -107,7 +107,7 @@ func testAccCheckControlFrameworkDestroy(ctx context.Context, qlient graphql.Cli
 					return retry.RetryableError(fmt.Errorf("ControlFramework still exists (id=%q)", id))
 				}
 
-				if strings.Contains(err.Error(), "Could not find") {
+				if strings.Contains(err.Error(), "Could not find") || strings.Contains(err.Error(), "not found") {
 					return nil
 				}
 
@@ -130,7 +130,7 @@ func testControlFrameworkBasicConfig(name string) string {
 	resource "jupiterone_control_framework" "test" {
 		name        = %q
 		description = "acceptance test control framework"
-		owner       = "test-owner"
+		owner       = "test-owner@jupiterone.com"
 	}
 	`,
 		name)
