@@ -132,7 +132,7 @@ func (r *ControlFrameworkRequirementResource) Create(ctx context.Context, req re
 		FrameworkId: data.FrameworkId.ValueString(),
 		Description: data.Description.ValueString(),
 		Identifier:  data.Identifier.ValueString(),
-		Priority:    data.Priority.ValueString(),
+		Priority:    client.RequirementPriority(data.Priority.ValueString()),
 		Section:     data.Section.ValueString(),
 	})
 
@@ -174,7 +174,7 @@ func (r *ControlFrameworkRequirementResource) Read(ctx context.Context, req reso
 		return
 	}
 
-	var item client.GetRequirementByIdRequirement
+	var item client.GetRequirementByIdRequirementControlRequirement
 	if result, err := client.GetRequirementById(ctx, r.qlient, data.Id.ValueString()); err != nil {
 		if strings.Contains(err.Error(), "Could not find") {
 			resp.State.RemoveResource(ctx)
@@ -197,7 +197,7 @@ func (r *ControlFrameworkRequirementResource) Read(ctx context.Context, req reso
 		data.Identifier = types.StringValue(item.Identifier)
 	}
 	if item.Priority != "" || !data.Priority.IsNull() {
-		data.Priority = types.StringValue(item.Priority)
+		data.Priority = types.StringValue(string(item.Priority))
 	}
 	if item.Section != "" || !data.Section.IsNull() {
 		data.Section = types.StringValue(item.Section)
@@ -221,7 +221,7 @@ func (r *ControlFrameworkRequirementResource) Update(ctx context.Context, req re
 		Title:       data.Title.ValueString(),
 		Description: data.Description.ValueString(),
 		Identifier:  data.Identifier.ValueString(),
-		Priority:    data.Priority.ValueString(),
+		Priority:    client.RequirementPriority(data.Priority.ValueString()),
 		Section:     data.Section.ValueString(),
 	})
 

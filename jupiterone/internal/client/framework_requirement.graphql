@@ -30,7 +30,9 @@ mutation UpdateFramework($input: UpdateFrameworkInput!) {
 }
 
 mutation DeleteFramework($input: DeleteFrameworkInput!) {
-  deleteFramework(input: $input)
+  deleteFramework(input: $input) {
+    success
+  }
 }
 
 query GetRequirementById($id: ID!) {
@@ -68,5 +70,7 @@ mutation UpdateRequirement($input: UpdateRequirementInput!) {
 }
 
 mutation DeleteRequirement($input: DeleteRequirementInput!) {
-  deleteRequirement(input: $input)
+  deleteRequirement(input: $input) {
+    success
+  }
 }
