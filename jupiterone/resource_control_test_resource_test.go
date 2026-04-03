@@ -36,9 +36,8 @@ func TestControlTest_Basic(t *testing.T) {
 					resource.TestCheckResourceAttrSet(testControlTestResourceName, "id"),
 					resource.TestCheckResourceAttr(testControlTestResourceName, "name", testControlTestName),
 					resource.TestCheckResourceAttr(testControlTestResourceName, "description", "acceptance test control test"),
-					resource.TestCheckResourceAttr(testControlTestResourceName, "queries.#", "1"),
-					resource.TestCheckResourceAttr(testControlTestResourceName, "queries.0.name", "Find all users"),
-					resource.TestCheckResourceAttr(testControlTestResourceName, "queries.0.results_are", "GOOD"),
+					resource.TestCheckResourceAttr(testControlTestResourceName, "query", "FIND User"),
+					resource.TestCheckResourceAttr(testControlTestResourceName, "results_are", "GOOD"),
 				),
 			},
 			{
@@ -48,7 +47,7 @@ func TestControlTest_Basic(t *testing.T) {
 					resource.TestCheckResourceAttrSet(testControlTestResourceName, "id"),
 					resource.TestCheckResourceAttr(testControlTestResourceName, "name", updatedName),
 					resource.TestCheckResourceAttr(testControlTestResourceName, "description", "acceptance test control test"),
-					resource.TestCheckResourceAttr(testControlTestResourceName, "queries.#", "1"),
+					resource.TestCheckResourceAttr(testControlTestResourceName, "query", "FIND User"),
 				),
 			},
 		},
@@ -139,14 +138,8 @@ func testControlTestBasicConfig(name string) string {
 		name        = %q
 		control_id  = jupiterone_control.test.id
 		description = "acceptance test control test"
-
-		queries = [
-			{
-				name        = "Find all users"
-				query       = "FIND User"
-				results_are = "GOOD"
-			},
-		]
+		query       = "FIND User"
+		results_are = "GOOD"
 	}
 	`, name)
 }
