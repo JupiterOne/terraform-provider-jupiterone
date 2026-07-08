@@ -73,6 +73,18 @@ jobs:
         run: |
           make test
 
+      # Install a verified Terraform CLI and point the test framework at it.
+      # Without this, terraform-plugin-testing auto-installs the CLI via hc-install,
+      # which fails checksum verification now that HashiCorp's signing key has
+      # expired ("openpgp: key expired"). TF_ACC_TERRAFORM_PATH bypasses that path.
+      - name: Set up Terraform CLI
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_wrapper: false
+
+      - name: Expose Terraform CLI path to acceptance tests
+        run: echo "TF_ACC_TERRAFORM_PATH=$(command -v terraform)" >> "$GITHUB_ENV"
+
       - name: Acceptance Tests
         run: make testacc
         env:
