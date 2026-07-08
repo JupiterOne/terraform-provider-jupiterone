@@ -2794,6 +2794,137 @@ func (v *DeleteWidgetResponse) GetDeleteWidget() DeleteWidgetDeleteWidgetDeleteR
 	return v.DeleteWidget
 }
 
+type DropRuleConditionInputBeta struct {
+	Property string         `json:"property"`
+	Op       DropRuleOpBeta `json:"op"`
+	Value    interface{}    `json:"value"`
+}
+
+// GetProperty returns DropRuleConditionInputBeta.Property, and is useful for accessing the field via an interface.
+func (v *DropRuleConditionInputBeta) GetProperty() string { return v.Property }
+
+// GetOp returns DropRuleConditionInputBeta.Op, and is useful for accessing the field via an interface.
+func (v *DropRuleConditionInputBeta) GetOp() DropRuleOpBeta { return v.Op }
+
+// GetValue returns DropRuleConditionInputBeta.Value, and is useful for accessing the field via an interface.
+func (v *DropRuleConditionInputBeta) GetValue() interface{} { return v.Value }
+
+type DropRuleInputBeta struct {
+	Id         string                       `json:"id"`
+	Enabled    bool                         `json:"enabled"`
+	Type       *string                      `json:"_type,omitempty"`
+	Class      *string                      `json:"_class,omitempty"`
+	Conditions []DropRuleConditionInputBeta `json:"conditions"`
+}
+
+// GetId returns DropRuleInputBeta.Id, and is useful for accessing the field via an interface.
+func (v *DropRuleInputBeta) GetId() string { return v.Id }
+
+// GetEnabled returns DropRuleInputBeta.Enabled, and is useful for accessing the field via an interface.
+func (v *DropRuleInputBeta) GetEnabled() bool { return v.Enabled }
+
+// GetType returns DropRuleInputBeta.Type, and is useful for accessing the field via an interface.
+func (v *DropRuleInputBeta) GetType() *string { return v.Type }
+
+// GetClass returns DropRuleInputBeta.Class, and is useful for accessing the field via an interface.
+func (v *DropRuleInputBeta) GetClass() *string { return v.Class }
+
+// GetConditions returns DropRuleInputBeta.Conditions, and is useful for accessing the field via an interface.
+func (v *DropRuleInputBeta) GetConditions() []DropRuleConditionInputBeta { return v.Conditions }
+
+type DropRuleOpBeta string
+
+const (
+	DropRuleOpBetaEq         DropRuleOpBeta = "eq"
+	DropRuleOpBetaNeq        DropRuleOpBeta = "neq"
+	DropRuleOpBetaIn         DropRuleOpBeta = "in"
+	DropRuleOpBetaExists     DropRuleOpBeta = "exists"
+	DropRuleOpBetaStartswith DropRuleOpBeta = "startsWith"
+)
+
+// DropRulesConfig includes the GraphQL fields of DropRulesConfigBeta requested by the fragment DropRulesConfig.
+type DropRulesConfig struct {
+	Enabled   bool                               `json:"enabled"`
+	Version   int64                              `json:"version"`
+	RuleCount int                                `json:"ruleCount"`
+	Rules     []DropRulesConfigRulesDropRuleBeta `json:"rules"`
+}
+
+// GetEnabled returns DropRulesConfig.Enabled, and is useful for accessing the field via an interface.
+func (v *DropRulesConfig) GetEnabled() bool { return v.Enabled }
+
+// GetVersion returns DropRulesConfig.Version, and is useful for accessing the field via an interface.
+func (v *DropRulesConfig) GetVersion() int64 { return v.Version }
+
+// GetRuleCount returns DropRulesConfig.RuleCount, and is useful for accessing the field via an interface.
+func (v *DropRulesConfig) GetRuleCount() int { return v.RuleCount }
+
+// GetRules returns DropRulesConfig.Rules, and is useful for accessing the field via an interface.
+func (v *DropRulesConfig) GetRules() []DropRulesConfigRulesDropRuleBeta { return v.Rules }
+
+type DropRulesConfigInputBeta struct {
+	Enabled   bool                `json:"enabled"`
+	Rules     []DropRuleInputBeta `json:"rules"`
+	IfVersion *int64              `json:"ifVersion,omitempty"`
+}
+
+// GetEnabled returns DropRulesConfigInputBeta.Enabled, and is useful for accessing the field via an interface.
+func (v *DropRulesConfigInputBeta) GetEnabled() bool { return v.Enabled }
+
+// GetRules returns DropRulesConfigInputBeta.Rules, and is useful for accessing the field via an interface.
+func (v *DropRulesConfigInputBeta) GetRules() []DropRuleInputBeta { return v.Rules }
+
+// GetIfVersion returns DropRulesConfigInputBeta.IfVersion, and is useful for accessing the field via an interface.
+func (v *DropRulesConfigInputBeta) GetIfVersion() *int64 { return v.IfVersion }
+
+// DropRulesConfigRulesDropRuleBeta includes the requested fields of the GraphQL type DropRuleBeta.
+type DropRulesConfigRulesDropRuleBeta struct {
+	Id         string                                                            `json:"id"`
+	Enabled    bool                                                              `json:"enabled"`
+	Type       string                                                            `json:"_type"`
+	Class      string                                                            `json:"_class"`
+	Conditions []DropRulesConfigRulesDropRuleBetaConditionsDropRuleConditionBeta `json:"conditions"`
+}
+
+// GetId returns DropRulesConfigRulesDropRuleBeta.Id, and is useful for accessing the field via an interface.
+func (v *DropRulesConfigRulesDropRuleBeta) GetId() string { return v.Id }
+
+// GetEnabled returns DropRulesConfigRulesDropRuleBeta.Enabled, and is useful for accessing the field via an interface.
+func (v *DropRulesConfigRulesDropRuleBeta) GetEnabled() bool { return v.Enabled }
+
+// GetType returns DropRulesConfigRulesDropRuleBeta.Type, and is useful for accessing the field via an interface.
+func (v *DropRulesConfigRulesDropRuleBeta) GetType() string { return v.Type }
+
+// GetClass returns DropRulesConfigRulesDropRuleBeta.Class, and is useful for accessing the field via an interface.
+func (v *DropRulesConfigRulesDropRuleBeta) GetClass() string { return v.Class }
+
+// GetConditions returns DropRulesConfigRulesDropRuleBeta.Conditions, and is useful for accessing the field via an interface.
+func (v *DropRulesConfigRulesDropRuleBeta) GetConditions() []DropRulesConfigRulesDropRuleBetaConditionsDropRuleConditionBeta {
+	return v.Conditions
+}
+
+// DropRulesConfigRulesDropRuleBetaConditionsDropRuleConditionBeta includes the requested fields of the GraphQL type DropRuleConditionBeta.
+type DropRulesConfigRulesDropRuleBetaConditionsDropRuleConditionBeta struct {
+	Property string         `json:"property"`
+	Op       DropRuleOpBeta `json:"op"`
+	Value    interface{}    `json:"value"`
+}
+
+// GetProperty returns DropRulesConfigRulesDropRuleBetaConditionsDropRuleConditionBeta.Property, and is useful for accessing the field via an interface.
+func (v *DropRulesConfigRulesDropRuleBetaConditionsDropRuleConditionBeta) GetProperty() string {
+	return v.Property
+}
+
+// GetOp returns DropRulesConfigRulesDropRuleBetaConditionsDropRuleConditionBeta.Op, and is useful for accessing the field via an interface.
+func (v *DropRulesConfigRulesDropRuleBetaConditionsDropRuleConditionBeta) GetOp() DropRuleOpBeta {
+	return v.Op
+}
+
+// GetValue returns DropRulesConfigRulesDropRuleBetaConditionsDropRuleConditionBeta.Value, and is useful for accessing the field via an interface.
+func (v *DropRulesConfigRulesDropRuleBetaConditionsDropRuleConditionBeta) GetValue() interface{} {
+	return v.Value
+}
+
 // ExecuteQueryQueryV1QueryV1Response includes the requested fields of the GraphQL type QueryV1Response.
 type ExecuteQueryQueryV1QueryV1Response struct {
 	Type          string      `json:"type"`
@@ -3352,6 +3483,90 @@ type GetDashboardResponse struct {
 // GetGetDashboard returns GetDashboardResponse.GetDashboard, and is useful for accessing the field via an interface.
 func (v *GetDashboardResponse) GetGetDashboard() GetDashboardGetDashboardInsightsDashboard {
 	return v.GetDashboard
+}
+
+// GetDropRulesConfigDropRulesConfigBeta includes the requested fields of the GraphQL type DropRulesConfigBeta.
+type GetDropRulesConfigDropRulesConfigBeta struct {
+	DropRulesConfig `json:"-"`
+}
+
+// GetEnabled returns GetDropRulesConfigDropRulesConfigBeta.Enabled, and is useful for accessing the field via an interface.
+func (v *GetDropRulesConfigDropRulesConfigBeta) GetEnabled() bool { return v.DropRulesConfig.Enabled }
+
+// GetVersion returns GetDropRulesConfigDropRulesConfigBeta.Version, and is useful for accessing the field via an interface.
+func (v *GetDropRulesConfigDropRulesConfigBeta) GetVersion() int64 { return v.DropRulesConfig.Version }
+
+// GetRuleCount returns GetDropRulesConfigDropRulesConfigBeta.RuleCount, and is useful for accessing the field via an interface.
+func (v *GetDropRulesConfigDropRulesConfigBeta) GetRuleCount() int {
+	return v.DropRulesConfig.RuleCount
+}
+
+// GetRules returns GetDropRulesConfigDropRulesConfigBeta.Rules, and is useful for accessing the field via an interface.
+func (v *GetDropRulesConfigDropRulesConfigBeta) GetRules() []DropRulesConfigRulesDropRuleBeta {
+	return v.DropRulesConfig.Rules
+}
+
+func (v *GetDropRulesConfigDropRulesConfigBeta) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*GetDropRulesConfigDropRulesConfigBeta
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.GetDropRulesConfigDropRulesConfigBeta = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.DropRulesConfig)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalGetDropRulesConfigDropRulesConfigBeta struct {
+	Enabled bool `json:"enabled"`
+
+	Version int64 `json:"version"`
+
+	RuleCount int `json:"ruleCount"`
+
+	Rules []DropRulesConfigRulesDropRuleBeta `json:"rules"`
+}
+
+func (v *GetDropRulesConfigDropRulesConfigBeta) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *GetDropRulesConfigDropRulesConfigBeta) __premarshalJSON() (*__premarshalGetDropRulesConfigDropRulesConfigBeta, error) {
+	var retval __premarshalGetDropRulesConfigDropRulesConfigBeta
+
+	retval.Enabled = v.DropRulesConfig.Enabled
+	retval.Version = v.DropRulesConfig.Version
+	retval.RuleCount = v.DropRulesConfig.RuleCount
+	retval.Rules = v.DropRulesConfig.Rules
+	return &retval, nil
+}
+
+// GetDropRulesConfigResponse is returned by GetDropRulesConfig on success.
+type GetDropRulesConfigResponse struct {
+	DropRulesConfigBeta GetDropRulesConfigDropRulesConfigBeta `json:"dropRulesConfigBeta"`
+}
+
+// GetDropRulesConfigBeta returns GetDropRulesConfigResponse.DropRulesConfigBeta, and is useful for accessing the field via an interface.
+func (v *GetDropRulesConfigResponse) GetDropRulesConfigBeta() GetDropRulesConfigDropRulesConfigBeta {
+	return v.DropRulesConfigBeta
 }
 
 // GetExternalIdResponse is returned by GetExternalId on success.
@@ -4995,6 +5210,110 @@ type RuleStateInput struct {
 // GetActions returns RuleStateInput.Actions, and is useful for accessing the field via an interface.
 func (v *RuleStateInput) GetActions() interface{} { return v.Actions }
 
+// SaveDropRulesConfigResponse is returned by SaveDropRulesConfig on success.
+type SaveDropRulesConfigResponse struct {
+	SaveDropRulesConfigBeta SaveDropRulesConfigSaveDropRulesConfigBetaDropRulesConfigResultBeta `json:"saveDropRulesConfigBeta"`
+}
+
+// GetSaveDropRulesConfigBeta returns SaveDropRulesConfigResponse.SaveDropRulesConfigBeta, and is useful for accessing the field via an interface.
+func (v *SaveDropRulesConfigResponse) GetSaveDropRulesConfigBeta() SaveDropRulesConfigSaveDropRulesConfigBetaDropRulesConfigResultBeta {
+	return v.SaveDropRulesConfigBeta
+}
+
+// SaveDropRulesConfigSaveDropRulesConfigBetaDropRulesConfigResultBeta includes the requested fields of the GraphQL type DropRulesConfigResultBeta.
+type SaveDropRulesConfigSaveDropRulesConfigBetaDropRulesConfigResultBeta struct {
+	Created bool                                                                                         `json:"created"`
+	Config  SaveDropRulesConfigSaveDropRulesConfigBetaDropRulesConfigResultBetaConfigDropRulesConfigBeta `json:"config"`
+}
+
+// GetCreated returns SaveDropRulesConfigSaveDropRulesConfigBetaDropRulesConfigResultBeta.Created, and is useful for accessing the field via an interface.
+func (v *SaveDropRulesConfigSaveDropRulesConfigBetaDropRulesConfigResultBeta) GetCreated() bool {
+	return v.Created
+}
+
+// GetConfig returns SaveDropRulesConfigSaveDropRulesConfigBetaDropRulesConfigResultBeta.Config, and is useful for accessing the field via an interface.
+func (v *SaveDropRulesConfigSaveDropRulesConfigBetaDropRulesConfigResultBeta) GetConfig() SaveDropRulesConfigSaveDropRulesConfigBetaDropRulesConfigResultBetaConfigDropRulesConfigBeta {
+	return v.Config
+}
+
+// SaveDropRulesConfigSaveDropRulesConfigBetaDropRulesConfigResultBetaConfigDropRulesConfigBeta includes the requested fields of the GraphQL type DropRulesConfigBeta.
+type SaveDropRulesConfigSaveDropRulesConfigBetaDropRulesConfigResultBetaConfigDropRulesConfigBeta struct {
+	DropRulesConfig `json:"-"`
+}
+
+// GetEnabled returns SaveDropRulesConfigSaveDropRulesConfigBetaDropRulesConfigResultBetaConfigDropRulesConfigBeta.Enabled, and is useful for accessing the field via an interface.
+func (v *SaveDropRulesConfigSaveDropRulesConfigBetaDropRulesConfigResultBetaConfigDropRulesConfigBeta) GetEnabled() bool {
+	return v.DropRulesConfig.Enabled
+}
+
+// GetVersion returns SaveDropRulesConfigSaveDropRulesConfigBetaDropRulesConfigResultBetaConfigDropRulesConfigBeta.Version, and is useful for accessing the field via an interface.
+func (v *SaveDropRulesConfigSaveDropRulesConfigBetaDropRulesConfigResultBetaConfigDropRulesConfigBeta) GetVersion() int64 {
+	return v.DropRulesConfig.Version
+}
+
+// GetRuleCount returns SaveDropRulesConfigSaveDropRulesConfigBetaDropRulesConfigResultBetaConfigDropRulesConfigBeta.RuleCount, and is useful for accessing the field via an interface.
+func (v *SaveDropRulesConfigSaveDropRulesConfigBetaDropRulesConfigResultBetaConfigDropRulesConfigBeta) GetRuleCount() int {
+	return v.DropRulesConfig.RuleCount
+}
+
+// GetRules returns SaveDropRulesConfigSaveDropRulesConfigBetaDropRulesConfigResultBetaConfigDropRulesConfigBeta.Rules, and is useful for accessing the field via an interface.
+func (v *SaveDropRulesConfigSaveDropRulesConfigBetaDropRulesConfigResultBetaConfigDropRulesConfigBeta) GetRules() []DropRulesConfigRulesDropRuleBeta {
+	return v.DropRulesConfig.Rules
+}
+
+func (v *SaveDropRulesConfigSaveDropRulesConfigBetaDropRulesConfigResultBetaConfigDropRulesConfigBeta) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*SaveDropRulesConfigSaveDropRulesConfigBetaDropRulesConfigResultBetaConfigDropRulesConfigBeta
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.SaveDropRulesConfigSaveDropRulesConfigBetaDropRulesConfigResultBetaConfigDropRulesConfigBeta = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.DropRulesConfig)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalSaveDropRulesConfigSaveDropRulesConfigBetaDropRulesConfigResultBetaConfigDropRulesConfigBeta struct {
+	Enabled bool `json:"enabled"`
+
+	Version int64 `json:"version"`
+
+	RuleCount int `json:"ruleCount"`
+
+	Rules []DropRulesConfigRulesDropRuleBeta `json:"rules"`
+}
+
+func (v *SaveDropRulesConfigSaveDropRulesConfigBetaDropRulesConfigResultBetaConfigDropRulesConfigBeta) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *SaveDropRulesConfigSaveDropRulesConfigBetaDropRulesConfigResultBetaConfigDropRulesConfigBeta) __premarshalJSON() (*__premarshalSaveDropRulesConfigSaveDropRulesConfigBetaDropRulesConfigResultBetaConfigDropRulesConfigBeta, error) {
+	var retval __premarshalSaveDropRulesConfigSaveDropRulesConfigBetaDropRulesConfigResultBetaConfigDropRulesConfigBeta
+
+	retval.Enabled = v.DropRulesConfig.Enabled
+	retval.Version = v.DropRulesConfig.Version
+	retval.RuleCount = v.DropRulesConfig.RuleCount
+	retval.Rules = v.DropRulesConfig.Rules
+	return &retval, nil
+}
+
 type SchedulerPollingInterval string
 
 const (
@@ -5450,6 +5769,13 @@ type UpdateComplianceLibraryItemUpdateComplianceLibraryItem struct {
 
 // GetId returns UpdateComplianceLibraryItemUpdateComplianceLibraryItem.Id, and is useful for accessing the field via an interface.
 func (v *UpdateComplianceLibraryItemUpdateComplianceLibraryItem) GetId() string { return v.Id }
+
+type UpdateConfigMode string
+
+const (
+	UpdateConfigModeMerge          UpdateConfigMode = "MERGE"
+	UpdateConfigModePartialReplace UpdateConfigMode = "PARTIAL_REPLACE"
+)
 
 type UpdateControlInput struct {
 	Id               string          `json:"id"`
@@ -6233,6 +6559,7 @@ type UpdateIntegrationInstanceInput struct {
 	IngestionSourcesOverrides     []IngestionSourcesOverridesInput              `json:"ingestionSourcesOverrides,omitempty"`
 	ResourceGroupId               string                                        `json:"resourceGroupId"`
 	UpdateChildResourceGroup      bool                                          `json:"updateChildResourceGroup"`
+	UpdateMode                    UpdateConfigMode                              `json:"updateMode"`
 }
 
 // GetName returns UpdateIntegrationInstanceInput.Name, and is useful for accessing the field via an interface.
@@ -6277,6 +6604,9 @@ func (v *UpdateIntegrationInstanceInput) GetResourceGroupId() string { return v.
 func (v *UpdateIntegrationInstanceInput) GetUpdateChildResourceGroup() bool {
 	return v.UpdateChildResourceGroup
 }
+
+// GetUpdateMode returns UpdateIntegrationInstanceInput.UpdateMode, and is useful for accessing the field via an interface.
+func (v *UpdateIntegrationInstanceInput) GetUpdateMode() UpdateConfigMode { return v.UpdateMode }
 
 // UpdateIntegrationInstanceResponse is returned by UpdateIntegrationInstance on success.
 type UpdateIntegrationInstanceResponse struct {
@@ -7696,6 +8026,14 @@ type __RevokeInvitationInput struct {
 
 // GetId returns __RevokeInvitationInput.Id, and is useful for accessing the field via an interface.
 func (v *__RevokeInvitationInput) GetId() string { return v.Id }
+
+// __SaveDropRulesConfigInput is used internally by genqlient
+type __SaveDropRulesConfigInput struct {
+	Input DropRulesConfigInputBeta `json:"input"`
+}
+
+// GetInput returns __SaveDropRulesConfigInput.Input, and is useful for accessing the field via an interface.
+func (v *__SaveDropRulesConfigInput) GetInput() DropRulesConfigInputBeta { return v.Input }
 
 // __SetAccountParameterInput is used internally by genqlient
 type __SetAccountParameterInput struct {
@@ -10049,6 +10387,50 @@ query GetDashboard ($dashboardId: String!) {
 	return &data, err
 }
 
+func GetDropRulesConfig(
+	ctx context.Context,
+	client graphql.Client,
+) (*GetDropRulesConfigResponse, error) {
+	req := &graphql.Request{
+		OpName: "GetDropRulesConfig",
+		Query: `
+query GetDropRulesConfig {
+	dropRulesConfigBeta {
+		... DropRulesConfig
+	}
+}
+fragment DropRulesConfig on DropRulesConfigBeta {
+	enabled
+	version
+	ruleCount
+	rules {
+		id
+		enabled
+		_type
+		_class
+		conditions {
+			property
+			op
+			value
+		}
+	}
+}
+`,
+	}
+	var err error
+
+	var data GetDropRulesConfigResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
 func GetExternalId(
 	ctx context.Context,
 	client graphql.Client,
@@ -10841,6 +11223,57 @@ mutation RevokeInvitation ($id: ID!) {
 	var err error
 
 	var data RevokeInvitationResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func SaveDropRulesConfig(
+	ctx context.Context,
+	client graphql.Client,
+	input DropRulesConfigInputBeta,
+) (*SaveDropRulesConfigResponse, error) {
+	req := &graphql.Request{
+		OpName: "SaveDropRulesConfig",
+		Query: `
+mutation SaveDropRulesConfig ($input: DropRulesConfigInputBeta!) {
+	saveDropRulesConfigBeta(input: $input) {
+		created
+		config {
+			... DropRulesConfig
+		}
+	}
+}
+fragment DropRulesConfig on DropRulesConfigBeta {
+	enabled
+	version
+	ruleCount
+	rules {
+		id
+		enabled
+		_type
+		_class
+		conditions {
+			property
+			op
+			value
+		}
+	}
+}
+`,
+		Variables: &__SaveDropRulesConfigInput{
+			Input: input,
+		},
+	}
+	var err error
+
+	var data SaveDropRulesConfigResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(

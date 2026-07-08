@@ -1,0 +1,663 @@
+---
+version: 2
+interactions:
+    - id: 0
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 645
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nmutation SaveDropRulesConfig ($input: DropRulesConfigInputBeta!) {\n\tsaveDropRulesConfigBeta(input: $input) {\n\t\tcreated\n\t\tconfig {\n\t\t\t... DropRulesConfig\n\t\t}\n\t}\n}\nfragment DropRulesConfig on DropRulesConfigBeta {\n\tenabled\n\tversion\n\truleCount\n\trules {\n\t\tid\n\t\tenabled\n\t\t_type\n\t\t_class\n\t\tconditions {\n\t\t\tproperty\n\t\t\top\n\t\t\tvalue\n\t\t}\n\t}\n}\n","variables":{"input":{"enabled":true,"rules":[{"id":"aws-bedrock-noise","enabled":true,"_type":"aws_bedrock_foundation_model","conditions":[{"property":"isFineTuneable","op":"eq","value":false}]}]}},"operationName":"SaveDropRulesConfig"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 280
+        uncompressed: false
+        body: |
+            {"data":{"saveDropRulesConfigBeta":{"created":true,"config":{"enabled":true,"version":1,"ruleCount":1,"rules":[{"id":"aws-bedrock-noise","enabled":true,"_type":"aws_bedrock_foundation_model","_class":null,"conditions":[{"property":"isFineTuneable","op":"eq","value":false}]}]}}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Content-Length:
+                - "280"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json
+            Cross-Origin-Embedder-Policy:
+                - require-corp
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 1.792232709s
+    - id: 1
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 350
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetDropRulesConfig {\n\tdropRulesConfigBeta {\n\t\t... DropRulesConfig\n\t}\n}\nfragment DropRulesConfig on DropRulesConfigBeta {\n\tenabled\n\tversion\n\truleCount\n\trules {\n\t\tid\n\t\tenabled\n\t\t_type\n\t\t_class\n\t\tconditions {\n\t\t\tproperty\n\t\t\top\n\t\t\tvalue\n\t\t}\n\t}\n}\n","operationName":"GetDropRulesConfig"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 250
+        uncompressed: false
+        body: |
+            {"data":{"dropRulesConfigBeta":{"enabled":true,"version":1,"ruleCount":1,"rules":[{"id":"aws-bedrock-noise","enabled":true,"_type":"aws_bedrock_foundation_model","_class":null,"conditions":[{"property":"isFineTuneable","op":"eq","value":false}]}]}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Content-Length:
+                - "250"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json
+            Cross-Origin-Embedder-Policy:
+                - require-corp
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 936.383667ms
+    - id: 2
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 350
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetDropRulesConfig {\n\tdropRulesConfigBeta {\n\t\t... DropRulesConfig\n\t}\n}\nfragment DropRulesConfig on DropRulesConfigBeta {\n\tenabled\n\tversion\n\truleCount\n\trules {\n\t\tid\n\t\tenabled\n\t\t_type\n\t\t_class\n\t\tconditions {\n\t\t\tproperty\n\t\t\top\n\t\t\tvalue\n\t\t}\n\t}\n}\n","operationName":"GetDropRulesConfig"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 250
+        uncompressed: false
+        body: |
+            {"data":{"dropRulesConfigBeta":{"enabled":true,"version":1,"ruleCount":1,"rules":[{"id":"aws-bedrock-noise","enabled":true,"_type":"aws_bedrock_foundation_model","_class":null,"conditions":[{"property":"isFineTuneable","op":"eq","value":false}]}]}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Content-Length:
+                - "250"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json
+            Cross-Origin-Embedder-Policy:
+                - require-corp
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 887.453583ms
+    - id: 3
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 350
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetDropRulesConfig {\n\tdropRulesConfigBeta {\n\t\t... DropRulesConfig\n\t}\n}\nfragment DropRulesConfig on DropRulesConfigBeta {\n\tenabled\n\tversion\n\truleCount\n\trules {\n\t\tid\n\t\tenabled\n\t\t_type\n\t\t_class\n\t\tconditions {\n\t\t\tproperty\n\t\t\top\n\t\t\tvalue\n\t\t}\n\t}\n}\n","operationName":"GetDropRulesConfig"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 250
+        uncompressed: false
+        body: |
+            {"data":{"dropRulesConfigBeta":{"enabled":true,"version":1,"ruleCount":1,"rules":[{"id":"aws-bedrock-noise","enabled":true,"_type":"aws_bedrock_foundation_model","_class":null,"conditions":[{"property":"isFineTuneable","op":"eq","value":false}]}]}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Content-Length:
+                - "250"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json
+            Cross-Origin-Embedder-Policy:
+                - require-corp
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 815.489709ms
+    - id: 4
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 779
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nmutation SaveDropRulesConfig ($input: DropRulesConfigInputBeta!) {\n\tsaveDropRulesConfigBeta(input: $input) {\n\t\tcreated\n\t\tconfig {\n\t\t\t... DropRulesConfig\n\t\t}\n\t}\n}\nfragment DropRulesConfig on DropRulesConfigBeta {\n\tenabled\n\tversion\n\truleCount\n\trules {\n\t\tid\n\t\tenabled\n\t\t_type\n\t\t_class\n\t\tconditions {\n\t\t\tproperty\n\t\t\top\n\t\t\tvalue\n\t\t}\n\t}\n}\n","variables":{"input":{"enabled":true,"rules":[{"id":"aws-bedrock-noise","enabled":true,"_type":"aws_bedrock_foundation_model","conditions":[{"property":"isFineTuneable","op":"eq","value":false}]},{"id":"aws-default-networking","enabled":true,"_type":"aws_subnet","conditions":[{"property":"defaultForAz","op":"eq","value":true}]}]}},"operationName":"SaveDropRulesConfig"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 429
+        uncompressed: false
+        body: |
+            {"data":{"saveDropRulesConfigBeta":{"created":false,"config":{"enabled":true,"version":2,"ruleCount":2,"rules":[{"id":"aws-bedrock-noise","enabled":true,"_type":"aws_bedrock_foundation_model","_class":null,"conditions":[{"property":"isFineTuneable","op":"eq","value":false}]},{"id":"aws-default-networking","enabled":true,"_type":"aws_subnet","_class":null,"conditions":[{"property":"defaultForAz","op":"eq","value":true}]}]}}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Content-Length:
+                - "429"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json
+            Cross-Origin-Embedder-Policy:
+                - require-corp
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 929.495417ms
+    - id: 5
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 350
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetDropRulesConfig {\n\tdropRulesConfigBeta {\n\t\t... DropRulesConfig\n\t}\n}\nfragment DropRulesConfig on DropRulesConfigBeta {\n\tenabled\n\tversion\n\truleCount\n\trules {\n\t\tid\n\t\tenabled\n\t\t_type\n\t\t_class\n\t\tconditions {\n\t\t\tproperty\n\t\t\top\n\t\t\tvalue\n\t\t}\n\t}\n}\n","operationName":"GetDropRulesConfig"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 398
+        uncompressed: false
+        body: |
+            {"data":{"dropRulesConfigBeta":{"enabled":true,"version":2,"ruleCount":2,"rules":[{"id":"aws-bedrock-noise","enabled":true,"_type":"aws_bedrock_foundation_model","_class":null,"conditions":[{"property":"isFineTuneable","op":"eq","value":false}]},{"id":"aws-default-networking","enabled":true,"_type":"aws_subnet","_class":null,"conditions":[{"property":"defaultForAz","op":"eq","value":true}]}]}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Content-Length:
+                - "398"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json
+            Cross-Origin-Embedder-Policy:
+                - require-corp
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 1.019265041s
+    - id: 6
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 350
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetDropRulesConfig {\n\tdropRulesConfigBeta {\n\t\t... DropRulesConfig\n\t}\n}\nfragment DropRulesConfig on DropRulesConfigBeta {\n\tenabled\n\tversion\n\truleCount\n\trules {\n\t\tid\n\t\tenabled\n\t\t_type\n\t\t_class\n\t\tconditions {\n\t\t\tproperty\n\t\t\top\n\t\t\tvalue\n\t\t}\n\t}\n}\n","operationName":"GetDropRulesConfig"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 398
+        uncompressed: false
+        body: |
+            {"data":{"dropRulesConfigBeta":{"enabled":true,"version":2,"ruleCount":2,"rules":[{"id":"aws-bedrock-noise","enabled":true,"_type":"aws_bedrock_foundation_model","_class":null,"conditions":[{"property":"isFineTuneable","op":"eq","value":false}]},{"id":"aws-default-networking","enabled":true,"_type":"aws_subnet","_class":null,"conditions":[{"property":"defaultForAz","op":"eq","value":true}]}]}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Content-Length:
+                - "398"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json
+            Cross-Origin-Embedder-Policy:
+                - require-corp
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 1.189821334s
+    - id: 7
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 350
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetDropRulesConfig {\n\tdropRulesConfigBeta {\n\t\t... DropRulesConfig\n\t}\n}\nfragment DropRulesConfig on DropRulesConfigBeta {\n\tenabled\n\tversion\n\truleCount\n\trules {\n\t\tid\n\t\tenabled\n\t\t_type\n\t\t_class\n\t\tconditions {\n\t\t\tproperty\n\t\t\top\n\t\t\tvalue\n\t\t}\n\t}\n}\n","operationName":"GetDropRulesConfig"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 398
+        uncompressed: false
+        body: |
+            {"data":{"dropRulesConfigBeta":{"enabled":true,"version":2,"ruleCount":2,"rules":[{"id":"aws-bedrock-noise","enabled":true,"_type":"aws_bedrock_foundation_model","_class":null,"conditions":[{"property":"isFineTuneable","op":"eq","value":false}]},{"id":"aws-default-networking","enabled":true,"_type":"aws_subnet","_class":null,"conditions":[{"property":"defaultForAz","op":"eq","value":true}]}]}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Content-Length:
+                - "398"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json
+            Cross-Origin-Embedder-Policy:
+                - require-corp
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 841.231375ms
+    - id: 8
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 497
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nmutation SaveDropRulesConfig ($input: DropRulesConfigInputBeta!) {\n\tsaveDropRulesConfigBeta(input: $input) {\n\t\tcreated\n\t\tconfig {\n\t\t\t... DropRulesConfig\n\t\t}\n\t}\n}\nfragment DropRulesConfig on DropRulesConfigBeta {\n\tenabled\n\tversion\n\truleCount\n\trules {\n\t\tid\n\t\tenabled\n\t\t_type\n\t\t_class\n\t\tconditions {\n\t\t\tproperty\n\t\t\top\n\t\t\tvalue\n\t\t}\n\t}\n}\n","variables":{"input":{"enabled":false,"rules":[]}},"operationName":"SaveDropRulesConfig"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 119
+        uncompressed: false
+        body: |
+            {"data":{"saveDropRulesConfigBeta":{"created":false,"config":{"enabled":false,"version":3,"ruleCount":0,"rules":[]}}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Content-Length:
+                - "119"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json
+            Cross-Origin-Embedder-Policy:
+                - require-corp
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 713.386916ms
+    - id: 9
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 350
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetDropRulesConfig {\n\tdropRulesConfigBeta {\n\t\t... DropRulesConfig\n\t}\n}\nfragment DropRulesConfig on DropRulesConfigBeta {\n\tenabled\n\tversion\n\truleCount\n\trules {\n\t\tid\n\t\tenabled\n\t\t_type\n\t\t_class\n\t\tconditions {\n\t\t\tproperty\n\t\t\top\n\t\t\tvalue\n\t\t}\n\t}\n}\n","operationName":"GetDropRulesConfig"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 88
+        uncompressed: false
+        body: |
+            {"data":{"dropRulesConfigBeta":{"enabled":false,"version":3,"ruleCount":0,"rules":[]}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Content-Length:
+                - "88"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json
+            Cross-Origin-Embedder-Policy:
+                - require-corp
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 678.03ms

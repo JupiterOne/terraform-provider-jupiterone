@@ -1,0 +1,36 @@
+fragment DropRulesConfig on DropRulesConfigBeta {
+  enabled
+  version
+  ruleCount
+  rules {
+    id
+    enabled
+    _type
+    _class
+    conditions {
+      property
+      op
+      value
+    }
+  }
+}
+
+query GetDropRulesConfig {
+  dropRulesConfigBeta {
+    ...DropRulesConfig
+  }
+}
+
+# @genqlient(for: "DropRulesConfigInputBeta.ifVersion", omitempty: true, pointer: true)
+# @genqlient(for: "DropRuleInputBeta._type", omitempty: true, pointer: true)
+# @genqlient(for: "DropRuleInputBeta._class", omitempty: true, pointer: true)
+mutation SaveDropRulesConfig(
+  $input: DropRulesConfigInputBeta!
+) {
+  saveDropRulesConfigBeta(input: $input) {
+    created
+    config {
+      ...DropRulesConfig
+    }
+  }
+}
