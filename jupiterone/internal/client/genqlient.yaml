@@ -22,6 +22,7 @@ operations:
   - framework_requirement.graphql
   - control.graphql
   - control_test.graphql
+  - dropRules.graphql
 generated: generated.go
 
 bindings:
