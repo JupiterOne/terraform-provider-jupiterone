@@ -6559,7 +6559,7 @@ type UpdateIntegrationInstanceInput struct {
 	IngestionSourcesOverrides     []IngestionSourcesOverridesInput              `json:"ingestionSourcesOverrides,omitempty"`
 	ResourceGroupId               string                                        `json:"resourceGroupId"`
 	UpdateChildResourceGroup      bool                                          `json:"updateChildResourceGroup"`
-	UpdateMode                    UpdateConfigMode                              `json:"updateMode"`
+	UpdateMode                    UpdateConfigMode                              `json:"updateMode,omitempty"`
 }
 
 // GetName returns UpdateIntegrationInstanceInput.Name, and is useful for accessing the field via an interface.
