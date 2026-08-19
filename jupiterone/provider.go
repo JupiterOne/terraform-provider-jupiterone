@@ -123,6 +123,13 @@ func (*JupiterOneProvider) DataSources(context.Context) []func() datasource.Data
 		NewJ1QLResultDataSource,
 		NewIntegrationExternalIdDataSource,
 		NewCustomIntegrationDefinitionDataSource,
+		NewControlDataSource,
+		NewControlsDataSource,
+		NewControlTestDataSource,
+		NewControlTestsDataSource,
+		NewControlFrameworksDataSource,
+		NewControlFrameworkStatsDataSource,
+		NewAttestationsDataSource,
 	}
 }
 

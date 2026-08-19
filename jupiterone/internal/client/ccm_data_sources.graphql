@@ -1,0 +1,229 @@
+# Read-only operations backing the CCM data sources.
+#
+# These are kept separate from the resource operations because they select
+# observed evaluation state — status, effectiveness, attestation coverage — which
+# managed resources deliberately do not carry. Putting that state on a managed
+# resource would churn on every refresh and surface as plan noise.
+
+query GetControlDetail(
+  $id: ID
+  $sourceId: String
+) {
+  control(id: $id, sourceId: $sourceId) {
+    id
+    name
+    description
+    source
+    sourceId
+    resourceGroupId
+    status
+    lastEvaluatedOn
+    configured
+    frameworkIds
+    state
+    identifier
+    catalog
+    owner
+    remediation
+    exceptionProcess
+    mitreTechnique
+    createdOn
+    numberOfTests
+    effectiveStatus
+    hasValidAttestation
+  }
+}
+
+# Unset filters must be omitted rather than sent as empty strings or empty
+# lists, which the API would otherwise treat as real filter values and match
+# nothing. hasValidAttestation is a pointer instead, because false is a
+# meaningful filter that omitempty would discard.
+# @genqlient(for: "ControlsQueryInput.cursor", omitempty: true)
+# @genqlient(for: "ControlsQueryInput.limit", omitempty: true)
+# @genqlient(for: "ControlsQueryInput.sort", omitempty: true)
+# @genqlient(for: "ControlsQueryInput.includeDeleted", omitempty: true)
+# @genqlient(for: "ControlFilterInput.nameContains", omitempty: true)
+# @genqlient(for: "ControlFilterInput.searchText", omitempty: true)
+# @genqlient(for: "ControlFilterInput.status", omitempty: true)
+# @genqlient(for: "ControlFilterInput.source", omitempty: true)
+# @genqlient(for: "ControlFilterInput.sourceId", omitempty: true)
+# @genqlient(for: "ControlFilterInput.resourceGroupId", omitempty: true)
+# @genqlient(for: "ControlFilterInput.frameworkId", omitempty: true)
+# @genqlient(for: "ControlFilterInput.configured", omitempty: true)
+# @genqlient(for: "ControlFilterInput.owner", omitempty: true)
+# @genqlient(for: "ControlFilterInput.states", omitempty: true)
+# @genqlient(for: "ControlFilterInput.catalogs", omitempty: true)
+# @genqlient(for: "ControlFilterInput.effectiveness", omitempty: true)
+# @genqlient(for: "ControlFilterInput.ou", omitempty: true)
+# @genqlient(for: "ControlFilterInput.mitreTechniques", omitempty: true)
+# @genqlient(for: "ControlFilterInput.hasValidAttestation", pointer: true, omitempty: true)
+query ListControls(
+  $input: ControlsQueryInput
+) {
+  controls(input: $input) {
+    items {
+      id
+      name
+      description
+      source
+      sourceId
+      resourceGroupId
+      status
+      lastEvaluatedOn
+      configured
+      frameworkIds
+      state
+      identifier
+      catalog
+      owner
+      remediation
+      exceptionProcess
+      mitreTechnique
+      createdOn
+      numberOfTests
+      effectiveStatus
+      hasValidAttestation
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}
+
+query GetControlTestDetail($id: ID!) {
+  controlTest(id: $id) {
+    id
+    name
+    description
+    controlId
+    resourceGroupId
+    status
+    lastEvaluatedOn
+    referencedRuleId
+    queries {
+      name
+      query
+      resultsAre
+      recordCount
+      status
+      effective
+    }
+  }
+}
+
+# @genqlient(for: "ControlTestsFiltersInput.controlId", omitempty: true)
+# @genqlient(for: "ControlTestsFiltersInput.includeDeleted", omitempty: true)
+# @genqlient(for: "ControlTestsPaginationInput.cursor", omitempty: true)
+# @genqlient(for: "ControlTestsPaginationInput.limit", omitempty: true)
+# @genqlient(for: "ControlTestsInput.filters", omitempty: true)
+# @genqlient(for: "ControlTestsInput.pagination", omitempty: true)
+query ListControlTests(
+  $input: ControlTestsInput
+) {
+  controlTests(input: $input) {
+    items {
+      id
+      name
+      description
+      controlId
+      resourceGroupId
+      status
+      lastEvaluatedOn
+      referencedRuleId
+      queries {
+        name
+        query
+        resultsAre
+        recordCount
+        status
+        effective
+      }
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}
+
+# Requirements are selected alongside each framework because, with framework
+# import out of scope, reading a catalog framework's requirement IDs is the only
+# way to attach Terraform-managed controls to it.
+# @genqlient(for: "ControlFrameworksQueryInput.cursor", omitempty: true)
+# @genqlient(for: "ControlFrameworksQueryInput.includeDeleted", omitempty: true)
+query ListControlFrameworks(
+  $input: ControlFrameworksQueryInput
+) {
+  controlFrameworks(input: $input) {
+    items {
+      id
+      name
+      description
+      source
+      sourceId
+      resourceGroupId
+      owner
+      createdOn
+      requirements {
+        id
+        title
+        description
+        identifier
+        priority
+        section
+      }
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}
+
+query GetControlFrameworkStats(
+  $input: ControlFrameworkStatsInput
+) {
+  controlFrameworkStats(input: $input) {
+    id
+    numberOfControls
+    numberOfFailingControls
+    numberOfPassingControls
+    numberOfAttestedControls
+    numberOfRequirements
+    numberOfControlsWithTests
+    numberOfPassingRequirements
+    numberOfFailingRequirements
+    numberOfFailingCriticalRequirements
+    sectionStats {
+      sectionName
+      numberOfRequirements
+      numberOfPassingRequirements
+      numberOfFailingRequirements
+    }
+  }
+}
+
+# @genqlient(for: "AttestationQueryInput.controlId", omitempty: true)
+# @genqlient(for: "AttestationQueryInput.owner", omitempty: true)
+# @genqlient(for: "AttestationQueryInput.expiringWithinDays", omitempty: true)
+# @genqlient(for: "AttestationQueryInput.state", omitempty: true)
+# @genqlient(for: "AttestationQueryInput.sortOrder", omitempty: true)
+# @genqlient(for: "AttestationQueryInput.includeDeleted", omitempty: true)
+query ListAttestations(
+  $input: AttestationQueryInput
+) {
+  attestations(input: $input) {
+    id
+    subject
+    description
+    expiresOn
+    owner
+    author
+    documentLink
+    revoked
+    createdOn
+    controlId
+    state
+  }
+}
