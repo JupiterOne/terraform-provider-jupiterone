@@ -132,7 +132,11 @@ func (*controlFrameworkStatsDataSource) Metadata(_ context.Context, req datasour
 func (*controlFrameworkStatsDataSource) Schema(_ context.Context, _ datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		Description: "Compliance statistics for one or more CCM frameworks: the scorecard numbers behind " +
-			"the framework compliance view.",
+			"the framework compliance view." +
+			"\n\nThese results are read from the graph, which is eventually consistent. An object " +
+			"created earlier in the same apply may not appear yet; a later plan or apply will show " +
+			"it. Do not rely on this data source to observe a change made moments earlier in the " +
+			"same run.",
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:    true,

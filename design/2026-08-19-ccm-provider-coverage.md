@@ -361,6 +361,38 @@ reference a framework the provider does not manage.
 **Check the size and contents of any new cassette before committing it.** An
 unfiltered list query is the thing to watch for.
 
+### The graph is eventually consistent, so data sources can lag a write
+
+Found by driving real `terraform` against dev, not by the Go acceptance tests.
+
+A data source reading an object created earlier in the *same* apply may not see
+it. Observed three times in one run:
+
+- `jupiterone_control_frameworks` reported 57 frameworks and an empty `ours`
+  immediately after creating one; the next plan showed 58 and the framework with
+  its two requirements.
+- `jupiterone_attestations` returned an empty list immediately after the
+  attestation was created; a later read returned it as `ACTIVE`.
+- `controlFrameworkStats` reported `numberOfAttestedControls: 0` immediately
+  after an attestation was created, then `1` on the next read.
+
+The resources themselves are unaffected — the writes succeeded and the API
+confirmed them directly. Only the read-back lags. The three affected data
+sources now say so in their descriptions.
+
+Practical consequence for anyone writing configuration or tests: do not index
+into such a list unguarded (`attestations[0]`) in the same apply that creates the
+object, or an eventual-consistency race becomes a confusing apply error. Use
+`try()` or a length check.
+
+### Import produces one cosmetic diff on expires_on
+
+`terraform import` of an attestation stores `expires_on` in UTC, because on a
+fresh import there is no prior configuration string to preserve. If the
+configuration writes the same instant with an offset, the next plan shows
+`"2030-01-31T00:00:00Z" -> "2030-01-31T01:00:00+01:00"`. One apply settles it and
+it does not recur — verified end to end.
+
 ### Documentation generation in a worktree
 
 `tfplugindocs` infers the provider name from the working directory, which in a

@@ -4,11 +4,14 @@ page_title: "jupiterone_attestations Data Source - terraform-provider-jupiterone
 subcategory: ""
 description: |-
   Control attestations, filtered and sorted by expiry, soonest first. Without a control_id filter this requires CCM read-admin permission; with one it requires read access to that control.
+  These results are read from the graph, which is eventually consistent. An object created earlier in the same apply may not appear yet; a later plan or apply will show it. Do not rely on this data source to observe a change made moments earlier in the same run.
 ---
 
 # jupiterone_attestations (Data Source)
 
 Control attestations, filtered and sorted by expiry, soonest first. Without a control_id filter this requires CCM read-admin permission; with one it requires read access to that control.
+
+These results are read from the graph, which is eventually consistent. An object created earlier in the same apply may not appear yet; a later plan or apply will show it. Do not rely on this data source to observe a change made moments earlier in the same run.
 
 ## Example Usage
 

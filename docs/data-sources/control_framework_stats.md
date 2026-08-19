@@ -4,11 +4,14 @@ page_title: "jupiterone_control_framework_stats Data Source - terraform-provider
 subcategory: ""
 description: |-
   Compliance statistics for one or more CCM frameworks: the scorecard numbers behind the framework compliance view.
+  These results are read from the graph, which is eventually consistent. An object created earlier in the same apply may not appear yet; a later plan or apply will show it. Do not rely on this data source to observe a change made moments earlier in the same run.
 ---
 
 # jupiterone_control_framework_stats (Data Source)
 
 Compliance statistics for one or more CCM frameworks: the scorecard numbers behind the framework compliance view.
+
+These results are read from the graph, which is eventually consistent. An object created earlier in the same apply may not appear yet; a later plan or apply will show it. Do not rely on this data source to observe a change made moments earlier in the same run.
 
 ## Example Usage
 

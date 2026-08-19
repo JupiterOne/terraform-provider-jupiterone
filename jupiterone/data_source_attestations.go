@@ -107,7 +107,11 @@ func (*attestationsDataSource) Schema(_ context.Context, _ datasource.SchemaRequ
 	resp.Schema = schema.Schema{
 		Description: "Control attestations, filtered and sorted by expiry, soonest first. " +
 			"Without a control_id filter this requires CCM read-admin permission; with one it requires " +
-			"read access to that control.",
+			"read access to that control." +
+			"\n\nThese results are read from the graph, which is eventually consistent. An object " +
+			"created earlier in the same apply may not appear yet; a later plan or apply will show " +
+			"it. Do not rely on this data source to observe a change made moments earlier in the " +
+			"same run.",
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:    true,
