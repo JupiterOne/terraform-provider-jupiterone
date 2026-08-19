@@ -1,0 +1,76 @@
+# The attestation schema exposes no lookup by id, only a filtered list. Reads
+# therefore fetch the attestations for the owning control and match client-side,
+# which is why control_id is retained in Terraform state rather than being a
+# create-only argument. includeDeleted is required so that an attestation
+# revoked out of band is still returned and can be recognised as gone.
+query GetAttestationsByControlId($controlId: String!) {
+  attestations(input: { controlId: $controlId, includeDeleted: true }) {
+    id
+    subject
+    description
+    expiresOn
+    owner
+    author
+    documentLink
+    revoked
+    createdOn
+    controlId
+    state
+  }
+}
+
+# @genqlient(for: "CreateAttestationInput.description", omitempty: true)
+# @genqlient(for: "CreateAttestationInput.owner", omitempty: true)
+# @genqlient(for: "CreateAttestationInput.documentLink", omitempty: true)
+mutation CreateAttestation(
+  $input: CreateAttestationInput!
+) {
+  createAttestation(input: $input) {
+    id
+    subject
+    description
+    expiresOn
+    owner
+    author
+    documentLink
+    revoked
+    createdOn
+    controlId
+    state
+  }
+}
+
+# description, owner and documentLink are pointers so that an absent value
+# serialises as an explicit null, which the API treats as "clear". Sending ""
+# instead would fail server-side validation, because owner is validated as an
+# email address and documentLink as an http(s) URL.
+# @genqlient(for: "UpdateAttestationInput.description", pointer: true)
+# @genqlient(for: "UpdateAttestationInput.owner", pointer: true)
+# @genqlient(for: "UpdateAttestationInput.documentLink", pointer: true)
+mutation UpdateAttestation(
+  $input: UpdateAttestationInput!
+) {
+  updateAttestation(input: $input) {
+    id
+    subject
+    description
+    expiresOn
+    owner
+    author
+    documentLink
+    revoked
+    createdOn
+    controlId
+    state
+  }
+}
+
+# Revocation is the only removal path; there is no deleteAttestation. It is also
+# terminal, since UpdateAttestationInput has no revoked field.
+mutation RevokeAttestation($input: RevokeAttestationInput!) {
+  revokeAttestation(input: $input) {
+    id
+    revoked
+    state
+  }
+}

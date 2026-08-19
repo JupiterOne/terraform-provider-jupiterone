@@ -29,6 +29,48 @@ func (v *ArchiveCustomIntegrationDefinitionResponse) GetArchiveCustomIntegration
 	return v.ArchiveCustomIntegrationDefinition
 }
 
+type AttestationQueryInput struct {
+	ControlId          string               `json:"controlId,omitempty"`
+	Owner              string               `json:"owner,omitempty"`
+	ExpiringWithinDays int                  `json:"expiringWithinDays,omitempty"`
+	State              AttestationState     `json:"state,omitempty"`
+	SortOrder          AttestationSortOrder `json:"sortOrder,omitempty"`
+	IncludeDeleted     bool                 `json:"includeDeleted,omitempty"`
+}
+
+// GetControlId returns AttestationQueryInput.ControlId, and is useful for accessing the field via an interface.
+func (v *AttestationQueryInput) GetControlId() string { return v.ControlId }
+
+// GetOwner returns AttestationQueryInput.Owner, and is useful for accessing the field via an interface.
+func (v *AttestationQueryInput) GetOwner() string { return v.Owner }
+
+// GetExpiringWithinDays returns AttestationQueryInput.ExpiringWithinDays, and is useful for accessing the field via an interface.
+func (v *AttestationQueryInput) GetExpiringWithinDays() int { return v.ExpiringWithinDays }
+
+// GetState returns AttestationQueryInput.State, and is useful for accessing the field via an interface.
+func (v *AttestationQueryInput) GetState() AttestationState { return v.State }
+
+// GetSortOrder returns AttestationQueryInput.SortOrder, and is useful for accessing the field via an interface.
+func (v *AttestationQueryInput) GetSortOrder() AttestationSortOrder { return v.SortOrder }
+
+// GetIncludeDeleted returns AttestationQueryInput.IncludeDeleted, and is useful for accessing the field via an interface.
+func (v *AttestationQueryInput) GetIncludeDeleted() bool { return v.IncludeDeleted }
+
+type AttestationSortOrder string
+
+const (
+	AttestationSortOrderAsc  AttestationSortOrder = "ASC"
+	AttestationSortOrderDesc AttestationSortOrder = "DESC"
+)
+
+type AttestationState string
+
+const (
+	AttestationStateActive  AttestationState = "ACTIVE"
+	AttestationStateExpired AttestationState = "EXPIRED"
+	AttestationStateRevoked AttestationState = "REVOKED"
+)
+
 type BoardType string
 
 const (
@@ -83,6 +125,84 @@ func (v *ComplianceGroup) GetDisplayCategory() string { return v.DisplayCategory
 // GetWebLink returns ComplianceGroup.WebLink, and is useful for accessing the field via an interface.
 func (v *ComplianceGroup) GetWebLink() string { return v.WebLink }
 
+type ControlEffectiveness string
+
+const (
+	ControlEffectivenessNoTests      ControlEffectiveness = "NO_TESTS"
+	ControlEffectivenessNoDatapoints ControlEffectiveness = "NO_DATAPOINTS"
+	ControlEffectivenessEffective    ControlEffectiveness = "EFFECTIVE"
+)
+
+type ControlEffectivenessFilter string
+
+const (
+	ControlEffectivenessFilterNoTests      ControlEffectivenessFilter = "NO_TESTS"
+	ControlEffectivenessFilterNoDatapoints ControlEffectivenessFilter = "NO_DATAPOINTS"
+)
+
+type ControlFilterInput struct {
+	NameContains        string                     `json:"nameContains,omitempty"`
+	SearchText          string                     `json:"searchText,omitempty"`
+	Status              []ControlStatus            `json:"status,omitempty"`
+	Source              ControlSource              `json:"source,omitempty"`
+	SourceId            string                     `json:"sourceId,omitempty"`
+	ResourceGroupId     string                     `json:"resourceGroupId,omitempty"`
+	FrameworkId         []string                   `json:"frameworkId,omitempty"`
+	Configured          bool                       `json:"configured,omitempty"`
+	Owner               string                     `json:"owner,omitempty"`
+	States              []ControlState             `json:"states,omitempty"`
+	Catalogs            []string                   `json:"catalogs,omitempty"`
+	Effectiveness       ControlEffectivenessFilter `json:"effectiveness,omitempty"`
+	Ou                  []string                   `json:"ou,omitempty"`
+	HasValidAttestation *bool                      `json:"hasValidAttestation,omitempty"`
+	MitreTechniques     []string                   `json:"mitreTechniques,omitempty"`
+}
+
+// GetNameContains returns ControlFilterInput.NameContains, and is useful for accessing the field via an interface.
+func (v *ControlFilterInput) GetNameContains() string { return v.NameContains }
+
+// GetSearchText returns ControlFilterInput.SearchText, and is useful for accessing the field via an interface.
+func (v *ControlFilterInput) GetSearchText() string { return v.SearchText }
+
+// GetStatus returns ControlFilterInput.Status, and is useful for accessing the field via an interface.
+func (v *ControlFilterInput) GetStatus() []ControlStatus { return v.Status }
+
+// GetSource returns ControlFilterInput.Source, and is useful for accessing the field via an interface.
+func (v *ControlFilterInput) GetSource() ControlSource { return v.Source }
+
+// GetSourceId returns ControlFilterInput.SourceId, and is useful for accessing the field via an interface.
+func (v *ControlFilterInput) GetSourceId() string { return v.SourceId }
+
+// GetResourceGroupId returns ControlFilterInput.ResourceGroupId, and is useful for accessing the field via an interface.
+func (v *ControlFilterInput) GetResourceGroupId() string { return v.ResourceGroupId }
+
+// GetFrameworkId returns ControlFilterInput.FrameworkId, and is useful for accessing the field via an interface.
+func (v *ControlFilterInput) GetFrameworkId() []string { return v.FrameworkId }
+
+// GetConfigured returns ControlFilterInput.Configured, and is useful for accessing the field via an interface.
+func (v *ControlFilterInput) GetConfigured() bool { return v.Configured }
+
+// GetOwner returns ControlFilterInput.Owner, and is useful for accessing the field via an interface.
+func (v *ControlFilterInput) GetOwner() string { return v.Owner }
+
+// GetStates returns ControlFilterInput.States, and is useful for accessing the field via an interface.
+func (v *ControlFilterInput) GetStates() []ControlState { return v.States }
+
+// GetCatalogs returns ControlFilterInput.Catalogs, and is useful for accessing the field via an interface.
+func (v *ControlFilterInput) GetCatalogs() []string { return v.Catalogs }
+
+// GetEffectiveness returns ControlFilterInput.Effectiveness, and is useful for accessing the field via an interface.
+func (v *ControlFilterInput) GetEffectiveness() ControlEffectivenessFilter { return v.Effectiveness }
+
+// GetOu returns ControlFilterInput.Ou, and is useful for accessing the field via an interface.
+func (v *ControlFilterInput) GetOu() []string { return v.Ou }
+
+// GetHasValidAttestation returns ControlFilterInput.HasValidAttestation, and is useful for accessing the field via an interface.
+func (v *ControlFilterInput) GetHasValidAttestation() *bool { return v.HasValidAttestation }
+
+// GetMitreTechniques returns ControlFilterInput.MitreTechniques, and is useful for accessing the field via an interface.
+func (v *ControlFilterInput) GetMitreTechniques() []string { return v.MitreTechniques }
+
 type ControlFrameworkSource string
 
 const (
@@ -92,6 +212,61 @@ const (
 	ControlFrameworkSourceJson   ControlFrameworkSource = "JSON"
 )
 
+type ControlFrameworkStatsInput struct {
+	FrameworkIds []string `json:"frameworkIds"`
+}
+
+// GetFrameworkIds returns ControlFrameworkStatsInput.FrameworkIds, and is useful for accessing the field via an interface.
+func (v *ControlFrameworkStatsInput) GetFrameworkIds() []string { return v.FrameworkIds }
+
+type ControlFrameworksQueryInput struct {
+	Cursor         string `json:"cursor,omitempty"`
+	IncludeDeleted bool   `json:"includeDeleted,omitempty"`
+}
+
+// GetCursor returns ControlFrameworksQueryInput.Cursor, and is useful for accessing the field via an interface.
+func (v *ControlFrameworksQueryInput) GetCursor() string { return v.Cursor }
+
+// GetIncludeDeleted returns ControlFrameworksQueryInput.IncludeDeleted, and is useful for accessing the field via an interface.
+func (v *ControlFrameworksQueryInput) GetIncludeDeleted() bool { return v.IncludeDeleted }
+
+type ControlSortField string
+
+const (
+	ControlSortFieldName            ControlSortField = "NAME"
+	ControlSortFieldSource          ControlSortField = "SOURCE"
+	ControlSortFieldStatus          ControlSortField = "STATUS"
+	ControlSortFieldLastEvaluatedOn ControlSortField = "LAST_EVALUATED_ON"
+	ControlSortFieldOwner           ControlSortField = "OWNER"
+)
+
+type ControlSortInput struct {
+	Field ControlSortField `json:"field"`
+	Order ControlSortOrder `json:"order"`
+}
+
+// GetField returns ControlSortInput.Field, and is useful for accessing the field via an interface.
+func (v *ControlSortInput) GetField() ControlSortField { return v.Field }
+
+// GetOrder returns ControlSortInput.Order, and is useful for accessing the field via an interface.
+func (v *ControlSortInput) GetOrder() ControlSortOrder { return v.Order }
+
+type ControlSortOrder string
+
+const (
+	ControlSortOrderAsc  ControlSortOrder = "ASC"
+	ControlSortOrderDesc ControlSortOrder = "DESC"
+)
+
+type ControlSource string
+
+const (
+	ControlSourceJ1     ControlSource = "J1"
+	ControlSourceUcf    ControlSource = "UCF"
+	ControlSourceUpload ControlSource = "UPLOAD"
+	ControlSourceJson   ControlSource = "JSON"
+)
+
 type ControlState string
 
 const (
@@ -99,6 +274,13 @@ const (
 	ControlStateReview  ControlState = "REVIEW"
 	ControlStateLive    ControlState = "LIVE"
 	ControlStateRetired ControlState = "RETIRED"
+)
+
+type ControlStatus string
+
+const (
+	ControlStatusPass ControlStatus = "PASS"
+	ControlStatusFail ControlStatus = "FAIL"
 )
 
 type ControlTestQueryInput struct {
@@ -126,6 +308,154 @@ const (
 	ControlTestQueryResultsAreGood ControlTestQueryResultsAre = "GOOD"
 	ControlTestQueryResultsAreBad  ControlTestQueryResultsAre = "BAD"
 )
+
+type ControlTestStatus string
+
+const (
+	ControlTestStatusPass ControlTestStatus = "PASS"
+	ControlTestStatusFail ControlTestStatus = "FAIL"
+)
+
+type ControlTestsFiltersInput struct {
+	ControlId      string `json:"controlId,omitempty"`
+	IncludeDeleted bool   `json:"includeDeleted,omitempty"`
+}
+
+// GetControlId returns ControlTestsFiltersInput.ControlId, and is useful for accessing the field via an interface.
+func (v *ControlTestsFiltersInput) GetControlId() string { return v.ControlId }
+
+// GetIncludeDeleted returns ControlTestsFiltersInput.IncludeDeleted, and is useful for accessing the field via an interface.
+func (v *ControlTestsFiltersInput) GetIncludeDeleted() bool { return v.IncludeDeleted }
+
+type ControlTestsInput struct {
+	Filters    ControlTestsFiltersInput    `json:"filters,omitempty"`
+	Pagination ControlTestsPaginationInput `json:"pagination,omitempty"`
+}
+
+// GetFilters returns ControlTestsInput.Filters, and is useful for accessing the field via an interface.
+func (v *ControlTestsInput) GetFilters() ControlTestsFiltersInput { return v.Filters }
+
+// GetPagination returns ControlTestsInput.Pagination, and is useful for accessing the field via an interface.
+func (v *ControlTestsInput) GetPagination() ControlTestsPaginationInput { return v.Pagination }
+
+type ControlTestsPaginationInput struct {
+	Cursor string `json:"cursor,omitempty"`
+	Limit  int    `json:"limit,omitempty"`
+}
+
+// GetCursor returns ControlTestsPaginationInput.Cursor, and is useful for accessing the field via an interface.
+func (v *ControlTestsPaginationInput) GetCursor() string { return v.Cursor }
+
+// GetLimit returns ControlTestsPaginationInput.Limit, and is useful for accessing the field via an interface.
+func (v *ControlTestsPaginationInput) GetLimit() int { return v.Limit }
+
+type ControlsQueryInput struct {
+	Cursor         string             `json:"cursor,omitempty"`
+	Limit          int                `json:"limit,omitempty"`
+	Sort           *ControlSortInput  `json:"sort,omitempty"`
+	Filter         ControlFilterInput `json:"filter"`
+	IncludeDeleted bool               `json:"includeDeleted,omitempty"`
+}
+
+// GetCursor returns ControlsQueryInput.Cursor, and is useful for accessing the field via an interface.
+func (v *ControlsQueryInput) GetCursor() string { return v.Cursor }
+
+// GetLimit returns ControlsQueryInput.Limit, and is useful for accessing the field via an interface.
+func (v *ControlsQueryInput) GetLimit() int { return v.Limit }
+
+// GetSort returns ControlsQueryInput.Sort, and is useful for accessing the field via an interface.
+func (v *ControlsQueryInput) GetSort() *ControlSortInput { return v.Sort }
+
+// GetFilter returns ControlsQueryInput.Filter, and is useful for accessing the field via an interface.
+func (v *ControlsQueryInput) GetFilter() ControlFilterInput { return v.Filter }
+
+// GetIncludeDeleted returns ControlsQueryInput.IncludeDeleted, and is useful for accessing the field via an interface.
+func (v *ControlsQueryInput) GetIncludeDeleted() bool { return v.IncludeDeleted }
+
+// CreateAttestationCreateAttestation includes the requested fields of the GraphQL type Attestation.
+type CreateAttestationCreateAttestation struct {
+	Id           string           `json:"id"`
+	Subject      string           `json:"subject"`
+	Description  string           `json:"description"`
+	ExpiresOn    float64          `json:"expiresOn"`
+	Owner        string           `json:"owner"`
+	Author       string           `json:"author"`
+	DocumentLink string           `json:"documentLink"`
+	Revoked      bool             `json:"revoked"`
+	CreatedOn    string           `json:"createdOn"`
+	ControlId    string           `json:"controlId"`
+	State        AttestationState `json:"state"`
+}
+
+// GetId returns CreateAttestationCreateAttestation.Id, and is useful for accessing the field via an interface.
+func (v *CreateAttestationCreateAttestation) GetId() string { return v.Id }
+
+// GetSubject returns CreateAttestationCreateAttestation.Subject, and is useful for accessing the field via an interface.
+func (v *CreateAttestationCreateAttestation) GetSubject() string { return v.Subject }
+
+// GetDescription returns CreateAttestationCreateAttestation.Description, and is useful for accessing the field via an interface.
+func (v *CreateAttestationCreateAttestation) GetDescription() string { return v.Description }
+
+// GetExpiresOn returns CreateAttestationCreateAttestation.ExpiresOn, and is useful for accessing the field via an interface.
+func (v *CreateAttestationCreateAttestation) GetExpiresOn() float64 { return v.ExpiresOn }
+
+// GetOwner returns CreateAttestationCreateAttestation.Owner, and is useful for accessing the field via an interface.
+func (v *CreateAttestationCreateAttestation) GetOwner() string { return v.Owner }
+
+// GetAuthor returns CreateAttestationCreateAttestation.Author, and is useful for accessing the field via an interface.
+func (v *CreateAttestationCreateAttestation) GetAuthor() string { return v.Author }
+
+// GetDocumentLink returns CreateAttestationCreateAttestation.DocumentLink, and is useful for accessing the field via an interface.
+func (v *CreateAttestationCreateAttestation) GetDocumentLink() string { return v.DocumentLink }
+
+// GetRevoked returns CreateAttestationCreateAttestation.Revoked, and is useful for accessing the field via an interface.
+func (v *CreateAttestationCreateAttestation) GetRevoked() bool { return v.Revoked }
+
+// GetCreatedOn returns CreateAttestationCreateAttestation.CreatedOn, and is useful for accessing the field via an interface.
+func (v *CreateAttestationCreateAttestation) GetCreatedOn() string { return v.CreatedOn }
+
+// GetControlId returns CreateAttestationCreateAttestation.ControlId, and is useful for accessing the field via an interface.
+func (v *CreateAttestationCreateAttestation) GetControlId() string { return v.ControlId }
+
+// GetState returns CreateAttestationCreateAttestation.State, and is useful for accessing the field via an interface.
+func (v *CreateAttestationCreateAttestation) GetState() AttestationState { return v.State }
+
+type CreateAttestationInput struct {
+	ControlId    string  `json:"controlId"`
+	Subject      string  `json:"subject"`
+	Description  string  `json:"description,omitempty"`
+	ExpiresOn    float64 `json:"expiresOn"`
+	Owner        string  `json:"owner,omitempty"`
+	DocumentLink string  `json:"documentLink,omitempty"`
+}
+
+// GetControlId returns CreateAttestationInput.ControlId, and is useful for accessing the field via an interface.
+func (v *CreateAttestationInput) GetControlId() string { return v.ControlId }
+
+// GetSubject returns CreateAttestationInput.Subject, and is useful for accessing the field via an interface.
+func (v *CreateAttestationInput) GetSubject() string { return v.Subject }
+
+// GetDescription returns CreateAttestationInput.Description, and is useful for accessing the field via an interface.
+func (v *CreateAttestationInput) GetDescription() string { return v.Description }
+
+// GetExpiresOn returns CreateAttestationInput.ExpiresOn, and is useful for accessing the field via an interface.
+func (v *CreateAttestationInput) GetExpiresOn() float64 { return v.ExpiresOn }
+
+// GetOwner returns CreateAttestationInput.Owner, and is useful for accessing the field via an interface.
+func (v *CreateAttestationInput) GetOwner() string { return v.Owner }
+
+// GetDocumentLink returns CreateAttestationInput.DocumentLink, and is useful for accessing the field via an interface.
+func (v *CreateAttestationInput) GetDocumentLink() string { return v.DocumentLink }
+
+// CreateAttestationResponse is returned by CreateAttestation on success.
+type CreateAttestationResponse struct {
+	CreateAttestation CreateAttestationCreateAttestation `json:"createAttestation"`
+}
+
+// GetCreateAttestation returns CreateAttestationResponse.CreateAttestation, and is useful for accessing the field via an interface.
+func (v *CreateAttestationResponse) GetCreateAttestation() CreateAttestationCreateAttestation {
+	return v.CreateAttestation
+}
 
 // CreateCollectorCreateCollectorCreateCollectorResponse includes the requested fields of the GraphQL type CreateCollectorResponse.
 type CreateCollectorCreateCollectorCreateCollectorResponse struct {
@@ -395,6 +725,7 @@ type CreateControlCreateControl struct {
 	Owner            string       `json:"owner"`
 	Remediation      string       `json:"remediation"`
 	ExceptionProcess string       `json:"exceptionProcess"`
+	MitreTechnique   string       `json:"mitreTechnique"`
 }
 
 // GetId returns CreateControlCreateControl.Id, and is useful for accessing the field via an interface.
@@ -427,6 +758,9 @@ func (v *CreateControlCreateControl) GetRemediation() string { return v.Remediat
 // GetExceptionProcess returns CreateControlCreateControl.ExceptionProcess, and is useful for accessing the field via an interface.
 func (v *CreateControlCreateControl) GetExceptionProcess() string { return v.ExceptionProcess }
 
+// GetMitreTechnique returns CreateControlCreateControl.MitreTechnique, and is useful for accessing the field via an interface.
+func (v *CreateControlCreateControl) GetMitreTechnique() string { return v.MitreTechnique }
+
 type CreateControlInput struct {
 	Name             string              `json:"name"`
 	Description      string              `json:"description"`
@@ -438,6 +772,7 @@ type CreateControlInput struct {
 	Owner            string              `json:"owner"`
 	Remediation      string              `json:"remediation"`
 	ExceptionProcess string              `json:"exceptionProcess"`
+	MitreTechnique   string              `json:"mitreTechnique,omitempty"`
 }
 
 // GetName returns CreateControlInput.Name, and is useful for accessing the field via an interface.
@@ -469,6 +804,9 @@ func (v *CreateControlInput) GetRemediation() string { return v.Remediation }
 
 // GetExceptionProcess returns CreateControlInput.ExceptionProcess, and is useful for accessing the field via an interface.
 func (v *CreateControlInput) GetExceptionProcess() string { return v.ExceptionProcess }
+
+// GetMitreTechnique returns CreateControlInput.MitreTechnique, and is useful for accessing the field via an interface.
+func (v *CreateControlInput) GetMitreTechnique() string { return v.MitreTechnique }
 
 // CreateControlResponse is returned by CreateControl on success.
 type CreateControlResponse struct {
@@ -1379,9 +1717,10 @@ func (v *CreateInsightsWidgetConfigInput) GetDisableQueryPolicyFilters() bool {
 }
 
 type CreateInsightsWidgetConfigQueryInput struct {
-	Id    string `json:"id"`
-	Name  string `json:"name"`
-	Query string `json:"query"`
+	Id             string `json:"id"`
+	Name           string `json:"name"`
+	Query          string `json:"query"`
+	DrilldownQuery string `json:"drilldownQuery"`
 }
 
 // GetId returns CreateInsightsWidgetConfigQueryInput.Id, and is useful for accessing the field via an interface.
@@ -1392,6 +1731,9 @@ func (v *CreateInsightsWidgetConfigQueryInput) GetName() string { return v.Name 
 
 // GetQuery returns CreateInsightsWidgetConfigQueryInput.Query, and is useful for accessing the field via an interface.
 func (v *CreateInsightsWidgetConfigQueryInput) GetQuery() string { return v.Query }
+
+// GetDrilldownQuery returns CreateInsightsWidgetConfigQueryInput.DrilldownQuery, and is useful for accessing the field via an interface.
+func (v *CreateInsightsWidgetConfigQueryInput) GetDrilldownQuery() string { return v.DrilldownQuery }
 
 type CreateInsightsWidgetInput struct {
 	Id              string                          `json:"id"`
@@ -1976,10 +2318,10 @@ func (v *CreateRequirementCreateRequirementControlRequirement) GetSection() stri
 type CreateRequirementInput struct {
 	Title       string              `json:"title"`
 	FrameworkId string              `json:"frameworkId"`
-	Description string              `json:"description"`
-	Identifier  string              `json:"identifier"`
-	Priority    RequirementPriority `json:"priority"`
-	Section     string              `json:"section"`
+	Description string              `json:"description,omitempty"`
+	Identifier  string              `json:"identifier,omitempty"`
+	Priority    RequirementPriority `json:"priority,omitempty"`
+	Section     string              `json:"section,omitempty"`
 }
 
 // GetTitle returns CreateRequirementInput.Title, and is useful for accessing the field via an interface.
@@ -2987,6 +3329,72 @@ func (v *GetAccountParameterResponse) GetParameter() GetAccountParameterParamete
 	return v.Parameter
 }
 
+// GetAttestationsByControlIdAttestationsAttestation includes the requested fields of the GraphQL type Attestation.
+type GetAttestationsByControlIdAttestationsAttestation struct {
+	Id           string           `json:"id"`
+	Subject      string           `json:"subject"`
+	Description  string           `json:"description"`
+	ExpiresOn    float64          `json:"expiresOn"`
+	Owner        string           `json:"owner"`
+	Author       string           `json:"author"`
+	DocumentLink string           `json:"documentLink"`
+	Revoked      bool             `json:"revoked"`
+	CreatedOn    string           `json:"createdOn"`
+	ControlId    string           `json:"controlId"`
+	State        AttestationState `json:"state"`
+}
+
+// GetId returns GetAttestationsByControlIdAttestationsAttestation.Id, and is useful for accessing the field via an interface.
+func (v *GetAttestationsByControlIdAttestationsAttestation) GetId() string { return v.Id }
+
+// GetSubject returns GetAttestationsByControlIdAttestationsAttestation.Subject, and is useful for accessing the field via an interface.
+func (v *GetAttestationsByControlIdAttestationsAttestation) GetSubject() string { return v.Subject }
+
+// GetDescription returns GetAttestationsByControlIdAttestationsAttestation.Description, and is useful for accessing the field via an interface.
+func (v *GetAttestationsByControlIdAttestationsAttestation) GetDescription() string {
+	return v.Description
+}
+
+// GetExpiresOn returns GetAttestationsByControlIdAttestationsAttestation.ExpiresOn, and is useful for accessing the field via an interface.
+func (v *GetAttestationsByControlIdAttestationsAttestation) GetExpiresOn() float64 {
+	return v.ExpiresOn
+}
+
+// GetOwner returns GetAttestationsByControlIdAttestationsAttestation.Owner, and is useful for accessing the field via an interface.
+func (v *GetAttestationsByControlIdAttestationsAttestation) GetOwner() string { return v.Owner }
+
+// GetAuthor returns GetAttestationsByControlIdAttestationsAttestation.Author, and is useful for accessing the field via an interface.
+func (v *GetAttestationsByControlIdAttestationsAttestation) GetAuthor() string { return v.Author }
+
+// GetDocumentLink returns GetAttestationsByControlIdAttestationsAttestation.DocumentLink, and is useful for accessing the field via an interface.
+func (v *GetAttestationsByControlIdAttestationsAttestation) GetDocumentLink() string {
+	return v.DocumentLink
+}
+
+// GetRevoked returns GetAttestationsByControlIdAttestationsAttestation.Revoked, and is useful for accessing the field via an interface.
+func (v *GetAttestationsByControlIdAttestationsAttestation) GetRevoked() bool { return v.Revoked }
+
+// GetCreatedOn returns GetAttestationsByControlIdAttestationsAttestation.CreatedOn, and is useful for accessing the field via an interface.
+func (v *GetAttestationsByControlIdAttestationsAttestation) GetCreatedOn() string { return v.CreatedOn }
+
+// GetControlId returns GetAttestationsByControlIdAttestationsAttestation.ControlId, and is useful for accessing the field via an interface.
+func (v *GetAttestationsByControlIdAttestationsAttestation) GetControlId() string { return v.ControlId }
+
+// GetState returns GetAttestationsByControlIdAttestationsAttestation.State, and is useful for accessing the field via an interface.
+func (v *GetAttestationsByControlIdAttestationsAttestation) GetState() AttestationState {
+	return v.State
+}
+
+// GetAttestationsByControlIdResponse is returned by GetAttestationsByControlId on success.
+type GetAttestationsByControlIdResponse struct {
+	Attestations []GetAttestationsByControlIdAttestationsAttestation `json:"attestations"`
+}
+
+// GetAttestations returns GetAttestationsByControlIdResponse.Attestations, and is useful for accessing the field via an interface.
+func (v *GetAttestationsByControlIdResponse) GetAttestations() []GetAttestationsByControlIdAttestationsAttestation {
+	return v.Attestations
+}
+
 // GetCollectorCollector includes the requested fields of the GraphQL type Collector.
 type GetCollectorCollector struct {
 	Id                       string `json:"id"`
@@ -3235,6 +3643,7 @@ type GetControlByIdControl struct {
 	Owner            string       `json:"owner"`
 	Remediation      string       `json:"remediation"`
 	ExceptionProcess string       `json:"exceptionProcess"`
+	MitreTechnique   string       `json:"mitreTechnique"`
 	FrameworkIds     []string     `json:"frameworkIds"`
 }
 
@@ -3268,6 +3677,9 @@ func (v *GetControlByIdControl) GetRemediation() string { return v.Remediation }
 // GetExceptionProcess returns GetControlByIdControl.ExceptionProcess, and is useful for accessing the field via an interface.
 func (v *GetControlByIdControl) GetExceptionProcess() string { return v.ExceptionProcess }
 
+// GetMitreTechnique returns GetControlByIdControl.MitreTechnique, and is useful for accessing the field via an interface.
+func (v *GetControlByIdControl) GetMitreTechnique() string { return v.MitreTechnique }
+
 // GetFrameworkIds returns GetControlByIdControl.FrameworkIds, and is useful for accessing the field via an interface.
 func (v *GetControlByIdControl) GetFrameworkIds() []string { return v.FrameworkIds }
 
@@ -3278,6 +3690,208 @@ type GetControlByIdResponse struct {
 
 // GetControl returns GetControlByIdResponse.Control, and is useful for accessing the field via an interface.
 func (v *GetControlByIdResponse) GetControl() GetControlByIdControl { return v.Control }
+
+// GetControlDetailControl includes the requested fields of the GraphQL type Control.
+type GetControlDetailControl struct {
+	Id                  string               `json:"id"`
+	Name                string               `json:"name"`
+	Description         string               `json:"description"`
+	Source              ControlSource        `json:"source"`
+	SourceId            string               `json:"sourceId"`
+	ResourceGroupId     string               `json:"resourceGroupId"`
+	Status              ControlStatus        `json:"status"`
+	LastEvaluatedOn     string               `json:"lastEvaluatedOn"`
+	Configured          bool                 `json:"configured"`
+	FrameworkIds        []string             `json:"frameworkIds"`
+	State               ControlState         `json:"state"`
+	Identifier          string               `json:"identifier"`
+	Catalog             string               `json:"catalog"`
+	Owner               string               `json:"owner"`
+	Remediation         string               `json:"remediation"`
+	ExceptionProcess    string               `json:"exceptionProcess"`
+	MitreTechnique      string               `json:"mitreTechnique"`
+	CreatedOn           string               `json:"createdOn"`
+	NumberOfTests       int                  `json:"numberOfTests"`
+	EffectiveStatus     ControlEffectiveness `json:"effectiveStatus"`
+	HasValidAttestation bool                 `json:"hasValidAttestation"`
+}
+
+// GetId returns GetControlDetailControl.Id, and is useful for accessing the field via an interface.
+func (v *GetControlDetailControl) GetId() string { return v.Id }
+
+// GetName returns GetControlDetailControl.Name, and is useful for accessing the field via an interface.
+func (v *GetControlDetailControl) GetName() string { return v.Name }
+
+// GetDescription returns GetControlDetailControl.Description, and is useful for accessing the field via an interface.
+func (v *GetControlDetailControl) GetDescription() string { return v.Description }
+
+// GetSource returns GetControlDetailControl.Source, and is useful for accessing the field via an interface.
+func (v *GetControlDetailControl) GetSource() ControlSource { return v.Source }
+
+// GetSourceId returns GetControlDetailControl.SourceId, and is useful for accessing the field via an interface.
+func (v *GetControlDetailControl) GetSourceId() string { return v.SourceId }
+
+// GetResourceGroupId returns GetControlDetailControl.ResourceGroupId, and is useful for accessing the field via an interface.
+func (v *GetControlDetailControl) GetResourceGroupId() string { return v.ResourceGroupId }
+
+// GetStatus returns GetControlDetailControl.Status, and is useful for accessing the field via an interface.
+func (v *GetControlDetailControl) GetStatus() ControlStatus { return v.Status }
+
+// GetLastEvaluatedOn returns GetControlDetailControl.LastEvaluatedOn, and is useful for accessing the field via an interface.
+func (v *GetControlDetailControl) GetLastEvaluatedOn() string { return v.LastEvaluatedOn }
+
+// GetConfigured returns GetControlDetailControl.Configured, and is useful for accessing the field via an interface.
+func (v *GetControlDetailControl) GetConfigured() bool { return v.Configured }
+
+// GetFrameworkIds returns GetControlDetailControl.FrameworkIds, and is useful for accessing the field via an interface.
+func (v *GetControlDetailControl) GetFrameworkIds() []string { return v.FrameworkIds }
+
+// GetState returns GetControlDetailControl.State, and is useful for accessing the field via an interface.
+func (v *GetControlDetailControl) GetState() ControlState { return v.State }
+
+// GetIdentifier returns GetControlDetailControl.Identifier, and is useful for accessing the field via an interface.
+func (v *GetControlDetailControl) GetIdentifier() string { return v.Identifier }
+
+// GetCatalog returns GetControlDetailControl.Catalog, and is useful for accessing the field via an interface.
+func (v *GetControlDetailControl) GetCatalog() string { return v.Catalog }
+
+// GetOwner returns GetControlDetailControl.Owner, and is useful for accessing the field via an interface.
+func (v *GetControlDetailControl) GetOwner() string { return v.Owner }
+
+// GetRemediation returns GetControlDetailControl.Remediation, and is useful for accessing the field via an interface.
+func (v *GetControlDetailControl) GetRemediation() string { return v.Remediation }
+
+// GetExceptionProcess returns GetControlDetailControl.ExceptionProcess, and is useful for accessing the field via an interface.
+func (v *GetControlDetailControl) GetExceptionProcess() string { return v.ExceptionProcess }
+
+// GetMitreTechnique returns GetControlDetailControl.MitreTechnique, and is useful for accessing the field via an interface.
+func (v *GetControlDetailControl) GetMitreTechnique() string { return v.MitreTechnique }
+
+// GetCreatedOn returns GetControlDetailControl.CreatedOn, and is useful for accessing the field via an interface.
+func (v *GetControlDetailControl) GetCreatedOn() string { return v.CreatedOn }
+
+// GetNumberOfTests returns GetControlDetailControl.NumberOfTests, and is useful for accessing the field via an interface.
+func (v *GetControlDetailControl) GetNumberOfTests() int { return v.NumberOfTests }
+
+// GetEffectiveStatus returns GetControlDetailControl.EffectiveStatus, and is useful for accessing the field via an interface.
+func (v *GetControlDetailControl) GetEffectiveStatus() ControlEffectiveness { return v.EffectiveStatus }
+
+// GetHasValidAttestation returns GetControlDetailControl.HasValidAttestation, and is useful for accessing the field via an interface.
+func (v *GetControlDetailControl) GetHasValidAttestation() bool { return v.HasValidAttestation }
+
+// GetControlDetailResponse is returned by GetControlDetail on success.
+type GetControlDetailResponse struct {
+	Control GetControlDetailControl `json:"control"`
+}
+
+// GetControl returns GetControlDetailResponse.Control, and is useful for accessing the field via an interface.
+func (v *GetControlDetailResponse) GetControl() GetControlDetailControl { return v.Control }
+
+// GetControlFrameworkStatsControlFrameworkStats includes the requested fields of the GraphQL type ControlFrameworkStats.
+type GetControlFrameworkStatsControlFrameworkStats struct {
+	Id                                  string                                                                                  `json:"id"`
+	NumberOfControls                    int                                                                                     `json:"numberOfControls"`
+	NumberOfFailingControls             int                                                                                     `json:"numberOfFailingControls"`
+	NumberOfPassingControls             int                                                                                     `json:"numberOfPassingControls"`
+	NumberOfAttestedControls            int                                                                                     `json:"numberOfAttestedControls"`
+	NumberOfRequirements                int                                                                                     `json:"numberOfRequirements"`
+	NumberOfControlsWithTests           int                                                                                     `json:"numberOfControlsWithTests"`
+	NumberOfPassingRequirements         int                                                                                     `json:"numberOfPassingRequirements"`
+	NumberOfFailingRequirements         int                                                                                     `json:"numberOfFailingRequirements"`
+	NumberOfFailingCriticalRequirements int                                                                                     `json:"numberOfFailingCriticalRequirements"`
+	SectionStats                        []GetControlFrameworkStatsControlFrameworkStatsSectionStatsControlFrameworkSectionStats `json:"sectionStats"`
+}
+
+// GetId returns GetControlFrameworkStatsControlFrameworkStats.Id, and is useful for accessing the field via an interface.
+func (v *GetControlFrameworkStatsControlFrameworkStats) GetId() string { return v.Id }
+
+// GetNumberOfControls returns GetControlFrameworkStatsControlFrameworkStats.NumberOfControls, and is useful for accessing the field via an interface.
+func (v *GetControlFrameworkStatsControlFrameworkStats) GetNumberOfControls() int {
+	return v.NumberOfControls
+}
+
+// GetNumberOfFailingControls returns GetControlFrameworkStatsControlFrameworkStats.NumberOfFailingControls, and is useful for accessing the field via an interface.
+func (v *GetControlFrameworkStatsControlFrameworkStats) GetNumberOfFailingControls() int {
+	return v.NumberOfFailingControls
+}
+
+// GetNumberOfPassingControls returns GetControlFrameworkStatsControlFrameworkStats.NumberOfPassingControls, and is useful for accessing the field via an interface.
+func (v *GetControlFrameworkStatsControlFrameworkStats) GetNumberOfPassingControls() int {
+	return v.NumberOfPassingControls
+}
+
+// GetNumberOfAttestedControls returns GetControlFrameworkStatsControlFrameworkStats.NumberOfAttestedControls, and is useful for accessing the field via an interface.
+func (v *GetControlFrameworkStatsControlFrameworkStats) GetNumberOfAttestedControls() int {
+	return v.NumberOfAttestedControls
+}
+
+// GetNumberOfRequirements returns GetControlFrameworkStatsControlFrameworkStats.NumberOfRequirements, and is useful for accessing the field via an interface.
+func (v *GetControlFrameworkStatsControlFrameworkStats) GetNumberOfRequirements() int {
+	return v.NumberOfRequirements
+}
+
+// GetNumberOfControlsWithTests returns GetControlFrameworkStatsControlFrameworkStats.NumberOfControlsWithTests, and is useful for accessing the field via an interface.
+func (v *GetControlFrameworkStatsControlFrameworkStats) GetNumberOfControlsWithTests() int {
+	return v.NumberOfControlsWithTests
+}
+
+// GetNumberOfPassingRequirements returns GetControlFrameworkStatsControlFrameworkStats.NumberOfPassingRequirements, and is useful for accessing the field via an interface.
+func (v *GetControlFrameworkStatsControlFrameworkStats) GetNumberOfPassingRequirements() int {
+	return v.NumberOfPassingRequirements
+}
+
+// GetNumberOfFailingRequirements returns GetControlFrameworkStatsControlFrameworkStats.NumberOfFailingRequirements, and is useful for accessing the field via an interface.
+func (v *GetControlFrameworkStatsControlFrameworkStats) GetNumberOfFailingRequirements() int {
+	return v.NumberOfFailingRequirements
+}
+
+// GetNumberOfFailingCriticalRequirements returns GetControlFrameworkStatsControlFrameworkStats.NumberOfFailingCriticalRequirements, and is useful for accessing the field via an interface.
+func (v *GetControlFrameworkStatsControlFrameworkStats) GetNumberOfFailingCriticalRequirements() int {
+	return v.NumberOfFailingCriticalRequirements
+}
+
+// GetSectionStats returns GetControlFrameworkStatsControlFrameworkStats.SectionStats, and is useful for accessing the field via an interface.
+func (v *GetControlFrameworkStatsControlFrameworkStats) GetSectionStats() []GetControlFrameworkStatsControlFrameworkStatsSectionStatsControlFrameworkSectionStats {
+	return v.SectionStats
+}
+
+// GetControlFrameworkStatsControlFrameworkStatsSectionStatsControlFrameworkSectionStats includes the requested fields of the GraphQL type ControlFrameworkSectionStats.
+type GetControlFrameworkStatsControlFrameworkStatsSectionStatsControlFrameworkSectionStats struct {
+	SectionName                 string `json:"sectionName"`
+	NumberOfRequirements        int    `json:"numberOfRequirements"`
+	NumberOfPassingRequirements int    `json:"numberOfPassingRequirements"`
+	NumberOfFailingRequirements int    `json:"numberOfFailingRequirements"`
+}
+
+// GetSectionName returns GetControlFrameworkStatsControlFrameworkStatsSectionStatsControlFrameworkSectionStats.SectionName, and is useful for accessing the field via an interface.
+func (v *GetControlFrameworkStatsControlFrameworkStatsSectionStatsControlFrameworkSectionStats) GetSectionName() string {
+	return v.SectionName
+}
+
+// GetNumberOfRequirements returns GetControlFrameworkStatsControlFrameworkStatsSectionStatsControlFrameworkSectionStats.NumberOfRequirements, and is useful for accessing the field via an interface.
+func (v *GetControlFrameworkStatsControlFrameworkStatsSectionStatsControlFrameworkSectionStats) GetNumberOfRequirements() int {
+	return v.NumberOfRequirements
+}
+
+// GetNumberOfPassingRequirements returns GetControlFrameworkStatsControlFrameworkStatsSectionStatsControlFrameworkSectionStats.NumberOfPassingRequirements, and is useful for accessing the field via an interface.
+func (v *GetControlFrameworkStatsControlFrameworkStatsSectionStatsControlFrameworkSectionStats) GetNumberOfPassingRequirements() int {
+	return v.NumberOfPassingRequirements
+}
+
+// GetNumberOfFailingRequirements returns GetControlFrameworkStatsControlFrameworkStatsSectionStatsControlFrameworkSectionStats.NumberOfFailingRequirements, and is useful for accessing the field via an interface.
+func (v *GetControlFrameworkStatsControlFrameworkStatsSectionStatsControlFrameworkSectionStats) GetNumberOfFailingRequirements() int {
+	return v.NumberOfFailingRequirements
+}
+
+// GetControlFrameworkStatsResponse is returned by GetControlFrameworkStats on success.
+type GetControlFrameworkStatsResponse struct {
+	ControlFrameworkStats []GetControlFrameworkStatsControlFrameworkStats `json:"controlFrameworkStats"`
+}
+
+// GetControlFrameworkStats returns GetControlFrameworkStatsResponse.ControlFrameworkStats, and is useful for accessing the field via an interface.
+func (v *GetControlFrameworkStatsResponse) GetControlFrameworkStats() []GetControlFrameworkStatsControlFrameworkStats {
+	return v.ControlFrameworkStats
+}
 
 // GetControlTestByIdControlTest includes the requested fields of the GraphQL type ControlTest.
 type GetControlTestByIdControlTest struct {
@@ -3330,6 +3944,94 @@ type GetControlTestByIdResponse struct {
 
 // GetControlTest returns GetControlTestByIdResponse.ControlTest, and is useful for accessing the field via an interface.
 func (v *GetControlTestByIdResponse) GetControlTest() GetControlTestByIdControlTest {
+	return v.ControlTest
+}
+
+// GetControlTestDetailControlTest includes the requested fields of the GraphQL type ControlTest.
+type GetControlTestDetailControlTest struct {
+	Id               string                                                   `json:"id"`
+	Name             string                                                   `json:"name"`
+	Description      string                                                   `json:"description"`
+	ControlId        string                                                   `json:"controlId"`
+	ResourceGroupId  string                                                   `json:"resourceGroupId"`
+	Status           ControlTestStatus                                        `json:"status"`
+	LastEvaluatedOn  int64                                                    `json:"lastEvaluatedOn"`
+	ReferencedRuleId string                                                   `json:"referencedRuleId"`
+	Queries          []GetControlTestDetailControlTestQueriesControlTestQuery `json:"queries"`
+}
+
+// GetId returns GetControlTestDetailControlTest.Id, and is useful for accessing the field via an interface.
+func (v *GetControlTestDetailControlTest) GetId() string { return v.Id }
+
+// GetName returns GetControlTestDetailControlTest.Name, and is useful for accessing the field via an interface.
+func (v *GetControlTestDetailControlTest) GetName() string { return v.Name }
+
+// GetDescription returns GetControlTestDetailControlTest.Description, and is useful for accessing the field via an interface.
+func (v *GetControlTestDetailControlTest) GetDescription() string { return v.Description }
+
+// GetControlId returns GetControlTestDetailControlTest.ControlId, and is useful for accessing the field via an interface.
+func (v *GetControlTestDetailControlTest) GetControlId() string { return v.ControlId }
+
+// GetResourceGroupId returns GetControlTestDetailControlTest.ResourceGroupId, and is useful for accessing the field via an interface.
+func (v *GetControlTestDetailControlTest) GetResourceGroupId() string { return v.ResourceGroupId }
+
+// GetStatus returns GetControlTestDetailControlTest.Status, and is useful for accessing the field via an interface.
+func (v *GetControlTestDetailControlTest) GetStatus() ControlTestStatus { return v.Status }
+
+// GetLastEvaluatedOn returns GetControlTestDetailControlTest.LastEvaluatedOn, and is useful for accessing the field via an interface.
+func (v *GetControlTestDetailControlTest) GetLastEvaluatedOn() int64 { return v.LastEvaluatedOn }
+
+// GetReferencedRuleId returns GetControlTestDetailControlTest.ReferencedRuleId, and is useful for accessing the field via an interface.
+func (v *GetControlTestDetailControlTest) GetReferencedRuleId() string { return v.ReferencedRuleId }
+
+// GetQueries returns GetControlTestDetailControlTest.Queries, and is useful for accessing the field via an interface.
+func (v *GetControlTestDetailControlTest) GetQueries() []GetControlTestDetailControlTestQueriesControlTestQuery {
+	return v.Queries
+}
+
+// GetControlTestDetailControlTestQueriesControlTestQuery includes the requested fields of the GraphQL type ControlTestQuery.
+type GetControlTestDetailControlTestQueriesControlTestQuery struct {
+	Name        string                     `json:"name"`
+	Query       string                     `json:"query"`
+	ResultsAre  ControlTestQueryResultsAre `json:"resultsAre"`
+	RecordCount int                        `json:"recordCount"`
+	Status      ControlTestStatus          `json:"status"`
+	Effective   bool                       `json:"effective"`
+}
+
+// GetName returns GetControlTestDetailControlTestQueriesControlTestQuery.Name, and is useful for accessing the field via an interface.
+func (v *GetControlTestDetailControlTestQueriesControlTestQuery) GetName() string { return v.Name }
+
+// GetQuery returns GetControlTestDetailControlTestQueriesControlTestQuery.Query, and is useful for accessing the field via an interface.
+func (v *GetControlTestDetailControlTestQueriesControlTestQuery) GetQuery() string { return v.Query }
+
+// GetResultsAre returns GetControlTestDetailControlTestQueriesControlTestQuery.ResultsAre, and is useful for accessing the field via an interface.
+func (v *GetControlTestDetailControlTestQueriesControlTestQuery) GetResultsAre() ControlTestQueryResultsAre {
+	return v.ResultsAre
+}
+
+// GetRecordCount returns GetControlTestDetailControlTestQueriesControlTestQuery.RecordCount, and is useful for accessing the field via an interface.
+func (v *GetControlTestDetailControlTestQueriesControlTestQuery) GetRecordCount() int {
+	return v.RecordCount
+}
+
+// GetStatus returns GetControlTestDetailControlTestQueriesControlTestQuery.Status, and is useful for accessing the field via an interface.
+func (v *GetControlTestDetailControlTestQueriesControlTestQuery) GetStatus() ControlTestStatus {
+	return v.Status
+}
+
+// GetEffective returns GetControlTestDetailControlTestQueriesControlTestQuery.Effective, and is useful for accessing the field via an interface.
+func (v *GetControlTestDetailControlTestQueriesControlTestQuery) GetEffective() bool {
+	return v.Effective
+}
+
+// GetControlTestDetailResponse is returned by GetControlTestDetail on success.
+type GetControlTestDetailResponse struct {
+	ControlTest GetControlTestDetailControlTest `json:"controlTest"`
+}
+
+// GetControlTest returns GetControlTestDetailResponse.ControlTest, and is useful for accessing the field via an interface.
+func (v *GetControlTestDetailResponse) GetControlTest() GetControlTestDetailControlTest {
 	return v.ControlTest
 }
 
@@ -4723,6 +5425,478 @@ func (v *J1QueryInput) GetVersion() string { return v.Version }
 // GetIncludeDeleted returns J1QueryInput.IncludeDeleted, and is useful for accessing the field via an interface.
 func (v *J1QueryInput) GetIncludeDeleted() bool { return v.IncludeDeleted }
 
+// ListAttestationsAttestationsAttestation includes the requested fields of the GraphQL type Attestation.
+type ListAttestationsAttestationsAttestation struct {
+	Id           string           `json:"id"`
+	Subject      string           `json:"subject"`
+	Description  string           `json:"description"`
+	ExpiresOn    float64          `json:"expiresOn"`
+	Owner        string           `json:"owner"`
+	Author       string           `json:"author"`
+	DocumentLink string           `json:"documentLink"`
+	Revoked      bool             `json:"revoked"`
+	CreatedOn    string           `json:"createdOn"`
+	ControlId    string           `json:"controlId"`
+	State        AttestationState `json:"state"`
+}
+
+// GetId returns ListAttestationsAttestationsAttestation.Id, and is useful for accessing the field via an interface.
+func (v *ListAttestationsAttestationsAttestation) GetId() string { return v.Id }
+
+// GetSubject returns ListAttestationsAttestationsAttestation.Subject, and is useful for accessing the field via an interface.
+func (v *ListAttestationsAttestationsAttestation) GetSubject() string { return v.Subject }
+
+// GetDescription returns ListAttestationsAttestationsAttestation.Description, and is useful for accessing the field via an interface.
+func (v *ListAttestationsAttestationsAttestation) GetDescription() string { return v.Description }
+
+// GetExpiresOn returns ListAttestationsAttestationsAttestation.ExpiresOn, and is useful for accessing the field via an interface.
+func (v *ListAttestationsAttestationsAttestation) GetExpiresOn() float64 { return v.ExpiresOn }
+
+// GetOwner returns ListAttestationsAttestationsAttestation.Owner, and is useful for accessing the field via an interface.
+func (v *ListAttestationsAttestationsAttestation) GetOwner() string { return v.Owner }
+
+// GetAuthor returns ListAttestationsAttestationsAttestation.Author, and is useful for accessing the field via an interface.
+func (v *ListAttestationsAttestationsAttestation) GetAuthor() string { return v.Author }
+
+// GetDocumentLink returns ListAttestationsAttestationsAttestation.DocumentLink, and is useful for accessing the field via an interface.
+func (v *ListAttestationsAttestationsAttestation) GetDocumentLink() string { return v.DocumentLink }
+
+// GetRevoked returns ListAttestationsAttestationsAttestation.Revoked, and is useful for accessing the field via an interface.
+func (v *ListAttestationsAttestationsAttestation) GetRevoked() bool { return v.Revoked }
+
+// GetCreatedOn returns ListAttestationsAttestationsAttestation.CreatedOn, and is useful for accessing the field via an interface.
+func (v *ListAttestationsAttestationsAttestation) GetCreatedOn() string { return v.CreatedOn }
+
+// GetControlId returns ListAttestationsAttestationsAttestation.ControlId, and is useful for accessing the field via an interface.
+func (v *ListAttestationsAttestationsAttestation) GetControlId() string { return v.ControlId }
+
+// GetState returns ListAttestationsAttestationsAttestation.State, and is useful for accessing the field via an interface.
+func (v *ListAttestationsAttestationsAttestation) GetState() AttestationState { return v.State }
+
+// ListAttestationsResponse is returned by ListAttestations on success.
+type ListAttestationsResponse struct {
+	Attestations []ListAttestationsAttestationsAttestation `json:"attestations"`
+}
+
+// GetAttestations returns ListAttestationsResponse.Attestations, and is useful for accessing the field via an interface.
+func (v *ListAttestationsResponse) GetAttestations() []ListAttestationsAttestationsAttestation {
+	return v.Attestations
+}
+
+// ListControlFrameworksControlFrameworksControlFrameworkPage includes the requested fields of the GraphQL type ControlFrameworkPage.
+type ListControlFrameworksControlFrameworksControlFrameworkPage struct {
+	Items    []ListControlFrameworksControlFrameworksControlFrameworkPageItemsControlFramework `json:"items"`
+	PageInfo ListControlFrameworksControlFrameworksControlFrameworkPagePageInfo                `json:"pageInfo"`
+}
+
+// GetItems returns ListControlFrameworksControlFrameworksControlFrameworkPage.Items, and is useful for accessing the field via an interface.
+func (v *ListControlFrameworksControlFrameworksControlFrameworkPage) GetItems() []ListControlFrameworksControlFrameworksControlFrameworkPageItemsControlFramework {
+	return v.Items
+}
+
+// GetPageInfo returns ListControlFrameworksControlFrameworksControlFrameworkPage.PageInfo, and is useful for accessing the field via an interface.
+func (v *ListControlFrameworksControlFrameworksControlFrameworkPage) GetPageInfo() ListControlFrameworksControlFrameworksControlFrameworkPagePageInfo {
+	return v.PageInfo
+}
+
+// ListControlFrameworksControlFrameworksControlFrameworkPageItemsControlFramework includes the requested fields of the GraphQL type ControlFramework.
+type ListControlFrameworksControlFrameworksControlFrameworkPageItemsControlFramework struct {
+	Id              string                                                                                                          `json:"id"`
+	Name            string                                                                                                          `json:"name"`
+	Description     string                                                                                                          `json:"description"`
+	Source          ControlFrameworkSource                                                                                          `json:"source"`
+	SourceId        string                                                                                                          `json:"sourceId"`
+	ResourceGroupId string                                                                                                          `json:"resourceGroupId"`
+	Owner           string                                                                                                          `json:"owner"`
+	CreatedOn       string                                                                                                          `json:"createdOn"`
+	Requirements    []ListControlFrameworksControlFrameworksControlFrameworkPageItemsControlFrameworkRequirementsControlRequirement `json:"requirements"`
+}
+
+// GetId returns ListControlFrameworksControlFrameworksControlFrameworkPageItemsControlFramework.Id, and is useful for accessing the field via an interface.
+func (v *ListControlFrameworksControlFrameworksControlFrameworkPageItemsControlFramework) GetId() string {
+	return v.Id
+}
+
+// GetName returns ListControlFrameworksControlFrameworksControlFrameworkPageItemsControlFramework.Name, and is useful for accessing the field via an interface.
+func (v *ListControlFrameworksControlFrameworksControlFrameworkPageItemsControlFramework) GetName() string {
+	return v.Name
+}
+
+// GetDescription returns ListControlFrameworksControlFrameworksControlFrameworkPageItemsControlFramework.Description, and is useful for accessing the field via an interface.
+func (v *ListControlFrameworksControlFrameworksControlFrameworkPageItemsControlFramework) GetDescription() string {
+	return v.Description
+}
+
+// GetSource returns ListControlFrameworksControlFrameworksControlFrameworkPageItemsControlFramework.Source, and is useful for accessing the field via an interface.
+func (v *ListControlFrameworksControlFrameworksControlFrameworkPageItemsControlFramework) GetSource() ControlFrameworkSource {
+	return v.Source
+}
+
+// GetSourceId returns ListControlFrameworksControlFrameworksControlFrameworkPageItemsControlFramework.SourceId, and is useful for accessing the field via an interface.
+func (v *ListControlFrameworksControlFrameworksControlFrameworkPageItemsControlFramework) GetSourceId() string {
+	return v.SourceId
+}
+
+// GetResourceGroupId returns ListControlFrameworksControlFrameworksControlFrameworkPageItemsControlFramework.ResourceGroupId, and is useful for accessing the field via an interface.
+func (v *ListControlFrameworksControlFrameworksControlFrameworkPageItemsControlFramework) GetResourceGroupId() string {
+	return v.ResourceGroupId
+}
+
+// GetOwner returns ListControlFrameworksControlFrameworksControlFrameworkPageItemsControlFramework.Owner, and is useful for accessing the field via an interface.
+func (v *ListControlFrameworksControlFrameworksControlFrameworkPageItemsControlFramework) GetOwner() string {
+	return v.Owner
+}
+
+// GetCreatedOn returns ListControlFrameworksControlFrameworksControlFrameworkPageItemsControlFramework.CreatedOn, and is useful for accessing the field via an interface.
+func (v *ListControlFrameworksControlFrameworksControlFrameworkPageItemsControlFramework) GetCreatedOn() string {
+	return v.CreatedOn
+}
+
+// GetRequirements returns ListControlFrameworksControlFrameworksControlFrameworkPageItemsControlFramework.Requirements, and is useful for accessing the field via an interface.
+func (v *ListControlFrameworksControlFrameworksControlFrameworkPageItemsControlFramework) GetRequirements() []ListControlFrameworksControlFrameworksControlFrameworkPageItemsControlFrameworkRequirementsControlRequirement {
+	return v.Requirements
+}
+
+// ListControlFrameworksControlFrameworksControlFrameworkPageItemsControlFrameworkRequirementsControlRequirement includes the requested fields of the GraphQL type ControlRequirement.
+type ListControlFrameworksControlFrameworksControlFrameworkPageItemsControlFrameworkRequirementsControlRequirement struct {
+	Id          string              `json:"id"`
+	Title       string              `json:"title"`
+	Description string              `json:"description"`
+	Identifier  string              `json:"identifier"`
+	Priority    RequirementPriority `json:"priority"`
+	Section     string              `json:"section"`
+}
+
+// GetId returns ListControlFrameworksControlFrameworksControlFrameworkPageItemsControlFrameworkRequirementsControlRequirement.Id, and is useful for accessing the field via an interface.
+func (v *ListControlFrameworksControlFrameworksControlFrameworkPageItemsControlFrameworkRequirementsControlRequirement) GetId() string {
+	return v.Id
+}
+
+// GetTitle returns ListControlFrameworksControlFrameworksControlFrameworkPageItemsControlFrameworkRequirementsControlRequirement.Title, and is useful for accessing the field via an interface.
+func (v *ListControlFrameworksControlFrameworksControlFrameworkPageItemsControlFrameworkRequirementsControlRequirement) GetTitle() string {
+	return v.Title
+}
+
+// GetDescription returns ListControlFrameworksControlFrameworksControlFrameworkPageItemsControlFrameworkRequirementsControlRequirement.Description, and is useful for accessing the field via an interface.
+func (v *ListControlFrameworksControlFrameworksControlFrameworkPageItemsControlFrameworkRequirementsControlRequirement) GetDescription() string {
+	return v.Description
+}
+
+// GetIdentifier returns ListControlFrameworksControlFrameworksControlFrameworkPageItemsControlFrameworkRequirementsControlRequirement.Identifier, and is useful for accessing the field via an interface.
+func (v *ListControlFrameworksControlFrameworksControlFrameworkPageItemsControlFrameworkRequirementsControlRequirement) GetIdentifier() string {
+	return v.Identifier
+}
+
+// GetPriority returns ListControlFrameworksControlFrameworksControlFrameworkPageItemsControlFrameworkRequirementsControlRequirement.Priority, and is useful for accessing the field via an interface.
+func (v *ListControlFrameworksControlFrameworksControlFrameworkPageItemsControlFrameworkRequirementsControlRequirement) GetPriority() RequirementPriority {
+	return v.Priority
+}
+
+// GetSection returns ListControlFrameworksControlFrameworksControlFrameworkPageItemsControlFrameworkRequirementsControlRequirement.Section, and is useful for accessing the field via an interface.
+func (v *ListControlFrameworksControlFrameworksControlFrameworkPageItemsControlFrameworkRequirementsControlRequirement) GetSection() string {
+	return v.Section
+}
+
+// ListControlFrameworksControlFrameworksControlFrameworkPagePageInfo includes the requested fields of the GraphQL type PageInfo.
+type ListControlFrameworksControlFrameworksControlFrameworkPagePageInfo struct {
+	HasNextPage bool   `json:"hasNextPage"`
+	EndCursor   string `json:"endCursor"`
+}
+
+// GetHasNextPage returns ListControlFrameworksControlFrameworksControlFrameworkPagePageInfo.HasNextPage, and is useful for accessing the field via an interface.
+func (v *ListControlFrameworksControlFrameworksControlFrameworkPagePageInfo) GetHasNextPage() bool {
+	return v.HasNextPage
+}
+
+// GetEndCursor returns ListControlFrameworksControlFrameworksControlFrameworkPagePageInfo.EndCursor, and is useful for accessing the field via an interface.
+func (v *ListControlFrameworksControlFrameworksControlFrameworkPagePageInfo) GetEndCursor() string {
+	return v.EndCursor
+}
+
+// ListControlFrameworksResponse is returned by ListControlFrameworks on success.
+type ListControlFrameworksResponse struct {
+	ControlFrameworks ListControlFrameworksControlFrameworksControlFrameworkPage `json:"controlFrameworks"`
+}
+
+// GetControlFrameworks returns ListControlFrameworksResponse.ControlFrameworks, and is useful for accessing the field via an interface.
+func (v *ListControlFrameworksResponse) GetControlFrameworks() ListControlFrameworksControlFrameworksControlFrameworkPage {
+	return v.ControlFrameworks
+}
+
+// ListControlTestsControlTestsControlTestPage includes the requested fields of the GraphQL type ControlTestPage.
+type ListControlTestsControlTestsControlTestPage struct {
+	Items    []ListControlTestsControlTestsControlTestPageItemsControlTest `json:"items"`
+	PageInfo ListControlTestsControlTestsControlTestPagePageInfo           `json:"pageInfo"`
+}
+
+// GetItems returns ListControlTestsControlTestsControlTestPage.Items, and is useful for accessing the field via an interface.
+func (v *ListControlTestsControlTestsControlTestPage) GetItems() []ListControlTestsControlTestsControlTestPageItemsControlTest {
+	return v.Items
+}
+
+// GetPageInfo returns ListControlTestsControlTestsControlTestPage.PageInfo, and is useful for accessing the field via an interface.
+func (v *ListControlTestsControlTestsControlTestPage) GetPageInfo() ListControlTestsControlTestsControlTestPagePageInfo {
+	return v.PageInfo
+}
+
+// ListControlTestsControlTestsControlTestPageItemsControlTest includes the requested fields of the GraphQL type ControlTest.
+type ListControlTestsControlTestsControlTestPageItemsControlTest struct {
+	Id               string                                                                               `json:"id"`
+	Name             string                                                                               `json:"name"`
+	Description      string                                                                               `json:"description"`
+	ControlId        string                                                                               `json:"controlId"`
+	ResourceGroupId  string                                                                               `json:"resourceGroupId"`
+	Status           ControlTestStatus                                                                    `json:"status"`
+	LastEvaluatedOn  int64                                                                                `json:"lastEvaluatedOn"`
+	ReferencedRuleId string                                                                               `json:"referencedRuleId"`
+	Queries          []ListControlTestsControlTestsControlTestPageItemsControlTestQueriesControlTestQuery `json:"queries"`
+}
+
+// GetId returns ListControlTestsControlTestsControlTestPageItemsControlTest.Id, and is useful for accessing the field via an interface.
+func (v *ListControlTestsControlTestsControlTestPageItemsControlTest) GetId() string { return v.Id }
+
+// GetName returns ListControlTestsControlTestsControlTestPageItemsControlTest.Name, and is useful for accessing the field via an interface.
+func (v *ListControlTestsControlTestsControlTestPageItemsControlTest) GetName() string { return v.Name }
+
+// GetDescription returns ListControlTestsControlTestsControlTestPageItemsControlTest.Description, and is useful for accessing the field via an interface.
+func (v *ListControlTestsControlTestsControlTestPageItemsControlTest) GetDescription() string {
+	return v.Description
+}
+
+// GetControlId returns ListControlTestsControlTestsControlTestPageItemsControlTest.ControlId, and is useful for accessing the field via an interface.
+func (v *ListControlTestsControlTestsControlTestPageItemsControlTest) GetControlId() string {
+	return v.ControlId
+}
+
+// GetResourceGroupId returns ListControlTestsControlTestsControlTestPageItemsControlTest.ResourceGroupId, and is useful for accessing the field via an interface.
+func (v *ListControlTestsControlTestsControlTestPageItemsControlTest) GetResourceGroupId() string {
+	return v.ResourceGroupId
+}
+
+// GetStatus returns ListControlTestsControlTestsControlTestPageItemsControlTest.Status, and is useful for accessing the field via an interface.
+func (v *ListControlTestsControlTestsControlTestPageItemsControlTest) GetStatus() ControlTestStatus {
+	return v.Status
+}
+
+// GetLastEvaluatedOn returns ListControlTestsControlTestsControlTestPageItemsControlTest.LastEvaluatedOn, and is useful for accessing the field via an interface.
+func (v *ListControlTestsControlTestsControlTestPageItemsControlTest) GetLastEvaluatedOn() int64 {
+	return v.LastEvaluatedOn
+}
+
+// GetReferencedRuleId returns ListControlTestsControlTestsControlTestPageItemsControlTest.ReferencedRuleId, and is useful for accessing the field via an interface.
+func (v *ListControlTestsControlTestsControlTestPageItemsControlTest) GetReferencedRuleId() string {
+	return v.ReferencedRuleId
+}
+
+// GetQueries returns ListControlTestsControlTestsControlTestPageItemsControlTest.Queries, and is useful for accessing the field via an interface.
+func (v *ListControlTestsControlTestsControlTestPageItemsControlTest) GetQueries() []ListControlTestsControlTestsControlTestPageItemsControlTestQueriesControlTestQuery {
+	return v.Queries
+}
+
+// ListControlTestsControlTestsControlTestPageItemsControlTestQueriesControlTestQuery includes the requested fields of the GraphQL type ControlTestQuery.
+type ListControlTestsControlTestsControlTestPageItemsControlTestQueriesControlTestQuery struct {
+	Name        string                     `json:"name"`
+	Query       string                     `json:"query"`
+	ResultsAre  ControlTestQueryResultsAre `json:"resultsAre"`
+	RecordCount int                        `json:"recordCount"`
+	Status      ControlTestStatus          `json:"status"`
+	Effective   bool                       `json:"effective"`
+}
+
+// GetName returns ListControlTestsControlTestsControlTestPageItemsControlTestQueriesControlTestQuery.Name, and is useful for accessing the field via an interface.
+func (v *ListControlTestsControlTestsControlTestPageItemsControlTestQueriesControlTestQuery) GetName() string {
+	return v.Name
+}
+
+// GetQuery returns ListControlTestsControlTestsControlTestPageItemsControlTestQueriesControlTestQuery.Query, and is useful for accessing the field via an interface.
+func (v *ListControlTestsControlTestsControlTestPageItemsControlTestQueriesControlTestQuery) GetQuery() string {
+	return v.Query
+}
+
+// GetResultsAre returns ListControlTestsControlTestsControlTestPageItemsControlTestQueriesControlTestQuery.ResultsAre, and is useful for accessing the field via an interface.
+func (v *ListControlTestsControlTestsControlTestPageItemsControlTestQueriesControlTestQuery) GetResultsAre() ControlTestQueryResultsAre {
+	return v.ResultsAre
+}
+
+// GetRecordCount returns ListControlTestsControlTestsControlTestPageItemsControlTestQueriesControlTestQuery.RecordCount, and is useful for accessing the field via an interface.
+func (v *ListControlTestsControlTestsControlTestPageItemsControlTestQueriesControlTestQuery) GetRecordCount() int {
+	return v.RecordCount
+}
+
+// GetStatus returns ListControlTestsControlTestsControlTestPageItemsControlTestQueriesControlTestQuery.Status, and is useful for accessing the field via an interface.
+func (v *ListControlTestsControlTestsControlTestPageItemsControlTestQueriesControlTestQuery) GetStatus() ControlTestStatus {
+	return v.Status
+}
+
+// GetEffective returns ListControlTestsControlTestsControlTestPageItemsControlTestQueriesControlTestQuery.Effective, and is useful for accessing the field via an interface.
+func (v *ListControlTestsControlTestsControlTestPageItemsControlTestQueriesControlTestQuery) GetEffective() bool {
+	return v.Effective
+}
+
+// ListControlTestsControlTestsControlTestPagePageInfo includes the requested fields of the GraphQL type PageInfo.
+type ListControlTestsControlTestsControlTestPagePageInfo struct {
+	HasNextPage bool   `json:"hasNextPage"`
+	EndCursor   string `json:"endCursor"`
+}
+
+// GetHasNextPage returns ListControlTestsControlTestsControlTestPagePageInfo.HasNextPage, and is useful for accessing the field via an interface.
+func (v *ListControlTestsControlTestsControlTestPagePageInfo) GetHasNextPage() bool {
+	return v.HasNextPage
+}
+
+// GetEndCursor returns ListControlTestsControlTestsControlTestPagePageInfo.EndCursor, and is useful for accessing the field via an interface.
+func (v *ListControlTestsControlTestsControlTestPagePageInfo) GetEndCursor() string {
+	return v.EndCursor
+}
+
+// ListControlTestsResponse is returned by ListControlTests on success.
+type ListControlTestsResponse struct {
+	ControlTests ListControlTestsControlTestsControlTestPage `json:"controlTests"`
+}
+
+// GetControlTests returns ListControlTestsResponse.ControlTests, and is useful for accessing the field via an interface.
+func (v *ListControlTestsResponse) GetControlTests() ListControlTestsControlTestsControlTestPage {
+	return v.ControlTests
+}
+
+// ListControlsControlsControlPage includes the requested fields of the GraphQL type ControlPage.
+type ListControlsControlsControlPage struct {
+	Items    []ListControlsControlsControlPageItemsControl `json:"items"`
+	PageInfo ListControlsControlsControlPagePageInfo       `json:"pageInfo"`
+}
+
+// GetItems returns ListControlsControlsControlPage.Items, and is useful for accessing the field via an interface.
+func (v *ListControlsControlsControlPage) GetItems() []ListControlsControlsControlPageItemsControl {
+	return v.Items
+}
+
+// GetPageInfo returns ListControlsControlsControlPage.PageInfo, and is useful for accessing the field via an interface.
+func (v *ListControlsControlsControlPage) GetPageInfo() ListControlsControlsControlPagePageInfo {
+	return v.PageInfo
+}
+
+// ListControlsControlsControlPageItemsControl includes the requested fields of the GraphQL type Control.
+type ListControlsControlsControlPageItemsControl struct {
+	Id                  string               `json:"id"`
+	Name                string               `json:"name"`
+	Description         string               `json:"description"`
+	Source              ControlSource        `json:"source"`
+	SourceId            string               `json:"sourceId"`
+	ResourceGroupId     string               `json:"resourceGroupId"`
+	Status              ControlStatus        `json:"status"`
+	LastEvaluatedOn     string               `json:"lastEvaluatedOn"`
+	Configured          bool                 `json:"configured"`
+	FrameworkIds        []string             `json:"frameworkIds"`
+	State               ControlState         `json:"state"`
+	Identifier          string               `json:"identifier"`
+	Catalog             string               `json:"catalog"`
+	Owner               string               `json:"owner"`
+	Remediation         string               `json:"remediation"`
+	ExceptionProcess    string               `json:"exceptionProcess"`
+	MitreTechnique      string               `json:"mitreTechnique"`
+	CreatedOn           string               `json:"createdOn"`
+	NumberOfTests       int                  `json:"numberOfTests"`
+	EffectiveStatus     ControlEffectiveness `json:"effectiveStatus"`
+	HasValidAttestation bool                 `json:"hasValidAttestation"`
+}
+
+// GetId returns ListControlsControlsControlPageItemsControl.Id, and is useful for accessing the field via an interface.
+func (v *ListControlsControlsControlPageItemsControl) GetId() string { return v.Id }
+
+// GetName returns ListControlsControlsControlPageItemsControl.Name, and is useful for accessing the field via an interface.
+func (v *ListControlsControlsControlPageItemsControl) GetName() string { return v.Name }
+
+// GetDescription returns ListControlsControlsControlPageItemsControl.Description, and is useful for accessing the field via an interface.
+func (v *ListControlsControlsControlPageItemsControl) GetDescription() string { return v.Description }
+
+// GetSource returns ListControlsControlsControlPageItemsControl.Source, and is useful for accessing the field via an interface.
+func (v *ListControlsControlsControlPageItemsControl) GetSource() ControlSource { return v.Source }
+
+// GetSourceId returns ListControlsControlsControlPageItemsControl.SourceId, and is useful for accessing the field via an interface.
+func (v *ListControlsControlsControlPageItemsControl) GetSourceId() string { return v.SourceId }
+
+// GetResourceGroupId returns ListControlsControlsControlPageItemsControl.ResourceGroupId, and is useful for accessing the field via an interface.
+func (v *ListControlsControlsControlPageItemsControl) GetResourceGroupId() string {
+	return v.ResourceGroupId
+}
+
+// GetStatus returns ListControlsControlsControlPageItemsControl.Status, and is useful for accessing the field via an interface.
+func (v *ListControlsControlsControlPageItemsControl) GetStatus() ControlStatus { return v.Status }
+
+// GetLastEvaluatedOn returns ListControlsControlsControlPageItemsControl.LastEvaluatedOn, and is useful for accessing the field via an interface.
+func (v *ListControlsControlsControlPageItemsControl) GetLastEvaluatedOn() string {
+	return v.LastEvaluatedOn
+}
+
+// GetConfigured returns ListControlsControlsControlPageItemsControl.Configured, and is useful for accessing the field via an interface.
+func (v *ListControlsControlsControlPageItemsControl) GetConfigured() bool { return v.Configured }
+
+// GetFrameworkIds returns ListControlsControlsControlPageItemsControl.FrameworkIds, and is useful for accessing the field via an interface.
+func (v *ListControlsControlsControlPageItemsControl) GetFrameworkIds() []string {
+	return v.FrameworkIds
+}
+
+// GetState returns ListControlsControlsControlPageItemsControl.State, and is useful for accessing the field via an interface.
+func (v *ListControlsControlsControlPageItemsControl) GetState() ControlState { return v.State }
+
+// GetIdentifier returns ListControlsControlsControlPageItemsControl.Identifier, and is useful for accessing the field via an interface.
+func (v *ListControlsControlsControlPageItemsControl) GetIdentifier() string { return v.Identifier }
+
+// GetCatalog returns ListControlsControlsControlPageItemsControl.Catalog, and is useful for accessing the field via an interface.
+func (v *ListControlsControlsControlPageItemsControl) GetCatalog() string { return v.Catalog }
+
+// GetOwner returns ListControlsControlsControlPageItemsControl.Owner, and is useful for accessing the field via an interface.
+func (v *ListControlsControlsControlPageItemsControl) GetOwner() string { return v.Owner }
+
+// GetRemediation returns ListControlsControlsControlPageItemsControl.Remediation, and is useful for accessing the field via an interface.
+func (v *ListControlsControlsControlPageItemsControl) GetRemediation() string { return v.Remediation }
+
+// GetExceptionProcess returns ListControlsControlsControlPageItemsControl.ExceptionProcess, and is useful for accessing the field via an interface.
+func (v *ListControlsControlsControlPageItemsControl) GetExceptionProcess() string {
+	return v.ExceptionProcess
+}
+
+// GetMitreTechnique returns ListControlsControlsControlPageItemsControl.MitreTechnique, and is useful for accessing the field via an interface.
+func (v *ListControlsControlsControlPageItemsControl) GetMitreTechnique() string {
+	return v.MitreTechnique
+}
+
+// GetCreatedOn returns ListControlsControlsControlPageItemsControl.CreatedOn, and is useful for accessing the field via an interface.
+func (v *ListControlsControlsControlPageItemsControl) GetCreatedOn() string { return v.CreatedOn }
+
+// GetNumberOfTests returns ListControlsControlsControlPageItemsControl.NumberOfTests, and is useful for accessing the field via an interface.
+func (v *ListControlsControlsControlPageItemsControl) GetNumberOfTests() int { return v.NumberOfTests }
+
+// GetEffectiveStatus returns ListControlsControlsControlPageItemsControl.EffectiveStatus, and is useful for accessing the field via an interface.
+func (v *ListControlsControlsControlPageItemsControl) GetEffectiveStatus() ControlEffectiveness {
+	return v.EffectiveStatus
+}
+
+// GetHasValidAttestation returns ListControlsControlsControlPageItemsControl.HasValidAttestation, and is useful for accessing the field via an interface.
+func (v *ListControlsControlsControlPageItemsControl) GetHasValidAttestation() bool {
+	return v.HasValidAttestation
+}
+
+// ListControlsControlsControlPagePageInfo includes the requested fields of the GraphQL type PageInfo.
+type ListControlsControlsControlPagePageInfo struct {
+	HasNextPage bool   `json:"hasNextPage"`
+	EndCursor   string `json:"endCursor"`
+}
+
+// GetHasNextPage returns ListControlsControlsControlPagePageInfo.HasNextPage, and is useful for accessing the field via an interface.
+func (v *ListControlsControlsControlPagePageInfo) GetHasNextPage() bool { return v.HasNextPage }
+
+// GetEndCursor returns ListControlsControlsControlPagePageInfo.EndCursor, and is useful for accessing the field via an interface.
+func (v *ListControlsControlsControlPagePageInfo) GetEndCursor() string { return v.EndCursor }
+
+// ListControlsResponse is returned by ListControls on success.
+type ListControlsResponse struct {
+	Controls ListControlsControlsControlPage `json:"controls"`
+}
+
+// GetControls returns ListControlsResponse.Controls, and is useful for accessing the field via an interface.
+func (v *ListControlsResponse) GetControls() ListControlsControlsControlPage { return v.Controls }
+
 type ListUpdateInput struct {
 	Set    []string `json:"set"`
 	Add    []string `json:"add"`
@@ -5111,6 +6285,39 @@ func (v *ResourceGroup) GetId() string { return v.Id }
 // GetName returns ResourceGroup.Name, and is useful for accessing the field via an interface.
 func (v *ResourceGroup) GetName() string { return v.Name }
 
+type RevokeAttestationInput struct {
+	Id string `json:"id"`
+}
+
+// GetId returns RevokeAttestationInput.Id, and is useful for accessing the field via an interface.
+func (v *RevokeAttestationInput) GetId() string { return v.Id }
+
+// RevokeAttestationResponse is returned by RevokeAttestation on success.
+type RevokeAttestationResponse struct {
+	RevokeAttestation RevokeAttestationRevokeAttestation `json:"revokeAttestation"`
+}
+
+// GetRevokeAttestation returns RevokeAttestationResponse.RevokeAttestation, and is useful for accessing the field via an interface.
+func (v *RevokeAttestationResponse) GetRevokeAttestation() RevokeAttestationRevokeAttestation {
+	return v.RevokeAttestation
+}
+
+// RevokeAttestationRevokeAttestation includes the requested fields of the GraphQL type Attestation.
+type RevokeAttestationRevokeAttestation struct {
+	Id      string           `json:"id"`
+	Revoked bool             `json:"revoked"`
+	State   AttestationState `json:"state"`
+}
+
+// GetId returns RevokeAttestationRevokeAttestation.Id, and is useful for accessing the field via an interface.
+func (v *RevokeAttestationRevokeAttestation) GetId() string { return v.Id }
+
+// GetRevoked returns RevokeAttestationRevokeAttestation.Revoked, and is useful for accessing the field via an interface.
+func (v *RevokeAttestationRevokeAttestation) GetRevoked() bool { return v.Revoked }
+
+// GetState returns RevokeAttestationRevokeAttestation.State, and is useful for accessing the field via an interface.
+func (v *RevokeAttestationRevokeAttestation) GetState() AttestationState { return v.State }
+
 // RevokeInvitationResponse is returned by RevokeInvitation on success.
 type RevokeInvitationResponse struct {
 	UpdateInvitation RevokeInvitationUpdateInvitationIamInvitation `json:"updateInvitation"`
@@ -5498,6 +6705,91 @@ func (v *TransitionControlStateTransitionControlStateControl) GetId() string { r
 // GetState returns TransitionControlStateTransitionControlStateControl.State, and is useful for accessing the field via an interface.
 func (v *TransitionControlStateTransitionControlStateControl) GetState() ControlState { return v.State }
 
+type UpdateAttestationInput struct {
+	Id           string  `json:"id"`
+	Subject      string  `json:"subject"`
+	Description  *string `json:"description"`
+	ExpiresOn    float64 `json:"expiresOn"`
+	Owner        *string `json:"owner"`
+	DocumentLink *string `json:"documentLink"`
+}
+
+// GetId returns UpdateAttestationInput.Id, and is useful for accessing the field via an interface.
+func (v *UpdateAttestationInput) GetId() string { return v.Id }
+
+// GetSubject returns UpdateAttestationInput.Subject, and is useful for accessing the field via an interface.
+func (v *UpdateAttestationInput) GetSubject() string { return v.Subject }
+
+// GetDescription returns UpdateAttestationInput.Description, and is useful for accessing the field via an interface.
+func (v *UpdateAttestationInput) GetDescription() *string { return v.Description }
+
+// GetExpiresOn returns UpdateAttestationInput.ExpiresOn, and is useful for accessing the field via an interface.
+func (v *UpdateAttestationInput) GetExpiresOn() float64 { return v.ExpiresOn }
+
+// GetOwner returns UpdateAttestationInput.Owner, and is useful for accessing the field via an interface.
+func (v *UpdateAttestationInput) GetOwner() *string { return v.Owner }
+
+// GetDocumentLink returns UpdateAttestationInput.DocumentLink, and is useful for accessing the field via an interface.
+func (v *UpdateAttestationInput) GetDocumentLink() *string { return v.DocumentLink }
+
+// UpdateAttestationResponse is returned by UpdateAttestation on success.
+type UpdateAttestationResponse struct {
+	UpdateAttestation UpdateAttestationUpdateAttestation `json:"updateAttestation"`
+}
+
+// GetUpdateAttestation returns UpdateAttestationResponse.UpdateAttestation, and is useful for accessing the field via an interface.
+func (v *UpdateAttestationResponse) GetUpdateAttestation() UpdateAttestationUpdateAttestation {
+	return v.UpdateAttestation
+}
+
+// UpdateAttestationUpdateAttestation includes the requested fields of the GraphQL type Attestation.
+type UpdateAttestationUpdateAttestation struct {
+	Id           string           `json:"id"`
+	Subject      string           `json:"subject"`
+	Description  string           `json:"description"`
+	ExpiresOn    float64          `json:"expiresOn"`
+	Owner        string           `json:"owner"`
+	Author       string           `json:"author"`
+	DocumentLink string           `json:"documentLink"`
+	Revoked      bool             `json:"revoked"`
+	CreatedOn    string           `json:"createdOn"`
+	ControlId    string           `json:"controlId"`
+	State        AttestationState `json:"state"`
+}
+
+// GetId returns UpdateAttestationUpdateAttestation.Id, and is useful for accessing the field via an interface.
+func (v *UpdateAttestationUpdateAttestation) GetId() string { return v.Id }
+
+// GetSubject returns UpdateAttestationUpdateAttestation.Subject, and is useful for accessing the field via an interface.
+func (v *UpdateAttestationUpdateAttestation) GetSubject() string { return v.Subject }
+
+// GetDescription returns UpdateAttestationUpdateAttestation.Description, and is useful for accessing the field via an interface.
+func (v *UpdateAttestationUpdateAttestation) GetDescription() string { return v.Description }
+
+// GetExpiresOn returns UpdateAttestationUpdateAttestation.ExpiresOn, and is useful for accessing the field via an interface.
+func (v *UpdateAttestationUpdateAttestation) GetExpiresOn() float64 { return v.ExpiresOn }
+
+// GetOwner returns UpdateAttestationUpdateAttestation.Owner, and is useful for accessing the field via an interface.
+func (v *UpdateAttestationUpdateAttestation) GetOwner() string { return v.Owner }
+
+// GetAuthor returns UpdateAttestationUpdateAttestation.Author, and is useful for accessing the field via an interface.
+func (v *UpdateAttestationUpdateAttestation) GetAuthor() string { return v.Author }
+
+// GetDocumentLink returns UpdateAttestationUpdateAttestation.DocumentLink, and is useful for accessing the field via an interface.
+func (v *UpdateAttestationUpdateAttestation) GetDocumentLink() string { return v.DocumentLink }
+
+// GetRevoked returns UpdateAttestationUpdateAttestation.Revoked, and is useful for accessing the field via an interface.
+func (v *UpdateAttestationUpdateAttestation) GetRevoked() bool { return v.Revoked }
+
+// GetCreatedOn returns UpdateAttestationUpdateAttestation.CreatedOn, and is useful for accessing the field via an interface.
+func (v *UpdateAttestationUpdateAttestation) GetCreatedOn() string { return v.CreatedOn }
+
+// GetControlId returns UpdateAttestationUpdateAttestation.ControlId, and is useful for accessing the field via an interface.
+func (v *UpdateAttestationUpdateAttestation) GetControlId() string { return v.ControlId }
+
+// GetState returns UpdateAttestationUpdateAttestation.State, and is useful for accessing the field via an interface.
+func (v *UpdateAttestationUpdateAttestation) GetState() AttestationState { return v.State }
+
 // UpdateCollectorResponse is returned by UpdateCollector on success.
 type UpdateCollectorResponse struct {
 	UpdateCollector UpdateCollectorUpdateCollector `json:"updateCollector"`
@@ -5788,6 +7080,7 @@ type UpdateControlInput struct {
 	Owner            string          `json:"owner"`
 	Remediation      string          `json:"remediation"`
 	ExceptionProcess string          `json:"exceptionProcess"`
+	MitreTechnique   *string         `json:"mitreTechnique"`
 }
 
 // GetId returns UpdateControlInput.Id, and is useful for accessing the field via an interface.
@@ -5819,6 +7112,9 @@ func (v *UpdateControlInput) GetRemediation() string { return v.Remediation }
 
 // GetExceptionProcess returns UpdateControlInput.ExceptionProcess, and is useful for accessing the field via an interface.
 func (v *UpdateControlInput) GetExceptionProcess() string { return v.ExceptionProcess }
+
+// GetMitreTechnique returns UpdateControlInput.MitreTechnique, and is useful for accessing the field via an interface.
+func (v *UpdateControlInput) GetMitreTechnique() *string { return v.MitreTechnique }
 
 // UpdateControlResponse is returned by UpdateControl on success.
 type UpdateControlResponse struct {
@@ -5913,6 +7209,7 @@ type UpdateControlUpdateControl struct {
 	Owner            string       `json:"owner"`
 	Remediation      string       `json:"remediation"`
 	ExceptionProcess string       `json:"exceptionProcess"`
+	MitreTechnique   string       `json:"mitreTechnique"`
 }
 
 // GetId returns UpdateControlUpdateControl.Id, and is useful for accessing the field via an interface.
@@ -5944,6 +7241,9 @@ func (v *UpdateControlUpdateControl) GetRemediation() string { return v.Remediat
 
 // GetExceptionProcess returns UpdateControlUpdateControl.ExceptionProcess, and is useful for accessing the field via an interface.
 func (v *UpdateControlUpdateControl) GetExceptionProcess() string { return v.ExceptionProcess }
+
+// GetMitreTechnique returns UpdateControlUpdateControl.MitreTechnique, and is useful for accessing the field via an interface.
+func (v *UpdateControlUpdateControl) GetMitreTechnique() string { return v.MitreTechnique }
 
 type UpdateCustomIntegrationDefinitionInput struct {
 	Icon                 string   `json:"icon"`
@@ -7040,10 +8340,10 @@ func (v *UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstanc
 type UpdateRequirementInput struct {
 	Id          string              `json:"id"`
 	Title       string              `json:"title"`
-	Description string              `json:"description"`
-	Identifier  string              `json:"identifier"`
-	Priority    RequirementPriority `json:"priority"`
-	Section     string              `json:"section"`
+	Description string              `json:"description,omitempty"`
+	Identifier  string              `json:"identifier,omitempty"`
+	Priority    RequirementPriority `json:"priority,omitempty"`
+	Section     string              `json:"section,omitempty"`
 }
 
 // GetId returns UpdateRequirementInput.Id, and is useful for accessing the field via an interface.
@@ -7355,9 +8655,10 @@ func (v *WidgetConfig) GetPostQueryFilters() []string { return v.PostQueryFilter
 func (v *WidgetConfig) GetDisableQueryPolicyFilters() bool { return v.DisableQueryPolicyFilters }
 
 type WidgetQuery struct {
-	Id    string `json:"id"`
-	Name  string `json:"name"`
-	Query string `json:"query"`
+	Id             string `json:"id"`
+	Name           string `json:"name"`
+	Query          string `json:"query"`
+	DrilldownQuery string `json:"drilldownQuery"`
 }
 
 // GetId returns WidgetQuery.Id, and is useful for accessing the field via an interface.
@@ -7369,6 +8670,9 @@ func (v *WidgetQuery) GetName() string { return v.Name }
 // GetQuery returns WidgetQuery.Query, and is useful for accessing the field via an interface.
 func (v *WidgetQuery) GetQuery() string { return v.Query }
 
+// GetDrilldownQuery returns WidgetQuery.DrilldownQuery, and is useful for accessing the field via an interface.
+func (v *WidgetQuery) GetDrilldownQuery() string { return v.DrilldownQuery }
+
 // __ArchiveCustomIntegrationDefinitionInput is used internally by genqlient
 type __ArchiveCustomIntegrationDefinitionInput struct {
 	Id string `json:"id"`
@@ -7376,6 +8680,14 @@ type __ArchiveCustomIntegrationDefinitionInput struct {
 
 // GetId returns __ArchiveCustomIntegrationDefinitionInput.Id, and is useful for accessing the field via an interface.
 func (v *__ArchiveCustomIntegrationDefinitionInput) GetId() string { return v.Id }
+
+// __CreateAttestationInput is used internally by genqlient
+type __CreateAttestationInput struct {
+	Input CreateAttestationInput `json:"input"`
+}
+
+// GetInput returns __CreateAttestationInput.Input, and is useful for accessing the field via an interface.
+func (v *__CreateAttestationInput) GetInput() CreateAttestationInput { return v.Input }
 
 // __CreateCollectorInput is used internally by genqlient
 type __CreateCollectorInput struct {
@@ -7795,6 +9107,14 @@ type __GetAccountParameterInput struct {
 // GetName returns __GetAccountParameterInput.Name, and is useful for accessing the field via an interface.
 func (v *__GetAccountParameterInput) GetName() string { return v.Name }
 
+// __GetAttestationsByControlIdInput is used internally by genqlient
+type __GetAttestationsByControlIdInput struct {
+	ControlId string `json:"controlId"`
+}
+
+// GetControlId returns __GetAttestationsByControlIdInput.ControlId, and is useful for accessing the field via an interface.
+func (v *__GetAttestationsByControlIdInput) GetControlId() string { return v.ControlId }
+
 // __GetCollectorInput is used internally by genqlient
 type __GetCollectorInput struct {
 	Id string `json:"id"`
@@ -7843,6 +9163,26 @@ type __GetControlByIdInput struct {
 // GetId returns __GetControlByIdInput.Id, and is useful for accessing the field via an interface.
 func (v *__GetControlByIdInput) GetId() string { return v.Id }
 
+// __GetControlDetailInput is used internally by genqlient
+type __GetControlDetailInput struct {
+	Id       string `json:"id"`
+	SourceId string `json:"sourceId"`
+}
+
+// GetId returns __GetControlDetailInput.Id, and is useful for accessing the field via an interface.
+func (v *__GetControlDetailInput) GetId() string { return v.Id }
+
+// GetSourceId returns __GetControlDetailInput.SourceId, and is useful for accessing the field via an interface.
+func (v *__GetControlDetailInput) GetSourceId() string { return v.SourceId }
+
+// __GetControlFrameworkStatsInput is used internally by genqlient
+type __GetControlFrameworkStatsInput struct {
+	Input ControlFrameworkStatsInput `json:"input"`
+}
+
+// GetInput returns __GetControlFrameworkStatsInput.Input, and is useful for accessing the field via an interface.
+func (v *__GetControlFrameworkStatsInput) GetInput() ControlFrameworkStatsInput { return v.Input }
+
 // __GetControlTestByIdInput is used internally by genqlient
 type __GetControlTestByIdInput struct {
 	Id string `json:"id"`
@@ -7850,6 +9190,14 @@ type __GetControlTestByIdInput struct {
 
 // GetId returns __GetControlTestByIdInput.Id, and is useful for accessing the field via an interface.
 func (v *__GetControlTestByIdInput) GetId() string { return v.Id }
+
+// __GetControlTestDetailInput is used internally by genqlient
+type __GetControlTestDetailInput struct {
+	Id string `json:"id"`
+}
+
+// GetId returns __GetControlTestDetailInput.Id, and is useful for accessing the field via an interface.
+func (v *__GetControlTestDetailInput) GetId() string { return v.Id }
 
 // __GetCustomIntegrationDefinitionInput is used internally by genqlient
 type __GetCustomIntegrationDefinitionInput struct {
@@ -7999,6 +9347,38 @@ func (v *__InviteUserInput) GetEmail() string { return v.Email }
 // GetGroupId returns __InviteUserInput.GroupId, and is useful for accessing the field via an interface.
 func (v *__InviteUserInput) GetGroupId() string { return v.GroupId }
 
+// __ListAttestationsInput is used internally by genqlient
+type __ListAttestationsInput struct {
+	Input AttestationQueryInput `json:"input"`
+}
+
+// GetInput returns __ListAttestationsInput.Input, and is useful for accessing the field via an interface.
+func (v *__ListAttestationsInput) GetInput() AttestationQueryInput { return v.Input }
+
+// __ListControlFrameworksInput is used internally by genqlient
+type __ListControlFrameworksInput struct {
+	Input ControlFrameworksQueryInput `json:"input"`
+}
+
+// GetInput returns __ListControlFrameworksInput.Input, and is useful for accessing the field via an interface.
+func (v *__ListControlFrameworksInput) GetInput() ControlFrameworksQueryInput { return v.Input }
+
+// __ListControlTestsInput is used internally by genqlient
+type __ListControlTestsInput struct {
+	Input ControlTestsInput `json:"input"`
+}
+
+// GetInput returns __ListControlTestsInput.Input, and is useful for accessing the field via an interface.
+func (v *__ListControlTestsInput) GetInput() ControlTestsInput { return v.Input }
+
+// __ListControlsInput is used internally by genqlient
+type __ListControlsInput struct {
+	Input ControlsQueryInput `json:"input"`
+}
+
+// GetInput returns __ListControlsInput.Input, and is useful for accessing the field via an interface.
+func (v *__ListControlsInput) GetInput() ControlsQueryInput { return v.Input }
+
 // __PatchDashboardParameterInput is used internally by genqlient
 type __PatchDashboardParameterInput struct {
 	Input PatchDashboardParameterInput `json:"input"`
@@ -8018,6 +9398,14 @@ func (v *__RemoveUserFromGroupInput) GetUserId() string { return v.UserId }
 
 // GetGroupId returns __RemoveUserFromGroupInput.GroupId, and is useful for accessing the field via an interface.
 func (v *__RemoveUserFromGroupInput) GetGroupId() string { return v.GroupId }
+
+// __RevokeAttestationInput is used internally by genqlient
+type __RevokeAttestationInput struct {
+	Input RevokeAttestationInput `json:"input"`
+}
+
+// GetInput returns __RevokeAttestationInput.Input, and is useful for accessing the field via an interface.
+func (v *__RevokeAttestationInput) GetInput() RevokeAttestationInput { return v.Input }
 
 // __RevokeInvitationInput is used internally by genqlient
 type __RevokeInvitationInput struct {
@@ -8066,6 +9454,14 @@ type __TransitionControlStateInput struct {
 
 // GetInput returns __TransitionControlStateInput.Input, and is useful for accessing the field via an interface.
 func (v *__TransitionControlStateInput) GetInput() TransitionControlStateInput { return v.Input }
+
+// __UpdateAttestationInput is used internally by genqlient
+type __UpdateAttestationInput struct {
+	Input UpdateAttestationInput `json:"input"`
+}
+
+// GetInput returns __UpdateAttestationInput.Input, and is useful for accessing the field via an interface.
+func (v *__UpdateAttestationInput) GetInput() UpdateAttestationInput { return v.Input }
 
 // __UpdateCollectorInput is used internally by genqlient
 type __UpdateCollectorInput struct {
@@ -8319,6 +9715,48 @@ mutation ArchiveCustomIntegrationDefinition ($id: String!) {
 	return &data, err
 }
 
+func CreateAttestation(
+	ctx context.Context,
+	client graphql.Client,
+	input CreateAttestationInput,
+) (*CreateAttestationResponse, error) {
+	req := &graphql.Request{
+		OpName: "CreateAttestation",
+		Query: `
+mutation CreateAttestation ($input: CreateAttestationInput!) {
+	createAttestation(input: $input) {
+		id
+		subject
+		description
+		expiresOn
+		owner
+		author
+		documentLink
+		revoked
+		createdOn
+		controlId
+		state
+	}
+}
+`,
+		Variables: &__CreateAttestationInput{
+			Input: input,
+		},
+	}
+	var err error
+
+	var data CreateAttestationResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
 func CreateCollector(
 	ctx context.Context,
 	client graphql.Client,
@@ -8510,6 +9948,7 @@ mutation CreateControl ($input: CreateControlInput!) {
 		owner
 		remediation
 		exceptionProcess
+		mitreTechnique
 	}
 }
 `,
@@ -8950,6 +10389,10 @@ mutation CreateReferencedQuestionRuleInstance ($instance: CreateReferencedQuesti
 	return &data, err
 }
 
+// identifier, priority and section are optional on the API but reject empty
+// strings when present, so an attribute left unset in configuration must be
+// omitted from the request rather than sent as "". Without this, omitting
+// identifier fails with "Identifier cannot be empty".
 func CreateRequirement(
 	ctx context.Context,
 	client graphql.Client,
@@ -10021,6 +11464,53 @@ query GetAccountParameter ($name: String!) {
 	return &data, err
 }
 
+// The attestation schema exposes no lookup by id, only a filtered list. Reads
+// therefore fetch the attestations for the owning control and match client-side,
+// which is why control_id is retained in Terraform state rather than being a
+// create-only argument. includeDeleted is required so that an attestation
+// revoked out of band is still returned and can be recognised as gone.
+func GetAttestationsByControlId(
+	ctx context.Context,
+	client graphql.Client,
+	controlId string,
+) (*GetAttestationsByControlIdResponse, error) {
+	req := &graphql.Request{
+		OpName: "GetAttestationsByControlId",
+		Query: `
+query GetAttestationsByControlId ($controlId: String!) {
+	attestations(input: {controlId:$controlId,includeDeleted:true}) {
+		id
+		subject
+		description
+		expiresOn
+		owner
+		author
+		documentLink
+		revoked
+		createdOn
+		controlId
+		state
+	}
+}
+`,
+		Variables: &__GetAttestationsByControlIdInput{
+			ControlId: controlId,
+		},
+	}
+	var err error
+
+	var data GetAttestationsByControlIdResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
 func GetCollector(
 	ctx context.Context,
 	client graphql.Client,
@@ -10240,6 +11730,7 @@ query GetControlById ($id: ID!) {
 		owner
 		remediation
 		exceptionProcess
+		mitreTechnique
 		frameworkIds
 	}
 }
@@ -10251,6 +11742,107 @@ query GetControlById ($id: ID!) {
 	var err error
 
 	var data GetControlByIdResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func GetControlDetail(
+	ctx context.Context,
+	client graphql.Client,
+	id string,
+	sourceId string,
+) (*GetControlDetailResponse, error) {
+	req := &graphql.Request{
+		OpName: "GetControlDetail",
+		Query: `
+query GetControlDetail ($id: ID, $sourceId: String) {
+	control(id: $id, sourceId: $sourceId) {
+		id
+		name
+		description
+		source
+		sourceId
+		resourceGroupId
+		status
+		lastEvaluatedOn
+		configured
+		frameworkIds
+		state
+		identifier
+		catalog
+		owner
+		remediation
+		exceptionProcess
+		mitreTechnique
+		createdOn
+		numberOfTests
+		effectiveStatus
+		hasValidAttestation
+	}
+}
+`,
+		Variables: &__GetControlDetailInput{
+			Id:       id,
+			SourceId: sourceId,
+		},
+	}
+	var err error
+
+	var data GetControlDetailResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func GetControlFrameworkStats(
+	ctx context.Context,
+	client graphql.Client,
+	input ControlFrameworkStatsInput,
+) (*GetControlFrameworkStatsResponse, error) {
+	req := &graphql.Request{
+		OpName: "GetControlFrameworkStats",
+		Query: `
+query GetControlFrameworkStats ($input: ControlFrameworkStatsInput) {
+	controlFrameworkStats(input: $input) {
+		id
+		numberOfControls
+		numberOfFailingControls
+		numberOfPassingControls
+		numberOfAttestedControls
+		numberOfRequirements
+		numberOfControlsWithTests
+		numberOfPassingRequirements
+		numberOfFailingRequirements
+		numberOfFailingCriticalRequirements
+		sectionStats {
+			sectionName
+			numberOfRequirements
+			numberOfPassingRequirements
+			numberOfFailingRequirements
+		}
+	}
+}
+`,
+		Variables: &__GetControlFrameworkStatsInput{
+			Input: input,
+		},
+	}
+	var err error
+
+	var data GetControlFrameworkStatsResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(
@@ -10291,6 +11883,53 @@ query GetControlTestById ($id: ID!) {
 	var err error
 
 	var data GetControlTestByIdResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func GetControlTestDetail(
+	ctx context.Context,
+	client graphql.Client,
+	id string,
+) (*GetControlTestDetailResponse, error) {
+	req := &graphql.Request{
+		OpName: "GetControlTestDetail",
+		Query: `
+query GetControlTestDetail ($id: ID!) {
+	controlTest(id: $id) {
+		id
+		name
+		description
+		controlId
+		resourceGroupId
+		status
+		lastEvaluatedOn
+		referencedRuleId
+		queries {
+			name
+			query
+			resultsAre
+			recordCount
+			status
+			effective
+		}
+	}
+}
+`,
+		Variables: &__GetControlTestDetailInput{
+			Id: id,
+		},
+	}
+	var err error
+
+	var data GetControlTestDetailResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(
@@ -11125,6 +12764,222 @@ mutation InviteUser ($email: String!, $groupId: String!) {
 	return &data, err
 }
 
+func ListAttestations(
+	ctx context.Context,
+	client graphql.Client,
+	input AttestationQueryInput,
+) (*ListAttestationsResponse, error) {
+	req := &graphql.Request{
+		OpName: "ListAttestations",
+		Query: `
+query ListAttestations ($input: AttestationQueryInput) {
+	attestations(input: $input) {
+		id
+		subject
+		description
+		expiresOn
+		owner
+		author
+		documentLink
+		revoked
+		createdOn
+		controlId
+		state
+	}
+}
+`,
+		Variables: &__ListAttestationsInput{
+			Input: input,
+		},
+	}
+	var err error
+
+	var data ListAttestationsResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+// Requirements are selected alongside each framework because, with framework
+// import out of scope, reading a catalog framework's requirement IDs is the only
+// way to attach Terraform-managed controls to it.
+func ListControlFrameworks(
+	ctx context.Context,
+	client graphql.Client,
+	input ControlFrameworksQueryInput,
+) (*ListControlFrameworksResponse, error) {
+	req := &graphql.Request{
+		OpName: "ListControlFrameworks",
+		Query: `
+query ListControlFrameworks ($input: ControlFrameworksQueryInput) {
+	controlFrameworks(input: $input) {
+		items {
+			id
+			name
+			description
+			source
+			sourceId
+			resourceGroupId
+			owner
+			createdOn
+			requirements {
+				id
+				title
+				description
+				identifier
+				priority
+				section
+			}
+		}
+		pageInfo {
+			hasNextPage
+			endCursor
+		}
+	}
+}
+`,
+		Variables: &__ListControlFrameworksInput{
+			Input: input,
+		},
+	}
+	var err error
+
+	var data ListControlFrameworksResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func ListControlTests(
+	ctx context.Context,
+	client graphql.Client,
+	input ControlTestsInput,
+) (*ListControlTestsResponse, error) {
+	req := &graphql.Request{
+		OpName: "ListControlTests",
+		Query: `
+query ListControlTests ($input: ControlTestsInput) {
+	controlTests(input: $input) {
+		items {
+			id
+			name
+			description
+			controlId
+			resourceGroupId
+			status
+			lastEvaluatedOn
+			referencedRuleId
+			queries {
+				name
+				query
+				resultsAre
+				recordCount
+				status
+				effective
+			}
+		}
+		pageInfo {
+			hasNextPage
+			endCursor
+		}
+	}
+}
+`,
+		Variables: &__ListControlTestsInput{
+			Input: input,
+		},
+	}
+	var err error
+
+	var data ListControlTestsResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+// Unset filters must be omitted rather than sent as empty strings or empty
+// lists, which the API would otherwise treat as real filter values and match
+// nothing. hasValidAttestation is a pointer instead, because false is a
+// meaningful filter that omitempty would discard.
+// sort must be a pointer, not merely omitempty: Go's omitempty does not omit a
+// struct, so an unset sort would serialise as {field: "", order: ""} and fail
+// enum validation on both fields.
+func ListControls(
+	ctx context.Context,
+	client graphql.Client,
+	input ControlsQueryInput,
+) (*ListControlsResponse, error) {
+	req := &graphql.Request{
+		OpName: "ListControls",
+		Query: `
+query ListControls ($input: ControlsQueryInput) {
+	controls(input: $input) {
+		items {
+			id
+			name
+			description
+			source
+			sourceId
+			resourceGroupId
+			status
+			lastEvaluatedOn
+			configured
+			frameworkIds
+			state
+			identifier
+			catalog
+			owner
+			remediation
+			exceptionProcess
+			mitreTechnique
+			createdOn
+			numberOfTests
+			effectiveStatus
+			hasValidAttestation
+		}
+		pageInfo {
+			hasNextPage
+			endCursor
+		}
+	}
+}
+`,
+		Variables: &__ListControlsInput{
+			Input: input,
+		},
+	}
+	var err error
+
+	var data ListControlsResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
 func PatchDashboardParameter(
 	ctx context.Context,
 	client graphql.Client,
@@ -11190,6 +13045,42 @@ mutation RemoveUserFromGroup ($userId: String!, $groupId: ID!) {
 	var err error
 
 	var data RemoveUserFromGroupResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+// Revocation is the only removal path; there is no deleteAttestation. It is also
+// terminal, since UpdateAttestationInput has no revoked field.
+func RevokeAttestation(
+	ctx context.Context,
+	client graphql.Client,
+	input RevokeAttestationInput,
+) (*RevokeAttestationResponse, error) {
+	req := &graphql.Request{
+		OpName: "RevokeAttestation",
+		Query: `
+mutation RevokeAttestation ($input: RevokeAttestationInput!) {
+	revokeAttestation(input: $input) {
+		id
+		revoked
+		state
+	}
+}
+`,
+		Variables: &__RevokeAttestationInput{
+			Input: input,
+		},
+	}
+	var err error
+
+	var data RevokeAttestationResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(
@@ -11394,6 +13285,52 @@ mutation TransitionControlState ($input: TransitionControlStateInput!) {
 	return &data, err
 }
 
+// description, owner and documentLink are pointers so that an absent value
+// serialises as an explicit null, which the API treats as "clear". Sending ""
+// instead would fail server-side validation, because owner is validated as an
+// email address and documentLink as an http(s) URL.
+func UpdateAttestation(
+	ctx context.Context,
+	client graphql.Client,
+	input UpdateAttestationInput,
+) (*UpdateAttestationResponse, error) {
+	req := &graphql.Request{
+		OpName: "UpdateAttestation",
+		Query: `
+mutation UpdateAttestation ($input: UpdateAttestationInput!) {
+	updateAttestation(input: $input) {
+		id
+		subject
+		description
+		expiresOn
+		owner
+		author
+		documentLink
+		revoked
+		createdOn
+		controlId
+		state
+	}
+}
+`,
+		Variables: &__UpdateAttestationInput{
+			Input: input,
+		},
+	}
+	var err error
+
+	var data UpdateAttestationResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
 func UpdateCollector(
 	ctx context.Context,
 	client graphql.Client,
@@ -11564,6 +13501,10 @@ mutation UpdateComplianceLibraryItem ($input: UpdateComplianceLibraryItemInput!)
 	return &data, err
 }
 
+// mitreTechnique is a pointer so that an absent value serialises as an explicit
+// null, which the API treats as "unset". Sending "" would fail the server-side
+// MITRE format validation, and omitting the field entirely would preserve the
+// previous value rather than clearing it.
 func UpdateControl(
 	ctx context.Context,
 	client graphql.Client,
@@ -11584,6 +13525,7 @@ mutation UpdateControl ($input: UpdateControlInput!) {
 		owner
 		remediation
 		exceptionProcess
+		mitreTechnique
 	}
 }
 `,

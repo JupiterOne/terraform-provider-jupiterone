@@ -3,6 +3,7 @@ package jupiterone
 import (
 	"context"
 	"fmt"
+	"regexp"
 	"strings"
 
 	"github.com/Khan/genqlient/graphql"
@@ -31,8 +32,15 @@ type ControlModel struct {
 	Owner            types.String `tfsdk:"owner"`
 	Remediation      types.String `tfsdk:"remediation"`
 	ExceptionProcess types.String `tfsdk:"exception_process"`
+	MitreTechnique   types.String `tfsdk:"mitre_technique"`
 	RequirementIds   types.List   `tfsdk:"requirement_ids"`
 }
+
+// mitreTechniquePattern mirrors the server-side validation for MITRE ATT&CK
+// technique IDs: a technique such as T1078, optionally with a sub-technique
+// such as T1059.001. Validating here turns a server-side 400 into a
+// plan-time error.
+var mitreTechniquePattern = regexp.MustCompile(`^T\d{4}(\.\d{3})?$`)
 
 var _ resource.Resource = &ControlResource{}
 var _ resource.ResourceWithConfigure = &ControlResource{}
@@ -127,6 +135,16 @@ func (*ControlResource) Schema(_ context.Context, _ resource.SchemaRequest, resp
 				Optional:    true,
 				Description: "Exception process in markdown format",
 			},
+			"mitre_technique": schema.StringAttribute{
+				Optional:    true,
+				Description: "The MITRE ATT&CK technique ID this control relates to, e.g. T1078 or the sub-technique T1059.001",
+				Validators: []validator.String{
+					stringvalidator.RegexMatches(
+						mitreTechniquePattern,
+						"must be a MITRE ATT&CK technique ID, e.g. T1078 or T1059.001",
+					),
+				},
+			},
 			"requirement_ids": schema.ListAttribute{
 				Optional:    true,
 				Computed:    true,
@@ -183,6 +201,7 @@ func (r *ControlResource) Create(ctx context.Context, req resource.CreateRequest
 		Owner:            data.Owner.ValueString(),
 		Remediation:      data.Remediation.ValueString(),
 		ExceptionProcess: data.ExceptionProcess.ValueString(),
+		MitreTechnique:   data.MitreTechnique.ValueString(),
 		RequirementIds:   requirementIds,
 	})
 
@@ -260,6 +279,9 @@ func (r *ControlResource) Read(ctx context.Context, req resource.ReadRequest, re
 	if c.ExceptionProcess != "" || !data.ExceptionProcess.IsNull() {
 		data.ExceptionProcess = types.StringValue(c.ExceptionProcess)
 	}
+	if c.MitreTechnique != "" || !data.MitreTechnique.IsNull() {
+		data.MitreTechnique = types.StringValue(c.MitreTechnique)
+	}
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
 }
@@ -284,6 +306,16 @@ func (r *ControlResource) Update(ctx context.Context, req resource.UpdateRequest
 		}
 	}
 
+	// A nil MitreTechnique serialises as an explicit null, which the API treats
+	// as "unset". An empty string would fail server-side format validation, and
+	// omitting the field would preserve the previous value, so removing the
+	// attribute from configuration has to send null to converge.
+	var mitreTechnique *string
+	if !data.MitreTechnique.IsNull() && data.MitreTechnique.ValueString() != "" {
+		v := data.MitreTechnique.ValueString()
+		mitreTechnique = &v
+	}
+
 	_, err := client.UpdateControl(ctx, r.qlient, client.UpdateControlInput{
 		Id:               data.Id.ValueString(),
 		Name:             data.Name.ValueString(),
@@ -294,6 +326,7 @@ func (r *ControlResource) Update(ctx context.Context, req resource.UpdateRequest
 		Owner:            data.Owner.ValueString(),
 		Remediation:      data.Remediation.ValueString(),
 		ExceptionProcess: data.ExceptionProcess.ValueString(),
+		MitreTechnique:   mitreTechnique,
 		RequirementIds:   client.ListUpdateInput{Set: requirementIds},
 	})
 

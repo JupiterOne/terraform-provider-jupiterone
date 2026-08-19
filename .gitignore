@@ -60,3 +60,6 @@ configure-env.sh
 specs/
 .serena/
 specs/*/tasks.md
+
+# Git worktrees
+.worktrees/

@@ -50,7 +50,17 @@ query GetRequirementById($id: ID!) {
   }
 }
 
-mutation CreateRequirement($input: CreateRequirementInput!) {
+# identifier, priority and section are optional on the API but reject empty
+# strings when present, so an attribute left unset in configuration must be
+# omitted from the request rather than sent as "". Without this, omitting
+# identifier fails with "Identifier cannot be empty".
+# @genqlient(for: "CreateRequirementInput.description", omitempty: true)
+# @genqlient(for: "CreateRequirementInput.identifier", omitempty: true)
+# @genqlient(for: "CreateRequirementInput.priority", omitempty: true)
+# @genqlient(for: "CreateRequirementInput.section", omitempty: true)
+mutation CreateRequirement(
+  $input: CreateRequirementInput!
+) {
   createRequirement(input: $input) {
     id
     title
@@ -61,7 +71,13 @@ mutation CreateRequirement($input: CreateRequirementInput!) {
   }
 }
 
-mutation UpdateRequirement($input: UpdateRequirementInput!) {
+# @genqlient(for: "UpdateRequirementInput.description", omitempty: true)
+# @genqlient(for: "UpdateRequirementInput.identifier", omitempty: true)
+# @genqlient(for: "UpdateRequirementInput.priority", omitempty: true)
+# @genqlient(for: "UpdateRequirementInput.section", omitempty: true)
+mutation UpdateRequirement(
+  $input: UpdateRequirementInput!
+) {
   updateRequirement(input: $input) {
     id
     title

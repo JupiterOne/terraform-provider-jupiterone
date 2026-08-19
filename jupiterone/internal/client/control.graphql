@@ -10,12 +10,14 @@ query GetControlById($id: ID!) {
     owner
     remediation
     exceptionProcess
+    mitreTechnique
     frameworkIds
   }
 }
 
 # @genqlient(for: "CreateControlInput.resourceGroupId", omitempty: true)
 # @genqlient(for: "CreateControlInput.requirementIds", omitempty: true)
+# @genqlient(for: "CreateControlInput.mitreTechnique", omitempty: true)
 mutation CreateControl(
   $input: CreateControlInput!
 ) {
@@ -30,10 +32,16 @@ mutation CreateControl(
     owner
     remediation
     exceptionProcess
+    mitreTechnique
   }
 }
 
 # @genqlient(for: "UpdateControlInput.resourceGroupId", omitempty: true)
+# mitreTechnique is a pointer so that an absent value serialises as an explicit
+# null, which the API treats as "unset". Sending "" would fail the server-side
+# MITRE format validation, and omitting the field entirely would preserve the
+# previous value rather than clearing it.
+# @genqlient(for: "UpdateControlInput.mitreTechnique", pointer: true)
 mutation UpdateControl(
   $input: UpdateControlInput!
 ) {
@@ -48,6 +56,7 @@ mutation UpdateControl(
     owner
     remediation
     exceptionProcess
+    mitreTechnique
   }
 }
 

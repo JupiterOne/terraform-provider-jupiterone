@@ -22,6 +22,8 @@ operations:
   - framework_requirement.graphql
   - control.graphql
   - control_test.graphql
+  - attestation.graphql
+  - ccm_data_sources.graphql
   - dropRules.graphql
 generated: generated.go
 

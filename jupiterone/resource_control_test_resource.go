@@ -18,12 +18,19 @@ import (
 	"github.com/jupiterone/terraform-provider-jupiterone/jupiterone/internal/client"
 )
 
+// ControlTestResourceModel is deliberately flat rather than carrying a list of
+// queries. The GraphQL API takes queries: [ControlTestQueryInput!]! and returns
+// a list, but that is a facade: the resolver reads queries[0] and discards the
+// rest, and a control test is backed by a single rule holding exactly one
+// question query. Exposing a repeatable block here would silently drop every
+// query after the first.
 type ControlTestResourceModel struct {
 	Id          types.String `tfsdk:"id"`
 	Name        types.String `tfsdk:"name"`
 	ControlId   types.String `tfsdk:"control_id"`
 	Description types.String `tfsdk:"description"`
 	Query       types.String `tfsdk:"query"`
+	QueryName   types.String `tfsdk:"query_name"`
 	ResultsAre  types.String `tfsdk:"results_are"`
 }
 
@@ -96,6 +103,11 @@ func (*ControlTestResource) Schema(_ context.Context, _ resource.SchemaRequest, 
 				Required:    true,
 				Description: "The J1QL query to evaluate",
 			},
+			"query_name": schema.StringAttribute{
+				Optional: true,
+				Description: "The name of the query. Defaults to the name of the control test. " +
+					"A control test evaluates exactly one query, so there is no list to name.",
+			},
 			"results_are": schema.StringAttribute{
 				Required:    true,
 				Description: "Whether query results indicate GOOD or BAD compliance",
@@ -112,10 +124,17 @@ func (*ControlTestResource) ImportState(ctx context.Context, req resource.Import
 	resource.ImportStatePassthroughID(ctx, path.Root("id"), req, resp)
 }
 
+// toQueryInput builds the single-element list the API expects. Only the first
+// element is ever read by the server.
 func (data *ControlTestResourceModel) toQueryInput() []client.ControlTestQueryInput {
+	queryName := data.Name.ValueString()
+	if !data.QueryName.IsNull() && data.QueryName.ValueString() != "" {
+		queryName = data.QueryName.ValueString()
+	}
+
 	return []client.ControlTestQueryInput{
 		{
-			Name:        data.Name.ValueString(),
+			Name:        queryName,
 			Query:       data.Query.ValueString(),
 			ResultsAre:  client.ControlTestQueryResultsAre(data.ResultsAre.ValueString()),
 			Description: data.Description.ValueString(),
@@ -196,6 +215,13 @@ func (r *ControlTestResource) Read(ctx context.Context, req resource.ReadRequest
 		q := ct.Queries[0]
 		data.Query = types.StringValue(q.Query)
 		data.ResultsAre = types.StringValue(string(q.ResultsAre))
+
+		// Only refresh the query name when it is configured. Left unset it
+		// defaults to the test name server-side, and writing that back would
+		// show up as a permanent diff against a null configuration.
+		if !data.QueryName.IsNull() {
+			data.QueryName = types.StringValue(q.Name)
+		}
 	}
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
