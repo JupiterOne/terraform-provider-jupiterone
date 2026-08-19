@@ -53,7 +53,7 @@ resource "jupiterone_control_attestation" "vendor_review" {
 ### Required
 
 - `control_id` (String) The ID of the control this attestation justifies. The control must be in the LIVE state, because compliance status is a LIVE-only concept. The API offers no lookup of an attestation by ID alone, so this value is also used to read the attestation back.
-- `expires_on` (String) When the attestation expires, as an RFC3339 timestamp, e.g. 2027-01-31T00:00:00Z. Must be in the future at the time it is applied.
+- `expires_on` (String) When the attestation expires, as an RFC3339 timestamp, e.g. 2027-01-31T00:00:00Z. Must be in the future when the attestation is first created. An expiry that has since passed can be moved forward in place, so a lapsed attestation is renewed rather than recreated.
 - `subject` (String) What is being attested to
 
 ### Optional

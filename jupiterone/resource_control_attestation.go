@@ -103,7 +103,9 @@ func (*ControlAttestationResource) Schema(_ context.Context, _ resource.SchemaRe
 			"expires_on": schema.StringAttribute{
 				Required: true,
 				Description: "When the attestation expires, as an RFC3339 timestamp, e.g. 2027-01-31T00:00:00Z. " +
-					"Must be in the future at the time it is applied.",
+					"Must be in the future when the attestation is first created. An expiry that has " +
+					"since passed can be moved forward in place, so a lapsed attestation is renewed " +
+					"rather than recreated.",
 				Validators: []validator.String{
 					rfc3339Validator{},
 				},
