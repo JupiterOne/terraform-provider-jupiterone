@@ -29,6 +29,14 @@ func (v *ArchiveCustomIntegrationDefinitionResponse) GetArchiveCustomIntegration
 	return v.ArchiveCustomIntegrationDefinition
 }
 
+type AttestationState string
+
+const (
+	AttestationStateActive  AttestationState = "ACTIVE"
+	AttestationStateExpired AttestationState = "EXPIRED"
+	AttestationStateRevoked AttestationState = "REVOKED"
+)
+
 type BoardType string
 
 const (
@@ -126,6 +134,91 @@ const (
 	ControlTestQueryResultsAreGood ControlTestQueryResultsAre = "GOOD"
 	ControlTestQueryResultsAreBad  ControlTestQueryResultsAre = "BAD"
 )
+
+// CreateAttestationCreateAttestation includes the requested fields of the GraphQL type Attestation.
+type CreateAttestationCreateAttestation struct {
+	Id           string           `json:"id"`
+	Subject      string           `json:"subject"`
+	Description  string           `json:"description"`
+	ExpiresOn    float64          `json:"expiresOn"`
+	Owner        string           `json:"owner"`
+	Author       string           `json:"author"`
+	DocumentLink string           `json:"documentLink"`
+	Revoked      bool             `json:"revoked"`
+	CreatedOn    string           `json:"createdOn"`
+	ControlId    string           `json:"controlId"`
+	State        AttestationState `json:"state"`
+}
+
+// GetId returns CreateAttestationCreateAttestation.Id, and is useful for accessing the field via an interface.
+func (v *CreateAttestationCreateAttestation) GetId() string { return v.Id }
+
+// GetSubject returns CreateAttestationCreateAttestation.Subject, and is useful for accessing the field via an interface.
+func (v *CreateAttestationCreateAttestation) GetSubject() string { return v.Subject }
+
+// GetDescription returns CreateAttestationCreateAttestation.Description, and is useful for accessing the field via an interface.
+func (v *CreateAttestationCreateAttestation) GetDescription() string { return v.Description }
+
+// GetExpiresOn returns CreateAttestationCreateAttestation.ExpiresOn, and is useful for accessing the field via an interface.
+func (v *CreateAttestationCreateAttestation) GetExpiresOn() float64 { return v.ExpiresOn }
+
+// GetOwner returns CreateAttestationCreateAttestation.Owner, and is useful for accessing the field via an interface.
+func (v *CreateAttestationCreateAttestation) GetOwner() string { return v.Owner }
+
+// GetAuthor returns CreateAttestationCreateAttestation.Author, and is useful for accessing the field via an interface.
+func (v *CreateAttestationCreateAttestation) GetAuthor() string { return v.Author }
+
+// GetDocumentLink returns CreateAttestationCreateAttestation.DocumentLink, and is useful for accessing the field via an interface.
+func (v *CreateAttestationCreateAttestation) GetDocumentLink() string { return v.DocumentLink }
+
+// GetRevoked returns CreateAttestationCreateAttestation.Revoked, and is useful for accessing the field via an interface.
+func (v *CreateAttestationCreateAttestation) GetRevoked() bool { return v.Revoked }
+
+// GetCreatedOn returns CreateAttestationCreateAttestation.CreatedOn, and is useful for accessing the field via an interface.
+func (v *CreateAttestationCreateAttestation) GetCreatedOn() string { return v.CreatedOn }
+
+// GetControlId returns CreateAttestationCreateAttestation.ControlId, and is useful for accessing the field via an interface.
+func (v *CreateAttestationCreateAttestation) GetControlId() string { return v.ControlId }
+
+// GetState returns CreateAttestationCreateAttestation.State, and is useful for accessing the field via an interface.
+func (v *CreateAttestationCreateAttestation) GetState() AttestationState { return v.State }
+
+type CreateAttestationInput struct {
+	ControlId    string  `json:"controlId"`
+	Subject      string  `json:"subject"`
+	Description  string  `json:"description,omitempty"`
+	ExpiresOn    float64 `json:"expiresOn"`
+	Owner        string  `json:"owner,omitempty"`
+	DocumentLink string  `json:"documentLink,omitempty"`
+}
+
+// GetControlId returns CreateAttestationInput.ControlId, and is useful for accessing the field via an interface.
+func (v *CreateAttestationInput) GetControlId() string { return v.ControlId }
+
+// GetSubject returns CreateAttestationInput.Subject, and is useful for accessing the field via an interface.
+func (v *CreateAttestationInput) GetSubject() string { return v.Subject }
+
+// GetDescription returns CreateAttestationInput.Description, and is useful for accessing the field via an interface.
+func (v *CreateAttestationInput) GetDescription() string { return v.Description }
+
+// GetExpiresOn returns CreateAttestationInput.ExpiresOn, and is useful for accessing the field via an interface.
+func (v *CreateAttestationInput) GetExpiresOn() float64 { return v.ExpiresOn }
+
+// GetOwner returns CreateAttestationInput.Owner, and is useful for accessing the field via an interface.
+func (v *CreateAttestationInput) GetOwner() string { return v.Owner }
+
+// GetDocumentLink returns CreateAttestationInput.DocumentLink, and is useful for accessing the field via an interface.
+func (v *CreateAttestationInput) GetDocumentLink() string { return v.DocumentLink }
+
+// CreateAttestationResponse is returned by CreateAttestation on success.
+type CreateAttestationResponse struct {
+	CreateAttestation CreateAttestationCreateAttestation `json:"createAttestation"`
+}
+
+// GetCreateAttestation returns CreateAttestationResponse.CreateAttestation, and is useful for accessing the field via an interface.
+func (v *CreateAttestationResponse) GetCreateAttestation() CreateAttestationCreateAttestation {
+	return v.CreateAttestation
+}
 
 // CreateCollectorCreateCollectorCreateCollectorResponse includes the requested fields of the GraphQL type CreateCollectorResponse.
 type CreateCollectorCreateCollectorCreateCollectorResponse struct {
@@ -395,6 +488,7 @@ type CreateControlCreateControl struct {
 	Owner            string       `json:"owner"`
 	Remediation      string       `json:"remediation"`
 	ExceptionProcess string       `json:"exceptionProcess"`
+	MitreTechnique   string       `json:"mitreTechnique"`
 }
 
 // GetId returns CreateControlCreateControl.Id, and is useful for accessing the field via an interface.
@@ -427,6 +521,9 @@ func (v *CreateControlCreateControl) GetRemediation() string { return v.Remediat
 // GetExceptionProcess returns CreateControlCreateControl.ExceptionProcess, and is useful for accessing the field via an interface.
 func (v *CreateControlCreateControl) GetExceptionProcess() string { return v.ExceptionProcess }
 
+// GetMitreTechnique returns CreateControlCreateControl.MitreTechnique, and is useful for accessing the field via an interface.
+func (v *CreateControlCreateControl) GetMitreTechnique() string { return v.MitreTechnique }
+
 type CreateControlInput struct {
 	Name             string              `json:"name"`
 	Description      string              `json:"description"`
@@ -438,6 +535,7 @@ type CreateControlInput struct {
 	Owner            string              `json:"owner"`
 	Remediation      string              `json:"remediation"`
 	ExceptionProcess string              `json:"exceptionProcess"`
+	MitreTechnique   string              `json:"mitreTechnique,omitempty"`
 }
 
 // GetName returns CreateControlInput.Name, and is useful for accessing the field via an interface.
@@ -469,6 +567,9 @@ func (v *CreateControlInput) GetRemediation() string { return v.Remediation }
 
 // GetExceptionProcess returns CreateControlInput.ExceptionProcess, and is useful for accessing the field via an interface.
 func (v *CreateControlInput) GetExceptionProcess() string { return v.ExceptionProcess }
+
+// GetMitreTechnique returns CreateControlInput.MitreTechnique, and is useful for accessing the field via an interface.
+func (v *CreateControlInput) GetMitreTechnique() string { return v.MitreTechnique }
 
 // CreateControlResponse is returned by CreateControl on success.
 type CreateControlResponse struct {
@@ -1379,9 +1480,10 @@ func (v *CreateInsightsWidgetConfigInput) GetDisableQueryPolicyFilters() bool {
 }
 
 type CreateInsightsWidgetConfigQueryInput struct {
-	Id    string `json:"id"`
-	Name  string `json:"name"`
-	Query string `json:"query"`
+	Id             string `json:"id"`
+	Name           string `json:"name"`
+	Query          string `json:"query"`
+	DrilldownQuery string `json:"drilldownQuery"`
 }
 
 // GetId returns CreateInsightsWidgetConfigQueryInput.Id, and is useful for accessing the field via an interface.
@@ -1392,6 +1494,9 @@ func (v *CreateInsightsWidgetConfigQueryInput) GetName() string { return v.Name 
 
 // GetQuery returns CreateInsightsWidgetConfigQueryInput.Query, and is useful for accessing the field via an interface.
 func (v *CreateInsightsWidgetConfigQueryInput) GetQuery() string { return v.Query }
+
+// GetDrilldownQuery returns CreateInsightsWidgetConfigQueryInput.DrilldownQuery, and is useful for accessing the field via an interface.
+func (v *CreateInsightsWidgetConfigQueryInput) GetDrilldownQuery() string { return v.DrilldownQuery }
 
 type CreateInsightsWidgetInput struct {
 	Id              string                          `json:"id"`
@@ -2987,6 +3092,72 @@ func (v *GetAccountParameterResponse) GetParameter() GetAccountParameterParamete
 	return v.Parameter
 }
 
+// GetAttestationsByControlIdAttestationsAttestation includes the requested fields of the GraphQL type Attestation.
+type GetAttestationsByControlIdAttestationsAttestation struct {
+	Id           string           `json:"id"`
+	Subject      string           `json:"subject"`
+	Description  string           `json:"description"`
+	ExpiresOn    float64          `json:"expiresOn"`
+	Owner        string           `json:"owner"`
+	Author       string           `json:"author"`
+	DocumentLink string           `json:"documentLink"`
+	Revoked      bool             `json:"revoked"`
+	CreatedOn    string           `json:"createdOn"`
+	ControlId    string           `json:"controlId"`
+	State        AttestationState `json:"state"`
+}
+
+// GetId returns GetAttestationsByControlIdAttestationsAttestation.Id, and is useful for accessing the field via an interface.
+func (v *GetAttestationsByControlIdAttestationsAttestation) GetId() string { return v.Id }
+
+// GetSubject returns GetAttestationsByControlIdAttestationsAttestation.Subject, and is useful for accessing the field via an interface.
+func (v *GetAttestationsByControlIdAttestationsAttestation) GetSubject() string { return v.Subject }
+
+// GetDescription returns GetAttestationsByControlIdAttestationsAttestation.Description, and is useful for accessing the field via an interface.
+func (v *GetAttestationsByControlIdAttestationsAttestation) GetDescription() string {
+	return v.Description
+}
+
+// GetExpiresOn returns GetAttestationsByControlIdAttestationsAttestation.ExpiresOn, and is useful for accessing the field via an interface.
+func (v *GetAttestationsByControlIdAttestationsAttestation) GetExpiresOn() float64 {
+	return v.ExpiresOn
+}
+
+// GetOwner returns GetAttestationsByControlIdAttestationsAttestation.Owner, and is useful for accessing the field via an interface.
+func (v *GetAttestationsByControlIdAttestationsAttestation) GetOwner() string { return v.Owner }
+
+// GetAuthor returns GetAttestationsByControlIdAttestationsAttestation.Author, and is useful for accessing the field via an interface.
+func (v *GetAttestationsByControlIdAttestationsAttestation) GetAuthor() string { return v.Author }
+
+// GetDocumentLink returns GetAttestationsByControlIdAttestationsAttestation.DocumentLink, and is useful for accessing the field via an interface.
+func (v *GetAttestationsByControlIdAttestationsAttestation) GetDocumentLink() string {
+	return v.DocumentLink
+}
+
+// GetRevoked returns GetAttestationsByControlIdAttestationsAttestation.Revoked, and is useful for accessing the field via an interface.
+func (v *GetAttestationsByControlIdAttestationsAttestation) GetRevoked() bool { return v.Revoked }
+
+// GetCreatedOn returns GetAttestationsByControlIdAttestationsAttestation.CreatedOn, and is useful for accessing the field via an interface.
+func (v *GetAttestationsByControlIdAttestationsAttestation) GetCreatedOn() string { return v.CreatedOn }
+
+// GetControlId returns GetAttestationsByControlIdAttestationsAttestation.ControlId, and is useful for accessing the field via an interface.
+func (v *GetAttestationsByControlIdAttestationsAttestation) GetControlId() string { return v.ControlId }
+
+// GetState returns GetAttestationsByControlIdAttestationsAttestation.State, and is useful for accessing the field via an interface.
+func (v *GetAttestationsByControlIdAttestationsAttestation) GetState() AttestationState {
+	return v.State
+}
+
+// GetAttestationsByControlIdResponse is returned by GetAttestationsByControlId on success.
+type GetAttestationsByControlIdResponse struct {
+	Attestations []GetAttestationsByControlIdAttestationsAttestation `json:"attestations"`
+}
+
+// GetAttestations returns GetAttestationsByControlIdResponse.Attestations, and is useful for accessing the field via an interface.
+func (v *GetAttestationsByControlIdResponse) GetAttestations() []GetAttestationsByControlIdAttestationsAttestation {
+	return v.Attestations
+}
+
 // GetCollectorCollector includes the requested fields of the GraphQL type Collector.
 type GetCollectorCollector struct {
 	Id                       string `json:"id"`
@@ -3235,6 +3406,7 @@ type GetControlByIdControl struct {
 	Owner            string       `json:"owner"`
 	Remediation      string       `json:"remediation"`
 	ExceptionProcess string       `json:"exceptionProcess"`
+	MitreTechnique   string       `json:"mitreTechnique"`
 	FrameworkIds     []string     `json:"frameworkIds"`
 }
 
@@ -3267,6 +3439,9 @@ func (v *GetControlByIdControl) GetRemediation() string { return v.Remediation }
 
 // GetExceptionProcess returns GetControlByIdControl.ExceptionProcess, and is useful for accessing the field via an interface.
 func (v *GetControlByIdControl) GetExceptionProcess() string { return v.ExceptionProcess }
+
+// GetMitreTechnique returns GetControlByIdControl.MitreTechnique, and is useful for accessing the field via an interface.
+func (v *GetControlByIdControl) GetMitreTechnique() string { return v.MitreTechnique }
 
 // GetFrameworkIds returns GetControlByIdControl.FrameworkIds, and is useful for accessing the field via an interface.
 func (v *GetControlByIdControl) GetFrameworkIds() []string { return v.FrameworkIds }
@@ -5111,6 +5286,39 @@ func (v *ResourceGroup) GetId() string { return v.Id }
 // GetName returns ResourceGroup.Name, and is useful for accessing the field via an interface.
 func (v *ResourceGroup) GetName() string { return v.Name }
 
+type RevokeAttestationInput struct {
+	Id string `json:"id"`
+}
+
+// GetId returns RevokeAttestationInput.Id, and is useful for accessing the field via an interface.
+func (v *RevokeAttestationInput) GetId() string { return v.Id }
+
+// RevokeAttestationResponse is returned by RevokeAttestation on success.
+type RevokeAttestationResponse struct {
+	RevokeAttestation RevokeAttestationRevokeAttestation `json:"revokeAttestation"`
+}
+
+// GetRevokeAttestation returns RevokeAttestationResponse.RevokeAttestation, and is useful for accessing the field via an interface.
+func (v *RevokeAttestationResponse) GetRevokeAttestation() RevokeAttestationRevokeAttestation {
+	return v.RevokeAttestation
+}
+
+// RevokeAttestationRevokeAttestation includes the requested fields of the GraphQL type Attestation.
+type RevokeAttestationRevokeAttestation struct {
+	Id      string           `json:"id"`
+	Revoked bool             `json:"revoked"`
+	State   AttestationState `json:"state"`
+}
+
+// GetId returns RevokeAttestationRevokeAttestation.Id, and is useful for accessing the field via an interface.
+func (v *RevokeAttestationRevokeAttestation) GetId() string { return v.Id }
+
+// GetRevoked returns RevokeAttestationRevokeAttestation.Revoked, and is useful for accessing the field via an interface.
+func (v *RevokeAttestationRevokeAttestation) GetRevoked() bool { return v.Revoked }
+
+// GetState returns RevokeAttestationRevokeAttestation.State, and is useful for accessing the field via an interface.
+func (v *RevokeAttestationRevokeAttestation) GetState() AttestationState { return v.State }
+
 // RevokeInvitationResponse is returned by RevokeInvitation on success.
 type RevokeInvitationResponse struct {
 	UpdateInvitation RevokeInvitationUpdateInvitationIamInvitation `json:"updateInvitation"`
@@ -5498,6 +5706,91 @@ func (v *TransitionControlStateTransitionControlStateControl) GetId() string { r
 // GetState returns TransitionControlStateTransitionControlStateControl.State, and is useful for accessing the field via an interface.
 func (v *TransitionControlStateTransitionControlStateControl) GetState() ControlState { return v.State }
 
+type UpdateAttestationInput struct {
+	Id           string  `json:"id"`
+	Subject      string  `json:"subject"`
+	Description  *string `json:"description"`
+	ExpiresOn    float64 `json:"expiresOn"`
+	Owner        *string `json:"owner"`
+	DocumentLink *string `json:"documentLink"`
+}
+
+// GetId returns UpdateAttestationInput.Id, and is useful for accessing the field via an interface.
+func (v *UpdateAttestationInput) GetId() string { return v.Id }
+
+// GetSubject returns UpdateAttestationInput.Subject, and is useful for accessing the field via an interface.
+func (v *UpdateAttestationInput) GetSubject() string { return v.Subject }
+
+// GetDescription returns UpdateAttestationInput.Description, and is useful for accessing the field via an interface.
+func (v *UpdateAttestationInput) GetDescription() *string { return v.Description }
+
+// GetExpiresOn returns UpdateAttestationInput.ExpiresOn, and is useful for accessing the field via an interface.
+func (v *UpdateAttestationInput) GetExpiresOn() float64 { return v.ExpiresOn }
+
+// GetOwner returns UpdateAttestationInput.Owner, and is useful for accessing the field via an interface.
+func (v *UpdateAttestationInput) GetOwner() *string { return v.Owner }
+
+// GetDocumentLink returns UpdateAttestationInput.DocumentLink, and is useful for accessing the field via an interface.
+func (v *UpdateAttestationInput) GetDocumentLink() *string { return v.DocumentLink }
+
+// UpdateAttestationResponse is returned by UpdateAttestation on success.
+type UpdateAttestationResponse struct {
+	UpdateAttestation UpdateAttestationUpdateAttestation `json:"updateAttestation"`
+}
+
+// GetUpdateAttestation returns UpdateAttestationResponse.UpdateAttestation, and is useful for accessing the field via an interface.
+func (v *UpdateAttestationResponse) GetUpdateAttestation() UpdateAttestationUpdateAttestation {
+	return v.UpdateAttestation
+}
+
+// UpdateAttestationUpdateAttestation includes the requested fields of the GraphQL type Attestation.
+type UpdateAttestationUpdateAttestation struct {
+	Id           string           `json:"id"`
+	Subject      string           `json:"subject"`
+	Description  string           `json:"description"`
+	ExpiresOn    float64          `json:"expiresOn"`
+	Owner        string           `json:"owner"`
+	Author       string           `json:"author"`
+	DocumentLink string           `json:"documentLink"`
+	Revoked      bool             `json:"revoked"`
+	CreatedOn    string           `json:"createdOn"`
+	ControlId    string           `json:"controlId"`
+	State        AttestationState `json:"state"`
+}
+
+// GetId returns UpdateAttestationUpdateAttestation.Id, and is useful for accessing the field via an interface.
+func (v *UpdateAttestationUpdateAttestation) GetId() string { return v.Id }
+
+// GetSubject returns UpdateAttestationUpdateAttestation.Subject, and is useful for accessing the field via an interface.
+func (v *UpdateAttestationUpdateAttestation) GetSubject() string { return v.Subject }
+
+// GetDescription returns UpdateAttestationUpdateAttestation.Description, and is useful for accessing the field via an interface.
+func (v *UpdateAttestationUpdateAttestation) GetDescription() string { return v.Description }
+
+// GetExpiresOn returns UpdateAttestationUpdateAttestation.ExpiresOn, and is useful for accessing the field via an interface.
+func (v *UpdateAttestationUpdateAttestation) GetExpiresOn() float64 { return v.ExpiresOn }
+
+// GetOwner returns UpdateAttestationUpdateAttestation.Owner, and is useful for accessing the field via an interface.
+func (v *UpdateAttestationUpdateAttestation) GetOwner() string { return v.Owner }
+
+// GetAuthor returns UpdateAttestationUpdateAttestation.Author, and is useful for accessing the field via an interface.
+func (v *UpdateAttestationUpdateAttestation) GetAuthor() string { return v.Author }
+
+// GetDocumentLink returns UpdateAttestationUpdateAttestation.DocumentLink, and is useful for accessing the field via an interface.
+func (v *UpdateAttestationUpdateAttestation) GetDocumentLink() string { return v.DocumentLink }
+
+// GetRevoked returns UpdateAttestationUpdateAttestation.Revoked, and is useful for accessing the field via an interface.
+func (v *UpdateAttestationUpdateAttestation) GetRevoked() bool { return v.Revoked }
+
+// GetCreatedOn returns UpdateAttestationUpdateAttestation.CreatedOn, and is useful for accessing the field via an interface.
+func (v *UpdateAttestationUpdateAttestation) GetCreatedOn() string { return v.CreatedOn }
+
+// GetControlId returns UpdateAttestationUpdateAttestation.ControlId, and is useful for accessing the field via an interface.
+func (v *UpdateAttestationUpdateAttestation) GetControlId() string { return v.ControlId }
+
+// GetState returns UpdateAttestationUpdateAttestation.State, and is useful for accessing the field via an interface.
+func (v *UpdateAttestationUpdateAttestation) GetState() AttestationState { return v.State }
+
 // UpdateCollectorResponse is returned by UpdateCollector on success.
 type UpdateCollectorResponse struct {
 	UpdateCollector UpdateCollectorUpdateCollector `json:"updateCollector"`
@@ -5788,6 +6081,7 @@ type UpdateControlInput struct {
 	Owner            string          `json:"owner"`
 	Remediation      string          `json:"remediation"`
 	ExceptionProcess string          `json:"exceptionProcess"`
+	MitreTechnique   *string         `json:"mitreTechnique"`
 }
 
 // GetId returns UpdateControlInput.Id, and is useful for accessing the field via an interface.
@@ -5819,6 +6113,9 @@ func (v *UpdateControlInput) GetRemediation() string { return v.Remediation }
 
 // GetExceptionProcess returns UpdateControlInput.ExceptionProcess, and is useful for accessing the field via an interface.
 func (v *UpdateControlInput) GetExceptionProcess() string { return v.ExceptionProcess }
+
+// GetMitreTechnique returns UpdateControlInput.MitreTechnique, and is useful for accessing the field via an interface.
+func (v *UpdateControlInput) GetMitreTechnique() *string { return v.MitreTechnique }
 
 // UpdateControlResponse is returned by UpdateControl on success.
 type UpdateControlResponse struct {
@@ -5913,6 +6210,7 @@ type UpdateControlUpdateControl struct {
 	Owner            string       `json:"owner"`
 	Remediation      string       `json:"remediation"`
 	ExceptionProcess string       `json:"exceptionProcess"`
+	MitreTechnique   string       `json:"mitreTechnique"`
 }
 
 // GetId returns UpdateControlUpdateControl.Id, and is useful for accessing the field via an interface.
@@ -5944,6 +6242,9 @@ func (v *UpdateControlUpdateControl) GetRemediation() string { return v.Remediat
 
 // GetExceptionProcess returns UpdateControlUpdateControl.ExceptionProcess, and is useful for accessing the field via an interface.
 func (v *UpdateControlUpdateControl) GetExceptionProcess() string { return v.ExceptionProcess }
+
+// GetMitreTechnique returns UpdateControlUpdateControl.MitreTechnique, and is useful for accessing the field via an interface.
+func (v *UpdateControlUpdateControl) GetMitreTechnique() string { return v.MitreTechnique }
 
 type UpdateCustomIntegrationDefinitionInput struct {
 	Icon                 string   `json:"icon"`
@@ -7355,9 +7656,10 @@ func (v *WidgetConfig) GetPostQueryFilters() []string { return v.PostQueryFilter
 func (v *WidgetConfig) GetDisableQueryPolicyFilters() bool { return v.DisableQueryPolicyFilters }
 
 type WidgetQuery struct {
-	Id    string `json:"id"`
-	Name  string `json:"name"`
-	Query string `json:"query"`
+	Id             string `json:"id"`
+	Name           string `json:"name"`
+	Query          string `json:"query"`
+	DrilldownQuery string `json:"drilldownQuery"`
 }
 
 // GetId returns WidgetQuery.Id, and is useful for accessing the field via an interface.
@@ -7369,6 +7671,9 @@ func (v *WidgetQuery) GetName() string { return v.Name }
 // GetQuery returns WidgetQuery.Query, and is useful for accessing the field via an interface.
 func (v *WidgetQuery) GetQuery() string { return v.Query }
 
+// GetDrilldownQuery returns WidgetQuery.DrilldownQuery, and is useful for accessing the field via an interface.
+func (v *WidgetQuery) GetDrilldownQuery() string { return v.DrilldownQuery }
+
 // __ArchiveCustomIntegrationDefinitionInput is used internally by genqlient
 type __ArchiveCustomIntegrationDefinitionInput struct {
 	Id string `json:"id"`
@@ -7376,6 +7681,14 @@ type __ArchiveCustomIntegrationDefinitionInput struct {
 
 // GetId returns __ArchiveCustomIntegrationDefinitionInput.Id, and is useful for accessing the field via an interface.
 func (v *__ArchiveCustomIntegrationDefinitionInput) GetId() string { return v.Id }
+
+// __CreateAttestationInput is used internally by genqlient
+type __CreateAttestationInput struct {
+	Input CreateAttestationInput `json:"input"`
+}
+
+// GetInput returns __CreateAttestationInput.Input, and is useful for accessing the field via an interface.
+func (v *__CreateAttestationInput) GetInput() CreateAttestationInput { return v.Input }
 
 // __CreateCollectorInput is used internally by genqlient
 type __CreateCollectorInput struct {
@@ -7795,6 +8108,14 @@ type __GetAccountParameterInput struct {
 // GetName returns __GetAccountParameterInput.Name, and is useful for accessing the field via an interface.
 func (v *__GetAccountParameterInput) GetName() string { return v.Name }
 
+// __GetAttestationsByControlIdInput is used internally by genqlient
+type __GetAttestationsByControlIdInput struct {
+	ControlId string `json:"controlId"`
+}
+
+// GetControlId returns __GetAttestationsByControlIdInput.ControlId, and is useful for accessing the field via an interface.
+func (v *__GetAttestationsByControlIdInput) GetControlId() string { return v.ControlId }
+
 // __GetCollectorInput is used internally by genqlient
 type __GetCollectorInput struct {
 	Id string `json:"id"`
@@ -8019,6 +8340,14 @@ func (v *__RemoveUserFromGroupInput) GetUserId() string { return v.UserId }
 // GetGroupId returns __RemoveUserFromGroupInput.GroupId, and is useful for accessing the field via an interface.
 func (v *__RemoveUserFromGroupInput) GetGroupId() string { return v.GroupId }
 
+// __RevokeAttestationInput is used internally by genqlient
+type __RevokeAttestationInput struct {
+	Input RevokeAttestationInput `json:"input"`
+}
+
+// GetInput returns __RevokeAttestationInput.Input, and is useful for accessing the field via an interface.
+func (v *__RevokeAttestationInput) GetInput() RevokeAttestationInput { return v.Input }
+
 // __RevokeInvitationInput is used internally by genqlient
 type __RevokeInvitationInput struct {
 	Id string `json:"id"`
@@ -8066,6 +8395,14 @@ type __TransitionControlStateInput struct {
 
 // GetInput returns __TransitionControlStateInput.Input, and is useful for accessing the field via an interface.
 func (v *__TransitionControlStateInput) GetInput() TransitionControlStateInput { return v.Input }
+
+// __UpdateAttestationInput is used internally by genqlient
+type __UpdateAttestationInput struct {
+	Input UpdateAttestationInput `json:"input"`
+}
+
+// GetInput returns __UpdateAttestationInput.Input, and is useful for accessing the field via an interface.
+func (v *__UpdateAttestationInput) GetInput() UpdateAttestationInput { return v.Input }
 
 // __UpdateCollectorInput is used internally by genqlient
 type __UpdateCollectorInput struct {
@@ -8319,6 +8656,48 @@ mutation ArchiveCustomIntegrationDefinition ($id: String!) {
 	return &data, err
 }
 
+func CreateAttestation(
+	ctx context.Context,
+	client graphql.Client,
+	input CreateAttestationInput,
+) (*CreateAttestationResponse, error) {
+	req := &graphql.Request{
+		OpName: "CreateAttestation",
+		Query: `
+mutation CreateAttestation ($input: CreateAttestationInput!) {
+	createAttestation(input: $input) {
+		id
+		subject
+		description
+		expiresOn
+		owner
+		author
+		documentLink
+		revoked
+		createdOn
+		controlId
+		state
+	}
+}
+`,
+		Variables: &__CreateAttestationInput{
+			Input: input,
+		},
+	}
+	var err error
+
+	var data CreateAttestationResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
 func CreateCollector(
 	ctx context.Context,
 	client graphql.Client,
@@ -8510,6 +8889,7 @@ mutation CreateControl ($input: CreateControlInput!) {
 		owner
 		remediation
 		exceptionProcess
+		mitreTechnique
 	}
 }
 `,
@@ -10021,6 +10401,53 @@ query GetAccountParameter ($name: String!) {
 	return &data, err
 }
 
+// The attestation schema exposes no lookup by id, only a filtered list. Reads
+// therefore fetch the attestations for the owning control and match client-side,
+// which is why control_id is retained in Terraform state rather than being a
+// create-only argument. includeDeleted is required so that an attestation
+// revoked out of band is still returned and can be recognised as gone.
+func GetAttestationsByControlId(
+	ctx context.Context,
+	client graphql.Client,
+	controlId string,
+) (*GetAttestationsByControlIdResponse, error) {
+	req := &graphql.Request{
+		OpName: "GetAttestationsByControlId",
+		Query: `
+query GetAttestationsByControlId ($controlId: String!) {
+	attestations(input: {controlId:$controlId,includeDeleted:true}) {
+		id
+		subject
+		description
+		expiresOn
+		owner
+		author
+		documentLink
+		revoked
+		createdOn
+		controlId
+		state
+	}
+}
+`,
+		Variables: &__GetAttestationsByControlIdInput{
+			ControlId: controlId,
+		},
+	}
+	var err error
+
+	var data GetAttestationsByControlIdResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
 func GetCollector(
 	ctx context.Context,
 	client graphql.Client,
@@ -10240,6 +10667,7 @@ query GetControlById ($id: ID!) {
 		owner
 		remediation
 		exceptionProcess
+		mitreTechnique
 		frameworkIds
 	}
 }
@@ -11201,6 +11629,42 @@ mutation RemoveUserFromGroup ($userId: String!, $groupId: ID!) {
 	return &data, err
 }
 
+// Revocation is the only removal path; there is no deleteAttestation. It is also
+// terminal, since UpdateAttestationInput has no revoked field.
+func RevokeAttestation(
+	ctx context.Context,
+	client graphql.Client,
+	input RevokeAttestationInput,
+) (*RevokeAttestationResponse, error) {
+	req := &graphql.Request{
+		OpName: "RevokeAttestation",
+		Query: `
+mutation RevokeAttestation ($input: RevokeAttestationInput!) {
+	revokeAttestation(input: $input) {
+		id
+		revoked
+		state
+	}
+}
+`,
+		Variables: &__RevokeAttestationInput{
+			Input: input,
+		},
+	}
+	var err error
+
+	var data RevokeAttestationResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
 func RevokeInvitation(
 	ctx context.Context,
 	client graphql.Client,
@@ -11394,6 +11858,52 @@ mutation TransitionControlState ($input: TransitionControlStateInput!) {
 	return &data, err
 }
 
+// description, owner and documentLink are pointers so that an absent value
+// serialises as an explicit null, which the API treats as "clear". Sending ""
+// instead would fail server-side validation, because owner is validated as an
+// email address and documentLink as an http(s) URL.
+func UpdateAttestation(
+	ctx context.Context,
+	client graphql.Client,
+	input UpdateAttestationInput,
+) (*UpdateAttestationResponse, error) {
+	req := &graphql.Request{
+		OpName: "UpdateAttestation",
+		Query: `
+mutation UpdateAttestation ($input: UpdateAttestationInput!) {
+	updateAttestation(input: $input) {
+		id
+		subject
+		description
+		expiresOn
+		owner
+		author
+		documentLink
+		revoked
+		createdOn
+		controlId
+		state
+	}
+}
+`,
+		Variables: &__UpdateAttestationInput{
+			Input: input,
+		},
+	}
+	var err error
+
+	var data UpdateAttestationResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
 func UpdateCollector(
 	ctx context.Context,
 	client graphql.Client,
@@ -11564,6 +12074,10 @@ mutation UpdateComplianceLibraryItem ($input: UpdateComplianceLibraryItemInput!)
 	return &data, err
 }
 
+// mitreTechnique is a pointer so that an absent value serialises as an explicit
+// null, which the API treats as "unset". Sending "" would fail the server-side
+// MITRE format validation, and omitting the field entirely would preserve the
+// previous value rather than clearing it.
 func UpdateControl(
 	ctx context.Context,
 	client graphql.Client,
@@ -11584,6 +12098,7 @@ mutation UpdateControl ($input: UpdateControlInput!) {
 		owner
 		remediation
 		exceptionProcess
+		mitreTechnique
 	}
 }
 `,

@@ -160,6 +160,7 @@ func (*JupiterOneProvider) Resources(context.Context) []func() resource.Resource
 		NewControlFrameworkRequirementResource,
 		NewControlResource,
 		NewControlTestResource,
+		NewControlAttestationResource,
 	}
 }
 
