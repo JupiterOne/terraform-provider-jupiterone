@@ -352,7 +352,7 @@ func (v *ControlTestsPaginationInput) GetLimit() int { return v.Limit }
 type ControlsQueryInput struct {
 	Cursor         string             `json:"cursor,omitempty"`
 	Limit          int                `json:"limit,omitempty"`
-	Sort           ControlSortInput   `json:"sort,omitempty"`
+	Sort           *ControlSortInput  `json:"sort,omitempty"`
 	Filter         ControlFilterInput `json:"filter"`
 	IncludeDeleted bool               `json:"includeDeleted,omitempty"`
 }
@@ -364,7 +364,7 @@ func (v *ControlsQueryInput) GetCursor() string { return v.Cursor }
 func (v *ControlsQueryInput) GetLimit() int { return v.Limit }
 
 // GetSort returns ControlsQueryInput.Sort, and is useful for accessing the field via an interface.
-func (v *ControlsQueryInput) GetSort() ControlSortInput { return v.Sort }
+func (v *ControlsQueryInput) GetSort() *ControlSortInput { return v.Sort }
 
 // GetFilter returns ControlsQueryInput.Filter, and is useful for accessing the field via an interface.
 func (v *ControlsQueryInput) GetFilter() ControlFilterInput { return v.Filter }
@@ -2318,10 +2318,10 @@ func (v *CreateRequirementCreateRequirementControlRequirement) GetSection() stri
 type CreateRequirementInput struct {
 	Title       string              `json:"title"`
 	FrameworkId string              `json:"frameworkId"`
-	Description string              `json:"description"`
-	Identifier  string              `json:"identifier"`
-	Priority    RequirementPriority `json:"priority"`
-	Section     string              `json:"section"`
+	Description string              `json:"description,omitempty"`
+	Identifier  string              `json:"identifier,omitempty"`
+	Priority    RequirementPriority `json:"priority,omitempty"`
+	Section     string              `json:"section,omitempty"`
 }
 
 // GetTitle returns CreateRequirementInput.Title, and is useful for accessing the field via an interface.
@@ -8340,10 +8340,10 @@ func (v *UpdateReferencedQuestionRuleInstanceUpdateReferencedQuestionRuleInstanc
 type UpdateRequirementInput struct {
 	Id          string              `json:"id"`
 	Title       string              `json:"title"`
-	Description string              `json:"description"`
-	Identifier  string              `json:"identifier"`
-	Priority    RequirementPriority `json:"priority"`
-	Section     string              `json:"section"`
+	Description string              `json:"description,omitempty"`
+	Identifier  string              `json:"identifier,omitempty"`
+	Priority    RequirementPriority `json:"priority,omitempty"`
+	Section     string              `json:"section,omitempty"`
 }
 
 // GetId returns UpdateRequirementInput.Id, and is useful for accessing the field via an interface.
@@ -10389,6 +10389,10 @@ mutation CreateReferencedQuestionRuleInstance ($instance: CreateReferencedQuesti
 	return &data, err
 }
 
+// identifier, priority and section are optional on the API but reject empty
+// strings when present, so an attribute left unset in configuration must be
+// omitted from the request rather than sent as "". Without this, omitting
+// identifier fails with "Identifier cannot be empty".
 func CreateRequirement(
 	ctx context.Context,
 	client graphql.Client,
@@ -12915,6 +12919,9 @@ query ListControlTests ($input: ControlTestsInput) {
 // lists, which the API would otherwise treat as real filter values and match
 // nothing. hasValidAttestation is a pointer instead, because false is a
 // meaningful filter that omitempty would discard.
+// sort must be a pointer, not merely omitempty: Go's omitempty does not omit a
+// struct, so an unset sort would serialise as {field: "", order: ""} and fail
+// enum validation on both fields.
 func ListControls(
 	ctx context.Context,
 	client graphql.Client,

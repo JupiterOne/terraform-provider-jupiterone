@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"github.com/Khan/genqlient/graphql"
+	"github.com/google/uuid"
 	"github.com/hashicorp/terraform-plugin-framework-validators/listvalidator"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
@@ -276,6 +277,7 @@ func (d *controlDataSource) Configure(_ context.Context, req datasource.Configur
 // --- jupiterone_controls ---
 
 type controlsDataSourceModel struct {
+	Id                  types.String `tfsdk:"id"`
 	SearchText          types.String `tfsdk:"search_text"`
 	Status              types.List   `tfsdk:"status"`
 	States              types.List   `tfsdk:"states"`
@@ -307,6 +309,10 @@ func (*controlsDataSource) Schema(_ context.Context, _ datasource.SchemaRequest,
 		Description: "CCM controls matching a filter, with their evaluated compliance status. " +
 			"All filters are optional; with none set, every control is returned.",
 		Attributes: map[string]schema.Attribute{
+			"id": schema.StringAttribute{
+				Computed:    true,
+				Description: "A generated identifier for this result set.",
+			},
 			"search_text": schema.StringAttribute{
 				Optional:    true,
 				Description: "Case insensitive search across name, description, identifier and id.",
@@ -458,6 +464,7 @@ func (d *controlsDataSource) Read(ctx context.Context, req datasource.ReadReques
 	}
 
 	data.Controls = controls
+	data.Id = types.StringValue(uuid.New().String())
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
 }

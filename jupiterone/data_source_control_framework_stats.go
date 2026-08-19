@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"github.com/Khan/genqlient/graphql"
+	"github.com/google/uuid"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/datasource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
@@ -33,8 +34,9 @@ type controlFrameworkStatsStateModel struct {
 }
 
 type controlFrameworkStatsDataSourceModel struct {
-	FrameworkIds types.List `tfsdk:"framework_ids"`
-	Stats        types.List `tfsdk:"stats"`
+	Id           types.String `tfsdk:"id"`
+	FrameworkIds types.List   `tfsdk:"framework_ids"`
+	Stats        types.List   `tfsdk:"stats"`
 }
 
 func controlFrameworkSectionStatsObject() schema.NestedAttributeObject {
@@ -132,6 +134,10 @@ func (*controlFrameworkStatsDataSource) Schema(_ context.Context, _ datasource.S
 		Description: "Compliance statistics for one or more CCM frameworks: the scorecard numbers behind " +
 			"the framework compliance view.",
 		Attributes: map[string]schema.Attribute{
+			"id": schema.StringAttribute{
+				Computed:    true,
+				Description: "A generated identifier for this result set.",
+			},
 			"framework_ids": schema.ListAttribute{
 				Optional:    true,
 				ElementType: types.StringType,
@@ -208,6 +214,7 @@ func (d *controlFrameworkStatsDataSource) Read(ctx context.Context, req datasour
 	}
 
 	data.Stats = stats
+	data.Id = types.StringValue(uuid.New().String())
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
 }

@@ -1,0 +1,927 @@
+---
+version: 2
+interactions:
+    - id: 0
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 524
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nmutation CreateControl ($input: CreateControlInput!) {\n\tcreateControl(input: $input) {\n\t\tid\n\t\tname\n\t\tdescription\n\t\tresourceGroupId\n\t\tstate\n\t\tidentifier\n\t\tcatalog\n\t\towner\n\t\tremediation\n\t\texceptionProcess\n\t\tmitreTechnique\n\t}\n}\n","variables":{"input":{"name":"tf-provider-acc-test-control-for-attestation","description":"","state":"LIVE","identifier":"","catalog":"","owner":"test-owner@jupiterone.com","remediation":"","exceptionProcess":""}},"operationName":"CreateControl"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 317
+        uncompressed: false
+        body: |
+            {"data":{"createControl":{"id":"ccm_c_J1_740e9973-e9a8-49b1-9ed7-6959d51b2f71","name":"tf-provider-acc-test-control-for-attestation","description":"","resourceGroupId":null,"state":"LIVE","identifier":"","catalog":"","owner":"test-owner@jupiterone.com","remediation":"","exceptionProcess":"","mitreTechnique":null}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Content-Length:
+                - "317"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json
+            Cross-Origin-Embedder-Policy:
+                - require-corp
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 1.875623291s
+    - id: 1
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 585
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nmutation CreateAttestation ($input: CreateAttestationInput!) {\n\tcreateAttestation(input: $input) {\n\t\tid\n\t\tsubject\n\t\tdescription\n\t\texpiresOn\n\t\towner\n\t\tauthor\n\t\tdocumentLink\n\t\trevoked\n\t\tcreatedOn\n\t\tcontrolId\n\t\tstate\n\t}\n}\n","variables":{"input":{"controlId":"ccm_c_J1_740e9973-e9a8-49b1-9ed7-6959d51b2f71","subject":"SOC 2 vendor report reviewed","description":"acceptance test attestation","expiresOn":1896048000000,"owner":"test-owner@jupiterone.com","documentLink":"https://example.com/soc2.pdf"}},"operationName":"CreateAttestation"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 424
+        uncompressed: false
+        body: |
+            {"data":{"createAttestation":{"id":"82b987c4-b745-4cfb-a798-a9a230cddd3c","subject":"SOC 2 vendor report reviewed","description":"acceptance test attestation","expiresOn":1896048000000,"owner":"test-owner@jupiterone.com","author":"james.mountifield@jupiterone.com","documentLink":"https://example.com/soc2.pdf","revoked":false,"createdOn":null,"controlId":"ccm_c_J1_740e9973-e9a8-49b1-9ed7-6959d51b2f71","state":"ACTIVE"}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Content-Length:
+                - "424"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json
+            Cross-Origin-Embedder-Policy:
+                - require-corp
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 4.269468s
+    - id: 2
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 416
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetAttestationsByControlId ($controlId: String!) {\n\tattestations(input: {controlId:$controlId,includeDeleted:true}) {\n\t\tid\n\t\tsubject\n\t\tdescription\n\t\texpiresOn\n\t\towner\n\t\tauthor\n\t\tdocumentLink\n\t\trevoked\n\t\tcreatedOn\n\t\tcontrolId\n\t\tstate\n\t}\n}\n","variables":{"controlId":"ccm_c_J1_740e9973-e9a8-49b1-9ed7-6959d51b2f71"},"operationName":"GetAttestationsByControlId"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 443
+        uncompressed: false
+        body: |
+            {"data":{"attestations":[{"id":"82b987c4-b745-4cfb-a798-a9a230cddd3c","subject":"SOC 2 vendor report reviewed","description":"acceptance test attestation","expiresOn":1896048000000,"owner":"test-owner@jupiterone.com","author":"james.mountifield@jupiterone.com","documentLink":"https://example.com/soc2.pdf","revoked":false,"createdOn":"2026-08-19T12:31:25.594Z","controlId":"ccm_c_J1_740e9973-e9a8-49b1-9ed7-6959d51b2f71","state":"ACTIVE"}]}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Content-Length:
+                - "443"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json
+            Cross-Origin-Embedder-Policy:
+                - require-corp
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 1.504275458s
+    - id: 3
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 363
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetControlById ($id: ID!) {\n\tcontrol(id: $id) {\n\t\tid\n\t\tname\n\t\tdescription\n\t\tresourceGroupId\n\t\tstate\n\t\tidentifier\n\t\tcatalog\n\t\towner\n\t\tremediation\n\t\texceptionProcess\n\t\tmitreTechnique\n\t\tframeworkIds\n\t}\n}\n","variables":{"id":"ccm_c_J1_740e9973-e9a8-49b1-9ed7-6959d51b2f71"},"operationName":"GetControlById"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 329
+        uncompressed: false
+        body: |
+            {"data":{"control":{"id":"ccm_c_J1_740e9973-e9a8-49b1-9ed7-6959d51b2f71","name":"tf-provider-acc-test-control-for-attestation","description":"","resourceGroupId":null,"state":"LIVE","identifier":"","catalog":"","owner":"test-owner@jupiterone.com","remediation":"","exceptionProcess":"","mitreTechnique":null,"frameworkIds":[]}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Content-Length:
+                - "329"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json
+            Cross-Origin-Embedder-Policy:
+                - require-corp
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 1.370025375s
+    - id: 4
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 416
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetAttestationsByControlId ($controlId: String!) {\n\tattestations(input: {controlId:$controlId,includeDeleted:true}) {\n\t\tid\n\t\tsubject\n\t\tdescription\n\t\texpiresOn\n\t\towner\n\t\tauthor\n\t\tdocumentLink\n\t\trevoked\n\t\tcreatedOn\n\t\tcontrolId\n\t\tstate\n\t}\n}\n","variables":{"controlId":"ccm_c_J1_740e9973-e9a8-49b1-9ed7-6959d51b2f71"},"operationName":"GetAttestationsByControlId"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 443
+        uncompressed: false
+        body: |
+            {"data":{"attestations":[{"id":"82b987c4-b745-4cfb-a798-a9a230cddd3c","subject":"SOC 2 vendor report reviewed","description":"acceptance test attestation","expiresOn":1896048000000,"owner":"test-owner@jupiterone.com","author":"james.mountifield@jupiterone.com","documentLink":"https://example.com/soc2.pdf","revoked":false,"createdOn":"2026-08-19T12:31:25.594Z","controlId":"ccm_c_J1_740e9973-e9a8-49b1-9ed7-6959d51b2f71","state":"ACTIVE"}]}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Content-Length:
+                - "443"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json
+            Cross-Origin-Embedder-Policy:
+                - require-corp
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 1.447318333s
+    - id: 5
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 363
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetControlById ($id: ID!) {\n\tcontrol(id: $id) {\n\t\tid\n\t\tname\n\t\tdescription\n\t\tresourceGroupId\n\t\tstate\n\t\tidentifier\n\t\tcatalog\n\t\towner\n\t\tremediation\n\t\texceptionProcess\n\t\tmitreTechnique\n\t\tframeworkIds\n\t}\n}\n","variables":{"id":"ccm_c_J1_740e9973-e9a8-49b1-9ed7-6959d51b2f71"},"operationName":"GetControlById"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 329
+        uncompressed: false
+        body: |
+            {"data":{"control":{"id":"ccm_c_J1_740e9973-e9a8-49b1-9ed7-6959d51b2f71","name":"tf-provider-acc-test-control-for-attestation","description":"","resourceGroupId":null,"state":"LIVE","identifier":"","catalog":"","owner":"test-owner@jupiterone.com","remediation":"","exceptionProcess":"","mitreTechnique":null,"frameworkIds":[]}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Content-Length:
+                - "329"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json
+            Cross-Origin-Embedder-Policy:
+                - require-corp
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 1.3724645s
+    - id: 6
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 416
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetAttestationsByControlId ($controlId: String!) {\n\tattestations(input: {controlId:$controlId,includeDeleted:true}) {\n\t\tid\n\t\tsubject\n\t\tdescription\n\t\texpiresOn\n\t\towner\n\t\tauthor\n\t\tdocumentLink\n\t\trevoked\n\t\tcreatedOn\n\t\tcontrolId\n\t\tstate\n\t}\n}\n","variables":{"controlId":"ccm_c_J1_740e9973-e9a8-49b1-9ed7-6959d51b2f71"},"operationName":"GetAttestationsByControlId"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 443
+        uncompressed: false
+        body: |
+            {"data":{"attestations":[{"id":"82b987c4-b745-4cfb-a798-a9a230cddd3c","subject":"SOC 2 vendor report reviewed","description":"acceptance test attestation","expiresOn":1896048000000,"owner":"test-owner@jupiterone.com","author":"james.mountifield@jupiterone.com","documentLink":"https://example.com/soc2.pdf","revoked":false,"createdOn":"2026-08-19T12:31:25.594Z","controlId":"ccm_c_J1_740e9973-e9a8-49b1-9ed7-6959d51b2f71","state":"ACTIVE"}]}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Content-Length:
+                - "443"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json
+            Cross-Origin-Embedder-Policy:
+                - require-corp
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 1.455309542s
+    - id: 7
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 572
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nmutation UpdateAttestation ($input: UpdateAttestationInput!) {\n\tupdateAttestation(input: $input) {\n\t\tid\n\t\tsubject\n\t\tdescription\n\t\texpiresOn\n\t\towner\n\t\tauthor\n\t\tdocumentLink\n\t\trevoked\n\t\tcreatedOn\n\t\tcontrolId\n\t\tstate\n\t}\n}\n","variables":{"input":{"id":"82b987c4-b745-4cfb-a798-a9a230cddd3c","subject":"SOC 2 vendor report re-reviewed","description":"acceptance test attestation","expiresOn":1940587200000,"owner":"test-owner@jupiterone.com","documentLink":"https://example.com/soc2.pdf"}},"operationName":"UpdateAttestation"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 449
+        uncompressed: false
+        body: |
+            {"data":{"updateAttestation":{"id":"82b987c4-b745-4cfb-a798-a9a230cddd3c","subject":"SOC 2 vendor report re-reviewed","description":"acceptance test attestation","expiresOn":1940587200000,"owner":"test-owner@jupiterone.com","author":"james.mountifield@jupiterone.com","documentLink":"https://example.com/soc2.pdf","revoked":false,"createdOn":"2026-08-19T12:31:25.594Z","controlId":"ccm_c_J1_740e9973-e9a8-49b1-9ed7-6959d51b2f71","state":"ACTIVE"}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Content-Length:
+                - "449"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json
+            Cross-Origin-Embedder-Policy:
+                - require-corp
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 6.374863875s
+    - id: 8
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 416
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetAttestationsByControlId ($controlId: String!) {\n\tattestations(input: {controlId:$controlId,includeDeleted:true}) {\n\t\tid\n\t\tsubject\n\t\tdescription\n\t\texpiresOn\n\t\towner\n\t\tauthor\n\t\tdocumentLink\n\t\trevoked\n\t\tcreatedOn\n\t\tcontrolId\n\t\tstate\n\t}\n}\n","variables":{"controlId":"ccm_c_J1_740e9973-e9a8-49b1-9ed7-6959d51b2f71"},"operationName":"GetAttestationsByControlId"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 446
+        uncompressed: false
+        body: |
+            {"data":{"attestations":[{"id":"82b987c4-b745-4cfb-a798-a9a230cddd3c","subject":"SOC 2 vendor report re-reviewed","description":"acceptance test attestation","expiresOn":1940587200000,"owner":"test-owner@jupiterone.com","author":"james.mountifield@jupiterone.com","documentLink":"https://example.com/soc2.pdf","revoked":false,"createdOn":"2026-08-19T12:31:25.594Z","controlId":"ccm_c_J1_740e9973-e9a8-49b1-9ed7-6959d51b2f71","state":"ACTIVE"}]}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Content-Length:
+                - "446"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json
+            Cross-Origin-Embedder-Policy:
+                - require-corp
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 1.403417167s
+    - id: 9
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 363
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetControlById ($id: ID!) {\n\tcontrol(id: $id) {\n\t\tid\n\t\tname\n\t\tdescription\n\t\tresourceGroupId\n\t\tstate\n\t\tidentifier\n\t\tcatalog\n\t\towner\n\t\tremediation\n\t\texceptionProcess\n\t\tmitreTechnique\n\t\tframeworkIds\n\t}\n}\n","variables":{"id":"ccm_c_J1_740e9973-e9a8-49b1-9ed7-6959d51b2f71"},"operationName":"GetControlById"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 329
+        uncompressed: false
+        body: |
+            {"data":{"control":{"id":"ccm_c_J1_740e9973-e9a8-49b1-9ed7-6959d51b2f71","name":"tf-provider-acc-test-control-for-attestation","description":"","resourceGroupId":null,"state":"LIVE","identifier":"","catalog":"","owner":"test-owner@jupiterone.com","remediation":"","exceptionProcess":"","mitreTechnique":null,"frameworkIds":[]}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Content-Length:
+                - "329"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json
+            Cross-Origin-Embedder-Policy:
+                - require-corp
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 1.384513375s
+    - id: 10
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 416
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetAttestationsByControlId ($controlId: String!) {\n\tattestations(input: {controlId:$controlId,includeDeleted:true}) {\n\t\tid\n\t\tsubject\n\t\tdescription\n\t\texpiresOn\n\t\towner\n\t\tauthor\n\t\tdocumentLink\n\t\trevoked\n\t\tcreatedOn\n\t\tcontrolId\n\t\tstate\n\t}\n}\n","variables":{"controlId":"ccm_c_J1_740e9973-e9a8-49b1-9ed7-6959d51b2f71"},"operationName":"GetAttestationsByControlId"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 446
+        uncompressed: false
+        body: |
+            {"data":{"attestations":[{"id":"82b987c4-b745-4cfb-a798-a9a230cddd3c","subject":"SOC 2 vendor report re-reviewed","description":"acceptance test attestation","expiresOn":1940587200000,"owner":"test-owner@jupiterone.com","author":"james.mountifield@jupiterone.com","documentLink":"https://example.com/soc2.pdf","revoked":false,"createdOn":"2026-08-19T12:31:25.594Z","controlId":"ccm_c_J1_740e9973-e9a8-49b1-9ed7-6959d51b2f71","state":"ACTIVE"}]}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Content-Length:
+                - "446"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json
+            Cross-Origin-Embedder-Policy:
+                - require-corp
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 1.390584s
+    - id: 11
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 260
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nmutation RevokeAttestation ($input: RevokeAttestationInput!) {\n\trevokeAttestation(input: $input) {\n\t\tid\n\t\trevoked\n\t\tstate\n\t}\n}\n","variables":{"input":{"id":"82b987c4-b745-4cfb-a798-a9a230cddd3c"}},"operationName":"RevokeAttestation"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 110
+        uncompressed: false
+        body: |
+            {"data":{"revokeAttestation":{"id":"82b987c4-b745-4cfb-a798-a9a230cddd3c","revoked":true,"state":"REVOKED"}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Content-Length:
+                - "110"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json
+            Cross-Origin-Embedder-Policy:
+                - require-corp
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 3.687906792s
+    - id: 12
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 234
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nmutation DeleteControl ($input: DeleteControlInput!) {\n\tdeleteControl(input: $input) {\n\t\tsuccess\n\t}\n}\n","variables":{"input":{"id":"ccm_c_J1_740e9973-e9a8-49b1-9ed7-6959d51b2f71"}},"operationName":"DeleteControl"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 44
+        uncompressed: false
+        body: |
+            {"data":{"deleteControl":{"success":true}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Content-Length:
+                - "44"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json
+            Cross-Origin-Embedder-Policy:
+                - require-corp
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 1.98553375s
+    - id: 13
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 416
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetAttestationsByControlId ($controlId: String!) {\n\tattestations(input: {controlId:$controlId,includeDeleted:true}) {\n\t\tid\n\t\tsubject\n\t\tdescription\n\t\texpiresOn\n\t\towner\n\t\tauthor\n\t\tdocumentLink\n\t\trevoked\n\t\tcreatedOn\n\t\tcontrolId\n\t\tstate\n\t}\n}\n","variables":{"controlId":"ccm_c_J1_740e9973-e9a8-49b1-9ed7-6959d51b2f71"},"operationName":"GetAttestationsByControlId"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 188
+        uncompressed: false
+        body: |
+            {"errors":[{"message":"Control not found","path":["attestations"],"extensions":{"code":"NOT_FOUND","serviceName":"apps-service","exception":{"message":"Control not found"}}}],"data":null}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Content-Length:
+                - "188"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json
+            Cross-Origin-Embedder-Policy:
+                - require-corp
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 986.828125ms

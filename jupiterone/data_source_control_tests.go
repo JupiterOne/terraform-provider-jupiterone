@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"github.com/Khan/genqlient/graphql"
+	"github.com/google/uuid"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/datasource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/diag"
@@ -243,6 +244,7 @@ func (d *controlTestDataSource) Configure(_ context.Context, req datasource.Conf
 // --- jupiterone_control_tests ---
 
 type controlTestsDataSourceModel struct {
+	Id           types.String `tfsdk:"id"`
 	ControlId    types.String `tfsdk:"control_id"`
 	ControlTests types.List   `tfsdk:"control_tests"`
 }
@@ -264,6 +266,10 @@ func (*controlTestsDataSource) Schema(_ context.Context, _ datasource.SchemaRequ
 	resp.Schema = schema.Schema{
 		Description: "The control tests belonging to a control, including their evaluation results.",
 		Attributes: map[string]schema.Attribute{
+			"id": schema.StringAttribute{
+				Computed:    true,
+				Description: "A generated identifier for this result set.",
+			},
 			"control_id": schema.StringAttribute{
 				Required:    true,
 				Description: "The control whose tests should be returned.",
@@ -333,6 +339,7 @@ func (d *controlTestsDataSource) Read(ctx context.Context, req datasource.ReadRe
 	}
 
 	data.ControlTests = controlTests
+	data.Id = types.StringValue(uuid.New().String())
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
 }

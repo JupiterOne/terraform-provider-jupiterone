@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"github.com/Khan/genqlient/graphql"
+	"github.com/google/uuid"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/datasource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
@@ -33,8 +34,9 @@ type controlFrameworkStateModel struct {
 }
 
 type controlFrameworksDataSourceModel struct {
-	IncludeDeleted    types.Bool `tfsdk:"include_deleted"`
-	ControlFrameworks types.List `tfsdk:"control_frameworks"`
+	Id                types.String `tfsdk:"id"`
+	IncludeDeleted    types.Bool   `tfsdk:"include_deleted"`
+	ControlFrameworks types.List   `tfsdk:"control_frameworks"`
 }
 
 func controlFrameworkRequirementObject() schema.NestedAttributeObject {
@@ -131,6 +133,10 @@ func (*controlFrameworksDataSource) Schema(_ context.Context, _ datasource.Schem
 			"This is how to reference a framework the provider does not manage, such as one imported " +
 			"from the J1 or UCF catalog: read its requirement IDs here and attach managed controls to them.",
 		Attributes: map[string]schema.Attribute{
+			"id": schema.StringAttribute{
+				Computed:    true,
+				Description: "A generated identifier for this result set.",
+			},
 			"include_deleted": schema.BoolAttribute{
 				Optional:    true,
 				Description: "Also return frameworks that have been deleted. Deletion in CCM is a soft delete.",
@@ -209,6 +215,7 @@ func (d *controlFrameworksDataSource) Read(ctx context.Context, req datasource.R
 	}
 
 	data.ControlFrameworks = frameworks
+	data.Id = types.StringValue(uuid.New().String())
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
 }

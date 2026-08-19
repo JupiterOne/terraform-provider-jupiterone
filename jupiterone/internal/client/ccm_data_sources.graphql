@@ -40,7 +40,10 @@ query GetControlDetail(
 # meaningful filter that omitempty would discard.
 # @genqlient(for: "ControlsQueryInput.cursor", omitempty: true)
 # @genqlient(for: "ControlsQueryInput.limit", omitempty: true)
-# @genqlient(for: "ControlsQueryInput.sort", omitempty: true)
+# sort must be a pointer, not merely omitempty: Go's omitempty does not omit a
+# struct, so an unset sort would serialise as {field: "", order: ""} and fail
+# enum validation on both fields.
+# @genqlient(for: "ControlsQueryInput.sort", pointer: true, omitempty: true)
 # @genqlient(for: "ControlsQueryInput.includeDeleted", omitempty: true)
 # @genqlient(for: "ControlFilterInput.nameContains", omitempty: true)
 # @genqlient(for: "ControlFilterInput.searchText", omitempty: true)

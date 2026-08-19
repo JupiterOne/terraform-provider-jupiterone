@@ -73,7 +73,9 @@ func (*ControlAttestationResource) Schema(_ context.Context, _ resource.SchemaRe
 	resp.Schema = schema.Schema{
 		Description: "An attestation justifying a control by means other than an automated control test, " +
 			"for example a signed policy document or a vendor report. A control covered by a valid " +
-			"attestation reads as passing, but a failing control test is never masked by one.",
+			"attestation reads as passing, but a failing control test is never masked by one.\n\n" +
+			"The control must be LIVE. Destroying this resource revokes the attestation, which is " +
+			"irreversible: the record persists with a REVOKED state and a later apply creates a new one.",
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed: true,
@@ -83,7 +85,8 @@ func (*ControlAttestationResource) Schema(_ context.Context, _ resource.SchemaRe
 			},
 			"control_id": schema.StringAttribute{
 				Required: true,
-				Description: "The ID of the control this attestation justifies. The API offers no lookup " +
+				Description: "The ID of the control this attestation justifies. The control must be in the " +
+					"LIVE state, because compliance status is a LIVE-only concept. The API offers no lookup " +
 					"of an attestation by ID alone, so this value is also used to read the attestation back.",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.RequiresReplace(),

@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"github.com/Khan/genqlient/graphql"
+	"github.com/google/uuid"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/datasource/schema"
@@ -28,6 +29,7 @@ type attestationStateModel struct {
 }
 
 type attestationsDataSourceModel struct {
+	Id                 types.String `tfsdk:"id"`
 	ControlId          types.String `tfsdk:"control_id"`
 	Owner              types.String `tfsdk:"owner"`
 	State              types.String `tfsdk:"state"`
@@ -107,6 +109,10 @@ func (*attestationsDataSource) Schema(_ context.Context, _ datasource.SchemaRequ
 			"Without a control_id filter this requires CCM read-admin permission; with one it requires " +
 			"read access to that control.",
 		Attributes: map[string]schema.Attribute{
+			"id": schema.StringAttribute{
+				Computed:    true,
+				Description: "A generated identifier for this result set.",
+			},
 			"control_id": schema.StringAttribute{
 				Optional:    true,
 				Description: "Return attestations for this control only.",
@@ -189,6 +195,7 @@ func (d *attestationsDataSource) Read(ctx context.Context, req datasource.ReadRe
 	}
 
 	data.Attestations = attestations
+	data.Id = types.StringValue(uuid.New().String())
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
 }
