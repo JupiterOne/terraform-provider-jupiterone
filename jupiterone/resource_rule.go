@@ -837,6 +837,25 @@ func (r *QuestionRuleResource) Update(ctx context.Context, req resource.UpdateRe
 }
 
 const actionIdKey = "id"
+const actionTypeKey = "type"
+
+// sameActionType reports whether two actions are of the same kind. The API
+// validates nothing about the ids it is sent, so this is what stops an action
+// that was replaced by a different kind of action from inheriting the id, and
+// with it the evaluation history and external outputs, of the one it displaced.
+func sameActionType(a, b map[string]interface{}) bool {
+	at, aok := a[actionTypeKey]
+	bt, bok := b[actionTypeKey]
+	if aok != bok {
+		return false
+	}
+	if !aok {
+		// Neither action declares a type, so there is nothing to tell them
+		// apart by; treat them as comparable rather than churning the id.
+		return true
+	}
+	return reflect.DeepEqual(at, bt)
+}
 
 // priorAction is an action as held in state, split into its server assigned id
 // and the rest of its content for comparison against a planned action.
@@ -909,7 +928,10 @@ func mergeActionIds(planned []client.RuleOperationInput, prior []RuleOperation) 
 			}
 		}
 
-		// Fall back to position, so an action edited in place keeps its id.
+		// Fall back to the action in the same position, so an action edited in
+		// place keeps its id. The fallback is deliberately narrow: it requires
+		// the same position and the same type, because a new id merely loses
+		// history whereas a wrongly reused one invents it.
 		for j, action := range op.Actions {
 			a, ok := action.(map[string]interface{})
 			if !ok {
@@ -919,6 +941,9 @@ func mergeActionIds(planned []client.RuleOperationInput, prior []RuleOperation) 
 				continue
 			}
 			if j >= len(priorActions) || claimed[j] || priorActions[j].id == "" {
+				continue
+			}
+			if !sameActionType(priorActions[j].content, a) {
 				continue
 			}
 			a[actionIdKey] = priorActions[j].id

@@ -140,6 +140,24 @@ func TestMergeActionIds(t *testing.T) {
 			expected: [][]string{{"bbb-222", ""}},
 		},
 		{
+			name:     "an action replaced by one of a different type does not inherit its id",
+			planned:  plannedOps(t, []string{tagEntities}),
+			prior:    priorOps([]string{createAlertWithID}),
+			expected: [][]string{{""}},
+		},
+		{
+			name:     "a type change does not take the id of the action it displaced",
+			planned:  plannedOps(t, []string{tagEntities, createAlert}),
+			prior:    priorOps([]string{setPropertyWithID, createAlertWithID}),
+			expected: [][]string{{"", "bbb-222"}},
+		},
+		{
+			name:     "an action with no type at all still keeps its id when edited",
+			planned:  plannedOps(t, []string{`{"foo":"changed"}`}),
+			prior:    priorOps([]string{`{"id":"ccc-333","foo":"original"}`}),
+			expected: [][]string{{"ccc-333"}},
+		},
+		{
 			name:     "ids are not borrowed across operations",
 			planned:  plannedOps(t, []string{createAlert}, []string{setProperty}),
 			prior:    priorOps([]string{createAlertWithID}),

@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"strconv"
+	"strings"
 	"testing"
 
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
@@ -80,6 +81,26 @@ func checkRuleActionIdsUnchanged(resourceName string, expected *[]string) resour
 	}
 }
 
+// checkRuleActionIdsSwapped asserts the two action ids in state are the
+// captured ids in the opposite order, showing that reordering the actions
+// carried each id along with its own action rather than leaving the ids
+// attached to their former positions.
+func checkRuleActionIdsSwapped(resourceName string, expected *[]string) resource.TestCheckFunc {
+	return func(s *terraform.State) error {
+		ids, err := ruleActionIds(s, resourceName)
+		if err != nil {
+			return err
+		}
+		if len(ids) != 2 || len(*expected) != 2 {
+			return fmt.Errorf("expected 2 actions on both sides, got %d and %d", len(ids), len(*expected))
+		}
+		if ids[0] != (*expected)[1] || ids[1] != (*expected)[0] {
+			return fmt.Errorf("ids did not follow their actions across the reorder: captured %v, now %v", *expected, ids)
+		}
+		return nil
+	}
+}
+
 // checkRuleActionContent compares an action of the rule's first operation in
 // state to the expected JSON, ignoring the server assigned id.
 func checkRuleActionContent(resourceName string, action int, expected string) resource.TestCheckFunc {
@@ -127,15 +148,12 @@ func TestInlineRuleInstance_ActionIdsAreStable(t *testing.T) {
 	setProperty := `{"targetValue":"HIGH","type":"SET_PROPERTY","targetProperty":"alertLevel"}`
 	setPropertyEdited := `{"targetValue":"CRITICAL","type":"SET_PROPERTY","targetProperty":"alertLevel"}`
 
-	operations := func(setPropertyAction string) string {
-		return fmt.Sprintf(`[
-				{
-					actions = [
-						%q,
-						%q,
-					]
-				}
-			]`, setPropertyAction, createAlertActionJSON)
+	operations := func(actions ...string) string {
+		quoted := make([]string, 0, len(actions))
+		for _, a := range actions {
+			quoted = append(quoted, fmt.Sprintf("%q,", a))
+		}
+		return fmt.Sprintf("[\n{\nactions = [\n%s\n]\n}\n]", strings.Join(quoted, "\n"))
 	}
 
 	resource.Test(t, resource.TestCase{
@@ -146,7 +164,7 @@ func TestInlineRuleInstance_ActionIdsAreStable(t *testing.T) {
 			// Create. The ids are assigned by the API and only reach state on
 			// the refresh that precedes the next step.
 			{
-				Config: testActionIdRuleConfig("Test", operations(setProperty)),
+				Config: testActionIdRuleConfig("Test", operations(setProperty, createAlertActionJSON)),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckRuleExists(ctx, testRuleResourceName, directClient),
 					resource.TestCheckResourceAttr(testRuleResourceName, "operations.0.actions.#", "2"),
@@ -155,7 +173,7 @@ func TestInlineRuleInstance_ActionIdsAreStable(t *testing.T) {
 			// An update that leaves the actions alone. State has been
 			// refreshed, so the ids assigned at create are now in it.
 			{
-				Config: testActionIdRuleConfig("Updated description", operations(setProperty)),
+				Config: testActionIdRuleConfig("Updated description", operations(setProperty, createAlertActionJSON)),
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr(testRuleResourceName, "description", "Updated description"),
 					recordRuleActionIds(testRuleResourceName, &actionIds),
@@ -166,7 +184,7 @@ func TestInlineRuleInstance_ActionIdsAreStable(t *testing.T) {
 			// previous update, so unchanged ids here prove the API honoured
 			// the ids the provider sent rather than replacing the actions.
 			{
-				Config: testActionIdRuleConfig("Updated again", operations(setProperty)),
+				Config: testActionIdRuleConfig("Updated again", operations(setProperty, createAlertActionJSON)),
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr(testRuleResourceName, "description", "Updated again"),
 					checkRuleActionIdsUnchanged(testRuleResourceName, &actionIds),
@@ -178,7 +196,7 @@ func TestInlineRuleInstance_ActionIdsAreStable(t *testing.T) {
 			// ids are still sent to the API, taken from prior state, which the
 			// next step reads back.
 			{
-				Config: testActionIdRuleConfig("Updated again", operations(setPropertyEdited)),
+				Config: testActionIdRuleConfig("Updated again", operations(setPropertyEdited, createAlertActionJSON)),
 				Check: resource.ComposeTestCheckFunc(
 					checkRuleActionContent(testRuleResourceName, 0, setPropertyEdited),
 					checkRuleActionContent(testRuleResourceName, 1, createAlertActionJSON),
@@ -189,10 +207,27 @@ func TestInlineRuleInstance_ActionIdsAreStable(t *testing.T) {
 			// edited, so them being unchanged proves the edit updated the
 			// existing actions instead of replacing them.
 			{
-				Config: testActionIdRuleConfig("Updated again", operations(setPropertyEdited)),
+				Config: testActionIdRuleConfig("Updated again", operations(setPropertyEdited, createAlertActionJSON)),
 				Check: resource.ComposeTestCheckFunc(
 					checkRuleActionContent(testRuleResourceName, 0, setPropertyEdited),
 					checkRuleActionIdsUnchanged(testRuleResourceName, &actionIds),
+				),
+			},
+			// Reorder the actions without otherwise changing them. The API
+			// stores the array exactly as it is sent and validates nothing
+			// about the ids, so it is the provider that has to keep each id
+			// with its own action instead of with its former position.
+			{
+				Config: testActionIdRuleConfig("Updated again", operations(createAlertActionJSON, setPropertyEdited)),
+				Check: resource.ComposeTestCheckFunc(
+					checkRuleActionContent(testRuleResourceName, 0, createAlertActionJSON),
+					checkRuleActionContent(testRuleResourceName, 1, setPropertyEdited),
+				),
+			},
+			{
+				Config: testActionIdRuleConfig("Updated again", operations(createAlertActionJSON, setPropertyEdited)),
+				Check: resource.ComposeTestCheckFunc(
+					checkRuleActionIdsSwapped(testRuleResourceName, &actionIds),
 				),
 			},
 		},
