@@ -198,7 +198,7 @@ resource "jupiterone_rule" "unencrypted_critical_data_stores_jira" {
 
 Required:
 
-- `actions` (List of String)
+- `actions` (List of String) A list of JSON objects, each specifying an action to execute. Leave the `id` out: the server assigns one to each action, which the provider records in state and sends back on subsequent updates so that actions are updated in place rather than replaced.
 
 Optional:
 

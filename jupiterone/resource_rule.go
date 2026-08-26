@@ -79,8 +79,13 @@ type RuleLabel struct {
 	LabelValue types.String `json:"label_value" tfsdk:"label_value"`
 }
 
-// newOperationsWithoutId removes any "id" fields before saving into state.
-func newOperationsWithoutId(ops []client.RuleOperationOutput) ([]RuleOperation, error) {
+// newOperations converts the operations of an API response into the form saved
+// into state. The server assigned action "id" is kept so that a later update
+// can address the existing action instead of causing a replacement to be
+// created. jsonIgnoreDiff ignores the "id" when comparing config to state, so
+// keeping it does not produce a perpetual diff for configurations that (as
+// they should) leave the id out.
+func newOperations(ops []client.RuleOperationOutput) ([]RuleOperation, error) {
 	l := make([]RuleOperation, 0, len(ops))
 	for _, o := range ops {
 
@@ -97,10 +102,6 @@ func newOperationsWithoutId(ops []client.RuleOperationOutput) ([]RuleOperation, 
 		}
 
 		for _, action := range o.Actions {
-			if actionMap, ok := action.(map[string]interface{}); ok {
-				delete(actionMap, "id")
-			}
-
 			a, err := json.Marshal(action)
 			if err != nil {
 				return nil, err
@@ -374,6 +375,7 @@ func (*QuestionRuleResource) Schema(ctx context.Context, req resource.SchemaRequ
 							},
 						},
 						"actions": schema.ListAttribute{
+							Description: "A list of JSON objects, each specifying an action to execute. Leave the `id` out: the server assigns one to each action, which the provider records in state and sends back on subsequent updates so that actions are updated in place rather than replaced.",
 							Required:    true,
 							ElementType: types.StringType,
 							Validators:  []validator.List{},
@@ -734,7 +736,7 @@ func (r *QuestionRuleResource) Read(ctx context.Context, req resource.ReadReques
 		data.Question = nil
 	}
 
-	data.Operations, err = newOperationsWithoutId(rule.Operations)
+	data.Operations, err = newOperations(rule.Operations)
 	if err != nil {
 		resp.Diagnostics.AddError("error unmarshaling templates from response", err.Error())
 	}
@@ -767,14 +769,16 @@ func (r *QuestionRuleResource) Update(ctx context.Context, req resource.UpdateRe
 		return
 	}
 
-	// The UpdateRule operation needs the most current version of the rule to update it.
-	// We fetch it from the state if it is not specified by the user.
+	// Prior state carries the server assigned action ids, which are needed both
+	// to update the rule's existing actions in place and, when the user has not
+	// specified it, to supply the current version that UpdateRule requires.
+	var state RuleModel
+	resp.Diagnostics.Append(req.State.Get(ctx, &state)...)
+	if resp.Diagnostics.HasError() {
+		return
+	}
+
 	if data.Version.IsUnknown() {
-		var state RuleModel
-		resp.Diagnostics.Append(req.State.Get(ctx, &state)...)
-		if resp.Diagnostics.HasError() {
-			return
-		}
 		data.Version = state.Version
 	}
 
@@ -783,6 +787,11 @@ func (r *QuestionRuleResource) Update(ctx context.Context, req resource.UpdateRe
 		rule, err := data.BuildUpdateInlineQuestionRuleInstanceInput()
 		if err != nil {
 			resp.Diagnostics.AddError("failed to build rule from configuration", err.Error())
+			return
+		}
+
+		if err := mergeActionIds(rule.Operations, state.Operations); err != nil {
+			resp.Diagnostics.AddError("failed to resolve existing rule action ids", err.Error())
 			return
 		}
 
@@ -796,6 +805,11 @@ func (r *QuestionRuleResource) Update(ctx context.Context, req resource.UpdateRe
 		rule, err := data.BuildUpdateReferencedQuestionRuleInstanceInput()
 		if err != nil {
 			resp.Diagnostics.AddError("failed to build rule from configuration", err.Error())
+			return
+		}
+
+		if err := mergeActionIds(rule.Operations, state.Operations); err != nil {
+			resp.Diagnostics.AddError("failed to resolve existing rule action ids", err.Error())
 			return
 		}
 
@@ -820,6 +834,124 @@ func (r *QuestionRuleResource) Update(ctx context.Context, req resource.UpdateRe
 		map[string]interface{}{"title": data.Name, "id": data.Id})
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, data)...)
+}
+
+const actionIdKey = "id"
+const actionTypeKey = "type"
+
+// sameActionType reports whether two actions are of the same kind. The API
+// validates nothing about the ids it is sent, so this is what stops an action
+// that was replaced by a different kind of action from inheriting the id, and
+// with it the evaluation history and external outputs, of the one it displaced.
+func sameActionType(a, b map[string]interface{}) bool {
+	at, aok := a[actionTypeKey]
+	bt, bok := b[actionTypeKey]
+	if aok != bok {
+		return false
+	}
+	if !aok {
+		// Neither action declares a type, so there is nothing to tell them
+		// apart by; treat them as comparable rather than churning the id.
+		return true
+	}
+	return reflect.DeepEqual(at, bt)
+}
+
+// priorAction is an action as held in state, split into its server assigned id
+// and the rest of its content for comparison against a planned action.
+type priorAction struct {
+	id      string
+	content map[string]interface{}
+}
+
+// parsePriorActions parses the action JSON strings held in state.
+func parsePriorActions(actions []string) ([]priorAction, error) {
+	parsed := make([]priorAction, 0, len(actions))
+	for _, action := range actions {
+		var a map[string]interface{}
+		if err := json.Unmarshal([]byte(action), &a); err != nil {
+			return nil, fmt.Errorf("invalid action json in state: %w", err)
+		}
+		id, _ := a[actionIdKey].(string)
+		delete(a, actionIdKey)
+		parsed = append(parsed, priorAction{id: id, content: a})
+	}
+	return parsed, nil
+}
+
+// mergeActionIds sets each planned action's "id" from the matching action in
+// prior state, so that an update addresses the rule's existing actions instead
+// of causing the server to mint new ones. Without this every write to any
+// field of a rule replaces every action id, which breaks the correlation of
+// evaluation history and external outputs to the configured action.
+//
+// State is the only source of ids: any id that reached the planned input from
+// configuration is discarded, and ids are only ever matched within the same
+// operation so that one operation cannot borrow another's.
+//
+// Within an operation, actions are matched on content first so that reordering
+// them carries each id along with its action. A planned action still unmatched
+// then adopts the id of the prior action in the same position, which covers an
+// action edited in place. Anything left over is new, and is sent without an id
+// for the server to assign one.
+func mergeActionIds(planned []client.RuleOperationInput, prior []RuleOperation) error {
+	for i, op := range planned {
+		for _, action := range op.Actions {
+			if a, ok := action.(map[string]interface{}); ok {
+				delete(a, actionIdKey)
+			}
+		}
+
+		if i >= len(prior) {
+			continue
+		}
+
+		priorActions, err := parsePriorActions(prior[i].Actions)
+		if err != nil {
+			return err
+		}
+		claimed := make([]bool, len(priorActions))
+
+		// Match on content, so a reordered action keeps its own id.
+		for _, action := range op.Actions {
+			a, ok := action.(map[string]interface{})
+			if !ok {
+				continue
+			}
+			for j, p := range priorActions {
+				if claimed[j] || p.id == "" || !reflect.DeepEqual(p.content, a) {
+					continue
+				}
+				a[actionIdKey] = p.id
+				claimed[j] = true
+				break
+			}
+		}
+
+		// Fall back to the action in the same position, so an action edited in
+		// place keeps its id. The fallback is deliberately narrow: it requires
+		// the same position and the same type, because a new id merely loses
+		// history whereas a wrongly reused one invents it.
+		for j, action := range op.Actions {
+			a, ok := action.(map[string]interface{})
+			if !ok {
+				continue
+			}
+			if _, ok := a[actionIdKey]; ok {
+				continue
+			}
+			if j >= len(priorActions) || claimed[j] || priorActions[j].id == "" {
+				continue
+			}
+			if !sameActionType(priorActions[j].content, a) {
+				continue
+			}
+			a[actionIdKey] = priorActions[j].id
+			claimed[j] = true
+		}
+	}
+
+	return nil
 }
 
 func (r *RuleModel) buildOperations() ([]client.RuleOperationInput, error) {
