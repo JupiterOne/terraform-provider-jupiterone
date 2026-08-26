@@ -11,15 +11,18 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
 )
 
-// ruleActionIds reads the "id" of every action of the given operation out of
-// the resource's state.
-func ruleActionIds(s *terraform.State, resourceName string, operation int) ([]string, error) {
+// actionIdTestRuleName is the rule managed by TestInlineRuleInstance_ActionIdsAreStable.
+const actionIdTestRuleName = "tf-provider-test-rule-action-ids"
+
+// ruleActionIds reads the "id" of every action of the rule's first operation
+// out of the resource's state.
+func ruleActionIds(s *terraform.State, resourceName string) ([]string, error) {
 	rs, ok := s.RootModule().Resources[resourceName]
 	if !ok {
 		return nil, fmt.Errorf("%s not found in state", resourceName)
 	}
 
-	countKey := fmt.Sprintf("operations.%d.actions.#", operation)
+	const countKey = "operations.0.actions.#"
 	count, err := strconv.Atoi(rs.Primary.Attributes[countKey])
 	if err != nil {
 		return nil, fmt.Errorf("no actions found at %s: %w", countKey, err)
@@ -27,7 +30,7 @@ func ruleActionIds(s *terraform.State, resourceName string, operation int) ([]st
 
 	ids := make([]string, 0, count)
 	for i := 0; i < count; i++ {
-		key := fmt.Sprintf("operations.%d.actions.%d", operation, i)
+		key := fmt.Sprintf("operations.0.actions.%d", i)
 		var action map[string]interface{}
 		if err := json.Unmarshal([]byte(rs.Primary.Attributes[key]), &action); err != nil {
 			return nil, fmt.Errorf("invalid action json at %s: %w", key, err)
@@ -40,9 +43,9 @@ func ruleActionIds(s *terraform.State, resourceName string, operation int) ([]st
 
 // recordRuleActionIds captures the action ids currently in state so that a
 // later step can assert they did not change.
-func recordRuleActionIds(resourceName string, operation int, into *[]string) resource.TestCheckFunc {
+func recordRuleActionIds(resourceName string, into *[]string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		ids, err := ruleActionIds(s, resourceName, operation)
+		ids, err := ruleActionIds(s, resourceName)
 		if err != nil {
 			return err
 		}
@@ -59,9 +62,9 @@ func recordRuleActionIds(resourceName string, operation int, into *[]string) res
 // checkRuleActionIdsUnchanged asserts every action still has the id it was
 // created with. The ids were captured from the state of an earlier step, so a
 // mismatch means the API replaced the actions rather than updating them.
-func checkRuleActionIdsUnchanged(resourceName string, operation int, expected *[]string) resource.TestCheckFunc {
+func checkRuleActionIdsUnchanged(resourceName string, expected *[]string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		ids, err := ruleActionIds(s, resourceName, operation)
+		ids, err := ruleActionIds(s, resourceName)
 		if err != nil {
 			return err
 		}
@@ -77,16 +80,16 @@ func checkRuleActionIdsUnchanged(resourceName string, operation int, expected *[
 	}
 }
 
-// checkRuleActionContent compares an action in state to the expected JSON,
-// ignoring the server assigned id.
-func checkRuleActionContent(resourceName string, operation, action int, expected string) resource.TestCheckFunc {
+// checkRuleActionContent compares an action of the rule's first operation in
+// state to the expected JSON, ignoring the server assigned id.
+func checkRuleActionContent(resourceName string, action int, expected string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceName]
 		if !ok {
 			return fmt.Errorf("%s not found in state", resourceName)
 		}
 
-		key := fmt.Sprintf("operations.%d.actions.%d", operation, action)
+		key := fmt.Sprintf("operations.0.actions.%d", action)
 		var got map[string]interface{}
 		if err := json.Unmarshal([]byte(rs.Primary.Attributes[key]), &got); err != nil {
 			return fmt.Errorf("invalid action json at %s: %w", key, err)
@@ -119,7 +122,6 @@ func TestInlineRuleInstance_ActionIdsAreStable(t *testing.T) {
 	recordingClient, directClient, cleanup := setupTestClientsWithReplaySupport(ctx, t)
 	defer cleanup(t)
 
-	ruleName := "tf-provider-test-rule-action-ids"
 	var actionIds []string
 
 	setProperty := `{"targetValue":"HIGH","type":"SET_PROPERTY","targetProperty":"alertLevel"}`
@@ -144,7 +146,7 @@ func TestInlineRuleInstance_ActionIdsAreStable(t *testing.T) {
 			// Create. The ids are assigned by the API and only reach state on
 			// the refresh that precedes the next step.
 			{
-				Config: testRuleConfigWithDescription(ruleName, "Test", operations(setProperty)),
+				Config: testActionIdRuleConfig("Test", operations(setProperty)),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckRuleExists(ctx, testRuleResourceName, directClient),
 					resource.TestCheckResourceAttr(testRuleResourceName, "operations.0.actions.#", "2"),
@@ -153,10 +155,10 @@ func TestInlineRuleInstance_ActionIdsAreStable(t *testing.T) {
 			// An update that leaves the actions alone. State has been
 			// refreshed, so the ids assigned at create are now in it.
 			{
-				Config: testRuleConfigWithDescription(ruleName, "Updated description", operations(setProperty)),
+				Config: testActionIdRuleConfig("Updated description", operations(setProperty)),
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr(testRuleResourceName, "description", "Updated description"),
-					recordRuleActionIds(testRuleResourceName, 0, &actionIds),
+					recordRuleActionIds(testRuleResourceName, &actionIds),
 				),
 			},
 			// A further update to an unrelated field. The refresh at the start
@@ -164,10 +166,10 @@ func TestInlineRuleInstance_ActionIdsAreStable(t *testing.T) {
 			// previous update, so unchanged ids here prove the API honoured
 			// the ids the provider sent rather than replacing the actions.
 			{
-				Config: testRuleConfigWithDescription(ruleName, "Updated again", operations(setProperty)),
+				Config: testActionIdRuleConfig("Updated again", operations(setProperty)),
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr(testRuleResourceName, "description", "Updated again"),
-					checkRuleActionIdsUnchanged(testRuleResourceName, 0, &actionIds),
+					checkRuleActionIdsUnchanged(testRuleResourceName, &actionIds),
 				),
 			},
 			// Edit one action in place. jsonIgnoreDiff cannot collapse a list
@@ -176,10 +178,10 @@ func TestInlineRuleInstance_ActionIdsAreStable(t *testing.T) {
 			// ids are still sent to the API, taken from prior state, which the
 			// next step reads back.
 			{
-				Config: testRuleConfigWithDescription(ruleName, "Updated again", operations(setPropertyEdited)),
+				Config: testActionIdRuleConfig("Updated again", operations(setPropertyEdited)),
 				Check: resource.ComposeTestCheckFunc(
-					checkRuleActionContent(testRuleResourceName, 0, 0, setPropertyEdited),
-					checkRuleActionContent(testRuleResourceName, 0, 1, createAlertActionJSON),
+					checkRuleActionContent(testRuleResourceName, 0, setPropertyEdited),
+					checkRuleActionContent(testRuleResourceName, 1, createAlertActionJSON),
 				),
 			},
 			// No configuration change, so this step only refreshes. The ids it
@@ -187,17 +189,17 @@ func TestInlineRuleInstance_ActionIdsAreStable(t *testing.T) {
 			// edited, so them being unchanged proves the edit updated the
 			// existing actions instead of replacing them.
 			{
-				Config: testRuleConfigWithDescription(ruleName, "Updated again", operations(setPropertyEdited)),
+				Config: testActionIdRuleConfig("Updated again", operations(setPropertyEdited)),
 				Check: resource.ComposeTestCheckFunc(
-					checkRuleActionContent(testRuleResourceName, 0, 0, setPropertyEdited),
-					checkRuleActionIdsUnchanged(testRuleResourceName, 0, &actionIds),
+					checkRuleActionContent(testRuleResourceName, 0, setPropertyEdited),
+					checkRuleActionIdsUnchanged(testRuleResourceName, &actionIds),
 				),
 			},
 		},
 	})
 }
 
-func testRuleConfigWithDescription(rName, description, operations string) string {
+func testActionIdRuleConfig(description, operations string) string {
 	return fmt.Sprintf(`
 		resource "jupiterone_rule" "test" {
 			name = %q
@@ -221,5 +223,5 @@ func testRuleConfigWithDescription(rName, description, operations string) string
 
 			operations = %s
 		}
-	`, rName, description, operations)
+	`, actionIdTestRuleName, description, operations)
 }
