@@ -1,6 +1,7 @@
 query GetControlById($id: ID!) {
   control(id: $id) {
     id
+    sourceId
     name
     description
     resourceGroupId
@@ -12,6 +13,27 @@ query GetControlById($id: ID!) {
     exceptionProcess
     mitreTechnique
     frameworkIds
+  }
+  controlRequirements(input: { controlId: $id }) {
+    items {
+      id
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}
+
+query GetControlRequirementsPage($controlId: ID!, $cursor: String) {
+  controlRequirements(input: { controlId: $controlId, cursor: $cursor }) {
+    items {
+      id
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
   }
 }
 
@@ -25,6 +47,7 @@ mutation CreateControl(
 ) {
   createControl(input: $input) {
     id
+    sourceId
     name
     description
     resourceGroupId
@@ -45,6 +68,8 @@ mutation CreateControl(
 # MITRE format validation, and omitting the field entirely would preserve the
 # previous value rather than clearing it.
 # @genqlient(for: "UpdateControlInput.mitreTechnique", pointer: true)
+# Omitted when unmanaged so links made by a framework import or the UI survive.
+# @genqlient(for: "UpdateControlInput.requirementIds", pointer: true, omitempty: true)
 mutation UpdateControl(
   $input: UpdateControlInput!
 ) {

@@ -4,15 +4,15 @@ import (
 	"context"
 	"fmt"
 	"regexp"
+	"sort"
 	"strings"
 
 	"github.com/Khan/genqlient/graphql"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
-	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listdefault"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -23,6 +23,7 @@ import (
 
 type ControlModel struct {
 	Id               types.String `tfsdk:"id"`
+	SourceId         types.String `tfsdk:"source_id"`
 	Name             types.String `tfsdk:"name"`
 	Description      types.String `tfsdk:"description"`
 	ResourceGroupId  types.String `tfsdk:"resource_group_id"`
@@ -92,6 +93,13 @@ func (*ControlResource) Schema(_ context.Context, _ resource.SchemaRequest, resp
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
+			"source_id": schema.StringAttribute{
+				Computed:    true,
+				Description: "The stable source ID of the control. Set it as a control's `sourceId` in framework JSON so a framework import links this control instead of creating a duplicate.",
+				PlanModifiers: []planmodifier.String{
+					stringplanmodifier.UseStateForUnknown(),
+				},
+			},
 			"name": schema.StringAttribute{
 				Required:    true,
 				Description: "The name of the control",
@@ -149,10 +157,10 @@ func (*ControlResource) Schema(_ context.Context, _ resource.SchemaRequest, resp
 				Optional:    true,
 				Computed:    true,
 				ElementType: types.StringType,
-				Description: "List of control framework requirement IDs to associate with this control",
-				Default: listdefault.StaticValue(
-					types.ListValueMust(types.StringType, []attr.Value{}),
-				),
+				Description: "Control framework requirement IDs this control satisfies. A control can satisfy requirements in several frameworks. When set, the list is authoritative; when unset, Terraform leaves requirement links made elsewhere, such as by a framework import, untouched.",
+				PlanModifiers: []planmodifier.List{
+					listplanmodifier.UseStateForUnknown(),
+				},
 			},
 		},
 	}
@@ -211,7 +219,11 @@ func (r *ControlResource) Create(ctx context.Context, req resource.CreateRequest
 	}
 
 	data.Id = types.StringValue(created.CreateControl.Id)
+	data.SourceId = types.StringValue(created.CreateControl.SourceId)
 	data.State = types.StringValue(string(created.CreateControl.State))
+	if data.RequirementIds.IsUnknown() {
+		data.RequirementIds = types.ListValueMust(types.StringType, nil)
+	}
 
 	tflog.Trace(ctx, "Created control",
 		map[string]interface{}{"name": data.Name, "id": data.Id})
@@ -244,18 +256,38 @@ func (r *ControlResource) Read(ctx context.Context, req resource.ReadRequest, re
 		return
 	}
 
-	var c client.GetControlByIdControl
-	if result, err := client.GetControlById(ctx, r.qlient, data.Id.ValueString()); err != nil {
+	result, err := client.GetControlById(ctx, r.qlient, data.Id.ValueString())
+	if err != nil {
 		if strings.Contains(err.Error(), "Could not find") || strings.Contains(err.Error(), "not found") {
 			resp.State.RemoveResource(ctx)
 		} else {
 			resp.Diagnostics.AddError("failed to find control", err.Error())
 		}
 		return
-	} else {
-		c = result.Control
+	}
+	c := result.Control
+
+	requirementIds, err := r.readRequirementIds(ctx, data.Id.ValueString(), result.ControlRequirements)
+	if err != nil {
+		resp.Diagnostics.AddError("failed to read control requirements", err.Error())
+		return
 	}
 
+	var priorRequirementIds []string
+	if !data.RequirementIds.IsNull() && !data.RequirementIds.IsUnknown() {
+		resp.Diagnostics.Append(data.RequirementIds.ElementsAs(ctx, &priorRequirementIds, false)...)
+		if resp.Diagnostics.HasError() {
+			return
+		}
+	}
+	ordered, diags := types.ListValueFrom(ctx, types.StringType, orderRequirementIds(priorRequirementIds, requirementIds))
+	resp.Diagnostics.Append(diags...)
+	if resp.Diagnostics.HasError() {
+		return
+	}
+	data.RequirementIds = ordered
+
+	data.SourceId = types.StringValue(c.SourceId)
 	data.Name = types.StringValue(c.Name)
 	if c.Description != "" || !data.Description.IsNull() {
 		data.Description = types.StringValue(c.Description)
@@ -290,20 +322,24 @@ func (r *ControlResource) Read(ctx context.Context, req resource.ReadRequest, re
 func (r *ControlResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
 	var data *ControlModel
 	var state ControlModel
+	var configuredRequirementIds types.List
 
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &data)...)
 	resp.Diagnostics.Append(req.State.Get(ctx, &state)...)
+	resp.Diagnostics.Append(req.Config.GetAttribute(ctx, path.Root("requirement_ids"), &configuredRequirementIds)...)
 
 	if resp.Diagnostics.HasError() {
 		return
 	}
 
-	requirementIds := make([]string, 0)
-	if !data.RequirementIds.IsNull() && !data.RequirementIds.IsUnknown() {
+	var requirementIdsUpdate *client.ListUpdateInput
+	if !configuredRequirementIds.IsNull() && !data.RequirementIds.IsUnknown() {
+		requirementIds := make([]string, 0)
 		resp.Diagnostics.Append(data.RequirementIds.ElementsAs(ctx, &requirementIds, false)...)
 		if resp.Diagnostics.HasError() {
 			return
 		}
+		requirementIdsUpdate = &client.ListUpdateInput{Set: requirementIds}
 	}
 
 	// A nil MitreTechnique serialises as an explicit null, which the API treats
@@ -327,7 +363,7 @@ func (r *ControlResource) Update(ctx context.Context, req resource.UpdateRequest
 		Remediation:      data.Remediation.ValueString(),
 		ExceptionProcess: data.ExceptionProcess.ValueString(),
 		MitreTechnique:   mitreTechnique,
-		RequirementIds:   client.ListUpdateInput{Set: requirementIds},
+		RequirementIds:   requirementIdsUpdate,
 	})
 
 	if err != nil {
@@ -354,4 +390,50 @@ func (r *ControlResource) Update(ctx context.Context, req resource.UpdateRequest
 		map[string]interface{}{"name": data.Name, "id": data.Id})
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
+}
+
+// readRequirementIds returns every linked requirement id, paging past the first page.
+func (r *ControlResource) readRequirementIds(ctx context.Context, controlId string, first client.GetControlByIdControlRequirementsControlRequirementPage) ([]string, error) {
+	ids := make([]string, 0, len(first.Items))
+	for _, item := range first.Items {
+		ids = append(ids, item.Id)
+	}
+
+	hasNextPage, cursor := first.PageInfo.HasNextPage, first.PageInfo.EndCursor
+	for hasNextPage && cursor != "" {
+		page, err := client.GetControlRequirementsPage(ctx, r.qlient, controlId, cursor)
+		if err != nil {
+			return nil, err
+		}
+		for _, item := range page.ControlRequirements.Items {
+			ids = append(ids, item.Id)
+		}
+		hasNextPage, cursor = page.ControlRequirements.PageInfo.HasNextPage, page.ControlRequirements.PageInfo.EndCursor
+	}
+
+	return ids, nil
+}
+
+// orderRequirementIds keeps prior order for surviving ids and appends new ids sorted.
+func orderRequirementIds(prior, actual []string) []string {
+	remaining := make(map[string]bool, len(actual))
+	for _, id := range actual {
+		remaining[id] = true
+	}
+
+	ordered := make([]string, 0, len(actual))
+	for _, id := range prior {
+		if remaining[id] {
+			ordered = append(ordered, id)
+			delete(remaining, id)
+		}
+	}
+
+	added := make([]string, 0, len(remaining))
+	for id := range remaining {
+		added = append(added, id)
+	}
+	sort.Strings(added)
+
+	return append(ordered, added...)
 }

@@ -61,12 +61,20 @@ data "jupiterone_control" "example" {
 - `mitre_technique` (String) The MITRE ATT&CK technique ID this control relates to, e.g. T1078 or the sub-technique T1059.001
 - `owner` (String) The owner of the control, represented by a user email
 - `remediation` (String) Remediation steps in markdown format
-- `requirement_ids` (List of String) List of control framework requirement IDs to associate with this control
+- `requirement_ids` (List of String) Control framework requirement IDs this control satisfies. A control can satisfy requirements in several frameworks. When set, the list is authoritative; when unset, Terraform leaves requirement links made elsewhere, such as by a framework import, untouched.
 - `resource_group_id` (String) The resource group ID to scope the control to
 - `state` (String) The lifecycle state of the control. Must be DRAFT or LIVE on creation; can be transitioned to REVIEW or RETIRED via update.
 
 ### Read-Only
 
 - `id` (String) The ID of this resource.
+- `source_id` (String) The stable source ID of the control. Set it as a control's `sourceId` in framework JSON so a framework import links this control instead of creating a duplicate.
 
+## Import
 
+Import is supported using the following syntax:
+
+```shell
+# Import by ID, e.g. to adopt objects created by a framework JSON import.
+terraform import jupiterone_control.example <id>
+```

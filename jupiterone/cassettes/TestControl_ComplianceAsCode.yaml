@@ -1,0 +1,3947 @@
+---
+version: 2
+interactions:
+    - id: 0
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 335
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nmutation CreateFramework ($input: CreateFrameworkInput!) {\n\tcreateFramework(input: $input) {\n\t\tid\n\t\tname\n\t\tdescription\n\t\tresourceGroupId\n\t\towner\n\t}\n}\n","variables":{"input":{"title":"tf-provider-acc-test-as-code-framework","description":"compliance as code acceptance test"}},"operationName":"CreateFramework"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 211
+        uncompressed: false
+        body: |
+            {"data":{"createFramework":{"id":"ccm_f_J1_fceb8978-c85b-4347-b6e7-1fcfd6f8a2d6","name":"tf-provider-acc-test-as-code-framework","description":"compliance as code acceptance test","resourceGroupId":null,"owner":null}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
+            Content-Length:
+                - "211"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json; charset=utf-8
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Correlation-Id:
+                - 0c6015d4b521da46d83fe38828882cae
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 356.281ms
+    - id: 1
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 372
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nmutation CreateRequirement ($input: CreateRequirementInput!) {\n\tcreateRequirement(input: $input) {\n\t\tid\n\t\ttitle\n\t\tdescription\n\t\tidentifier\n\t\tpriority\n\t\tsection\n\t}\n}\n","variables":{"input":{"title":"tf-provider-acc-test-as-code-req-one","frameworkId":"ccm_f_J1_fceb8978-c85b-4347-b6e7-1fcfd6f8a2d6"}},"operationName":"CreateRequirement"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 198
+        uncompressed: false
+        body: |
+            {"data":{"createRequirement":{"id":"ccm_r_07e8144e-2d16-422b-b116-8255461a3b3c","title":"tf-provider-acc-test-as-code-req-one","description":null,"identifier":null,"priority":null,"section":null}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
+            Content-Length:
+                - "198"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json; charset=utf-8
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Correlation-Id:
+                - 59b70ea045dba295be0bf5ec9ffe9507
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 799.461833ms
+    - id: 2
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 372
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nmutation CreateRequirement ($input: CreateRequirementInput!) {\n\tcreateRequirement(input: $input) {\n\t\tid\n\t\ttitle\n\t\tdescription\n\t\tidentifier\n\t\tpriority\n\t\tsection\n\t}\n}\n","variables":{"input":{"title":"tf-provider-acc-test-as-code-req-two","frameworkId":"ccm_f_J1_fceb8978-c85b-4347-b6e7-1fcfd6f8a2d6"}},"operationName":"CreateRequirement"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 198
+        uncompressed: false
+        body: |
+            {"data":{"createRequirement":{"id":"ccm_r_1380b0b4-1e73-4288-9a38-da9de6d6fc02","title":"tf-provider-acc-test-as-code-req-two","description":null,"identifier":null,"priority":null,"section":null}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
+            Content-Length:
+                - "198"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json; charset=utf-8
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Correlation-Id:
+                - b12e6364a9f3009ce300e65bf99e59a4
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 757.221416ms
+    - id: 3
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 602
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nmutation CreateControl ($input: CreateControlInput!) {\n\tcreateControl(input: $input) {\n\t\tid\n\t\tsourceId\n\t\tname\n\t\tdescription\n\t\tresourceGroupId\n\t\tstate\n\t\tidentifier\n\t\tcatalog\n\t\towner\n\t\tremediation\n\t\texceptionProcess\n\t\tmitreTechnique\n\t}\n}\n","variables":{"input":{"name":"tf-provider-acc-test-as-code-shared","description":"","requirementIds":["ccm_r_07e8144e-2d16-422b-b116-8255461a3b3c","ccm_r_1380b0b4-1e73-4288-9a38-da9de6d6fc02"],"state":"LIVE","identifier":"","catalog":"","remediation":"","exceptionProcess":""}},"operationName":"CreateControl"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 335
+        uncompressed: false
+        body: |
+            {"data":{"createControl":{"id":"ccm_c_J1_b801ad39-0e83-4bd6-b351-3def9fc0452f","sourceId":"b801ad39-0e83-4bd6-b351-3def9fc0452f","name":"tf-provider-acc-test-as-code-shared","description":"","resourceGroupId":null,"state":"LIVE","identifier":"","catalog":"","owner":null,"remediation":"","exceptionProcess":"","mitreTechnique":null}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
+            Content-Length:
+                - "335"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json; charset=utf-8
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Correlation-Id:
+                - e08b20dfac9088e8fdc3aa2db04237e3
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 4.384511083s
+    - id: 4
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 525
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nmutation CreateControl ($input: CreateControlInput!) {\n\tcreateControl(input: $input) {\n\t\tid\n\t\tsourceId\n\t\tname\n\t\tdescription\n\t\tresourceGroupId\n\t\tstate\n\t\tidentifier\n\t\tcatalog\n\t\towner\n\t\tremediation\n\t\texceptionProcess\n\t\tmitreTechnique\n\t}\n}\n","variables":{"input":{"name":"tf-provider-acc-test-as-code-unmanaged-links","description":"unmanaged links control","state":"LIVE","identifier":"","catalog":"","remediation":"","exceptionProcess":""}},"operationName":"CreateControl"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 367
+        uncompressed: false
+        body: |
+            {"data":{"createControl":{"id":"ccm_c_J1_39ad91d1-feaa-4aab-b677-275a3bb2d316","sourceId":"39ad91d1-feaa-4aab-b677-275a3bb2d316","name":"tf-provider-acc-test-as-code-unmanaged-links","description":"unmanaged links control","resourceGroupId":null,"state":"LIVE","identifier":"","catalog":"","owner":null,"remediation":"","exceptionProcess":"","mitreTechnique":null}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
+            Content-Length:
+                - "367"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json; charset=utf-8
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Correlation-Id:
+                - dc7449c211572ff57e3ac6b2089771df
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 742.673666ms
+    - id: 5
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 551
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nmutation CreateControlTest ($input: CreateControlTestInput!) {\n\tcreateControlTest(input: $input) {\n\t\tid\n\t\tname\n\t\tdescription\n\t\tcontrolId\n\t\tqueries {\n\t\t\tname\n\t\t\tquery\n\t\t\tresultsAre\n\t\t}\n\t}\n}\n","variables":{"input":{"name":"tf-provider-acc-test-as-code-mfa-shared","controlId":"ccm_c_J1_b801ad39-0e83-4bd6-b351-3def9fc0452f","queries":[{"name":"tf-provider-acc-test-as-code-mfa-shared","query":"FIND User WITH mfaEnabled != true","resultsAre":"BAD","description":""}]}},"operationName":"CreateControlTest"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 331
+        uncompressed: false
+        body: |
+            {"data":{"createControlTest":{"id":"e453d98b-623e-4c82-99e5-b0a8ee5564d8","name":"tf-provider-acc-test-as-code-mfa-shared","description":null,"controlId":"ccm_c_J1_b801ad39-0e83-4bd6-b351-3def9fc0452f","queries":[{"name":"tf-provider-acc-test-as-code-mfa-shared","query":"FIND User WITH mfaEnabled != true","resultsAre":"BAD"}]}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
+            Content-Length:
+                - "331"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json; charset=utf-8
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Correlation-Id:
+                - e3cc986bc5eec1726433f0a7968ddaac
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 2.012794667s
+    - id: 6
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 557
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nmutation CreateControlTest ($input: CreateControlTestInput!) {\n\tcreateControlTest(input: $input) {\n\t\tid\n\t\tname\n\t\tdescription\n\t\tcontrolId\n\t\tqueries {\n\t\t\tname\n\t\t\tquery\n\t\t\tresultsAre\n\t\t}\n\t}\n}\n","variables":{"input":{"name":"tf-provider-acc-test-as-code-mfa-unmanaged","controlId":"ccm_c_J1_39ad91d1-feaa-4aab-b677-275a3bb2d316","queries":[{"name":"tf-provider-acc-test-as-code-mfa-unmanaged","query":"FIND User WITH mfaEnabled != true","resultsAre":"BAD","description":""}]}},"operationName":"CreateControlTest"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 337
+        uncompressed: false
+        body: |
+            {"data":{"createControlTest":{"id":"74664b83-30d2-45c6-9eed-1a151aa43314","name":"tf-provider-acc-test-as-code-mfa-unmanaged","description":null,"controlId":"ccm_c_J1_39ad91d1-feaa-4aab-b677-275a3bb2d316","queries":[{"name":"tf-provider-acc-test-as-code-mfa-unmanaged","query":"FIND User WITH mfaEnabled != true","resultsAre":"BAD"}]}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
+            Content-Length:
+                - "337"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json; charset=utf-8
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Correlation-Id:
+                - 44f9a0b2be3b939fd6951fd39d5e4fab
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 2.0163675s
+    - id: 7
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 271
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetFrameworkById ($id: ID!) {\n\tcontrolFramework(id: $id) {\n\t\tid\n\t\tname\n\t\tdescription\n\t\tresourceGroupId\n\t\towner\n\t\tsource\n\t}\n}\n","variables":{"id":"ccm_f_J1_fceb8978-c85b-4347-b6e7-1fcfd6f8a2d6"},"operationName":"GetFrameworkById"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 226
+        uncompressed: false
+        body: |
+            {"data":{"controlFramework":{"id":"ccm_f_J1_fceb8978-c85b-4347-b6e7-1fcfd6f8a2d6","name":"tf-provider-acc-test-as-code-framework","description":"compliance as code acceptance test","resourceGroupId":null,"owner":null,"source":"J1"}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
+            Content-Length:
+                - "226"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json; charset=utf-8
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Correlation-Id:
+                - 38703dbcea60a0167e2dbb21086fa498
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 852.437042ms
+    - id: 8
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 285
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetRequirementById ($id: ID!) {\n\trequirement(id: $id) {\n\t\tid\n\t\ttitle\n\t\tframeworkIds\n\t\tdescription\n\t\tidentifier\n\t\tpriority\n\t\tsection\n\t}\n}\n","variables":{"id":"ccm_r_07e8144e-2d16-422b-b116-8255461a3b3c"},"operationName":"GetRequirementById"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 257
+        uncompressed: false
+        body: |
+            {"data":{"requirement":{"id":"ccm_r_07e8144e-2d16-422b-b116-8255461a3b3c","title":"tf-provider-acc-test-as-code-req-one","frameworkIds":["ccm_f_J1_fceb8978-c85b-4347-b6e7-1fcfd6f8a2d6"],"description":null,"identifier":null,"priority":null,"section":null}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
+            Content-Length:
+                - "257"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json; charset=utf-8
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Correlation-Id:
+                - 0bd59776f84337e4bc400eb8edb0eed0
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 3.927780625s
+    - id: 9
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 285
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetRequirementById ($id: ID!) {\n\trequirement(id: $id) {\n\t\tid\n\t\ttitle\n\t\tframeworkIds\n\t\tdescription\n\t\tidentifier\n\t\tpriority\n\t\tsection\n\t}\n}\n","variables":{"id":"ccm_r_1380b0b4-1e73-4288-9a38-da9de6d6fc02"},"operationName":"GetRequirementById"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 257
+        uncompressed: false
+        body: |
+            {"data":{"requirement":{"id":"ccm_r_1380b0b4-1e73-4288-9a38-da9de6d6fc02","title":"tf-provider-acc-test-as-code-req-two","frameworkIds":["ccm_f_J1_fceb8978-c85b-4347-b6e7-1fcfd6f8a2d6"],"description":null,"identifier":null,"priority":null,"section":null}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
+            Content-Length:
+                - "257"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json; charset=utf-8
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Correlation-Id:
+                - efe5703a4fc4bf99f30503fbfafd3eda
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 700.221458ms
+    - id: 10
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 520
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetControlById ($id: ID!) {\n\tcontrol(id: $id) {\n\t\tid\n\t\tsourceId\n\t\tname\n\t\tdescription\n\t\tresourceGroupId\n\t\tstate\n\t\tidentifier\n\t\tcatalog\n\t\towner\n\t\tremediation\n\t\texceptionProcess\n\t\tmitreTechnique\n\t\tframeworkIds\n\t}\n\tcontrolRequirements(input: {controlId:$id}) {\n\t\titems {\n\t\t\tid\n\t\t}\n\t\tpageInfo {\n\t\t\thasNextPage\n\t\t\tendCursor\n\t\t}\n\t}\n}\n","variables":{"id":"ccm_c_J1_b801ad39-0e83-4bd6-b351-3def9fc0452f"},"operationName":"GetControlById"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 582
+        uncompressed: false
+        body: |
+            {"data":{"control":{"id":"ccm_c_J1_b801ad39-0e83-4bd6-b351-3def9fc0452f","sourceId":"b801ad39-0e83-4bd6-b351-3def9fc0452f","name":"tf-provider-acc-test-as-code-shared","description":"","resourceGroupId":null,"state":"LIVE","identifier":"","catalog":"","owner":null,"remediation":"","exceptionProcess":"","mitreTechnique":null,"frameworkIds":["ccm_f_J1_fceb8978-c85b-4347-b6e7-1fcfd6f8a2d6"]},"controlRequirements":{"items":[{"id":"ccm_r_07e8144e-2d16-422b-b116-8255461a3b3c"},{"id":"ccm_r_1380b0b4-1e73-4288-9a38-da9de6d6fc02"}],"pageInfo":{"hasNextPage":false,"endCursor":null}}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
+            Content-Length:
+                - "582"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json; charset=utf-8
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Correlation-Id:
+                - 31bda50a3e5b91c5380bd0a1d4888e2a
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 1.063642791s
+    - id: 11
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 520
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetControlById ($id: ID!) {\n\tcontrol(id: $id) {\n\t\tid\n\t\tsourceId\n\t\tname\n\t\tdescription\n\t\tresourceGroupId\n\t\tstate\n\t\tidentifier\n\t\tcatalog\n\t\towner\n\t\tremediation\n\t\texceptionProcess\n\t\tmitreTechnique\n\t\tframeworkIds\n\t}\n\tcontrolRequirements(input: {controlId:$id}) {\n\t\titems {\n\t\t\tid\n\t\t}\n\t\tpageInfo {\n\t\t\thasNextPage\n\t\t\tendCursor\n\t\t}\n\t}\n}\n","variables":{"id":"ccm_c_J1_39ad91d1-feaa-4aab-b677-275a3bb2d316"},"operationName":"GetControlById"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 464
+        uncompressed: false
+        body: |
+            {"data":{"control":{"id":"ccm_c_J1_39ad91d1-feaa-4aab-b677-275a3bb2d316","sourceId":"39ad91d1-feaa-4aab-b677-275a3bb2d316","name":"tf-provider-acc-test-as-code-unmanaged-links","description":"unmanaged links control","resourceGroupId":null,"state":"LIVE","identifier":"","catalog":"","owner":null,"remediation":"","exceptionProcess":"","mitreTechnique":null,"frameworkIds":[]},"controlRequirements":{"items":[],"pageInfo":{"hasNextPage":false,"endCursor":null}}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
+            Content-Length:
+                - "464"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json; charset=utf-8
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Correlation-Id:
+                - 3c7bbf58c2ca35214f9c299eefd01158
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 1.177229167s
+    - id: 12
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 297
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetControlTestById ($id: ID!) {\n\tcontrolTest(id: $id) {\n\t\tid\n\t\tname\n\t\tdescription\n\t\tcontrolId\n\t\tqueries {\n\t\t\tname\n\t\t\tquery\n\t\t\tresultsAre\n\t\t}\n\t}\n}\n","variables":{"id":"e453d98b-623e-4c82-99e5-b0a8ee5564d8"},"operationName":"GetControlTestById"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 325
+        uncompressed: false
+        body: |
+            {"data":{"controlTest":{"id":"e453d98b-623e-4c82-99e5-b0a8ee5564d8","name":"tf-provider-acc-test-as-code-mfa-shared","description":null,"controlId":"ccm_c_J1_b801ad39-0e83-4bd6-b351-3def9fc0452f","queries":[{"name":"tf-provider-acc-test-as-code-mfa-shared","query":"FIND User WITH mfaEnabled != true","resultsAre":"BAD"}]}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
+            Content-Length:
+                - "325"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json; charset=utf-8
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Correlation-Id:
+                - 3f106dfb60ab16c44a94842b255dd483
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 611.390958ms
+    - id: 13
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 297
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetControlTestById ($id: ID!) {\n\tcontrolTest(id: $id) {\n\t\tid\n\t\tname\n\t\tdescription\n\t\tcontrolId\n\t\tqueries {\n\t\t\tname\n\t\t\tquery\n\t\t\tresultsAre\n\t\t}\n\t}\n}\n","variables":{"id":"74664b83-30d2-45c6-9eed-1a151aa43314"},"operationName":"GetControlTestById"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 331
+        uncompressed: false
+        body: |
+            {"data":{"controlTest":{"id":"74664b83-30d2-45c6-9eed-1a151aa43314","name":"tf-provider-acc-test-as-code-mfa-unmanaged","description":null,"controlId":"ccm_c_J1_39ad91d1-feaa-4aab-b677-275a3bb2d316","queries":[{"name":"tf-provider-acc-test-as-code-mfa-unmanaged","query":"FIND User WITH mfaEnabled != true","resultsAre":"BAD"}]}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
+            Content-Length:
+                - "331"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json; charset=utf-8
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Correlation-Id:
+                - 14bca40db4247ab656ed6af87ffc0f84
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 637.139666ms
+    - id: 14
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 520
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetControlById ($id: ID!) {\n\tcontrol(id: $id) {\n\t\tid\n\t\tsourceId\n\t\tname\n\t\tdescription\n\t\tresourceGroupId\n\t\tstate\n\t\tidentifier\n\t\tcatalog\n\t\towner\n\t\tremediation\n\t\texceptionProcess\n\t\tmitreTechnique\n\t\tframeworkIds\n\t}\n\tcontrolRequirements(input: {controlId:$id}) {\n\t\titems {\n\t\t\tid\n\t\t}\n\t\tpageInfo {\n\t\t\thasNextPage\n\t\t\tendCursor\n\t\t}\n\t}\n}\n","variables":{"id":"ccm_c_J1_39ad91d1-feaa-4aab-b677-275a3bb2d316"},"operationName":"GetControlById"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 464
+        uncompressed: false
+        body: |
+            {"data":{"control":{"id":"ccm_c_J1_39ad91d1-feaa-4aab-b677-275a3bb2d316","sourceId":"39ad91d1-feaa-4aab-b677-275a3bb2d316","name":"tf-provider-acc-test-as-code-unmanaged-links","description":"unmanaged links control","resourceGroupId":null,"state":"LIVE","identifier":"","catalog":"","owner":null,"remediation":"","exceptionProcess":"","mitreTechnique":null,"frameworkIds":[]},"controlRequirements":{"items":[],"pageInfo":{"hasNextPage":false,"endCursor":null}}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
+            Content-Length:
+                - "464"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json; charset=utf-8
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Correlation-Id:
+                - 15f29d0f71e45228c80ab9db7465b527
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 1.060352458s
+    - id: 15
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 668
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nmutation UpdateControl ($input: UpdateControlInput!) {\n\tupdateControl(input: $input) {\n\t\tid\n\t\tname\n\t\tdescription\n\t\tresourceGroupId\n\t\tstate\n\t\tidentifier\n\t\tcatalog\n\t\towner\n\t\tremediation\n\t\texceptionProcess\n\t\tmitreTechnique\n\t}\n}\n","variables":{"input":{"id":"ccm_c_J1_39ad91d1-feaa-4aab-b677-275a3bb2d316","name":"tf-provider-acc-test-as-code-unmanaged-links","description":"unmanaged links control","requirementIds":{"set":null,"add":["ccm_r_07e8144e-2d16-422b-b116-8255461a3b3c"],"remove":null},"identifier":"","catalog":"","remediation":"","exceptionProcess":"","mitreTechnique":null}},"operationName":"UpdateControl"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 317
+        uncompressed: false
+        body: |
+            {"data":{"updateControl":{"id":"ccm_c_J1_39ad91d1-feaa-4aab-b677-275a3bb2d316","name":"tf-provider-acc-test-as-code-unmanaged-links","description":"unmanaged links control","resourceGroupId":null,"state":"LIVE","identifier":"","catalog":"","owner":null,"remediation":"","exceptionProcess":"","mitreTechnique":null}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
+            Content-Length:
+                - "317"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json; charset=utf-8
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Correlation-Id:
+                - 8359e7403412e2360589bd122ea4471b
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 11.439288166s
+    - id: 16
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 271
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetFrameworkById ($id: ID!) {\n\tcontrolFramework(id: $id) {\n\t\tid\n\t\tname\n\t\tdescription\n\t\tresourceGroupId\n\t\towner\n\t\tsource\n\t}\n}\n","variables":{"id":"ccm_f_J1_fceb8978-c85b-4347-b6e7-1fcfd6f8a2d6"},"operationName":"GetFrameworkById"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 226
+        uncompressed: false
+        body: |
+            {"data":{"controlFramework":{"id":"ccm_f_J1_fceb8978-c85b-4347-b6e7-1fcfd6f8a2d6","name":"tf-provider-acc-test-as-code-framework","description":"compliance as code acceptance test","resourceGroupId":null,"owner":null,"source":"J1"}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
+            Content-Length:
+                - "226"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json; charset=utf-8
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Correlation-Id:
+                - dcc58bebd5eb5a97a7e6085ed15596cd
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 668.413042ms
+    - id: 17
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 285
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetRequirementById ($id: ID!) {\n\trequirement(id: $id) {\n\t\tid\n\t\ttitle\n\t\tframeworkIds\n\t\tdescription\n\t\tidentifier\n\t\tpriority\n\t\tsection\n\t}\n}\n","variables":{"id":"ccm_r_07e8144e-2d16-422b-b116-8255461a3b3c"},"operationName":"GetRequirementById"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 257
+        uncompressed: false
+        body: |
+            {"data":{"requirement":{"id":"ccm_r_07e8144e-2d16-422b-b116-8255461a3b3c","title":"tf-provider-acc-test-as-code-req-one","frameworkIds":["ccm_f_J1_fceb8978-c85b-4347-b6e7-1fcfd6f8a2d6"],"description":null,"identifier":null,"priority":null,"section":null}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
+            Content-Length:
+                - "257"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json; charset=utf-8
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Correlation-Id:
+                - e50df929a00da3eda235e1e41749e2b7
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 692.146ms
+    - id: 18
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 285
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetRequirementById ($id: ID!) {\n\trequirement(id: $id) {\n\t\tid\n\t\ttitle\n\t\tframeworkIds\n\t\tdescription\n\t\tidentifier\n\t\tpriority\n\t\tsection\n\t}\n}\n","variables":{"id":"ccm_r_1380b0b4-1e73-4288-9a38-da9de6d6fc02"},"operationName":"GetRequirementById"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 257
+        uncompressed: false
+        body: |
+            {"data":{"requirement":{"id":"ccm_r_1380b0b4-1e73-4288-9a38-da9de6d6fc02","title":"tf-provider-acc-test-as-code-req-two","frameworkIds":["ccm_f_J1_fceb8978-c85b-4347-b6e7-1fcfd6f8a2d6"],"description":null,"identifier":null,"priority":null,"section":null}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
+            Content-Length:
+                - "257"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json; charset=utf-8
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Correlation-Id:
+                - f6d3d36186ce0a74cc7bcc809d739c19
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 619.649125ms
+    - id: 19
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 520
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetControlById ($id: ID!) {\n\tcontrol(id: $id) {\n\t\tid\n\t\tsourceId\n\t\tname\n\t\tdescription\n\t\tresourceGroupId\n\t\tstate\n\t\tidentifier\n\t\tcatalog\n\t\towner\n\t\tremediation\n\t\texceptionProcess\n\t\tmitreTechnique\n\t\tframeworkIds\n\t}\n\tcontrolRequirements(input: {controlId:$id}) {\n\t\titems {\n\t\t\tid\n\t\t}\n\t\tpageInfo {\n\t\t\thasNextPage\n\t\t\tendCursor\n\t\t}\n\t}\n}\n","variables":{"id":"ccm_c_J1_b801ad39-0e83-4bd6-b351-3def9fc0452f"},"operationName":"GetControlById"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 582
+        uncompressed: false
+        body: |
+            {"data":{"control":{"id":"ccm_c_J1_b801ad39-0e83-4bd6-b351-3def9fc0452f","sourceId":"b801ad39-0e83-4bd6-b351-3def9fc0452f","name":"tf-provider-acc-test-as-code-shared","description":"","resourceGroupId":null,"state":"LIVE","identifier":"","catalog":"","owner":null,"remediation":"","exceptionProcess":"","mitreTechnique":null,"frameworkIds":["ccm_f_J1_fceb8978-c85b-4347-b6e7-1fcfd6f8a2d6"]},"controlRequirements":{"items":[{"id":"ccm_r_07e8144e-2d16-422b-b116-8255461a3b3c"},{"id":"ccm_r_1380b0b4-1e73-4288-9a38-da9de6d6fc02"}],"pageInfo":{"hasNextPage":false,"endCursor":null}}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
+            Content-Length:
+                - "582"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json; charset=utf-8
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Correlation-Id:
+                - f0872f666769a2c5d07dd15956c369ef
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 1.052269792s
+    - id: 20
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 520
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetControlById ($id: ID!) {\n\tcontrol(id: $id) {\n\t\tid\n\t\tsourceId\n\t\tname\n\t\tdescription\n\t\tresourceGroupId\n\t\tstate\n\t\tidentifier\n\t\tcatalog\n\t\towner\n\t\tremediation\n\t\texceptionProcess\n\t\tmitreTechnique\n\t\tframeworkIds\n\t}\n\tcontrolRequirements(input: {controlId:$id}) {\n\t\titems {\n\t\t\tid\n\t\t}\n\t\tpageInfo {\n\t\t\thasNextPage\n\t\t\tendCursor\n\t\t}\n\t}\n}\n","variables":{"id":"ccm_c_J1_39ad91d1-feaa-4aab-b677-275a3bb2d316"},"operationName":"GetControlById"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 562
+        uncompressed: false
+        body: |
+            {"data":{"control":{"id":"ccm_c_J1_39ad91d1-feaa-4aab-b677-275a3bb2d316","sourceId":"39ad91d1-feaa-4aab-b677-275a3bb2d316","name":"tf-provider-acc-test-as-code-unmanaged-links","description":"unmanaged links control","resourceGroupId":null,"state":"LIVE","identifier":"","catalog":"","owner":null,"remediation":"","exceptionProcess":"","mitreTechnique":null,"frameworkIds":["ccm_f_J1_fceb8978-c85b-4347-b6e7-1fcfd6f8a2d6"]},"controlRequirements":{"items":[{"id":"ccm_r_07e8144e-2d16-422b-b116-8255461a3b3c"}],"pageInfo":{"hasNextPage":false,"endCursor":null}}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
+            Content-Length:
+                - "562"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json; charset=utf-8
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Correlation-Id:
+                - 3e60ddf2db3a34d04963728004981afd
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 981.278083ms
+    - id: 21
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 297
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetControlTestById ($id: ID!) {\n\tcontrolTest(id: $id) {\n\t\tid\n\t\tname\n\t\tdescription\n\t\tcontrolId\n\t\tqueries {\n\t\t\tname\n\t\t\tquery\n\t\t\tresultsAre\n\t\t}\n\t}\n}\n","variables":{"id":"e453d98b-623e-4c82-99e5-b0a8ee5564d8"},"operationName":"GetControlTestById"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 325
+        uncompressed: false
+        body: |
+            {"data":{"controlTest":{"id":"e453d98b-623e-4c82-99e5-b0a8ee5564d8","name":"tf-provider-acc-test-as-code-mfa-shared","description":null,"controlId":"ccm_c_J1_b801ad39-0e83-4bd6-b351-3def9fc0452f","queries":[{"name":"tf-provider-acc-test-as-code-mfa-shared","query":"FIND User WITH mfaEnabled != true","resultsAre":"BAD"}]}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
+            Content-Length:
+                - "325"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json; charset=utf-8
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Correlation-Id:
+                - 20e75757d439b75704bcda17e9b845e1
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 802.558333ms
+    - id: 22
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 297
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetControlTestById ($id: ID!) {\n\tcontrolTest(id: $id) {\n\t\tid\n\t\tname\n\t\tdescription\n\t\tcontrolId\n\t\tqueries {\n\t\t\tname\n\t\t\tquery\n\t\t\tresultsAre\n\t\t}\n\t}\n}\n","variables":{"id":"74664b83-30d2-45c6-9eed-1a151aa43314"},"operationName":"GetControlTestById"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 331
+        uncompressed: false
+        body: |
+            {"data":{"controlTest":{"id":"74664b83-30d2-45c6-9eed-1a151aa43314","name":"tf-provider-acc-test-as-code-mfa-unmanaged","description":null,"controlId":"ccm_c_J1_39ad91d1-feaa-4aab-b677-275a3bb2d316","queries":[{"name":"tf-provider-acc-test-as-code-mfa-unmanaged","query":"FIND User WITH mfaEnabled != true","resultsAre":"BAD"}]}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
+            Content-Length:
+                - "331"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json; charset=utf-8
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Correlation-Id:
+                - ef5798fa1e7eb900b11082e432a75997
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 606.573542ms
+    - id: 23
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 271
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetFrameworkById ($id: ID!) {\n\tcontrolFramework(id: $id) {\n\t\tid\n\t\tname\n\t\tdescription\n\t\tresourceGroupId\n\t\towner\n\t\tsource\n\t}\n}\n","variables":{"id":"ccm_f_J1_fceb8978-c85b-4347-b6e7-1fcfd6f8a2d6"},"operationName":"GetFrameworkById"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 226
+        uncompressed: false
+        body: |
+            {"data":{"controlFramework":{"id":"ccm_f_J1_fceb8978-c85b-4347-b6e7-1fcfd6f8a2d6","name":"tf-provider-acc-test-as-code-framework","description":"compliance as code acceptance test","resourceGroupId":null,"owner":null,"source":"J1"}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
+            Content-Length:
+                - "226"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json; charset=utf-8
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Correlation-Id:
+                - c940488e6aa70f2b0afbf6772d7727d0
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 608.040542ms
+    - id: 24
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 285
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetRequirementById ($id: ID!) {\n\trequirement(id: $id) {\n\t\tid\n\t\ttitle\n\t\tframeworkIds\n\t\tdescription\n\t\tidentifier\n\t\tpriority\n\t\tsection\n\t}\n}\n","variables":{"id":"ccm_r_07e8144e-2d16-422b-b116-8255461a3b3c"},"operationName":"GetRequirementById"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 257
+        uncompressed: false
+        body: |
+            {"data":{"requirement":{"id":"ccm_r_07e8144e-2d16-422b-b116-8255461a3b3c","title":"tf-provider-acc-test-as-code-req-one","frameworkIds":["ccm_f_J1_fceb8978-c85b-4347-b6e7-1fcfd6f8a2d6"],"description":null,"identifier":null,"priority":null,"section":null}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
+            Content-Length:
+                - "257"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json; charset=utf-8
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Correlation-Id:
+                - 18ff1915d64de85a0c1e328914f08358
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 631.527791ms
+    - id: 25
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 285
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetRequirementById ($id: ID!) {\n\trequirement(id: $id) {\n\t\tid\n\t\ttitle\n\t\tframeworkIds\n\t\tdescription\n\t\tidentifier\n\t\tpriority\n\t\tsection\n\t}\n}\n","variables":{"id":"ccm_r_1380b0b4-1e73-4288-9a38-da9de6d6fc02"},"operationName":"GetRequirementById"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 257
+        uncompressed: false
+        body: |
+            {"data":{"requirement":{"id":"ccm_r_1380b0b4-1e73-4288-9a38-da9de6d6fc02","title":"tf-provider-acc-test-as-code-req-two","frameworkIds":["ccm_f_J1_fceb8978-c85b-4347-b6e7-1fcfd6f8a2d6"],"description":null,"identifier":null,"priority":null,"section":null}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
+            Content-Length:
+                - "257"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json; charset=utf-8
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Correlation-Id:
+                - e30932a610acd9d4c95df781a9d6a08b
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 629.617292ms
+    - id: 26
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 520
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetControlById ($id: ID!) {\n\tcontrol(id: $id) {\n\t\tid\n\t\tsourceId\n\t\tname\n\t\tdescription\n\t\tresourceGroupId\n\t\tstate\n\t\tidentifier\n\t\tcatalog\n\t\towner\n\t\tremediation\n\t\texceptionProcess\n\t\tmitreTechnique\n\t\tframeworkIds\n\t}\n\tcontrolRequirements(input: {controlId:$id}) {\n\t\titems {\n\t\t\tid\n\t\t}\n\t\tpageInfo {\n\t\t\thasNextPage\n\t\t\tendCursor\n\t\t}\n\t}\n}\n","variables":{"id":"ccm_c_J1_b801ad39-0e83-4bd6-b351-3def9fc0452f"},"operationName":"GetControlById"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 582
+        uncompressed: false
+        body: |
+            {"data":{"control":{"id":"ccm_c_J1_b801ad39-0e83-4bd6-b351-3def9fc0452f","sourceId":"b801ad39-0e83-4bd6-b351-3def9fc0452f","name":"tf-provider-acc-test-as-code-shared","description":"","resourceGroupId":null,"state":"LIVE","identifier":"","catalog":"","owner":null,"remediation":"","exceptionProcess":"","mitreTechnique":null,"frameworkIds":["ccm_f_J1_fceb8978-c85b-4347-b6e7-1fcfd6f8a2d6"]},"controlRequirements":{"items":[{"id":"ccm_r_07e8144e-2d16-422b-b116-8255461a3b3c"},{"id":"ccm_r_1380b0b4-1e73-4288-9a38-da9de6d6fc02"}],"pageInfo":{"hasNextPage":false,"endCursor":null}}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
+            Content-Length:
+                - "582"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json; charset=utf-8
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Correlation-Id:
+                - 19975289bce7556778c82d96088c75b5
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 1.0714475s
+    - id: 27
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 520
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetControlById ($id: ID!) {\n\tcontrol(id: $id) {\n\t\tid\n\t\tsourceId\n\t\tname\n\t\tdescription\n\t\tresourceGroupId\n\t\tstate\n\t\tidentifier\n\t\tcatalog\n\t\towner\n\t\tremediation\n\t\texceptionProcess\n\t\tmitreTechnique\n\t\tframeworkIds\n\t}\n\tcontrolRequirements(input: {controlId:$id}) {\n\t\titems {\n\t\t\tid\n\t\t}\n\t\tpageInfo {\n\t\t\thasNextPage\n\t\t\tendCursor\n\t\t}\n\t}\n}\n","variables":{"id":"ccm_c_J1_39ad91d1-feaa-4aab-b677-275a3bb2d316"},"operationName":"GetControlById"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 562
+        uncompressed: false
+        body: |
+            {"data":{"control":{"id":"ccm_c_J1_39ad91d1-feaa-4aab-b677-275a3bb2d316","sourceId":"39ad91d1-feaa-4aab-b677-275a3bb2d316","name":"tf-provider-acc-test-as-code-unmanaged-links","description":"unmanaged links control","resourceGroupId":null,"state":"LIVE","identifier":"","catalog":"","owner":null,"remediation":"","exceptionProcess":"","mitreTechnique":null,"frameworkIds":["ccm_f_J1_fceb8978-c85b-4347-b6e7-1fcfd6f8a2d6"]},"controlRequirements":{"items":[{"id":"ccm_r_07e8144e-2d16-422b-b116-8255461a3b3c"}],"pageInfo":{"hasNextPage":false,"endCursor":null}}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
+            Content-Length:
+                - "562"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json; charset=utf-8
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Correlation-Id:
+                - 000683eb86e67101d5495093c6c3dd84
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 1.049157916s
+    - id: 28
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 297
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetControlTestById ($id: ID!) {\n\tcontrolTest(id: $id) {\n\t\tid\n\t\tname\n\t\tdescription\n\t\tcontrolId\n\t\tqueries {\n\t\t\tname\n\t\t\tquery\n\t\t\tresultsAre\n\t\t}\n\t}\n}\n","variables":{"id":"e453d98b-623e-4c82-99e5-b0a8ee5564d8"},"operationName":"GetControlTestById"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 325
+        uncompressed: false
+        body: |
+            {"data":{"controlTest":{"id":"e453d98b-623e-4c82-99e5-b0a8ee5564d8","name":"tf-provider-acc-test-as-code-mfa-shared","description":null,"controlId":"ccm_c_J1_b801ad39-0e83-4bd6-b351-3def9fc0452f","queries":[{"name":"tf-provider-acc-test-as-code-mfa-shared","query":"FIND User WITH mfaEnabled != true","resultsAre":"BAD"}]}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
+            Content-Length:
+                - "325"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json; charset=utf-8
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Correlation-Id:
+                - 3a243a19cc8cb8cf0968d864499aeb83
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 623.928375ms
+    - id: 29
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 297
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetControlTestById ($id: ID!) {\n\tcontrolTest(id: $id) {\n\t\tid\n\t\tname\n\t\tdescription\n\t\tcontrolId\n\t\tqueries {\n\t\t\tname\n\t\t\tquery\n\t\t\tresultsAre\n\t\t}\n\t}\n}\n","variables":{"id":"74664b83-30d2-45c6-9eed-1a151aa43314"},"operationName":"GetControlTestById"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 331
+        uncompressed: false
+        body: |
+            {"data":{"controlTest":{"id":"74664b83-30d2-45c6-9eed-1a151aa43314","name":"tf-provider-acc-test-as-code-mfa-unmanaged","description":null,"controlId":"ccm_c_J1_39ad91d1-feaa-4aab-b677-275a3bb2d316","queries":[{"name":"tf-provider-acc-test-as-code-mfa-unmanaged","query":"FIND User WITH mfaEnabled != true","resultsAre":"BAD"}]}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
+            Content-Length:
+                - "331"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json; charset=utf-8
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Correlation-Id:
+                - d5dac1348ec29dd7f41db4aeacaf4785
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 616.567958ms
+    - id: 30
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 271
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetFrameworkById ($id: ID!) {\n\tcontrolFramework(id: $id) {\n\t\tid\n\t\tname\n\t\tdescription\n\t\tresourceGroupId\n\t\towner\n\t\tsource\n\t}\n}\n","variables":{"id":"ccm_f_J1_fceb8978-c85b-4347-b6e7-1fcfd6f8a2d6"},"operationName":"GetFrameworkById"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 226
+        uncompressed: false
+        body: |
+            {"data":{"controlFramework":{"id":"ccm_f_J1_fceb8978-c85b-4347-b6e7-1fcfd6f8a2d6","name":"tf-provider-acc-test-as-code-framework","description":"compliance as code acceptance test","resourceGroupId":null,"owner":null,"source":"J1"}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
+            Content-Length:
+                - "226"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json; charset=utf-8
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Correlation-Id:
+                - e13f52cf4f2fbd57239cea72371070a8
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 594.426958ms
+    - id: 31
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 285
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetRequirementById ($id: ID!) {\n\trequirement(id: $id) {\n\t\tid\n\t\ttitle\n\t\tframeworkIds\n\t\tdescription\n\t\tidentifier\n\t\tpriority\n\t\tsection\n\t}\n}\n","variables":{"id":"ccm_r_07e8144e-2d16-422b-b116-8255461a3b3c"},"operationName":"GetRequirementById"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 257
+        uncompressed: false
+        body: |
+            {"data":{"requirement":{"id":"ccm_r_07e8144e-2d16-422b-b116-8255461a3b3c","title":"tf-provider-acc-test-as-code-req-one","frameworkIds":["ccm_f_J1_fceb8978-c85b-4347-b6e7-1fcfd6f8a2d6"],"description":null,"identifier":null,"priority":null,"section":null}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
+            Content-Length:
+                - "257"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json; charset=utf-8
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Correlation-Id:
+                - 0eed0ac9e50ed5cc18c6d2bd5c93efda
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 660.832917ms
+    - id: 32
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 285
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetRequirementById ($id: ID!) {\n\trequirement(id: $id) {\n\t\tid\n\t\ttitle\n\t\tframeworkIds\n\t\tdescription\n\t\tidentifier\n\t\tpriority\n\t\tsection\n\t}\n}\n","variables":{"id":"ccm_r_1380b0b4-1e73-4288-9a38-da9de6d6fc02"},"operationName":"GetRequirementById"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 257
+        uncompressed: false
+        body: |
+            {"data":{"requirement":{"id":"ccm_r_1380b0b4-1e73-4288-9a38-da9de6d6fc02","title":"tf-provider-acc-test-as-code-req-two","frameworkIds":["ccm_f_J1_fceb8978-c85b-4347-b6e7-1fcfd6f8a2d6"],"description":null,"identifier":null,"priority":null,"section":null}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
+            Content-Length:
+                - "257"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json; charset=utf-8
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Correlation-Id:
+                - 5ad232f3d917dc2bb99eff187b1a1eca
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 680.081791ms
+    - id: 33
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 520
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetControlById ($id: ID!) {\n\tcontrol(id: $id) {\n\t\tid\n\t\tsourceId\n\t\tname\n\t\tdescription\n\t\tresourceGroupId\n\t\tstate\n\t\tidentifier\n\t\tcatalog\n\t\towner\n\t\tremediation\n\t\texceptionProcess\n\t\tmitreTechnique\n\t\tframeworkIds\n\t}\n\tcontrolRequirements(input: {controlId:$id}) {\n\t\titems {\n\t\t\tid\n\t\t}\n\t\tpageInfo {\n\t\t\thasNextPage\n\t\t\tendCursor\n\t\t}\n\t}\n}\n","variables":{"id":"ccm_c_J1_b801ad39-0e83-4bd6-b351-3def9fc0452f"},"operationName":"GetControlById"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 582
+        uncompressed: false
+        body: |
+            {"data":{"control":{"id":"ccm_c_J1_b801ad39-0e83-4bd6-b351-3def9fc0452f","sourceId":"b801ad39-0e83-4bd6-b351-3def9fc0452f","name":"tf-provider-acc-test-as-code-shared","description":"","resourceGroupId":null,"state":"LIVE","identifier":"","catalog":"","owner":null,"remediation":"","exceptionProcess":"","mitreTechnique":null,"frameworkIds":["ccm_f_J1_fceb8978-c85b-4347-b6e7-1fcfd6f8a2d6"]},"controlRequirements":{"items":[{"id":"ccm_r_07e8144e-2d16-422b-b116-8255461a3b3c"},{"id":"ccm_r_1380b0b4-1e73-4288-9a38-da9de6d6fc02"}],"pageInfo":{"hasNextPage":false,"endCursor":null}}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
+            Content-Length:
+                - "582"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json; charset=utf-8
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Correlation-Id:
+                - 253d40b0070133b7b9ea1f00eeff221c
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 1.008890334s
+    - id: 34
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 520
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetControlById ($id: ID!) {\n\tcontrol(id: $id) {\n\t\tid\n\t\tsourceId\n\t\tname\n\t\tdescription\n\t\tresourceGroupId\n\t\tstate\n\t\tidentifier\n\t\tcatalog\n\t\towner\n\t\tremediation\n\t\texceptionProcess\n\t\tmitreTechnique\n\t\tframeworkIds\n\t}\n\tcontrolRequirements(input: {controlId:$id}) {\n\t\titems {\n\t\t\tid\n\t\t}\n\t\tpageInfo {\n\t\t\thasNextPage\n\t\t\tendCursor\n\t\t}\n\t}\n}\n","variables":{"id":"ccm_c_J1_39ad91d1-feaa-4aab-b677-275a3bb2d316"},"operationName":"GetControlById"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 562
+        uncompressed: false
+        body: |
+            {"data":{"control":{"id":"ccm_c_J1_39ad91d1-feaa-4aab-b677-275a3bb2d316","sourceId":"39ad91d1-feaa-4aab-b677-275a3bb2d316","name":"tf-provider-acc-test-as-code-unmanaged-links","description":"unmanaged links control","resourceGroupId":null,"state":"LIVE","identifier":"","catalog":"","owner":null,"remediation":"","exceptionProcess":"","mitreTechnique":null,"frameworkIds":["ccm_f_J1_fceb8978-c85b-4347-b6e7-1fcfd6f8a2d6"]},"controlRequirements":{"items":[{"id":"ccm_r_07e8144e-2d16-422b-b116-8255461a3b3c"}],"pageInfo":{"hasNextPage":false,"endCursor":null}}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
+            Content-Length:
+                - "562"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json; charset=utf-8
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Correlation-Id:
+                - 5809e5438787005e9e197a23572d0a9f
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 3.894652417s
+    - id: 35
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 297
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetControlTestById ($id: ID!) {\n\tcontrolTest(id: $id) {\n\t\tid\n\t\tname\n\t\tdescription\n\t\tcontrolId\n\t\tqueries {\n\t\t\tname\n\t\t\tquery\n\t\t\tresultsAre\n\t\t}\n\t}\n}\n","variables":{"id":"e453d98b-623e-4c82-99e5-b0a8ee5564d8"},"operationName":"GetControlTestById"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 325
+        uncompressed: false
+        body: |
+            {"data":{"controlTest":{"id":"e453d98b-623e-4c82-99e5-b0a8ee5564d8","name":"tf-provider-acc-test-as-code-mfa-shared","description":null,"controlId":"ccm_c_J1_b801ad39-0e83-4bd6-b351-3def9fc0452f","queries":[{"name":"tf-provider-acc-test-as-code-mfa-shared","query":"FIND User WITH mfaEnabled != true","resultsAre":"BAD"}]}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
+            Content-Length:
+                - "325"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json; charset=utf-8
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Correlation-Id:
+                - e497df21141de5fe90d8843596f56e18
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 3.47213075s
+    - id: 36
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 297
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetControlTestById ($id: ID!) {\n\tcontrolTest(id: $id) {\n\t\tid\n\t\tname\n\t\tdescription\n\t\tcontrolId\n\t\tqueries {\n\t\t\tname\n\t\t\tquery\n\t\t\tresultsAre\n\t\t}\n\t}\n}\n","variables":{"id":"74664b83-30d2-45c6-9eed-1a151aa43314"},"operationName":"GetControlTestById"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 331
+        uncompressed: false
+        body: |
+            {"data":{"controlTest":{"id":"74664b83-30d2-45c6-9eed-1a151aa43314","name":"tf-provider-acc-test-as-code-mfa-unmanaged","description":null,"controlId":"ccm_c_J1_39ad91d1-feaa-4aab-b677-275a3bb2d316","queries":[{"name":"tf-provider-acc-test-as-code-mfa-unmanaged","query":"FIND User WITH mfaEnabled != true","resultsAre":"BAD"}]}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
+            Content-Length:
+                - "331"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json; charset=utf-8
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Correlation-Id:
+                - d25422700b70eedf362c7d4634073754
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 614.7155ms
+    - id: 37
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 572
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nmutation UpdateControl ($input: UpdateControlInput!) {\n\tupdateControl(input: $input) {\n\t\tid\n\t\tname\n\t\tdescription\n\t\tresourceGroupId\n\t\tstate\n\t\tidentifier\n\t\tcatalog\n\t\towner\n\t\tremediation\n\t\texceptionProcess\n\t\tmitreTechnique\n\t}\n}\n","variables":{"input":{"id":"ccm_c_J1_39ad91d1-feaa-4aab-b677-275a3bb2d316","name":"tf-provider-acc-test-as-code-unmanaged-links","description":"linked outside terraform","identifier":"","catalog":"","remediation":"","exceptionProcess":"","mitreTechnique":null}},"operationName":"UpdateControl"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 318
+        uncompressed: false
+        body: |
+            {"data":{"updateControl":{"id":"ccm_c_J1_39ad91d1-feaa-4aab-b677-275a3bb2d316","name":"tf-provider-acc-test-as-code-unmanaged-links","description":"linked outside terraform","resourceGroupId":null,"state":"LIVE","identifier":"","catalog":"","owner":null,"remediation":"","exceptionProcess":"","mitreTechnique":null}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
+            Content-Length:
+                - "318"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json; charset=utf-8
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Correlation-Id:
+                - e57f50395d859f6cd32d1ca0a1294ba0
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 761.122375ms
+    - id: 38
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 520
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetControlById ($id: ID!) {\n\tcontrol(id: $id) {\n\t\tid\n\t\tsourceId\n\t\tname\n\t\tdescription\n\t\tresourceGroupId\n\t\tstate\n\t\tidentifier\n\t\tcatalog\n\t\towner\n\t\tremediation\n\t\texceptionProcess\n\t\tmitreTechnique\n\t\tframeworkIds\n\t}\n\tcontrolRequirements(input: {controlId:$id}) {\n\t\titems {\n\t\t\tid\n\t\t}\n\t\tpageInfo {\n\t\t\thasNextPage\n\t\t\tendCursor\n\t\t}\n\t}\n}\n","variables":{"id":"ccm_c_J1_39ad91d1-feaa-4aab-b677-275a3bb2d316"},"operationName":"GetControlById"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 563
+        uncompressed: false
+        body: |
+            {"data":{"control":{"id":"ccm_c_J1_39ad91d1-feaa-4aab-b677-275a3bb2d316","sourceId":"39ad91d1-feaa-4aab-b677-275a3bb2d316","name":"tf-provider-acc-test-as-code-unmanaged-links","description":"linked outside terraform","resourceGroupId":null,"state":"LIVE","identifier":"","catalog":"","owner":null,"remediation":"","exceptionProcess":"","mitreTechnique":null,"frameworkIds":["ccm_f_J1_fceb8978-c85b-4347-b6e7-1fcfd6f8a2d6"]},"controlRequirements":{"items":[{"id":"ccm_r_07e8144e-2d16-422b-b116-8255461a3b3c"}],"pageInfo":{"hasNextPage":false,"endCursor":null}}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
+            Content-Length:
+                - "563"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json; charset=utf-8
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Correlation-Id:
+                - 47adfea187a7100fdb59c5d80633b1b3
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 1.125633666s
+    - id: 39
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 271
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetFrameworkById ($id: ID!) {\n\tcontrolFramework(id: $id) {\n\t\tid\n\t\tname\n\t\tdescription\n\t\tresourceGroupId\n\t\towner\n\t\tsource\n\t}\n}\n","variables":{"id":"ccm_f_J1_fceb8978-c85b-4347-b6e7-1fcfd6f8a2d6"},"operationName":"GetFrameworkById"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 226
+        uncompressed: false
+        body: |
+            {"data":{"controlFramework":{"id":"ccm_f_J1_fceb8978-c85b-4347-b6e7-1fcfd6f8a2d6","name":"tf-provider-acc-test-as-code-framework","description":"compliance as code acceptance test","resourceGroupId":null,"owner":null,"source":"J1"}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
+            Content-Length:
+                - "226"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json; charset=utf-8
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Correlation-Id:
+                - f684ea1f834a0c2a8a7e762df2e8a69d
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 941.336709ms
+    - id: 40
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 285
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetRequirementById ($id: ID!) {\n\trequirement(id: $id) {\n\t\tid\n\t\ttitle\n\t\tframeworkIds\n\t\tdescription\n\t\tidentifier\n\t\tpriority\n\t\tsection\n\t}\n}\n","variables":{"id":"ccm_r_07e8144e-2d16-422b-b116-8255461a3b3c"},"operationName":"GetRequirementById"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 257
+        uncompressed: false
+        body: |
+            {"data":{"requirement":{"id":"ccm_r_07e8144e-2d16-422b-b116-8255461a3b3c","title":"tf-provider-acc-test-as-code-req-one","frameworkIds":["ccm_f_J1_fceb8978-c85b-4347-b6e7-1fcfd6f8a2d6"],"description":null,"identifier":null,"priority":null,"section":null}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
+            Content-Length:
+                - "257"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json; charset=utf-8
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Correlation-Id:
+                - 82121c3efb841a424f82294dd6044e2d
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 811.543625ms
+    - id: 41
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 285
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetRequirementById ($id: ID!) {\n\trequirement(id: $id) {\n\t\tid\n\t\ttitle\n\t\tframeworkIds\n\t\tdescription\n\t\tidentifier\n\t\tpriority\n\t\tsection\n\t}\n}\n","variables":{"id":"ccm_r_1380b0b4-1e73-4288-9a38-da9de6d6fc02"},"operationName":"GetRequirementById"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 257
+        uncompressed: false
+        body: |
+            {"data":{"requirement":{"id":"ccm_r_1380b0b4-1e73-4288-9a38-da9de6d6fc02","title":"tf-provider-acc-test-as-code-req-two","frameworkIds":["ccm_f_J1_fceb8978-c85b-4347-b6e7-1fcfd6f8a2d6"],"description":null,"identifier":null,"priority":null,"section":null}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
+            Content-Length:
+                - "257"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json; charset=utf-8
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Correlation-Id:
+                - 8b6c85ef9d44829106899385d7b9d662
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 610.440959ms
+    - id: 42
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 520
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetControlById ($id: ID!) {\n\tcontrol(id: $id) {\n\t\tid\n\t\tsourceId\n\t\tname\n\t\tdescription\n\t\tresourceGroupId\n\t\tstate\n\t\tidentifier\n\t\tcatalog\n\t\towner\n\t\tremediation\n\t\texceptionProcess\n\t\tmitreTechnique\n\t\tframeworkIds\n\t}\n\tcontrolRequirements(input: {controlId:$id}) {\n\t\titems {\n\t\t\tid\n\t\t}\n\t\tpageInfo {\n\t\t\thasNextPage\n\t\t\tendCursor\n\t\t}\n\t}\n}\n","variables":{"id":"ccm_c_J1_b801ad39-0e83-4bd6-b351-3def9fc0452f"},"operationName":"GetControlById"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 582
+        uncompressed: false
+        body: |
+            {"data":{"control":{"id":"ccm_c_J1_b801ad39-0e83-4bd6-b351-3def9fc0452f","sourceId":"b801ad39-0e83-4bd6-b351-3def9fc0452f","name":"tf-provider-acc-test-as-code-shared","description":"","resourceGroupId":null,"state":"LIVE","identifier":"","catalog":"","owner":null,"remediation":"","exceptionProcess":"","mitreTechnique":null,"frameworkIds":["ccm_f_J1_fceb8978-c85b-4347-b6e7-1fcfd6f8a2d6"]},"controlRequirements":{"items":[{"id":"ccm_r_07e8144e-2d16-422b-b116-8255461a3b3c"},{"id":"ccm_r_1380b0b4-1e73-4288-9a38-da9de6d6fc02"}],"pageInfo":{"hasNextPage":false,"endCursor":null}}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
+            Content-Length:
+                - "582"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json; charset=utf-8
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Correlation-Id:
+                - ed282153e938191b47b269217c7ee8f0
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 1.080411625s
+    - id: 43
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 520
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetControlById ($id: ID!) {\n\tcontrol(id: $id) {\n\t\tid\n\t\tsourceId\n\t\tname\n\t\tdescription\n\t\tresourceGroupId\n\t\tstate\n\t\tidentifier\n\t\tcatalog\n\t\towner\n\t\tremediation\n\t\texceptionProcess\n\t\tmitreTechnique\n\t\tframeworkIds\n\t}\n\tcontrolRequirements(input: {controlId:$id}) {\n\t\titems {\n\t\t\tid\n\t\t}\n\t\tpageInfo {\n\t\t\thasNextPage\n\t\t\tendCursor\n\t\t}\n\t}\n}\n","variables":{"id":"ccm_c_J1_39ad91d1-feaa-4aab-b677-275a3bb2d316"},"operationName":"GetControlById"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 563
+        uncompressed: false
+        body: |
+            {"data":{"control":{"id":"ccm_c_J1_39ad91d1-feaa-4aab-b677-275a3bb2d316","sourceId":"39ad91d1-feaa-4aab-b677-275a3bb2d316","name":"tf-provider-acc-test-as-code-unmanaged-links","description":"linked outside terraform","resourceGroupId":null,"state":"LIVE","identifier":"","catalog":"","owner":null,"remediation":"","exceptionProcess":"","mitreTechnique":null,"frameworkIds":["ccm_f_J1_fceb8978-c85b-4347-b6e7-1fcfd6f8a2d6"]},"controlRequirements":{"items":[{"id":"ccm_r_07e8144e-2d16-422b-b116-8255461a3b3c"}],"pageInfo":{"hasNextPage":false,"endCursor":null}}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
+            Content-Length:
+                - "563"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json; charset=utf-8
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Correlation-Id:
+                - 9f63c8d686077e293a2c2a7b0652b206
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 1.081732625s
+    - id: 44
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 297
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetControlTestById ($id: ID!) {\n\tcontrolTest(id: $id) {\n\t\tid\n\t\tname\n\t\tdescription\n\t\tcontrolId\n\t\tqueries {\n\t\t\tname\n\t\t\tquery\n\t\t\tresultsAre\n\t\t}\n\t}\n}\n","variables":{"id":"e453d98b-623e-4c82-99e5-b0a8ee5564d8"},"operationName":"GetControlTestById"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 325
+        uncompressed: false
+        body: |
+            {"data":{"controlTest":{"id":"e453d98b-623e-4c82-99e5-b0a8ee5564d8","name":"tf-provider-acc-test-as-code-mfa-shared","description":null,"controlId":"ccm_c_J1_b801ad39-0e83-4bd6-b351-3def9fc0452f","queries":[{"name":"tf-provider-acc-test-as-code-mfa-shared","query":"FIND User WITH mfaEnabled != true","resultsAre":"BAD"}]}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
+            Content-Length:
+                - "325"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json; charset=utf-8
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Correlation-Id:
+                - 42dfa9b47b46a56f930fdd5d6f8f7be4
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 806.517417ms
+    - id: 45
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 297
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetControlTestById ($id: ID!) {\n\tcontrolTest(id: $id) {\n\t\tid\n\t\tname\n\t\tdescription\n\t\tcontrolId\n\t\tqueries {\n\t\t\tname\n\t\t\tquery\n\t\t\tresultsAre\n\t\t}\n\t}\n}\n","variables":{"id":"74664b83-30d2-45c6-9eed-1a151aa43314"},"operationName":"GetControlTestById"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 331
+        uncompressed: false
+        body: |
+            {"data":{"controlTest":{"id":"74664b83-30d2-45c6-9eed-1a151aa43314","name":"tf-provider-acc-test-as-code-mfa-unmanaged","description":null,"controlId":"ccm_c_J1_39ad91d1-feaa-4aab-b677-275a3bb2d316","queries":[{"name":"tf-provider-acc-test-as-code-mfa-unmanaged","query":"FIND User WITH mfaEnabled != true","resultsAre":"BAD"}]}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
+            Content-Length:
+                - "331"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json; charset=utf-8
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Correlation-Id:
+                - cfa872276163f9eb3fd0b63499be6e48
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 625.227458ms
+    - id: 46
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 520
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetControlById ($id: ID!) {\n\tcontrol(id: $id) {\n\t\tid\n\t\tsourceId\n\t\tname\n\t\tdescription\n\t\tresourceGroupId\n\t\tstate\n\t\tidentifier\n\t\tcatalog\n\t\towner\n\t\tremediation\n\t\texceptionProcess\n\t\tmitreTechnique\n\t\tframeworkIds\n\t}\n\tcontrolRequirements(input: {controlId:$id}) {\n\t\titems {\n\t\t\tid\n\t\t}\n\t\tpageInfo {\n\t\t\thasNextPage\n\t\t\tendCursor\n\t\t}\n\t}\n}\n","variables":{"id":"ccm_c_J1_b801ad39-0e83-4bd6-b351-3def9fc0452f"},"operationName":"GetControlById"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 582
+        uncompressed: false
+        body: |
+            {"data":{"control":{"id":"ccm_c_J1_b801ad39-0e83-4bd6-b351-3def9fc0452f","sourceId":"b801ad39-0e83-4bd6-b351-3def9fc0452f","name":"tf-provider-acc-test-as-code-shared","description":"","resourceGroupId":null,"state":"LIVE","identifier":"","catalog":"","owner":null,"remediation":"","exceptionProcess":"","mitreTechnique":null,"frameworkIds":["ccm_f_J1_fceb8978-c85b-4347-b6e7-1fcfd6f8a2d6"]},"controlRequirements":{"items":[{"id":"ccm_r_07e8144e-2d16-422b-b116-8255461a3b3c"},{"id":"ccm_r_1380b0b4-1e73-4288-9a38-da9de6d6fc02"}],"pageInfo":{"hasNextPage":false,"endCursor":null}}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
+            Content-Length:
+                - "582"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json; charset=utf-8
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Correlation-Id:
+                - 47fc362a07baa04ea065a63cc7ca17c1
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 3.819638042s
+    - id: 47
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 297
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetControlTestById ($id: ID!) {\n\tcontrolTest(id: $id) {\n\t\tid\n\t\tname\n\t\tdescription\n\t\tcontrolId\n\t\tqueries {\n\t\t\tname\n\t\t\tquery\n\t\t\tresultsAre\n\t\t}\n\t}\n}\n","variables":{"id":"e453d98b-623e-4c82-99e5-b0a8ee5564d8"},"operationName":"GetControlTestById"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 325
+        uncompressed: false
+        body: |
+            {"data":{"controlTest":{"id":"e453d98b-623e-4c82-99e5-b0a8ee5564d8","name":"tf-provider-acc-test-as-code-mfa-shared","description":null,"controlId":"ccm_c_J1_b801ad39-0e83-4bd6-b351-3def9fc0452f","queries":[{"name":"tf-provider-acc-test-as-code-mfa-shared","query":"FIND User WITH mfaEnabled != true","resultsAre":"BAD"}]}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
+            Content-Length:
+                - "325"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json; charset=utf-8
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Correlation-Id:
+                - 59d9732b8043276bfad2ee276db76418
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 636.21625ms
+    - id: 48
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 285
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetRequirementById ($id: ID!) {\n\trequirement(id: $id) {\n\t\tid\n\t\ttitle\n\t\tframeworkIds\n\t\tdescription\n\t\tidentifier\n\t\tpriority\n\t\tsection\n\t}\n}\n","variables":{"id":"ccm_r_07e8144e-2d16-422b-b116-8255461a3b3c"},"operationName":"GetRequirementById"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 257
+        uncompressed: false
+        body: |
+            {"data":{"requirement":{"id":"ccm_r_07e8144e-2d16-422b-b116-8255461a3b3c","title":"tf-provider-acc-test-as-code-req-one","frameworkIds":["ccm_f_J1_fceb8978-c85b-4347-b6e7-1fcfd6f8a2d6"],"description":null,"identifier":null,"priority":null,"section":null}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
+            Content-Length:
+                - "257"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json; charset=utf-8
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Correlation-Id:
+                - 78fcf5cc74f4bf97d76b80458b893c12
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 9.038702542s
+    - id: 49
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 202
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nmutation DeleteControlTest ($id: ID!) {\n\tdeleteControlTest(id: $id) {\n\t\tsuccess\n\t}\n}\n","variables":{"id":"74664b83-30d2-45c6-9eed-1a151aa43314"},"operationName":"DeleteControlTest"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 48
+        uncompressed: false
+        body: |
+            {"data":{"deleteControlTest":{"success":true}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
+            Content-Length:
+                - "48"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json; charset=utf-8
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Correlation-Id:
+                - 038c7d0d283d74c38d30044cfcd325c8
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 2.747824291s
+    - id: 50
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 202
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nmutation DeleteControlTest ($id: ID!) {\n\tdeleteControlTest(id: $id) {\n\t\tsuccess\n\t}\n}\n","variables":{"id":"e453d98b-623e-4c82-99e5-b0a8ee5564d8"},"operationName":"DeleteControlTest"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 48
+        uncompressed: false
+        body: |
+            {"data":{"deleteControlTest":{"success":true}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
+            Content-Length:
+                - "48"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json; charset=utf-8
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Correlation-Id:
+                - ae449787560bbe4072b8e150a398072b
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 2.390516333s
+    - id: 51
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 234
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nmutation DeleteControl ($input: DeleteControlInput!) {\n\tdeleteControl(input: $input) {\n\t\tsuccess\n\t}\n}\n","variables":{"input":{"id":"ccm_c_J1_39ad91d1-feaa-4aab-b677-275a3bb2d316"}},"operationName":"DeleteControl"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 44
+        uncompressed: false
+        body: |
+            {"data":{"deleteControl":{"success":true}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
+            Content-Length:
+                - "44"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json; charset=utf-8
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Correlation-Id:
+                - 606bcbbc4ed8d416b452ab41a4b5b96c
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 1.473243416s
+    - id: 52
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 234
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nmutation DeleteControl ($input: DeleteControlInput!) {\n\tdeleteControl(input: $input) {\n\t\tsuccess\n\t}\n}\n","variables":{"input":{"id":"ccm_c_J1_b801ad39-0e83-4bd6-b351-3def9fc0452f"}},"operationName":"DeleteControl"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 44
+        uncompressed: false
+        body: |
+            {"data":{"deleteControl":{"success":true}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
+            Content-Length:
+                - "44"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json; charset=utf-8
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Correlation-Id:
+                - de2a695c0a9cde229a1d32d86a149fe3
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 1.497261792s
+    - id: 53
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 247
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nmutation DeleteRequirement ($input: DeleteRequirementInput!) {\n\tdeleteRequirement(input: $input) {\n\t\tsuccess\n\t}\n}\n","variables":{"input":{"id":"ccm_r_1380b0b4-1e73-4288-9a38-da9de6d6fc02"}},"operationName":"DeleteRequirement"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 48
+        uncompressed: false
+        body: |
+            {"data":{"deleteRequirement":{"success":true}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
+            Content-Length:
+                - "48"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json; charset=utf-8
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Correlation-Id:
+                - 276685ad948339652ec22b13b52ad28f
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 751.91875ms
+    - id: 54
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 247
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nmutation DeleteRequirement ($input: DeleteRequirementInput!) {\n\tdeleteRequirement(input: $input) {\n\t\tsuccess\n\t}\n}\n","variables":{"input":{"id":"ccm_r_07e8144e-2d16-422b-b116-8255461a3b3c"}},"operationName":"DeleteRequirement"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 48
+        uncompressed: false
+        body: |
+            {"data":{"deleteRequirement":{"success":true}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
+            Content-Length:
+                - "48"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json; charset=utf-8
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Correlation-Id:
+                - 9940b9cb4a019bedcacbfe61c2c7b2dc
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 775.486916ms
+    - id: 55
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 242
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nmutation DeleteFramework ($input: DeleteFrameworkInput!) {\n\tdeleteFramework(input: $input) {\n\t\tsuccess\n\t}\n}\n","variables":{"input":{"id":"ccm_f_J1_fceb8978-c85b-4347-b6e7-1fcfd6f8a2d6"}},"operationName":"DeleteFramework"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 46
+        uncompressed: false
+        body: |
+            {"data":{"deleteFramework":{"success":true}}}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
+            Content-Length:
+                - "46"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json; charset=utf-8
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Correlation-Id:
+                - 6ca98be0f47ab01b35042b922b09d95f
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 652.380916ms
+    - id: 56
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 520
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetControlById ($id: ID!) {\n\tcontrol(id: $id) {\n\t\tid\n\t\tsourceId\n\t\tname\n\t\tdescription\n\t\tresourceGroupId\n\t\tstate\n\t\tidentifier\n\t\tcatalog\n\t\towner\n\t\tremediation\n\t\texceptionProcess\n\t\tmitreTechnique\n\t\tframeworkIds\n\t}\n\tcontrolRequirements(input: {controlId:$id}) {\n\t\titems {\n\t\t\tid\n\t\t}\n\t\tpageInfo {\n\t\t\thasNextPage\n\t\t\tendCursor\n\t\t}\n\t}\n}\n","variables":{"id":"ccm_c_J1_b801ad39-0e83-4bd6-b351-3def9fc0452f"},"operationName":"GetControlById"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 139
+        uncompressed: false
+        body: |
+            {"errors":[{"message":"Control not found","path":["control"],"extensions":{"code":"NOT_FOUND","serviceName":"apps-service"}}],"data":null}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
+            Content-Length:
+                - "139"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json; charset=utf-8
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Correlation-Id:
+                - c5db2ebd20edfe82bded8bf20686a558
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 831.185ms
+    - id: 57
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 520
+        transfer_encoding: []
+        trailer: {}
+        host: graphql.dev.jupiterone.io
+        remote_addr: ""
+        request_uri: ""
+        body: '{"query":"\nquery GetControlById ($id: ID!) {\n\tcontrol(id: $id) {\n\t\tid\n\t\tsourceId\n\t\tname\n\t\tdescription\n\t\tresourceGroupId\n\t\tstate\n\t\tidentifier\n\t\tcatalog\n\t\towner\n\t\tremediation\n\t\texceptionProcess\n\t\tmitreTechnique\n\t\tframeworkIds\n\t}\n\tcontrolRequirements(input: {controlId:$id}) {\n\t\titems {\n\t\t\tid\n\t\t}\n\t\tpageInfo {\n\t\t\thasNextPage\n\t\t\tendCursor\n\t\t}\n\t}\n}\n","variables":{"id":"ccm_c_J1_39ad91d1-feaa-4aab-b677-275a3bb2d316"},"operationName":"GetControlById"}'
+        form: {}
+        headers:
+            Cache-Control:
+                - no-cache
+            Content-Type:
+                - application/json
+        url: https://graphql.dev.jupiterone.io/
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 139
+        uncompressed: false
+        body: |
+            {"errors":[{"message":"Control not found","path":["control"],"extensions":{"code":"NOT_FOUND","serviceName":"apps-service"}}],"data":null}
+        headers:
+            Access-Control-Allow-Credentials:
+                - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
+            Content-Length:
+                - "139"
+            Content-Security-Policy:
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+            Content-Type:
+                - application/json; charset=utf-8
+            Cross-Origin-Opener-Policy:
+                - same-origin
+            Cross-Origin-Resource-Policy:
+                - same-origin
+            Origin-Agent-Cluster:
+                - ?1
+            Referrer-Policy:
+                - no-referrer
+            Vary:
+                - Origin
+            X-Content-Type-Options:
+                - nosniff
+            X-Correlation-Id:
+                - 6fb586d5aa62555b9a2324a3bfc026e1
+            X-Dns-Prefetch-Control:
+                - "off"
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 670.770209ms
