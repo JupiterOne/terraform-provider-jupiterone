@@ -91,3 +91,21 @@ jobs:
           JUPITERONE_ACCOUNT_ID: ${{ secrets.JUPITERONE_ACCOUNT_ID }}
           JUPITERONE_API_KEY: ${{ secrets.JUPITERONE_API_KEY }}
           JUPITERONE_REGION: ${{ secrets.JUPITERONE_REGION }}
+
+  e2e-compile:
+    name: E2E tests compile
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: "e2e/go.mod"
+          cache-dependency-path: "e2e/go.sum"
+
+      # Compiles and vets the Terratest suite; running it needs dev credentials (make e2e).
+      - name: Vet and compile e2e tests
+        working-directory: e2e
+        run: |
+          go vet ./...
+          go test -count=1 -run '^$' ./...

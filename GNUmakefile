@@ -26,6 +26,9 @@ cassettes: fmtcheck
 	rm -f jupiterone/cassettes/*.yaml
 	TF_ACC=1 go test $(TEST) -v $(TESTARGS) -timeout 120m
 
+e2e:
+	cd e2e && go test -v -count=1 -timeout 30m ./...
+
 fmt:
 	@echo "==> Fixing source code with gofmt..."
 	gofmt -w -s .
@@ -61,4 +64,4 @@ jupiterone/internal/client/generated.go: jupiterone/internal/client/*.graphql ju
 
 generate-client: jupiterone/internal/client/generated.go
 
-.PHONY: build test testacc cassettes fmtcheck lint tools test-compile docs
+.PHONY: build test testacc e2e cassettes fmtcheck lint tools test-compile docs
