@@ -13,7 +13,6 @@ import (
 
 	"github.com/gruntwork-io/terratest/modules/retry"
 	"github.com/gruntwork-io/terratest/modules/terraform"
-	test_structure "github.com/gruntwork-io/terratest/modules/test-structure"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -29,7 +28,7 @@ func TestComplianceAsCode(t *testing.T) {
 
 	runID := strconv.FormatInt(time.Now().Unix(), 10)
 	prefix := "tfe2e-" + runID
-	workDir := test_structure.CopyTerraformFolderToTemp(t, "fixtures", "compliance-as-code")
+	workDir := copyFixture(t, filepath.Join("fixtures", "compliance-as-code"))
 	options := &terraform.Options{
 		TerraformDir: workDir,
 		Vars:         map[string]interface{}{"run_id": runID},
@@ -91,6 +90,24 @@ func TestComplianceAsCode(t *testing.T) {
 	adopted = true
 	assert.Contains(t, applyOutput, "Resources: 3 imported, 0 added, 0 changed, 0 destroyed.")
 	require.Equal(t, 0, terraform.PlanExitCode(t, options), "plan after adopting the import must be empty")
+}
+
+func copyFixture(t *testing.T, fixtureDir string) string {
+	t.Helper()
+
+	workDir := t.TempDir()
+	entries, err := os.ReadDir(fixtureDir)
+	require.NoError(t, err)
+	for _, entry := range entries {
+		if entry.IsDir() {
+			continue
+		}
+		content, err := os.ReadFile(filepath.Join(fixtureDir, entry.Name()))
+		require.NoError(t, err)
+		require.NoError(t, os.WriteFile(filepath.Join(workDir, entry.Name()), content, 0o600))
+	}
+
+	return workDir
 }
 
 func buildProvider(t *testing.T) string {
