@@ -18,6 +18,8 @@ query GetControlById($id: ID!) {
 # @genqlient(for: "CreateControlInput.resourceGroupId", omitempty: true)
 # @genqlient(for: "CreateControlInput.requirementIds", omitempty: true)
 # @genqlient(for: "CreateControlInput.mitreTechnique", omitempty: true)
+# Owner rejects "" as an invalid email, so an unset owner is omitted.
+# @genqlient(for: "CreateControlInput.owner", omitempty: true)
 mutation CreateControl(
   $input: CreateControlInput!
 ) {
@@ -37,6 +39,7 @@ mutation CreateControl(
 }
 
 # @genqlient(for: "UpdateControlInput.resourceGroupId", omitempty: true)
+# @genqlient(for: "UpdateControlInput.owner", omitempty: true)
 # mitreTechnique is a pointer so that an absent value serialises as an explicit
 # null, which the API treats as "unset". Sending "" would fail the server-side
 # MITRE format validation, and omitting the field entirely would preserve the

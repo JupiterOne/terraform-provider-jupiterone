@@ -769,7 +769,7 @@ type CreateControlInput struct {
 	State            InitialControlState `json:"state"`
 	Identifier       string              `json:"identifier"`
 	Catalog          string              `json:"catalog"`
-	Owner            string              `json:"owner"`
+	Owner            string              `json:"owner,omitempty"`
 	Remediation      string              `json:"remediation"`
 	ExceptionProcess string              `json:"exceptionProcess"`
 	MitreTechnique   string              `json:"mitreTechnique,omitempty"`
@@ -1191,9 +1191,9 @@ func (v *CreateFrameworkCreateFrameworkControlFramework) GetOwner() string { ret
 
 type CreateFrameworkInput struct {
 	Title           string `json:"title"`
-	Description     string `json:"description"`
-	ResourceGroupId string `json:"resourceGroupId"`
-	Owner           string `json:"owner"`
+	Description     string `json:"description,omitempty"`
+	ResourceGroupId string `json:"resourceGroupId,omitempty"`
+	Owner           string `json:"owner,omitempty"`
 }
 
 // GetTitle returns CreateFrameworkInput.Title, and is useful for accessing the field via an interface.
@@ -7077,7 +7077,7 @@ type UpdateControlInput struct {
 	RequirementIds   ListUpdateInput `json:"requirementIds"`
 	Identifier       string          `json:"identifier"`
 	Catalog          string          `json:"catalog"`
-	Owner            string          `json:"owner"`
+	Owner            string          `json:"owner,omitempty"`
 	Remediation      string          `json:"remediation"`
 	ExceptionProcess string          `json:"exceptionProcess"`
 	MitreTechnique   *string         `json:"mitreTechnique"`
@@ -7435,7 +7435,7 @@ type UpdateFrameworkInput struct {
 	Name            string `json:"name"`
 	Description     string `json:"description"`
 	ResourceGroupId string `json:"resourceGroupId,omitempty"`
-	Owner           string `json:"owner"`
+	Owner           string `json:"owner,omitempty"`
 }
 
 // GetFrameworkId returns UpdateFrameworkInput.FrameworkId, and is useful for accessing the field via an interface.
@@ -9928,6 +9928,7 @@ mutation CreateComplianceLibraryItem ($input: CreateComplianceLibraryItemInput!)
 	return &data, err
 }
 
+// Owner rejects "" as an invalid email, so an unset owner is omitted.
 func CreateControl(
 	ctx context.Context,
 	client graphql.Client,
@@ -10131,6 +10132,7 @@ mutation CreateDashboardParameter ($input: CreateDashboardParameterInput!) {
 	return &data, err
 }
 
+// Owner rejects "" as an invalid email, so unset optional fields are omitted.
 func CreateFramework(
 	ctx context.Context,
 	client graphql.Client,
