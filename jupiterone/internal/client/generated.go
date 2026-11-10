@@ -716,6 +716,7 @@ func (v *CreateComplianceLibraryItemResponse) GetCreateComplianceLibraryItem() C
 // CreateControlCreateControl includes the requested fields of the GraphQL type Control.
 type CreateControlCreateControl struct {
 	Id               string       `json:"id"`
+	SourceId         string       `json:"sourceId"`
 	Name             string       `json:"name"`
 	Description      string       `json:"description"`
 	ResourceGroupId  string       `json:"resourceGroupId"`
@@ -730,6 +731,9 @@ type CreateControlCreateControl struct {
 
 // GetId returns CreateControlCreateControl.Id, and is useful for accessing the field via an interface.
 func (v *CreateControlCreateControl) GetId() string { return v.Id }
+
+// GetSourceId returns CreateControlCreateControl.SourceId, and is useful for accessing the field via an interface.
+func (v *CreateControlCreateControl) GetSourceId() string { return v.SourceId }
 
 // GetName returns CreateControlCreateControl.Name, and is useful for accessing the field via an interface.
 func (v *CreateControlCreateControl) GetName() string { return v.Name }
@@ -769,7 +773,7 @@ type CreateControlInput struct {
 	State            InitialControlState `json:"state"`
 	Identifier       string              `json:"identifier"`
 	Catalog          string              `json:"catalog"`
-	Owner            string              `json:"owner"`
+	Owner            string              `json:"owner,omitempty"`
 	Remediation      string              `json:"remediation"`
 	ExceptionProcess string              `json:"exceptionProcess"`
 	MitreTechnique   string              `json:"mitreTechnique,omitempty"`
@@ -1191,9 +1195,9 @@ func (v *CreateFrameworkCreateFrameworkControlFramework) GetOwner() string { ret
 
 type CreateFrameworkInput struct {
 	Title           string `json:"title"`
-	Description     string `json:"description"`
-	ResourceGroupId string `json:"resourceGroupId"`
-	Owner           string `json:"owner"`
+	Description     string `json:"description,omitempty"`
+	ResourceGroupId string `json:"resourceGroupId,omitempty"`
+	Owner           string `json:"owner,omitempty"`
 }
 
 // GetTitle returns CreateFrameworkInput.Title, and is useful for accessing the field via an interface.
@@ -3634,6 +3638,7 @@ func (v *GetComplianceLibraryItemByIdResponse) GetComplianceLibraryItem() GetCom
 // GetControlByIdControl includes the requested fields of the GraphQL type Control.
 type GetControlByIdControl struct {
 	Id               string       `json:"id"`
+	SourceId         string       `json:"sourceId"`
 	Name             string       `json:"name"`
 	Description      string       `json:"description"`
 	ResourceGroupId  string       `json:"resourceGroupId"`
@@ -3649,6 +3654,9 @@ type GetControlByIdControl struct {
 
 // GetId returns GetControlByIdControl.Id, and is useful for accessing the field via an interface.
 func (v *GetControlByIdControl) GetId() string { return v.Id }
+
+// GetSourceId returns GetControlByIdControl.SourceId, and is useful for accessing the field via an interface.
+func (v *GetControlByIdControl) GetSourceId() string { return v.SourceId }
 
 // GetName returns GetControlByIdControl.Name, and is useful for accessing the field via an interface.
 func (v *GetControlByIdControl) GetName() string { return v.Name }
@@ -3683,13 +3691,61 @@ func (v *GetControlByIdControl) GetMitreTechnique() string { return v.MitreTechn
 // GetFrameworkIds returns GetControlByIdControl.FrameworkIds, and is useful for accessing the field via an interface.
 func (v *GetControlByIdControl) GetFrameworkIds() []string { return v.FrameworkIds }
 
+// GetControlByIdControlRequirementsControlRequirementPage includes the requested fields of the GraphQL type ControlRequirementPage.
+type GetControlByIdControlRequirementsControlRequirementPage struct {
+	Items    []GetControlByIdControlRequirementsControlRequirementPageItemsControlRequirement `json:"items"`
+	PageInfo GetControlByIdControlRequirementsControlRequirementPagePageInfo                  `json:"pageInfo"`
+}
+
+// GetItems returns GetControlByIdControlRequirementsControlRequirementPage.Items, and is useful for accessing the field via an interface.
+func (v *GetControlByIdControlRequirementsControlRequirementPage) GetItems() []GetControlByIdControlRequirementsControlRequirementPageItemsControlRequirement {
+	return v.Items
+}
+
+// GetPageInfo returns GetControlByIdControlRequirementsControlRequirementPage.PageInfo, and is useful for accessing the field via an interface.
+func (v *GetControlByIdControlRequirementsControlRequirementPage) GetPageInfo() GetControlByIdControlRequirementsControlRequirementPagePageInfo {
+	return v.PageInfo
+}
+
+// GetControlByIdControlRequirementsControlRequirementPageItemsControlRequirement includes the requested fields of the GraphQL type ControlRequirement.
+type GetControlByIdControlRequirementsControlRequirementPageItemsControlRequirement struct {
+	Id string `json:"id"`
+}
+
+// GetId returns GetControlByIdControlRequirementsControlRequirementPageItemsControlRequirement.Id, and is useful for accessing the field via an interface.
+func (v *GetControlByIdControlRequirementsControlRequirementPageItemsControlRequirement) GetId() string {
+	return v.Id
+}
+
+// GetControlByIdControlRequirementsControlRequirementPagePageInfo includes the requested fields of the GraphQL type PageInfo.
+type GetControlByIdControlRequirementsControlRequirementPagePageInfo struct {
+	HasNextPage bool   `json:"hasNextPage"`
+	EndCursor   string `json:"endCursor"`
+}
+
+// GetHasNextPage returns GetControlByIdControlRequirementsControlRequirementPagePageInfo.HasNextPage, and is useful for accessing the field via an interface.
+func (v *GetControlByIdControlRequirementsControlRequirementPagePageInfo) GetHasNextPage() bool {
+	return v.HasNextPage
+}
+
+// GetEndCursor returns GetControlByIdControlRequirementsControlRequirementPagePageInfo.EndCursor, and is useful for accessing the field via an interface.
+func (v *GetControlByIdControlRequirementsControlRequirementPagePageInfo) GetEndCursor() string {
+	return v.EndCursor
+}
+
 // GetControlByIdResponse is returned by GetControlById on success.
 type GetControlByIdResponse struct {
-	Control GetControlByIdControl `json:"control"`
+	Control             GetControlByIdControl                                   `json:"control"`
+	ControlRequirements GetControlByIdControlRequirementsControlRequirementPage `json:"controlRequirements"`
 }
 
 // GetControl returns GetControlByIdResponse.Control, and is useful for accessing the field via an interface.
 func (v *GetControlByIdResponse) GetControl() GetControlByIdControl { return v.Control }
+
+// GetControlRequirements returns GetControlByIdResponse.ControlRequirements, and is useful for accessing the field via an interface.
+func (v *GetControlByIdResponse) GetControlRequirements() GetControlByIdControlRequirementsControlRequirementPage {
+	return v.ControlRequirements
+}
 
 // GetControlDetailControl includes the requested fields of the GraphQL type Control.
 type GetControlDetailControl struct {
@@ -3891,6 +3947,58 @@ type GetControlFrameworkStatsResponse struct {
 // GetControlFrameworkStats returns GetControlFrameworkStatsResponse.ControlFrameworkStats, and is useful for accessing the field via an interface.
 func (v *GetControlFrameworkStatsResponse) GetControlFrameworkStats() []GetControlFrameworkStatsControlFrameworkStats {
 	return v.ControlFrameworkStats
+}
+
+// GetControlRequirementsPageControlRequirementsControlRequirementPage includes the requested fields of the GraphQL type ControlRequirementPage.
+type GetControlRequirementsPageControlRequirementsControlRequirementPage struct {
+	Items    []GetControlRequirementsPageControlRequirementsControlRequirementPageItemsControlRequirement `json:"items"`
+	PageInfo GetControlRequirementsPageControlRequirementsControlRequirementPagePageInfo                  `json:"pageInfo"`
+}
+
+// GetItems returns GetControlRequirementsPageControlRequirementsControlRequirementPage.Items, and is useful for accessing the field via an interface.
+func (v *GetControlRequirementsPageControlRequirementsControlRequirementPage) GetItems() []GetControlRequirementsPageControlRequirementsControlRequirementPageItemsControlRequirement {
+	return v.Items
+}
+
+// GetPageInfo returns GetControlRequirementsPageControlRequirementsControlRequirementPage.PageInfo, and is useful for accessing the field via an interface.
+func (v *GetControlRequirementsPageControlRequirementsControlRequirementPage) GetPageInfo() GetControlRequirementsPageControlRequirementsControlRequirementPagePageInfo {
+	return v.PageInfo
+}
+
+// GetControlRequirementsPageControlRequirementsControlRequirementPageItemsControlRequirement includes the requested fields of the GraphQL type ControlRequirement.
+type GetControlRequirementsPageControlRequirementsControlRequirementPageItemsControlRequirement struct {
+	Id string `json:"id"`
+}
+
+// GetId returns GetControlRequirementsPageControlRequirementsControlRequirementPageItemsControlRequirement.Id, and is useful for accessing the field via an interface.
+func (v *GetControlRequirementsPageControlRequirementsControlRequirementPageItemsControlRequirement) GetId() string {
+	return v.Id
+}
+
+// GetControlRequirementsPageControlRequirementsControlRequirementPagePageInfo includes the requested fields of the GraphQL type PageInfo.
+type GetControlRequirementsPageControlRequirementsControlRequirementPagePageInfo struct {
+	HasNextPage bool   `json:"hasNextPage"`
+	EndCursor   string `json:"endCursor"`
+}
+
+// GetHasNextPage returns GetControlRequirementsPageControlRequirementsControlRequirementPagePageInfo.HasNextPage, and is useful for accessing the field via an interface.
+func (v *GetControlRequirementsPageControlRequirementsControlRequirementPagePageInfo) GetHasNextPage() bool {
+	return v.HasNextPage
+}
+
+// GetEndCursor returns GetControlRequirementsPageControlRequirementsControlRequirementPagePageInfo.EndCursor, and is useful for accessing the field via an interface.
+func (v *GetControlRequirementsPageControlRequirementsControlRequirementPagePageInfo) GetEndCursor() string {
+	return v.EndCursor
+}
+
+// GetControlRequirementsPageResponse is returned by GetControlRequirementsPage on success.
+type GetControlRequirementsPageResponse struct {
+	ControlRequirements GetControlRequirementsPageControlRequirementsControlRequirementPage `json:"controlRequirements"`
+}
+
+// GetControlRequirements returns GetControlRequirementsPageResponse.ControlRequirements, and is useful for accessing the field via an interface.
+func (v *GetControlRequirementsPageResponse) GetControlRequirements() GetControlRequirementsPageControlRequirementsControlRequirementPage {
+	return v.ControlRequirements
 }
 
 // GetControlTestByIdControlTest includes the requested fields of the GraphQL type ControlTest.
@@ -7070,17 +7178,17 @@ const (
 )
 
 type UpdateControlInput struct {
-	Id               string          `json:"id"`
-	Name             string          `json:"name"`
-	Description      string          `json:"description"`
-	ResourceGroupId  string          `json:"resourceGroupId,omitempty"`
-	RequirementIds   ListUpdateInput `json:"requirementIds"`
-	Identifier       string          `json:"identifier"`
-	Catalog          string          `json:"catalog"`
-	Owner            string          `json:"owner"`
-	Remediation      string          `json:"remediation"`
-	ExceptionProcess string          `json:"exceptionProcess"`
-	MitreTechnique   *string         `json:"mitreTechnique"`
+	Id               string           `json:"id"`
+	Name             string           `json:"name"`
+	Description      string           `json:"description"`
+	ResourceGroupId  string           `json:"resourceGroupId,omitempty"`
+	RequirementIds   *ListUpdateInput `json:"requirementIds,omitempty"`
+	Identifier       string           `json:"identifier"`
+	Catalog          string           `json:"catalog"`
+	Owner            string           `json:"owner,omitempty"`
+	Remediation      string           `json:"remediation"`
+	ExceptionProcess string           `json:"exceptionProcess"`
+	MitreTechnique   *string          `json:"mitreTechnique"`
 }
 
 // GetId returns UpdateControlInput.Id, and is useful for accessing the field via an interface.
@@ -7096,7 +7204,7 @@ func (v *UpdateControlInput) GetDescription() string { return v.Description }
 func (v *UpdateControlInput) GetResourceGroupId() string { return v.ResourceGroupId }
 
 // GetRequirementIds returns UpdateControlInput.RequirementIds, and is useful for accessing the field via an interface.
-func (v *UpdateControlInput) GetRequirementIds() ListUpdateInput { return v.RequirementIds }
+func (v *UpdateControlInput) GetRequirementIds() *ListUpdateInput { return v.RequirementIds }
 
 // GetIdentifier returns UpdateControlInput.Identifier, and is useful for accessing the field via an interface.
 func (v *UpdateControlInput) GetIdentifier() string { return v.Identifier }
@@ -7435,7 +7543,7 @@ type UpdateFrameworkInput struct {
 	Name            string `json:"name"`
 	Description     string `json:"description"`
 	ResourceGroupId string `json:"resourceGroupId,omitempty"`
-	Owner           string `json:"owner"`
+	Owner           string `json:"owner,omitempty"`
 }
 
 // GetFrameworkId returns UpdateFrameworkInput.FrameworkId, and is useful for accessing the field via an interface.
@@ -9183,6 +9291,18 @@ type __GetControlFrameworkStatsInput struct {
 // GetInput returns __GetControlFrameworkStatsInput.Input, and is useful for accessing the field via an interface.
 func (v *__GetControlFrameworkStatsInput) GetInput() ControlFrameworkStatsInput { return v.Input }
 
+// __GetControlRequirementsPageInput is used internally by genqlient
+type __GetControlRequirementsPageInput struct {
+	ControlId string `json:"controlId"`
+	Cursor    string `json:"cursor"`
+}
+
+// GetControlId returns __GetControlRequirementsPageInput.ControlId, and is useful for accessing the field via an interface.
+func (v *__GetControlRequirementsPageInput) GetControlId() string { return v.ControlId }
+
+// GetCursor returns __GetControlRequirementsPageInput.Cursor, and is useful for accessing the field via an interface.
+func (v *__GetControlRequirementsPageInput) GetCursor() string { return v.Cursor }
+
 // __GetControlTestByIdInput is used internally by genqlient
 type __GetControlTestByIdInput struct {
 	Id string `json:"id"`
@@ -9928,6 +10048,7 @@ mutation CreateComplianceLibraryItem ($input: CreateComplianceLibraryItemInput!)
 	return &data, err
 }
 
+// Owner rejects "" as an invalid email, so an unset owner is omitted.
 func CreateControl(
 	ctx context.Context,
 	client graphql.Client,
@@ -9939,6 +10060,7 @@ func CreateControl(
 mutation CreateControl ($input: CreateControlInput!) {
 	createControl(input: $input) {
 		id
+		sourceId
 		name
 		description
 		resourceGroupId
@@ -10131,6 +10253,7 @@ mutation CreateDashboardParameter ($input: CreateDashboardParameterInput!) {
 	return &data, err
 }
 
+// Owner rejects "" as an invalid email, so unset optional fields are omitted.
 func CreateFramework(
 	ctx context.Context,
 	client graphql.Client,
@@ -11721,6 +11844,7 @@ func GetControlById(
 query GetControlById ($id: ID!) {
 	control(id: $id) {
 		id
+		sourceId
 		name
 		description
 		resourceGroupId
@@ -11732,6 +11856,15 @@ query GetControlById ($id: ID!) {
 		exceptionProcess
 		mitreTechnique
 		frameworkIds
+	}
+	controlRequirements(input: {controlId:$id}) {
+		items {
+			id
+		}
+		pageInfo {
+			hasNextPage
+			endCursor
+		}
 	}
 }
 `,
@@ -11843,6 +11976,46 @@ query GetControlFrameworkStats ($input: ControlFrameworkStatsInput) {
 	var err error
 
 	var data GetControlFrameworkStatsResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func GetControlRequirementsPage(
+	ctx context.Context,
+	client graphql.Client,
+	controlId string,
+	cursor string,
+) (*GetControlRequirementsPageResponse, error) {
+	req := &graphql.Request{
+		OpName: "GetControlRequirementsPage",
+		Query: `
+query GetControlRequirementsPage ($controlId: ID!, $cursor: String) {
+	controlRequirements(input: {controlId:$controlId,cursor:$cursor}) {
+		items {
+			id
+		}
+		pageInfo {
+			hasNextPage
+			endCursor
+		}
+	}
+}
+`,
+		Variables: &__GetControlRequirementsPageInput{
+			ControlId: controlId,
+			Cursor:    cursor,
+		},
+	}
+	var err error
+
+	var data GetControlRequirementsPageResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(
@@ -13505,6 +13678,7 @@ mutation UpdateComplianceLibraryItem ($input: UpdateComplianceLibraryItemInput!)
 // null, which the API treats as "unset". Sending "" would fail the server-side
 // MITRE format validation, and omitting the field entirely would preserve the
 // previous value rather than clearing it.
+// Omitted when unmanaged so links made by a framework import or the UI survive.
 func UpdateControl(
 	ctx context.Context,
 	client graphql.Client,

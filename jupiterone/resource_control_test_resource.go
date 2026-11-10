@@ -90,7 +90,7 @@ func (*ControlTestResource) Schema(_ context.Context, _ resource.SchemaRequest, 
 			},
 			"control_id": schema.StringAttribute{
 				Required:    true,
-				Description: "The ID of the control this test belongs to",
+				Description: "The ID of the control this test belongs to. A control test belongs to exactly one control; to reuse a query under several controls, create one control test per control.",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.RequiresReplace(),
 				},

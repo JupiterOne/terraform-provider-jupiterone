@@ -9,7 +9,13 @@ query GetFrameworkById($id: ID!) {
   }
 }
 
-mutation CreateFramework($input: CreateFrameworkInput!) {
+# Owner rejects "" as an invalid email, so unset optional fields are omitted.
+# @genqlient(for: "CreateFrameworkInput.description", omitempty: true)
+# @genqlient(for: "CreateFrameworkInput.resourceGroupId", omitempty: true)
+# @genqlient(for: "CreateFrameworkInput.owner", omitempty: true)
+mutation CreateFramework(
+  $input: CreateFrameworkInput!
+) {
   createFramework(input: $input) {
     id
     name
@@ -20,6 +26,7 @@ mutation CreateFramework($input: CreateFrameworkInput!) {
 }
 
 # @genqlient(for: "UpdateFrameworkInput.resourceGroupId", omitempty: true)
+# @genqlient(for: "UpdateFrameworkInput.owner", omitempty: true)
 mutation UpdateFramework(
   $input: UpdateFrameworkInput!
 ) {

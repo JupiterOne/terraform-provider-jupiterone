@@ -1,6 +1,7 @@
 query GetControlById($id: ID!) {
   control(id: $id) {
     id
+    sourceId
     name
     description
     resourceGroupId
@@ -13,16 +14,40 @@ query GetControlById($id: ID!) {
     mitreTechnique
     frameworkIds
   }
+  controlRequirements(input: { controlId: $id }) {
+    items {
+      id
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}
+
+query GetControlRequirementsPage($controlId: ID!, $cursor: String) {
+  controlRequirements(input: { controlId: $controlId, cursor: $cursor }) {
+    items {
+      id
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
 }
 
 # @genqlient(for: "CreateControlInput.resourceGroupId", omitempty: true)
 # @genqlient(for: "CreateControlInput.requirementIds", omitempty: true)
 # @genqlient(for: "CreateControlInput.mitreTechnique", omitempty: true)
+# Owner rejects "" as an invalid email, so an unset owner is omitted.
+# @genqlient(for: "CreateControlInput.owner", omitempty: true)
 mutation CreateControl(
   $input: CreateControlInput!
 ) {
   createControl(input: $input) {
     id
+    sourceId
     name
     description
     resourceGroupId
@@ -37,11 +62,14 @@ mutation CreateControl(
 }
 
 # @genqlient(for: "UpdateControlInput.resourceGroupId", omitempty: true)
+# @genqlient(for: "UpdateControlInput.owner", omitempty: true)
 # mitreTechnique is a pointer so that an absent value serialises as an explicit
 # null, which the API treats as "unset". Sending "" would fail the server-side
 # MITRE format validation, and omitting the field entirely would preserve the
 # previous value rather than clearing it.
 # @genqlient(for: "UpdateControlInput.mitreTechnique", pointer: true)
+# Omitted when unmanaged so links made by a framework import or the UI survive.
+# @genqlient(for: "UpdateControlInput.requirementIds", pointer: true, omitempty: true)
 mutation UpdateControl(
   $input: UpdateControlInput!
 ) {

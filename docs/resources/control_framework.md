@@ -37,4 +37,11 @@ resource "jupiterone_control_framework" "example" {
 
 - `id` (String) The ID of this resource.
 
+## Import
 
+Import is supported using the following syntax:
+
+```shell
+# Import by ID, e.g. to adopt objects created by a framework JSON import.
+terraform import jupiterone_control_framework.example <id>
+```

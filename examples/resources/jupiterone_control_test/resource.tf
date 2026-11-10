@@ -26,3 +26,26 @@ resource "jupiterone_control_test" "example_orphaned_roles" {
   results_are = "BAD"
 }
 
+
+# A control test belongs to exactly one control. To evaluate the same query
+# under several controls, create one control test per control.
+resource "jupiterone_control" "identity" {
+  name  = "Strong Authentication"
+  state = "LIVE"
+}
+
+locals {
+  mfa_controls = {
+    rbac     = jupiterone_control.example.id
+    identity = jupiterone_control.identity.id
+  }
+}
+
+resource "jupiterone_control_test" "mfa" {
+  for_each = local.mfa_controls
+
+  name        = "MFA enforced (${each.key})"
+  control_id  = each.value
+  query       = "FIND User WITH mfaEnabled != true"
+  results_are = "BAD"
+}

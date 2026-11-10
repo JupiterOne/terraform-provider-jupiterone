@@ -6,13 +6,13 @@ interactions:
         proto: HTTP/1.1
         proto_major: 1
         proto_minor: 1
-        content_length: 411
+        content_length: 390
         transfer_encoding: []
         trailer: {}
         host: graphql.dev.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nmutation CreateFramework ($input: CreateFrameworkInput!) {\n\tcreateFramework(input: $input) {\n\t\tid\n\t\tname\n\t\tdescription\n\t\tresourceGroupId\n\t\towner\n\t}\n}\n","variables":{"input":{"title":"tf-provider-acc-test-framework-datasource","description":"acceptance test framework for data sources","resourceGroupId":"","owner":"test-owner@jupiterone.com"}},"operationName":"CreateFramework"}'
+        body: '{"query":"\nmutation CreateFramework ($input: CreateFrameworkInput!) {\n\tcreateFramework(input: $input) {\n\t\tid\n\t\tname\n\t\tdescription\n\t\tresourceGroupId\n\t\towner\n\t}\n}\n","variables":{"input":{"title":"tf-provider-acc-test-framework-datasource","description":"acceptance test framework for data sources","owner":"test-owner@jupiterone.com"}},"operationName":"CreateFramework"}'
         form: {}
         headers:
             Cache-Control:
@@ -27,21 +27,21 @@ interactions:
         proto_minor: 0
         transfer_encoding: []
         trailer: {}
-        content_length: 251
+        content_length: 253
         uncompressed: false
         body: |
-            {"data":{"createFramework":{"id":"ccm_f_J1_ccb92ecb-d885-4383-9833-4436830abff9","name":"tf-provider-acc-test-framework-datasource","description":"acceptance test framework for data sources","resourceGroupId":"","owner":"test-owner@jupiterone.com"}}}
+            {"data":{"createFramework":{"id":"ccm_f_J1_20a18c58-f1ce-4868-81a8-750531068d07","name":"tf-provider-acc-test-framework-datasource","description":"acceptance test framework for data sources","resourceGroupId":null,"owner":"test-owner@jupiterone.com"}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
             Content-Length:
-                - "251"
+                - "253"
             Content-Security-Policy:
-                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
             Content-Type:
-                - application/json
-            Cross-Origin-Embedder-Policy:
-                - require-corp
+                - application/json; charset=utf-8
             Cross-Origin-Opener-Policy:
                 - same-origin
             Cross-Origin-Resource-Policy:
@@ -54,6 +54,8 @@ interactions:
                 - Origin
             X-Content-Type-Options:
                 - nosniff
+            X-Correlation-Id:
+                - 55a35c0b4daac6b91e15e851d844a95a
             X-Dns-Prefetch-Control:
                 - "off"
             X-Download-Options:
@@ -66,7 +68,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 1.4721495s
+        duration: 742.286666ms
     - id: 1
       request:
         proto: HTTP/1.1
@@ -78,7 +80,7 @@ interactions:
         host: graphql.dev.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nmutation CreateRequirement ($input: CreateRequirementInput!) {\n\tcreateRequirement(input: $input) {\n\t\tid\n\t\ttitle\n\t\tdescription\n\t\tidentifier\n\t\tpriority\n\t\tsection\n\t}\n}\n","variables":{"input":{"title":"tf-provider-acc-test-requirement-datasource","frameworkId":"ccm_f_J1_ccb92ecb-d885-4383-9833-4436830abff9","description":"acceptance test requirement for data sources","priority":"HIGH","section":"1"}},"operationName":"CreateRequirement"}'
+        body: '{"query":"\nmutation CreateRequirement ($input: CreateRequirementInput!) {\n\tcreateRequirement(input: $input) {\n\t\tid\n\t\ttitle\n\t\tdescription\n\t\tidentifier\n\t\tpriority\n\t\tsection\n\t}\n}\n","variables":{"input":{"title":"tf-provider-acc-test-requirement-datasource","frameworkId":"ccm_f_J1_20a18c58-f1ce-4868-81a8-750531068d07","description":"acceptance test requirement for data sources","priority":"HIGH","section":"1"}},"operationName":"CreateRequirement"}'
         form: {}
         headers:
             Cache-Control:
@@ -96,18 +98,18 @@ interactions:
         content_length: 248
         uncompressed: false
         body: |
-            {"data":{"createRequirement":{"id":"ccm_r_c26b8c8b-9e6e-4451-87d0-5508a9b34569","title":"tf-provider-acc-test-requirement-datasource","description":"acceptance test requirement for data sources","identifier":null,"priority":"HIGH","section":"1"}}}
+            {"data":{"createRequirement":{"id":"ccm_r_54daddc1-d6ad-412f-8b2d-d87edd05a7c4","title":"tf-provider-acc-test-requirement-datasource","description":"acceptance test requirement for data sources","identifier":null,"priority":"HIGH","section":"1"}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
             Content-Length:
                 - "248"
             Content-Security-Policy:
-                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
             Content-Type:
-                - application/json
-            Cross-Origin-Embedder-Policy:
-                - require-corp
+                - application/json; charset=utf-8
             Cross-Origin-Opener-Policy:
                 - same-origin
             Cross-Origin-Resource-Policy:
@@ -120,6 +122,8 @@ interactions:
                 - Origin
             X-Content-Type-Options:
                 - nosniff
+            X-Correlation-Id:
+                - f8bcf964fbc624fea2ed6838431a3bfd
             X-Dns-Prefetch-Control:
                 - "off"
             X-Download-Options:
@@ -132,19 +136,19 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 1.487833833s
+        duration: 854.826417ms
     - id: 2
       request:
         proto: HTTP/1.1
         proto_major: 1
         proto_minor: 1
-        content_length: 648
+        content_length: 662
         transfer_encoding: []
         trailer: {}
         host: graphql.dev.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nmutation CreateControl ($input: CreateControlInput!) {\n\tcreateControl(input: $input) {\n\t\tid\n\t\tname\n\t\tdescription\n\t\tresourceGroupId\n\t\tstate\n\t\tidentifier\n\t\tcatalog\n\t\towner\n\t\tremediation\n\t\texceptionProcess\n\t\tmitreTechnique\n\t}\n}\n","variables":{"input":{"name":"tf-provider-acc-test-control-datasource","description":"acceptance test control for data sources","requirementIds":["ccm_r_c26b8c8b-9e6e-4451-87d0-5508a9b34569"],"state":"LIVE","identifier":"","catalog":"","owner":"test-owner@jupiterone.com","remediation":"","exceptionProcess":"","mitreTechnique":"T1078"}},"operationName":"CreateControl"}'
+        body: '{"query":"\nmutation CreateControl ($input: CreateControlInput!) {\n\tcreateControl(input: $input) {\n\t\tid\n\t\tsourceId\n\t\tname\n\t\tdescription\n\t\tresourceGroupId\n\t\tstate\n\t\tidentifier\n\t\tcatalog\n\t\towner\n\t\tremediation\n\t\texceptionProcess\n\t\tmitreTechnique\n\t}\n}\n","variables":{"input":{"name":"tf-provider-acc-test-control-datasource","description":"acceptance test control for data sources","requirementIds":["ccm_r_54daddc1-d6ad-412f-8b2d-d87edd05a7c4"],"state":"LIVE","identifier":"","catalog":"","owner":"test-owner@jupiterone.com","remediation":"","exceptionProcess":"","mitreTechnique":"T1078"}},"operationName":"CreateControl"}'
         form: {}
         headers:
             Cache-Control:
@@ -159,21 +163,21 @@ interactions:
         proto_minor: 0
         transfer_encoding: []
         trailer: {}
-        content_length: 355
+        content_length: 405
         uncompressed: false
         body: |
-            {"data":{"createControl":{"id":"ccm_c_J1_01c140dc-73db-4ca2-aa3d-098221968533","name":"tf-provider-acc-test-control-datasource","description":"acceptance test control for data sources","resourceGroupId":null,"state":"LIVE","identifier":"","catalog":"","owner":"test-owner@jupiterone.com","remediation":"","exceptionProcess":"","mitreTechnique":"T1078"}}}
+            {"data":{"createControl":{"id":"ccm_c_J1_5250509a-3ced-4009-bb12-758c1dc6111f","sourceId":"5250509a-3ced-4009-bb12-758c1dc6111f","name":"tf-provider-acc-test-control-datasource","description":"acceptance test control for data sources","resourceGroupId":null,"state":"LIVE","identifier":"","catalog":"","owner":"test-owner@jupiterone.com","remediation":"","exceptionProcess":"","mitreTechnique":"T1078"}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
             Content-Length:
-                - "355"
+                - "405"
             Content-Security-Policy:
-                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
             Content-Type:
-                - application/json
-            Cross-Origin-Embedder-Policy:
-                - require-corp
+                - application/json; charset=utf-8
             Cross-Origin-Opener-Policy:
                 - same-origin
             Cross-Origin-Resource-Policy:
@@ -186,6 +190,8 @@ interactions:
                 - Origin
             X-Content-Type-Options:
                 - nosniff
+            X-Correlation-Id:
+                - 797a91cfacdcaabc0e8d67fff67fe407
             X-Dns-Prefetch-Control:
                 - "off"
             X-Download-Options:
@@ -198,7 +204,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 5.831183625s
+        duration: 4.705943292s
     - id: 3
       request:
         proto: HTTP/1.1
@@ -210,7 +216,7 @@ interactions:
         host: graphql.dev.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nmutation CreateControlTest ($input: CreateControlTestInput!) {\n\tcreateControlTest(input: $input) {\n\t\tid\n\t\tname\n\t\tdescription\n\t\tcontrolId\n\t\tqueries {\n\t\t\tname\n\t\t\tquery\n\t\t\tresultsAre\n\t\t}\n\t}\n}\n","variables":{"input":{"name":"tf-provider-acc-test-control-test-datasource","controlId":"ccm_c_J1_01c140dc-73db-4ca2-aa3d-098221968533","queries":[{"name":"users without mfa","query":"FIND User WITH mfaEnabled = false","resultsAre":"BAD","description":""}]}},"operationName":"CreateControlTest"}'
+        body: '{"query":"\nmutation CreateControlTest ($input: CreateControlTestInput!) {\n\tcreateControlTest(input: $input) {\n\t\tid\n\t\tname\n\t\tdescription\n\t\tcontrolId\n\t\tqueries {\n\t\t\tname\n\t\t\tquery\n\t\t\tresultsAre\n\t\t}\n\t}\n}\n","variables":{"input":{"name":"tf-provider-acc-test-control-test-datasource","controlId":"ccm_c_J1_5250509a-3ced-4009-bb12-758c1dc6111f","queries":[{"name":"users without mfa","query":"FIND User WITH mfaEnabled = false","resultsAre":"BAD","description":""}]}},"operationName":"CreateControlTest"}'
         form: {}
         headers:
             Cache-Control:
@@ -228,18 +234,18 @@ interactions:
         content_length: 314
         uncompressed: false
         body: |
-            {"data":{"createControlTest":{"id":"18adb15b-9e8e-4dcb-8933-036f788e157a","name":"tf-provider-acc-test-control-test-datasource","description":null,"controlId":"ccm_c_J1_01c140dc-73db-4ca2-aa3d-098221968533","queries":[{"name":"users without mfa","query":"FIND User WITH mfaEnabled = false","resultsAre":"BAD"}]}}}
+            {"data":{"createControlTest":{"id":"96f812f9-3db9-4555-8cf3-6dcfa319a9b2","name":"tf-provider-acc-test-control-test-datasource","description":null,"controlId":"ccm_c_J1_5250509a-3ced-4009-bb12-758c1dc6111f","queries":[{"name":"users without mfa","query":"FIND User WITH mfaEnabled = false","resultsAre":"BAD"}]}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
             Content-Length:
                 - "314"
             Content-Security-Policy:
-                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
             Content-Type:
-                - application/json
-            Cross-Origin-Embedder-Policy:
-                - require-corp
+                - application/json; charset=utf-8
             Cross-Origin-Opener-Policy:
                 - same-origin
             Cross-Origin-Resource-Policy:
@@ -252,6 +258,8 @@ interactions:
                 - Origin
             X-Content-Type-Options:
                 - nosniff
+            X-Correlation-Id:
+                - a51835df85a5ed52b1617944af646ea5
             X-Dns-Prefetch-Control:
                 - "off"
             X-Download-Options:
@@ -264,7 +272,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 3.37417425s
+        duration: 2.120501417s
     - id: 4
       request:
         proto: HTTP/1.1
@@ -276,7 +284,7 @@ interactions:
         host: graphql.dev.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nmutation CreateAttestation ($input: CreateAttestationInput!) {\n\tcreateAttestation(input: $input) {\n\t\tid\n\t\tsubject\n\t\tdescription\n\t\texpiresOn\n\t\towner\n\t\tauthor\n\t\tdocumentLink\n\t\trevoked\n\t\tcreatedOn\n\t\tcontrolId\n\t\tstate\n\t}\n}\n","variables":{"input":{"controlId":"ccm_c_J1_01c140dc-73db-4ca2-aa3d-098221968533","subject":"data source acceptance attestation","expiresOn":1896048000000,"owner":"test-owner@jupiterone.com"}},"operationName":"CreateAttestation"}'
+        body: '{"query":"\nmutation CreateAttestation ($input: CreateAttestationInput!) {\n\tcreateAttestation(input: $input) {\n\t\tid\n\t\tsubject\n\t\tdescription\n\t\texpiresOn\n\t\towner\n\t\tauthor\n\t\tdocumentLink\n\t\trevoked\n\t\tcreatedOn\n\t\tcontrolId\n\t\tstate\n\t}\n}\n","variables":{"input":{"controlId":"ccm_c_J1_5250509a-3ced-4009-bb12-758c1dc6111f","subject":"data source acceptance attestation","expiresOn":1896048000000,"owner":"test-owner@jupiterone.com"}},"operationName":"CreateAttestation"}'
         form: {}
         headers:
             Cache-Control:
@@ -291,21 +299,21 @@ interactions:
         proto_minor: 0
         transfer_encoding: []
         trailer: {}
-        content_length: 379
+        content_length: 373
         uncompressed: false
         body: |
-            {"data":{"createAttestation":{"id":"e3881b3a-72aa-4870-9ee5-20e9df78a7af","subject":"data source acceptance attestation","description":null,"expiresOn":1896048000000,"owner":"test-owner@jupiterone.com","author":"james.mountifield@jupiterone.com","documentLink":null,"revoked":false,"createdOn":null,"controlId":"ccm_c_J1_01c140dc-73db-4ca2-aa3d-098221968533","state":"ACTIVE"}}}
+            {"data":{"createAttestation":{"id":"9e2ff7de-0853-4aac-825b-be30eb0e9f93","subject":"data source acceptance attestation","description":null,"expiresOn":1896048000000,"owner":"test-owner@jupiterone.com","author":"ryan.mcafee@jupiterone.com","documentLink":null,"revoked":false,"createdOn":null,"controlId":"ccm_c_J1_5250509a-3ced-4009-bb12-758c1dc6111f","state":"ACTIVE"}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
             Content-Length:
-                - "379"
+                - "373"
             Content-Security-Policy:
-                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
             Content-Type:
-                - application/json
-            Cross-Origin-Embedder-Policy:
-                - require-corp
+                - application/json; charset=utf-8
             Cross-Origin-Opener-Policy:
                 - same-origin
             Cross-Origin-Resource-Policy:
@@ -318,6 +326,8 @@ interactions:
                 - Origin
             X-Content-Type-Options:
                 - nosniff
+            X-Correlation-Id:
+                - 6624f125415b9cf93936e41984f36a91
             X-Dns-Prefetch-Control:
                 - "off"
             X-Download-Options:
@@ -330,7 +340,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 4.137760083s
+        duration: 2.8488005s
     - id: 5
       request:
         proto: HTTP/1.1
@@ -342,7 +352,7 @@ interactions:
         host: graphql.dev.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetControlDetail ($id: ID, $sourceId: String) {\n\tcontrol(id: $id, sourceId: $sourceId) {\n\t\tid\n\t\tname\n\t\tdescription\n\t\tsource\n\t\tsourceId\n\t\tresourceGroupId\n\t\tstatus\n\t\tlastEvaluatedOn\n\t\tconfigured\n\t\tframeworkIds\n\t\tstate\n\t\tidentifier\n\t\tcatalog\n\t\towner\n\t\tremediation\n\t\texceptionProcess\n\t\tmitreTechnique\n\t\tcreatedOn\n\t\tnumberOfTests\n\t\teffectiveStatus\n\t\thasValidAttestation\n\t}\n}\n","variables":{"id":"ccm_c_J1_01c140dc-73db-4ca2-aa3d-098221968533","sourceId":""},"operationName":"GetControlDetail"}'
+        body: '{"query":"\nquery GetControlDetail ($id: ID, $sourceId: String) {\n\tcontrol(id: $id, sourceId: $sourceId) {\n\t\tid\n\t\tname\n\t\tdescription\n\t\tsource\n\t\tsourceId\n\t\tresourceGroupId\n\t\tstatus\n\t\tlastEvaluatedOn\n\t\tconfigured\n\t\tframeworkIds\n\t\tstate\n\t\tidentifier\n\t\tcatalog\n\t\towner\n\t\tremediation\n\t\texceptionProcess\n\t\tmitreTechnique\n\t\tcreatedOn\n\t\tnumberOfTests\n\t\teffectiveStatus\n\t\thasValidAttestation\n\t}\n}\n","variables":{"id":"ccm_c_J1_5250509a-3ced-4009-bb12-758c1dc6111f","sourceId":""},"operationName":"GetControlDetail"}'
         form: {}
         headers:
             Cache-Control:
@@ -360,18 +370,18 @@ interactions:
         content_length: 671
         uncompressed: false
         body: |
-            {"data":{"control":{"id":"ccm_c_J1_01c140dc-73db-4ca2-aa3d-098221968533","name":"tf-provider-acc-test-control-datasource","description":"acceptance test control for data sources","source":"J1","sourceId":"01c140dc-73db-4ca2-aa3d-098221968533","resourceGroupId":null,"status":"PASS","lastEvaluatedOn":"2026-08-19T13:13:01.889Z","configured":true,"frameworkIds":["ccm_f_J1_ccb92ecb-d885-4383-9833-4436830abff9"],"state":"LIVE","identifier":"","catalog":"","owner":"test-owner@jupiterone.com","remediation":"","exceptionProcess":"","mitreTechnique":"T1078","createdOn":"2026-08-19T13:12:44.491Z","numberOfTests":1,"effectiveStatus":"EFFECTIVE","hasValidAttestation":true}}}
+            {"data":{"control":{"id":"ccm_c_J1_5250509a-3ced-4009-bb12-758c1dc6111f","name":"tf-provider-acc-test-control-datasource","description":"acceptance test control for data sources","source":"J1","sourceId":"5250509a-3ced-4009-bb12-758c1dc6111f","resourceGroupId":null,"status":"PASS","lastEvaluatedOn":"2026-11-06T20:39:49.385Z","configured":true,"frameworkIds":["ccm_f_J1_20a18c58-f1ce-4868-81a8-750531068d07"],"state":"LIVE","identifier":"","catalog":"","owner":"test-owner@jupiterone.com","remediation":"","exceptionProcess":"","mitreTechnique":"T1078","createdOn":"2026-11-06T20:39:34.332Z","numberOfTests":1,"effectiveStatus":"EFFECTIVE","hasValidAttestation":true}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
             Content-Length:
                 - "671"
             Content-Security-Policy:
-                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
             Content-Type:
-                - application/json
-            Cross-Origin-Embedder-Policy:
-                - require-corp
+                - application/json; charset=utf-8
             Cross-Origin-Opener-Policy:
                 - same-origin
             Cross-Origin-Resource-Policy:
@@ -384,6 +394,8 @@ interactions:
                 - Origin
             X-Content-Type-Options:
                 - nosniff
+            X-Correlation-Id:
+                - 54a7ffb64b979eb0526e6359fca64b42
             X-Dns-Prefetch-Control:
                 - "off"
             X-Download-Options:
@@ -396,7 +408,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 1.365291542s
+        duration: 1.066456917s
     - id: 6
       request:
         proto: HTTP/1.1
@@ -408,7 +420,7 @@ interactions:
         host: graphql.dev.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery ListControls ($input: ControlsQueryInput) {\n\tcontrols(input: $input) {\n\t\titems {\n\t\t\tid\n\t\t\tname\n\t\t\tdescription\n\t\t\tsource\n\t\t\tsourceId\n\t\t\tresourceGroupId\n\t\t\tstatus\n\t\t\tlastEvaluatedOn\n\t\t\tconfigured\n\t\t\tframeworkIds\n\t\t\tstate\n\t\t\tidentifier\n\t\t\tcatalog\n\t\t\towner\n\t\t\tremediation\n\t\t\texceptionProcess\n\t\t\tmitreTechnique\n\t\t\tcreatedOn\n\t\t\tnumberOfTests\n\t\t\teffectiveStatus\n\t\t\thasValidAttestation\n\t\t}\n\t\tpageInfo {\n\t\t\thasNextPage\n\t\t\tendCursor\n\t\t}\n\t}\n}\n","variables":{"input":{"filter":{"frameworkId":["ccm_f_J1_ccb92ecb-d885-4383-9833-4436830abff9"]}}},"operationName":"ListControls"}'
+        body: '{"query":"\nquery ListControls ($input: ControlsQueryInput) {\n\tcontrols(input: $input) {\n\t\titems {\n\t\t\tid\n\t\t\tname\n\t\t\tdescription\n\t\t\tsource\n\t\t\tsourceId\n\t\t\tresourceGroupId\n\t\t\tstatus\n\t\t\tlastEvaluatedOn\n\t\t\tconfigured\n\t\t\tframeworkIds\n\t\t\tstate\n\t\t\tidentifier\n\t\t\tcatalog\n\t\t\towner\n\t\t\tremediation\n\t\t\texceptionProcess\n\t\t\tmitreTechnique\n\t\t\tcreatedOn\n\t\t\tnumberOfTests\n\t\t\teffectiveStatus\n\t\t\thasValidAttestation\n\t\t}\n\t\tpageInfo {\n\t\t\thasNextPage\n\t\t\tendCursor\n\t\t}\n\t}\n}\n","variables":{"input":{"filter":{"frameworkId":["ccm_f_J1_20a18c58-f1ce-4868-81a8-750531068d07"]}}},"operationName":"ListControls"}'
         form: {}
         headers:
             Cache-Control:
@@ -426,18 +438,18 @@ interactions:
         content_length: 734
         uncompressed: false
         body: |
-            {"data":{"controls":{"items":[{"id":"ccm_c_J1_01c140dc-73db-4ca2-aa3d-098221968533","name":"tf-provider-acc-test-control-datasource","description":"acceptance test control for data sources","source":"J1","sourceId":"01c140dc-73db-4ca2-aa3d-098221968533","resourceGroupId":null,"status":"PASS","lastEvaluatedOn":"2026-08-19T13:13:01.889Z","configured":true,"frameworkIds":["ccm_f_J1_ccb92ecb-d885-4383-9833-4436830abff9"],"state":"LIVE","identifier":"","catalog":"","owner":"test-owner@jupiterone.com","remediation":"","exceptionProcess":"","mitreTechnique":"T1078","createdOn":"2026-08-19T13:12:44.491Z","numberOfTests":1,"effectiveStatus":"EFFECTIVE","hasValidAttestation":true}],"pageInfo":{"hasNextPage":false,"endCursor":null}}}}
+            {"data":{"controls":{"items":[{"id":"ccm_c_J1_5250509a-3ced-4009-bb12-758c1dc6111f","name":"tf-provider-acc-test-control-datasource","description":"acceptance test control for data sources","source":"J1","sourceId":"5250509a-3ced-4009-bb12-758c1dc6111f","resourceGroupId":null,"status":"PASS","lastEvaluatedOn":"2026-11-06T20:39:49.385Z","configured":true,"frameworkIds":["ccm_f_J1_20a18c58-f1ce-4868-81a8-750531068d07"],"state":"LIVE","identifier":"","catalog":"","owner":"test-owner@jupiterone.com","remediation":"","exceptionProcess":"","mitreTechnique":"T1078","createdOn":"2026-11-06T20:39:34.332Z","numberOfTests":1,"effectiveStatus":"EFFECTIVE","hasValidAttestation":true}],"pageInfo":{"hasNextPage":false,"endCursor":null}}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
             Content-Length:
                 - "734"
             Content-Security-Policy:
-                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
             Content-Type:
-                - application/json
-            Cross-Origin-Embedder-Policy:
-                - require-corp
+                - application/json; charset=utf-8
             Cross-Origin-Opener-Policy:
                 - same-origin
             Cross-Origin-Resource-Policy:
@@ -450,6 +462,8 @@ interactions:
                 - Origin
             X-Content-Type-Options:
                 - nosniff
+            X-Correlation-Id:
+                - 3c1178674dd6c40db37e3bdfe46f9f6c
             X-Dns-Prefetch-Control:
                 - "off"
             X-Download-Options:
@@ -462,7 +476,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 1.848705375s
+        duration: 6.801538209s
     - id: 7
       request:
         proto: HTTP/1.1
@@ -474,7 +488,7 @@ interactions:
         host: graphql.dev.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery ListControlTests ($input: ControlTestsInput) {\n\tcontrolTests(input: $input) {\n\t\titems {\n\t\t\tid\n\t\t\tname\n\t\t\tdescription\n\t\t\tcontrolId\n\t\t\tresourceGroupId\n\t\t\tstatus\n\t\t\tlastEvaluatedOn\n\t\t\treferencedRuleId\n\t\t\tqueries {\n\t\t\t\tname\n\t\t\t\tquery\n\t\t\t\tresultsAre\n\t\t\t\trecordCount\n\t\t\t\tstatus\n\t\t\t\teffective\n\t\t\t}\n\t\t}\n\t\tpageInfo {\n\t\t\thasNextPage\n\t\t\tendCursor\n\t\t}\n\t}\n}\n","variables":{"input":{"filters":{"controlId":"ccm_c_J1_01c140dc-73db-4ca2-aa3d-098221968533"},"pagination":{}}},"operationName":"ListControlTests"}'
+        body: '{"query":"\nquery ListControlTests ($input: ControlTestsInput) {\n\tcontrolTests(input: $input) {\n\t\titems {\n\t\t\tid\n\t\t\tname\n\t\t\tdescription\n\t\t\tcontrolId\n\t\t\tresourceGroupId\n\t\t\tstatus\n\t\t\tlastEvaluatedOn\n\t\t\treferencedRuleId\n\t\t\tqueries {\n\t\t\t\tname\n\t\t\t\tquery\n\t\t\t\tresultsAre\n\t\t\t\trecordCount\n\t\t\t\tstatus\n\t\t\t\teffective\n\t\t\t}\n\t\t}\n\t\tpageInfo {\n\t\t\thasNextPage\n\t\t\tendCursor\n\t\t}\n\t}\n}\n","variables":{"input":{"filters":{"controlId":"ccm_c_J1_5250509a-3ced-4009-bb12-758c1dc6111f"},"pagination":{}}},"operationName":"ListControlTests"}'
         form: {}
         headers:
             Cache-Control:
@@ -492,18 +506,18 @@ interactions:
         content_length: 539
         uncompressed: false
         body: |
-            {"data":{"controlTests":{"items":[{"id":"18adb15b-9e8e-4dcb-8933-036f788e157a","name":"tf-provider-acc-test-control-test-datasource","description":null,"controlId":"ccm_c_J1_01c140dc-73db-4ca2-aa3d-098221968533","resourceGroupId":null,"status":null,"lastEvaluatedOn":null,"referencedRuleId":"18adb15b-9e8e-4dcb-8933-036f788e157a","queries":[{"name":"users without mfa","query":"FIND User WITH mfaEnabled = false","resultsAre":"BAD","recordCount":null,"status":null,"effective":true}]}],"pageInfo":{"hasNextPage":false,"endCursor":null}}}}
+            {"data":{"controlTests":{"items":[{"id":"96f812f9-3db9-4555-8cf3-6dcfa319a9b2","name":"tf-provider-acc-test-control-test-datasource","description":null,"controlId":"ccm_c_J1_5250509a-3ced-4009-bb12-758c1dc6111f","resourceGroupId":null,"status":null,"lastEvaluatedOn":null,"referencedRuleId":"96f812f9-3db9-4555-8cf3-6dcfa319a9b2","queries":[{"name":"users without mfa","query":"FIND User WITH mfaEnabled = false","resultsAre":"BAD","recordCount":null,"status":null,"effective":true}]}],"pageInfo":{"hasNextPage":false,"endCursor":null}}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
             Content-Length:
                 - "539"
             Content-Security-Policy:
-                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
             Content-Type:
-                - application/json
-            Cross-Origin-Embedder-Policy:
-                - require-corp
+                - application/json; charset=utf-8
             Cross-Origin-Opener-Policy:
                 - same-origin
             Cross-Origin-Resource-Policy:
@@ -516,6 +530,8 @@ interactions:
                 - Origin
             X-Content-Type-Options:
                 - nosniff
+            X-Correlation-Id:
+                - 3967d682eca2a71b2208e0817b8659ba
             X-Dns-Prefetch-Control:
                 - "off"
             X-Download-Options:
@@ -528,7 +544,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 1.376104083s
+        duration: 1.225380375s
     - id: 8
       request:
         proto: HTTP/1.1
@@ -540,7 +556,7 @@ interactions:
         host: graphql.dev.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetControlFrameworkStats ($input: ControlFrameworkStatsInput) {\n\tcontrolFrameworkStats(input: $input) {\n\t\tid\n\t\tnumberOfControls\n\t\tnumberOfFailingControls\n\t\tnumberOfPassingControls\n\t\tnumberOfAttestedControls\n\t\tnumberOfRequirements\n\t\tnumberOfControlsWithTests\n\t\tnumberOfPassingRequirements\n\t\tnumberOfFailingRequirements\n\t\tnumberOfFailingCriticalRequirements\n\t\tsectionStats {\n\t\t\tsectionName\n\t\t\tnumberOfRequirements\n\t\t\tnumberOfPassingRequirements\n\t\t\tnumberOfFailingRequirements\n\t\t}\n\t}\n}\n","variables":{"input":{"frameworkIds":["ccm_f_J1_ccb92ecb-d885-4383-9833-4436830abff9"]}},"operationName":"GetControlFrameworkStats"}'
+        body: '{"query":"\nquery GetControlFrameworkStats ($input: ControlFrameworkStatsInput) {\n\tcontrolFrameworkStats(input: $input) {\n\t\tid\n\t\tnumberOfControls\n\t\tnumberOfFailingControls\n\t\tnumberOfPassingControls\n\t\tnumberOfAttestedControls\n\t\tnumberOfRequirements\n\t\tnumberOfControlsWithTests\n\t\tnumberOfPassingRequirements\n\t\tnumberOfFailingRequirements\n\t\tnumberOfFailingCriticalRequirements\n\t\tsectionStats {\n\t\t\tsectionName\n\t\t\tnumberOfRequirements\n\t\t\tnumberOfPassingRequirements\n\t\t\tnumberOfFailingRequirements\n\t\t}\n\t}\n}\n","variables":{"input":{"frameworkIds":["ccm_f_J1_20a18c58-f1ce-4868-81a8-750531068d07"]}},"operationName":"GetControlFrameworkStats"}'
         form: {}
         headers:
             Cache-Control:
@@ -558,18 +574,18 @@ interactions:
         content_length: 483
         uncompressed: false
         body: |
-            {"data":{"controlFrameworkStats":[{"id":"ccm_f_J1_ccb92ecb-d885-4383-9833-4436830abff9","numberOfControls":1,"numberOfFailingControls":0,"numberOfPassingControls":1,"numberOfAttestedControls":1,"numberOfRequirements":1,"numberOfControlsWithTests":1,"numberOfPassingRequirements":1,"numberOfFailingRequirements":0,"numberOfFailingCriticalRequirements":0,"sectionStats":[{"sectionName":"1","numberOfRequirements":1,"numberOfPassingRequirements":1,"numberOfFailingRequirements":0}]}]}}
+            {"data":{"controlFrameworkStats":[{"id":"ccm_f_J1_20a18c58-f1ce-4868-81a8-750531068d07","numberOfControls":1,"numberOfFailingControls":0,"numberOfPassingControls":1,"numberOfAttestedControls":1,"numberOfRequirements":1,"numberOfControlsWithTests":1,"numberOfPassingRequirements":1,"numberOfFailingRequirements":0,"numberOfFailingCriticalRequirements":0,"sectionStats":[{"sectionName":"1","numberOfRequirements":1,"numberOfPassingRequirements":1,"numberOfFailingRequirements":0}]}]}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
             Content-Length:
                 - "483"
             Content-Security-Policy:
-                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
             Content-Type:
-                - application/json
-            Cross-Origin-Embedder-Policy:
-                - require-corp
+                - application/json; charset=utf-8
             Cross-Origin-Opener-Policy:
                 - same-origin
             Cross-Origin-Resource-Policy:
@@ -582,6 +598,8 @@ interactions:
                 - Origin
             X-Content-Type-Options:
                 - nosniff
+            X-Correlation-Id:
+                - 65fa440b10ffcde3af83feb36e205447
             X-Dns-Prefetch-Control:
                 - "off"
             X-Download-Options:
@@ -594,7 +612,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 2.182324s
+        duration: 1.021018666s
     - id: 9
       request:
         proto: HTTP/1.1
@@ -606,7 +624,7 @@ interactions:
         host: graphql.dev.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery ListAttestations ($input: AttestationQueryInput) {\n\tattestations(input: $input) {\n\t\tid\n\t\tsubject\n\t\tdescription\n\t\texpiresOn\n\t\towner\n\t\tauthor\n\t\tdocumentLink\n\t\trevoked\n\t\tcreatedOn\n\t\tcontrolId\n\t\tstate\n\t}\n}\n","variables":{"input":{"controlId":"ccm_c_J1_01c140dc-73db-4ca2-aa3d-098221968533"}},"operationName":"ListAttestations"}'
+        body: '{"query":"\nquery ListAttestations ($input: AttestationQueryInput) {\n\tattestations(input: $input) {\n\t\tid\n\t\tsubject\n\t\tdescription\n\t\texpiresOn\n\t\towner\n\t\tauthor\n\t\tdocumentLink\n\t\trevoked\n\t\tcreatedOn\n\t\tcontrolId\n\t\tstate\n\t}\n}\n","variables":{"input":{"controlId":"ccm_c_J1_5250509a-3ced-4009-bb12-758c1dc6111f"}},"operationName":"ListAttestations"}'
         form: {}
         headers:
             Cache-Control:
@@ -621,21 +639,21 @@ interactions:
         proto_minor: 0
         transfer_encoding: []
         trailer: {}
-        content_length: 398
+        content_length: 392
         uncompressed: false
         body: |
-            {"data":{"attestations":[{"id":"e3881b3a-72aa-4870-9ee5-20e9df78a7af","subject":"data source acceptance attestation","description":null,"expiresOn":1896048000000,"owner":"test-owner@jupiterone.com","author":"james.mountifield@jupiterone.com","documentLink":null,"revoked":false,"createdOn":"2026-08-19T13:12:59.693Z","controlId":"ccm_c_J1_01c140dc-73db-4ca2-aa3d-098221968533","state":"ACTIVE"}]}}
+            {"data":{"attestations":[{"id":"9e2ff7de-0853-4aac-825b-be30eb0e9f93","subject":"data source acceptance attestation","description":null,"expiresOn":1896048000000,"owner":"test-owner@jupiterone.com","author":"ryan.mcafee@jupiterone.com","documentLink":null,"revoked":false,"createdOn":"2026-11-06T20:39:47.738Z","controlId":"ccm_c_J1_5250509a-3ced-4009-bb12-758c1dc6111f","state":"ACTIVE"}]}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
             Content-Length:
-                - "398"
+                - "392"
             Content-Security-Policy:
-                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
             Content-Type:
-                - application/json
-            Cross-Origin-Embedder-Policy:
-                - require-corp
+                - application/json; charset=utf-8
             Cross-Origin-Opener-Policy:
                 - same-origin
             Cross-Origin-Resource-Policy:
@@ -648,6 +666,8 @@ interactions:
                 - Origin
             X-Content-Type-Options:
                 - nosniff
+            X-Correlation-Id:
+                - 74ec424aa41427396dd9c187bc1394c1
             X-Dns-Prefetch-Control:
                 - "off"
             X-Download-Options:
@@ -660,7 +680,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 1.33632825s
+        duration: 6.794178875s
     - id: 10
       request:
         proto: HTTP/1.1
@@ -672,7 +692,7 @@ interactions:
         host: graphql.dev.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetControlDetail ($id: ID, $sourceId: String) {\n\tcontrol(id: $id, sourceId: $sourceId) {\n\t\tid\n\t\tname\n\t\tdescription\n\t\tsource\n\t\tsourceId\n\t\tresourceGroupId\n\t\tstatus\n\t\tlastEvaluatedOn\n\t\tconfigured\n\t\tframeworkIds\n\t\tstate\n\t\tidentifier\n\t\tcatalog\n\t\towner\n\t\tremediation\n\t\texceptionProcess\n\t\tmitreTechnique\n\t\tcreatedOn\n\t\tnumberOfTests\n\t\teffectiveStatus\n\t\thasValidAttestation\n\t}\n}\n","variables":{"id":"ccm_c_J1_01c140dc-73db-4ca2-aa3d-098221968533","sourceId":""},"operationName":"GetControlDetail"}'
+        body: '{"query":"\nquery GetControlDetail ($id: ID, $sourceId: String) {\n\tcontrol(id: $id, sourceId: $sourceId) {\n\t\tid\n\t\tname\n\t\tdescription\n\t\tsource\n\t\tsourceId\n\t\tresourceGroupId\n\t\tstatus\n\t\tlastEvaluatedOn\n\t\tconfigured\n\t\tframeworkIds\n\t\tstate\n\t\tidentifier\n\t\tcatalog\n\t\towner\n\t\tremediation\n\t\texceptionProcess\n\t\tmitreTechnique\n\t\tcreatedOn\n\t\tnumberOfTests\n\t\teffectiveStatus\n\t\thasValidAttestation\n\t}\n}\n","variables":{"id":"ccm_c_J1_5250509a-3ced-4009-bb12-758c1dc6111f","sourceId":""},"operationName":"GetControlDetail"}'
         form: {}
         headers:
             Cache-Control:
@@ -690,18 +710,18 @@ interactions:
         content_length: 671
         uncompressed: false
         body: |
-            {"data":{"control":{"id":"ccm_c_J1_01c140dc-73db-4ca2-aa3d-098221968533","name":"tf-provider-acc-test-control-datasource","description":"acceptance test control for data sources","source":"J1","sourceId":"01c140dc-73db-4ca2-aa3d-098221968533","resourceGroupId":null,"status":"PASS","lastEvaluatedOn":"2026-08-19T13:13:01.889Z","configured":true,"frameworkIds":["ccm_f_J1_ccb92ecb-d885-4383-9833-4436830abff9"],"state":"LIVE","identifier":"","catalog":"","owner":"test-owner@jupiterone.com","remediation":"","exceptionProcess":"","mitreTechnique":"T1078","createdOn":"2026-08-19T13:12:44.491Z","numberOfTests":1,"effectiveStatus":"EFFECTIVE","hasValidAttestation":true}}}
+            {"data":{"control":{"id":"ccm_c_J1_5250509a-3ced-4009-bb12-758c1dc6111f","name":"tf-provider-acc-test-control-datasource","description":"acceptance test control for data sources","source":"J1","sourceId":"5250509a-3ced-4009-bb12-758c1dc6111f","resourceGroupId":null,"status":"PASS","lastEvaluatedOn":"2026-11-06T20:39:49.385Z","configured":true,"frameworkIds":["ccm_f_J1_20a18c58-f1ce-4868-81a8-750531068d07"],"state":"LIVE","identifier":"","catalog":"","owner":"test-owner@jupiterone.com","remediation":"","exceptionProcess":"","mitreTechnique":"T1078","createdOn":"2026-11-06T20:39:34.332Z","numberOfTests":1,"effectiveStatus":"EFFECTIVE","hasValidAttestation":true}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
             Content-Length:
                 - "671"
             Content-Security-Policy:
-                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
             Content-Type:
-                - application/json
-            Cross-Origin-Embedder-Policy:
-                - require-corp
+                - application/json; charset=utf-8
             Cross-Origin-Opener-Policy:
                 - same-origin
             Cross-Origin-Resource-Policy:
@@ -714,6 +734,8 @@ interactions:
                 - Origin
             X-Content-Type-Options:
                 - nosniff
+            X-Correlation-Id:
+                - 83156a6f9292af3cbb333a063af2046a
             X-Dns-Prefetch-Control:
                 - "off"
             X-Download-Options:
@@ -726,7 +748,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 1.4075295s
+        duration: 1.191768291s
     - id: 11
       request:
         proto: HTTP/1.1
@@ -738,7 +760,7 @@ interactions:
         host: graphql.dev.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery ListControls ($input: ControlsQueryInput) {\n\tcontrols(input: $input) {\n\t\titems {\n\t\t\tid\n\t\t\tname\n\t\t\tdescription\n\t\t\tsource\n\t\t\tsourceId\n\t\t\tresourceGroupId\n\t\t\tstatus\n\t\t\tlastEvaluatedOn\n\t\t\tconfigured\n\t\t\tframeworkIds\n\t\t\tstate\n\t\t\tidentifier\n\t\t\tcatalog\n\t\t\towner\n\t\t\tremediation\n\t\t\texceptionProcess\n\t\t\tmitreTechnique\n\t\t\tcreatedOn\n\t\t\tnumberOfTests\n\t\t\teffectiveStatus\n\t\t\thasValidAttestation\n\t\t}\n\t\tpageInfo {\n\t\t\thasNextPage\n\t\t\tendCursor\n\t\t}\n\t}\n}\n","variables":{"input":{"filter":{"frameworkId":["ccm_f_J1_ccb92ecb-d885-4383-9833-4436830abff9"]}}},"operationName":"ListControls"}'
+        body: '{"query":"\nquery ListControls ($input: ControlsQueryInput) {\n\tcontrols(input: $input) {\n\t\titems {\n\t\t\tid\n\t\t\tname\n\t\t\tdescription\n\t\t\tsource\n\t\t\tsourceId\n\t\t\tresourceGroupId\n\t\t\tstatus\n\t\t\tlastEvaluatedOn\n\t\t\tconfigured\n\t\t\tframeworkIds\n\t\t\tstate\n\t\t\tidentifier\n\t\t\tcatalog\n\t\t\towner\n\t\t\tremediation\n\t\t\texceptionProcess\n\t\t\tmitreTechnique\n\t\t\tcreatedOn\n\t\t\tnumberOfTests\n\t\t\teffectiveStatus\n\t\t\thasValidAttestation\n\t\t}\n\t\tpageInfo {\n\t\t\thasNextPage\n\t\t\tendCursor\n\t\t}\n\t}\n}\n","variables":{"input":{"filter":{"frameworkId":["ccm_f_J1_20a18c58-f1ce-4868-81a8-750531068d07"]}}},"operationName":"ListControls"}'
         form: {}
         headers:
             Cache-Control:
@@ -756,18 +778,18 @@ interactions:
         content_length: 734
         uncompressed: false
         body: |
-            {"data":{"controls":{"items":[{"id":"ccm_c_J1_01c140dc-73db-4ca2-aa3d-098221968533","name":"tf-provider-acc-test-control-datasource","description":"acceptance test control for data sources","source":"J1","sourceId":"01c140dc-73db-4ca2-aa3d-098221968533","resourceGroupId":null,"status":"PASS","lastEvaluatedOn":"2026-08-19T13:13:01.889Z","configured":true,"frameworkIds":["ccm_f_J1_ccb92ecb-d885-4383-9833-4436830abff9"],"state":"LIVE","identifier":"","catalog":"","owner":"test-owner@jupiterone.com","remediation":"","exceptionProcess":"","mitreTechnique":"T1078","createdOn":"2026-08-19T13:12:44.491Z","numberOfTests":1,"effectiveStatus":"EFFECTIVE","hasValidAttestation":true}],"pageInfo":{"hasNextPage":false,"endCursor":null}}}}
+            {"data":{"controls":{"items":[{"id":"ccm_c_J1_5250509a-3ced-4009-bb12-758c1dc6111f","name":"tf-provider-acc-test-control-datasource","description":"acceptance test control for data sources","source":"J1","sourceId":"5250509a-3ced-4009-bb12-758c1dc6111f","resourceGroupId":null,"status":"PASS","lastEvaluatedOn":"2026-11-06T20:39:49.385Z","configured":true,"frameworkIds":["ccm_f_J1_20a18c58-f1ce-4868-81a8-750531068d07"],"state":"LIVE","identifier":"","catalog":"","owner":"test-owner@jupiterone.com","remediation":"","exceptionProcess":"","mitreTechnique":"T1078","createdOn":"2026-11-06T20:39:34.332Z","numberOfTests":1,"effectiveStatus":"EFFECTIVE","hasValidAttestation":true}],"pageInfo":{"hasNextPage":false,"endCursor":null}}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
             Content-Length:
                 - "734"
             Content-Security-Policy:
-                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
             Content-Type:
-                - application/json
-            Cross-Origin-Embedder-Policy:
-                - require-corp
+                - application/json; charset=utf-8
             Cross-Origin-Opener-Policy:
                 - same-origin
             Cross-Origin-Resource-Policy:
@@ -780,6 +802,8 @@ interactions:
                 - Origin
             X-Content-Type-Options:
                 - nosniff
+            X-Correlation-Id:
+                - c2991793cffa0c10e564b61ebcf40bef
             X-Dns-Prefetch-Control:
                 - "off"
             X-Download-Options:
@@ -792,7 +816,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 1.937244709s
+        duration: 1.067296917s
     - id: 12
       request:
         proto: HTTP/1.1
@@ -804,7 +828,7 @@ interactions:
         host: graphql.dev.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery ListControlTests ($input: ControlTestsInput) {\n\tcontrolTests(input: $input) {\n\t\titems {\n\t\t\tid\n\t\t\tname\n\t\t\tdescription\n\t\t\tcontrolId\n\t\t\tresourceGroupId\n\t\t\tstatus\n\t\t\tlastEvaluatedOn\n\t\t\treferencedRuleId\n\t\t\tqueries {\n\t\t\t\tname\n\t\t\t\tquery\n\t\t\t\tresultsAre\n\t\t\t\trecordCount\n\t\t\t\tstatus\n\t\t\t\teffective\n\t\t\t}\n\t\t}\n\t\tpageInfo {\n\t\t\thasNextPage\n\t\t\tendCursor\n\t\t}\n\t}\n}\n","variables":{"input":{"filters":{"controlId":"ccm_c_J1_01c140dc-73db-4ca2-aa3d-098221968533"},"pagination":{}}},"operationName":"ListControlTests"}'
+        body: '{"query":"\nquery ListControlTests ($input: ControlTestsInput) {\n\tcontrolTests(input: $input) {\n\t\titems {\n\t\t\tid\n\t\t\tname\n\t\t\tdescription\n\t\t\tcontrolId\n\t\t\tresourceGroupId\n\t\t\tstatus\n\t\t\tlastEvaluatedOn\n\t\t\treferencedRuleId\n\t\t\tqueries {\n\t\t\t\tname\n\t\t\t\tquery\n\t\t\t\tresultsAre\n\t\t\t\trecordCount\n\t\t\t\tstatus\n\t\t\t\teffective\n\t\t\t}\n\t\t}\n\t\tpageInfo {\n\t\t\thasNextPage\n\t\t\tendCursor\n\t\t}\n\t}\n}\n","variables":{"input":{"filters":{"controlId":"ccm_c_J1_5250509a-3ced-4009-bb12-758c1dc6111f"},"pagination":{}}},"operationName":"ListControlTests"}'
         form: {}
         headers:
             Cache-Control:
@@ -822,18 +846,18 @@ interactions:
         content_length: 539
         uncompressed: false
         body: |
-            {"data":{"controlTests":{"items":[{"id":"18adb15b-9e8e-4dcb-8933-036f788e157a","name":"tf-provider-acc-test-control-test-datasource","description":null,"controlId":"ccm_c_J1_01c140dc-73db-4ca2-aa3d-098221968533","resourceGroupId":null,"status":null,"lastEvaluatedOn":null,"referencedRuleId":"18adb15b-9e8e-4dcb-8933-036f788e157a","queries":[{"name":"users without mfa","query":"FIND User WITH mfaEnabled = false","resultsAre":"BAD","recordCount":null,"status":null,"effective":true}]}],"pageInfo":{"hasNextPage":false,"endCursor":null}}}}
+            {"data":{"controlTests":{"items":[{"id":"96f812f9-3db9-4555-8cf3-6dcfa319a9b2","name":"tf-provider-acc-test-control-test-datasource","description":null,"controlId":"ccm_c_J1_5250509a-3ced-4009-bb12-758c1dc6111f","resourceGroupId":null,"status":null,"lastEvaluatedOn":null,"referencedRuleId":"96f812f9-3db9-4555-8cf3-6dcfa319a9b2","queries":[{"name":"users without mfa","query":"FIND User WITH mfaEnabled = false","resultsAre":"BAD","recordCount":null,"status":null,"effective":true}]}],"pageInfo":{"hasNextPage":false,"endCursor":null}}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
             Content-Length:
                 - "539"
             Content-Security-Policy:
-                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
             Content-Type:
-                - application/json
-            Cross-Origin-Embedder-Policy:
-                - require-corp
+                - application/json; charset=utf-8
             Cross-Origin-Opener-Policy:
                 - same-origin
             Cross-Origin-Resource-Policy:
@@ -846,6 +870,8 @@ interactions:
                 - Origin
             X-Content-Type-Options:
                 - nosniff
+            X-Correlation-Id:
+                - 106c77eeec8b9f84b651576cace84145
             X-Dns-Prefetch-Control:
                 - "off"
             X-Download-Options:
@@ -858,7 +884,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 1.342344333s
+        duration: 1.015412834s
     - id: 13
       request:
         proto: HTTP/1.1
@@ -870,7 +896,7 @@ interactions:
         host: graphql.dev.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetControlFrameworkStats ($input: ControlFrameworkStatsInput) {\n\tcontrolFrameworkStats(input: $input) {\n\t\tid\n\t\tnumberOfControls\n\t\tnumberOfFailingControls\n\t\tnumberOfPassingControls\n\t\tnumberOfAttestedControls\n\t\tnumberOfRequirements\n\t\tnumberOfControlsWithTests\n\t\tnumberOfPassingRequirements\n\t\tnumberOfFailingRequirements\n\t\tnumberOfFailingCriticalRequirements\n\t\tsectionStats {\n\t\t\tsectionName\n\t\t\tnumberOfRequirements\n\t\t\tnumberOfPassingRequirements\n\t\t\tnumberOfFailingRequirements\n\t\t}\n\t}\n}\n","variables":{"input":{"frameworkIds":["ccm_f_J1_ccb92ecb-d885-4383-9833-4436830abff9"]}},"operationName":"GetControlFrameworkStats"}'
+        body: '{"query":"\nquery GetControlFrameworkStats ($input: ControlFrameworkStatsInput) {\n\tcontrolFrameworkStats(input: $input) {\n\t\tid\n\t\tnumberOfControls\n\t\tnumberOfFailingControls\n\t\tnumberOfPassingControls\n\t\tnumberOfAttestedControls\n\t\tnumberOfRequirements\n\t\tnumberOfControlsWithTests\n\t\tnumberOfPassingRequirements\n\t\tnumberOfFailingRequirements\n\t\tnumberOfFailingCriticalRequirements\n\t\tsectionStats {\n\t\t\tsectionName\n\t\t\tnumberOfRequirements\n\t\t\tnumberOfPassingRequirements\n\t\t\tnumberOfFailingRequirements\n\t\t}\n\t}\n}\n","variables":{"input":{"frameworkIds":["ccm_f_J1_20a18c58-f1ce-4868-81a8-750531068d07"]}},"operationName":"GetControlFrameworkStats"}'
         form: {}
         headers:
             Cache-Control:
@@ -888,18 +914,18 @@ interactions:
         content_length: 483
         uncompressed: false
         body: |
-            {"data":{"controlFrameworkStats":[{"id":"ccm_f_J1_ccb92ecb-d885-4383-9833-4436830abff9","numberOfControls":1,"numberOfFailingControls":0,"numberOfPassingControls":1,"numberOfAttestedControls":1,"numberOfRequirements":1,"numberOfControlsWithTests":1,"numberOfPassingRequirements":1,"numberOfFailingRequirements":0,"numberOfFailingCriticalRequirements":0,"sectionStats":[{"sectionName":"1","numberOfRequirements":1,"numberOfPassingRequirements":1,"numberOfFailingRequirements":0}]}]}}
+            {"data":{"controlFrameworkStats":[{"id":"ccm_f_J1_20a18c58-f1ce-4868-81a8-750531068d07","numberOfControls":1,"numberOfFailingControls":0,"numberOfPassingControls":1,"numberOfAttestedControls":1,"numberOfRequirements":1,"numberOfControlsWithTests":1,"numberOfPassingRequirements":1,"numberOfFailingRequirements":0,"numberOfFailingCriticalRequirements":0,"sectionStats":[{"sectionName":"1","numberOfRequirements":1,"numberOfPassingRequirements":1,"numberOfFailingRequirements":0}]}]}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
             Content-Length:
                 - "483"
             Content-Security-Policy:
-                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
             Content-Type:
-                - application/json
-            Cross-Origin-Embedder-Policy:
-                - require-corp
+                - application/json; charset=utf-8
             Cross-Origin-Opener-Policy:
                 - same-origin
             Cross-Origin-Resource-Policy:
@@ -912,6 +938,8 @@ interactions:
                 - Origin
             X-Content-Type-Options:
                 - nosniff
+            X-Correlation-Id:
+                - eab0364ed8a5d0592512069fc1c8900d
             X-Dns-Prefetch-Control:
                 - "off"
             X-Download-Options:
@@ -924,7 +952,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 2.056698458s
+        duration: 6.637363708s
     - id: 14
       request:
         proto: HTTP/1.1
@@ -936,7 +964,7 @@ interactions:
         host: graphql.dev.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery ListAttestations ($input: AttestationQueryInput) {\n\tattestations(input: $input) {\n\t\tid\n\t\tsubject\n\t\tdescription\n\t\texpiresOn\n\t\towner\n\t\tauthor\n\t\tdocumentLink\n\t\trevoked\n\t\tcreatedOn\n\t\tcontrolId\n\t\tstate\n\t}\n}\n","variables":{"input":{"controlId":"ccm_c_J1_01c140dc-73db-4ca2-aa3d-098221968533"}},"operationName":"ListAttestations"}'
+        body: '{"query":"\nquery ListAttestations ($input: AttestationQueryInput) {\n\tattestations(input: $input) {\n\t\tid\n\t\tsubject\n\t\tdescription\n\t\texpiresOn\n\t\towner\n\t\tauthor\n\t\tdocumentLink\n\t\trevoked\n\t\tcreatedOn\n\t\tcontrolId\n\t\tstate\n\t}\n}\n","variables":{"input":{"controlId":"ccm_c_J1_5250509a-3ced-4009-bb12-758c1dc6111f"}},"operationName":"ListAttestations"}'
         form: {}
         headers:
             Cache-Control:
@@ -951,21 +979,21 @@ interactions:
         proto_minor: 0
         transfer_encoding: []
         trailer: {}
-        content_length: 398
+        content_length: 392
         uncompressed: false
         body: |
-            {"data":{"attestations":[{"id":"e3881b3a-72aa-4870-9ee5-20e9df78a7af","subject":"data source acceptance attestation","description":null,"expiresOn":1896048000000,"owner":"test-owner@jupiterone.com","author":"james.mountifield@jupiterone.com","documentLink":null,"revoked":false,"createdOn":"2026-08-19T13:12:59.693Z","controlId":"ccm_c_J1_01c140dc-73db-4ca2-aa3d-098221968533","state":"ACTIVE"}]}}
+            {"data":{"attestations":[{"id":"9e2ff7de-0853-4aac-825b-be30eb0e9f93","subject":"data source acceptance attestation","description":null,"expiresOn":1896048000000,"owner":"test-owner@jupiterone.com","author":"ryan.mcafee@jupiterone.com","documentLink":null,"revoked":false,"createdOn":"2026-11-06T20:39:47.738Z","controlId":"ccm_c_J1_5250509a-3ced-4009-bb12-758c1dc6111f","state":"ACTIVE"}]}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
             Content-Length:
-                - "398"
+                - "392"
             Content-Security-Policy:
-                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
             Content-Type:
-                - application/json
-            Cross-Origin-Embedder-Policy:
-                - require-corp
+                - application/json; charset=utf-8
             Cross-Origin-Opener-Policy:
                 - same-origin
             Cross-Origin-Resource-Policy:
@@ -978,6 +1006,8 @@ interactions:
                 - Origin
             X-Content-Type-Options:
                 - nosniff
+            X-Correlation-Id:
+                - 2975b40a2f28277d90c355755fdf84a1
             X-Dns-Prefetch-Control:
                 - "off"
             X-Download-Options:
@@ -990,7 +1020,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 1.389744166s
+        duration: 1.131708458s
     - id: 15
       request:
         proto: HTTP/1.1
@@ -1002,7 +1032,7 @@ interactions:
         host: graphql.dev.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetFrameworkById ($id: ID!) {\n\tcontrolFramework(id: $id) {\n\t\tid\n\t\tname\n\t\tdescription\n\t\tresourceGroupId\n\t\towner\n\t\tsource\n\t}\n}\n","variables":{"id":"ccm_f_J1_ccb92ecb-d885-4383-9833-4436830abff9"},"operationName":"GetFrameworkById"}'
+        body: '{"query":"\nquery GetFrameworkById ($id: ID!) {\n\tcontrolFramework(id: $id) {\n\t\tid\n\t\tname\n\t\tdescription\n\t\tresourceGroupId\n\t\towner\n\t\tsource\n\t}\n}\n","variables":{"id":"ccm_f_J1_20a18c58-f1ce-4868-81a8-750531068d07"},"operationName":"GetFrameworkById"}'
         form: {}
         headers:
             Cache-Control:
@@ -1017,21 +1047,21 @@ interactions:
         proto_minor: 0
         transfer_encoding: []
         trailer: {}
-        content_length: 266
+        content_length: 268
         uncompressed: false
         body: |
-            {"data":{"controlFramework":{"id":"ccm_f_J1_ccb92ecb-d885-4383-9833-4436830abff9","name":"tf-provider-acc-test-framework-datasource","description":"acceptance test framework for data sources","resourceGroupId":"","owner":"test-owner@jupiterone.com","source":"J1"}}}
+            {"data":{"controlFramework":{"id":"ccm_f_J1_20a18c58-f1ce-4868-81a8-750531068d07","name":"tf-provider-acc-test-framework-datasource","description":"acceptance test framework for data sources","resourceGroupId":null,"owner":"test-owner@jupiterone.com","source":"J1"}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
             Content-Length:
-                - "266"
+                - "268"
             Content-Security-Policy:
-                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
             Content-Type:
-                - application/json
-            Cross-Origin-Embedder-Policy:
-                - require-corp
+                - application/json; charset=utf-8
             Cross-Origin-Opener-Policy:
                 - same-origin
             Cross-Origin-Resource-Policy:
@@ -1044,6 +1074,8 @@ interactions:
                 - Origin
             X-Content-Type-Options:
                 - nosniff
+            X-Correlation-Id:
+                - 113066884be882414981a7e48b0c8289
             X-Dns-Prefetch-Control:
                 - "off"
             X-Download-Options:
@@ -1056,7 +1088,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 964.124584ms
+        duration: 6.283292084s
     - id: 16
       request:
         proto: HTTP/1.1
@@ -1068,7 +1100,7 @@ interactions:
         host: graphql.dev.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetRequirementById ($id: ID!) {\n\trequirement(id: $id) {\n\t\tid\n\t\ttitle\n\t\tframeworkIds\n\t\tdescription\n\t\tidentifier\n\t\tpriority\n\t\tsection\n\t}\n}\n","variables":{"id":"ccm_r_c26b8c8b-9e6e-4451-87d0-5508a9b34569"},"operationName":"GetRequirementById"}'
+        body: '{"query":"\nquery GetRequirementById ($id: ID!) {\n\trequirement(id: $id) {\n\t\tid\n\t\ttitle\n\t\tframeworkIds\n\t\tdescription\n\t\tidentifier\n\t\tpriority\n\t\tsection\n\t}\n}\n","variables":{"id":"ccm_r_54daddc1-d6ad-412f-8b2d-d87edd05a7c4"},"operationName":"GetRequirementById"}'
         form: {}
         headers:
             Cache-Control:
@@ -1086,18 +1118,18 @@ interactions:
         content_length: 307
         uncompressed: false
         body: |
-            {"data":{"requirement":{"id":"ccm_r_c26b8c8b-9e6e-4451-87d0-5508a9b34569","title":"tf-provider-acc-test-requirement-datasource","frameworkIds":["ccm_f_J1_ccb92ecb-d885-4383-9833-4436830abff9"],"description":"acceptance test requirement for data sources","identifier":null,"priority":"HIGH","section":"1"}}}
+            {"data":{"requirement":{"id":"ccm_r_54daddc1-d6ad-412f-8b2d-d87edd05a7c4","title":"tf-provider-acc-test-requirement-datasource","frameworkIds":["ccm_f_J1_20a18c58-f1ce-4868-81a8-750531068d07"],"description":"acceptance test requirement for data sources","identifier":null,"priority":"HIGH","section":"1"}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
             Content-Length:
                 - "307"
             Content-Security-Policy:
-                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
             Content-Type:
-                - application/json
-            Cross-Origin-Embedder-Policy:
-                - require-corp
+                - application/json; charset=utf-8
             Cross-Origin-Opener-Policy:
                 - same-origin
             Cross-Origin-Resource-Policy:
@@ -1110,6 +1142,8 @@ interactions:
                 - Origin
             X-Content-Type-Options:
                 - nosniff
+            X-Correlation-Id:
+                - 8e7ccb308edad2dd8b4bf9f4d2ab3c03
             X-Dns-Prefetch-Control:
                 - "off"
             X-Download-Options:
@@ -1122,19 +1156,19 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 3.777590333s
+        duration: 753.469917ms
     - id: 17
       request:
         proto: HTTP/1.1
         proto_major: 1
         proto_minor: 1
-        content_length: 363
+        content_length: 520
         transfer_encoding: []
         trailer: {}
         host: graphql.dev.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetControlById ($id: ID!) {\n\tcontrol(id: $id) {\n\t\tid\n\t\tname\n\t\tdescription\n\t\tresourceGroupId\n\t\tstate\n\t\tidentifier\n\t\tcatalog\n\t\towner\n\t\tremediation\n\t\texceptionProcess\n\t\tmitreTechnique\n\t\tframeworkIds\n\t}\n}\n","variables":{"id":"ccm_c_J1_01c140dc-73db-4ca2-aa3d-098221968533"},"operationName":"GetControlById"}'
+        body: '{"query":"\nquery GetControlById ($id: ID!) {\n\tcontrol(id: $id) {\n\t\tid\n\t\tsourceId\n\t\tname\n\t\tdescription\n\t\tresourceGroupId\n\t\tstate\n\t\tidentifier\n\t\tcatalog\n\t\towner\n\t\tremediation\n\t\texceptionProcess\n\t\tmitreTechnique\n\t\tframeworkIds\n\t}\n\tcontrolRequirements(input: {controlId:$id}) {\n\t\titems {\n\t\t\tid\n\t\t}\n\t\tpageInfo {\n\t\t\thasNextPage\n\t\t\tendCursor\n\t\t}\n\t}\n}\n","variables":{"id":"ccm_c_J1_5250509a-3ced-4009-bb12-758c1dc6111f"},"operationName":"GetControlById"}'
         form: {}
         headers:
             Cache-Control:
@@ -1149,21 +1183,21 @@ interactions:
         proto_minor: 0
         transfer_encoding: []
         trailer: {}
-        content_length: 414
+        content_length: 600
         uncompressed: false
         body: |
-            {"data":{"control":{"id":"ccm_c_J1_01c140dc-73db-4ca2-aa3d-098221968533","name":"tf-provider-acc-test-control-datasource","description":"acceptance test control for data sources","resourceGroupId":null,"state":"LIVE","identifier":"","catalog":"","owner":"test-owner@jupiterone.com","remediation":"","exceptionProcess":"","mitreTechnique":"T1078","frameworkIds":["ccm_f_J1_ccb92ecb-d885-4383-9833-4436830abff9"]}}}
+            {"data":{"control":{"id":"ccm_c_J1_5250509a-3ced-4009-bb12-758c1dc6111f","sourceId":"5250509a-3ced-4009-bb12-758c1dc6111f","name":"tf-provider-acc-test-control-datasource","description":"acceptance test control for data sources","resourceGroupId":null,"state":"LIVE","identifier":"","catalog":"","owner":"test-owner@jupiterone.com","remediation":"","exceptionProcess":"","mitreTechnique":"T1078","frameworkIds":["ccm_f_J1_20a18c58-f1ce-4868-81a8-750531068d07"]},"controlRequirements":{"items":[{"id":"ccm_r_54daddc1-d6ad-412f-8b2d-d87edd05a7c4"}],"pageInfo":{"hasNextPage":false,"endCursor":null}}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
             Content-Length:
-                - "414"
+                - "600"
             Content-Security-Policy:
-                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
             Content-Type:
-                - application/json
-            Cross-Origin-Embedder-Policy:
-                - require-corp
+                - application/json; charset=utf-8
             Cross-Origin-Opener-Policy:
                 - same-origin
             Cross-Origin-Resource-Policy:
@@ -1176,6 +1210,8 @@ interactions:
                 - Origin
             X-Content-Type-Options:
                 - nosniff
+            X-Correlation-Id:
+                - dea8a2a0012122e863e10265df838014
             X-Dns-Prefetch-Control:
                 - "off"
             X-Download-Options:
@@ -1188,7 +1224,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 1.354337s
+        duration: 1.0669745s
     - id: 18
       request:
         proto: HTTP/1.1
@@ -1200,7 +1236,7 @@ interactions:
         host: graphql.dev.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetControlTestById ($id: ID!) {\n\tcontrolTest(id: $id) {\n\t\tid\n\t\tname\n\t\tdescription\n\t\tcontrolId\n\t\tqueries {\n\t\t\tname\n\t\t\tquery\n\t\t\tresultsAre\n\t\t}\n\t}\n}\n","variables":{"id":"18adb15b-9e8e-4dcb-8933-036f788e157a"},"operationName":"GetControlTestById"}'
+        body: '{"query":"\nquery GetControlTestById ($id: ID!) {\n\tcontrolTest(id: $id) {\n\t\tid\n\t\tname\n\t\tdescription\n\t\tcontrolId\n\t\tqueries {\n\t\t\tname\n\t\t\tquery\n\t\t\tresultsAre\n\t\t}\n\t}\n}\n","variables":{"id":"96f812f9-3db9-4555-8cf3-6dcfa319a9b2"},"operationName":"GetControlTestById"}'
         form: {}
         headers:
             Cache-Control:
@@ -1218,18 +1254,18 @@ interactions:
         content_length: 308
         uncompressed: false
         body: |
-            {"data":{"controlTest":{"id":"18adb15b-9e8e-4dcb-8933-036f788e157a","name":"tf-provider-acc-test-control-test-datasource","description":null,"controlId":"ccm_c_J1_01c140dc-73db-4ca2-aa3d-098221968533","queries":[{"name":"users without mfa","query":"FIND User WITH mfaEnabled = false","resultsAre":"BAD"}]}}}
+            {"data":{"controlTest":{"id":"96f812f9-3db9-4555-8cf3-6dcfa319a9b2","name":"tf-provider-acc-test-control-test-datasource","description":null,"controlId":"ccm_c_J1_5250509a-3ced-4009-bb12-758c1dc6111f","queries":[{"name":"users without mfa","query":"FIND User WITH mfaEnabled = false","resultsAre":"BAD"}]}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
             Content-Length:
                 - "308"
             Content-Security-Policy:
-                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
             Content-Type:
-                - application/json
-            Cross-Origin-Embedder-Policy:
-                - require-corp
+                - application/json; charset=utf-8
             Cross-Origin-Opener-Policy:
                 - same-origin
             Cross-Origin-Resource-Policy:
@@ -1242,6 +1278,8 @@ interactions:
                 - Origin
             X-Content-Type-Options:
                 - nosniff
+            X-Correlation-Id:
+                - facbe7761e253847c569c5d5256368ad
             X-Dns-Prefetch-Control:
                 - "off"
             X-Download-Options:
@@ -1254,7 +1292,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 943.747375ms
+        duration: 626.699ms
     - id: 19
       request:
         proto: HTTP/1.1
@@ -1266,7 +1304,7 @@ interactions:
         host: graphql.dev.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetAttestationsByControlId ($controlId: String!) {\n\tattestations(input: {controlId:$controlId,includeDeleted:true}) {\n\t\tid\n\t\tsubject\n\t\tdescription\n\t\texpiresOn\n\t\towner\n\t\tauthor\n\t\tdocumentLink\n\t\trevoked\n\t\tcreatedOn\n\t\tcontrolId\n\t\tstate\n\t}\n}\n","variables":{"controlId":"ccm_c_J1_01c140dc-73db-4ca2-aa3d-098221968533"},"operationName":"GetAttestationsByControlId"}'
+        body: '{"query":"\nquery GetAttestationsByControlId ($controlId: String!) {\n\tattestations(input: {controlId:$controlId,includeDeleted:true}) {\n\t\tid\n\t\tsubject\n\t\tdescription\n\t\texpiresOn\n\t\towner\n\t\tauthor\n\t\tdocumentLink\n\t\trevoked\n\t\tcreatedOn\n\t\tcontrolId\n\t\tstate\n\t}\n}\n","variables":{"controlId":"ccm_c_J1_5250509a-3ced-4009-bb12-758c1dc6111f"},"operationName":"GetAttestationsByControlId"}'
         form: {}
         headers:
             Cache-Control:
@@ -1281,21 +1319,21 @@ interactions:
         proto_minor: 0
         transfer_encoding: []
         trailer: {}
-        content_length: 398
+        content_length: 392
         uncompressed: false
         body: |
-            {"data":{"attestations":[{"id":"e3881b3a-72aa-4870-9ee5-20e9df78a7af","subject":"data source acceptance attestation","description":null,"expiresOn":1896048000000,"owner":"test-owner@jupiterone.com","author":"james.mountifield@jupiterone.com","documentLink":null,"revoked":false,"createdOn":"2026-08-19T13:12:59.693Z","controlId":"ccm_c_J1_01c140dc-73db-4ca2-aa3d-098221968533","state":"ACTIVE"}]}}
+            {"data":{"attestations":[{"id":"9e2ff7de-0853-4aac-825b-be30eb0e9f93","subject":"data source acceptance attestation","description":null,"expiresOn":1896048000000,"owner":"test-owner@jupiterone.com","author":"ryan.mcafee@jupiterone.com","documentLink":null,"revoked":false,"createdOn":"2026-11-06T20:39:47.738Z","controlId":"ccm_c_J1_5250509a-3ced-4009-bb12-758c1dc6111f","state":"ACTIVE"}]}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
             Content-Length:
-                - "398"
+                - "392"
             Content-Security-Policy:
-                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
             Content-Type:
-                - application/json
-            Cross-Origin-Embedder-Policy:
-                - require-corp
+                - application/json; charset=utf-8
             Cross-Origin-Opener-Policy:
                 - same-origin
             Cross-Origin-Resource-Policy:
@@ -1308,6 +1346,8 @@ interactions:
                 - Origin
             X-Content-Type-Options:
                 - nosniff
+            X-Correlation-Id:
+                - e04f2a1f40027fef086b8b7e4365b1f9
             X-Dns-Prefetch-Control:
                 - "off"
             X-Download-Options:
@@ -1320,7 +1360,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 1.341585s
+        duration: 1.014782084s
     - id: 20
       request:
         proto: HTTP/1.1
@@ -1332,7 +1372,7 @@ interactions:
         host: graphql.dev.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetControlDetail ($id: ID, $sourceId: String) {\n\tcontrol(id: $id, sourceId: $sourceId) {\n\t\tid\n\t\tname\n\t\tdescription\n\t\tsource\n\t\tsourceId\n\t\tresourceGroupId\n\t\tstatus\n\t\tlastEvaluatedOn\n\t\tconfigured\n\t\tframeworkIds\n\t\tstate\n\t\tidentifier\n\t\tcatalog\n\t\towner\n\t\tremediation\n\t\texceptionProcess\n\t\tmitreTechnique\n\t\tcreatedOn\n\t\tnumberOfTests\n\t\teffectiveStatus\n\t\thasValidAttestation\n\t}\n}\n","variables":{"id":"ccm_c_J1_01c140dc-73db-4ca2-aa3d-098221968533","sourceId":""},"operationName":"GetControlDetail"}'
+        body: '{"query":"\nquery GetControlDetail ($id: ID, $sourceId: String) {\n\tcontrol(id: $id, sourceId: $sourceId) {\n\t\tid\n\t\tname\n\t\tdescription\n\t\tsource\n\t\tsourceId\n\t\tresourceGroupId\n\t\tstatus\n\t\tlastEvaluatedOn\n\t\tconfigured\n\t\tframeworkIds\n\t\tstate\n\t\tidentifier\n\t\tcatalog\n\t\towner\n\t\tremediation\n\t\texceptionProcess\n\t\tmitreTechnique\n\t\tcreatedOn\n\t\tnumberOfTests\n\t\teffectiveStatus\n\t\thasValidAttestation\n\t}\n}\n","variables":{"id":"ccm_c_J1_5250509a-3ced-4009-bb12-758c1dc6111f","sourceId":""},"operationName":"GetControlDetail"}'
         form: {}
         headers:
             Cache-Control:
@@ -1350,18 +1390,18 @@ interactions:
         content_length: 671
         uncompressed: false
         body: |
-            {"data":{"control":{"id":"ccm_c_J1_01c140dc-73db-4ca2-aa3d-098221968533","name":"tf-provider-acc-test-control-datasource","description":"acceptance test control for data sources","source":"J1","sourceId":"01c140dc-73db-4ca2-aa3d-098221968533","resourceGroupId":null,"status":"PASS","lastEvaluatedOn":"2026-08-19T13:13:01.889Z","configured":true,"frameworkIds":["ccm_f_J1_ccb92ecb-d885-4383-9833-4436830abff9"],"state":"LIVE","identifier":"","catalog":"","owner":"test-owner@jupiterone.com","remediation":"","exceptionProcess":"","mitreTechnique":"T1078","createdOn":"2026-08-19T13:12:44.491Z","numberOfTests":1,"effectiveStatus":"EFFECTIVE","hasValidAttestation":true}}}
+            {"data":{"control":{"id":"ccm_c_J1_5250509a-3ced-4009-bb12-758c1dc6111f","name":"tf-provider-acc-test-control-datasource","description":"acceptance test control for data sources","source":"J1","sourceId":"5250509a-3ced-4009-bb12-758c1dc6111f","resourceGroupId":null,"status":"PASS","lastEvaluatedOn":"2026-11-06T20:39:49.385Z","configured":true,"frameworkIds":["ccm_f_J1_20a18c58-f1ce-4868-81a8-750531068d07"],"state":"LIVE","identifier":"","catalog":"","owner":"test-owner@jupiterone.com","remediation":"","exceptionProcess":"","mitreTechnique":"T1078","createdOn":"2026-11-06T20:39:34.332Z","numberOfTests":1,"effectiveStatus":"EFFECTIVE","hasValidAttestation":true}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
             Content-Length:
                 - "671"
             Content-Security-Policy:
-                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
             Content-Type:
-                - application/json
-            Cross-Origin-Embedder-Policy:
-                - require-corp
+                - application/json; charset=utf-8
             Cross-Origin-Opener-Policy:
                 - same-origin
             Cross-Origin-Resource-Policy:
@@ -1374,6 +1414,8 @@ interactions:
                 - Origin
             X-Content-Type-Options:
                 - nosniff
+            X-Correlation-Id:
+                - e689db8e3c4ede4acfd6b808e78443cf
             X-Dns-Prefetch-Control:
                 - "off"
             X-Download-Options:
@@ -1386,7 +1428,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 1.413245666s
+        duration: 1.320181875s
     - id: 21
       request:
         proto: HTTP/1.1
@@ -1398,7 +1440,7 @@ interactions:
         host: graphql.dev.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery ListControls ($input: ControlsQueryInput) {\n\tcontrols(input: $input) {\n\t\titems {\n\t\t\tid\n\t\t\tname\n\t\t\tdescription\n\t\t\tsource\n\t\t\tsourceId\n\t\t\tresourceGroupId\n\t\t\tstatus\n\t\t\tlastEvaluatedOn\n\t\t\tconfigured\n\t\t\tframeworkIds\n\t\t\tstate\n\t\t\tidentifier\n\t\t\tcatalog\n\t\t\towner\n\t\t\tremediation\n\t\t\texceptionProcess\n\t\t\tmitreTechnique\n\t\t\tcreatedOn\n\t\t\tnumberOfTests\n\t\t\teffectiveStatus\n\t\t\thasValidAttestation\n\t\t}\n\t\tpageInfo {\n\t\t\thasNextPage\n\t\t\tendCursor\n\t\t}\n\t}\n}\n","variables":{"input":{"filter":{"frameworkId":["ccm_f_J1_ccb92ecb-d885-4383-9833-4436830abff9"]}}},"operationName":"ListControls"}'
+        body: '{"query":"\nquery ListControls ($input: ControlsQueryInput) {\n\tcontrols(input: $input) {\n\t\titems {\n\t\t\tid\n\t\t\tname\n\t\t\tdescription\n\t\t\tsource\n\t\t\tsourceId\n\t\t\tresourceGroupId\n\t\t\tstatus\n\t\t\tlastEvaluatedOn\n\t\t\tconfigured\n\t\t\tframeworkIds\n\t\t\tstate\n\t\t\tidentifier\n\t\t\tcatalog\n\t\t\towner\n\t\t\tremediation\n\t\t\texceptionProcess\n\t\t\tmitreTechnique\n\t\t\tcreatedOn\n\t\t\tnumberOfTests\n\t\t\teffectiveStatus\n\t\t\thasValidAttestation\n\t\t}\n\t\tpageInfo {\n\t\t\thasNextPage\n\t\t\tendCursor\n\t\t}\n\t}\n}\n","variables":{"input":{"filter":{"frameworkId":["ccm_f_J1_20a18c58-f1ce-4868-81a8-750531068d07"]}}},"operationName":"ListControls"}'
         form: {}
         headers:
             Cache-Control:
@@ -1416,18 +1458,18 @@ interactions:
         content_length: 734
         uncompressed: false
         body: |
-            {"data":{"controls":{"items":[{"id":"ccm_c_J1_01c140dc-73db-4ca2-aa3d-098221968533","name":"tf-provider-acc-test-control-datasource","description":"acceptance test control for data sources","source":"J1","sourceId":"01c140dc-73db-4ca2-aa3d-098221968533","resourceGroupId":null,"status":"PASS","lastEvaluatedOn":"2026-08-19T13:13:01.889Z","configured":true,"frameworkIds":["ccm_f_J1_ccb92ecb-d885-4383-9833-4436830abff9"],"state":"LIVE","identifier":"","catalog":"","owner":"test-owner@jupiterone.com","remediation":"","exceptionProcess":"","mitreTechnique":"T1078","createdOn":"2026-08-19T13:12:44.491Z","numberOfTests":1,"effectiveStatus":"EFFECTIVE","hasValidAttestation":true}],"pageInfo":{"hasNextPage":false,"endCursor":null}}}}
+            {"data":{"controls":{"items":[{"id":"ccm_c_J1_5250509a-3ced-4009-bb12-758c1dc6111f","name":"tf-provider-acc-test-control-datasource","description":"acceptance test control for data sources","source":"J1","sourceId":"5250509a-3ced-4009-bb12-758c1dc6111f","resourceGroupId":null,"status":"PASS","lastEvaluatedOn":"2026-11-06T20:39:49.385Z","configured":true,"frameworkIds":["ccm_f_J1_20a18c58-f1ce-4868-81a8-750531068d07"],"state":"LIVE","identifier":"","catalog":"","owner":"test-owner@jupiterone.com","remediation":"","exceptionProcess":"","mitreTechnique":"T1078","createdOn":"2026-11-06T20:39:34.332Z","numberOfTests":1,"effectiveStatus":"EFFECTIVE","hasValidAttestation":true}],"pageInfo":{"hasNextPage":false,"endCursor":null}}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
             Content-Length:
                 - "734"
             Content-Security-Policy:
-                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
             Content-Type:
-                - application/json
-            Cross-Origin-Embedder-Policy:
-                - require-corp
+                - application/json; charset=utf-8
             Cross-Origin-Opener-Policy:
                 - same-origin
             Cross-Origin-Resource-Policy:
@@ -1440,6 +1482,8 @@ interactions:
                 - Origin
             X-Content-Type-Options:
                 - nosniff
+            X-Correlation-Id:
+                - fb56c16a7e04ad72ddcf8ffd40ad5067
             X-Dns-Prefetch-Control:
                 - "off"
             X-Download-Options:
@@ -1452,7 +1496,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 2.037660209s
+        duration: 1.054887667s
     - id: 22
       request:
         proto: HTTP/1.1
@@ -1464,7 +1508,7 @@ interactions:
         host: graphql.dev.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery ListControlTests ($input: ControlTestsInput) {\n\tcontrolTests(input: $input) {\n\t\titems {\n\t\t\tid\n\t\t\tname\n\t\t\tdescription\n\t\t\tcontrolId\n\t\t\tresourceGroupId\n\t\t\tstatus\n\t\t\tlastEvaluatedOn\n\t\t\treferencedRuleId\n\t\t\tqueries {\n\t\t\t\tname\n\t\t\t\tquery\n\t\t\t\tresultsAre\n\t\t\t\trecordCount\n\t\t\t\tstatus\n\t\t\t\teffective\n\t\t\t}\n\t\t}\n\t\tpageInfo {\n\t\t\thasNextPage\n\t\t\tendCursor\n\t\t}\n\t}\n}\n","variables":{"input":{"filters":{"controlId":"ccm_c_J1_01c140dc-73db-4ca2-aa3d-098221968533"},"pagination":{}}},"operationName":"ListControlTests"}'
+        body: '{"query":"\nquery ListControlTests ($input: ControlTestsInput) {\n\tcontrolTests(input: $input) {\n\t\titems {\n\t\t\tid\n\t\t\tname\n\t\t\tdescription\n\t\t\tcontrolId\n\t\t\tresourceGroupId\n\t\t\tstatus\n\t\t\tlastEvaluatedOn\n\t\t\treferencedRuleId\n\t\t\tqueries {\n\t\t\t\tname\n\t\t\t\tquery\n\t\t\t\tresultsAre\n\t\t\t\trecordCount\n\t\t\t\tstatus\n\t\t\t\teffective\n\t\t\t}\n\t\t}\n\t\tpageInfo {\n\t\t\thasNextPage\n\t\t\tendCursor\n\t\t}\n\t}\n}\n","variables":{"input":{"filters":{"controlId":"ccm_c_J1_5250509a-3ced-4009-bb12-758c1dc6111f"},"pagination":{}}},"operationName":"ListControlTests"}'
         form: {}
         headers:
             Cache-Control:
@@ -1482,18 +1526,18 @@ interactions:
         content_length: 539
         uncompressed: false
         body: |
-            {"data":{"controlTests":{"items":[{"id":"18adb15b-9e8e-4dcb-8933-036f788e157a","name":"tf-provider-acc-test-control-test-datasource","description":null,"controlId":"ccm_c_J1_01c140dc-73db-4ca2-aa3d-098221968533","resourceGroupId":null,"status":null,"lastEvaluatedOn":null,"referencedRuleId":"18adb15b-9e8e-4dcb-8933-036f788e157a","queries":[{"name":"users without mfa","query":"FIND User WITH mfaEnabled = false","resultsAre":"BAD","recordCount":null,"status":null,"effective":true}]}],"pageInfo":{"hasNextPage":false,"endCursor":null}}}}
+            {"data":{"controlTests":{"items":[{"id":"96f812f9-3db9-4555-8cf3-6dcfa319a9b2","name":"tf-provider-acc-test-control-test-datasource","description":null,"controlId":"ccm_c_J1_5250509a-3ced-4009-bb12-758c1dc6111f","resourceGroupId":null,"status":null,"lastEvaluatedOn":null,"referencedRuleId":"96f812f9-3db9-4555-8cf3-6dcfa319a9b2","queries":[{"name":"users without mfa","query":"FIND User WITH mfaEnabled = false","resultsAre":"BAD","recordCount":null,"status":null,"effective":true}]}],"pageInfo":{"hasNextPage":false,"endCursor":null}}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
             Content-Length:
                 - "539"
             Content-Security-Policy:
-                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
             Content-Type:
-                - application/json
-            Cross-Origin-Embedder-Policy:
-                - require-corp
+                - application/json; charset=utf-8
             Cross-Origin-Opener-Policy:
                 - same-origin
             Cross-Origin-Resource-Policy:
@@ -1506,6 +1550,8 @@ interactions:
                 - Origin
             X-Content-Type-Options:
                 - nosniff
+            X-Correlation-Id:
+                - f61e9e0f60f4cca196004b60071ab209
             X-Dns-Prefetch-Control:
                 - "off"
             X-Download-Options:
@@ -1518,7 +1564,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 1.330005334s
+        duration: 1.028629416s
     - id: 23
       request:
         proto: HTTP/1.1
@@ -1530,7 +1576,7 @@ interactions:
         host: graphql.dev.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetControlFrameworkStats ($input: ControlFrameworkStatsInput) {\n\tcontrolFrameworkStats(input: $input) {\n\t\tid\n\t\tnumberOfControls\n\t\tnumberOfFailingControls\n\t\tnumberOfPassingControls\n\t\tnumberOfAttestedControls\n\t\tnumberOfRequirements\n\t\tnumberOfControlsWithTests\n\t\tnumberOfPassingRequirements\n\t\tnumberOfFailingRequirements\n\t\tnumberOfFailingCriticalRequirements\n\t\tsectionStats {\n\t\t\tsectionName\n\t\t\tnumberOfRequirements\n\t\t\tnumberOfPassingRequirements\n\t\t\tnumberOfFailingRequirements\n\t\t}\n\t}\n}\n","variables":{"input":{"frameworkIds":["ccm_f_J1_ccb92ecb-d885-4383-9833-4436830abff9"]}},"operationName":"GetControlFrameworkStats"}'
+        body: '{"query":"\nquery GetControlFrameworkStats ($input: ControlFrameworkStatsInput) {\n\tcontrolFrameworkStats(input: $input) {\n\t\tid\n\t\tnumberOfControls\n\t\tnumberOfFailingControls\n\t\tnumberOfPassingControls\n\t\tnumberOfAttestedControls\n\t\tnumberOfRequirements\n\t\tnumberOfControlsWithTests\n\t\tnumberOfPassingRequirements\n\t\tnumberOfFailingRequirements\n\t\tnumberOfFailingCriticalRequirements\n\t\tsectionStats {\n\t\t\tsectionName\n\t\t\tnumberOfRequirements\n\t\t\tnumberOfPassingRequirements\n\t\t\tnumberOfFailingRequirements\n\t\t}\n\t}\n}\n","variables":{"input":{"frameworkIds":["ccm_f_J1_20a18c58-f1ce-4868-81a8-750531068d07"]}},"operationName":"GetControlFrameworkStats"}'
         form: {}
         headers:
             Cache-Control:
@@ -1548,18 +1594,18 @@ interactions:
         content_length: 483
         uncompressed: false
         body: |
-            {"data":{"controlFrameworkStats":[{"id":"ccm_f_J1_ccb92ecb-d885-4383-9833-4436830abff9","numberOfControls":1,"numberOfFailingControls":0,"numberOfPassingControls":1,"numberOfAttestedControls":1,"numberOfRequirements":1,"numberOfControlsWithTests":1,"numberOfPassingRequirements":1,"numberOfFailingRequirements":0,"numberOfFailingCriticalRequirements":0,"sectionStats":[{"sectionName":"1","numberOfRequirements":1,"numberOfPassingRequirements":1,"numberOfFailingRequirements":0}]}]}}
+            {"data":{"controlFrameworkStats":[{"id":"ccm_f_J1_20a18c58-f1ce-4868-81a8-750531068d07","numberOfControls":1,"numberOfFailingControls":0,"numberOfPassingControls":1,"numberOfAttestedControls":1,"numberOfRequirements":1,"numberOfControlsWithTests":1,"numberOfPassingRequirements":1,"numberOfFailingRequirements":0,"numberOfFailingCriticalRequirements":0,"sectionStats":[{"sectionName":"1","numberOfRequirements":1,"numberOfPassingRequirements":1,"numberOfFailingRequirements":0}]}]}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
             Content-Length:
                 - "483"
             Content-Security-Policy:
-                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
             Content-Type:
-                - application/json
-            Cross-Origin-Embedder-Policy:
-                - require-corp
+                - application/json; charset=utf-8
             Cross-Origin-Opener-Policy:
                 - same-origin
             Cross-Origin-Resource-Policy:
@@ -1572,6 +1618,8 @@ interactions:
                 - Origin
             X-Content-Type-Options:
                 - nosniff
+            X-Correlation-Id:
+                - bd1a84f2a50d5a4b57b258cbad08285d
             X-Dns-Prefetch-Control:
                 - "off"
             X-Download-Options:
@@ -1584,7 +1632,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 2.011516166s
+        duration: 1.14065925s
     - id: 24
       request:
         proto: HTTP/1.1
@@ -1596,7 +1644,7 @@ interactions:
         host: graphql.dev.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery ListAttestations ($input: AttestationQueryInput) {\n\tattestations(input: $input) {\n\t\tid\n\t\tsubject\n\t\tdescription\n\t\texpiresOn\n\t\towner\n\t\tauthor\n\t\tdocumentLink\n\t\trevoked\n\t\tcreatedOn\n\t\tcontrolId\n\t\tstate\n\t}\n}\n","variables":{"input":{"controlId":"ccm_c_J1_01c140dc-73db-4ca2-aa3d-098221968533"}},"operationName":"ListAttestations"}'
+        body: '{"query":"\nquery ListAttestations ($input: AttestationQueryInput) {\n\tattestations(input: $input) {\n\t\tid\n\t\tsubject\n\t\tdescription\n\t\texpiresOn\n\t\towner\n\t\tauthor\n\t\tdocumentLink\n\t\trevoked\n\t\tcreatedOn\n\t\tcontrolId\n\t\tstate\n\t}\n}\n","variables":{"input":{"controlId":"ccm_c_J1_5250509a-3ced-4009-bb12-758c1dc6111f"}},"operationName":"ListAttestations"}'
         form: {}
         headers:
             Cache-Control:
@@ -1611,21 +1659,21 @@ interactions:
         proto_minor: 0
         transfer_encoding: []
         trailer: {}
-        content_length: 398
+        content_length: 392
         uncompressed: false
         body: |
-            {"data":{"attestations":[{"id":"e3881b3a-72aa-4870-9ee5-20e9df78a7af","subject":"data source acceptance attestation","description":null,"expiresOn":1896048000000,"owner":"test-owner@jupiterone.com","author":"james.mountifield@jupiterone.com","documentLink":null,"revoked":false,"createdOn":"2026-08-19T13:12:59.693Z","controlId":"ccm_c_J1_01c140dc-73db-4ca2-aa3d-098221968533","state":"ACTIVE"}]}}
+            {"data":{"attestations":[{"id":"9e2ff7de-0853-4aac-825b-be30eb0e9f93","subject":"data source acceptance attestation","description":null,"expiresOn":1896048000000,"owner":"test-owner@jupiterone.com","author":"ryan.mcafee@jupiterone.com","documentLink":null,"revoked":false,"createdOn":"2026-11-06T20:39:47.738Z","controlId":"ccm_c_J1_5250509a-3ced-4009-bb12-758c1dc6111f","state":"ACTIVE"}]}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
             Content-Length:
-                - "398"
+                - "392"
             Content-Security-Policy:
-                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
             Content-Type:
-                - application/json
-            Cross-Origin-Embedder-Policy:
-                - require-corp
+                - application/json; charset=utf-8
             Cross-Origin-Opener-Policy:
                 - same-origin
             Cross-Origin-Resource-Policy:
@@ -1638,6 +1686,8 @@ interactions:
                 - Origin
             X-Content-Type-Options:
                 - nosniff
+            X-Correlation-Id:
+                - 9e20c6f536bfa276242b32cad0b60e22
             X-Dns-Prefetch-Control:
                 - "off"
             X-Download-Options:
@@ -1650,7 +1700,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 1.316402458s
+        duration: 1.02064675s
     - id: 25
       request:
         proto: HTTP/1.1
@@ -1662,7 +1712,7 @@ interactions:
         host: graphql.dev.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetControlDetail ($id: ID, $sourceId: String) {\n\tcontrol(id: $id, sourceId: $sourceId) {\n\t\tid\n\t\tname\n\t\tdescription\n\t\tsource\n\t\tsourceId\n\t\tresourceGroupId\n\t\tstatus\n\t\tlastEvaluatedOn\n\t\tconfigured\n\t\tframeworkIds\n\t\tstate\n\t\tidentifier\n\t\tcatalog\n\t\towner\n\t\tremediation\n\t\texceptionProcess\n\t\tmitreTechnique\n\t\tcreatedOn\n\t\tnumberOfTests\n\t\teffectiveStatus\n\t\thasValidAttestation\n\t}\n}\n","variables":{"id":"ccm_c_J1_01c140dc-73db-4ca2-aa3d-098221968533","sourceId":""},"operationName":"GetControlDetail"}'
+        body: '{"query":"\nquery GetControlDetail ($id: ID, $sourceId: String) {\n\tcontrol(id: $id, sourceId: $sourceId) {\n\t\tid\n\t\tname\n\t\tdescription\n\t\tsource\n\t\tsourceId\n\t\tresourceGroupId\n\t\tstatus\n\t\tlastEvaluatedOn\n\t\tconfigured\n\t\tframeworkIds\n\t\tstate\n\t\tidentifier\n\t\tcatalog\n\t\towner\n\t\tremediation\n\t\texceptionProcess\n\t\tmitreTechnique\n\t\tcreatedOn\n\t\tnumberOfTests\n\t\teffectiveStatus\n\t\thasValidAttestation\n\t}\n}\n","variables":{"id":"ccm_c_J1_5250509a-3ced-4009-bb12-758c1dc6111f","sourceId":""},"operationName":"GetControlDetail"}'
         form: {}
         headers:
             Cache-Control:
@@ -1680,18 +1730,18 @@ interactions:
         content_length: 671
         uncompressed: false
         body: |
-            {"data":{"control":{"id":"ccm_c_J1_01c140dc-73db-4ca2-aa3d-098221968533","name":"tf-provider-acc-test-control-datasource","description":"acceptance test control for data sources","source":"J1","sourceId":"01c140dc-73db-4ca2-aa3d-098221968533","resourceGroupId":null,"status":"PASS","lastEvaluatedOn":"2026-08-19T13:13:01.889Z","configured":true,"frameworkIds":["ccm_f_J1_ccb92ecb-d885-4383-9833-4436830abff9"],"state":"LIVE","identifier":"","catalog":"","owner":"test-owner@jupiterone.com","remediation":"","exceptionProcess":"","mitreTechnique":"T1078","createdOn":"2026-08-19T13:12:44.491Z","numberOfTests":1,"effectiveStatus":"EFFECTIVE","hasValidAttestation":true}}}
+            {"data":{"control":{"id":"ccm_c_J1_5250509a-3ced-4009-bb12-758c1dc6111f","name":"tf-provider-acc-test-control-datasource","description":"acceptance test control for data sources","source":"J1","sourceId":"5250509a-3ced-4009-bb12-758c1dc6111f","resourceGroupId":null,"status":"PASS","lastEvaluatedOn":"2026-11-06T20:39:49.385Z","configured":true,"frameworkIds":["ccm_f_J1_20a18c58-f1ce-4868-81a8-750531068d07"],"state":"LIVE","identifier":"","catalog":"","owner":"test-owner@jupiterone.com","remediation":"","exceptionProcess":"","mitreTechnique":"T1078","createdOn":"2026-11-06T20:39:34.332Z","numberOfTests":1,"effectiveStatus":"EFFECTIVE","hasValidAttestation":true}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
             Content-Length:
                 - "671"
             Content-Security-Policy:
-                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
             Content-Type:
-                - application/json
-            Cross-Origin-Embedder-Policy:
-                - require-corp
+                - application/json; charset=utf-8
             Cross-Origin-Opener-Policy:
                 - same-origin
             Cross-Origin-Resource-Policy:
@@ -1704,6 +1754,8 @@ interactions:
                 - Origin
             X-Content-Type-Options:
                 - nosniff
+            X-Correlation-Id:
+                - 6dededbb43f9ec86edd021126c3e7c4c
             X-Dns-Prefetch-Control:
                 - "off"
             X-Download-Options:
@@ -1716,7 +1768,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 1.466165s
+        duration: 1.128370584s
     - id: 26
       request:
         proto: HTTP/1.1
@@ -1728,7 +1780,7 @@ interactions:
         host: graphql.dev.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery ListControls ($input: ControlsQueryInput) {\n\tcontrols(input: $input) {\n\t\titems {\n\t\t\tid\n\t\t\tname\n\t\t\tdescription\n\t\t\tsource\n\t\t\tsourceId\n\t\t\tresourceGroupId\n\t\t\tstatus\n\t\t\tlastEvaluatedOn\n\t\t\tconfigured\n\t\t\tframeworkIds\n\t\t\tstate\n\t\t\tidentifier\n\t\t\tcatalog\n\t\t\towner\n\t\t\tremediation\n\t\t\texceptionProcess\n\t\t\tmitreTechnique\n\t\t\tcreatedOn\n\t\t\tnumberOfTests\n\t\t\teffectiveStatus\n\t\t\thasValidAttestation\n\t\t}\n\t\tpageInfo {\n\t\t\thasNextPage\n\t\t\tendCursor\n\t\t}\n\t}\n}\n","variables":{"input":{"filter":{"frameworkId":["ccm_f_J1_ccb92ecb-d885-4383-9833-4436830abff9"]}}},"operationName":"ListControls"}'
+        body: '{"query":"\nquery ListControls ($input: ControlsQueryInput) {\n\tcontrols(input: $input) {\n\t\titems {\n\t\t\tid\n\t\t\tname\n\t\t\tdescription\n\t\t\tsource\n\t\t\tsourceId\n\t\t\tresourceGroupId\n\t\t\tstatus\n\t\t\tlastEvaluatedOn\n\t\t\tconfigured\n\t\t\tframeworkIds\n\t\t\tstate\n\t\t\tidentifier\n\t\t\tcatalog\n\t\t\towner\n\t\t\tremediation\n\t\t\texceptionProcess\n\t\t\tmitreTechnique\n\t\t\tcreatedOn\n\t\t\tnumberOfTests\n\t\t\teffectiveStatus\n\t\t\thasValidAttestation\n\t\t}\n\t\tpageInfo {\n\t\t\thasNextPage\n\t\t\tendCursor\n\t\t}\n\t}\n}\n","variables":{"input":{"filter":{"frameworkId":["ccm_f_J1_20a18c58-f1ce-4868-81a8-750531068d07"]}}},"operationName":"ListControls"}'
         form: {}
         headers:
             Cache-Control:
@@ -1746,18 +1798,18 @@ interactions:
         content_length: 734
         uncompressed: false
         body: |
-            {"data":{"controls":{"items":[{"id":"ccm_c_J1_01c140dc-73db-4ca2-aa3d-098221968533","name":"tf-provider-acc-test-control-datasource","description":"acceptance test control for data sources","source":"J1","sourceId":"01c140dc-73db-4ca2-aa3d-098221968533","resourceGroupId":null,"status":"PASS","lastEvaluatedOn":"2026-08-19T13:13:01.889Z","configured":true,"frameworkIds":["ccm_f_J1_ccb92ecb-d885-4383-9833-4436830abff9"],"state":"LIVE","identifier":"","catalog":"","owner":"test-owner@jupiterone.com","remediation":"","exceptionProcess":"","mitreTechnique":"T1078","createdOn":"2026-08-19T13:12:44.491Z","numberOfTests":1,"effectiveStatus":"EFFECTIVE","hasValidAttestation":true}],"pageInfo":{"hasNextPage":false,"endCursor":null}}}}
+            {"data":{"controls":{"items":[{"id":"ccm_c_J1_5250509a-3ced-4009-bb12-758c1dc6111f","name":"tf-provider-acc-test-control-datasource","description":"acceptance test control for data sources","source":"J1","sourceId":"5250509a-3ced-4009-bb12-758c1dc6111f","resourceGroupId":null,"status":"PASS","lastEvaluatedOn":"2026-11-06T20:39:49.385Z","configured":true,"frameworkIds":["ccm_f_J1_20a18c58-f1ce-4868-81a8-750531068d07"],"state":"LIVE","identifier":"","catalog":"","owner":"test-owner@jupiterone.com","remediation":"","exceptionProcess":"","mitreTechnique":"T1078","createdOn":"2026-11-06T20:39:34.332Z","numberOfTests":1,"effectiveStatus":"EFFECTIVE","hasValidAttestation":true}],"pageInfo":{"hasNextPage":false,"endCursor":null}}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
             Content-Length:
                 - "734"
             Content-Security-Policy:
-                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
             Content-Type:
-                - application/json
-            Cross-Origin-Embedder-Policy:
-                - require-corp
+                - application/json; charset=utf-8
             Cross-Origin-Opener-Policy:
                 - same-origin
             Cross-Origin-Resource-Policy:
@@ -1770,6 +1822,8 @@ interactions:
                 - Origin
             X-Content-Type-Options:
                 - nosniff
+            X-Correlation-Id:
+                - 81247bcc48d0ddd2a9639d78204aa7d2
             X-Dns-Prefetch-Control:
                 - "off"
             X-Download-Options:
@@ -1782,7 +1836,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 1.786688625s
+        duration: 3.896638417s
     - id: 27
       request:
         proto: HTTP/1.1
@@ -1794,7 +1848,7 @@ interactions:
         host: graphql.dev.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery ListControlTests ($input: ControlTestsInput) {\n\tcontrolTests(input: $input) {\n\t\titems {\n\t\t\tid\n\t\t\tname\n\t\t\tdescription\n\t\t\tcontrolId\n\t\t\tresourceGroupId\n\t\t\tstatus\n\t\t\tlastEvaluatedOn\n\t\t\treferencedRuleId\n\t\t\tqueries {\n\t\t\t\tname\n\t\t\t\tquery\n\t\t\t\tresultsAre\n\t\t\t\trecordCount\n\t\t\t\tstatus\n\t\t\t\teffective\n\t\t\t}\n\t\t}\n\t\tpageInfo {\n\t\t\thasNextPage\n\t\t\tendCursor\n\t\t}\n\t}\n}\n","variables":{"input":{"filters":{"controlId":"ccm_c_J1_01c140dc-73db-4ca2-aa3d-098221968533"},"pagination":{}}},"operationName":"ListControlTests"}'
+        body: '{"query":"\nquery ListControlTests ($input: ControlTestsInput) {\n\tcontrolTests(input: $input) {\n\t\titems {\n\t\t\tid\n\t\t\tname\n\t\t\tdescription\n\t\t\tcontrolId\n\t\t\tresourceGroupId\n\t\t\tstatus\n\t\t\tlastEvaluatedOn\n\t\t\treferencedRuleId\n\t\t\tqueries {\n\t\t\t\tname\n\t\t\t\tquery\n\t\t\t\tresultsAre\n\t\t\t\trecordCount\n\t\t\t\tstatus\n\t\t\t\teffective\n\t\t\t}\n\t\t}\n\t\tpageInfo {\n\t\t\thasNextPage\n\t\t\tendCursor\n\t\t}\n\t}\n}\n","variables":{"input":{"filters":{"controlId":"ccm_c_J1_5250509a-3ced-4009-bb12-758c1dc6111f"},"pagination":{}}},"operationName":"ListControlTests"}'
         form: {}
         headers:
             Cache-Control:
@@ -1812,18 +1866,18 @@ interactions:
         content_length: 539
         uncompressed: false
         body: |
-            {"data":{"controlTests":{"items":[{"id":"18adb15b-9e8e-4dcb-8933-036f788e157a","name":"tf-provider-acc-test-control-test-datasource","description":null,"controlId":"ccm_c_J1_01c140dc-73db-4ca2-aa3d-098221968533","resourceGroupId":null,"status":null,"lastEvaluatedOn":null,"referencedRuleId":"18adb15b-9e8e-4dcb-8933-036f788e157a","queries":[{"name":"users without mfa","query":"FIND User WITH mfaEnabled = false","resultsAre":"BAD","recordCount":null,"status":null,"effective":true}]}],"pageInfo":{"hasNextPage":false,"endCursor":null}}}}
+            {"data":{"controlTests":{"items":[{"id":"96f812f9-3db9-4555-8cf3-6dcfa319a9b2","name":"tf-provider-acc-test-control-test-datasource","description":null,"controlId":"ccm_c_J1_5250509a-3ced-4009-bb12-758c1dc6111f","resourceGroupId":null,"status":null,"lastEvaluatedOn":null,"referencedRuleId":"96f812f9-3db9-4555-8cf3-6dcfa319a9b2","queries":[{"name":"users without mfa","query":"FIND User WITH mfaEnabled = false","resultsAre":"BAD","recordCount":null,"status":null,"effective":true}]}],"pageInfo":{"hasNextPage":false,"endCursor":null}}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
             Content-Length:
                 - "539"
             Content-Security-Policy:
-                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
             Content-Type:
-                - application/json
-            Cross-Origin-Embedder-Policy:
-                - require-corp
+                - application/json; charset=utf-8
             Cross-Origin-Opener-Policy:
                 - same-origin
             Cross-Origin-Resource-Policy:
@@ -1836,6 +1890,8 @@ interactions:
                 - Origin
             X-Content-Type-Options:
                 - nosniff
+            X-Correlation-Id:
+                - db44d9e819b30fae679d79802b22c7b5
             X-Dns-Prefetch-Control:
                 - "off"
             X-Download-Options:
@@ -1848,7 +1904,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 1.338136042s
+        duration: 1.025976958s
     - id: 28
       request:
         proto: HTTP/1.1
@@ -1860,7 +1916,7 @@ interactions:
         host: graphql.dev.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetControlFrameworkStats ($input: ControlFrameworkStatsInput) {\n\tcontrolFrameworkStats(input: $input) {\n\t\tid\n\t\tnumberOfControls\n\t\tnumberOfFailingControls\n\t\tnumberOfPassingControls\n\t\tnumberOfAttestedControls\n\t\tnumberOfRequirements\n\t\tnumberOfControlsWithTests\n\t\tnumberOfPassingRequirements\n\t\tnumberOfFailingRequirements\n\t\tnumberOfFailingCriticalRequirements\n\t\tsectionStats {\n\t\t\tsectionName\n\t\t\tnumberOfRequirements\n\t\t\tnumberOfPassingRequirements\n\t\t\tnumberOfFailingRequirements\n\t\t}\n\t}\n}\n","variables":{"input":{"frameworkIds":["ccm_f_J1_ccb92ecb-d885-4383-9833-4436830abff9"]}},"operationName":"GetControlFrameworkStats"}'
+        body: '{"query":"\nquery GetControlFrameworkStats ($input: ControlFrameworkStatsInput) {\n\tcontrolFrameworkStats(input: $input) {\n\t\tid\n\t\tnumberOfControls\n\t\tnumberOfFailingControls\n\t\tnumberOfPassingControls\n\t\tnumberOfAttestedControls\n\t\tnumberOfRequirements\n\t\tnumberOfControlsWithTests\n\t\tnumberOfPassingRequirements\n\t\tnumberOfFailingRequirements\n\t\tnumberOfFailingCriticalRequirements\n\t\tsectionStats {\n\t\t\tsectionName\n\t\t\tnumberOfRequirements\n\t\t\tnumberOfPassingRequirements\n\t\t\tnumberOfFailingRequirements\n\t\t}\n\t}\n}\n","variables":{"input":{"frameworkIds":["ccm_f_J1_20a18c58-f1ce-4868-81a8-750531068d07"]}},"operationName":"GetControlFrameworkStats"}'
         form: {}
         headers:
             Cache-Control:
@@ -1878,18 +1934,18 @@ interactions:
         content_length: 483
         uncompressed: false
         body: |
-            {"data":{"controlFrameworkStats":[{"id":"ccm_f_J1_ccb92ecb-d885-4383-9833-4436830abff9","numberOfControls":1,"numberOfFailingControls":0,"numberOfPassingControls":1,"numberOfAttestedControls":1,"numberOfRequirements":1,"numberOfControlsWithTests":1,"numberOfPassingRequirements":1,"numberOfFailingRequirements":0,"numberOfFailingCriticalRequirements":0,"sectionStats":[{"sectionName":"1","numberOfRequirements":1,"numberOfPassingRequirements":1,"numberOfFailingRequirements":0}]}]}}
+            {"data":{"controlFrameworkStats":[{"id":"ccm_f_J1_20a18c58-f1ce-4868-81a8-750531068d07","numberOfControls":1,"numberOfFailingControls":0,"numberOfPassingControls":1,"numberOfAttestedControls":1,"numberOfRequirements":1,"numberOfControlsWithTests":1,"numberOfPassingRequirements":1,"numberOfFailingRequirements":0,"numberOfFailingCriticalRequirements":0,"sectionStats":[{"sectionName":"1","numberOfRequirements":1,"numberOfPassingRequirements":1,"numberOfFailingRequirements":0}]}]}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
             Content-Length:
                 - "483"
             Content-Security-Policy:
-                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
             Content-Type:
-                - application/json
-            Cross-Origin-Embedder-Policy:
-                - require-corp
+                - application/json; charset=utf-8
             Cross-Origin-Opener-Policy:
                 - same-origin
             Cross-Origin-Resource-Policy:
@@ -1902,6 +1958,8 @@ interactions:
                 - Origin
             X-Content-Type-Options:
                 - nosniff
+            X-Correlation-Id:
+                - a6b4a37b7be401bd6b19e4e466ce707f
             X-Dns-Prefetch-Control:
                 - "off"
             X-Download-Options:
@@ -1914,7 +1972,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 2.194291792s
+        duration: 837.67825ms
     - id: 29
       request:
         proto: HTTP/1.1
@@ -1926,7 +1984,7 @@ interactions:
         host: graphql.dev.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery ListAttestations ($input: AttestationQueryInput) {\n\tattestations(input: $input) {\n\t\tid\n\t\tsubject\n\t\tdescription\n\t\texpiresOn\n\t\towner\n\t\tauthor\n\t\tdocumentLink\n\t\trevoked\n\t\tcreatedOn\n\t\tcontrolId\n\t\tstate\n\t}\n}\n","variables":{"input":{"controlId":"ccm_c_J1_01c140dc-73db-4ca2-aa3d-098221968533"}},"operationName":"ListAttestations"}'
+        body: '{"query":"\nquery ListAttestations ($input: AttestationQueryInput) {\n\tattestations(input: $input) {\n\t\tid\n\t\tsubject\n\t\tdescription\n\t\texpiresOn\n\t\towner\n\t\tauthor\n\t\tdocumentLink\n\t\trevoked\n\t\tcreatedOn\n\t\tcontrolId\n\t\tstate\n\t}\n}\n","variables":{"input":{"controlId":"ccm_c_J1_5250509a-3ced-4009-bb12-758c1dc6111f"}},"operationName":"ListAttestations"}'
         form: {}
         headers:
             Cache-Control:
@@ -1941,21 +1999,21 @@ interactions:
         proto_minor: 0
         transfer_encoding: []
         trailer: {}
-        content_length: 398
+        content_length: 392
         uncompressed: false
         body: |
-            {"data":{"attestations":[{"id":"e3881b3a-72aa-4870-9ee5-20e9df78a7af","subject":"data source acceptance attestation","description":null,"expiresOn":1896048000000,"owner":"test-owner@jupiterone.com","author":"james.mountifield@jupiterone.com","documentLink":null,"revoked":false,"createdOn":"2026-08-19T13:12:59.693Z","controlId":"ccm_c_J1_01c140dc-73db-4ca2-aa3d-098221968533","state":"ACTIVE"}]}}
+            {"data":{"attestations":[{"id":"9e2ff7de-0853-4aac-825b-be30eb0e9f93","subject":"data source acceptance attestation","description":null,"expiresOn":1896048000000,"owner":"test-owner@jupiterone.com","author":"ryan.mcafee@jupiterone.com","documentLink":null,"revoked":false,"createdOn":"2026-11-06T20:39:47.738Z","controlId":"ccm_c_J1_5250509a-3ced-4009-bb12-758c1dc6111f","state":"ACTIVE"}]}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
             Content-Length:
-                - "398"
+                - "392"
             Content-Security-Policy:
-                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
             Content-Type:
-                - application/json
-            Cross-Origin-Embedder-Policy:
-                - require-corp
+                - application/json; charset=utf-8
             Cross-Origin-Opener-Policy:
                 - same-origin
             Cross-Origin-Resource-Policy:
@@ -1968,6 +2026,8 @@ interactions:
                 - Origin
             X-Content-Type-Options:
                 - nosniff
+            X-Correlation-Id:
+                - 7bba462e3ecb3a37fc2438a05406d9c8
             X-Dns-Prefetch-Control:
                 - "off"
             X-Download-Options:
@@ -1980,7 +2040,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 1.313499209s
+        duration: 1.041633041s
     - id: 30
       request:
         proto: HTTP/1.1
@@ -1992,7 +2052,7 @@ interactions:
         host: graphql.dev.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nmutation RevokeAttestation ($input: RevokeAttestationInput!) {\n\trevokeAttestation(input: $input) {\n\t\tid\n\t\trevoked\n\t\tstate\n\t}\n}\n","variables":{"input":{"id":"e3881b3a-72aa-4870-9ee5-20e9df78a7af"}},"operationName":"RevokeAttestation"}'
+        body: '{"query":"\nmutation RevokeAttestation ($input: RevokeAttestationInput!) {\n\trevokeAttestation(input: $input) {\n\t\tid\n\t\trevoked\n\t\tstate\n\t}\n}\n","variables":{"input":{"id":"9e2ff7de-0853-4aac-825b-be30eb0e9f93"}},"operationName":"RevokeAttestation"}'
         form: {}
         headers:
             Cache-Control:
@@ -2010,18 +2070,18 @@ interactions:
         content_length: 110
         uncompressed: false
         body: |
-            {"data":{"revokeAttestation":{"id":"e3881b3a-72aa-4870-9ee5-20e9df78a7af","revoked":true,"state":"REVOKED"}}}
+            {"data":{"revokeAttestation":{"id":"9e2ff7de-0853-4aac-825b-be30eb0e9f93","revoked":true,"state":"REVOKED"}}}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
             Content-Length:
                 - "110"
             Content-Security-Policy:
-                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
             Content-Type:
-                - application/json
-            Cross-Origin-Embedder-Policy:
-                - require-corp
+                - application/json; charset=utf-8
             Cross-Origin-Opener-Policy:
                 - same-origin
             Cross-Origin-Resource-Policy:
@@ -2034,6 +2094,8 @@ interactions:
                 - Origin
             X-Content-Type-Options:
                 - nosniff
+            X-Correlation-Id:
+                - 0d1bddd990093d6bb39d17c21e20231b
             X-Dns-Prefetch-Control:
                 - "off"
             X-Download-Options:
@@ -2046,7 +2108,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 12.68194575s
+        duration: 2.9052505s
     - id: 31
       request:
         proto: HTTP/1.1
@@ -2058,7 +2120,7 @@ interactions:
         host: graphql.dev.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nmutation DeleteControlTest ($id: ID!) {\n\tdeleteControlTest(id: $id) {\n\t\tsuccess\n\t}\n}\n","variables":{"id":"18adb15b-9e8e-4dcb-8933-036f788e157a"},"operationName":"DeleteControlTest"}'
+        body: '{"query":"\nmutation DeleteControlTest ($id: ID!) {\n\tdeleteControlTest(id: $id) {\n\t\tsuccess\n\t}\n}\n","variables":{"id":"96f812f9-3db9-4555-8cf3-6dcfa319a9b2"},"operationName":"DeleteControlTest"}'
         form: {}
         headers:
             Cache-Control:
@@ -2080,14 +2142,14 @@ interactions:
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
             Content-Length:
                 - "48"
             Content-Security-Policy:
-                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
             Content-Type:
-                - application/json
-            Cross-Origin-Embedder-Policy:
-                - require-corp
+                - application/json; charset=utf-8
             Cross-Origin-Opener-Policy:
                 - same-origin
             Cross-Origin-Resource-Policy:
@@ -2100,6 +2162,8 @@ interactions:
                 - Origin
             X-Content-Type-Options:
                 - nosniff
+            X-Correlation-Id:
+                - c43988165eaab48fb38659466c0bbb98
             X-Dns-Prefetch-Control:
                 - "off"
             X-Download-Options:
@@ -2112,7 +2176,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 3.620189333s
+        duration: 2.503782959s
     - id: 32
       request:
         proto: HTTP/1.1
@@ -2124,7 +2188,7 @@ interactions:
         host: graphql.dev.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nmutation DeleteControl ($input: DeleteControlInput!) {\n\tdeleteControl(input: $input) {\n\t\tsuccess\n\t}\n}\n","variables":{"input":{"id":"ccm_c_J1_01c140dc-73db-4ca2-aa3d-098221968533"}},"operationName":"DeleteControl"}'
+        body: '{"query":"\nmutation DeleteControl ($input: DeleteControlInput!) {\n\tdeleteControl(input: $input) {\n\t\tsuccess\n\t}\n}\n","variables":{"input":{"id":"ccm_c_J1_5250509a-3ced-4009-bb12-758c1dc6111f"}},"operationName":"DeleteControl"}'
         form: {}
         headers:
             Cache-Control:
@@ -2146,14 +2210,14 @@ interactions:
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
             Content-Length:
                 - "44"
             Content-Security-Policy:
-                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
             Content-Type:
-                - application/json
-            Cross-Origin-Embedder-Policy:
-                - require-corp
+                - application/json; charset=utf-8
             Cross-Origin-Opener-Policy:
                 - same-origin
             Cross-Origin-Resource-Policy:
@@ -2166,6 +2230,8 @@ interactions:
                 - Origin
             X-Content-Type-Options:
                 - nosniff
+            X-Correlation-Id:
+                - 88a3bae5a4a1c2059338ea0614465e9c
             X-Dns-Prefetch-Control:
                 - "off"
             X-Download-Options:
@@ -2178,7 +2244,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 2.872241375s
+        duration: 1.594925666s
     - id: 33
       request:
         proto: HTTP/1.1
@@ -2190,7 +2256,7 @@ interactions:
         host: graphql.dev.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nmutation DeleteRequirement ($input: DeleteRequirementInput!) {\n\tdeleteRequirement(input: $input) {\n\t\tsuccess\n\t}\n}\n","variables":{"input":{"id":"ccm_r_c26b8c8b-9e6e-4451-87d0-5508a9b34569"}},"operationName":"DeleteRequirement"}'
+        body: '{"query":"\nmutation DeleteRequirement ($input: DeleteRequirementInput!) {\n\tdeleteRequirement(input: $input) {\n\t\tsuccess\n\t}\n}\n","variables":{"input":{"id":"ccm_r_54daddc1-d6ad-412f-8b2d-d87edd05a7c4"}},"operationName":"DeleteRequirement"}'
         form: {}
         headers:
             Cache-Control:
@@ -2212,14 +2278,14 @@ interactions:
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
             Content-Length:
                 - "48"
             Content-Security-Policy:
-                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
             Content-Type:
-                - application/json
-            Cross-Origin-Embedder-Policy:
-                - require-corp
+                - application/json; charset=utf-8
             Cross-Origin-Opener-Policy:
                 - same-origin
             Cross-Origin-Resource-Policy:
@@ -2232,6 +2298,8 @@ interactions:
                 - Origin
             X-Content-Type-Options:
                 - nosniff
+            X-Correlation-Id:
+                - 0e1c9981a84c933eeff7673d9eca4cad
             X-Dns-Prefetch-Control:
                 - "off"
             X-Download-Options:
@@ -2244,7 +2312,7 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 2.156401375s
+        duration: 745.512458ms
     - id: 34
       request:
         proto: HTTP/1.1
@@ -2256,7 +2324,7 @@ interactions:
         host: graphql.dev.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nmutation DeleteFramework ($input: DeleteFrameworkInput!) {\n\tdeleteFramework(input: $input) {\n\t\tsuccess\n\t}\n}\n","variables":{"input":{"id":"ccm_f_J1_ccb92ecb-d885-4383-9833-4436830abff9"}},"operationName":"DeleteFramework"}'
+        body: '{"query":"\nmutation DeleteFramework ($input: DeleteFrameworkInput!) {\n\tdeleteFramework(input: $input) {\n\t\tsuccess\n\t}\n}\n","variables":{"input":{"id":"ccm_f_J1_20a18c58-f1ce-4868-81a8-750531068d07"}},"operationName":"DeleteFramework"}'
         form: {}
         headers:
             Cache-Control:
@@ -2278,14 +2346,14 @@ interactions:
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
             Content-Length:
                 - "46"
             Content-Security-Policy:
-                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
             Content-Type:
-                - application/json
-            Cross-Origin-Embedder-Policy:
-                - require-corp
+                - application/json; charset=utf-8
             Cross-Origin-Opener-Policy:
                 - same-origin
             Cross-Origin-Resource-Policy:
@@ -2298,6 +2366,8 @@ interactions:
                 - Origin
             X-Content-Type-Options:
                 - nosniff
+            X-Correlation-Id:
+                - 11af39562517095d72d2ea27f3c4052b
             X-Dns-Prefetch-Control:
                 - "off"
             X-Download-Options:
@@ -2310,19 +2380,19 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 1.0365775s
+        duration: 704.955334ms
     - id: 35
       request:
         proto: HTTP/1.1
         proto_major: 1
         proto_minor: 1
-        content_length: 363
+        content_length: 520
         transfer_encoding: []
         trailer: {}
         host: graphql.dev.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetControlById ($id: ID!) {\n\tcontrol(id: $id) {\n\t\tid\n\t\tname\n\t\tdescription\n\t\tresourceGroupId\n\t\tstate\n\t\tidentifier\n\t\tcatalog\n\t\towner\n\t\tremediation\n\t\texceptionProcess\n\t\tmitreTechnique\n\t\tframeworkIds\n\t}\n}\n","variables":{"id":"ccm_c_J1_01c140dc-73db-4ca2-aa3d-098221968533"},"operationName":"GetControlById"}'
+        body: '{"query":"\nquery GetControlById ($id: ID!) {\n\tcontrol(id: $id) {\n\t\tid\n\t\tsourceId\n\t\tname\n\t\tdescription\n\t\tresourceGroupId\n\t\tstate\n\t\tidentifier\n\t\tcatalog\n\t\towner\n\t\tremediation\n\t\texceptionProcess\n\t\tmitreTechnique\n\t\tframeworkIds\n\t}\n\tcontrolRequirements(input: {controlId:$id}) {\n\t\titems {\n\t\t\tid\n\t\t}\n\t\tpageInfo {\n\t\t\thasNextPage\n\t\t\tendCursor\n\t\t}\n\t}\n}\n","variables":{"id":"ccm_c_J1_5250509a-3ced-4009-bb12-758c1dc6111f"},"operationName":"GetControlById"}'
         form: {}
         headers:
             Cache-Control:
@@ -2337,21 +2407,21 @@ interactions:
         proto_minor: 0
         transfer_encoding: []
         trailer: {}
-        content_length: 183
+        content_length: 139
         uncompressed: false
         body: |
-            {"errors":[{"message":"Control not found","path":["control"],"extensions":{"code":"NOT_FOUND","serviceName":"apps-service","exception":{"message":"Control not found"}}}],"data":null}
+            {"errors":[{"message":"Control not found","path":["control"],"extensions":{"code":"NOT_FOUND","serviceName":"apps-service"}}],"data":null}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
             Content-Length:
-                - "183"
+                - "139"
             Content-Security-Policy:
-                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
             Content-Type:
-                - application/json
-            Cross-Origin-Embedder-Policy:
-                - require-corp
+                - application/json; charset=utf-8
             Cross-Origin-Opener-Policy:
                 - same-origin
             Cross-Origin-Resource-Policy:
@@ -2364,6 +2434,8 @@ interactions:
                 - Origin
             X-Content-Type-Options:
                 - nosniff
+            X-Correlation-Id:
+                - ed56c0a2e232ba1aaa9d4512d2eaa6ba
             X-Dns-Prefetch-Control:
                 - "off"
             X-Download-Options:
@@ -2376,19 +2448,19 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 975.652833ms
+        duration: 684.048166ms
     - id: 36
       request:
         proto: HTTP/1.1
         proto_major: 1
         proto_minor: 1
-        content_length: 363
+        content_length: 520
         transfer_encoding: []
         trailer: {}
         host: graphql.dev.jupiterone.io
         remote_addr: ""
         request_uri: ""
-        body: '{"query":"\nquery GetControlById ($id: ID!) {\n\tcontrol(id: $id) {\n\t\tid\n\t\tname\n\t\tdescription\n\t\tresourceGroupId\n\t\tstate\n\t\tidentifier\n\t\tcatalog\n\t\towner\n\t\tremediation\n\t\texceptionProcess\n\t\tmitreTechnique\n\t\tframeworkIds\n\t}\n}\n","variables":{"id":"ccm_c_J1_01c140dc-73db-4ca2-aa3d-098221968533"},"operationName":"GetControlById"}'
+        body: '{"query":"\nquery GetControlById ($id: ID!) {\n\tcontrol(id: $id) {\n\t\tid\n\t\tsourceId\n\t\tname\n\t\tdescription\n\t\tresourceGroupId\n\t\tstate\n\t\tidentifier\n\t\tcatalog\n\t\towner\n\t\tremediation\n\t\texceptionProcess\n\t\tmitreTechnique\n\t\tframeworkIds\n\t}\n\tcontrolRequirements(input: {controlId:$id}) {\n\t\titems {\n\t\t\tid\n\t\t}\n\t\tpageInfo {\n\t\t\thasNextPage\n\t\t\tendCursor\n\t\t}\n\t}\n}\n","variables":{"id":"ccm_c_J1_5250509a-3ced-4009-bb12-758c1dc6111f"},"operationName":"GetControlById"}'
         form: {}
         headers:
             Cache-Control:
@@ -2403,21 +2475,21 @@ interactions:
         proto_minor: 0
         transfer_encoding: []
         trailer: {}
-        content_length: 183
+        content_length: 139
         uncompressed: false
         body: |
-            {"errors":[{"message":"Control not found","path":["control"],"extensions":{"code":"NOT_FOUND","serviceName":"apps-service","exception":{"message":"Control not found"}}}],"data":null}
+            {"errors":[{"message":"Control not found","path":["control"],"extensions":{"code":"NOT_FOUND","serviceName":"apps-service"}}],"data":null}
         headers:
             Access-Control-Allow-Credentials:
                 - "true"
+            Access-Control-Expose-Headers:
+                - X-Correlation-Id
             Content-Length:
-                - "183"
+                - "139"
             Content-Security-Policy:
-                - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+                - 'default-src ''self'';base-uri ''self'';font-src ''self'' https: data:;form-action ''self'';frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
             Content-Type:
-                - application/json
-            Cross-Origin-Embedder-Policy:
-                - require-corp
+                - application/json; charset=utf-8
             Cross-Origin-Opener-Policy:
                 - same-origin
             Cross-Origin-Resource-Policy:
@@ -2430,6 +2502,8 @@ interactions:
                 - Origin
             X-Content-Type-Options:
                 - nosniff
+            X-Correlation-Id:
+                - 5a5bb43b74aa018b6ecc9ac264bb8161
             X-Dns-Prefetch-Control:
                 - "off"
             X-Download-Options:
@@ -2442,4 +2516,4 @@ interactions:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 919.228833ms
+        duration: 649.992958ms
