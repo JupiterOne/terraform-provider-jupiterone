@@ -186,7 +186,7 @@ resource "jupiterone_integration" "example_custom_integration" {
 
 ### Required
 
-- `config` (String) The configuration for the integration instance as a JSON string.
+- `config` (String, Sensitive) The configuration for the integration instance as a JSON string. It is marked sensitive, so Terraform redacts it in plan and apply output; it is still stored in the state file, so protect the state. The API returns secret values as `***masked***`. After `terraform import`, state holds those masked values, and a key that is masked in state plans no change whatever the configuration sets it to. A change to a secret alone is therefore not detected on an imported integration: it is sent the next time another attribute or a non-secret config value changes.
 - `integration_definition_id` (String) The ID of the integration definition. This cannot be changed after creation.
 - `name` (String) The name of the integration instance.
 - `polling_interval` (String) The polling interval for the integration instance.
@@ -212,4 +212,11 @@ Optional:
 - `enabled` (Boolean)
 - `ingestion_source_id` (String)
 
+## Import
 
+Import is supported using the following syntax:
+
+```shell
+# Import an existing integration instance by its id. Nothing is created or changed.
+terraform import jupiterone_integration.example <integration instance id>
+```
