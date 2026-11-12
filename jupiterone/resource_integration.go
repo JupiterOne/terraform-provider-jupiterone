@@ -4,10 +4,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"reflect"
+	"sort"
 	"strings"
 
 	"github.com/Khan/genqlient/graphql"
 	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
@@ -22,6 +25,10 @@ import (
 var _ resource.Resource = &IntegrationResource{}
 var _ resource.ResourceWithConfigure = &IntegrationResource{}
 var _ resource.ResourceWithImportState = &IntegrationResource{}
+
+// integrationConfigMaskedValue is what the API returns in place of a secret
+// config value. It is never the secret itself, so it is never compared as one.
+const integrationConfigMaskedValue = "***masked***"
 
 type IntegrationResource struct {
 	qlient graphql.Client
@@ -154,55 +161,9 @@ func (r *IntegrationResource) Read(ctx context.Context, req resource.ReadRequest
 		return
 	}
 
-	data.Name = types.StringValue(response.IntegrationInstance.Name)
-	data.PollingInterval = types.StringValue(string(response.IntegrationInstance.PollingInterval))
-	data.IntegrationDefinitionId = types.StringValue(response.IntegrationInstance.IntegrationDefinitionId)
-	data.Description = types.StringValue(response.IntegrationInstance.Description)
-	data.ResourceGroupId = types.StringValue(response.IntegrationInstance.ResourceGroupId)
-
-	configJSON, err := json.Marshal(response.IntegrationInstance.Config)
-	if err != nil {
-		resp.Diagnostics.AddError("Failed to marshal config", err.Error())
+	resp.Diagnostics.Append(applyIntegrationInstance(&data, response.IntegrationInstance)...)
+	if resp.Diagnostics.HasError() {
 		return
-	}
-
-	// Only update config if it doesn't contain masked values
-	// If it does, preserve the existing state value to avoid false diffs
-	if !strings.Contains(string(configJSON), "***masked***") {
-		data.Config = types.StringValue(string(configJSON))
-	} else {
-		resp.Diagnostics.AddWarning("Config contains masked values", "Config contains masked values, so it will not be updated in terraform state to avoid false diffs.")
-	}
-
-	if response.IntegrationInstance.SourceIntegrationInstanceId != "" {
-		data.SourceIntegrationInstanceId = types.StringValue(response.IntegrationInstance.SourceIntegrationInstanceId)
-	}
-
-	if response.IntegrationInstance.CollectorPoolId != "" {
-		data.CollectorPoolId = types.StringValue(response.IntegrationInstance.CollectorPoolId)
-	}
-
-	cronExpression := response.IntegrationInstance.PollingIntervalCronExpression
-	if cronExpression.Hour != 0 || cronExpression.DayOfWeek != 0 {
-		cronExpressionJSON, err := json.Marshal(cronExpression)
-		if err != nil {
-			resp.Diagnostics.AddError("Failed to marshal polling interval cron expression", err.Error())
-			return
-		}
-		data.PollingIntervalCronExpression = types.StringValue(string(cronExpressionJSON))
-	}
-
-	if len(response.IntegrationInstance.IngestionSourcesOverrides) > 0 {
-		converted := make([]IngestionSourceOverride, len(response.IntegrationInstance.IngestionSourcesOverrides))
-		for i, v := range response.IntegrationInstance.IngestionSourcesOverrides {
-			converted[i] = IngestionSourceOverride{
-				IngestionSourceId: v.IngestionSourceId,
-				Enabled:           v.Enabled,
-			}
-		}
-		data.IngestionSourcesOverrides = &converted
-	} else {
-		data.IngestionSourcesOverrides = nil
 	}
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
@@ -215,8 +176,24 @@ func (r *IntegrationResource) Update(ctx context.Context, req resource.UpdateReq
 		return
 	}
 
+	// After an import the planned config can be the masked copy held in state
+	// (see integrationMaskedConfigModifier). The masked marker must never be
+	// written back to the API as if it were the secret, so the values to send
+	// come from the configuration.
+	configToSend := data.Config
+	if strings.Contains(data.Config.ValueString(), integrationConfigMaskedValue) {
+		var configured types.String
+		resp.Diagnostics.Append(req.Config.GetAttribute(ctx, path.Root("config"), &configured)...)
+		if resp.Diagnostics.HasError() {
+			return
+		}
+		if !configured.IsNull() && !configured.IsUnknown() {
+			configToSend = configured
+		}
+	}
+
 	var config map[string]interface{}
-	if err := json.Unmarshal([]byte(data.Config.ValueString()), &config); err != nil {
+	if err := json.Unmarshal([]byte(configToSend.ValueString()), &config); err != nil {
 		resp.Diagnostics.AddError("Failed to unmarshal config", err.Error())
 		return
 	}
@@ -325,8 +302,17 @@ func (r *IntegrationResource) Schema(ctx context.Context, req resource.SchemaReq
 				Description: "The description of the integration instance.",
 			},
 			"config": schema.StringAttribute{
-				Required:    true,
-				Description: "The configuration for the integration instance as a JSON string.",
+				Required:  true,
+				Sensitive: true,
+				Description: "The configuration for the integration instance as a JSON string. " +
+					"It is marked sensitive, so Terraform redacts it in plan and apply output; it is still stored in the state file, so protect the state. " +
+					"The API returns secret values as `***masked***`. After `terraform import`, state holds those masked values, " +
+					"and a key that is masked in state plans no change whatever the configuration sets it to. " +
+					"A change to a secret alone is therefore not detected on an imported integration: " +
+					"it is sent the next time another attribute or a non-secret config value changes.",
+				PlanModifiers: []planmodifier.String{
+					integrationMaskedConfigPlanModifier(),
+				},
 			},
 			"source_integration_instance_id": schema.StringAttribute{
 				Optional:    true,
@@ -360,4 +346,214 @@ func (r *IntegrationResource) Schema(ctx context.Context, req resource.SchemaReq
 
 func integrationDefinitionIDCannotBeChangedModifier() planmodifier.String {
 	return stringplanmodifier.RequiresReplace()
+}
+
+// applyIntegrationInstance copies what the API returned for an integration
+// instance onto the model read from state. It is written so that a refresh,
+// or the read that follows an import, leaves nothing for the next plan to
+// change when the configuration matches the instance.
+func applyIntegrationInstance(data *IntegrationModel, instance client.GetIntegrationInstanceIntegrationInstance) diag.Diagnostics {
+	var diags diag.Diagnostics
+
+	data.Name = types.StringValue(instance.Name)
+	data.PollingInterval = types.StringValue(string(instance.PollingInterval))
+	data.IntegrationDefinitionId = types.StringValue(instance.IntegrationDefinitionId)
+	data.Description = optionalStringFromAPI(instance.Description, data.Description)
+	data.ResourceGroupId = optionalStringFromAPI(instance.ResourceGroupId, data.ResourceGroupId)
+
+	configJSON, err := json.Marshal(instance.Config)
+	if err != nil {
+		diags.AddError("Failed to marshal config", err.Error())
+		return diags
+	}
+
+	switch {
+	case !strings.Contains(string(configJSON), integrationConfigMaskedValue):
+		data.Config = types.StringValue(string(configJSON))
+	case data.Config.IsNull() || data.Config.IsUnknown():
+		// Nothing in state to keep, which is the read that follows an import.
+		// Take the config as the API returns it, masked values included;
+		// integrationMaskedConfigModifier keeps those from planning a change.
+		data.Config = types.StringValue(string(configJSON))
+	default:
+		// Keep the value already in state to avoid false diffs.
+		diags.AddWarning("Config contains masked values", "Config contains masked values, so it will not be updated in terraform state to avoid false diffs.")
+	}
+
+	if instance.SourceIntegrationInstanceId != "" {
+		data.SourceIntegrationInstanceId = types.StringValue(instance.SourceIntegrationInstanceId)
+	}
+
+	if instance.CollectorPoolId != "" {
+		data.CollectorPoolId = types.StringValue(instance.CollectorPoolId)
+	}
+
+	cronExpression, cronDiags := cronExpressionFromAPI(instance.PollingIntervalCronExpression.Hour, instance.PollingIntervalCronExpression.DayOfWeek, data.PollingIntervalCronExpression)
+	diags.Append(cronDiags...)
+	if diags.HasError() {
+		return diags
+	}
+	data.PollingIntervalCronExpression = cronExpression
+
+	data.IngestionSourcesOverrides = ingestionSourcesOverridesFromAPI(data.IngestionSourcesOverrides, instance.IngestionSourcesOverrides)
+
+	return diags
+}
+
+// optionalStringFromAPI maps an optional string the API returns as "" when it
+// has no value. An attribute the configuration omits is null, so an empty
+// string from the API stays null unless state already holds an explicit "".
+func optionalStringFromAPI(fromAPI string, inState types.String) types.String {
+	if fromAPI == "" && (inState.IsNull() || inState.IsUnknown()) {
+		return types.StringNull()
+	}
+	return types.StringValue(fromAPI)
+}
+
+// cronExpressionFromAPI maps the cron the API returns onto the JSON string in
+// state.
+//
+// The API's cron fields are plain integers, so hour 0 on day 0 cannot be told
+// apart from "no cron". A cron already in state is therefore always compared
+// with the API, midnight on Sunday included, and the string in state is kept
+// when it means the same thing, so key order or spacing never plans a change.
+// With no cron in state, a 0/0 from the API stays null.
+func cronExpressionFromAPI(hour, dayOfWeek int, inState types.String) (types.String, diag.Diagnostics) {
+	var diags diag.Diagnostics
+
+	if !inState.IsNull() && !inState.IsUnknown() {
+		var current client.IntegrationPollingIntervalCronExpressionInput
+		if err := json.Unmarshal([]byte(inState.ValueString()), &current); err == nil &&
+			current.Hour == hour && current.DayOfWeek == dayOfWeek {
+			return inState, diags
+		}
+	} else if hour == 0 && dayOfWeek == 0 {
+		return types.StringNull(), diags
+	}
+
+	cronExpressionJSON, err := json.Marshal(client.IntegrationPollingIntervalCronExpressionInput{Hour: hour, DayOfWeek: dayOfWeek})
+	if err != nil {
+		diags.AddError("Failed to marshal polling interval cron expression", err.Error())
+		return inState, diags
+	}
+	return types.StringValue(string(cronExpressionJSON)), diags
+}
+
+// ingestionSourcesOverridesFromAPI returns the overrides the API holds, in the
+// order they have in state, followed by any that state does not hold yet,
+// sorted by ingestion source id. The attribute is a list, so without this the
+// same overrides returned in a different order would plan a change.
+func ingestionSourcesOverridesFromAPI(inState *[]IngestionSourceOverride, fromAPI []client.GetIntegrationInstanceIntegrationInstanceIngestionSourcesOverrides) *[]IngestionSourceOverride {
+	if len(fromAPI) == 0 {
+		return nil
+	}
+
+	remaining := make([]IngestionSourceOverride, len(fromAPI))
+	for i, v := range fromAPI {
+		remaining[i] = IngestionSourceOverride{
+			IngestionSourceId: v.IngestionSourceId,
+			Enabled:           v.Enabled,
+		}
+	}
+
+	ordered := make([]IngestionSourceOverride, 0, len(fromAPI))
+	if inState != nil {
+		for _, known := range *inState {
+			for i, candidate := range remaining {
+				if candidate.IngestionSourceId == known.IngestionSourceId {
+					ordered = append(ordered, candidate)
+					remaining = append(remaining[:i], remaining[i+1:]...)
+					break
+				}
+			}
+		}
+	}
+
+	sort.SliceStable(remaining, func(i, j int) bool {
+		return remaining[i].IngestionSourceId < remaining[j].IngestionSourceId
+	})
+	ordered = append(ordered, remaining...)
+
+	return &ordered
+}
+
+var _ planmodifier.String = integrationMaskedConfigModifier{}
+
+// integrationMaskedConfigPlanModifier keeps a config that only differs from
+// state in values state holds as masked from planning a change.
+func integrationMaskedConfigPlanModifier() planmodifier.String {
+	return integrationMaskedConfigModifier{}
+}
+
+type integrationMaskedConfigModifier struct{}
+
+func (integrationMaskedConfigModifier) Description(context.Context) string {
+	return "Plans no change to config when it matches state, treating a value state holds as " + integrationConfigMaskedValue + " as unchanged."
+}
+
+func (m integrationMaskedConfigModifier) MarkdownDescription(ctx context.Context) string {
+	return m.Description(ctx)
+}
+
+func (integrationMaskedConfigModifier) PlanModifyString(ctx context.Context, req planmodifier.StringRequest, resp *planmodifier.StringResponse) {
+	if req.ConfigValue.IsNull() || req.ConfigValue.IsUnknown() ||
+		req.PlanValue.IsNull() || req.PlanValue.IsUnknown() ||
+		req.StateValue.IsNull() || req.StateValue.IsUnknown() {
+		return
+	}
+
+	// Only a state that holds masked values is handled here. Anything else
+	// plans exactly as it did before this modifier existed.
+	if !strings.Contains(req.StateValue.ValueString(), integrationConfigMaskedValue) {
+		return
+	}
+
+	var inState, planned interface{}
+	if err := json.Unmarshal([]byte(req.StateValue.ValueString()), &inState); err != nil {
+		return
+	}
+	if err := json.Unmarshal([]byte(req.PlanValue.ValueString()), &planned); err != nil {
+		return
+	}
+
+	if equalIgnoringMasked(inState, planned) {
+		resp.PlanValue = req.StateValue
+	}
+}
+
+// equalIgnoringMasked reports whether planned matches inState, where a value
+// inState holds as the masked marker matches anything. Keys must be the same
+// on both sides: a key added or removed is a change.
+func equalIgnoringMasked(inState, planned interface{}) bool {
+	if masked, ok := inState.(string); ok && masked == integrationConfigMaskedValue {
+		return true
+	}
+
+	switch stateValue := inState.(type) {
+	case map[string]interface{}:
+		plannedValue, ok := planned.(map[string]interface{})
+		if !ok || len(plannedValue) != len(stateValue) {
+			return false
+		}
+		for key, value := range stateValue {
+			other, present := plannedValue[key]
+			if !present || !equalIgnoringMasked(value, other) {
+				return false
+			}
+		}
+		return true
+	case []interface{}:
+		plannedValue, ok := planned.([]interface{})
+		if !ok || len(plannedValue) != len(stateValue) {
+			return false
+		}
+		for i := range stateValue {
+			if !equalIgnoringMasked(stateValue[i], plannedValue[i]) {
+				return false
+			}
+		}
+		return true
+	default:
+		return reflect.DeepEqual(inState, planned)
+	}
 }
