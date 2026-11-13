@@ -26,13 +26,17 @@ import (
 // fakeIntegrationAPI stands in for the JupiterOne GraphQL API for the four
 // integration instance operations, so import, plan and apply can be exercised
 // with no account and no recorded cassette. Like the real API it returns the
-// values of secret config keys as the masked marker, and it returns ingestion
-// source overrides in its own order (sorted by id), not the caller's.
+// values of secret config keys as the masked marker (or every value, with
+// maskAll), and it returns ingestion source overrides in its own order
+// (sorted by id), not the caller's.
 type fakeIntegrationAPI struct {
 	mu         sync.Mutex
 	instances  map[string]map[string]interface{}
 	secretKeys map[string]bool
-	nextID     int
+	// maskAll returns every config value masked, which is what the API does
+	// for a definition whose fields do not opt out of masking.
+	maskAll bool
+	nextID  int
 
 	ops     []string
 	created []string
@@ -122,7 +126,7 @@ func (api *fakeIntegrationAPI) asReturned(instance map[string]interface{}) map[s
 	if config, ok := instance["config"].(map[string]interface{}); ok {
 		masked := map[string]interface{}{}
 		for key, value := range config {
-			if api.secretKeys[key] {
+			if api.maskAll || api.secretKeys[key] {
 				masked[key] = integrationConfigMaskedValue
 			} else {
 				masked[key] = value
@@ -349,8 +353,10 @@ func TestIntegrationSchema_ConfigIsSensitive(t *testing.T) {
 	assert.True(t, resp.Schema.Attributes["config"].IsSensitive())
 }
 
-// AC-1.3: a key state holds as masked plans no change, whatever the
-// configuration sets it to. Anything else still plans.
+// AC-1.3, for an integration that has been imported and not yet applied (no
+// hash of a sent config): a key state holds as masked plans no change,
+// whatever the configuration sets it to, and the plan warns. Anything else
+// still plans.
 func TestIntegrationMaskedConfigModifier(t *testing.T) {
 	masked := `{"accessKey":"***masked***","roleArn":"arn:aws:iam::123456789012:role/jupiterone"}`
 
@@ -404,8 +410,10 @@ func TestIntegrationMaskedConfigModifier(t *testing.T) {
 			assert.False(t, resp.Diagnostics.HasError())
 			if tt.keepsStateVal {
 				assert.Equal(t, tt.state, resp.PlanValue)
+				assert.Equal(t, 1, resp.Diagnostics.WarningsCount(), "a change that cannot be detected must warn")
 			} else {
 				assert.Equal(t, planned, resp.PlanValue)
+				assert.Equal(t, 0, resp.Diagnostics.WarningsCount())
 			}
 		})
 	}
