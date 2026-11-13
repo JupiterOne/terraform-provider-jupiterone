@@ -186,7 +186,7 @@ resource "jupiterone_integration" "example_custom_integration" {
 
 ### Required
 
-- `config` (String) The configuration for the integration instance as a JSON string.
+- `config` (String, Sensitive) The configuration for the integration instance as a JSON string. It is marked sensitive, so Terraform redacts it in plan and apply output; it is still stored in the state file, so protect the state. The API returns masked values as `***masked***`; for some integration definitions that is every value. After `terraform import`, state holds those masked values, and until the integration is next applied a change to a masked value cannot be detected: the plan shows a warning saying so. Once Terraform has applied the integration, it remembers what it sent and plans any later change to the config. The config must hold the real values: `***masked***` itself is refused.
 - `integration_definition_id` (String) The ID of the integration definition. This cannot be changed after creation.
 - `name` (String) The name of the integration instance.
 - `polling_interval` (String) The polling interval for the integration instance.
@@ -195,7 +195,7 @@ resource "jupiterone_integration" "example_custom_integration" {
 
 - `collector_pool_id` (String) The ID of the collector pool.
 - `description` (String) The description of the integration instance.
-- `ingestion_sources_overrides` (List of Object) Overrides for ingestion sources. (see [below for nested schema](#nestedatt--ingestion_sources_overrides))
+- `ingestion_sources_overrides` (List of Object) Overrides for ingestion sources. The order does not matter: the same overrides in a different order plan no change. (see [below for nested schema](#nestedatt--ingestion_sources_overrides))
 - `polling_interval_cron_expression` (String) The cron expression for the polling interval as a JSON string.
 - `resource_group_id` (String) The ID of the resource group to which the integration instance belongs.
 - `source_integration_instance_id` (String) The ID of the source integration instance.
@@ -212,4 +212,11 @@ Optional:
 - `enabled` (Boolean)
 - `ingestion_source_id` (String)
 
+## Import
 
+Import is supported using the following syntax:
+
+```shell
+# Import an existing integration instance by its id. Nothing is created or changed.
+terraform import jupiterone_integration.example <integration instance id>
+```
