@@ -766,6 +766,9 @@ func TestIntegration_ImportWithCronDoesNotDrift(t *testing.T) {
 					if len(updates) != 1 {
 						return fmt.Errorf("expected one update, got %d", len(updates))
 					}
+					if _, sent := updates[0]["ingestionSourcesOverrides"]; sent {
+						return fmt.Errorf("a configuration without ingestion_sources_overrides must not send them, sent %v", updates[0]["ingestionSourcesOverrides"])
+					}
 					cron, _ := updates[0]["pollingIntervalCronExpression"].(map[string]interface{})
 					if hour, _ := cron["hour"].(float64); hour != 5 {
 						return fmt.Errorf("expected the update to send hour 5, sent %v", cron)
@@ -789,6 +792,9 @@ func TestSameConfigJSON(t *testing.T) {
 	assert.False(t, sameConfigJSON(`{"n":12345678901234567890}`, `{"n":12345678901234567891}`))
 	assert.False(t, sameConfigJSON(`not json`, `not json`))
 	assert.False(t, sameConfigJSON(`{"a":"b"} {"a":"b"}`, `{"a":"b"}`))
+	assert.False(t, sameConfigJSON(`{"a":"b"}}`, `{"a":"b"}`))
+	assert.False(t, sameConfigJSON(`{"a":"b"}]`, `{"a":"b"}`))
+	assert.True(t, sameConfigJSON("{\"a\":\"b\"}\n  ", `{"a":"b"}`))
 }
 
 func testIntegrationHeredocConfig(roleArn string) string {
@@ -903,6 +909,67 @@ func TestIntegration_ImportHeredocConfigPlansNothing(t *testing.T) {
 				ImportState:        true,
 				ImportStateId:      "existing-heredoc",
 				ImportStatePersist: true,
+			},
+			{
+				Config:   config,
+				PlanOnly: true,
+			},
+		},
+	})
+}
+
+// `ingestion_sources_overrides = []` clears overrides the instance holds: the
+// update sends an empty list rather than omitting the field, and the plan
+// after it is empty.
+func TestIntegration_EmptyOverridesClearThem(t *testing.T) {
+	api := newFakeIntegrationAPI()
+	api.instances["existing-overrides"] = map[string]interface{}{
+		"id":                      "existing-overrides",
+		"name":                    "aws-production",
+		"pollingInterval":         "ONE_DAY",
+		"integrationDefinitionId": "7a669809-6e55-45b9-bf23-aa27613118e9",
+		"description":             "",
+		"resourceGroupId":         "",
+		"config": map[string]interface{}{
+			"roleArn": "arn:aws:iam::123456789012:role/jupiterone",
+			"region":  "us-east-1",
+		},
+		"ingestionSourcesOverrides": []interface{}{
+			map[string]interface{}{"ingestionSourceId": "fetch-s3-buckets", "enabled": false},
+		},
+	}
+	config := testIntegrationHeredocConfig("arn:aws:iam::123456789012:role/jupiterone")
+	resourceName := "jupiterone_integration.test"
+
+	acctest.Test(t, acctest.TestCase{
+		PreCheck:                 func() { testAccPreCheck(t) },
+		ProtoV6ProviderFactories: testAccProtoV6ProviderFactories(api),
+		Steps: []acctest.TestStep{
+			{
+				Config:             config,
+				ResourceName:       resourceName,
+				ImportState:        true,
+				ImportStateId:      "existing-overrides",
+				ImportStatePersist: true,
+			},
+			{
+				Config: config,
+				ConfigPlanChecks: acctest.ConfigPlanChecks{
+					PreApply: []plancheck.PlanCheck{
+						plancheck.ExpectResourceAction(resourceName, plancheck.ResourceActionUpdate),
+					},
+				},
+				Check: func(*terraform.State) error {
+					_, _, _, updates := api.snapshot()
+					if len(updates) != 1 {
+						return fmt.Errorf("expected one update, got %d", len(updates))
+					}
+					sent, ok := updates[0]["ingestionSourcesOverrides"].([]interface{})
+					if !ok || len(sent) != 0 {
+						return fmt.Errorf("expected the update to send an empty overrides list, sent %v", updates[0]["ingestionSourcesOverrides"])
+					}
+					return nil
+				},
 			},
 			{
 				Config:   config,

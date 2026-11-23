@@ -54,7 +54,9 @@ mutation CreateIntegrationInstance(
 # @genqlient(for: "UpdateIntegrationInstanceInput.collectorPoolId", omitempty: true)
 # @genqlient(for: "UpdateIntegrationInstanceInput.pollingIntervalCronExpression", omitempty: true)
 # @genqlient(for: "UpdateIntegrationInstanceInput.offsiteComplete", omitempty: true)
-# @genqlient(for: "UpdateIntegrationInstanceInput.ingestionSourcesOverrides", omitempty: true)
+# An empty list must reach the API to clear the overrides, so this is a pointer:
+# nil is omitted (the API keeps what it has) and an empty slice sends [].
+# @genqlient(for: "UpdateIntegrationInstanceInput.ingestionSourcesOverrides", pointer: true, omitempty: true)
 # @genqlient(for: "UpdateIntegrationInstanceInput.updateMode", omitempty: true)
 mutation UpdateIntegrationInstance(
   $id: String!

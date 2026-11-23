@@ -7964,7 +7964,7 @@ type UpdateIntegrationInstanceInput struct {
 	Config                        interface{}                                   `json:"config"`
 	OffsiteComplete               bool                                          `json:"offsiteComplete,omitempty"`
 	CollectorPoolId               string                                        `json:"collectorPoolId,omitempty"`
-	IngestionSourcesOverrides     []IngestionSourcesOverridesInput              `json:"ingestionSourcesOverrides,omitempty"`
+	IngestionSourcesOverrides     *[]IngestionSourcesOverridesInput             `json:"ingestionSourcesOverrides,omitempty"`
 	ResourceGroupId               string                                        `json:"resourceGroupId"`
 	UpdateChildResourceGroup      bool                                          `json:"updateChildResourceGroup"`
 	UpdateMode                    UpdateConfigMode                              `json:"updateMode,omitempty"`
@@ -8001,7 +8001,7 @@ func (v *UpdateIntegrationInstanceInput) GetOffsiteComplete() bool { return v.Of
 func (v *UpdateIntegrationInstanceInput) GetCollectorPoolId() string { return v.CollectorPoolId }
 
 // GetIngestionSourcesOverrides returns UpdateIntegrationInstanceInput.IngestionSourcesOverrides, and is useful for accessing the field via an interface.
-func (v *UpdateIntegrationInstanceInput) GetIngestionSourcesOverrides() []IngestionSourcesOverridesInput {
+func (v *UpdateIntegrationInstanceInput) GetIngestionSourcesOverrides() *[]IngestionSourcesOverridesInput {
 	return v.IngestionSourcesOverrides
 }
 

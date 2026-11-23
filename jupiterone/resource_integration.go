@@ -6,6 +6,7 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
+	"io"
 	"reflect"
 	"sort"
 	"strings"
@@ -259,7 +260,10 @@ func (r *IntegrationResource) Update(ctx context.Context, req resource.UpdateReq
 				Enabled:           v.Enabled,
 			}
 		}
-		input.IngestionSourcesOverrides = converted
+		// A pointer, so `ingestion_sources_overrides = []` sends an empty
+		// list and clears the overrides. Without the attribute nothing is
+		// sent and the API keeps the overrides it has.
+		input.IngestionSourcesOverrides = &converted
 	}
 
 	if !data.ResourceGroupId.IsNull() {
@@ -678,7 +682,9 @@ func sameConfigJSON(a, b string) bool {
 		if err := decoder.Decode(&value); err != nil {
 			return nil, false
 		}
-		if decoder.More() {
+		// Anything after the value, a stray bracket included, makes the
+		// document invalid.
+		if _, err := decoder.Token(); err != io.EOF {
 			return nil, false
 		}
 		return value, true
