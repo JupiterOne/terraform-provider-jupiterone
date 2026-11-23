@@ -424,8 +424,9 @@ func (r *IntegrationResource) Schema(ctx context.Context, req resource.SchemaReq
 				Description: "The configuration for the integration instance as a JSON string. " +
 					"It is marked sensitive, so Terraform redacts it in plan and apply output; it is still stored in the state file, so protect the state. " +
 					"The API returns masked values as `***masked***`; for some integration definitions that is every value. " +
-					"After `terraform import`, state holds those masked values, and until the integration is next applied a change to a masked value cannot be detected: " +
-					"the plan shows a warning saying so. Once Terraform has applied the integration, it remembers what it sent and plans any later change to the config. " +
+					"After `terraform import`, state holds those masked values, and until an apply updates the integration a change to a masked value cannot be detected: " +
+					"the plan shows a warning saying so. An apply that plans no change to the integration does not end this. " +
+					"Once Terraform has updated the integration, it remembers the config it sent and plans any later change to it. " +
 					"The config must hold the real values: `***masked***` itself is refused.",
 				PlanModifiers: []planmodifier.String{
 					integrationMaskedConfigPlanModifier(),
@@ -492,7 +493,11 @@ func applyIntegrationInstance(data *IntegrationModel, instance client.GetIntegra
 
 	switch {
 	case !strings.Contains(string(configJSON), integrationConfigMaskedValue):
-		data.Config = types.StringValue(string(configJSON))
+		// Keep the string in state when it holds the same JSON, so a config
+		// written as a heredoc or with other spacing does not drift on refresh.
+		if data.Config.IsNull() || data.Config.IsUnknown() || !sameConfigJSON(data.Config.ValueString(), string(configJSON)) {
+			data.Config = types.StringValue(string(configJSON))
+		}
 	case data.Config.IsNull() || data.Config.IsUnknown():
 		// Nothing in state to keep, which is the read that follows an import.
 		// Take the config as the API returns it, masked values included;
@@ -563,6 +568,12 @@ func cronExpressionFromAPI(hour, dayOfWeek int, inState types.String) (types.Str
 // same overrides returned in a different order would plan a change.
 func ingestionSourcesOverridesFromAPI(inState *[]IngestionSourceOverride, fromAPI []client.GetIntegrationInstanceIntegrationInstanceIngestionSourcesOverrides) *[]IngestionSourceOverride {
 	if len(fromAPI) == 0 {
+		// The API returns no overrides both for none and for an empty list.
+		// Keep an empty list that state already holds, so `= []` in the
+		// configuration does not plan a change on every run.
+		if inState != nil && len(*inState) == 0 {
+			return inState
+		}
 		return nil
 	}
 
@@ -620,9 +631,15 @@ func (integrationMaskedConfigModifier) PlanModifyString(ctx context.Context, req
 		return
 	}
 
-	// Only a state that holds masked values is handled here. Anything else
-	// plans exactly as it did before this modifier existed.
+	// With nothing masked, state holds the whole config: plan no change when
+	// the configuration holds the same JSON, whatever its formatting. After an
+	// import state holds the API's compact JSON, so a heredoc would otherwise
+	// plan an update.
 	if !strings.Contains(req.StateValue.ValueString(), integrationConfigMaskedValue) {
+		if req.ConfigValue.ValueString() != req.StateValue.ValueString() &&
+			sameConfigJSON(req.ConfigValue.ValueString(), req.StateValue.ValueString()) {
+			resp.PlanValue = req.StateValue
+		}
 		return
 	}
 
@@ -647,6 +664,34 @@ func (integrationMaskedConfigModifier) PlanModifyString(ctx context.Context, req
 				"so it cannot tell whether the configured values differ from what the integration holds. No change is planned for them. "+
 				"After the next apply that updates this integration, Terraform remembers the config it sent and plans any later change.")
 	}
+}
+
+// sameConfigJSON reports whether two JSON documents hold the same value,
+// whatever their key order or spacing. Numbers are compared as written, so a
+// large integer is never rounded into matching a different one. A document
+// that does not decode matches nothing.
+func sameConfigJSON(a, b string) bool {
+	decode := func(text string) (interface{}, bool) {
+		decoder := json.NewDecoder(strings.NewReader(text))
+		decoder.UseNumber()
+		var value interface{}
+		if err := decoder.Decode(&value); err != nil {
+			return nil, false
+		}
+		if decoder.More() {
+			return nil, false
+		}
+		return value, true
+	}
+	left, ok := decode(a)
+	if !ok {
+		return false
+	}
+	right, ok := decode(b)
+	if !ok {
+		return false
+	}
+	return reflect.DeepEqual(left, right)
 }
 
 // planMaskedConfig decides what a config plans when state holds masked

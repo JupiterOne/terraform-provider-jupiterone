@@ -6,6 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"sort"
+	"strings"
 	"sync"
 	"testing"
 
@@ -774,6 +775,137 @@ func TestIntegration_ImportWithCronDoesNotDrift(t *testing.T) {
 			},
 			{
 				Config:   testIntegrationImportedCronConfig(5),
+				PlanOnly: true,
+			},
+		},
+	})
+}
+
+func TestSameConfigJSON(t *testing.T) {
+	assert.True(t, sameConfigJSON(`{"a":"b","n":1}`, "{\n  \"n\": 1,\n  \"a\": \"b\"\n}\n"))
+	assert.True(t, sameConfigJSON(`{"a":{"x":[1,2]}}`, `{ "a": { "x": [1, 2] } }`))
+	assert.False(t, sameConfigJSON(`{"a":"b"}`, `{"a":"c"}`))
+	assert.False(t, sameConfigJSON(`{"a":[1,2]}`, `{"a":[2,1]}`))
+	assert.False(t, sameConfigJSON(`{"n":12345678901234567890}`, `{"n":12345678901234567891}`))
+	assert.False(t, sameConfigJSON(`not json`, `not json`))
+	assert.False(t, sameConfigJSON(`{"a":"b"} {"a":"b"}`, `{"a":"b"}`))
+}
+
+func testIntegrationHeredocConfig(roleArn string) string {
+	return fmt.Sprintf(`
+resource "jupiterone_integration" "test" {
+  name                      = "aws-production"
+  integration_definition_id = "7a669809-6e55-45b9-bf23-aa27613118e9"
+  polling_interval          = "ONE_DAY"
+
+  config = <<-EOT
+    {
+      "roleArn": %q,
+      "region":  "us-east-1"
+    }
+  EOT
+
+  ingestion_sources_overrides = []
+}
+`, roleArn)
+}
+
+// A config with nothing masked, written as a heredoc, and an empty overrides
+// list: import, apply, refresh and re-plan show no change, and a real change
+// to the config still plans and sends an update.
+func TestIntegration_ImportHeredocConfigDoesNotDrift(t *testing.T) {
+	api := newFakeIntegrationAPI()
+	api.instances["existing-heredoc"] = map[string]interface{}{
+		"id":                      "existing-heredoc",
+		"name":                    "aws-production",
+		"pollingInterval":         "ONE_DAY",
+		"integrationDefinitionId": "7a669809-6e55-45b9-bf23-aa27613118e9",
+		"description":             "",
+		"resourceGroupId":         "",
+		"config": map[string]interface{}{
+			"roleArn": "arn:aws:iam::123456789012:role/jupiterone",
+			"region":  "us-east-1",
+		},
+	}
+
+	resourceName := "jupiterone_integration.test"
+
+	acctest.Test(t, acctest.TestCase{
+		PreCheck:                 func() { testAccPreCheck(t) },
+		ProtoV6ProviderFactories: testAccProtoV6ProviderFactories(api),
+		Steps: []acctest.TestStep{
+			{
+				Config:             testIntegrationHeredocConfig("arn:aws:iam::123456789012:role/jupiterone"),
+				ResourceName:       resourceName,
+				ImportState:        true,
+				ImportStateId:      "existing-heredoc",
+				ImportStatePersist: true,
+			},
+			{
+				// Only the empty overrides list may plan here: state is null
+				// after import, and null cannot be planned as [].
+				Config: testIntegrationHeredocConfig("arn:aws:iam::123456789012:role/jupiterone"),
+			},
+			{
+				Config:   testIntegrationHeredocConfig("arn:aws:iam::123456789012:role/jupiterone"),
+				PlanOnly: true,
+			},
+			{
+				Config: testIntegrationHeredocConfig("arn:aws:iam::123456789012:role/other"),
+				ConfigPlanChecks: acctest.ConfigPlanChecks{
+					PreApply: []plancheck.PlanCheck{
+						plancheck.ExpectResourceAction(resourceName, plancheck.ResourceActionUpdate),
+					},
+				},
+				Check: func(*terraform.State) error {
+					_, _, _, updates := api.snapshot()
+					last := updates[len(updates)-1]
+					config, _ := last["config"].(map[string]interface{})
+					if config["roleArn"] != "arn:aws:iam::123456789012:role/other" {
+						return fmt.Errorf("expected the update to send the new roleArn, sent %v", config["roleArn"])
+					}
+					return nil
+				},
+			},
+			{
+				Config:   testIntegrationHeredocConfig("arn:aws:iam::123456789012:role/other"),
+				PlanOnly: true,
+			},
+		},
+	})
+}
+
+// Right after import, a config that differs from state only in formatting
+// plans no change.
+func TestIntegration_ImportHeredocConfigPlansNothing(t *testing.T) {
+	api := newFakeIntegrationAPI()
+	api.instances["existing-heredoc"] = map[string]interface{}{
+		"id":                      "existing-heredoc",
+		"name":                    "aws-production",
+		"pollingInterval":         "ONE_DAY",
+		"integrationDefinitionId": "7a669809-6e55-45b9-bf23-aa27613118e9",
+		"description":             "",
+		"resourceGroupId":         "",
+		"config": map[string]interface{}{
+			"roleArn": "arn:aws:iam::123456789012:role/jupiterone",
+			"region":  "us-east-1",
+		},
+	}
+	config := strings.Replace(testIntegrationHeredocConfig("arn:aws:iam::123456789012:role/jupiterone"), "ingestion_sources_overrides = []", "", 1)
+
+	acctest.Test(t, acctest.TestCase{
+		PreCheck:                 func() { testAccPreCheck(t) },
+		ProtoV6ProviderFactories: testAccProtoV6ProviderFactories(api),
+		Steps: []acctest.TestStep{
+			{
+				Config:             config,
+				ResourceName:       "jupiterone_integration.test",
+				ImportState:        true,
+				ImportStateId:      "existing-heredoc",
+				ImportStatePersist: true,
+			},
+			{
+				Config:   config,
 				PlanOnly: true,
 			},
 		},
