@@ -441,7 +441,10 @@ func (r *IntegrationResource) Schema(ctx context.Context, req resource.SchemaReq
 			},
 			"polling_interval_cron_expression": schema.StringAttribute{
 				Optional:    true,
-				Description: "The cron expression for the polling interval as a JSON string.",
+				Description: "The cron expression for the polling interval as a JSON string. Key order and spacing do not matter: the same hour and day of week plan no change.",
+				PlanModifiers: []planmodifier.String{
+					cronExpressionSemanticPlanModifier(),
+				},
 			},
 			"ingestion_sources_overrides": schema.ListAttribute{
 				Optional:    true,
@@ -718,6 +721,48 @@ func (ingestionSourcesOverridesOrderModifier) PlanModifyList(ctx context.Context
 	}
 
 	if sameIngestionSourceOverrides(configured, inState) {
+		resp.PlanValue = req.StateValue
+	}
+}
+
+func cronExpressionSemanticPlanModifier() planmodifier.String {
+	return cronExpressionSemanticModifier{}
+}
+
+type cronExpressionSemanticModifier struct{}
+
+func (cronExpressionSemanticModifier) Description(context.Context) string {
+	return "Plans no change when the configuration and state hold the same hour and day of week, whatever the key order or spacing."
+}
+
+func (m cronExpressionSemanticModifier) MarkdownDescription(ctx context.Context) string {
+	return m.Description(ctx)
+}
+
+// After an import, state holds the cron as the provider writes it
+// ({"hour":..,"dayOfWeek":..}), while jsonencode in the configuration sorts
+// keys the other way. Read keeps the string in state when it means the same
+// thing, but nothing compared the configuration with state, so an imported
+// integration planned an update on every run. A value that does not parse is
+// left alone so Create or Update reports it.
+func (cronExpressionSemanticModifier) PlanModifyString(_ context.Context, req planmodifier.StringRequest, resp *planmodifier.StringResponse) {
+	if req.ConfigValue.IsNull() || req.ConfigValue.IsUnknown() ||
+		req.StateValue.IsNull() || req.StateValue.IsUnknown() {
+		return
+	}
+	if req.ConfigValue.ValueString() == req.StateValue.ValueString() {
+		return
+	}
+
+	var configured, inState client.IntegrationPollingIntervalCronExpressionInput
+	if err := json.Unmarshal([]byte(req.ConfigValue.ValueString()), &configured); err != nil {
+		return
+	}
+	if err := json.Unmarshal([]byte(req.StateValue.ValueString()), &inState); err != nil {
+		return
+	}
+
+	if configured == inState {
 		resp.PlanValue = req.StateValue
 	}
 }

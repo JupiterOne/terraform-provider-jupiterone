@@ -196,7 +196,7 @@ resource "jupiterone_integration" "example_custom_integration" {
 - `collector_pool_id` (String) The ID of the collector pool.
 - `description` (String) The description of the integration instance.
 - `ingestion_sources_overrides` (List of Object) Overrides for ingestion sources. The order does not matter: the same overrides in a different order plan no change. (see [below for nested schema](#nestedatt--ingestion_sources_overrides))
-- `polling_interval_cron_expression` (String) The cron expression for the polling interval as a JSON string.
+- `polling_interval_cron_expression` (String) The cron expression for the polling interval as a JSON string. Key order and spacing do not matter: the same hour and day of week plan no change.
 - `resource_group_id` (String) The ID of the resource group to which the integration instance belongs.
 - `source_integration_instance_id` (String) The ID of the source integration instance.
 

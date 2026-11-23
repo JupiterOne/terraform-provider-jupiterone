@@ -631,3 +631,151 @@ func TestIntegration_RefreshDoesNotDrift(t *testing.T) {
 		},
 	})
 }
+
+func TestCronExpressionSemanticModifier(t *testing.T) {
+	testCases := []struct {
+		name     string
+		config   types.String
+		state    types.String
+		expected types.String
+	}{
+		{
+			name:     "same cron in jsonencode key order keeps state",
+			config:   types.StringValue(`{"dayOfWeek":1,"hour":2}`),
+			state:    types.StringValue(`{"hour":2,"dayOfWeek":1}`),
+			expected: types.StringValue(`{"hour":2,"dayOfWeek":1}`),
+		},
+		{
+			name:     "same cron with different spacing keeps state",
+			config:   types.StringValue("{ \"hour\": 2,\n  \"dayOfWeek\": 1 }"),
+			state:    types.StringValue(`{"hour":2,"dayOfWeek":1}`),
+			expected: types.StringValue(`{"hour":2,"dayOfWeek":1}`),
+		},
+		{
+			name:     "different hour plans the configuration",
+			config:   types.StringValue(`{"dayOfWeek":1,"hour":3}`),
+			state:    types.StringValue(`{"hour":2,"dayOfWeek":1}`),
+			expected: types.StringValue(`{"dayOfWeek":1,"hour":3}`),
+		},
+		{
+			name:     "different day plans the configuration",
+			config:   types.StringValue(`{"dayOfWeek":2,"hour":2}`),
+			state:    types.StringValue(`{"hour":2,"dayOfWeek":1}`),
+			expected: types.StringValue(`{"dayOfWeek":2,"hour":2}`),
+		},
+		{
+			name:     "removed from the configuration plans the removal",
+			config:   types.StringNull(),
+			state:    types.StringValue(`{"hour":2,"dayOfWeek":1}`),
+			expected: types.StringNull(),
+		},
+		{
+			name:     "nothing in state plans the configuration",
+			config:   types.StringValue(`{"dayOfWeek":1,"hour":2}`),
+			state:    types.StringNull(),
+			expected: types.StringValue(`{"dayOfWeek":1,"hour":2}`),
+		},
+		{
+			name:     "unknown configuration is left alone",
+			config:   types.StringUnknown(),
+			state:    types.StringValue(`{"hour":2,"dayOfWeek":1}`),
+			expected: types.StringUnknown(),
+		},
+		{
+			name:     "configuration that does not parse is left for apply to report",
+			config:   types.StringValue(`not json`),
+			state:    types.StringValue(`{"hour":2,"dayOfWeek":1}`),
+			expected: types.StringValue(`not json`),
+		},
+	}
+
+	for _, tt := range testCases {
+		t.Run(tt.name, func(t *testing.T) {
+			req := planmodifier.StringRequest{ConfigValue: tt.config, PlanValue: tt.config, StateValue: tt.state}
+			resp := &planmodifier.StringResponse{PlanValue: tt.config}
+			cronExpressionSemanticPlanModifier().PlanModifyString(context.Background(), req, resp)
+			assert.Equal(t, tt.expected, resp.PlanValue)
+		})
+	}
+}
+
+func testIntegrationImportedCronConfig(hour int) string {
+	return fmt.Sprintf(`
+resource "jupiterone_integration" "test" {
+  name                      = "aws-production"
+  integration_definition_id = "7a669809-6e55-45b9-bf23-aa27613118e9"
+  polling_interval          = "ONE_WEEK"
+
+  config = jsonencode({
+    roleArn = "arn:aws:iam::123456789012:role/jupiterone"
+  })
+
+  polling_interval_cron_expression = jsonencode({
+    hour      = %d
+    dayOfWeek = 1
+  })
+}
+`, hour)
+}
+
+// An imported integration with a cron, configured with jsonencode (which
+// writes dayOfWeek before hour), plans no change; changing the hour still
+// plans and sends an update, and the plan after it is empty.
+func TestIntegration_ImportWithCronDoesNotDrift(t *testing.T) {
+	api := newFakeIntegrationAPI()
+	api.instances["existing-cron"] = map[string]interface{}{
+		"id":                      "existing-cron",
+		"name":                    "aws-production",
+		"pollingInterval":         "ONE_WEEK",
+		"integrationDefinitionId": "7a669809-6e55-45b9-bf23-aa27613118e9",
+		"description":             "",
+		"resourceGroupId":         "",
+		"config": map[string]interface{}{
+			"roleArn": "arn:aws:iam::123456789012:role/jupiterone",
+		},
+		"pollingIntervalCronExpression": map[string]interface{}{"hour": 2, "dayOfWeek": 1},
+	}
+
+	resourceName := "jupiterone_integration.test"
+
+	acctest.Test(t, acctest.TestCase{
+		PreCheck:                 func() { testAccPreCheck(t) },
+		ProtoV6ProviderFactories: testAccProtoV6ProviderFactories(api),
+		Steps: []acctest.TestStep{
+			{
+				Config:             testIntegrationImportedCronConfig(2),
+				ResourceName:       resourceName,
+				ImportState:        true,
+				ImportStateId:      "existing-cron",
+				ImportStatePersist: true,
+			},
+			{
+				Config:   testIntegrationImportedCronConfig(2),
+				PlanOnly: true,
+			},
+			{
+				Config: testIntegrationImportedCronConfig(5),
+				ConfigPlanChecks: acctest.ConfigPlanChecks{
+					PreApply: []plancheck.PlanCheck{
+						plancheck.ExpectResourceAction(resourceName, plancheck.ResourceActionUpdate),
+					},
+				},
+				Check: func(*terraform.State) error {
+					_, _, _, updates := api.snapshot()
+					if len(updates) != 1 {
+						return fmt.Errorf("expected one update, got %d", len(updates))
+					}
+					cron, _ := updates[0]["pollingIntervalCronExpression"].(map[string]interface{})
+					if hour, _ := cron["hour"].(float64); hour != 5 {
+						return fmt.Errorf("expected the update to send hour 5, sent %v", cron)
+					}
+					return nil
+				},
+			},
+			{
+				Config:   testIntegrationImportedCronConfig(5),
+				PlanOnly: true,
+			},
+		},
+	})
+}
